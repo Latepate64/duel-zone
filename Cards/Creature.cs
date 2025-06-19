@@ -2,38 +2,20 @@
 using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cards
 {
     class Creature : Engine.Creature
     {
-        /// <summary>
-        /// This constructor should be used for cards with one race.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="manaCost"></param>
-        /// <param name="power"></param>
-        /// <param name="race"></param>
-        /// <param name="civilizations"></param>
         protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(
             tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, [race])
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name,
-            manaCost, power, race, [civilization])
-        {
-        }
-
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1,
-            Civilization civilization2) : base(tapped: false, [civilization1, civilization2], manaCost,
-            summoningSickness: true, power, name, [race1, race2])
-        {
-        }
-
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) :
-            base(tapped: false, [civilization], manaCost, summoningSickness: true, power, name, [race1, race2])
+        protected Creature(string name, int manaCost, int power, List<Race> races, params Civilization[] civilizations)
+            : base(tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, races)
         {
         }
 
