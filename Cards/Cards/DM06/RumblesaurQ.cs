@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Effects.Continuous;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM06

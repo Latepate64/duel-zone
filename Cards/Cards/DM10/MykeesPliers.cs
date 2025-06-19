@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class MykeesPliersEffect : AbilityAddingEffect
     {
-        public MykeesPliersEffect() : base(new StaticAbilities.SpeedAttackerAbility())
+        public MykeesPliersEffect() : base(new SpeedAttackerAbility())
         {
         }
 

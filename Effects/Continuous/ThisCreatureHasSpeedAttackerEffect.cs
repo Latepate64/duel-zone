@@ -1,0 +1,26 @@
+﻿using Engine;
+using Engine.ContinuousEffects;
+
+namespace Effects.Continuous;
+
+public class ThisCreatureHasSpeedAttackerEffect : ContinuousEffect, ISpeedAttackerEffect
+{
+    public ThisCreatureHasSpeedAttackerEffect() : base()
+    {
+    }
+
+    public bool Applies(Creature creature, IGame game)
+    {
+        return IsSourceOfAbility(creature);
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureHasSpeedAttackerEffect();
+    }
+
+    public override string ToString()
+    {
+        return "Speed attacker";
+    }
+}
