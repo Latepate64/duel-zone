@@ -1,74 +1,30 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Engine.GameEvents;
 
-namespace Cards.TriggeredAbilities
+namespace Cards.TriggeredAbilities;
+
+public class WheneverThisCreatureAttacksAbility : WheneverCreatureAttacksAbility
 {
-    class WheneverThisCreatureAttacksAbility : WheneverCreatureAttacksAbility
+    public WheneverThisCreatureAttacksAbility(IOneShotEffect effect) : base(effect)
     {
-        public WheneverThisCreatureAttacksAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public WheneverThisCreatureAttacksAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new WheneverThisCreatureAttacksAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever this creature attacks, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return card == Source;
-        }
     }
 
-    abstract class WheneverCreatureAttacksAbility : CardTriggeredAbility
+    public WheneverThisCreatureAttacksAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
     {
-        protected WheneverCreatureAttacksAbility(WheneverCreatureAttacksAbility ability) : base(ability)
-        {
-        }
-
-        protected WheneverCreatureAttacksAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is CreatureAttackedEvent e && TriggersFrom(e.Attacker, game);
-        }
     }
 
-    class WheneverAnyOfYourCreaturesAttacksAbility : WheneverCreatureAttacksAbility
+    public override IAbility Copy()
     {
-        public WheneverAnyOfYourCreaturesAttacksAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
+        return new WheneverThisCreatureAttacksAbility(this);
+    }
 
-        public WheneverAnyOfYourCreaturesAttacksAbility(WheneverAnyOfYourCreaturesAttacksAbility ability) : base(ability)
-        {
-        }
+    public override string ToString()
+    {
+        return $"Whenever this creature attacks, {GetEffectText()}";
+    }
 
-        public override IAbility Copy()
-        {
-            return new WheneverAnyOfYourCreaturesAttacksAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever any of your creatures attacks, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return card.Owner == Controller;
-        }
+    protected override bool TriggersFrom(Creature card, IGame game)
+    {
+        return card == Source;
     }
 }

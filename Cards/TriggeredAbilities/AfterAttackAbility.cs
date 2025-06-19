@@ -3,51 +3,34 @@ using Engine.Abilities;
 using Engine.GameEvents;
 using System;
 
-namespace Cards.TriggeredAbilities
+namespace Cards.TriggeredAbilities;
+
+public class AfterAttackAbility : TriggeredAbility
 {
-    class AfterAttackAbility : TriggeredAbility
+    public Guid Attacker { get; }
+
+    public AfterAttackAbility(OneShotEffect effect, Guid attacker) : base(effect)
     {
-        public Guid Attacker { get; }
-
-        public AfterAttackAbility(OneShotEffect effect, Guid attacker) : base(effect)
-        {
-            Attacker = attacker;
-        }
-
-        public AfterAttackAbility(AfterAttackAbility ability) : base(ability)
-        {
-            Attacker = ability.Attacker;
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
-        }
-
-        public override Ability Copy()
-        {
-            return new AfterAttackAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return "After the attack";
-        }
+        Attacker = attacker;
     }
 
-    class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
+    public AfterAttackAbility(AfterAttackAbility ability) : base(ability)
     {
-        public AfterAttackDelayedTriggeredAbility(AfterAttackDelayedTriggeredAbility ability) : base(ability)
-        {
-        }
+        Attacker = ability.Attacker;
+    }
 
-        public AfterAttackDelayedTriggeredAbility(OneShotEffect effect, IAbility ability, Guid attacker) : base(new AfterAttackAbility(effect, attacker), ability.Source, ability.Controller, true)
-        {
-        }
+    public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+    {
+        return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
+    }
 
-        public override DelayedTriggeredAbility Copy()
-        {
-            return new AfterAttackDelayedTriggeredAbility(this);
-        }
+    public override Ability Copy()
+    {
+        return new AfterAttackAbility(this);
+    }
+
+    public override string ToString()
+    {
+        return "After the attack";
     }
 }

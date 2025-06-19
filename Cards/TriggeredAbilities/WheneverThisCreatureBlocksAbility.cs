@@ -2,36 +2,35 @@
 using Engine.Abilities;
 using Engine.GameEvents;
 
-namespace Cards.TriggeredAbilities
+namespace Cards.TriggeredAbilities;
+
+public class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
 {
-    class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
+    public WheneverThisCreatureBlocksAbility(OneShotEffect effect) : base(effect)
     {
-        public WheneverThisCreatureBlocksAbility(OneShotEffect effect) : base(effect)
-        {
-        }
+    }
 
-        public WheneverThisCreatureBlocksAbility(WheneverThisCreatureBlocksAbility ability) : base(ability)
-        {
-        }
+    public WheneverThisCreatureBlocksAbility(WheneverThisCreatureBlocksAbility ability) : base(ability)
+    {
+    }
 
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, game);
-        }
+    public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+    {
+        return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, game);
+    }
 
-        public override Ability Copy()
-        {
-            return new WheneverThisCreatureBlocksAbility(this);
-        }
+    public override Ability Copy()
+    {
+        return new WheneverThisCreatureBlocksAbility(this);
+    }
 
-        public override string ToString()
-        {
-            return $"Whenever this creature blocks, {OneShotEffect}.";
-        }
+    public override string ToString()
+    {
+        return $"Whenever this creature blocks, {OneShotEffect}.";
+    }
 
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return card == Source;
-        }
+    protected override bool TriggersFrom(Creature card, IGame game)
+    {
+        return card == Source;
     }
 }

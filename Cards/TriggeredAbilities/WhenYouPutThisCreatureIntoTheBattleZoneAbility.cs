@@ -1,158 +1,30 @@
 ﻿using Engine;
 using Engine.Abilities;
-using Engine.GameEvents;
 
-namespace Cards.TriggeredAbilities
+namespace Cards.TriggeredAbilities;
+
+public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
-    public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
     {
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new WhenYouPutThisCreatureIntoTheBattleZoneAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"When you put this creature into the battle zone, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return Source == card;
-        }
     }
 
-    class WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    public WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
     {
-        public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
-        {
-        }
-
-        public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever another creature is put into the battle zone, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return Source != card;
-        }
     }
 
-    class WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    public override IAbility Copy()
     {
-        public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility ability) : base(ability)
-        {
-        }
-
-        public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return Controller == card.Owner && (card.HasRace(Race.Dragonoid) || card.IsDragon);
-        }
+        return new WhenYouPutThisCreatureIntoTheBattleZoneAbility(this);
     }
 
-    class WhenYouPutAnotherCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+    public override string ToString()
     {
-        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(WhenYouPutAnotherCreatureIntoTheBattleZoneAbility ability) : base(ability)
-        {
-        }
-
-        public WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override IAbility Copy()
-        {
-            return new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"When you put another creature into the battle zone, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return Source != card && Controller == card.Owner;
-        }
+        return $"When you put this creature into the battle zone, {GetEffectText()}";
     }
 
-    public abstract class WheneverCreatureIsPutIntoTheBattleZoneAbility : CardChangesZoneAbility
+    protected override bool TriggersFrom(Creature card, IGame game)
     {
-        protected WheneverCreatureIsPutIntoTheBattleZoneAbility(WheneverCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
-        {
-        }
-
-        protected WheneverCreatureIsPutIntoTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone
-            && e.CardInDestinationZone is Creature creature && TriggersFrom(creature, game);
-        }
-    }
-
-    class WheneverYouPutRaceCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
-    {
-        private readonly Race _race;
-
-        public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(WheneverYouPutRaceCreatureIntoTheBattleZoneAbility ability) : base(ability)
-        {
-            _race = ability._race;
-        }
-
-        public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race race, IOneShotEffect effect) : base(effect)
-        {
-            _race = race;
-        }
-
-        public override IAbility Copy()
-        {
-            return new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever you put a {_race} into the battle zone, {GetEffectText()}";
-        }
-
-        protected override bool TriggersFrom(Creature card, IGame game)
-        {
-            return Controller == card.Owner && card.HasRace(_race);
-        }
+        return Source == card;
     }
 }
-
