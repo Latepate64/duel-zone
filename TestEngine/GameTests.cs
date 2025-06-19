@@ -571,7 +571,8 @@ public class GameTests
     static Creature CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false,
         int manaCost = 1, bool summoningSickness = true, int power = 1000, PlayerV2 owner = null)
     {
-        return new Creature(tapped, [civilization], manaCost, summoningSickness, power, "Test Creature") { OwnerV2 = owner };
+        return new Creature(tapped, [civilization], manaCost, summoningSickness, power, "Test Creature",
+            [Race.AngelCommand]) { OwnerV2 = owner };
     }
 
     static GameState CreateGameState()

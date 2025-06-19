@@ -16,34 +16,25 @@ namespace Cards
         /// <param name="power"></param>
         /// <param name="race"></param>
         /// <param name="civilizations"></param>
-        protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
-        {
-            SetPrintedRaces(race);
-        }
-
-        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name, manaCost, power, race, [civilization])
+        protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(
+            tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, [race])
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, [civilization1, civilization2])
-        {
-            SetPrintedRaces(race1, race2);
-        }
-
-        /// <summary>
-        /// This constructor should be used for multicolored cards. Add races for the card in the constructor of the inheritor.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="manaCost"></param>
-        /// <param name="power"></param>
-        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(name,
-            manaCost, power, civilizations)
+        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name,
+            manaCost, power, race, [civilization])
         {
         }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(name, manaCost, power, [civilization])
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1,
+            Civilization civilization2) : base(tapped: false, [civilization1, civilization2], manaCost,
+            summoningSickness: true, power, name, [race1, race2])
         {
-            SetPrintedRaces(race1, race2);
+        }
+
+        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) :
+            base(tapped: false, [civilization], manaCost, summoningSickness: true, power, name, [race1, race2])
+        {
         }
 
         #region Static abilities

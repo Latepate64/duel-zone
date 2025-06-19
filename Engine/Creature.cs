@@ -3,25 +3,30 @@ using System.Linq;
 
 namespace Engine;
 
-public class Creature(bool tapped, List<Civilization> civilizations, int manaCost, bool summoningSickness, int? power,
-    string name)
-    : Card(tapped, civilizations, manaCost, name)
+public class Creature(
+    bool tapped,
+    List<Civilization> civilizations,
+    int manaCost,
+    bool summoningSickness,
+    int? power,
+    string name,
+    List<Race> races)
+    : Card(
+        tapped,
+        civilizations,
+        manaCost,
+        name)
 {
     readonly IList<Race> addedRaces = [];
     public int? Power { get; private set; } = power;
     public int? PrintedPower { get; } = power;
-    IList<Race> printedRaces = [];
-    public List<Race> Races { get; private set; } = [];
+    readonly IList<Race> printedRaces = [.. races];
+    public List<Race> Races { get; private set; } = [.. races];
     public bool SummoningSickness { get; private set; } = summoningSickness;
     public List<Supertype> Supertypes { get; } = [];
 
-    protected Creature(string name, int manaCost, int? power, params Civilization[] civilizations) : this(
-        false, [.. civilizations], manaCost, summoningSickness: true, power, name)
-    {
-    }
-
     protected Creature(Creature creature) : this(creature.Tapped, creature.Civilizations, creature.ManaCost,
-        creature.SummoningSickness, creature.Power, creature.Name)
+        creature.SummoningSickness, creature.Power, creature.Name, creature.Races)
     {
         addedRaces = [.. creature.addedRaces];
         printedRaces = [.. creature.printedRaces];
@@ -68,12 +73,6 @@ public class Creature(bool tapped, List<Civilization> civilizations, int manaCos
         Power = PrintedPower;
         Races = [.. printedRaces];
         addedRaces.Clear();
-    }
-
-    protected void SetPrintedRaces(params Race[] races)
-    {
-        printedRaces = races;
-        Races = [.. races];
     }
 
     internal void RemoveSummoningSickness()
