@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 
@@ -10,7 +11,7 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public CreatureGetsSlayerUntilEndOfTheTurnEffect(Card card) : base(card, new StaticAbilities.SlayerAbility())
+        public CreatureGetsSlayerUntilEndOfTheTurnEffect(Card card) : base(card, new SlayerAbility())
         {
         }
 

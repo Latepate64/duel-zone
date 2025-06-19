@@ -1,4 +1,5 @@
-﻿using Effects.OneShot;
+﻿using Abilities.Static;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace Cards.OneShotEffects
 
     class OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect : OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
     {
-        public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect() : base(new StaticAbilities.SlayerAbility())
+        public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect() : base(new SlayerAbility())
         {
         }
 
