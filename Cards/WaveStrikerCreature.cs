@@ -1,3 +1,4 @@
+using Abilities.Static;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -8,11 +9,11 @@ class WaveStrikerCreature(string name, int manaCost, int power, Race race, Civil
 {
     protected void AddWaveStrikerAbility(params Engine.ContinuousEffects.IContinuousEffect[] effects)
     {
-        AddAbilities(new StaticAbilities.WaveStrikerAbility(effects.Select(x => new StaticAbility(x)).ToArray()));
+        AddAbilities(new WaveStrikerAbility([.. effects.Select(x => new StaticAbility(x))]));
     }
 
     protected void AddWaveStrikerAbility(ITriggeredAbility ability)
     {
-        AddAbilities(new StaticAbilities.WaveStrikerAbility(ability));
+        AddAbilities(new WaveStrikerAbility(ability));
     }
 }

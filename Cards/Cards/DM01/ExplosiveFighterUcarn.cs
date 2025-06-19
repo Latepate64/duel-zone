@@ -1,5 +1,4 @@
-﻿using Cards.ContinuousEffects;
-using Cards.OneShotEffects;
+﻿using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 using Effects.Continuous;
 

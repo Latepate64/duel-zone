@@ -204,7 +204,7 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
     /// <param name="effects"></param>
     protected void AddStaticAbilities(params IContinuousEffect[] effects)
     {
-        AddAbilities(effects.Select(x => new StaticAbility(x)).ToArray());
+        AddAbilities([.. effects.Select(x => new StaticAbility(x))]);
     }
 
     public IEnumerable<IEvolutionEffect> GetEvolutionEffects()

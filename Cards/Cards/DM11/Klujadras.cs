@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Static;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace Cards.Cards.DM11
         {
             foreach (var player in game.Players)
             {
-                player.DrawCards(game.BattleZone.GetCreatures(player.Id).Count(x => x.GetAbilities<StaticAbilities.WaveStrikerAbility>().Any()), game, Ability);
+                player.DrawCards(game.BattleZone.GetCreatures(player.Id).Count(x => x.GetAbilities<WaveStrikerAbility>().Any()), game, Ability);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using Abilities.Static;
-using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;

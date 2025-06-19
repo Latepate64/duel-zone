@@ -1,7 +1,6 @@
 ﻿using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
-using Engine.GameEvents;
 using GameEvents;
 using System.Linq;
 

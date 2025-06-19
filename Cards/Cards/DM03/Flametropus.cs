@@ -1,6 +1,5 @@
 ﻿using Abilities.Static;
 using Cards.ContinuousEffects;
-using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
