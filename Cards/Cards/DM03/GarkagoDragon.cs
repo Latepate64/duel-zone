@@ -6,9 +6,9 @@ namespace Cards.Cards.DM03
     {
         public GarkagoDragon() : base("Garkago Dragon", 7, 6000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Engine.Civilization.Fire));
-            AddThisCreatureCanAttackUntappedCreaturesAbility();
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
             
         }
     }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
         public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Race.ZombieDragon, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonBryzenagaEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

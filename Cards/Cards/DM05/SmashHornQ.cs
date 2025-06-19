@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public SmashHornQ() : base("Smash Horn Q", 3, 2000, [Engine.Race.Survivor, Engine.Race.HornedBeast], Engine.Civilization.Nature)
         {
-            AddSurvivorAbility(new ThisCreatureGetsPowerEffect(1000));
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureGetsPowerEffect(1000))));
         }
     }
 }

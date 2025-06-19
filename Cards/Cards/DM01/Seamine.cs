@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM01
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM01
 {
     class Seamine : Creature
     {
         public Seamine() : base("Seamine", 6, 4000, Engine.Race.Fish, Engine.Civilization.Water)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
         }
     }
 }

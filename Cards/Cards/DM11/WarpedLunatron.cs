@@ -14,7 +14,7 @@ namespace Cards.Cards.DM11
         {
             AddStaticAbilities(new WarpedLunatronEffect());
             AddTriggeredAbility(new WarpedLunatronAbility());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

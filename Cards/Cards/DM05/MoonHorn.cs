@@ -7,7 +7,7 @@ namespace Cards.Cards.DM05
         public MoonHorn() : base("Moon Horn", 6, 6000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Engine.Civilization.Water, Engine.Civilization.Darkness));
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

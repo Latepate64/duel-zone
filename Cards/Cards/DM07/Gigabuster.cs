@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM07
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM07
 {
     class Gigabuster : Creature
     {
         public Gigabuster() : base("Gigabuster", 5, 5000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect());
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }
 }

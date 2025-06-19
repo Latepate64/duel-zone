@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using System;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM11
         public EvilIncarnate() : base("Evil Incarnate", 6, 11000, Race.DevilMask, Civilization.Darkness)
         {
             AddTriggeredAbility(new EvilIncarnateAbility());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

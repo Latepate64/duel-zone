@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM04
         public TroxGeneralOfDestruction() : base("Trox, General of Destruction", 7, 6000, Race.DemonCommand, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TroxGeneralOfDestructionEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

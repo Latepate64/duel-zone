@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM12
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM12
 {
     class HypersprintWariorUzesol : Creature
     {
         public HypersprintWariorUzesol() : base("Hypersprint Warior Uzesol", 4, 1000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {
-            AddSpeedAttackerAbility();
+            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
             AddPowerAttackerAbility(4000);
         }
     }

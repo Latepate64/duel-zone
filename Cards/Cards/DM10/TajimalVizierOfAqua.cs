@@ -9,8 +9,8 @@ namespace Cards.Cards.DM10
     {
         public TajimalVizierOfAqua() : base("Tajimal, Vizier of Aqua", 3, 4000, [Race.Initiate, Race.LiquidPeople], Civilization.Light, Civilization.Water)
         {
-            AddBlockerAbility();
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddStaticAbilities(new TajimalEffect());
         }
     }

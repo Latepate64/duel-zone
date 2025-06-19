@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 
 namespace Cards.Cards.DM12
@@ -7,8 +8,8 @@ namespace Cards.Cards.DM12
     {
         public CruelNagaAvatarOfFate() : base("Cruel Naga, Avatar of Fate", 6, 9000, Civilization.Water, Civilization.Darkness, Race.Naga, Race.Merfolk, Race.Chimera)
         {
-            AddThisCreatureCannotBeBlockedAbility();
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddTriggeredAbility(new WhenThisCreatureLeavesBattleZoneAbility(new OneShotEffects.DestroyAllCreaturesEffect()));
         }
     }

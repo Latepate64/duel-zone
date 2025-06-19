@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM01
         public Gigaberos() : base("Gigaberos", 5, 8000, Race.Chimera, Civilization.Darkness)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigaberosEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

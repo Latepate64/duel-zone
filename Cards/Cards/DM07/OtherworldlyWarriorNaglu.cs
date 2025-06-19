@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM07
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM07
 {
     class OtherworldlyWarriorNaglu : Creature
     {
         public OtherworldlyWarriorNaglu() : base("Otherworldly Warrior Naglu", 6, 4000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {
-            AddThisCreatureCannotBeAttackedAbility();
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
             AddPowerAttackerAbility(3000);
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

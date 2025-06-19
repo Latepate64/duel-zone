@@ -7,7 +7,7 @@ namespace Cards.Cards.DM04
         public AncientGiant() : base("Ancient Giant", 8, 9000, Engine.Race.Giant, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Engine.Civilization.Darkness));
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

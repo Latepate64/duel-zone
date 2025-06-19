@@ -8,7 +8,7 @@ namespace Cards.Cards.DM07
     {
         public SiriGloryElemental() : base("Siri, Glory Elemental", 6, 7000, Engine.Race.AngelCommand, Engine.Civilization.Light)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new SiriEffect());
         }
     }

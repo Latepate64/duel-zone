@@ -1,10 +1,13 @@
-﻿namespace Cards.Cards.DM05
+﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
+
+namespace Cards.Cards.DM05
 {
     class BlazosaurQ : Creature
     {
         public BlazosaurQ() : base("Blazosaur Q", 2, 1000, [Engine.Race.Survivor, Engine.Race.RockBeast], Engine.Civilization.Fire)
         {
-            AddSurvivorAbility(new ContinuousEffects.PowerAttackerEffect(1000));
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new PowerAttackerEffect(1000))));
         }
     }
 }

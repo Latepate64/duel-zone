@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM07
     {
         public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddTapAbility(new GandarSeekerOfExplosionsEffect());
         }
     }

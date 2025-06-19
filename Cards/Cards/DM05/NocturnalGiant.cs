@@ -8,7 +8,7 @@ namespace Cards.Cards.DM05
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
             AddPowerAttackerAbility(7000);
-            AddTripleBreakerAbility();
+            AddStaticAbilities(new TripleBreakerEffect());
         }
     }
 }

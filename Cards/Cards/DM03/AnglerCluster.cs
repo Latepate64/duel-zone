@@ -6,8 +6,8 @@ namespace Cards.Cards.DM03
     {
         public AnglerCluster() : base("Angler Cluster", 3, 3000, Engine.Race.CyberCluster, Engine.Civilization.Water)
         {
-            AddBlockerAbility();
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
             AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(3000, Engine.Civilization.Water));
         }
     }

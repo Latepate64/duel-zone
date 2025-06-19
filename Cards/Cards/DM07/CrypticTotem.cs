@@ -8,7 +8,7 @@ namespace Cards.Cards.DM07
     {
         public CrypticTotem() : base("Cryptic Totem", 6, 6000, Race.MysteryTotem, Civilization.Nature)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new CrypticTotemEffect());
         }
     }

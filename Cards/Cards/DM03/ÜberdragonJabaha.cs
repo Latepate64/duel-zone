@@ -10,7 +10,7 @@ namespace Cards.Cards.DM03
         public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
             AddStaticAbilities(new ÜberdragonJabahaEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

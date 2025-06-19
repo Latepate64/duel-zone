@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
 using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
@@ -7,8 +8,8 @@ namespace Cards.Cards.DM01
     {
         public DarkClown() : base("Dark Clown", 4, 6000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
         {
-            AddBlockerAbility();
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
             AddTriggeredAbility(new WhenThisCreatureWinsBattleAbility(new DestroyThisCreatureEffect()));
         }
     }

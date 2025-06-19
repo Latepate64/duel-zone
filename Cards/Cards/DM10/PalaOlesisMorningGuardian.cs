@@ -9,9 +9,9 @@ namespace Cards.Cards.DM10
     {
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Race.Guardian, Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new PalaOlesisMorningGuardianEffect());
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }
 

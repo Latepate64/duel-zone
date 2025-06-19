@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM02
     {
         public MarrowOozeTheTwister() : base("Marrow Ooze, the Twister", 1, 1000, Race.LivingDead, Civilization.Darkness)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddTriggeredAbility(new WhenThisCreatureAttacksPlayerAbility(new MarrowOozeTheTwisterEffect()));
         }
     }

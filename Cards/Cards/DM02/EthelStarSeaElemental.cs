@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM02
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM02
 {
     class EthelStarSeaElemental : Creature
     {
         public EthelStarSeaElemental() : base("Ethel, Star Sea Elemental", 6, 5500, Engine.Race.AngelCommand, Engine.Civilization.Light)
         {
-            AddThisCreatureCannotBeBlockedAbility();
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
         }
     }
 }

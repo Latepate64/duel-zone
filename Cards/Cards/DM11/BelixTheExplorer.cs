@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM11
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM11
 {
     class BelixTheExplorer : Creature
     {
         public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Engine.Race.Gladiator, Engine.Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect());
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }
 }

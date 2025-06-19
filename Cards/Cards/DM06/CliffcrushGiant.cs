@@ -10,7 +10,7 @@ namespace Cards.Cards.DM06
         public CliffcrushGiant() : base("Cliffcrush Giant", 5, 7000, Race.Giant, Civilization.Nature)
         {
             AddStaticAbilities(new CliffcrushGiantEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

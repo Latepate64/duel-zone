@@ -1,11 +1,13 @@
-﻿namespace Cards.Cards.DM01
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM01
 {
     class GatlingSkyterror : Creature
     {
         public GatlingSkyterror() : base("Gatling Skyterror", 7, 7000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
         {
-            AddThisCreatureCanAttackUntappedCreaturesAbility();
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

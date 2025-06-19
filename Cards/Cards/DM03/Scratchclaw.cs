@@ -6,7 +6,7 @@ namespace Cards.Cards.DM03
     {
         public Scratchclaw() : base("Scratchclaw", 4, 1000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
         {
-            AddSlayerAbility();
+            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
             AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Engine.Civilization.Darkness));
         }
     }

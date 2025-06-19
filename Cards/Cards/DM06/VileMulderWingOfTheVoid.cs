@@ -7,7 +7,7 @@ namespace Cards.Cards.DM06
         public VileMulderWingOfTheVoid() : base("Vile Mulder, Wing of the Void", 4, 7000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddTriggeredAbility(new TriggeredAbilities.WhenThisCreatureBattlesAbility(new OneShotEffects.DestroyAfterBattleEffect()));
         }
     }

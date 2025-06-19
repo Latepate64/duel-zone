@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public ChekiculVizierOfEndurance() : base("Chekicul, Vizier of Endurance", 5, 1000, Race.Initiate, Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ChekiculEffect());
         }
     }

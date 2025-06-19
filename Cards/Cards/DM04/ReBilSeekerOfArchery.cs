@@ -9,7 +9,7 @@ namespace Cards.Cards.DM04
         public ReBilSeekerOfArchery() : base("Re Bil, Seeker of Archery", 7, 6000, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {
             AddStaticAbilities(new ReBilEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

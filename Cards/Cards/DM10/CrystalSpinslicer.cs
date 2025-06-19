@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM10
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM10
 {
     class CrystalSpinslicer : EvolutionCreature
     {
         public CrystalSpinslicer() : base("Crystal Spinslicer", 2, 5000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
         }
     }
 }

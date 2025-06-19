@@ -7,7 +7,7 @@ namespace Cards.Cards.DM12
     {
         public TerradragonArqueDelacerna() : base("Terradragon Arque Delacerna", 8, 6000, Race.EarthDragon, Civilization.Nature)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new OptionalMadnessEffect());
         }
     }

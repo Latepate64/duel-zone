@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM12
         public AuraPegasusAvatarOfLife() : base("Aura Pegasus, Avatar of Life", 6, 12000, Civilization.Light, Civilization.Nature, Race.Pegasus, Race.HornedBeast, Race.AngelCommand)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksOrLeavesTheBattleZoneAbility(new AuraPegasusEffect()));
-            AddTripleBreakerAbility();
+            AddStaticAbilities(new TripleBreakerEffect());
         }
     }
 

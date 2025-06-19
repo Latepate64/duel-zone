@@ -8,7 +8,7 @@ namespace Cards.Cards.DM06
         {
             AddPowerAttackerAbility(2000);
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(5000));
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

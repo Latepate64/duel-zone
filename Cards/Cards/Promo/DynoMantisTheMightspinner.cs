@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.Promo
@@ -7,7 +8,7 @@ namespace Cards.Cards.Promo
     {
         public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Race.GiantInsect, Civilization.Nature)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new DynoMantisEffect());
         }
     }

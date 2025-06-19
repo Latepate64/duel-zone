@@ -11,7 +11,7 @@ namespace Cards.Cards.DM06
         public BazookaMutant() : base("Bazooka Mutant", 4, 8000, Race.Hedrian, Civilization.Darkness)
         {
             AddStaticAbilities(new BazookaMutantEffect());
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }
 

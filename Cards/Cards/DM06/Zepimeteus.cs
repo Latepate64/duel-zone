@@ -1,11 +1,13 @@
-﻿namespace Cards.Cards.DM06
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM06
 {
     class Zepimeteus : Creature
     {
         public Zepimeteus() : base("Zepimeteus", 1, 2000, Engine.Race.SeaHacker, Engine.Civilization.Water)
         {
-            AddBlockerAbility();
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }
 }

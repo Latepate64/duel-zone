@@ -8,9 +8,9 @@ namespace Cards.Cards.DM01
     {
         public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Race.LightBringer, Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new IocantTheOracleEffect());
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }
 

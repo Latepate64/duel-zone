@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM06
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM06
 {
     class ValiantWarriorExorious : Creature
     {
         public ValiantWarriorExorious() : base("Valiant Warrior Exorious", 6, 4000, Engine.Race.Armorloid, Engine.Civilization.Fire)
         {
-            AddThisCreatureCanAttackUntappedCreaturesAbility();
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
             AddPowerAttackerAbility(3000);
         }
     }

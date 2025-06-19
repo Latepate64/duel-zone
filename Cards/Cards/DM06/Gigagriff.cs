@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM06
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM06
 {
     class Gigagriff : Creature
     {
         public Gigagriff() : base("Gigagriff", 6, 4000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
-            AddBlockerAbility();
-            AddSlayerAbility();
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }
 }

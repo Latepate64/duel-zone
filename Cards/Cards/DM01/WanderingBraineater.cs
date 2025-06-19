@@ -1,11 +1,13 @@
-﻿namespace Cards.Cards.DM01
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM01
 {
     class WanderingBraineater : Creature
     {
         public WanderingBraineater() : base("Wandering Braineater", 2, 2000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
         {
-            AddBlockerAbility();
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }
 }

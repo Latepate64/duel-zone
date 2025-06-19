@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM12
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM12
 {
     class NecrodragonJagraveen : Creature
     {
         public NecrodragonJagraveen() : base("Necrodragon Jagraveen", 6, 6000, Engine.Race.ZombieDragon, Engine.Civilization.Darkness)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new OneShotEffects.DestroyAfterBattleEffect()));
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

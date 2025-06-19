@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,8 +9,8 @@ namespace Cards.Cards.DM10
     {
         public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000, [Race.ArmoredDragon, Race.EarthDragon], Civilization.Fire, Civilization.Nature)
         {
-            AddSpeedAttackerAbility();
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect());
         }
     }

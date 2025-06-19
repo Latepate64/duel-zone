@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Cards.Cards.Promo
         public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, [Race.ArmoredDragon, Race.EarthDragon], Civilization.Fire, Civilization.Nature)
         {
             AddTriggeredAbility(new DolzarkAbility());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

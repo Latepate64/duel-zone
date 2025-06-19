@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM05
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM05
 {
     class LaByleSeekerOfTheWinds : Creature
     {
         public LaByleSeekerOfTheWinds() : base("La Byle, Seeker of the Winds", 7, 5000, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
         }
     }

@@ -9,9 +9,9 @@ namespace Cards.Cards.DM06
     {
         public LuGilaSilverRiftGuardian() : base("Lu Gila, Silver Rift Guardian", 5, 4000, Race.Guardian, Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new LuGilaEffect());
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }
 

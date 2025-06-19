@@ -9,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public BodaciousGiant() : base("Bodacious Giant", 8, 12000, Race.Giant, Civilization.Nature)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new BodaciousGiantEffect());
         }
     }

@@ -6,7 +6,7 @@ namespace Cards.Cards.DM04
     {
         public PhotocideLordOfTheWastes() : base("Photocide, Lord of the Wastes", 5, 9000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Engine.Civilization.Light));
         }
     }

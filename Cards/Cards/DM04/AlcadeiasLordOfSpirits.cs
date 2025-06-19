@@ -8,7 +8,7 @@ namespace Cards.Cards.DM04
     {
         public AlcadeiasLordOfSpirits() : base("Alcadeias, Lord of Spirits", 6, 12500, Race.AngelCommand, Civilization.Light)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new AlcadeiasLordOfSpiritsEffect());
         }
     }

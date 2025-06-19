@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.Promo
@@ -7,7 +8,8 @@ namespace Cards.Cards.Promo
     {
         public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, [Race.Survivor, Race.ColonyBeetle], Civilization.Nature)
         {
-            AddSurvivorAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new BrigadeShellQEffect()));
+            AddStaticAbilities(new SurvivorEffect(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(
+                new BrigadeShellQEffect())));
         }
     }
 

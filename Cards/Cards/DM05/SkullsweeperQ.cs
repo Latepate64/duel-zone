@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Cards.ContinuousEffects;
+using Cards.OneShotEffects;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM05
@@ -7,7 +8,8 @@ namespace Cards.Cards.DM05
     {
         public SkullsweeperQ() : base("Skullsweeper Q", 4, 1000, [Engine.Race.Survivor, Engine.Race.BrainJacker], Engine.Civilization.Darkness)
         {
-            AddSurvivorAbility(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(new SkullsweeperQEffect()));
+            AddStaticAbilities(new SurvivorEffect(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(
+                new SkullsweeperQEffect())));
         }
     }
 

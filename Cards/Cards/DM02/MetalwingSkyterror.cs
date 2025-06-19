@@ -1,4 +1,5 @@
-﻿using Cards.StaticAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.StaticAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM02
         public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000, Race.ArmoredWyvern, Civilization.Fire)
         {
             AddWheneverThisCreatureAttacksAbility(new MetalwingSkyterrorEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

@@ -9,7 +9,7 @@ namespace Cards.Cards.DM02
         public KingNautilus() : base("King Nautilus", 8, 6000, Race.Leviathan, Civilization.Water)
         {
             AddStaticAbilities(new KingNautilusEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

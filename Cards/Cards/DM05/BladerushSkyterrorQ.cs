@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public BladerushSkyterrorQ() : base("Bladerush Skyterror Q", 7, 5000, [Engine.Race.Survivor, Engine.Race.ArmoredWyvern], Engine.Civilization.Fire)
         {
-            AddSurvivorAbility(new DoubleBreakerEffect());
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new DoubleBreakerEffect())));
         }
     }
 }

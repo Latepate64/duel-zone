@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM09
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM09
 {
     class StallobTheLifequasher : Creature
     {
         public StallobTheLifequasher() : base("Stallob, the Lifequasher", 8, 6000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddWhenThisCreatureIsDestroyedAbility(new OneShotEffects.DestroyAllCreaturesEffect());
         }
     }

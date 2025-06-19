@@ -9,7 +9,7 @@ namespace Cards.Cards.DM03
         public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Race.Leviathan, Civilization.Water)
         {
             AddStaticAbilities(new LegendaryBynorEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

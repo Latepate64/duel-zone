@@ -10,7 +10,7 @@ namespace Cards.Cards.DM07
         {
             AddStaticAbilities(new HeadlongGiantEffect(), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(4000));
             AddWheneverThisCreatureAttacksAbility(new OneShotEffects.DiscardCardFromYourHandEffect());
-            AddTripleBreakerAbility();
+            AddStaticAbilities(new TripleBreakerEffect());
         }
     }
 

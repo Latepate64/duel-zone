@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, [Engine.Race.Survivor, Engine.Race.Fish], Engine.Civilization.Water)
         {
-            AddSurvivorAbility(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureCannotBeBlockedEffect())));
         }
     }
 }

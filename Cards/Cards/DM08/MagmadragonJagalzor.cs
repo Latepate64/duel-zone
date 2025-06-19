@@ -8,7 +8,7 @@ namespace Cards.Cards.DM08
     {
         public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Race.VolcanoDragon, Civilization.Fire)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddTurboRushAbility(new MagmadragonJagalzorEffect());
         }
     }

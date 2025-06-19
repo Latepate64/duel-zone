@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Engine.Abilities;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM05
     {
         public BalloonshroomQ() : base("Balloonshroom Q", 4, 2000, [Engine.Race.Survivor, Engine.Race.BalloonMushroom], Engine.Civilization.Nature)
         {
-            AddSurvivorAbility(new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(
+                new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect())));
         }
     }
 }

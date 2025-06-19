@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.Promo
     {
         public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Race.DemonCommand, Civilization.Darkness)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddTriggeredAbility(new OlgateAbility());
         }
     }

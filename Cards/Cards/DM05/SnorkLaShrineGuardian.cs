@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using System;
@@ -9,8 +10,8 @@ namespace Cards.Cards.DM05
     {
         public SnorkLaShrineGuardian() : base("Snork La, Shrine Guardian", 3, 3000, Race.Guardian, Civilization.Light)
         {
-            AddBlockerAbility();
-            AddThisCreatureCannotAttackPlayersAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddTriggeredAbility(new SnorkLaAbility());
         }
     }

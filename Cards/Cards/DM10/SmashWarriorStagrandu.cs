@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.GameEvents;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public SmashWarriorStagrandu() : base("Smash Warrior Stagrandu", 2, 1000, Race.Armorloid, Civilization.Fire)
         {
-            AddThisCreatureCanAttackUntappedCreaturesAbility();
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
             AddTriggeredAbility(new StagranduAbility());
         }
     }

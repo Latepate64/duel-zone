@@ -10,7 +10,7 @@ namespace Cards.Cards.Promo
         public StarCryDragon() : base("Star-Cry Dragon", 7, 8000, Race.ArmoredDragon, Civilization.Fire)
         {
             AddStaticAbilities(new StarCryDragonEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

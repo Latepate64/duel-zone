@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM06
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM06
 {
     class ThrashCrawler : Creature
     {
         public ThrashCrawler() : base("Thrash Crawler", 4, 5000, Engine.Race.EarthEater, Engine.Civilization.Water)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect());
-            AddThisCreatureCannotAttackAbility();
+            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿namespace Cards.Cards.DM06
+﻿using Cards.ContinuousEffects;
+
+namespace Cards.Cards.DM06
 {
     class LaveilSeekerOfCatastrophe : Creature
     {
         public LaveilSeekerOfCatastrophe() : base("Laveil, Seeker of Catastrophe", 8, 8500, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {
-            AddBlockerAbility();
+            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddAtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 }

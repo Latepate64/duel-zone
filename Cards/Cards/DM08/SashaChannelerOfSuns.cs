@@ -10,7 +10,7 @@ namespace Cards.Cards.DM08
         public SashaChannelerOfSuns() : base("Sasha, Channeler of Suns", 8, 9500, Race.MechaDelSol, Civilization.Light)
         {
             AddStaticAbilities(new SashaBlockerEffect(), new SashaPowerEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

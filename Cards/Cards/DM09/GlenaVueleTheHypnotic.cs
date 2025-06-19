@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM09
     {
         public GlenaVueleTheHypnotic() : base("Glena Vuele, the Hypnotic", 5, 8500, Race.Guardian, Civilization.Light)
         {
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
             AddTriggeredAbility(new TriggeredAbilities.WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(new GlenaVueleTheHypnoticEffect()));
         }
     }

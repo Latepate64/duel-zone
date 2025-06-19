@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.Promo
         public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Race.Human, Civilization.Fire)
         {
             AddStaticAbilities(new ArmoredGroblavEffect());
-            AddDoubleBreakerAbility();
+            AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
 

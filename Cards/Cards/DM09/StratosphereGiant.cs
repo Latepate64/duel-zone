@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM09
         public StratosphereGiant() : base("Stratosphere Giant", 8, 13000, Race.Giant, Civilization.Nature)
         {
             AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new StratosphereGiantEffect());
-            AddTripleBreakerAbility();
+            AddStaticAbilities(new TripleBreakerEffect());
         }
     }
 
