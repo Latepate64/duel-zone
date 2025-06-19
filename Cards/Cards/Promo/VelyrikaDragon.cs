@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.TriggeredAbilities;
+using Effects.Continuous;
 
 namespace Cards.Cards.Promo
 {

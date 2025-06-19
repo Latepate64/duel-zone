@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
@@ -23,7 +24,7 @@ namespace Cards.Cards.DM03
         {
             if (Applies(game))
             {
-                Source.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
+                Source.AddGrantedAbility(new DoubleBreakerAbility());
             }
         }
 

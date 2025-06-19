@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Static;
+using Cards.ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -32,7 +33,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class GankloakRogueCommandoContinuousEffect(params Card[] cards) : AddAbilitiesUntilEndOfTurnEffect(new StaticAbilities.DoubleBreakerAbility(), cards)
+    class GankloakRogueCommandoContinuousEffect(params Card[] cards) : AddAbilitiesUntilEndOfTurnEffect(new DoubleBreakerAbility(), cards)
     {
         public override IContinuousEffect Copy()
         {

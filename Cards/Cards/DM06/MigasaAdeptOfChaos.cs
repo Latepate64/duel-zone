@@ -1,4 +1,5 @@
-﻿using Effects.OneShot;
+﻿using Abilities.Static;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Cards.Cards.DM06
 
         protected override void Apply(IGame game, IAbility source, params Creature[] cards)
         {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(new StaticAbilities.DoubleBreakerAbility(), cards));
+            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(new DoubleBreakerAbility(), cards));
         }
 
         protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)

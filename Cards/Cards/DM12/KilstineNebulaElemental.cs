@@ -26,7 +26,7 @@ namespace Cards.Cards.DM12
         {
             GetAffectedCards(game).ForEach(x => { 
                 x.AddGrantedAbility(new BlockerAbility());
-                x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility());
+                x.AddGrantedAbility(new DoubleBreakerAbility());
                 });
         }
 

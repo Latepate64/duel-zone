@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Static;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 
@@ -47,7 +48,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public MegaDetonatorContinuousEffect(params Card[] cards) : base(new StaticAbilities.DoubleBreakerAbility(), cards)
+        public MegaDetonatorContinuousEffect(params Card[] cards) : base(new DoubleBreakerAbility(), cards)
         {
         }
 

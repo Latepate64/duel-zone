@@ -2,6 +2,7 @@
 using Cards.ContinuousEffects;
 using Cards.StaticAbilities;
 using Cards.TriggeredAbilities;
+using Effects.Continuous;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;

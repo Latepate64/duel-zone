@@ -1,4 +1,5 @@
-﻿using Effects.Continuous;
+﻿using Abilities.Static;
+using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Cards.ContinuousEffects
 
         public void AddAbility(IGame game)
         {
-            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbilities.DoubleBreakerAbility()));
+            GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new DoubleBreakerAbility()));
         }
 
         public void ModifyPower(IGame game)
