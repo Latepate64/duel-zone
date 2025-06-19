@@ -1,9 +1,8 @@
-using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public abstract class WheneverCreatureIsPutIntoTheBattleZoneAbility : CardChangesZoneAbility
 {

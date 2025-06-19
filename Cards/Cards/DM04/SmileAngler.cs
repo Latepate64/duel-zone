@@ -1,4 +1,4 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM04

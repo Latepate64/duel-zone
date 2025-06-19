@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
@@ -23,7 +24,7 @@ namespace Cards.Cards.DM08
 
         public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
         {
-            game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Ability));
+            game.AddReflexiveTriggeredAbility(new ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Ability));
             return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
                 Destination = ZoneType.Hand

@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM06
+﻿using Abilities.Triggered;
+
+namespace Cards.Cards.DM06
 {
     class AquaRider : Engine.Creature
     {
         public AquaRider() : base("Aqua Rider", 4, 2000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {
-            AddTriggeredAbility(new TriggeredAbilities.OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
+            AddTriggeredAbility(new OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
         }
     }
 }

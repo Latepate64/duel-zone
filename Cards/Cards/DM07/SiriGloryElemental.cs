@@ -1,4 +1,5 @@
 ﻿using Abilities.Static;
+using Abilities.Triggered;
 using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
@@ -29,7 +30,7 @@ namespace Cards.Cards.DM07
             if (!Controller.ShieldZone.HasCards)
             {
                 game.AddAbility(Source, new BlockerAbility());
-                game.AddAbility(Source, new TriggeredAbilities.AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));
+                game.AddAbility(Source, new AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));
             }
         }
 

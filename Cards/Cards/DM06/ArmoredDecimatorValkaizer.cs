@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
+using Abilities.Triggered;
 
 namespace Cards.Cards.DM06
 {

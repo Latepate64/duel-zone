@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM09
+﻿using Abilities.Triggered;
+
+namespace Cards.Cards.DM09
 {
     class Quakesaur : Engine.Creature
     {
         public Quakesaur() : base("Quakesaur", 5, 3000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect()));
         }
     }
 }

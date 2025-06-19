@@ -1,4 +1,4 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
 using Effects.Continuous;
 
 namespace Cards.Cards.DM01

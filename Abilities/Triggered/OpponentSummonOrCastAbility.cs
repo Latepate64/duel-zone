@@ -3,7 +3,7 @@ using Engine.Abilities;
 using Engine.GameEvents;
 using GameEvents;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class OpponentSummonOrCastAbility : TriggeredAbility
 {

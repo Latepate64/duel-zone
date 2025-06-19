@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public ForbosSanctumGuardianQ() : base("Forbos, Sanctum Guardian Q", 6, 4000, [Engine.Race.Survivor, Engine.Race.Guardian], Engine.Civilization.Light)
         {
-            AddStaticAbilities(new SurvivorEffect(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchSpellEffect())));
+            AddStaticAbilities(new SurvivorEffect(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchSpellEffect())));
         }
     }
 }

@@ -1,11 +1,12 @@
 using Engine;
 using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
-    public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility ability) : base(ability)
+    public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(
+        WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility ability) : base(ability)
     {
     }
 

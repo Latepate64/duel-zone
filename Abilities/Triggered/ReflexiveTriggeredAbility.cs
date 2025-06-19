@@ -1,6 +1,6 @@
 ﻿using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 /// <summary>
 /// 603.12.

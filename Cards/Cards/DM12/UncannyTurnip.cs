@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM12
     {
         public UncannyTurnip() : base("Uncanny Turnip", 2, 1000, Race.WildVeggies, Civilization.Nature)
         {
-            AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new UncannyTurnipEffect()));
+            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new UncannyTurnipEffect()));
         }
     }
 

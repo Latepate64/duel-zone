@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public FactoryShellQ() : base("Factory Shell Q", 6, 2000, [Engine.Race.Survivor, Engine.Race.ColonyBeetle], Engine.Civilization.Nature)
         {
-            AddStaticAbilities(new SurvivorEffect(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+            AddStaticAbilities(new SurvivorEffect(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
                 new OneShotEffects.SearchRaceCreatureEffect(Engine.Race.Survivor))));
         }
     }

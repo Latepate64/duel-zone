@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM08
+﻿using Abilities.Triggered;
+
+namespace Cards.Cards.DM08
 {
     class GachackMechanicalDoll : TurboRushCreature
     {
         public GachackMechanicalDoll() : base("Gachack, Mechanical Doll", 3, 2000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
         {
-            AddTurboRushAbility(new TriggeredAbilities.WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.YouMayDestroyCreatureEffect()));
+            AddTurboRushAbility(new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.YouMayDestroyCreatureEffect()));
         }
     }
 }

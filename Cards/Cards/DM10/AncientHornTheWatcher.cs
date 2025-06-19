@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM10
+﻿using Abilities.Triggered;
+
+namespace Cards.Cards.DM10
 {
     class AncientHornTheWatcher : Engine.Creature
     {
         public AncientHornTheWatcher() : base("Ancient Horn, the Watcher", 5, 5000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {
-            AddTriggeredAbility(new TriggeredAbilities.AncientHornTheWatcherAbility(new OneShotEffects.UntapAllTheCardsInYourManaZoneEffect()));
+            AddTriggeredAbility(new AncientHornTheWatcherAbility(new OneShotEffects.UntapAllTheCardsInYourManaZoneEffect()));
         }
     }
 }

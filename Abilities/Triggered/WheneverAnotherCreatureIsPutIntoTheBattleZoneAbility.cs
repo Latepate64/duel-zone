@@ -1,11 +1,12 @@
 using Engine;
 using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
-    public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
+    public WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(
+        WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility ability) : base(ability)
     {
     }
 

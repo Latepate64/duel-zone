@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM09
     {
         public VreemahFreakyMojoTotem() : base("Vreemah, Freaky Mojo Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new VreemahFreakyMojoTotemOneShotEffect()));
+            AddTriggeredAbility(new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new VreemahFreakyMojoTotemOneShotEffect()));
         }
     }
 

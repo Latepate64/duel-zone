@@ -1,5 +1,6 @@
 ﻿using Abilities.Static;
-using Cards.TriggeredAbilities;
+using Abilities.Triggered;
+using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;

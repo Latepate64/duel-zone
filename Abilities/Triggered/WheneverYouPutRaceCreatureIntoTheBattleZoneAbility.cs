@@ -1,13 +1,14 @@
 using Engine;
 using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WheneverYouPutRaceCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
     private readonly Race _race;
 
-    public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(WheneverYouPutRaceCreatureIntoTheBattleZoneAbility ability) : base(ability)
+    public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(
+        WheneverYouPutRaceCreatureIntoTheBattleZoneAbility ability) : base(ability)
     {
         _race = ability._race;
     }

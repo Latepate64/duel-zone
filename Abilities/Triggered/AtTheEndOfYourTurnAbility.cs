@@ -2,9 +2,8 @@
 using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
-using System.Linq;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class AtTheEndOfYourTurnAbility : TriggeredAbility
 {

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public Zaltan() : base("Zaltan", 5, 3000, Race.CyberLord, Civilization.Water)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race.CyberVirus, new ZaltanEffect()));
+            AddTriggeredAbility(new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race.CyberVirus, new ZaltanEffect()));
         }
     }
 

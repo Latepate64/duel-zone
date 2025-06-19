@@ -1,4 +1,5 @@
-﻿using Effects.Continuous;
+﻿using Abilities.Triggered;
+using Effects.Continuous;
 
 namespace Cards.Cards.DM10
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM10
     {
         public ZeroNemesisShadowOfPanic() : base("Zero Nemesis, Shadow of Panic", 6, 6000, Engine.Race.Ghost, Engine.Civilization.Darkness)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverAnyOfYourCreaturesAttacksAbility(new OneShotEffects.OpponentDiscardsCardAtRandomEffect()));
+            AddTriggeredAbility(new WheneverAnyOfYourCreaturesAttacksAbility(new OneShotEffects.OpponentDiscardsCardAtRandomEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

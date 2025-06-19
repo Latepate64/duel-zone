@@ -2,7 +2,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public abstract class WheneverCreatureAttacksAbility : CardTriggeredAbility
 {

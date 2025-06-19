@@ -1,7 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
@@ -9,7 +9,8 @@ public class WhenYouPutThisCreatureIntoTheBattleZoneAbility : WheneverCreatureIs
     {
     }
 
-    public WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) : base(ability)
+    public WhenYouPutThisCreatureIntoTheBattleZoneAbility(WhenYouPutThisCreatureIntoTheBattleZoneAbility ability) :
+        base(ability)
     {
     }
 

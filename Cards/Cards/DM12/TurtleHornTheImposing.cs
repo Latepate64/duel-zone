@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 
 namespace Cards.Cards.DM12
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM12
     {
         public TurtleHornTheImposing() : base("Turtle Horn, the Imposing", 3, 2000, Race.HornedBeast, Civilization.Nature)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(new OneShotEffects.SearchCreatureEffect()));
+            AddTriggeredAbility(new WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(new OneShotEffects.SearchCreatureEffect()));
         }
     }
 }

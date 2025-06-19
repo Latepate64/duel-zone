@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public BallusDogfightEnforcerQ() : base("Ballus, Dogfight Enforcer Q", 5, 3000, [Engine.Race.Survivor, Engine.Race.Berserker], Engine.Civilization.Light)
         {
-            AddStaticAbilities(new SurvivorEffect(new TriggeredAbilities.AtTheEndOfYourTurnAbility(
+            AddStaticAbilities(new SurvivorEffect(new AtTheEndOfYourTurnAbility(
                 new OneShotEffects.UntapThisCreatureEffect())));
         }
     }

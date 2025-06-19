@@ -1,4 +1,5 @@
-﻿using Effects.Continuous;
+﻿using Abilities.Triggered;
+using Effects.Continuous;
 
 namespace Cards.Cards.DM05
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM05
         public LaByleSeekerOfTheWinds() : base("La Byle, Seeker of the Winds", 7, 5000, Engine.Race.MechaThunder, Engine.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
         }
     }
 }

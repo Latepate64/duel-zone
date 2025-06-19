@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 
 namespace Cards.Cards.DM05
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM05
         public AvalancheGiant() : base("Avalanche Giant", 6, 8000, Engine.Race.Giant, Engine.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 
 namespace Cards.Cards.DM06
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM06
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WhenThisCreatureBattlesAbility(new OneShotEffects.DestroyAfterBattleEffect()));
+            AddTriggeredAbility(new WhenThisCreatureBattlesAbility(new OneShotEffects.DestroyAfterBattleEffect()));
         }
     }
 }

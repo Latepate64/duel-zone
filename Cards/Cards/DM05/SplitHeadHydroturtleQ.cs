@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM05
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM05
     {
         public SplitHeadHydroturtleQ() : base("Split-Head Hydroturtle Q", 5, 2000, [Engine.Race.Survivor, Engine.Race.GelFish], Engine.Civilization.Water)
         {
-            AddStaticAbilities(new SurvivorEffect(new TriggeredAbilities.WheneverThisCreatureAttacksAbility(
+            AddStaticAbilities(new SurvivorEffect(new WheneverThisCreatureAttacksAbility(
                 new OneShotEffects.YouMayDrawCardEffect())));
         }
     }

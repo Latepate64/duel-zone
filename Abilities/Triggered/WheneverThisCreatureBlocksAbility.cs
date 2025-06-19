@@ -2,7 +2,7 @@
 using Engine.Abilities;
 using Engine.GameEvents;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
 {

@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 using Engine.Abilities;
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM12
         public TropicCrawler() : base("Tropic Crawler", 4, 3000, Race.EarthEater, Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBlocksAbility(new TropicCrawlerEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new TropicCrawlerEffect()));
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

@@ -1,9 +1,8 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
-using System.Linq;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WhenThisCreatureWinsBattleAbility : CardTriggeredAbility
 {

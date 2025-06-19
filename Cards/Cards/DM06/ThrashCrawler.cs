@@ -1,5 +1,6 @@
-﻿using Cards.ContinuousEffects;
-using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
+using Abilities.Triggered;
 using Effects.Continuous;
 
 namespace Cards.Cards.DM06

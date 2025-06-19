@@ -1,7 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class WheneverThisCreatureAttacksAbility : WheneverCreatureAttacksAbility
 {

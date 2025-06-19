@@ -1,4 +1,5 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
+using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using System.Linq;

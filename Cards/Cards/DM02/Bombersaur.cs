@@ -1,6 +1,6 @@
 ﻿using Abilities.Triggered;
 using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
+using Abilities.Triggered;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM02

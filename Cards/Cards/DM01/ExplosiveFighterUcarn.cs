@@ -1,5 +1,6 @@
-﻿using Cards.OneShotEffects;
-using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
+using Cards.OneShotEffects;
+using Abilities.Triggered;
 using Effects.Continuous;
 
 namespace Cards.Cards.DM01

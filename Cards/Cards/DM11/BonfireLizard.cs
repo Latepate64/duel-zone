@@ -1,4 +1,5 @@
 ﻿using Abilities.Static;
+using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM11
     {
         public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Race.MeltWarrior, Civilization.Fire)
         {
-            AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BonfireLizardEffect()));
+            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BonfireLizardEffect()));
         }
     }
 

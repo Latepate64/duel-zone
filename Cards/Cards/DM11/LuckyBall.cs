@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM11
+﻿using Abilities.Triggered;
+
+namespace Cards.Cards.DM11
 {
     class LuckyBall : Engine.Creature
     {
         public LuckyBall() : base("Lucky Ball", 4, 3000, Engine.Race.CyberVirus, Engine.Civilization.Water)
         {
-            AddTriggeredAbility(new TriggeredAbilities.DedreenTheHiddenCorrupterAbility(3, new OneShotEffects.YouMayDrawUpToTwoCardsEffect()));
+            AddTriggeredAbility(new DedreenTheHiddenCorrupterAbility(3, new OneShotEffects.YouMayDrawUpToTwoCardsEffect()));
         }
     }
 }

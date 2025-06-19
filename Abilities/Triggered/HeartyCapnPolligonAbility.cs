@@ -1,8 +1,8 @@
-﻿using Engine;
+﻿using Effects.OneShot;
+using Engine;
 using Engine.GameEvents;
-using System.Linq;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
 {

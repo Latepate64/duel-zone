@@ -1,12 +1,12 @@
 ﻿using Engine;
 using Engine.Abilities;
-using System.Linq;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 public class AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility : AtTheEndOfYourTurnAbility
 {
-    public AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility() : base(new OneShotEffects.DestroyThisCreatureEffect())
+    public AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility(IOneShotEffect effect) : base(
+        effect)
     {
     }
 

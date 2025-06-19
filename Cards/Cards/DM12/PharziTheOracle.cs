@@ -1,5 +1,5 @@
 ﻿using Abilities.Triggered;
-using Cards.TriggeredAbilities;
+using Abilities.Triggered;
 
 namespace Cards.Cards.DM12
 {

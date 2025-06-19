@@ -3,7 +3,7 @@ using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
 
-namespace Cards.TriggeredAbilities;
+namespace Abilities.Triggered;
 
 /// <summary>
 /// Delayed triggered ability that reads "Whenever X happens this turn, Y happens.".

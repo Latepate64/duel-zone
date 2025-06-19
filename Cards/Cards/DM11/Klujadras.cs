@@ -1,4 +1,5 @@
 ﻿using Abilities.Static;
+using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM11
     {
         public Klujadras() : base("Klujadras", 7, 4000, Race.SeaHacker, Civilization.Water)
         {
-            AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KlujadrasEffect()));
+            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KlujadrasEffect()));
         }
     }
 

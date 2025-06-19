@@ -1,7 +1,7 @@
 using Engine;
 using Engine.Abilities;
 
-namespace Cards.TriggeredAbilities;
+namespace Effects.OneShot;
 
 public class HeartyCapnPolligonEffect : OneShotEffect
 {

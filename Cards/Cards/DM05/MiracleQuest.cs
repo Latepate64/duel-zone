@@ -1,4 +1,4 @@
-﻿using Cards.TriggeredAbilities;
+﻿using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;

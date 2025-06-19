@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 using Effects.Continuous;
 using Engine;
 
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM12
         {
             AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new BolmeteusEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WhenThisCreatureLeavesBattleZoneAbility(new OneShotEffects.YourOpponentDiscardsHisHandEffect()));
+            AddTriggeredAbility(new WhenThisCreatureLeavesBattleZoneAbility(new OneShotEffects.YourOpponentDiscardsHisHandEffect()));
         }
     }
 }

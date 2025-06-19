@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM08
+﻿using Abilities.Triggered;
+
+namespace Cards.Cards.DM08
 {
     class QuixoticHeroSwineSnout : Engine.Creature
     {
         public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, 1000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
-            AddTriggeredAbility(new TriggeredAbilities.WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
+            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
         }
     }
 }

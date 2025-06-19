@@ -1,4 +1,5 @@
-﻿using Effects.Continuous;
+﻿using Abilities.Triggered;
+using Effects.Continuous;
 
 namespace Cards.Cards.DM06
 {
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM06
         {
             AddStaticAbilities(new PowerAttackerEffect(3000));
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
         }
     }
 }

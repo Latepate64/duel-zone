@@ -1,4 +1,5 @@
-﻿using Cards.OneShotEffects;
+﻿using Abilities.Triggered;
+using Cards.OneShotEffects;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM11
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM11
     {
         public JagilaTheHiddenPillager() : base("Jagila, the Hidden Pillager", 5, 3000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
         {
-            AddWaveStrikerAbility(new TriggeredAbilities.WhenYouPutThisCreatureIntoTheBattleZoneAbility(new JagilaEffect()));
+            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new JagilaEffect()));
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Abilities.Triggered;
+using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
@@ -18,7 +19,7 @@ namespace Cards.ContinuousEffects
         {
             if (Controller.ChooseToTakeAction(ToString()))
             {
-                game.AddReflexiveTriggeredAbility(new TriggeredAbilities.ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
+                game.AddReflexiveTriggeredAbility(new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
                 return new CardMovedEvent(gameEvent as ICardMovedEvent)
                 {
                     Destination = ZoneType.Hand
