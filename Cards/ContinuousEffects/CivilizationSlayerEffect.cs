@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.Continuous;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -23,7 +24,7 @@ namespace Cards.ContinuousEffects
             return IsSourceOfAbility(creature) && against.Civilizations.Intersect(Civilizations).Any();
         }
 
-        public override ContinuousEffect Copy()
+        public override IContinuousEffect Copy()
         {
             return new CivilizationSlayerEffect(this);
         }

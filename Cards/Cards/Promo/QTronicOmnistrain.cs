@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.Continuous;
+using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
@@ -13,7 +14,7 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class QTronicOmnistrainEffect : ContinuousEffects.ContinuousEffect, IRaceAddingEffect
+    class QTronicOmnistrainEffect : ContinuousEffect, IRaceAddingEffect
     {
         public void AddRace(IGame game)
         {

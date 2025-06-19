@@ -1,5 +1,6 @@
 ﻿using Cards.ContinuousEffects;
 using Engine;
+using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
 namespace Cards.Cards.DM04
@@ -22,7 +23,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public override ContinuousEffect Copy()
+        public override IContinuousEffect Copy()
         {
             return new SupportingTulipEffect(this);
         }

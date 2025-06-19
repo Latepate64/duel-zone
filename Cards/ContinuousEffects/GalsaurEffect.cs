@@ -1,4 +1,5 @@
 ﻿using Cards.StaticAbilities;
+using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;

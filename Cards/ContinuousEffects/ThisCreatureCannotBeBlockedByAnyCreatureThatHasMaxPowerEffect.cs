@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.Continuous;
+using Engine;
 using Engine.ContinuousEffects;
 
 namespace Cards.ContinuousEffects
