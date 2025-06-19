@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public BallomMasterOfDeath() : base("Ballom, Master of Death", 8, 12000, Race.DemonCommand, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BallomMasterOfDeathEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

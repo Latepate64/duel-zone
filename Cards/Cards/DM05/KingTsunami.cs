@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM05
     {
         public KingTsunami() : base("King Tsunami", 12, 12000, Race.Leviathan, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingTsunamiEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingTsunamiEffect()));
             AddStaticAbilities(new TripleBreakerEffect());
         }
     }

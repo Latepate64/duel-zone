@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM09
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM09
     {
         public WhisperingTotem() : base("Whispering Totem", 4, 2000, Engine.Race.MysteryTotem, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new WhisperingTotemEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WhisperingTotemEffect()));
         }
     }
 

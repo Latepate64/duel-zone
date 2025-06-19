@@ -1,4 +1,5 @@
 ﻿using Cards.StaticAbilities;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM02
     {
         public LarbaGeerTheImmaculate() : base("Larba Geer, the Immaculate", 3, 5000, Race.Guardian, Civilization.Light)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new LarbaGeerTheImmaculateEffect()));
         }
     }
 

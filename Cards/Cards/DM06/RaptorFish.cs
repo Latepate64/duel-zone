@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM06
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM06
     {
         public RaptorFish() : base("Raptor Fish", 6, 3000, Race.GelFish, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new RaptorFishEffect()));
         }
     }
 

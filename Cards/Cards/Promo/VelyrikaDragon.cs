@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.Promo
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.Promo
     {
         public VelyrikaDragon() : base("Velyrika Dragon", 7, 7000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchRaceCreatureEffect(Engine.Race.ArmoredDragon));
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchRaceCreatureEffect(Engine.Race.ArmoredDragon)));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

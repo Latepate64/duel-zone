@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4, 3000, Engine.Race.Initiate, Engine.Civilization.Light)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawCardEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawCardEffect()));
         }
     }
 }

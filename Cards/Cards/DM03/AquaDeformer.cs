@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM03
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public AquaDeformer() : base("Aqua Deformer", 8, 3000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaDeformerEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaDeformerEffect()));
         }
     }
 

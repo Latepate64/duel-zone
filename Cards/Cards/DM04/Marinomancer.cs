@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM04
     {
         public Marinomancer() : base("Marinomancer", 5, 2000, Race.CyberLord, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new MarinomancerEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new MarinomancerEffect()));
         }
     }
 

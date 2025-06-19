@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public GalklifeDragon() : base("Galklife Dragon", 7, 6000, Race.ArmoredDragon, Civilization.Fire)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalklifeDragonEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalklifeDragonEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

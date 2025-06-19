@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM06
     {
         public MidnightCrawler() : base("Midnight Crawler", 8, 6000, Engine.Race.EarthEater, Engine.Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

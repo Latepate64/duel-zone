@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM12
         public FunkyWizard() : base("Funky Wizard", 4, 2000, Race.Merfolk, Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new FunkyWizardEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new FunkyWizardEffect()));
         }
     }
 

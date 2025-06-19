@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM11
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM11
     {
         public DiamondiaTheBlizzardRider() : base("Diamondia, the Blizzard Rider", 3, 5000, Race.SnowFaerie, Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DiamondiaTheBlizzardRiderEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DiamondiaTheBlizzardRiderEffect()));
         }
     }
 

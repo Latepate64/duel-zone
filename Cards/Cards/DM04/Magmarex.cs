@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM04
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM04
         public Magmarex() : base("Magmarex", 5, 3000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
             AddShieldTrigger();
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAllCreaturesThatHaveExactPower(1000));
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAllCreaturesThatHaveExactPower(1000)));
         }
     }
 }

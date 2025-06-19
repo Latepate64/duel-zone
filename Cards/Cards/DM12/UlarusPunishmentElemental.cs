@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM12
     {
         public UlarusPunishmentElemental() : base("Ularus, Punishment Elemental", 5, 4500, Race.AngelCommand, Civilization.Light)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new UlarusEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new UlarusEffect()));
         }
     }
 

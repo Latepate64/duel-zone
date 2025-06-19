@@ -1,4 +1,5 @@
 ﻿using Cards.StaticAbilities;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM02
     {
         public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Race.LiquidPeople, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CrystalPaladinEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CrystalPaladinEffect()));
         }
     }
 

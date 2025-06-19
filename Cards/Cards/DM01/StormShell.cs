@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public StormShell() : base("Storm Shell", 7, 2000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect()));
         }
     }
 }

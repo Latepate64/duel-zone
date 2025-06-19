@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM12
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM12
         public Gigabalza() : base("Gigabalza", 4, 1000, Engine.Race.Chimera, Engine.Civilization.Darkness)
         {
             AddShieldTrigger();
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentDiscardsCardAtRandomEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentDiscardsCardAtRandomEffect()));
         }
     }
 }

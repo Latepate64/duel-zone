@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
         public KaratePotato() : base("Karate Potato", 4, 1000, Engine.Race.WildVeggies, Engine.Civilization.Nature)
         {
             AddShieldTrigger();
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KaratePotatoEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KaratePotatoEffect()));
         }
     }
 

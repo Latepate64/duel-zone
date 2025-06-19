@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public Meteosaur() : base("Meteosaur", 5, 2000, Engine.Race.RockBeast, Engine.Civilization.Fire)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(2000)));
         }
     }
 }

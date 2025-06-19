@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -10,7 +11,7 @@ namespace Cards.Cards.DM04
     {
         public KingAquakamui() : base("King Aquakamui", 7, 5000, Race.Leviathan, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KingAquakamuiOneShotEffect()));
             AddStaticAbilities(new KingAquakamuiContinuousEffect());
         }
     }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM12
     {
         public WilyCarpenter() : base("Wily Carpenter", 3, 1000, Engine.Race.Merfolk, Engine.Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new WilyCarpenterEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WilyCarpenterEffect()));
         }
     }
 

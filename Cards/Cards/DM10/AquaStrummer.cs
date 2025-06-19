@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public AquaStrummer() : base("Aqua Strummer", 3, 2000, Race.LiquidPeople, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaStrummerEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaStrummerEffect()));
         }
     }
 

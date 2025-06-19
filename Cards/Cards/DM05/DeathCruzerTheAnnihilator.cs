@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM05
     {
         public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Race.DemonCommand, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect()));
             AddStaticAbilities(new TripleBreakerEffect());
         }
     }

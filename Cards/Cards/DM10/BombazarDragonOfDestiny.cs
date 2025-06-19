@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Cards.Cards.DM10
         {
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
         }
     }
 

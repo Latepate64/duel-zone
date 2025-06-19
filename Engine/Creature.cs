@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Abilities;
 
 namespace Engine;
 
@@ -84,9 +85,14 @@ public class Creature(
     {
         Power += power;
     }
-    
+
     public override Creature Copy()
     {
         return new Creature(this);
+    }
+    
+    protected void AddTriggeredAbility(ITriggeredAbility ability)
+    {
+        AddAbilities(ability);
     }
 }

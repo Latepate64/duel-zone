@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM12
     {
         public Gigarayze() : base("Gigarayze", 4, 2000, Race.Chimera, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigarayzeEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GigarayzeEffect()));
         }
     }
 

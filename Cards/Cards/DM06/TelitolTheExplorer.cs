@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM06
         public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Race.Gladiator, Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TelitolTheExplorerEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TelitolTheExplorerEffect()));
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

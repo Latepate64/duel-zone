@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM11
     {
         public TimeScout() : base("Time Scout", 2, 1000, Race.Merfolk, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TimeScoutEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TimeScoutEffect()));
         }
     }
 

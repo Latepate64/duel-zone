@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, [Race.Human, Race.BeastFolk], Civilization.Fire, Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageEffect()));
         }
     }
 

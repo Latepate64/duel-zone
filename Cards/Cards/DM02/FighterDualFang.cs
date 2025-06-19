@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM02
     {
         public FighterDualFang() : base("Fighter Dual Fang", 6, 8000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.PutTopTwoCardOfDeckIntoManaZoneEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.PutTopTwoCardOfDeckIntoManaZoneEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

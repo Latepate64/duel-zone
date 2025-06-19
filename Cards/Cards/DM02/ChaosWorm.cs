@@ -1,10 +1,12 @@
-﻿namespace Cards.Cards.DM02
+﻿using Cards.TriggeredAbilities;
+
+namespace Cards.Cards.DM02
 {
     class ChaosWorm : EvolutionCreature
     {
         public ChaosWorm() : base("Chaos Worm", 5, 5000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesEffect()));
         }
     }
 }

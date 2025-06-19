@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public DolmarksTheShadowWarrior() : base("Dolmarks, the Shadow Warrior", 4, 4000, [Race.Ghost, Race.Human], Civilization.Darkness, Civilization.Fire)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new DolmarksTheShadowWarriorEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DolmarksTheShadowWarriorEffect()));
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM07
     {
         public TrenchdiveShark() : base("Trenchdive Shark", 7, 5000, Race.GelFish, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TrenchdiveSharkEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TrenchdiveSharkEffect()));
         }
     }
 

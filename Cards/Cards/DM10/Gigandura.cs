@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public Gigandura() : base("Gigandura", 5, 3000, Race.Chimera, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new GiganduraEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GiganduraEffect()));
         }
     }
 

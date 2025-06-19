@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 
 namespace Cards.Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM01
     {
         public SwampWorm() : base("Swamp Worm", 7, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentSacrificeEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentSacrificeEffect()));
         }
     }
 }

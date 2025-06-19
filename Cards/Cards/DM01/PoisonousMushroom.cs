@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM01
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM01
     {
         public PoisonousMushroom() : base("Poisonous Mushroom", 2, 1000, Engine.Race.BalloonMushroom, Engine.Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonousMushroomEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonousMushroomEffect()));
         }
     }
 

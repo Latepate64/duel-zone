@@ -1,4 +1,5 @@
 ﻿using Cards.OneShotEffects;
+using Cards.TriggeredAbilities;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM03
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM03
     {
         public Shtra() : base("Shtra", 4, 2000, Engine.Race.CyberLord, Engine.Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new ShtraEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ShtraEffect()));
         }
     }
 

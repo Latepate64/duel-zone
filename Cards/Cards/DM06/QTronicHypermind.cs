@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM06
     {
         public QTronicHypermind() : base("Q-tronic Hypermind", 8, 8000, Race.Survivor, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new QTronicHypermindEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new QTronicHypermindEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, [Race.Initiate, Race.LiquidPeople], Civilization.Light, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect()));
         }
     }
 

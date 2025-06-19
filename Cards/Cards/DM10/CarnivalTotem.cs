@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM10
         public CarnivalTotem() : base("Carnival Totem", 6, 7000, Race.MysteryTotem, Civilization.Nature)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new CarnivalTotemEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new CarnivalTotemEffect()));
         }
     }
 

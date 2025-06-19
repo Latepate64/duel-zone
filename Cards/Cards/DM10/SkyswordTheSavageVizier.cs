@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public SkyswordTheSavageVizier() : base("Skysword, the Savage Vizier", 5, 2000, [Race.BeastFolk, Race.Initiate], Civilization.Light, Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SkyswordTheSavageVizierEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SkyswordTheSavageVizierEffect()));
         }
     }
 

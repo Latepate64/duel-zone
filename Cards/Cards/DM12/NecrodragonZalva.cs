@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM12
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM12
     {
         public NecrodragonZalva() : base("Necrodragon Zalva", 4, 5000, Race.ZombieDragon, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonZalvaEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonZalvaEffect()));
         }
     }
 

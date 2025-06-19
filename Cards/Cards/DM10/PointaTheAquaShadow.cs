@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM10
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM10
     {
         public PointaTheAquaShadow() : base("Pointa, the Aqua Shadow", 5, 2000, [Race.LiquidPeople, Race.Ghost], Civilization.Water, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new PointaTheAquaShadowEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PointaTheAquaShadowEffect()));
         }
     }
 

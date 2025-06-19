@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM10
     {
         public SparkChemistShadowOfWhim() : base("Spark Chemist, Shadow of Whim", 2, 3000, Race.Ghost, Civilization.Darkness)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new SparkChemistShadowOfWhimEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SparkChemistShadowOfWhimEffect()));
         }
     }
 

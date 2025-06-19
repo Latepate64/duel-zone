@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Cards.TriggeredAbilities;
+using Engine;
 using Engine.Abilities;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Cards.Cards.DM09
     {
         public Tekorax() : base("Tekorax", 5, 3000, Race.SeaHacker, Civilization.Water)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TekoraxEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TekoraxEffect()));
         }
     }
 

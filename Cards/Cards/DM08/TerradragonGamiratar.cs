@@ -1,4 +1,5 @@
 ﻿using Cards.ContinuousEffects;
+using Cards.TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Cards.Cards.DM08
     {
         public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Race.EarthDragon, Civilization.Nature)
         {
-            AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(new TerradragonGamiratarEffect());
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TerradragonGamiratarEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }
