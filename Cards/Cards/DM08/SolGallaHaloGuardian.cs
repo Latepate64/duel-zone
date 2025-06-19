@@ -1,4 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using Abilities.Triggered;
+using Cards.ContinuousEffects;
 
 namespace Cards.Cards.DM08
 {
@@ -7,7 +8,7 @@ namespace Cards.Cards.DM08
         public SolGallaHaloGuardian() : base("Sol Galla, Halo Guardian", 2, 1000, Engine.Race.Guardian, Engine.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddTriggeredAbility(new TriggeredAbilities.WheneverPlayerCastsSpellAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
+            AddTriggeredAbility(new WheneverPlayerCastsSpellAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
         }
     }
 }
