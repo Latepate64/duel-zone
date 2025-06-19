@@ -3,35 +3,34 @@ using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect, IMultiCivilizationable
 {
-    class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect, IMultiCivilizationable
+    public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect effect) : base(effect)
     {
-        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect effect) : base(effect)
-        {
-            Civilizations = effect.Civilizations;
-        }
+        Civilizations = effect.Civilizations;
+    }
 
-        public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base()
-        {
-            Civilizations = civilizations;
-        }
+    public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base()
+    {
+        Civilizations = civilizations;
+    }
 
-        public Civilization[] Civilizations { get; }
+    public Civilization[] Civilizations { get; }
 
-        public bool Applies(Creature attacker, Creature targetOfAttack, IGame game)
-        {
-            return IsSourceOfAbility(targetOfAttack) && attacker.Civilizations.Intersect(Civilizations).Any();
-        }
+    public bool Applies(Creature attacker, Creature targetOfAttack, IGame game)
+    {
+        return IsSourceOfAbility(targetOfAttack) && attacker.Civilizations.Intersect(Civilizations).Any();
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return $"This creature can't be attacked by {string.Join(" or ", Civilizations.Select(x => x.ToString().ToLower()))} creatures.";
-        }
+    public override string ToString()
+    {
+        return $"This creature can't be attacked by {string.Join(" or ", Civilizations.Select(x => x.ToString().ToLower()))} creatures.";
     }
 }

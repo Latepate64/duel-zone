@@ -1,52 +1,19 @@
 ﻿using Effects.Continuous;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public abstract class CrewBreakerEffect : ContinuousEffect, IBreakerEffect
 {
-    abstract class CrewBreakerEffect : ContinuousEffect, IBreakerEffect
+    protected CrewBreakerEffect(CrewBreakerEffect effect) : base(effect)
     {
-        protected CrewBreakerEffect(CrewBreakerEffect effect) : base(effect)
-        {
-        }
-
-        protected CrewBreakerEffect() : base()
-        {
-            
-        }
-
-        public abstract int GetAmount(IGame game, Creature creature);
     }
 
-    class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
+    protected CrewBreakerEffect() : base()
     {
-        public Race Race { get; }
-
-        public CrewBreakerRaceEffect(CrewBreakerRaceEffect effect) : base(effect)
-        {
-            Race = effect.Race;
-        }
-
-        public CrewBreakerRaceEffect(Race race) : base()
-        {
-            Race = race;
-        }
-
-        public override string ToString()
-        {
-            return $"Crew breaker - {Race}";
-        }
-
-        public override int GetAmount(IGame game, Creature creature)
-        {
-            var ability = Ability;
-            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller.Id).Count(x => x != ability.Source && x.HasRace(Race)) : 1;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new CrewBreakerRaceEffect(this);
-        }
+        
     }
+
+    public abstract int GetAmount(IGame game, Creature creature);
 }

@@ -4,32 +4,31 @@ using Engine.ContinuousEffects;
 using GameEvents;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect : ContinuousEffect, ICannotUseCardEffect
 {
-    class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect : ContinuousEffect, ICannotUseCardEffect
+    public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect()
     {
-        public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect()
-        {
-        }
+    }
 
-        public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect effect) : base(effect)
-        {
-        }
+    public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect effect) : base(effect)
+    {
+    }
 
-        public bool Applies(Card card, IGame game)
-        {
-            // If player cast no spells during the turn, the creature cannot be summoned.
-            return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Controller);
-        }
+    public bool Applies(Card card, IGame game)
+    {
+        // If player cast no spells during the turn, the creature cannot be summoned.
+        return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Controller);
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "You can summon this creature only if you have cast a spell this turn.";
-        }
+    public override string ToString()
+    {
+        return "You can summon this creature only if you have cast a spell this turn.";
     }
 }

@@ -3,47 +3,46 @@ using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class GigastandEffect : DestructionReplacementEffect
 {
-    class GigastandEffect : DestructionReplacementEffect
+    public GigastandEffect() : base()
     {
-        public GigastandEffect() : base()
-        {
-        }
+    }
 
-        public GigastandEffect(GigastandEffect effect) : base(effect)
-        {
-        }
+    public GigastandEffect(GigastandEffect effect) : base(effect)
+    {
+    }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+    public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+    {
+        if (Controller.ChooseToTakeAction(ToString()))
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            game.AddReflexiveTriggeredAbility(new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
-                game.AddReflexiveTriggeredAbility(new ReflexiveTriggeredAbility(new OneShotEffects.DiscardCardFromYourHandEffect(), Ability));
-                return new CardMovedEvent(gameEvent as ICardMovedEvent)
-                {
-                    Destination = ZoneType.Hand
-                };
-            }
-            else
-            {
-                return gameEvent;
-            }
+                Destination = ZoneType.Hand
+            };
         }
-
-        public override IContinuousEffect Copy()
+        else
         {
-            return new GigastandEffect(this);
+            return gameEvent;
         }
+    }
 
-        public override string ToString()
-        {
-            return "When this creature would be destroyed, you may return it to your hand instead. If you do, discard a card from your hand.";
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new GigastandEffect(this);
+    }
 
-        protected override bool Applies(Creature card, IGame game)
-        {
-            return IsSourceOfAbility(card);
-        }
+    public override string ToString()
+    {
+        return "When this creature would be destroyed, you may return it to your hand instead. If you do, discard a card from your hand.";
+    }
+
+    protected override bool Applies(Creature card, IGame game)
+    {
+        return IsSourceOfAbility(card);
     }
 }

@@ -2,41 +2,40 @@
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, ICivilizationable
 {
-    class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, ICivilizationable
+    public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect effect) : base(effect)
     {
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect effect) : base(effect)
-        {
-            Civilization = effect.Civilization;
-            Power = effect.Power;
-        }
+        Civilization = effect.Civilization;
+        Power = effect.Power;
+    }
 
-        public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(int power, Civilization civilization) : base()
-        {
-            Civilization = civilization;
-            Power = power;
-        }
+    public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(int power, Civilization civilization) : base()
+    {
+        Civilization = civilization;
+        Power = power;
+    }
 
-        public int Power { get; }
-        public Civilization Civilization { get; }
+    public int Power { get; }
+    public Civilization Civilization { get; }
 
-        public override IContinuousEffect Copy()
-        {
-            return new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(this);
+    }
 
-        public void ModifyPower(IGame game)
+    public void ModifyPower(IGame game)
+    {
+        if (Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization))
         {
-            if (Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization))
-            {
-                (Source as Creature).IncreasePower(Power);
-            }
+            (Source as Creature).IncreasePower(Power);
         }
+    }
 
-        public override string ToString()
-        {
-            return $"While all the cards in your mana zone are {Civilization.ToString().ToLower()} cards, this creature gets +{Power} power.";
-        }
+    public override string ToString()
+    {
+        return $"While all the cards in your mana zone are {Civilization.ToString().ToLower()} cards, this creature gets +{Power} power.";
     }
 }

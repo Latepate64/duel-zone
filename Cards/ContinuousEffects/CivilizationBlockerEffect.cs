@@ -3,35 +3,34 @@ using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect, IMultiCivilizationable
 {
-    class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect, IMultiCivilizationable
+    public CivilizationBlockerEffect(params Civilization[] civilizations) : base()
     {
-        public CivilizationBlockerEffect(params Civilization[] civilizations) : base()
-        {
-            Civilizations = civilizations;
-        }
+        Civilizations = civilizations;
+    }
 
-        public CivilizationBlockerEffect(CivilizationBlockerEffect effect) : base(effect)
-        {
-            Civilizations = effect.Civilizations;
-        }
+    public CivilizationBlockerEffect(CivilizationBlockerEffect effect) : base(effect)
+    {
+        Civilizations = effect.Civilizations;
+    }
 
-        public Civilization[] Civilizations { get; }
+    public Civilization[] Civilizations { get; }
 
-        public bool CanBlock(Creature blocker, Creature attacker, IGame game)
-        {
-            return IsSourceOfAbility(blocker) && attacker.Civilizations.Intersect(Civilizations).Any();
-        }
+    public bool CanBlock(Creature blocker, Creature attacker, IGame game)
+    {
+        return IsSourceOfAbility(blocker) && attacker.Civilizations.Intersect(Civilizations).Any();
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new CivilizationBlockerEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new CivilizationBlockerEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return $"{string.Join(" and ", Civilizations.Select(x => x.ToString().ToLower()))} blocker";
-        }
+    public override string ToString()
+    {
+        return $"{string.Join(" and ", Civilizations.Select(x => x.ToString().ToLower()))} blocker";
     }
 }

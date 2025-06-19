@@ -2,31 +2,30 @@
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
 {
-    public class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
+    public ThisCreatureCannotBeBlockedEffect(ThisCreatureCannotBeBlockedEffect effect) : base(effect)
     {
-        public ThisCreatureCannotBeBlockedEffect(ThisCreatureCannotBeBlockedEffect effect) : base(effect)
-        {
-        }
+    }
 
-        public ThisCreatureCannotBeBlockedEffect() : base()
-        {
-        }
+    public ThisCreatureCannotBeBlockedEffect() : base()
+    {
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureCannotBeBlockedEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureCannotBeBlockedEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "This creature can't be blocked.";
-        }
+    public override string ToString()
+    {
+        return "This creature can't be blocked.";
+    }
 
-        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
-        {
-            return IsSourceOfAbility(attacker);
-        }
+    public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
+    {
+        return IsSourceOfAbility(attacker);
     }
 }

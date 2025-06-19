@@ -1,31 +1,30 @@
 ﻿using Engine;
 using Engine.GameEvents;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public abstract class DestructionReplacementOptionallyToHandEffect : DestructionReplacementEffect
 {
-    abstract class DestructionReplacementOptionallyToHandEffect : DestructionReplacementEffect
+    public DestructionReplacementOptionallyToHandEffect() : base()
     {
-        public DestructionReplacementOptionallyToHandEffect() : base()
-        {
-        }
+    }
 
-        public DestructionReplacementOptionallyToHandEffect(DestructionReplacementOptionallyToHandEffect effect) : base(effect)
-        {
-        }
+    public DestructionReplacementOptionallyToHandEffect(DestructionReplacementOptionallyToHandEffect effect) : base(effect)
+    {
+    }
 
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+    public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+    {
+        if (Controller.ChooseToTakeAction(ToString()))
         {
-            if (Controller.ChooseToTakeAction(ToString()))
+            return new CardMovedEvent(gameEvent as ICardMovedEvent)
             {
-                return new CardMovedEvent(gameEvent as ICardMovedEvent)
-                {
-                    Destination = ZoneType.Hand
-                };
-            }
-            else
-            {
-                return gameEvent;
-            }
+                Destination = ZoneType.Hand
+            };
+        }
+        else
+        {
+            return gameEvent;
         }
     }
 }

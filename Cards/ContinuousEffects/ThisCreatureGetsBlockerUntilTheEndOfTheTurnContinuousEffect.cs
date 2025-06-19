@@ -2,26 +2,25 @@
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
 {
-    class ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
+    public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect effect) : base(effect)
     {
-        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect effect) : base(effect)
-        {
-        }
+    }
 
-        public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params Card[] cards) : base(new BlockerAbility(), cards)
-        {
-        }
+    public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params Card[] cards) : base(new BlockerAbility(), cards)
+    {
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect();
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect();
+    }
 
-        public override string ToString()
-        {
-            return "This creature has \"blocker\" until the end of the turn.";
-        }
+    public override string ToString()
+    {
+        return "This creature has \"blocker\" until the end of the turn.";
     }
 }

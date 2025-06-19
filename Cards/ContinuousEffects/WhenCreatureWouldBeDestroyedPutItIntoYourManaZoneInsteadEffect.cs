@@ -1,47 +1,23 @@
 ﻿using Engine;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public abstract class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
 {
-    abstract class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : DestructionReplacementEffect
+    protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
     {
-        protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
-        {
-        }
-
-        protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
-        {
-        }
-
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            return new CardMovedEvent(gameEvent as ICardMovedEvent)
-            {
-                Destination = ZoneType.ManaZone
-            };
-        }
     }
 
-    class WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect : WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect
+    protected WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect effect) : base(effect)
     {
-        public WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
-        {
-        }
+    }
 
-        public override IContinuousEffect Copy()
+    public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+    {
+        return new CardMovedEvent(gameEvent as ICardMovedEvent)
         {
-            return new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect();
-        }
-
-        public override string ToString()
-        {
-            return "When this creature would be destroyed, put it into your mana zone instead.";
-        }
-
-        protected override bool Applies(Creature card, IGame game)
-        {
-            return IsSourceOfAbility(card);
-        }
+            Destination = ZoneType.ManaZone
+        };
     }
 }

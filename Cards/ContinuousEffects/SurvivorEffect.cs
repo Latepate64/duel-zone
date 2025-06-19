@@ -3,31 +3,30 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class SurvivorEffect : AbilityAddingEffect
 {
-    class SurvivorEffect : AbilityAddingEffect
+    public SurvivorEffect(SurvivorEffect effect) : base(effect)
     {
-        public SurvivorEffect(SurvivorEffect effect) : base(effect)
-        {
-        }
+    }
 
-        public SurvivorEffect(IAbility ability) : base(ability)
-        {
-        }
+    public SurvivorEffect(IAbility ability) : base(ability)
+    {
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new SurvivorEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new SurvivorEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return $"Survivor : {AbilitiesAsText}";
-        }
+    public override string ToString()
+    {
+        return $"Survivor : {AbilitiesAsText}";
+    }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game)
-        {
-            return game.BattleZone.GetCreatures(Controller.Id, Race.Survivor);
-        }
+    protected override IEnumerable<Card> GetAffectedCards(IGame game)
+    {
+        return game.BattleZone.GetCreatures(Controller.Id, Race.Survivor);
     }
 }

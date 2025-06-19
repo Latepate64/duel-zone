@@ -2,30 +2,29 @@
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {
-    class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+    private readonly int _power;
+
+    public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect effect) : base(effect)
     {
-        private readonly int _power;
+        _power = effect._power;
+    }
 
-        public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect effect) : base(effect)
-        {
-            _power = effect._power;
-        }
+    public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params Card[] cards) : base(new PowerAttackerAbility(power), cards)
+    {
+        _power = power;
+    }
 
-        public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params Card[] cards) : base(new PowerAttackerAbility(power), cards)
-        {
-            _power = power;
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(this);
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"This creature has \"power attacker +{_power}\" until the end of the turn.";
-        }
+    public override string ToString()
+    {
+        return $"This creature has \"power attacker +{_power}\" until the end of the turn.";
     }
 }

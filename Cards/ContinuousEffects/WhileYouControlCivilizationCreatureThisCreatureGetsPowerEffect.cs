@@ -3,41 +3,40 @@ using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, ICivilizationable
 {
-    class WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, ICivilizationable
+    public int Power { get; }
+    public Civilization Civilization { get; }
+
+    public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(int power, Civilization civilization) : base()
     {
-        public int Power { get; }
-        public Civilization Civilization { get; }
+        Civilization = civilization;
+        Power = power;
+    }
 
-        public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(int power, Civilization civilization) : base()
-        {
-            Civilization = civilization;
-            Power = power;
-        }
+    public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect effect) : base(effect)
+    {
+        Civilization = effect.Civilization;
+        Power = effect.Power;
+    }
 
-        public WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect effect) : base(effect)
-        {
-            Civilization = effect.Civilization;
-            Power = effect.Power;
-        }
+    public override ContinuousEffect Copy()
+    {
+        return new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(this);
+    }
 
-        public override ContinuousEffect Copy()
-        {
-            return new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(this);
-        }
+    public override string ToString()
+    {
+        return $"While you have a {Civilization} creature in the battle zone, this creature gets +{Power} power.";
+    }
 
-        public override string ToString()
+    public void ModifyPower(IGame game)
+    {
+        if (game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasCivilization(Civilization)))
         {
-            return $"While you have a {Civilization} creature in the battle zone, this creature gets +{Power} power.";
-        }
-
-        public void ModifyPower(IGame game)
-        {
-            if (game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasCivilization(Civilization)))
-            {
-                (Source as Creature).IncreasePower(Power);
-            }
+            (Source as Creature).IncreasePower(Power);
         }
     }
 }

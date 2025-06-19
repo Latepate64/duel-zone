@@ -3,35 +3,34 @@ using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect, IMultiCivilizationable
 {
-    class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect, IMultiCivilizationable
+    public CivilizationSlayerEffect(params Civilization[] civilizations) : base()
     {
-        public CivilizationSlayerEffect(params Civilization[] civilizations) : base()
-        {
-            Civilizations = civilizations;
-        }
+        Civilizations = civilizations;
+    }
 
-        public CivilizationSlayerEffect(CivilizationSlayerEffect effect) : base(effect)
-        {
-            Civilizations = effect.Civilizations;
-        }
+    public CivilizationSlayerEffect(CivilizationSlayerEffect effect) : base(effect)
+    {
+        Civilizations = effect.Civilizations;
+    }
 
-        public Civilization[] Civilizations { get; }
+    public Civilization[] Civilizations { get; }
 
-        public bool Applies(Creature creature, Card against, IGame game)
-        {
-            return IsSourceOfAbility(creature) && against.Civilizations.Intersect(Civilizations).Any();
-        }
+    public bool Applies(Creature creature, Card against, IGame game)
+    {
+        return IsSourceOfAbility(creature) && against.Civilizations.Intersect(Civilizations).Any();
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new CivilizationSlayerEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new CivilizationSlayerEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return $"{string.Join(" and ", Civilizations.Select(x => x.ToString().ToLower()))} slayer";
-        }
+    public override string ToString()
+    {
+        return $"{string.Join(" and ", Civilizations.Select(x => x.ToString().ToLower()))} slayer";
     }
 }

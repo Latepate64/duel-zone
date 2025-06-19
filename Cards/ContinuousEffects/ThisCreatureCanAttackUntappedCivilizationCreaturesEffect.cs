@@ -2,35 +2,34 @@
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, ICivilizationable
 {
-    class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, ICivilizationable
+    public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(ThisCreatureCanAttackUntappedCivilizationCreaturesEffect effect) : base(effect)
     {
-        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(ThisCreatureCanAttackUntappedCivilizationCreaturesEffect effect) : base(effect)
-        {
-            Civilization = effect.Civilization;
-        }
+        Civilization = effect.Civilization;
+    }
 
-        public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base()
-        {
-            Civilization = civilization;
-        }
+    public ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Civilization civilization) : base()
+    {
+        Civilization = civilization;
+    }
 
-        public Civilization Civilization { get; }
+    public Civilization Civilization { get; }
 
-        public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
-        {
-            return IsSourceOfAbility(attacker) && targetOfAttack.HasCivilization(Civilization);
-        }
+    public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
+    {
+        return IsSourceOfAbility(attacker) && targetOfAttack.HasCivilization(Civilization);
+    }
 
-        public override ContinuousEffect Copy()
-        {
-            return new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(this);
-        }
+    public override ContinuousEffect Copy()
+    {
+        return new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return $"This creature can attack untapped {Civilization.ToString().ToLower()} creatures.";
-        }
+    public override string ToString()
+    {
+        return $"This creature can attack untapped {Civilization.ToString().ToLower()} creatures.";
     }
 }

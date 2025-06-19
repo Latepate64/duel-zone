@@ -4,32 +4,31 @@ using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
 {
-    class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
+    public GalsaurEffect() : base()
     {
-        public GalsaurEffect() : base()
-        {
-        }
+    }
 
-        public void AddAbility(IGame game)
+    public void AddAbility(IGame game)
+    {
+        var ability = Ability;
+        if (!game.BattleZone.GetCreatures(ability.Controller.Id).Any(x => x != ability.Source))
         {
-            var ability = Ability;
-            if (!game.BattleZone.GetCreatures(ability.Controller.Id).Any(x => x != ability.Source))
-            {
-                Source.AddGrantedAbility(new PowerAttackerAbility(4000));
-                Source.AddGrantedAbility(new DoubleBreakerAbility());
-            }
+            Source.AddGrantedAbility(new PowerAttackerAbility(4000));
+            Source.AddGrantedAbility(new DoubleBreakerAbility());
         }
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new GalsaurEffect();
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new GalsaurEffect();
+    }
 
-        public override string ToString()
-        {
-            return "While you have no other creatures in the battle zone, this creature has \"power attacker +4000\" and \"double breaker.\"";
-        }
+    public override string ToString()
+    {
+        return "While you have no other creatures in the battle zone, this creature has \"power attacker +4000\" and \"double breaker.\"";
     }
 }

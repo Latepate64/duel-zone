@@ -2,21 +2,20 @@
 using Engine.GameEvents;
 using Engine.Steps;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public abstract class GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect : GetPowerAndDoubleBreakerEffect, IExpirable
 {
-    abstract class GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect : GetPowerAndDoubleBreakerEffect, IExpirable
+    public GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect(GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
     {
-        public GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect(GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
-        {
-        }
+    }
 
-        public GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect(int power) : base(power)
-        {
-        }
+    public GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect(int power) : base(power)
+    {
+    }
 
-        public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
-        }
+    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
+    {
+        return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 }

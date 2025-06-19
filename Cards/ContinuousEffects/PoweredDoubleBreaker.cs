@@ -2,27 +2,26 @@
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class PoweredDoubleBreaker : ContinuousEffect, IBreakerEffect
 {
-    class PoweredDoubleBreaker : ContinuousEffect, IBreakerEffect
+    public PoweredDoubleBreaker() : base()
     {
-        public PoweredDoubleBreaker() : base()
-        {
-        }
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new PoweredDoubleBreaker();
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new PoweredDoubleBreaker();
+    }
 
-        public int GetAmount(IGame game, Creature creature)
-        {
-            return IsSourceOfAbility(creature) && (Source as Creature).Power >= 6000 ? 2 : 1;
-        }
+    public int GetAmount(IGame game, Creature creature)
+    {
+        return IsSourceOfAbility(creature) && (Source as Creature).Power >= 6000 ? 2 : 1;
+    }
 
-        public override string ToString()
-        {
-            return "While this creature has power 6000 or more, it has \"double breaker.\"";
-        }
+    public override string ToString()
+    {
+        return "While this creature has power 6000 or more, it has \"double breaker.\"";
     }
 }

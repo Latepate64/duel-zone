@@ -2,38 +2,37 @@
 using Engine.ContinuousEffects;
 using System.Linq;
 
-namespace Cards.ContinuousEffects
+namespace Cards.ContinuousEffects;
+
+public class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
 {
-    class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
+    private readonly int _power;
+    private readonly Creature[] _cards;
+
+    public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
     {
-        private readonly int _power;
-        private readonly Creature[] _cards;
+        _power = effect._power;
+        _cards = effect._cards;
+    }
 
-        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
-        {
-            _power = effect._power;
-            _cards = effect._cards;
-        }
+    public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params Creature[] cards) : base()
+    {
+        _power = power;
+        _cards = cards;
+    }
 
-        public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params Creature[] cards) : base()
-        {
-            _power = power;
-            _cards = cards;
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(this);
-        }
+    public void ModifyPower(IGame game)
+    {
+        _cards.ToList().ForEach(x => x.IncreasePower(_power));
+    }
 
-        public void ModifyPower(IGame game)
-        {
-            _cards.ToList().ForEach(x => x.IncreasePower(_power));
-        }
-
-        public override string ToString()
-        {
-            return $"This creature has +{_power} power until the end of the turn.";
-        }
+    public override string ToString()
+    {
+        return $"This creature has +{_power} power until the end of the turn.";
     }
 }
