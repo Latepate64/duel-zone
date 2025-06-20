@@ -2,7 +2,7 @@
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 
-namespace Effects.Continuous;
+namespace ContinuousEffects;
 
 public class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
 {

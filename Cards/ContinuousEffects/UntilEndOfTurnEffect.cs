@@ -1,4 +1,4 @@
-﻿using Effects.Continuous;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.GameEvents;
 using Engine.Steps;

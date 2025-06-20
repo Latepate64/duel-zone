@@ -1,7 +1,7 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
 
-namespace Effects.Continuous;
+namespace ContinuousEffects;
 
 public class TripleBreakerEffect : ContinuousEffect, IBreakerEffect
 {

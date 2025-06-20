@@ -1,7 +1,7 @@
 ﻿using Engine;
 using Engine.ContinuousEffects;
 
-namespace Effects.Continuous;
+namespace ContinuousEffects;
 
 /// <summary>
 /// 611.1. A continuous effect modifies characteristics of objects, modifies control of objects, or affects players or the rules of the game, for a fixed or indefinite period.

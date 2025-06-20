@@ -1,6 +1,6 @@
 ﻿using Abilities.Triggered;
 using Cards.OneShotEffects;
-using Effects.Continuous;
+using ContinuousEffects;
 using Engine;
 
 namespace Cards.Cards.Promo;

@@ -1,4 +1,4 @@
-namespace Effects.Continuous;
+namespace ContinuousEffects;
 
 public interface IPowerable
 {

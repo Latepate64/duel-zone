@@ -1,4 +1,4 @@
-﻿using Effects.Continuous;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;

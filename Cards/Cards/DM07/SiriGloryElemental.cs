@@ -1,6 +1,6 @@
 ﻿using Abilities.Static;
 using Abilities.Triggered;
-using Effects.Continuous;
+using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 

@@ -1,4 +1,4 @@
-﻿using Effects.Continuous;
+﻿using ContinuousEffects;
 using Effects.OneShot;
 using Engine;
 using Engine.Abilities;

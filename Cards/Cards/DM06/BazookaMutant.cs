@@ -1,6 +1,6 @@
 ﻿using Abilities.Static;
 using Cards.ContinuousEffects;
-using Effects.Continuous;
+using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;

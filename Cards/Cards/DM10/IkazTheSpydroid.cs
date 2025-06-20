@@ -1,7 +1,6 @@
 ﻿using Abilities.Triggered;
 using Cards.OneShotEffects;
-using Abilities.Triggered;
-using Effects.Continuous;
+using ContinuousEffects;
 using Effects.OneShot;
 using Engine;
 using Engine.Abilities;

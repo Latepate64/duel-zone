@@ -1,7 +1,7 @@
 ﻿using Cards.ContinuousEffects;
 using Cards.OneShotEffects;
 using Abilities.Triggered;
-using Effects.Continuous;
+using ContinuousEffects;
 
 namespace Cards.Cards.DM11
 {
