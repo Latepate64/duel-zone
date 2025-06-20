@@ -1,0 +1,26 @@
+﻿using Engine;
+using Engine.ContinuousEffects;
+
+namespace ContinuousEffects;
+
+public class ThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
+{
+    public ThisCreatureCannotAttackEffect() : base()
+    {
+    }
+
+    public bool CannotAttack(Creature creature, IGame game)
+    {
+        return IsSourceOfAbility(creature);
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new ThisCreatureCannotAttackEffect();
+    }
+
+    public override string ToString()
+    {
+        return "This creature can't attack.";
+    }
+}

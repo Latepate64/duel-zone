@@ -1,5 +1,6 @@
 ﻿using Abilities.Triggered;
 using ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class NiofaHornedProtectorEffect : OneShotEffects.SearchEffect
+    class NiofaHornedProtectorEffect : SearchEffect
     {
         public NiofaHornedProtectorEffect() : base(true)
         {

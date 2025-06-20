@@ -1,0 +1,40 @@
+﻿using Engine;
+using Engine.ContinuousEffects;
+
+namespace ContinuousEffects;
+
+public class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, ICivilizationable
+{
+    public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect effect) : base(effect)
+    {
+        Civilization = effect.Civilization;
+        Power = effect.Power;
+    }
+
+    public WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(int power, Civilization civilization) : base()
+    {
+        Civilization = civilization;
+        Power = power;
+    }
+
+    public int Power { get; }
+    public Civilization Civilization { get; }
+
+    public override IContinuousEffect Copy()
+    {
+        return new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(this);
+    }
+
+    public void ModifyPower(IGame game)
+    {
+        if (Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization))
+        {
+            (Source as Creature).IncreasePower(Power);
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"While all the cards in your mana zone are {Civilization.ToString().ToLower()} cards, this creature gets +{Power} power.";
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using Abilities.Triggered;
 using ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Cards.Cards.Promo
         }
     }
 
-    class DolzarkEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
+    class DolzarkEffect : CardMovingChoiceEffect<Creature>
     {
         public DolzarkEffect() : base(0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
         {

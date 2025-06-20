@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.OneShot;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class MiraculousSnareEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
+    class MiraculousSnareEffect : CardMovingChoiceEffect<Creature>
     {
         public MiraculousSnareEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {

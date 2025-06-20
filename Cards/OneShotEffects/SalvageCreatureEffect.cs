@@ -1,4 +1,6 @@
-﻿namespace Cards.OneShotEffects
+﻿using Effects.OneShot;
+
+namespace Cards.OneShotEffects
 {
     abstract class SalvageCreatureEffect : SalvageEffect
     {

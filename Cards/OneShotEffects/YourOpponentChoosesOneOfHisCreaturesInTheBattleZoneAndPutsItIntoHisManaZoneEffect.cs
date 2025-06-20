@@ -10,7 +10,9 @@ namespace Cards.OneShotEffects
         {
         }
 
-        public YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect(CardMovingChoiceEffect<Creature> effect) : base(effect)
+        public YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect(
+            YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect effect) : base(
+                effect)
         {
         }
 

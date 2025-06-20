@@ -1,4 +1,5 @@
 ﻿using Abilities.Triggered;
+using Effects.OneShot;
 
 namespace Cards.Cards.DM10
 {
@@ -6,7 +7,7 @@ namespace Cards.Cards.DM10
     {
         public AncientHornTheWatcher() : base("Ancient Horn, the Watcher", 5, 5000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
         {
-            AddTriggeredAbility(new AncientHornTheWatcherAbility(new OneShotEffects.UntapAllTheCardsInYourManaZoneEffect()));
+            AddTriggeredAbility(new AncientHornTheWatcherAbility(new UntapAllTheCardsInYourManaZoneEffect()));
         }
     }
 }

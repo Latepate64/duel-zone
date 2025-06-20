@@ -1,6 +1,5 @@
-﻿using Cards.ContinuousEffects;
+﻿using ContinuousEffects;
 using Abilities.Triggered;
-using ContinuousEffects;
 
 namespace Cards.Cards.DM06
 {

@@ -1,5 +1,6 @@
 ﻿using Abilities.Triggered;
 using ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class TerradragonGamiratarEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
+    class TerradragonGamiratarEffect : CardMovingChoiceEffect<Creature>
     {
         public TerradragonGamiratarEffect() : base(0, 1, false, ZoneType.Hand, ZoneType.BattleZone)
         {

@@ -1,4 +1,4 @@
-﻿using Cards.ContinuousEffects;
+﻿using ContinuousEffects;
 using Effects.OneShot;
 using Engine;
 using Engine.Abilities;

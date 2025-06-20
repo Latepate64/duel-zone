@@ -1,4 +1,5 @@
 ﻿using Abilities.Triggered;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM03
         }
     }
 
-    class KingPonitasEffect : OneShotEffects.SearchEffect
+    class KingPonitasEffect : SearchEffect
     {
         public KingPonitasEffect() : base(true)
         {

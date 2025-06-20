@@ -1,0 +1,34 @@
+using Engine;
+using Engine.Abilities;
+
+namespace Effects.OneShot;
+
+public class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect, IRaceable
+{
+    public TraRionPenumbraGuardianUntapEffect(Race race) : base()
+    {
+        Race = race;
+    }
+
+    public TraRionPenumbraGuardianUntapEffect(TraRionPenumbraGuardianUntapEffect effect) : base(effect)
+    {
+        Race = effect.Race;
+    }
+
+    public Race Race { get; }
+
+    public override IOneShotEffect Copy()
+    {
+        return new TraRionPenumbraGuardianUntapEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return $"Untap all {Race}s in the battle zone.";
+    }
+
+    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.GetCreatures(Race);
+    }
+}

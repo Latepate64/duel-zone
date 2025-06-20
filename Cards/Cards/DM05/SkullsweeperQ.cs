@@ -1,5 +1,5 @@
 ﻿using Abilities.Triggered;
-using Cards.ContinuousEffects;
+using ContinuousEffects;
 using Cards.OneShotEffects;
 using Engine.Abilities;
 

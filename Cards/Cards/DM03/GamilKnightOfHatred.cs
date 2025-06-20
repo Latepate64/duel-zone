@@ -20,7 +20,7 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public GamilKnightOfHatredEffect(SalvageEffect effect) : base(effect)
+        public GamilKnightOfHatredEffect(GamilKnightOfHatredEffect effect) : base(effect)
         {
         }
 

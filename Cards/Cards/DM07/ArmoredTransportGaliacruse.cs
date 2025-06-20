@@ -1,4 +1,5 @@
 ﻿using Abilities.Static;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM07
         }
     }
 
-    class ArmoredTransportGaliacruseEffect : OneShotEffects.OneShotAreaOfEffect
+    class ArmoredTransportGaliacruseEffect : OneShotAreaOfEffect
     {
         public ArmoredTransportGaliacruseEffect() : base()
         {

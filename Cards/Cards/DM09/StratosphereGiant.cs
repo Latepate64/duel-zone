@@ -1,5 +1,6 @@
 ﻿using Abilities.Triggered;
 using ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class StratosphereGiantEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
+    class StratosphereGiantEffect : CardMovingChoiceEffect<Creature>
     {
         public StratosphereGiantEffect() : base(0, 2, false, ZoneType.Hand, ZoneType.BattleZone)
         {

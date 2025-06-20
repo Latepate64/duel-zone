@@ -1,4 +1,5 @@
 ﻿using Abilities.Triggered;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Cards.Cards.DM08
         }
     }
 
-    class SolarGrassEffect : OneShotEffects.UntapAreaOfEffect
+    class SolarGrassEffect : UntapAreaOfEffect
     {
         public SolarGrassEffect() : base()
         {

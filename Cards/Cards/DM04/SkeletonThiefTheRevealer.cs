@@ -1,4 +1,5 @@
 ﻿using Abilities.Triggered;
+using Effects.OneShot;
 
 namespace Cards.Cards.DM04
 {
@@ -6,7 +7,8 @@ namespace Cards.Cards.DM04
     {
         public SkeletonThiefTheRevealer() : base("Skeleton Thief, the Revealer", 4, 2000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
         {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(Engine.Race.LivingDead)));
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(Engine.Race.LivingDead)));
         }
     }
 }

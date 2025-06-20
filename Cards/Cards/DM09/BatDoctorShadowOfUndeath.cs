@@ -1,4 +1,5 @@
 ﻿using Abilities.Triggered;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM09
         }
     }
 
-    class BatDoctorShadowOfUndeathEffect : OneShotEffects.SalvageEffect
+    class BatDoctorShadowOfUndeathEffect : SalvageEffect
     {
         public BatDoctorShadowOfUndeathEffect() : base(0, 1, true)
         {

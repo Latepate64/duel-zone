@@ -1,4 +1,5 @@
 ﻿using Abilities.Triggered;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class WhiskingWhirlwindUntapEffect : OneShotEffects.UntapAreaOfEffect
+    class WhiskingWhirlwindUntapEffect : UntapAreaOfEffect
     {
         public WhiskingWhirlwindUntapEffect() : base()
         {

@@ -1,6 +1,6 @@
 ﻿using Abilities.Triggered;
-using Cards.ContinuousEffects;
 using ContinuousEffects;
+using Effects.OneShot;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Cards.Cards.DM12
         }
     }
 
-    class TropicCrawlerEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
+    class TropicCrawlerEffect : CardMovingChoiceEffect<Creature>
     {
         public TropicCrawlerEffect() : base(1, 1, false, ZoneType.BattleZone, ZoneType.Hand)
         {

@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using Effects.OneShot;
+using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Cards.Cards.DM11
         }
     }
 
-    class RollickingTotemEffect : OneShotEffects.CardMovingChoiceEffect<Creature>
+    class RollickingTotemEffect : CardMovingChoiceEffect<Creature>
     {
         public RollickingTotemEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {
