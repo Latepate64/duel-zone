@@ -4,31 +4,32 @@ using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : DestroyEffect
 {
-    class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : DestroyEffect
+    public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect() : base(1, 1, true)
     {
-        public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect() : base(1, 1, true)
-        {
-        }
+    }
 
-        public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect effect) : base(effect)
-        {
-        }
+    public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(
+        DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Destroy one of your opponent's creatures that has \"blocker.\"";
-        }
+    public override string ToString()
+    {
+        return "Destroy one of your opponent's creatures that has \"blocker.\"";
+    }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
-        }
+    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.GetChoosableCreaturesControlledByPlayer(
+            game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
     }
 }

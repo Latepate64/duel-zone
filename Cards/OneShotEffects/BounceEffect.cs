@@ -1,16 +1,15 @@
 ﻿using OneShotEffects;
 using Engine;
 
-namespace Cards.OneShotEffects
-{
-    abstract class BounceEffect : CardMovingChoiceEffect<Creature>
-    {
-        protected BounceEffect(int minimum, int maximum) : base(minimum, maximum, true, ZoneType.BattleZone, ZoneType.Hand)
-        {
-        }
+namespace Cards.OneShotEffects;
 
-        protected BounceEffect(BounceEffect effect) : base(effect)
-        {
-        }
+public abstract class BounceEffect : CardMovingChoiceEffect<Creature>
+{
+    protected BounceEffect(int minimum, int maximum) : base(minimum, maximum, true, ZoneType.BattleZone, ZoneType.Hand)
+    {
+    }
+
+    protected BounceEffect(BounceEffect effect) : base(effect)
+    {
     }
 }

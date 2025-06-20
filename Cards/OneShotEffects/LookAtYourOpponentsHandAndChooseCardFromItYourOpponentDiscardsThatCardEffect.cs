@@ -1,37 +1,36 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect : OneShotEffect
 {
-    class LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect : OneShotEffect
+    public LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect()
     {
-        public LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect()
-        {
-        }
+    }
 
-        public LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
+    public LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
 
-        public override void Apply(IGame game)
+    public override void Apply(IGame game)
+    {
+        Controller.Look(GetOpponent(game), game, [.. GetOpponent(game).Hand.Cards]);
+        var card = Controller.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
+        if (card != null)
         {
-            Controller.Look(GetOpponent(game), game, [.. GetOpponent(game).Hand.Cards]);
-            var card = Controller.ChooseCard(GetOpponent(game).Hand.Cards, ToString());
-            if (card != null)
-            {
-                GetOpponent(game).Discard(Ability, game, card);
-                GetOpponent(game).Unreveal(card);
-            }
+            GetOpponent(game).Discard(Ability, game, card);
+            GetOpponent(game).Unreveal(card);
         }
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new LookAtYourOpponentsHandAndChooseCardFromItYourOpponentDiscardsThatCardEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Look at your opponent's hand and choose a card from it. Your opponent discards that card.";
-        }
+    public override string ToString()
+    {
+        return "Look at your opponent's hand and choose a card from it. Your opponent discards that card.";
     }
 }

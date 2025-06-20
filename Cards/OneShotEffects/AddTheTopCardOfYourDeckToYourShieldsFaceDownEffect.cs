@@ -1,31 +1,30 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect : OneShotEffect
 {
-    class AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect : OneShotEffect
+    public AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect()
     {
-        public AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect()
-        {
-        }
+    }
 
-        public AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
+    public AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
 
-        public override void Apply(IGame game)
-        {
-            Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
-        }
+    public override void Apply(IGame game)
+    {
+        Controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Add the top card of your deck to your shields face down.";
-        }
+    public override string ToString()
+    {
+        return "Add the top card of your deck to your shields face down.";
     }
 }

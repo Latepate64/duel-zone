@@ -2,31 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class DiscardCardFromYourHandEffect : DiscardEffect
 {
-    class DiscardCardFromYourHandEffect : DiscardEffect
+    public DiscardCardFromYourHandEffect() : base(1, 1, true)
     {
-        public DiscardCardFromYourHandEffect() : base(1, 1, true)
-        {
-        }
+    }
 
-        public DiscardCardFromYourHandEffect(DiscardEffect effect) : base(effect)
-        {
-        }
+    public DiscardCardFromYourHandEffect(DiscardEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new DiscardCardFromYourHandEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new DiscardCardFromYourHandEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Discard a card from your hand.";
-        }
+    public override string ToString()
+    {
+        return "Discard a card from your hand.";
+    }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.Hand.Cards;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.Hand.Cards;
     }
 }

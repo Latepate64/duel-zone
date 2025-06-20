@@ -2,31 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class DestroyAllCreaturesEffect : DestroyAreaOfEffect
 {
-    class DestroyAllCreaturesEffect : DestroyAreaOfEffect
+    public DestroyAllCreaturesEffect() : base()
     {
-        public DestroyAllCreaturesEffect() : base()
-        {
-        }
+    }
 
-        public DestroyAllCreaturesEffect(DestroyAreaOfEffect effect) : base(effect)
-        {
-        }
+    public DestroyAllCreaturesEffect(DestroyAreaOfEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new DestroyAllCreaturesEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new DestroyAllCreaturesEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Destroy all creatures.";
-        }
+    public override string ToString()
+    {
+        return "Destroy all creatures.";
+    }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.Creatures;
-        }
+    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.Creatures;
     }
 }

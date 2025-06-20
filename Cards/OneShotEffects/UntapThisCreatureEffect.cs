@@ -4,29 +4,28 @@ using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class UntapThisCreatureEffect : UntapAreaOfEffect
 {
-    class UntapThisCreatureEffect : UntapAreaOfEffect
+    public UntapThisCreatureEffect() : base() { }
+
+    public UntapThisCreatureEffect(UntapAreaOfEffect effect) : base(effect)
     {
-        public UntapThisCreatureEffect() : base() { }
+    }
 
-        public UntapThisCreatureEffect(UntapAreaOfEffect effect) : base(effect)
-        {
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new UntapThisCreatureEffect(this);
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new UntapThisCreatureEffect(this);
-        }
+    public override string ToString()
+    {
+        return "Untap this creature.";
+    }
 
-        public override string ToString()
-        {
-            return "Untap this creature.";
-        }
-
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
-        {
-            return new List<Card> { Ability.Source }.Where(x => x != null);
-        }
+    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    {
+        return new List<Card> { Ability.Source }.Where(x => x != null);
     }
 }

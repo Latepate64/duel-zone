@@ -2,31 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
 {
-    class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
+    public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(0, 1)
     {
-        public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(0, 1)
-        {
-        }
+    }
 
-        public YouMayLookAtOneOfYourOpponentsShieldsEffect(LookEffect effect) : base(effect)
-        {
-        }
+    public YouMayLookAtOneOfYourOpponentsShieldsEffect(LookEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayLookAtOneOfYourOpponentsShieldsEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new YouMayLookAtOneOfYourOpponentsShieldsEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "You may look at one of your opponent's shields. Then put it back where it was.";
-        }
+    public override string ToString()
+    {
+        return "You may look at one of your opponent's shields. Then put it back where it was.";
+    }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return GetOpponent(game).ShieldZone.Cards;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return GetOpponent(game).ShieldZone.Cards;
     }
 }

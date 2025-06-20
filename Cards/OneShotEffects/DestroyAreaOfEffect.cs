@@ -1,15 +1,14 @@
 ﻿using Engine;
 
-namespace Cards.OneShotEffects
-{
-    abstract class DestroyAreaOfEffect : CardMovingAreaOfEffect
-    {
-        protected DestroyAreaOfEffect(DestroyAreaOfEffect effect) : base(effect)
-        {
-        }
+namespace Cards.OneShotEffects;
 
-        protected DestroyAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Graveyard)
-        {
-        }
+public abstract class DestroyAreaOfEffect : CardMovingAreaOfEffect
+{
+    protected DestroyAreaOfEffect(DestroyAreaOfEffect effect) : base(effect)
+    {
+    }
+
+    protected DestroyAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Graveyard)
+    {
     }
 }

@@ -2,62 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class ReturnUpToCardsFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
 {
-    abstract class ReturnUpToCardsFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
+    private readonly int _amount;
+
+    public ReturnUpToCardsFromYourManaZoneToYourHandEffect(int amount) : base(0, amount, true)
     {
-        private readonly int _amount;
-
-        public ReturnUpToCardsFromYourManaZoneToYourHandEffect(int amount) : base(0, amount, true)
-        {
-            _amount = amount;
-        }
-
-        public ReturnUpToCardsFromYourManaZoneToYourHandEffect(ReturnUpToCardsFromYourManaZoneToYourHandEffect effect) : base(effect)
-        {
-            _amount = effect._amount;
-        }
-
-        public override string ToString()
-        {
-            return $"Return up to {_amount} cards from your mana zone to your hand.";
-        }
-
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.ManaZone.Cards;
-        }
+        _amount = amount;
     }
 
-    class ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect : ReturnUpToCardsFromYourManaZoneToYourHandEffect
+    public ReturnUpToCardsFromYourManaZoneToYourHandEffect(ReturnUpToCardsFromYourManaZoneToYourHandEffect effect) :
+        base(effect)
     {
-        public ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect() : base(2)
-        {
-        }
-
-        public ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect(ReturnUpToCardsFromYourManaZoneToYourHandEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect(this);
-        }
+        _amount = effect._amount;
     }
 
-    class ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect : ReturnUpToCardsFromYourManaZoneToYourHandEffect
+    public override string ToString()
     {
-        public ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect() : base(3)
-        {
-        }
+        return $"Return up to {_amount} cards from your mana zone to your hand.";
+    }
 
-        public ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect(ReturnUpToCardsFromYourManaZoneToYourHandEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect(this);
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.ManaZone.Cards;
     }
 }

@@ -2,31 +2,31 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect : TapChoiceEffect
 {
-    class ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect : TapChoiceEffect
+    public ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect() : base(0, 2, true)
     {
-        public ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect() : base(0, 2, true)
-        {
-        }
+    }
 
-        public ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect effect) : base(effect)
-        {
-        }
+    public ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(
+        ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return $"Choose up to {Maximum} of your opponent's creatures in the battle zone and tap them.";
-        }
+    public override string ToString()
+    {
+        return $"Choose up to {Maximum} of your opponent's creatures in the battle zone and tap them.";
+    }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id);
-        }
+    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id);
     }
 }

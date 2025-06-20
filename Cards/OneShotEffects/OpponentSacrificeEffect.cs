@@ -2,31 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class OpponentSacrificeEffect : DestroyEffect
 {
-    class OpponentSacrificeEffect : DestroyEffect
+    public OpponentSacrificeEffect() : base(1, 1, false)
     {
-        public OpponentSacrificeEffect() : base(1, 1, false)
-        {
-        }
+    }
 
-        public OpponentSacrificeEffect(DestroyEffect effect) : base(effect)
-        {
-        }
+    public OpponentSacrificeEffect(DestroyEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new OpponentSacrificeEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new OpponentSacrificeEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Your opponent chooses one of his creatures and destroys it.";
-        }
+    public override string ToString()
+    {
+        return "Your opponent chooses one of his creatures and destroys it.";
+    }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(GetOpponent(game).Id);
-        }
+    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.GetCreatures(GetOpponent(game).Id);
     }
 }

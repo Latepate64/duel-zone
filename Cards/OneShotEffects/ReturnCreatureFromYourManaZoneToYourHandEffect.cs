@@ -2,31 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class ReturnCreatureFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
 {
-    class ReturnCreatureFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
+    public ReturnCreatureFromYourManaZoneToYourHandEffect() : base(1, 1, true)
     {
-        public ReturnCreatureFromYourManaZoneToYourHandEffect() : base(1, 1, true)
-        {
-        }
+    }
 
-        public ReturnCreatureFromYourManaZoneToYourHandEffect(SelfManaRecoveryEffect effect) : base(effect)
-        {
-        }
+    public ReturnCreatureFromYourManaZoneToYourHandEffect(SelfManaRecoveryEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnCreatureFromYourManaZoneToYourHandEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new ReturnCreatureFromYourManaZoneToYourHandEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Return a creature from your mana zone to your hand.";
-        }
+    public override string ToString()
+    {
+        return "Return a creature from your mana zone to your hand.";
+    }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.ManaZone.Creatures;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.ManaZone.Creatures;
     }
 }

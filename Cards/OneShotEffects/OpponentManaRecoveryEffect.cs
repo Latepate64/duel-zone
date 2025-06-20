@@ -2,21 +2,20 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class OpponentManaRecoveryEffect : ManaRecoveryEffect
 {
-    abstract class OpponentManaRecoveryEffect : ManaRecoveryEffect
+    protected OpponentManaRecoveryEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses)
     {
-        protected OpponentManaRecoveryEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses)
-        {
-        }
+    }
 
-        protected OpponentManaRecoveryEffect(OpponentManaRecoveryEffect effect) : base(effect)
-        {
-        }
+    protected OpponentManaRecoveryEffect(OpponentManaRecoveryEffect effect) : base(effect)
+    {
+    }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return GetOpponent(game).ManaZone.Cards;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return GetOpponent(game).ManaZone.Cards;
     }
 }

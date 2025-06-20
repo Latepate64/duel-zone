@@ -3,24 +3,23 @@ using Engine.Abilities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class TapAreaOfEffect : OneShotEffect
 {
-    abstract class TapAreaOfEffect : OneShotEffect
+    protected TapAreaOfEffect()
     {
-        protected TapAreaOfEffect()
-        {
-        }
-
-        protected TapAreaOfEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            var cards = GetAffectedCards(game, Ability).ToArray();
-            Controller.Tap(game, cards);
-        }
-
-        protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
     }
+
+    protected TapAreaOfEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
+
+    public override void Apply(IGame game)
+    {
+        var cards = GetAffectedCards(game, Ability).ToArray();
+        Controller.Tap(game, cards);
+    }
+
+    protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
 }

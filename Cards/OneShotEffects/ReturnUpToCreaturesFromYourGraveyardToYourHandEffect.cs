@@ -2,58 +2,28 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class ReturnUpToCreaturesFromYourGraveyardToYourHandEffect : SalvageCreatureEffect
 {
-    abstract class ReturnUpToCreaturesFromYourGraveyardToYourHandEffect : SalvageCreatureEffect
+    protected ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(int maximum) : base(0, maximum)
     {
-        protected ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(int maximum) : base(0, maximum)
-        {
-        }
-
-        protected ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(ReturnUpToCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
-        {
-        }
-
-        public override string ToString()
-        {
-            return Maximum == 1 ? "You may return a creature from your graveyard to your hand." : $"Return up to {Maximum} creatures from your graveyard to your hand.";
-        }
-
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.Graveyard.Creatures;
-        }
     }
 
-    class YouMayReturnCreatureFromYourGraveyardToYourHandEffect : ReturnUpToCreaturesFromYourGraveyardToYourHandEffect
+    protected ReturnUpToCreaturesFromYourGraveyardToYourHandEffect(
+        ReturnUpToCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
     {
-        public YouMayReturnCreatureFromYourGraveyardToYourHandEffect() : base(1)
-        {
-        }
-
-        public YouMayReturnCreatureFromYourGraveyardToYourHandEffect(ReturnUpToCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayReturnCreatureFromYourGraveyardToYourHandEffect(this);
-        }
     }
 
-    class ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect : ReturnUpToCreaturesFromYourGraveyardToYourHandEffect
+    public override string ToString()
     {
-        public ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect() : base(2)
-        {
-        }
+        return Maximum == 1
+            ? "You may return a creature from your graveyard to your hand."
+            : $"Return up to {Maximum} creatures from your graveyard to your hand.";
+    }
 
-        public ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect(ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect(this);
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.Graveyard.Creatures;
     }
 }

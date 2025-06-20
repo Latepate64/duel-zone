@@ -1,62 +1,29 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
 {
-    abstract class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
+    public int Amount { get; }
+
+    protected PutTopCardsOfDeckIntoManaZoneEffect(int amount) : base()
     {
-        public int Amount { get; }
-
-        protected PutTopCardsOfDeckIntoManaZoneEffect(int amount) : base()
-        {
-            Amount = amount;
-        }
-
-        protected PutTopCardsOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect)
-        {
-            Amount = effect.Amount;
-        }
-
-        public override void Apply(IGame game)
-        {
-            Controller.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
-        }
-
-        public override string ToString()
-        {
-            return $"Put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
-        }
+        Amount = amount;
     }
 
-    class PutTopCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+    protected PutTopCardsOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect)
     {
-        public PutTopCardOfDeckIntoManaZoneEffect() : base(1)
-        {
-        }
-
-        public PutTopCardOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new PutTopCardOfDeckIntoManaZoneEffect(this);
-        }
+        Amount = effect.Amount;
     }
 
-    class PutTopTwoCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+    public override void Apply(IGame game)
     {
-        public PutTopTwoCardOfDeckIntoManaZoneEffect() : base(2)
-        {
-        }
+        Controller.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
+    }
 
-        public PutTopTwoCardOfDeckIntoManaZoneEffect(PutTopTwoCardOfDeckIntoManaZoneEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new PutTopTwoCardOfDeckIntoManaZoneEffect(this);
-        }
+    public override string ToString()
+    {
+        return $"Put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
     }
 }

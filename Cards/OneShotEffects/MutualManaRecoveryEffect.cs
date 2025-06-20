@@ -1,26 +1,25 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class MutualManaRecoveryEffect : OneShotEffect
 {
-    abstract class MutualManaRecoveryEffect : OneShotEffect
+    public int Amount { get; }
+
+    public MutualManaRecoveryEffect(int amount)
     {
-        public int Amount { get; }
+        Amount = amount;
+    }
 
-        public MutualManaRecoveryEffect(int amount)
-        {
-            Amount = amount;
-        }
+    public MutualManaRecoveryEffect(MutualManaRecoveryEffect effect)
+    {
+        Amount = effect.Amount;
+    }
 
-        public MutualManaRecoveryEffect(MutualManaRecoveryEffect effect)
-        {
-            Amount = effect.Amount;
-        }
-
-        public override void Apply(IGame game)
-        {
-            Controller.ReturnOwnManaCards(game, Ability, Amount);
-            game.GetOpponent(Controller).ReturnOwnManaCards(game, Ability, Amount);
-        }
+    public override void Apply(IGame game)
+    {
+        Controller.ReturnOwnManaCards(game, Ability, Amount);
+        game.GetOpponent(Controller).ReturnOwnManaCards(game, Ability, Amount);
     }
 }

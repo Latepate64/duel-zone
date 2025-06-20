@@ -2,30 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
 {
-    abstract class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
+    private readonly int _amount;
+
+    protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
     {
-        private readonly int _amount;
+        _amount = amount;
+    }
 
-        protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
-        {
-            _amount = amount;
-        }
+    protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(
+        YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
+    {
+        _amount = effect._amount;
+    }
 
-        protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
-        {
-            _amount = effect._amount;
-        }
+    public override string ToString()
+    {
+        return $"Your opponent chooses and discards {(_amount > 1 ? $"{_amount} cards" : "a card")} from his hand.";
+    }
 
-        public override string ToString()
-        {
-            return $"Your opponent chooses and discards {(_amount > 1 ? $"{_amount} cards" : "a card")} from his hand.";
-        }
-
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return GetOpponent(game).Hand.Cards;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return GetOpponent(game).Hand.Cards;
     }
 }

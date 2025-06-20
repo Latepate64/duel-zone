@@ -2,31 +2,30 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
 {
-    class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
+    public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard)
     {
-        public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard)
-        {
-        }
+    }
 
-        public YourOpponentDiscardsHisHandEffect(CardMovingAreaOfEffect effect) : base(effect)
-        {
-        }
+    public YourOpponentDiscardsHisHandEffect(CardMovingAreaOfEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new YourOpponentDiscardsHisHandEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new YourOpponentDiscardsHisHandEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Your opponent discards his hand.";
-        }
+    public override string ToString()
+    {
+        return "Your opponent discards his hand.";
+    }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
-        {
-            return GetOpponent(game).Hand.Cards;
-        }
+    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    {
+        return GetOpponent(game).Hand.Cards;
     }
 }

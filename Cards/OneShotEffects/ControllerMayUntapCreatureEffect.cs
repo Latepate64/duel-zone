@@ -2,52 +2,25 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class ControllerMayUntapCreatureEffect : OneShotEffect
 {
-    abstract class ControllerMayUntapCreatureEffect : OneShotEffect
+    protected ControllerMayUntapCreatureEffect()
     {
-        protected ControllerMayUntapCreatureEffect()
-        {
-        }
-
-        protected ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            if (Controller.ChooseToTakeAction(ToString()))
-            {
-                Controller.Untap(game, [.. GetSelectableCards(game, Ability)]);
-            }
-        }
-
-        protected abstract IEnumerable<Card> GetSelectableCards(IGame game, IAbility source);
     }
 
-    class YouMayUntapThisCreatureEffect : ControllerMayUntapCreatureEffect
+    protected ControllerMayUntapCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
     {
-        public YouMayUntapThisCreatureEffect() : base()
-        {
-        }
+    }
 
-        public YouMayUntapThisCreatureEffect(ControllerMayUntapCreatureEffect effect) : base(effect)
+    public override void Apply(IGame game)
+    {
+        if (Controller.ChooseToTakeAction(ToString()))
         {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayUntapThisCreatureEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "You may untap this creature.";
-        }
-
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return new Card[] { Ability.Source };
+            Controller.Untap(game, [.. GetSelectableCards(game, Ability)]);
         }
     }
+
+    protected abstract IEnumerable<Card> GetSelectableCards(IGame game, IAbility source);
 }

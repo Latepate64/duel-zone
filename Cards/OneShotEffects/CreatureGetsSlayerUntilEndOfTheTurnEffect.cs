@@ -3,26 +3,25 @@ using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {
-    class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+    public CreatureGetsSlayerUntilEndOfTheTurnEffect(CreatureGetsSlayerUntilEndOfTheTurnEffect effect) : base(effect)
     {
-        public CreatureGetsSlayerUntilEndOfTheTurnEffect(CreatureGetsSlayerUntilEndOfTheTurnEffect effect) : base(effect)
-        {
-        }
+    }
 
-        public CreatureGetsSlayerUntilEndOfTheTurnEffect(Card card) : base(card, new SlayerAbility())
-        {
-        }
+    public CreatureGetsSlayerUntilEndOfTheTurnEffect(Card card) : base(card, new SlayerAbility())
+    {
+    }
 
-        public override IContinuousEffect Copy()
-        {
-            return new CreatureGetsSlayerUntilEndOfTheTurnEffect(this);
-        }
+    public override IContinuousEffect Copy()
+    {
+        return new CreatureGetsSlayerUntilEndOfTheTurnEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "This creature gets \"slayer\" until the end of the turn.";
-        }
+    public override string ToString()
+    {
+        return "This creature gets \"slayer\" until the end of the turn.";
     }
 }

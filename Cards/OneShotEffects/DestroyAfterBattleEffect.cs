@@ -2,31 +2,31 @@
 using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class DestroyAfterBattleEffect : OneShotEffect
 {
-    class DestroyAfterBattleEffect : OneShotEffect
+    public DestroyAfterBattleEffect()
     {
-        public DestroyAfterBattleEffect()
-        {
-        }
+    }
 
-        public DestroyAfterBattleEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
+    public DestroyAfterBattleEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
 
-        public override void Apply(IGame game)
-        {
-            game.AddDelayedTriggeredAbility(new AfterBattleDelayedTriggeredAbility(new DestroyThisCreatureEffect(), Ability));
-        }
+    public override void Apply(IGame game)
+    {
+        game.AddDelayedTriggeredAbility(new AfterBattleDelayedTriggeredAbility(
+            new DestroyThisCreatureEffect(), Ability));
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new DestroyAfterBattleEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new DestroyAfterBattleEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Destroy it after the battle.";
-        }
+    public override string ToString()
+    {
+        return "Destroy it after the battle.";
     }
 }

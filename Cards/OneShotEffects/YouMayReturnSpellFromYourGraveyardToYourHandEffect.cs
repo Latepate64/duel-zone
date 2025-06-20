@@ -3,31 +3,30 @@ using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class YouMayReturnSpellFromYourGraveyardToYourHandEffect : SalvageEffect
 {
-    class YouMayReturnSpellFromYourGraveyardToYourHandEffect : SalvageEffect
+    public YouMayReturnSpellFromYourGraveyardToYourHandEffect() : base(0, 1, true)
     {
-        public YouMayReturnSpellFromYourGraveyardToYourHandEffect() : base(0, 1, true)
-        {
-        }
+    }
 
-        public YouMayReturnSpellFromYourGraveyardToYourHandEffect(SalvageEffect effect) : base(effect)
-        {
-        }
+    public YouMayReturnSpellFromYourGraveyardToYourHandEffect(SalvageEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new YouMayReturnSpellFromYourGraveyardToYourHandEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new YouMayReturnSpellFromYourGraveyardToYourHandEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "You may return a spell from your graveyard to your hand.";
-        }
+    public override string ToString()
+    {
+        return "You may return a spell from your graveyard to your hand.";
+    }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.Graveyard.Spells;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.Graveyard.Spells;
     }
 }

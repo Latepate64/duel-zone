@@ -1,15 +1,14 @@
 ﻿using Engine;
 
-namespace Cards.OneShotEffects
-{
-    abstract class BounceAreaOfEffect : CardMovingAreaOfEffect
-    {
-        protected BounceAreaOfEffect(BounceAreaOfEffect effect) : base(effect)
-        {
-        }
+namespace Cards.OneShotEffects;
 
-        protected BounceAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Hand)
-        {
-        }
+public abstract class BounceAreaOfEffect : CardMovingAreaOfEffect
+{
+    protected BounceAreaOfEffect(BounceAreaOfEffect effect) : base(effect)
+    {
+    }
+
+    protected BounceAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Hand)
+    {
     }
 }

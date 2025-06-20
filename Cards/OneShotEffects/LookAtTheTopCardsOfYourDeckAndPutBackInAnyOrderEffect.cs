@@ -1,31 +1,30 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect : OneShotEffect
 {
-    abstract class LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect : OneShotEffect
+    private readonly int _amount;
+
+    protected LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(int amount)
     {
-        private readonly int _amount;
+        _amount = amount;
+    }
 
-        protected LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(int amount)
-        {
-            _amount = amount;
-        }
+    protected LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect effect) : base(effect)
+    {
+        _amount = effect._amount;
+    }
 
-        protected LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect effect) : base(effect)
-        {
-            _amount = effect._amount;
-        }
+    public override void Apply(IGame game)
+    {
+        var cards = Controller.LookAtTheTopCardsOfYourDeck(_amount, game);
+        Controller.ArrangeTopCardsOfDeck([.. cards]);
+    }
 
-        public override void Apply(IGame game)
-        {
-            var cards = Controller.LookAtTheTopCardsOfYourDeck(_amount, game);
-            Controller.ArrangeTopCardsOfDeck([.. cards]);
-        }
-
-        public override string ToString()
-        {
-            return $"Look at up to {_amount} cards from the top of your deck and put them back in any order.";
-        }
+    public override string ToString()
+    {
+        return $"Look at up to {_amount} cards from the top of your deck and put them back in any order.";
     }
 }

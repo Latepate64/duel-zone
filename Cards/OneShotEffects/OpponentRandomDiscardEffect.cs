@@ -1,46 +1,29 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class OpponentRandomDiscardEffect : OneShotEffect
 {
-    abstract class OpponentRandomDiscardEffect : OneShotEffect
+    public int Amount { get; set; }
+
+    protected OpponentRandomDiscardEffect(int amount)
     {
-        public int Amount { get; set; }
-
-        protected OpponentRandomDiscardEffect(int amount)
-        {
-            Amount = amount;
-        }
-
-        protected OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
-        {
-            Amount = effect.Amount;
-        }
-
-        public override void Apply(IGame game)
-        {
-            GetOpponent(game).DiscardAtRandom(game, Amount, Ability);
-        }
-
-        public override string ToString()
-        {
-            return $"Your opponent discards {(Amount == 1 ? "a card" : $"{Amount} cards")} at random from his hand.";
-        }
+        Amount = amount;
     }
 
-    class OpponentDiscardsCardAtRandomEffect : OpponentRandomDiscardEffect
+    protected OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
     {
-        public OpponentDiscardsCardAtRandomEffect() : base(1)
-        {
-        }
+        Amount = effect.Amount;
+    }
 
-        public OpponentDiscardsCardAtRandomEffect(OpponentRandomDiscardEffect effect) : base(effect)
-        {
-        }
+    public override void Apply(IGame game)
+    {
+        GetOpponent(game).DiscardAtRandom(game, Amount, Ability);
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new OpponentDiscardsCardAtRandomEffect(this);
-        }
+    public override string ToString()
+    {
+        return $"Your opponent discards {(Amount == 1 ? "a card" : $"{Amount} cards")} at random from his hand.";
     }
 }

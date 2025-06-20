@@ -1,70 +1,38 @@
-﻿using Abilities.Static;
-using OneShotEffects;
+﻿using OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public abstract class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureSelectionEffect
 {
-    abstract class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureSelectionEffect
+    private readonly IAbility _ability;
+
+    public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability) : base(1, 1, true)
     {
-        private readonly IAbility _ability;
-
-        public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability) : base(1, 1, true)
-        {
-            _ability = ability;
-        }
-
-        public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect effect) : base(effect)
-        {
-            _ability = effect._ability;
-        }
-
-        public override string ToString()
-        {
-            return $"One of your creatures in the battle zone gets \"{_ability.ToString().ToLower()}\" until the end of the turn.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
-        {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(_ability, cards));
-        }
-
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id);
-        }
+        _ability = ability;
     }
 
-    class OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect : OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
+    public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
+        OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect effect) : base(effect)
     {
-        public OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect() : base(new SpeedAttackerAbility())
-        {
-        }
-
-        public OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect(OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect(this);
-        }
+        _ability = effect._ability;
     }
 
-    class OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect : OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
+    public override string ToString()
     {
-        public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect() : base(new SlayerAbility())
-        {
-        }
+        return $"One of your creatures in the battle zone gets \"{_ability.ToString().ToLower()}\" until the end of the turn.";
+    }
 
-        public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect(OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect effect) : base(effect)
-        {
-        }
+    protected override void Apply(IGame game, IAbility source, params Creature[] cards)
+    {
+        game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+            _ability, cards));
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect(this);
-        }
+    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }
 }

@@ -2,29 +2,28 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect : ShieldBurnEffect
 {
-    class ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect : ShieldBurnEffect
+    public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect() : base(1, 1, true) { }
+
+    public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect(ShieldBurnEffect effect) : base(effect)
     {
-        public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect() : base(1, 1, true) { }
+    }
 
-        public ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect(ShieldBurnEffect effect) : base(effect)
-        {
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect(this);
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect(this);
-        }
+    public override string ToString()
+    {
+        return "Choose one of your shields and put it into your graveyard.";
+    }
 
-        public override string ToString()
-        {
-            return "Choose one of your shields and put it into your graveyard.";
-        }
-
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.ShieldZone.Cards;
-        }
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.ShieldZone.Cards;
     }
 }

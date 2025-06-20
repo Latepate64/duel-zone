@@ -2,31 +2,31 @@
 using Engine.Abilities;
 using System.Collections.Generic;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect : ManaFeedEffect
 {
-    class PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect : ManaFeedEffect
+    public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect() : base(1, 1, true)
     {
-        public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect() : base(1, 1, true)
-        {
-        }
+    }
 
-        public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect effect) : base(effect)
-        {
-        }
+    public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(
+        PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect(this);
+    }
 
-        public override string ToString()
-        {
-            return "Put one of your creatures from the battle zone into your mana zone.";
-        }
+    public override string ToString()
+    {
+        return "Put one of your creatures from the battle zone into your mana zone.";
+    }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id);
-        }
+    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    {
+        return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }
 }

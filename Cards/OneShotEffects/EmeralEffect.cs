@@ -1,38 +1,37 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Cards.OneShotEffects
+namespace Cards.OneShotEffects;
+
+public class EmeralEffect : OneShotEffect
 {
-    class EmeralEffect : OneShotEffect
+    public EmeralEffect()
     {
-        public EmeralEffect()
-        {
-        }
+    }
 
-        public EmeralEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
+    public EmeralEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
 
-        public override IOneShotEffect Copy()
-        {
-            return new EmeralEffect(this);
-        }
+    public override IOneShotEffect Copy()
+    {
+        return new EmeralEffect(this);
+    }
 
-        public override void Apply(IGame game)
+    public override void Apply(IGame game)
+    {
+        var player = Controller;
+        var card = player.ChooseCardOptionally(Controller.Hand.Cards, ToString());
+        if (card != null)
         {
-            var player = Controller;
-            var card = player.ChooseCardOptionally(Controller.Hand.Cards, ToString());
-            if (card != null)
-            {
-                game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, card);
-                var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
-                game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, shield);
-            }
+            game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, card);
+            var shield = player.ChooseCard(player.ShieldZone.Cards, ToString());
+            game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, shield);
         }
+    }
 
-        public override string ToString()
-        {
-            return "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
-        }
+    public override string ToString()
+    {
+        return "You may add a card from your hand to your shields face down. If you do, choose one of your shields and put it into your hand. You can't use the \"shield trigger\" ability of that shield.";
     }
 }
