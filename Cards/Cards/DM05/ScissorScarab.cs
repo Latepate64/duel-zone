@@ -1,5 +1,5 @@
 ﻿using Abilities.Triggered;
-using Effects.OneShot;
+using OneShotEffects;
 
 namespace Cards.Cards.DM05
 {

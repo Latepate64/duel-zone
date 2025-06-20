@@ -1,4 +1,4 @@
-﻿using Effects.OneShot;
+﻿using OneShotEffects;
 
 namespace Cards.OneShotEffects
 {

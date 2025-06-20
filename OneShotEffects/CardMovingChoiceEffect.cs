@@ -1,7 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Effects.OneShot;
+namespace OneShotEffects;
 
 public abstract class CardMovingChoiceEffect<T> : CardSelectionEffect<T> where T : Card
 {

@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEngine", "TestEngine\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCards", "TestCards\TestCards.csproj", "{F1EF56F9-143C-46E9-A689-339A2CCC81C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects", "Effects\Effects.csproj", "{61E4CF87-C7EF-422C-85DA-B04CC56B4FBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneShotEffects", "OneShotEffects\OneShotEffects.csproj", "{61E4CF87-C7EF-422C-85DA-B04CC56B4FBF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abilities", "Abilities\Abilities.csproj", "{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}"
 EndProject

@@ -1,6 +1,6 @@
 ﻿using Engine;
 
-namespace Effects.OneShot;
+namespace OneShotEffects;
 
 /// <summary>
 /// Salvage is a term for returning a card from your graveyard to your hand.

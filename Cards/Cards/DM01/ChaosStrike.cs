@@ -1,5 +1,5 @@
 ﻿using ContinuousEffects;
-using Effects.OneShot;
+using OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;

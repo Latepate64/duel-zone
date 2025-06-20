@@ -1,6 +1,6 @@
 ﻿using Engine;
 
-namespace Effects.OneShot;
+namespace OneShotEffects;
 
 interface IRaceable
 {

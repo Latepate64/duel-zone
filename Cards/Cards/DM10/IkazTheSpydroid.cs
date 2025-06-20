@@ -1,7 +1,7 @@
 ﻿using Abilities.Triggered;
 using Cards.OneShotEffects;
 using ContinuousEffects;
-using Effects.OneShot;
+using OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;

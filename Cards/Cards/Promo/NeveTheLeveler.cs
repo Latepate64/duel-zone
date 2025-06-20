@@ -1,5 +1,5 @@
 ﻿using Abilities.Triggered;
-using Effects.OneShot;
+using OneShotEffects;
 using Engine;
 
 namespace Cards.Cards.Promo;

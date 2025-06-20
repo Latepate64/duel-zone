@@ -1,4 +1,4 @@
-﻿using Effects.OneShot;
+﻿using OneShotEffects;
 using Engine;
 using System.Linq;
 

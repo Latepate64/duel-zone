@@ -20,7 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Abilities\Abilities.csproj" />
     <ProjectReference Include="..\ContinuousEffects\ContinuousEffects.csproj" />
-    <ProjectReference Include="..\Effects\Effects.csproj" />
+    <ProjectReference Include="..\OneShotEffects\OneShotEffects.csproj" />
     <ProjectReference Include="..\Engine\Engine.csproj" />
   </ItemGroup>
 

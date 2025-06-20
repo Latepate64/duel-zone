@@ -1,7 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 
-namespace Effects.OneShot;
+namespace OneShotEffects;
 
 public abstract class OneShotAreaOfEffect : OneShotEffect
 {
