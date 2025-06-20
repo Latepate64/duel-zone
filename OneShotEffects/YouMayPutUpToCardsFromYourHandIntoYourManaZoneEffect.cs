@@ -1,0 +1,31 @@
+﻿using Engine;
+using Engine.Abilities;
+
+namespace OneShotEffects;
+
+public abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<Card>
+{
+    private readonly int _maximum;
+
+    protected YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(
+        0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
+    {
+        _maximum = maximum;
+    }
+
+    protected YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+        YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(effect)
+    {
+        _maximum = effect._maximum;
+    }
+
+    public override string ToString()
+    {
+        return $"{(_maximum == 1 ? "You may put a card" : $"Put up to {_maximum}")} from your hand into your mana zone.";
+    }
+
+    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    {
+        return Controller.Hand.Cards;
+    }
+}

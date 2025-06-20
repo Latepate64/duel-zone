@@ -1,4 +1,4 @@
-﻿using Cards.OneShotEffects;
+﻿using OneShotEffects;
 using Abilities.Triggered;
 
 namespace Cards.Cards.DM02

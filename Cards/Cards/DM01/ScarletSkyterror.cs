@@ -1,6 +1,6 @@
 ﻿using Abilities.Static;
 using Abilities.Triggered;
-using Cards.OneShotEffects;
+using OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using Cards.OneShotEffects;
+﻿using OneShotEffects;
 using Engine.Abilities;
 
 namespace Cards.Cards.DM07

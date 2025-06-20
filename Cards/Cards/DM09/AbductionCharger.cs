@@ -1,4 +1,4 @@
-﻿using Cards.OneShotEffects;
+﻿using OneShotEffects;
 
 namespace Cards.Cards.DM09
 {
