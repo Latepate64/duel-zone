@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -56,7 +55,8 @@ namespace Cards.Cards.DM04
             _cards = effect._cards;
         }
 
-        public FullDefensorContinuousEffect(Guid player, params Card[] cards) : base(new BlockerAbility())
+        public FullDefensorContinuousEffect(Guid player, params Card[] cards) : base(
+            new StaticAbility(new ThisCreatureHasBlockerEffect()))
         {
             _player = player;
             _cards = cards;

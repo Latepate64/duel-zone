@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -30,7 +29,8 @@ namespace Cards.Cards.DM10
         {
             if (Source.Tapped)
             {
-                game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id).ToList().ForEach(x => x.AddGrantedAbility(new PowerAttackerAbility(1500)));
+                game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id).ToList().ForEach(x => x.AddGrantedAbility(
+                    new StaticAbility(new PowerAttackerEffect(1500))));
             }
         }
 

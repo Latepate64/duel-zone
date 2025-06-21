@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -42,13 +42,14 @@ namespace Cards.Cards.DM04
         }
     }
 
-    class MegaDetonatorContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
+    class MegaDetonatorContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     {
         public MegaDetonatorContinuousEffect(MegaDetonatorContinuousEffect effect) : base(effect)
         {
         }
 
-        public MegaDetonatorContinuousEffect(params Card[] cards) : base(new DoubleBreakerAbility(), cards)
+        public MegaDetonatorContinuousEffect(params Card[] cards) : base(
+            new StaticAbility(new DoubleBreakerEffect()), cards)
         {
         }
 

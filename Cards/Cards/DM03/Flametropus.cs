@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
@@ -53,7 +52,8 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public FlametropusContinuousEffect(Card card) : base(card, new PowerAttackerAbility(3000), new DoubleBreakerAbility())
+        public FlametropusContinuousEffect(Card card) : base(card, new StaticAbility(new PowerAttackerEffect(3000)),
+            new StaticAbility(new DoubleBreakerEffect()))
         {
         }
 

@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM07
@@ -27,7 +27,7 @@ namespace Cards.Cards.DM07
         {
             if (!Controller.ShieldZone.HasCards)
             {
-                Source.AddGrantedAbility(new DoubleBreakerAbility());
+                Source.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
             }
         }
 

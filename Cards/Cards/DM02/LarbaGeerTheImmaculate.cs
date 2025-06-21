@@ -1,7 +1,7 @@
-﻿using Abilities.Static;
-using Abilities.Triggered;
+﻿using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,7 +33,7 @@ namespace Cards.Cards.DM02
 
         protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetCreatures(game.GetOpponent(Ability.Controller.Id)).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return game.BattleZone.CreaturesThatHaveBlockerOwnedBy(game.GetOpponent(Ability.Controller));
         }
     }
 }

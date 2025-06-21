@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -20,7 +20,7 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SupportingTulipEffect() : base(new PowerAttackerAbility(4000))
+        public SupportingTulipEffect() : base(new StaticAbility(new PowerAttackerEffect(4000)))
         {
         }
 

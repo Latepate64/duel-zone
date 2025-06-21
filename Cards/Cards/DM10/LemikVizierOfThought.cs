@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class LemikVizierOfThoughtEffect : AbilityAddingEffect
     {
-        public LemikVizierOfThoughtEffect() : base(new BlockerAbility())
+        public LemikVizierOfThoughtEffect() : base(new StaticAbility(new ThisCreatureHasBlockerEffect()))
         {
         }
 

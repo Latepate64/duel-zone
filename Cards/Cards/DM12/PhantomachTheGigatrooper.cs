@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Cards.Cards.DM12
 
     class PhantomachDoubleBreakerEffect : AbilityAddingEffect
     {
-        public PhantomachDoubleBreakerEffect() : base(new DoubleBreakerAbility())
+        public PhantomachDoubleBreakerEffect() : base(new StaticAbility(new DoubleBreakerEffect()))
         {
         }
 

@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 
 namespace Cards.Cards.DM06
@@ -28,7 +28,7 @@ namespace Cards.Cards.DM06
             var creature = Source;
             if (game.BattleZone.GetOtherCreatureCount(Controller.Id, creature.Id, Civilization.Fire) > 0)
             {
-                creature.AddGrantedAbility(new PowerAttackerAbility(3000));
+                creature.AddGrantedAbility(new StaticAbility(new PowerAttackerEffect(3000)));
             }
         }
 

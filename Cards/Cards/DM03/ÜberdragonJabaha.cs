@@ -1,5 +1,5 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace Cards.Cards.DM03
 
     class ÜberdragonJabahaEffect : AbilityAddingEffect
     {
-        public ÜberdragonJabahaEffect() : base(new PowerAttackerAbility(2000)) { }
+        public ÜberdragonJabahaEffect() : base(new StaticAbility(new PowerAttackerEffect(2000))) { }
 
         public override IContinuousEffect Copy()
         {

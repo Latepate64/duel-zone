@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -57,7 +56,7 @@ namespace Cards.Cards.DM06
 
         public void AddAbility(IGame game)
         {
-            _cards.ForEach(x => x.AddGrantedAbility(new TripleBreakerAbility()));
+            _cards.ForEach(x => x.AddGrantedAbility(new StaticAbility(new TripleBreakerEffect())));
         }
 
         public override IContinuousEffect Copy()

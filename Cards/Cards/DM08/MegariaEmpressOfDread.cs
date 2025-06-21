@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Cards.Cards.DM08
 
     class MegariaEmpressOfDreadEffect : AbilityAddingEffect
     {
-        public MegariaEmpressOfDreadEffect() : base(new SlayerAbility())
+        public MegariaEmpressOfDreadEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
         {
         }
 

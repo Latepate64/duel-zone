@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Engine;
 
@@ -100,9 +101,12 @@ public class Creature(
     {
         return new Creature(this);
     }
-    
+
     protected void AddTriggeredAbility(ITriggeredAbility ability)
     {
         AddAbilities(ability);
     }
+
+    public bool IsBlocker => GetAbilities<StaticAbility>().SelectMany(
+        x => x.ContinuousEffects).OfType<IBlockerEffect>().Any();
 }

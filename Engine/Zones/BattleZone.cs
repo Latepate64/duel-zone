@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
 
 namespace Engine.Zones
 {
@@ -117,5 +119,12 @@ namespace Engine.Zones
 
         internal IEnumerable<Creature> GetUntappedCreatures(PlayerV2 player) => GetCreatures(player).Where(
             x => !x.Tapped);
+
+        public IEnumerable<Creature> CreaturesThatHaveBlockerOwnedBy(Player player) => CreaturesThatHaveBlocker.Where(
+            c => c.Owner == player);
+
+        public IEnumerable<Creature> CreaturesThatHaveBlocker => Creatures.Where(x => x.IsBlocker);
+
+        public IEnumerable<Creature> CreaturesThatDoNotHaveBlocker => Creatures.Where(x => !x.IsBlocker);
     }
 }

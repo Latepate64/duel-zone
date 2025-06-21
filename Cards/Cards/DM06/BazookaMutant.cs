@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace Cards.Cards.DM06
 
         public bool CannotAttackCreature(Creature attacker, Creature target, IGame game)
         {
-            return IsSourceOfAbility(attacker) && !target.GetAbilities<BlockerAbility>().Any();
+            return IsSourceOfAbility(attacker) && !target.IsBlocker;
         }
 
         public override IContinuousEffect Copy()

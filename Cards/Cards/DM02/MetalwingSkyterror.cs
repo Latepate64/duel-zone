@@ -1,8 +1,8 @@
-﻿using Abilities.Static;
-using Abilities.Triggered;
+﻿using Abilities.Triggered;
 using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
+using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,7 +35,9 @@ namespace Cards.Cards.DM02
 
         protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
+                card => card.GetAbilities<StaticAbility>().SelectMany(
+                x => x.ContinuousEffects).OfType<IBlockerEffect>().Any());
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -44,7 +43,8 @@ namespace Cards.Cards.DM09
             _race = effect._race;
         }
 
-        public VenomWormContinuousEffect(Race race, params Card[] cards) : base(new SlayerAbility(), cards)
+        public VenomWormContinuousEffect(Race race, params Card[] cards) : base(
+            new StaticAbility(new ThisCreatureHasSlayerEffect()), cards)
         {
             _race = race;
         }

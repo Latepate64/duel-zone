@@ -676,5 +676,12 @@ namespace Engine
 
         public void PutTopCardOfOwnDeckIntoOwnGraveyard(IGame game, IAbility ability) => game.Move(
             ability, ZoneType.Deck, ZoneType.Graveyard, Deck.TopCard);
+
+        public void DestroyOpponentsBlocker(IGame game, IAbility source)
+        {
+            var blocker = ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(
+                game, game.GetOpponent(Id)).Where(x => x.IsBlocker), source.ToString());
+            game.Destroy(source, blocker);
+        }
     }
 }

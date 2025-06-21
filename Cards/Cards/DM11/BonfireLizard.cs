@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using Abilities.Triggered;
+﻿using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -33,7 +32,8 @@ namespace Cards.Cards.DM11
 
         protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
+                x => x.IsBlocker);
         }
     }
 }

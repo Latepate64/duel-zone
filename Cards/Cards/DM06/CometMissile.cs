@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using OneShotEffects;
+﻿using OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
@@ -34,7 +33,8 @@ namespace Cards.Cards.DM06
 
         protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
         {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any() && x.Power <= 6000);
+            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
+                x => x.IsBlocker && x.Power <= 6000);
         }
     }
 }

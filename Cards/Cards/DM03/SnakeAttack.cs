@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using OneShotEffects;
 using Engine;
 using Engine.Abilities;
@@ -39,7 +38,8 @@ namespace Cards.Cards.DM03
         {
         }
 
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params Card[] cards) : base(new DoubleBreakerAbility(), cards)
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params Card[] cards) : base(new StaticAbility(
+            new DoubleBreakerEffect()), cards)
         {
         }
 

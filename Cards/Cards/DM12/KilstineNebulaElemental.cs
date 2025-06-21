@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +24,8 @@ namespace Cards.Cards.DM12
         public void AddAbility(IGame game)
         {
             GetAffectedCards(game).ForEach(x => { 
-                x.AddGrantedAbility(new BlockerAbility());
-                x.AddGrantedAbility(new DoubleBreakerAbility());
+                x.AddGrantedAbility(new StaticAbility(new ThisCreatureHasBlockerEffect()));
+                x.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
                 });
         }
 

@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -40,9 +40,10 @@ namespace Cards.Cards.DM04
         {
         }
 
-        public SwordOfMalevolentDeathContinuousEffect(int power, params Card[] cards) : base(new PowerAttackerAbility(power), cards)
-        {
-        }
+        public SwordOfMalevolentDeathContinuousEffect(int power, params Card[] cards) : base(
+            new StaticAbility(new PowerAttackerEffect(power)), cards)
+            {
+            }
 
         public override IContinuousEffect Copy()
         {

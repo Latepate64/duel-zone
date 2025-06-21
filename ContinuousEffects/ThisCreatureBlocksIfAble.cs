@@ -9,7 +9,7 @@ public class ThisCreatureBlocksIfAble : ContinuousEffect, IBlocksIfAbleEffect
     {
     }
 
-    public bool BlocksIfAble(Card blocker, Card attacker, IGame game)
+    public bool BlocksIfAble(Creature blocker, Creature attacker, IGame game)
     {
         return IsSourceOfAbility(blocker);
     }

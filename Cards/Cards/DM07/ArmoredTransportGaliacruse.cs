@@ -1,8 +1,8 @@
-﻿using Abilities.Static;
-using OneShotEffects;
+﻿using OneShotEffects;
 using Engine;
 using Engine.Abilities;
 using System.Collections.Generic;
+using ContinuousEffects;
 
 namespace Cards.Cards.DM07
 {
@@ -22,8 +22,8 @@ namespace Cards.Cards.DM07
 
         public override void Apply(IGame game)
         {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-                new ThisCreatureCanAttackUntappedCreaturesAbility(),
+            game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+                new StaticAbility(new ThisCreatureCanAttackUntappedCreaturesEffect()),
                 [.. GetAffectedCards(game, Ability)]));
         }
 

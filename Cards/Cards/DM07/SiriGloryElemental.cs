@@ -1,8 +1,9 @@
-﻿using Abilities.Static;
-using Abilities.Triggered;
+﻿using Abilities.Triggered;
 using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
+using OneShotEffects;
 
 namespace Cards.Cards.DM07
 {
@@ -29,8 +30,8 @@ namespace Cards.Cards.DM07
         {
             if (!Controller.ShieldZone.HasCards)
             {
-                game.AddAbility(Source, new BlockerAbility());
-                game.AddAbility(Source, new AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));
+                game.AddAbility(Source, new StaticAbility(new ThisCreatureHasBlockerEffect()));
+                game.AddAbility(Source, new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
             }
         }
 

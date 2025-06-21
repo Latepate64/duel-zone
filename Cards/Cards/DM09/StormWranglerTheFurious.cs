@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Abilities.Triggered;
 using Engine;
 using Engine.Abilities;
@@ -21,7 +20,8 @@ namespace Cards.Cards.DM09
     {
         public override void Apply(IGame game)
         {
-            var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.GetAbilities<BlockerAbility>().Any());
+            var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(
+                game, GetOpponent(game).Id).Where(x => x.IsBlocker);
             var creature = Controller.ChooseCardOptionally(creatures, ToString());
             if (creature != null)
             {
@@ -42,9 +42,9 @@ namespace Cards.Cards.DM09
 
     class StormWranglerContinuousEffect : UntilEndOfTurnEffect, IBlocksIfAbleEffect, IUnblockableEffect
     {
-        private readonly Card _blocker;
+        private readonly Creature _blocker;
 
-        public StormWranglerContinuousEffect(Card blocker)
+        public StormWranglerContinuousEffect(Creature blocker)
         {
             _blocker = blocker;
         }
@@ -54,7 +54,7 @@ namespace Cards.Cards.DM09
             _blocker = effect._blocker;
         }
 
-        public bool BlocksIfAble(Card blocker, Card attacker, IGame game)
+        public bool BlocksIfAble(Creature blocker, Creature attacker, IGame game)
         {
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }

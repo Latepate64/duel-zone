@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Cards.Cards.DM06
 
     class FrostSpecterShadowOfAgeEffect : AbilityAddingEffect
     {
-        public FrostSpecterShadowOfAgeEffect() : base(new SlayerAbility())
+        public FrostSpecterShadowOfAgeEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
         {
         }
 

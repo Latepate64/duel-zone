@@ -1,6 +1,6 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
+using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace Cards.Cards.DM10
 
     class LegacyShellEffect : AbilityAddingEffect
     {
-        public LegacyShellEffect() : base(new PowerAttackerAbility(3000))
+        public LegacyShellEffect() : base(new StaticAbility(new PowerAttackerEffect(3000)))
         {
         }
 

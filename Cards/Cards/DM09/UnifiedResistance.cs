@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using ContinuousEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
@@ -51,7 +50,8 @@ namespace Cards.Cards.DM09
             _cards = effect._cards;
         }
 
-        public UnifiedResistanceContinuousEffect(Guid player, params Card[] cards) : base(new BlockerAbility())
+        public UnifiedResistanceContinuousEffect(Guid player, params Card[] cards) : base(
+            new StaticAbility(new ThisCreatureHasBlockerEffect()))
         {
             _player = player;
             _cards = cards;
