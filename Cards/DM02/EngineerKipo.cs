@@ -1,0 +1,12 @@
+﻿using TriggeredAbilities;
+
+namespace Cards.DM02
+{
+    class EngineerKipo : Engine.Creature
+    {
+        public EngineerKipo() : base("Engineer Kipo", 2, 2000, Engine.Race.Xenoparts, Engine.Civilization.Fire)
+        {
+            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.MutualSingleManaSacrificeEffect()));
+        }
+    }
+}

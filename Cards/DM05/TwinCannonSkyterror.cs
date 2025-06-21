@@ -1,0 +1,13 @@
+﻿using ContinuousEffects;
+
+namespace Cards.DM05
+{
+    class TwinCannonSkyterror : Engine.Creature
+    {
+        public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, 7000, Engine.Race.ArmoredWyvern, Engine.Civilization.Fire)
+        {
+            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
+            AddStaticAbilities(new DoubleBreakerEffect());
+        }
+    }
+}

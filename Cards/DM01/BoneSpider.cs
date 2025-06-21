@@ -1,0 +1,12 @@
+﻿using TriggeredAbilities;
+
+namespace Cards.DM01
+{
+    class BoneSpider : Engine.Creature
+    {
+        public BoneSpider() : base("Bone Spider", 3, 5000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
+        {
+            AddTriggeredAbility(new WhenThisCreatureWinsBattleAbility(new OneShotEffects.DestroyThisCreatureEffect()));
+        }
+    }
+}

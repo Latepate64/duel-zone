@@ -13,12 +13,12 @@ namespace Cards
 
         public Card Create(string name)
         {
-            return Activator.CreateInstance(System.Reflection.Assembly.GetExecutingAssembly().GetTypes().First(type => type.Namespace != null && type.Namespace.StartsWith("Cards.Cards") && type.Name == ToPascalCase(name))) as Card;
+            return Activator.CreateInstance(System.Reflection.Assembly.GetExecutingAssembly().GetTypes().First(type => type.Namespace != null && type.Namespace.StartsWith("Cards") && type.Name == ToPascalCase(name))) as Card;
         }
 
         static public Card Create(string name, string set)
         {
-            return Activator.CreateInstance(null, $"Cards.Cards.{set}.{ToPascalCase(name)}").Unwrap() as Card;
+            return Activator.CreateInstance(null, $"Cards.{set}.{ToPascalCase(name)}").Unwrap() as Card;
         }
 
         public static string ToPascalCase(string original)
@@ -40,7 +40,7 @@ namespace Cards
 
         static public IEnumerable<Card> CreateAll()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards.Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability") && !t.Name.EndsWith("Filter") && !t.Name.EndsWith("Event") && !t.Name.EndsWith("Choice")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
+            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability") && !t.Name.EndsWith("Filter") && !t.Name.EndsWith("Event") && !t.Name.EndsWith("Choice")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
         }
 
         static public IEnumerable<Type> EffectTypes => System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Name.EndsWith("Effect"));

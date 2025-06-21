@@ -1,0 +1,70 @@
+﻿using ContinuousEffects;
+using TriggeredAbilities;
+using Engine;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
+using System.Collections.Generic;
+
+namespace Cards.DM04
+{
+    class ThreeEyedDragonfly : Creature
+    {
+        public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Race.GiantInsect, Civilization.Nature)
+        {
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new ThreeEyedDragonflyOneShotEffect()));
+        }
+    }
+
+    class ThreeEyedDragonflyOneShotEffect : OneShotEffect
+    {
+        public override void Apply(IGame game)
+        {
+            var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id), ToString());
+            if (creature != null)
+            {
+                game.Destroy(Ability, creature);
+                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Ability.Source as Creature));
+            }
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new ThreeEyedDragonflyOneShotEffect();
+        }
+
+        public override string ToString()
+        {
+            return "You may destroy one of your other creatures. If you do, this creature gets +2000 power and has \"double breaker\" until the end of the turn.";
+        }
+    }
+
+    class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
+    {
+        private readonly Creature _card;
+
+        public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
+        {
+            _card = effect._card;
+        }
+
+        public ThreeEyedDragonflyContinuousEffect(Creature card) : base(2000)
+        {
+            _card = card;
+        }
+
+        public override IContinuousEffect Copy()
+        {
+            return new ThreeEyedDragonflyContinuousEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
+        }
+
+        protected override List<Creature> GetAffectedCards(IGame game)
+        {
+            return [_card];
+        }
+    }
+}

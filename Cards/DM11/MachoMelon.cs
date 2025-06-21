@@ -1,0 +1,12 @@
+﻿using ContinuousEffects;
+
+namespace Cards.DM11
+{
+    class MachoMelon : WaveStrikerCreature
+    {
+        public MachoMelon() : base("Macho Melon", 2, 1000, Engine.Race.WildVeggies, Engine.Civilization.Nature)
+        {
+            AddWaveStrikerAbility(new PowerAttackerEffect(3000));
+        }
+    }
+}

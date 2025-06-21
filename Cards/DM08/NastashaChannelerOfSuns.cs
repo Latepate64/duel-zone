@@ -1,0 +1,14 @@
+﻿using ContinuousEffects;
+using Engine;
+
+namespace Cards.DM08
+{
+    class NastashaChannelerOfSuns : Creature
+    {
+        public NastashaChannelerOfSuns() : base("Nastasha, Channeler of Suns", 7, 6000, Race.MechaDelSol, Civilization.Light)
+        {
+            AddStaticAbilities(new DoubleBreakerEffect());
+            AddStaticAbilities(new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEffect());
+        }
+    }
+}

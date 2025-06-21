@@ -1,0 +1,16 @@
+﻿using ContinuousEffects;
+using TriggeredAbilities;
+using Engine;
+
+namespace Cards.DM12
+{
+    class CruelNagaAvatarOfFate : VortexEvolutionCreature
+    {
+        public CruelNagaAvatarOfFate() : base("Cruel Naga, Avatar of Fate", 6, 9000, Civilization.Water, Civilization.Darkness, Race.Naga, Race.Merfolk, Race.Chimera)
+        {
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new DoubleBreakerEffect());
+            AddTriggeredAbility(new WhenThisCreatureLeavesBattleZoneAbility(new OneShotEffects.DestroyAllCreaturesEffect()));
+        }
+    }
+}

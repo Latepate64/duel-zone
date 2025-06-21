@@ -1,0 +1,38 @@
+﻿using OneShotEffects;
+using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Cards.DM11
+{
+    class RollickingTotem : SilentSkillCreature
+    {
+        public RollickingTotem() : base("Rollicking Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
+        {
+            AddSilentSkillAbility(new RollickingTotemEffect());
+        }
+    }
+
+    class RollickingTotemEffect : CardMovingChoiceEffect<Creature>
+    {
+        public RollickingTotemEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new RollickingTotemEffect();
+        }
+
+        public override string ToString()
+        {
+            return "Put a creature that has Dragon in its race from your mana zone into the battle zone.";
+        }
+
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        {
+            return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
+        }
+    }
+}

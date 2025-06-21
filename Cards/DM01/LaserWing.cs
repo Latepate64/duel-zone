@@ -1,0 +1,47 @@
+﻿using ContinuousEffects;
+using OneShotEffects;
+using Engine;
+using Engine.Abilities;
+using System.Collections.Generic;
+
+namespace Cards.DM01
+{
+    class LaserWing : Spell
+    {
+        public LaserWing() : base("Laser Wing", 5, Civilization.Light)
+        {
+            AddSpellAbilities(new LaserWingEffect());
+        }
+    }
+
+    class LaserWingEffect : CreatureSelectionEffect
+    {
+        public LaserWingEffect() : base(0, 2, true)
+        {
+        }
+
+        public LaserWingEffect(LaserWingEffect effect) : base(effect)
+        {
+        }
+
+        public override IOneShotEffect Copy()
+        {
+            return new LaserWingEffect(this);
+        }
+
+        public override string ToString()
+        {
+            return "Choose up to 2 of your creatures in the battle zone. They can't be blocked this turn.";
+        }
+
+        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
+        {
+            game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
+        }
+
+        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        {
+            return game.BattleZone.GetCreatures(Ability.Controller.Id);
+        }
+    }
+}

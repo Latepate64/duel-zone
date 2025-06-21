@@ -1,0 +1,9 @@
+﻿namespace Cards.DM10
+{
+    class Cragsaur : Engine.Creature
+    {
+        public Cragsaur() : base("Cragsaur", 3, 3000, Engine.Race.RockBeast, Engine.Civilization.Fire)
+        {
+        }
+    }
+}

@@ -1,0 +1,12 @@
+﻿using TriggeredAbilities;
+
+namespace Cards.DM08
+{
+    class TyrantWorm : Engine.Creature
+    {
+        public TyrantWorm() : base("Tyrant Worm", 1, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
+        {
+            AddTriggeredAbility(new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyThisCreatureEffect()));
+        }
+    }
+}
