@@ -9,10 +9,11 @@ using System.Linq;
 
 namespace Engine
 {
+
     /// <summary>
     /// 102.1. A player is one of the people in the game.
     /// </summary>
-    public abstract class Player : IDisposable
+    public abstract class Player : IDisposable, IPlayer
     {
         private static readonly Random Random = new();
 

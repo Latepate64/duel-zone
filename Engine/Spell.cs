@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Engine;
 
-public class Spell : Card
+public class Spell : Card, ISpell
 {
     protected Spell(string name, int manaCost, Civilization civilization) : base(false, [civilization], manaCost, name)
     {

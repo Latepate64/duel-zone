@@ -2,7 +2,8 @@
 
 namespace Engine.Zones
 {
-    public class SpellStack : Zone, ICopyable<SpellStack>
+
+    public class SpellStack : Zone, ICopyable<SpellStack>, ISpellStack
     {
         public SpellStack() : base(ZoneType.SpellStack)
         {

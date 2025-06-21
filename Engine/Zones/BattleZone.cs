@@ -5,10 +5,11 @@ using Interfaces;
 
 namespace Engine.Zones
 {
+
     /// <summary>
     /// Battle Zone is the main place of the game. Creatures, Cross Gears, Weapons, Fortresses, Beats and Fields are put into the battle zone, but no mana, shields, castles nor spells may be put into the battle zone.
     /// </summary>
-    public class BattleZone : Zone
+    public class BattleZone : Zone, IBattleZone
     {
         public BattleZone(params Card[] cards) : base(ZoneType.BattleZone, cards)
         {

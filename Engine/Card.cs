@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Engine;
 
-public abstract class Card(bool tapped, List<Civilization> civilizations, int manaCost, string name) : ICopyable<Card>
+public abstract class Card(bool tapped, List<Civilization> civilizations, int manaCost, string name) : ICopyable<Card>, ICard
 {
     public IList<IAbility> AddedAbilities { get; } = [];
     public List<Civilization> Civilizations { get; } = civilizations;

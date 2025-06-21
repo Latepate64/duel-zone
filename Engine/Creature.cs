@@ -18,7 +18,7 @@ public class Creature(
         tapped,
         civilizations,
         manaCost,
-        name)
+        name), ICreature
 {
     readonly IList<Race> addedRaces = [];
     public int? Power { get; private set; } = power;

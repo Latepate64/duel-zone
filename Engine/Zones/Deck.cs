@@ -4,10 +4,11 @@ using Interfaces;
 
 namespace Engine.Zones
 {
+
     /// <summary>
     /// When a game begins, each player’s deck becomes their deck.
     /// </summary>
-    public class Deck : Zone
+    public class Deck : Zone, IDeck
     {
         public Deck(params Card[] cards) : base(ZoneType.Deck, cards)
         {

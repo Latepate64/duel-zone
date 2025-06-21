@@ -4,10 +4,11 @@ using Interfaces;
 
 namespace Engine.Zones
 {
+
     /// <summary>
     /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
     /// </summary>
-    public class ManaZone : Zone
+    public class ManaZone : Zone, IManaZone
     {
         public ManaZone(params Card[] cards) : base(ZoneType.ManaZone, cards) { }
 

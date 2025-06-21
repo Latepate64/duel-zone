@@ -2,7 +2,7 @@ using Engine.Zones;
 
 namespace Engine;
 
-public class PlayerV2
+public class PlayerV2 : IPlayerV2
 {
     public Deck Deck { get; init; } = new Deck();
     public ShieldZone ShieldZone { get; init; } = new ShieldZone();
