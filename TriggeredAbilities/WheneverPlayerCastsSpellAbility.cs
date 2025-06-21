@@ -1,7 +1,6 @@
-﻿using Engine;
-using Engine.Abilities;
-using Engine.GameEvents;
+﻿using Engine.Abilities;
 using GameEvents;
+using Interfaces;
 
 namespace TriggeredAbilities;
 

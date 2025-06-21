@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using Interfaces;
 
 namespace Engine.Steps
 {
@@ -31,16 +32,17 @@ namespace Engine.Steps
         /// </summary>
         public void PerformTurnBasedAction(IGame game)
         {
-            var player = game.ActivePlayer;
-            game.RemoveSummoningSicknesses(player);
-            if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
-            {
-                player.Untap(game, [.. player.ManaZone.Cards]);
-            }
-            if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
-            {
-                UntapBattleZoneCreatures(game, player);
-            }
+            throw new NotImplementedException();
+            // var player = game.ActivePlayer;
+            // game.RemoveSummoningSicknesses(player);
+            // if (game.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player))
+            // {
+            //     player.Untap(game, [.. player.ManaZone.Cards]);
+            // }
+            // if (game.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn())
+            // {
+            //     UntapBattleZoneCreatures(game, player);
+            // }
         }
 
         private static void UntapBattleZoneCreatures(IGame game, IPlayer player)

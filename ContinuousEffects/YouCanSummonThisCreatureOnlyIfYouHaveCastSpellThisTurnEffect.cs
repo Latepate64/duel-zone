@@ -1,6 +1,6 @@
-﻿using Engine;
-using Engine.ContinuousEffects;
-using GameEvents;
+﻿using GameEvents;
+using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
@@ -17,7 +17,8 @@ public class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect : Cont
     public bool Applies(ICard card, IGame game)
     {
         // If player cast no spells during the turn, the creature cannot be summoned.
-        return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Controller);
+        throw new NotImplementedException();
+        // return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Controller);
     }
 
     public override IContinuousEffect Copy()

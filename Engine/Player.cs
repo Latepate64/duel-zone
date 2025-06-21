@@ -1,8 +1,9 @@
-﻿using Engine.Abilities;
-using Engine.Choices;
+﻿using Engine.Choices;
 using Engine.GameEvents;
 using Engine.Zones;
 using Interfaces;
+using Interfaces.Choices;
+using Interfaces.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,11 @@ namespace Engine
 
         protected Player(IPlayer player)
         {
-            Deck = player.Deck.Copy();
-            Graveyard = player.Graveyard.Copy();
-            Hand = player.Hand.Copy();
-            ManaZone = player.ManaZone.Copy();
-            ShieldZone = player.ShieldZone.Copy();
+            // Deck = player.Deck.Copy();
+            // Graveyard = player.Graveyard.Copy();
+            // Hand = player.Hand.Copy();
+            // ManaZone = player.ManaZone.Copy();
+            // ShieldZone = player.ShieldZone.Copy();
             Id = player.Id;
             Name = player?.Name;
         }
@@ -211,7 +212,7 @@ namespace Engine
             return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description).OfType<ICreature>();
         }
 
-        public int ChooseNumber(NumberChoice choice)
+        public int ChooseNumber(INumberChoice choice)
         {
             return Choose(choice).Choice.Value;
         }
@@ -516,7 +517,7 @@ namespace Engine
 
         public void UseCard(ICard card, IGame game)
         {
-            game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
+            // game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
             if (card is ICreature creature)
             {
                 if (creature.Supertypes.Contains(Supertype.Evolution))

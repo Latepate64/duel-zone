@@ -1,7 +1,7 @@
 using Engine;
-using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
+using Interfaces;
 
 namespace ContinuousEffects;
 

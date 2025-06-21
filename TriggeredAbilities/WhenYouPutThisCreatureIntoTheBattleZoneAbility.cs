@@ -1,5 +1,5 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
+using Interfaces;
 
 namespace TriggeredAbilities;
 

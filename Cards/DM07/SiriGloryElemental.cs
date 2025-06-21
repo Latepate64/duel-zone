@@ -2,8 +2,9 @@
 using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using OneShotEffects;
+using Interfaces.ContinuousEffects;
+using Interfaces;
 
 namespace Cards.DM07
 {

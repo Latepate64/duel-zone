@@ -1,8 +1,8 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.ContinuousEffects;
 using Engine.Steps;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
@@ -50,14 +50,15 @@ namespace Cards.DM08
 
         public void ModifyPower(IGame game)
         {
-            if (game.CurrentTurn.CurrentPhase is AttackPhase a)
-            {
-                var against = a.GetCreatureBattlingAgainst(Source as Creature);
-                if (against != null && against.IsDragon)
-                {
-                    (Source as Creature).IncreasePower(6000);
-                }
-            }
+            throw new System.NotImplementedException();
+            // if (game.CurrentTurn.CurrentPhase is AttackPhase a)
+            // {
+            //     var against = a.GetCreatureBattlingAgainst(Source as Creature);
+            //     if (against != null && against.IsDragon)
+            //     {
+            //         (Source as Creature).IncreasePower(6000);
+            //     }
+            // }
         }
 
         public override string ToString()

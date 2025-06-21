@@ -1,8 +1,8 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.DM10

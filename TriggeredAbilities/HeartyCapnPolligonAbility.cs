@@ -1,6 +1,6 @@
 ﻿using OneShotEffects;
-using Engine;
 using Engine.GameEvents;
+using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -13,6 +13,7 @@ public class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
     public override bool CheckInterveningIfClause(IGame game)
     {
         // if this creature broke any shields that turn
-        return game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Any(x => x.Attacker == Source);
+        throw new NotImplementedException();
+        // return game.CurrentTurn.GameEvents.OfType<CreatureBreaksShieldsEvent>().Any(x => x.Attacker == Source);
     }
 }

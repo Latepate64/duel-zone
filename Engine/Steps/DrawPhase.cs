@@ -1,4 +1,6 @@
-﻿namespace Engine.Steps
+﻿using Interfaces;
+
+namespace Engine.Steps
 {
     /// <summary>
     /// 502.1. The active player draws a card. This is a turn-based action.
@@ -20,7 +22,7 @@
         /// <returns></returns>
         public void PerformTurnBasedAction(IGame game)
         {
-           game.CurrentTurn.ActivePlayer.DrawCards(1, game, null);
+        //    game.CurrentTurn.ActivePlayer.DrawCards(1, game, null);
         }
 
         public override Phase Copy()

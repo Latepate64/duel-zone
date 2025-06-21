@@ -1,9 +1,9 @@
 using ContinuousEffects;
 using Engine;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 

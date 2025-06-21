@@ -1,6 +1,5 @@
-﻿using Engine;
-using Engine.Abilities;
-using Engine.ContinuousEffects;
+﻿using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
@@ -20,11 +19,12 @@ public class TurboRushEffect : ContinuousEffect, IAbilityAddingEffect
 
     public void AddAbility(IGame game)
     {
-        var events = game.CurrentTurn.GameEvents.OfType<Engine.GameEvents.CreatureBreaksShieldsEvent>();
-        if (events.Any(e => game.BattleZone.GetCreatures(Controller.Id).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
-        {
-            Source.AddGrantedAbility(_ability.Copy());
-        }
+        throw new NotImplementedException();
+        // var events = game.CurrentTurn.GameEvents.OfType<Engine.GameEvents.CreatureBreaksShieldsEvent>();
+        // if (events.Any(e => game.BattleZone.GetCreatures(Controller.Id).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
+        // {
+        //     Source.AddGrantedAbility(_ability.Copy());
+        // }
     }
 
     public override IContinuousEffect Copy()

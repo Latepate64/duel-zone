@@ -1,7 +1,7 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.ContinuousEffects;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.DM10
@@ -29,10 +29,11 @@ namespace Cards.DM10
 
         public void ModifyPower(IGame game)
         {
-            if (game.GetOpponent(Controller.Id) == game.CurrentTurn.ActivePlayer.Id)
-            {
-                game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.IncreasePower(2000));
-            }
+            throw new System.NotImplementedException();
+            // if (game.GetOpponent(Controller.Id) == game.CurrentTurn.ActivePlayer.Id)
+            // {
+            //     game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x)).ToList().ForEach(x => x.IncreasePower(2000));
+            // }
         }
 
         public override string ToString()

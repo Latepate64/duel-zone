@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 
 namespace Engine.Steps
 {
@@ -18,12 +19,13 @@ namespace Engine.Steps
 
         protected internal override bool PerformPriorityAction(IGame game)
         {
-            var card = game.CurrentTurn.ActivePlayer.ChooseCardOptionally(game.CurrentTurn.ActivePlayer.Hand.Cards, "You may put a card from your hand into your mana zone.");
-            if (card != null)
-            {
-                _ = game.Move(null, ZoneType.Hand, ZoneType.ManaZone, card);
-            }
-            return true;
+            throw new NotImplementedException();
+            // var card = game.CurrentTurn.ActivePlayer.ChooseCardOptionally(game.CurrentTurn.ActivePlayer.Hand.Cards, "You may put a card from your hand into your mana zone.");
+            // if (card != null)
+            // {
+            //     _ = game.Move(null, ZoneType.Hand, ZoneType.ManaZone, card);
+            // }
+            // return true;
         }
 
         public override Phase Copy()

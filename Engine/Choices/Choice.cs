@@ -1,4 +1,7 @@
-﻿namespace Engine.Choices
+﻿using Interfaces;
+using Interfaces.Choices;
+
+namespace Engine.Choices
 {
     public abstract class Choice : IChoice
     {

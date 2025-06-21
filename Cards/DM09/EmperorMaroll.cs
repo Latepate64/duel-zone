@@ -1,5 +1,4 @@
 ﻿using TriggeredAbilities;
-using Engine;
 using Engine.Abilities;
 using Engine.Steps;
 using Interfaces;
@@ -27,7 +26,8 @@ namespace Cards.DM09
 
         public override void Apply(IGame game)
         {
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, (game.CurrentTurn.CurrentPhase as AttackPhase).BlockingCreature);
+            throw new System.NotImplementedException();
+            // game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, (game.CurrentTurn.CurrentPhase as AttackPhase).BlockingCreature);
         }
 
         public override IOneShotEffect Copy()

@@ -1,7 +1,6 @@
-﻿using Engine;
-using Engine.Abilities;
-using Engine.ContinuousEffects;
+﻿using Engine.Abilities;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 using System.Linq;
 
 namespace Cards.DM11

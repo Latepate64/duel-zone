@@ -2,9 +2,9 @@
 using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using System.Linq;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM04
 {

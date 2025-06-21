@@ -1,4 +1,7 @@
-﻿namespace Engine.Choices
+﻿using Interfaces;
+using Interfaces.Choices;
+
+namespace Engine.Choices
 {
     public class BooleanChoice : Choice, IBooleanChoice
     {

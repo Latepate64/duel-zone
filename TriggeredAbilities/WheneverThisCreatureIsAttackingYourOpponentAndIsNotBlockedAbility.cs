@@ -1,6 +1,6 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.GameEvents;
+using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -17,8 +17,9 @@ public class WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility :
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeUnblockedEvent e && e.Attacker == Source
-        && game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game);
+        throw new NotImplementedException();
+        // return gameEvent is BecomeUnblockedEvent e && e.Attacker == Source
+        // && game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game);
     }
 
     public override IAbility Copy()

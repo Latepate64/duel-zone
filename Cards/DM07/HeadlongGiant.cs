@@ -1,8 +1,8 @@
 ﻿using ContinuousEffects;
 using TriggeredAbilities;
 using Engine;
-using Engine.ContinuousEffects;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM07
 {

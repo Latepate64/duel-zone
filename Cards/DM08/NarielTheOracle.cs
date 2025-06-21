@@ -1,7 +1,7 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.ContinuousEffects;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {

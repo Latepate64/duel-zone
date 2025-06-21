@@ -1,5 +1,5 @@
-﻿using Engine;
-using Interfaces;
+﻿using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
@@ -17,7 +17,7 @@ public class RaceEvolutionEffect : SingleBaitEvolutionEffect, IMultiRaceable
 
     public Race[] Races { get; }
 
-    public override ContinuousEffect Copy()
+    public override IContinuousEffect Copy()
     {
         return new RaceEvolutionEffect(this);
     }

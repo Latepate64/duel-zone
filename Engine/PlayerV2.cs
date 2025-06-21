@@ -1,14 +1,16 @@
 using Engine.Zones;
+using Interfaces;
+using Interfaces.Zones;
 
 namespace Engine;
 
 public class PlayerV2 : IPlayerV2
 {
-    public Deck Deck { get; init; } = new Deck();
-    public ShieldZone ShieldZone { get; init; } = new ShieldZone();
-    public Hand Hand { get; init; } = new Hand();
-    public ManaZone ManaZone { get; init; } = new ManaZone();
-    public Graveyard Graveyard { get; init; } = new Graveyard();
+    public IDeck Deck { get; init; } = new Deck();
+    public IShieldZone ShieldZone { get; init; } = new ShieldZone();
+    public IHand Hand { get; init; } = new Hand();
+    public IManaZone ManaZone { get; init; } = new ManaZone();
+    public IGraveyard Graveyard { get; init; } = new Graveyard();
 
     public void SetOwnerForCards()
     {

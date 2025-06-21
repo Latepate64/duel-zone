@@ -1,6 +1,5 @@
-﻿using Engine;
-using Engine.ContinuousEffects;
-using Interfaces;
+﻿using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
@@ -33,9 +32,10 @@ public class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect : Co
 
     public void ModifyPower(IGame game)
     {
-        if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(Race)))
-        {
-            (Source as ICreature).IncreasePower(Power);
-        }
+        throw new NotImplementedException();
+        // if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(Race)))
+        // {
+        //     (Source as ICreature).IncreasePower(Power);
+        // }
     }
 }

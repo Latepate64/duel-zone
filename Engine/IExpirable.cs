@@ -1,4 +1,4 @@
-﻿using Engine.GameEvents;
+﻿using Interfaces;
 
 namespace Engine
 {

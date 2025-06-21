@@ -1,5 +1,5 @@
-﻿using Engine.Abilities;
-using Engine.GameEvents;
+﻿using Interfaces;
+using Interfaces.ContinuousEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,7 @@
 ﻿using ContinuousEffects;
-using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,8 +1,8 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
@@ -36,7 +36,8 @@ namespace Cards.DM10
         private bool Applies(IGame game, ICreature attacker)
         {
             var opponent = GetOpponent(game);
-            return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
+            throw new System.NotImplementedException();
+            // return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
         }
 
         public bool CannotAttackCreature(ICreature attacker, ICreature target, IGame game)

@@ -1,0 +1,7 @@
+﻿namespace Interfaces.ContinuousEffects
+{
+    public interface ICannotUseCardEffect : IContinuousEffect
+    {
+        bool Applies(ICard card, IGame game);
+    }
+}

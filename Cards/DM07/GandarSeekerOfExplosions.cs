@@ -21,11 +21,12 @@ namespace Cards.DM07
     {
         public override void Apply(IGame game)
         {
-            game.AddDelayedTriggeredAbility(
-                new AtTheEndOfTheTurnDelayedTriggeredAbility(
-                    Ability,
-                    game.CurrentTurn.Id,
-                    new GandarSeekerOfExplosionsUntapEffect()));
+            throw new System.NotImplementedException();
+            // game.AddDelayedTriggeredAbility(
+            //     new AtTheEndOfTheTurnDelayedTriggeredAbility(
+            //         Ability,
+            //         game.CurrentTurn.Id,
+            //         new GandarSeekerOfExplosionsUntapEffect()));
         }
 
         public override IOneShotEffect Copy()

@@ -1,7 +1,7 @@
 ﻿using Engine;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {

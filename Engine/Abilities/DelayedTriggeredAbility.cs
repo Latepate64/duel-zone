@@ -1,8 +1,10 @@
 ﻿using System;
+using Interfaces;
 
 namespace Engine.Abilities
 {
-    public abstract class DelayedTriggeredAbility : IDisposable, ICopyable<DelayedTriggeredAbility>
+
+    public abstract class DelayedTriggeredAbility : IDisposable, ICopyable<IDelayedTriggeredAbility>, IDelayedTriggeredAbility
     {
         internal ITriggeredAbility TriggeredAbility { get; private set; }
 
@@ -45,6 +47,6 @@ namespace Engine.Abilities
             }
         }
 
-        public abstract DelayedTriggeredAbility Copy();
+        public abstract IDelayedTriggeredAbility Copy();
     }
 }

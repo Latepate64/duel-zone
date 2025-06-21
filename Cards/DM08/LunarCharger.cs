@@ -1,5 +1,4 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
 using Interfaces;
@@ -29,7 +28,8 @@ namespace Cards.DM08
         public override void Apply(IGame game)
         {
             var creatures = Controller.ChooseControlledCreaturesOptionally(2, game, ToString());
-            game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, game.CurrentTurn.Id));
+            throw new NotImplementedException();
+            // game.AddDelayedTriggeredAbility(new LunarChargerDelayedTriggeredAbility(Ability, creatures, game.CurrentTurn.Id));
         }
 
         public override IOneShotEffect Copy()

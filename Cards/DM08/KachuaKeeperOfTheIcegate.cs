@@ -1,10 +1,10 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 using System;
 using System.Linq;
 
@@ -40,7 +40,8 @@ namespace Cards.DM08
             if (dragon != null)
             {
                 game.AddContinuousEffects(Ability, new KachuaContinuousEffect(dragon));
-                game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, game.CurrentTurn.Id));
+                throw new NotImplementedException();
+                // game.AddDelayedTriggeredAbility(new KachuaDelayedTriggeredAbility(Ability, dragon, game.CurrentTurn.Id));
             }
         }
 

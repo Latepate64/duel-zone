@@ -1,4 +1,6 @@
-﻿namespace Engine.Abilities;
+﻿using Interfaces;
+
+namespace Engine.Abilities;
 
 public class SilentSkillAbility : ActivatedAbility, ISilentSkillAbility
 {

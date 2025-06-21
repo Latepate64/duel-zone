@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Zones;
+using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Engine;
 

@@ -1,4 +1,4 @@
-﻿using Engine.GameEvents;
+﻿using Interfaces;
 using System;
 
 namespace Engine.Abilities

@@ -2,6 +2,7 @@ using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards;
 
@@ -12,7 +13,7 @@ class TurboRushCreature(string name, int manaCost, int power, Race race, params 
         AddStaticAbilities(new TurboRushEffect(ability));
     }
 
-    protected void AddTurboRushAbility(Engine.ContinuousEffects.IContinuousEffect effect)
+    protected void AddTurboRushAbility(IContinuousEffect effect)
     {
         AddStaticAbilities(new TurboRushEffect(new StaticAbility(effect)));
     }

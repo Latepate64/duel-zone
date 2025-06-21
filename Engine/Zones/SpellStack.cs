@@ -1,21 +1,20 @@
 ﻿using Interfaces;
+using Interfaces.Zones;
 
-namespace Engine.Zones
+namespace Engine.Zones;
+
+public class SpellStack : Zone, ISpellStack
 {
-
-    public class SpellStack : Zone, ICopyable<SpellStack>, ISpellStack
+    public SpellStack() : base(ZoneType.SpellStack)
     {
-        public SpellStack() : base(ZoneType.SpellStack)
-        {
-        }
+    }
 
-        public SpellStack(Zone zone) : base(zone)
-        {
-        }
+    public SpellStack(Zone zone) : base(zone)
+    {
+    }
 
-        public SpellStack Copy()
-        {
-            return new SpellStack(this);
-        }
+    public override IZone Copy()
+    {
+        return new SpellStack(this);
     }
 }

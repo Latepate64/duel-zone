@@ -1,22 +1,21 @@
 ﻿using Interfaces;
+using Interfaces.Zones;
 
-namespace Engine.Zones
+namespace Engine.Zones;
+
+/// <summary>
+/// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
+/// </summary>
+public class Graveyard : Zone, IGraveyard
 {
+    public Graveyard(params ICard[] cards) : base(ZoneType.Graveyard, cards) { }
 
-    /// <summary>
-    /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
-    /// </summary>
-    public class Graveyard : Zone, IGraveyard
+    public Graveyard(Graveyard zone) : base(zone)
     {
-        public Graveyard(params ICard[] cards) : base(ZoneType.Graveyard, cards) { }
+    }
 
-        public Graveyard(Graveyard zone) : base(zone)
-        {
-        }
-
-        public Graveyard Copy()
-        {
-            return new Graveyard(this);
-        }
+    public override IZone Copy()
+    {
+        return new Graveyard(this);
     }
 }

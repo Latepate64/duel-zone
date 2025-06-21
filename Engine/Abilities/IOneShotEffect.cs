@@ -1,4 +1,6 @@
-﻿namespace Engine.Abilities
+﻿using Interfaces;
+
+namespace Engine.Abilities
 {
     public interface IOneShotEffect : IEffect
     {

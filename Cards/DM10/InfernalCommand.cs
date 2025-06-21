@@ -1,10 +1,10 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {

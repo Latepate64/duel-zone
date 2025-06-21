@@ -31,9 +31,10 @@ namespace Cards.DM10
         {
             game.Destroy(Ability, [.. game.BattleZone.Creatures.Where(p => p != Ability.Source && p.Power.Value == 6000)]);
             Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
-            game.ExtraTurns.Push(turn);
-            game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(
-                Ability, turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()));
+            throw new System.NotImplementedException();
+            // game.ExtraTurns.Push(turn);
+            // game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(
+            //     Ability, turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()));
         }
 
         public override IOneShotEffect Copy()

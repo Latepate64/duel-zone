@@ -1,5 +1,6 @@
 ﻿using Engine.GameEvents;
 using Engine.Steps;
+using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +60,7 @@ namespace Engine
             Number = number;
             if (!Phases.Any())
             {
-                game.ProcessEvents(new PhaseBegunEvent(new StartOfTurnPhase(Number == 1), game.CurrentTurn));
+                // game.ProcessEvents(new PhaseBegunEvent(new StartOfTurnPhase(Number == 1), game.CurrentTurn));
             }
             else
             {
@@ -75,7 +76,7 @@ namespace Engine
                 Phase nextPhase = CurrentPhase.GetNextPhase(game);
                 if (nextPhase != null)
                 {
-                    game.ProcessEvents(new PhaseBegunEvent(nextPhase, game.CurrentTurn));
+                    // game.ProcessEvents(new PhaseBegunEvent(nextPhase, game.CurrentTurn));
                 }
             }
         }

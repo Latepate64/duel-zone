@@ -2,12 +2,12 @@
 using TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace Cards.DM07
 {

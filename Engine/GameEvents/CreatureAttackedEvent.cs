@@ -1,4 +1,5 @@
 ﻿using Engine.Steps;
+using Interfaces;
 
 namespace Engine.GameEvents
 {
@@ -9,9 +10,9 @@ namespace Engine.GameEvents
 
         public override void Happen(IGame game)
         {
-            var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
-            phase.SetAttackingCreature(Attacker);
-            phase.AttackTarget = Target;
+            // var phase = game.CurrentTurn.CurrentPhase as AttackPhase;
+            // phase.SetAttackingCreature(Attacker);
+            // phase.AttackTarget = Target;
         }
 
         public override string ToString()

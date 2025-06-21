@@ -1,4 +1,6 @@
-﻿namespace Engine.GameEvents
+﻿using Interfaces;
+
+namespace Engine.GameEvents
 {
     public class BecomeBlockedEvent(ICreature attacker, ICreature blocker) : GameEvent
     {

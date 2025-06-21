@@ -1,7 +1,7 @@
-﻿using Engine;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
+using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -17,8 +17,9 @@ public class AtTheEndOfYourTurnAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && game.Turns.Single(
-            x => x.Id == e.Turn.Id).ActivePlayer == Controller && CheckInterveningIfClause(game);
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && game.Turns.Single(
+        //     x => x.Id == e.Turn.Id).ActivePlayer == Controller && CheckInterveningIfClause(game);
     }
 
     public override IAbility Copy()

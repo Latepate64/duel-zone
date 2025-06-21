@@ -1,5 +1,5 @@
-﻿using Engine;
-using Engine.ContinuousEffects;
+﻿using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
@@ -24,11 +24,12 @@ public class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect, IPow
 
     public void ModifyPower(IGame game)
     {
-        var creature = Source as ICreature;
-        if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
-        {
-            creature.IncreasePower(Power);
-        }
+        throw new NotImplementedException();
+        // var creature = Source as ICreature;
+        // if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
+        // {
+        //     creature.IncreasePower(Power);
+        // }
     }
 
     public override string ToString()

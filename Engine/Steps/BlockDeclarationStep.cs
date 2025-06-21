@@ -1,4 +1,6 @@
 ﻿using Engine.GameEvents;
+using Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,12 +19,13 @@ namespace Engine.Steps
 
         private IEnumerable<ICreature> GetCreaturesThatCanBlock(IGame game, ICreature attackingCreature)
         {
-            var creaturesThatCanBlock = game.BattleZone.GetCreatures(
-                game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(
-                    creature, attackingCreature, game));
-            var creaturesThatMustBlock = creaturesThatCanBlock.Where(
-                creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
-            return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
+            throw new NotImplementedException();
+            // var creaturesThatCanBlock = game.BattleZone.GetCreatures(
+            //     game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(
+            //         creature, attackingCreature, game));
+            // var creaturesThatMustBlock = creaturesThatCanBlock.Where(
+            //     creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
+            // return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
         }
 
         private bool CanCreatureBlockCreature(ICreature blocker, ICreature attackingCreature, IGame game)
@@ -34,20 +37,21 @@ namespace Engine.Steps
 
         private void ActivePlayerDeclaresBlocker(IGame game, IEnumerable<ICreature> possibleBlockers)
         {
-            var blocker = game.CurrentTurn.NonActivePlayer.ChooseCreaturesOptionally(possibleBlockers,
-                "You may choose a creature to block the attack with.");
-            if (blocker != null)
-            {
-                Phase.BlockingCreature = blocker;
-                game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
-                //TODO: Event
-                //game.Process(new BlockEvent { ICard = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
-                game.ProcessEvents(new BecomeBlockedEvent(Phase.AttackingCreature, blocker));
-            }
-            else
-            {
-                game.ProcessEvents(new BecomeUnblockedEvent(Phase.AttackingCreature));
-            }
+            throw new NotImplementedException();
+            // var blocker = game.CurrentTurn.NonActivePlayer.ChooseCreaturesOptionally(possibleBlockers,
+            //     "You may choose a creature to block the attack with.");
+            // if (blocker != null)
+            // {
+            //     Phase.BlockingCreature = blocker;
+            //     game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
+            //     //TODO: Event
+            //     //game.Process(new BlockEvent { ICard = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
+            //     game.ProcessEvents(new BecomeBlockedEvent(Phase.AttackingCreature, blocker));
+            // }
+            // else
+            // {
+            //     game.ProcessEvents(new BecomeUnblockedEvent(Phase.AttackingCreature));
+            // }
         }
 
         public override Step GetNextStep(IGame game)

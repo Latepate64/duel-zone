@@ -1,4 +1,6 @@
-﻿namespace Engine.Steps
+﻿using Interfaces;
+
+namespace Engine.Steps
 {
     public interface ITurnBasedActionable
     {
