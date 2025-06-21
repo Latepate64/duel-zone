@@ -23,7 +23,7 @@ public class WheneverAnyOfYourCreaturesAttacksAbility : WheneverCreatureAttacksA
         return $"Whenever any of your creatures attacks, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card.Owner == Controller;
     }

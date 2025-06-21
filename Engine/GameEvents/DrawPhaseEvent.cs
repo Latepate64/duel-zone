@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class DrawPhaseEvent(PlayerV2 player) : GameEventV2(player, false)
+public class DrawPhaseEvent(IPlayerV2 player) : GameEventV2(player, false)
 {
     bool shouldEnd;
 

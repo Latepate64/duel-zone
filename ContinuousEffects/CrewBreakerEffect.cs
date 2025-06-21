@@ -14,5 +14,5 @@ public abstract class CrewBreakerEffect : ContinuousEffect, IBreakerEffect
         
     }
 
-    public abstract int GetAmount(IGame game, Creature creature);
+    public abstract int GetAmount(IGame game, ICreature creature);
 }

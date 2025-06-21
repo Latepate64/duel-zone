@@ -28,7 +28,7 @@ public class DestroyMaxPowerAreaOfEffect : DestroyAreaOfEffect, IPowerable
         return $"Destroy all creatures that have power {Power} or less.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreaturesWithMaxPower(Power);
     }

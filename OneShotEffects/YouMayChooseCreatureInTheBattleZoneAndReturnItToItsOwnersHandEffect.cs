@@ -23,7 +23,7 @@ public class YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect
         return "You may choose a creature in the battle zone and return it to its owner's hand.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id);
     }

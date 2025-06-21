@@ -39,12 +39,12 @@ namespace Cards.DM06
             return $"One of your fire creatures in the battle zone gets +{Power} power until the end of the turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
         {
             game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(Power, cards));
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Fire);
         }

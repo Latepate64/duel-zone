@@ -3,10 +3,10 @@ using Engine.GameEvents;
 
 namespace ContinuousEffects;
 
-public class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Creature creature, IEnumerable<Card> remainingShields) : GameEvent
+public class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(ICreature creature, IEnumerable<ICard> remainingShields) : GameEvent
 {
-    private readonly Creature _creature = creature;
-    private readonly IEnumerable<Card> _remainingShields = remainingShields;
+    private readonly ICreature _creature = creature;
+    private readonly IEnumerable<ICard> _remainingShields = remainingShields;
 
     public override void Happen(IGame game)
     {

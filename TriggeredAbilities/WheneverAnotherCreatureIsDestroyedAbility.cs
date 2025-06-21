@@ -21,7 +21,7 @@ public class WheneverAnotherCreatureIsDestroyedAbility : DestroyedAbility
         return $"Whenever another creature is destroyed, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card != Source;
     }

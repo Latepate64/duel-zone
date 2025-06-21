@@ -23,7 +23,7 @@ public class WheneverThisCreatureBecomesBlockedAbility : BecomeBlockedAbility
         return $"Whenever this creature becomes blocked, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card == Source;
     }

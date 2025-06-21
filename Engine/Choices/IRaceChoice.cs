@@ -18,7 +18,7 @@ namespace Engine.Choices
             Excluded = choice.Excluded;
         }
 
-        public RaceChoice(Player maker, string description, params Race[] excluded) : base(maker, description)
+        public RaceChoice(IPlayer maker, string description, params Race[] excluded) : base(maker, description)
         {
             Excluded = excluded;
         }

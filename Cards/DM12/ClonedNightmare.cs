@@ -54,7 +54,7 @@ namespace Cards.DM12
             _max = choice._max;
         }
 
-        public ClonedNightmareChoice(Player maker, string description, int max) : base(maker, description)
+        public ClonedNightmareChoice(IPlayer maker, string description, int max) : base(maker, description)
         {
             _max = max;
         }

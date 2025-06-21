@@ -10,14 +10,14 @@ namespace Engine.Zones
     /// </summary>
     public class ManaZone : Zone, IManaZone
     {
-        public ManaZone(params Card[] cards) : base(ZoneType.ManaZone, cards) { }
+        public ManaZone(params ICard[] cards) : base(ZoneType.ManaZone, cards) { }
 
         public ManaZone(ManaZone zone) : base(zone)
         {
         }
 
-        public IEnumerable<Card> TappedCards => Cards.Where(card => card.Tapped);
-        public IEnumerable<Card> UntappedCards => Cards.Where(card => !card.Tapped);
+        public IEnumerable<ICard> TappedCards => Cards.Where(card => card.Tapped);
+        public IEnumerable<ICard> UntappedCards => Cards.Where(card => !card.Tapped);
 
         public bool AreAllCivilizationCards(Civilization civ) => Cards.All(x => x.HasCivilization(civ));
 
@@ -26,7 +26,7 @@ namespace Engine.Zones
             return new ManaZone(this);
         }
 
-        public IEnumerable<Card> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum)
+        public IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum)
         {
             return Creatures.Where(c => !c.IsEvolutionCreature && c.ManaCost <= maximum);
         }

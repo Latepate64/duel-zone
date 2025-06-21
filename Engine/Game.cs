@@ -20,7 +20,7 @@ public class Game(IRandomizer randomizer, int maxLoopCount = 5)
         _originalState = state;
     }
 
-    public void Start(PlayerV2 startingPlayer, PlayerV2 otherPlayer)
+    public void Start(IPlayerV2 startingPlayer, IPlayerV2 otherPlayer)
     {
         if (State != null)
         {

@@ -24,7 +24,7 @@ public class ThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffe
 
     public void ModifyPower(IGame game)
     {
-        (Source as Creature).IncreasePower(Power);
+        (Source as ICreature).IncreasePower(Power);
     }
 
     public override string ToString()

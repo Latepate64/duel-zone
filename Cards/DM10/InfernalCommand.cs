@@ -38,9 +38,9 @@ namespace Cards.DM10
 
     class InfernalCommandContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
     {
-        private readonly Card _creature;
+        private readonly ICreature _creature;
 
-        public InfernalCommandContinuousEffect(Creature creature)
+        public InfernalCommandContinuousEffect(ICreature creature)
         {
             _creature = creature;
         }
@@ -50,7 +50,7 @@ namespace Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(Creature creature, IGame game)
+        public bool AttacksIfAble(ICreature creature, IGame game)
         {
             return creature == _creature;
         }

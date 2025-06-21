@@ -1,4 +1,5 @@
 ﻿using ContinuousEffects;
+using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Cards.DM03
             return "Each of your other fire creatures in the battle zone has \"power attacker +2000.\"";
         }
 
-        protected override IEnumerable<Engine.Card> GetAffectedCards(Engine.IGame game)
+        protected override IEnumerable<ICreature> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasCivilization(Interfaces.Civilization.Fire));
         }

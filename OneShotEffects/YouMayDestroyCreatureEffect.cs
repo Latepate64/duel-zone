@@ -23,7 +23,7 @@ public class YouMayDestroyCreatureEffect : DestroyEffect
         return "You may destroy a creature.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id);
     }

@@ -23,7 +23,7 @@ public class ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsE
         return "Choose up to 2 creatures in the battle zone and return them to their owners' hands.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id);
     }

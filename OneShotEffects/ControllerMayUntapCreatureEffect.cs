@@ -21,5 +21,5 @@ public abstract class ControllerMayUntapCreatureEffect : OneShotEffect
         }
     }
 
-    protected abstract IEnumerable<Card> GetSelectableCards(IGame game, IAbility source);
+    protected abstract IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source);
 }

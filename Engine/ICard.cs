@@ -9,26 +9,26 @@ namespace Engine;
 public interface ICard
 {
     IList<IAbility> AddedAbilities { get; }
-    List<Civilization> Civilizations { get; }
+    IList<Civilization> Civilizations { get; }
     bool FaceDown { get; }
     Guid Id { get; }
     int ManaCost { get; }
     string Name { get; }
-    Card OnTopOf { get; }
-    Player Owner { get; }
-    PlayerV2 OwnerV2 { get; set; }
+    ICard OnTopOf { get; }
+    IPlayer Owner { get; }
+    IPlayerV2 OwnerV2 { get; set; }
     int PhysicalCardId { get; }
     IList<IAbility> PrintedAbilities { get; }
     string RulesText { get; }
     bool ShieldTrigger { get; }
     bool Tapped { get; }
     int Timestamp { get; }
-    Card Underneath { get; }
+    ICard Underneath { get; set; }
     bool IsMultiColored { get; }
 
     void AddGrantedAbility(IAbility ability);
-    Card Copy();
-    IList<Card> Deconstruct(IList<Card> deconstructred);
+    ICard Copy();
+    IList<ICard> Deconstruct(IList<ICard> deconstructred);
     bool Equals(object obj);
     IEnumerable<T> GetAbilities<T>();
     IEnumerable<IEvolutionEffect> GetEvolutionEffects();
@@ -36,9 +36,11 @@ public interface ICard
     IEnumerable<TapAbility> GetTapAbilities();
     bool HasCivilization(params Civilization[] civilizations);
     void InitializeAbilities();
-    void PutOnTopOf(IEnumerable<Card> baits);
+    void PutOnTopOf(IEnumerable<ICard> baits);
     void ResetToPrintedValues();
     void SeparateTopCard();
+    void SetTimestamp(int v);
+    void Tap();
     string ToString();
     void TurnFaceUp();
 }

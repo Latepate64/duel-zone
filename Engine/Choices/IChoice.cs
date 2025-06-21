@@ -3,7 +3,7 @@
     public interface IChoice
     {
         string Description { get; }
-        Player Maker { get; }
+        IPlayer Maker { get; }
         
         bool IsValid();
     }

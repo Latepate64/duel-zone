@@ -31,7 +31,7 @@ namespace Cards.DM11
             return "Destroy up to 2 of your opponent's creatures that have \"blocker.\"";
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
                 x => x.IsBlocker);

@@ -25,7 +25,7 @@ public class YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect : T
         return "You may choose a darkness or fire creature in the battle zone and tap it.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByAnyone(
             game, GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Darkness, Civilization.Fire));

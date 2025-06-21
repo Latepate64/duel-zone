@@ -14,11 +14,11 @@ public class PoweredTripleBreaker : ContinuousEffect, IBreakerEffect
         return new PoweredTripleBreaker();
     }
 
-    public int GetAmount(IGame game, Creature creature)
+    public int GetAmount(IGame game, ICreature creature)
     {
         if (IsSourceOfAbility(creature))
         {
-            var power = (Source as Creature).Power;
+            var power = (Source as ICreature).Power;
             return power >= 15000 ?
                 3 :
                 power >= 6000 ?

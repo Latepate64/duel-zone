@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class FromGraveyardIntoManaZoneEffect : CardMovingChoiceEffect<Card>
+public abstract class FromGraveyardIntoManaZoneEffect : CardMovingChoiceEffect<ICard>
 {
     protected FromGraveyardIntoManaZoneEffect(FromGraveyardIntoManaZoneEffect effect) : base(effect)
     {

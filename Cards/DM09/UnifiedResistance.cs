@@ -43,7 +43,7 @@ namespace Cards.DM09
     class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IExpirable
     {
         private readonly Guid _player;
-        private readonly Card[] _cards;
+        private readonly ICard[] _cards;
 
         public UnifiedResistanceContinuousEffect(UnifiedResistanceContinuousEffect effect) : base(effect)
         {
@@ -51,7 +51,7 @@ namespace Cards.DM09
             _cards = effect._cards;
         }
 
-        public UnifiedResistanceContinuousEffect(Guid player, params Card[] cards) : base(
+        public UnifiedResistanceContinuousEffect(Guid player, params ICard[] cards) : base(
             new StaticAbility(new ThisCreatureHasBlockerEffect()))
         {
             _player = player;
@@ -73,7 +73,7 @@ namespace Cards.DM09
             return $"Until the start of your next turn, {_cards} have \"Blocker\".";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
             return _cards;
         }

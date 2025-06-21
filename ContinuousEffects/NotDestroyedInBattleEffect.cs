@@ -18,7 +18,7 @@ public class NotDestroyedInBattleEffect : ContinuousEffect, INotDestroyedInBattl
 
     public Civilization Civilization { get; }
 
-    public bool Applies(Card against, Creature creature, IGame game)
+    public bool Applies(ICard against, ICreature creature, IGame game)
     {
         return IsSourceOfAbility(creature) && against.HasCivilization(Civilization);
     }

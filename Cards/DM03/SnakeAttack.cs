@@ -39,7 +39,7 @@ namespace Cards.DM03
         {
         }
 
-        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params Card[] cards) : base(new StaticAbility(
+        public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new StaticAbility(
             new DoubleBreakerEffect()), cards)
         {
         }

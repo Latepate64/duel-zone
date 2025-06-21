@@ -19,7 +19,7 @@ namespace Cards.DM10
 
     class SpinalParasiteAbility : LinkedTriggeredAbility
     {
-        private Player _player;
+        private IPlayer _player;
 
         public SpinalParasiteAbility()
         {
@@ -42,7 +42,8 @@ namespace Cards.DM10
 
         public override void Resolve(IGame game)
         {
-            var creature = _player.ChooseCard(game.BattleZone.GetCreatures(_player.Id).Where(x => game.CanAttackAtLeastSomething(x)), ToString());
+            var creature = _player.ChooseCard(game.BattleZone.GetCreatures(_player.Id).Where(
+                x => game.CanAttackAtLeastSomething(x)), ToString()) as ICreature;
             game.AddContinuousEffects(this, new SpinalParasiteContinuousEffect(creature));
         }
 
@@ -60,9 +61,9 @@ namespace Cards.DM10
 
     class SpinalParasiteContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect
     {
-        private readonly Card _creature;
+        private readonly ICreature _creature;
 
-        public SpinalParasiteContinuousEffect(Creature creature)
+        public SpinalParasiteContinuousEffect(ICreature creature)
         {
             _creature = creature;
         }
@@ -72,7 +73,7 @@ namespace Cards.DM10
             _creature = effect._creature;
         }
 
-        public bool AttacksIfAble(Creature creature, IGame game)
+        public bool AttacksIfAble(ICreature creature, IGame game)
         {
             return creature == _creature;
         }

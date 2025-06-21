@@ -35,7 +35,7 @@ public class WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect : Co
     {
         if (game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasCivilization(Civilization)))
         {
-            (Source as Creature).IncreasePower(Power);
+            (Source as ICreature).IncreasePower(Power);
         }
     }
 }

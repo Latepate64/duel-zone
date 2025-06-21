@@ -18,7 +18,7 @@ public abstract class DestroyedAbility : CardChangesZoneAbility
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
         return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone
-        && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone is Creature creature
+        && e.Destination == ZoneType.Graveyard && e.CardInDestinationZone is ICreature creature
         && TriggersFrom(creature, game);
     }
 }

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class DiscardEffect : CardMovingChoiceEffect<Card>
+public abstract class DiscardEffect : CardMovingChoiceEffect<ICard>
 {
     protected DiscardEffect(DiscardEffect effect) : base(effect)
     {

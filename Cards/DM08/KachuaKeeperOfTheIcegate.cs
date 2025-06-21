@@ -31,7 +31,7 @@ namespace Cards.DM08
         public override void Apply(IGame game)
         {
             var cards = Controller.Deck.Creatures.Where(x => x.IsDragon);
-            var dragon = Controller.ChooseCardOptionally(cards, ToString());
+            var dragon = Controller.ChooseCardOptionally(cards, ToString()) as ICreature;
             if (dragon != null)
             {
                 game.Move(Ability, ZoneType.Deck, ZoneType.Hand, dragon);
@@ -57,7 +57,7 @@ namespace Cards.DM08
 
     class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect, ICardAffectable
     {
-        public KachuaContinuousEffect(Card card)
+        public KachuaContinuousEffect(ICard card)
         {
             Card = card;
         }
@@ -67,9 +67,9 @@ namespace Cards.DM08
             Card = effect.Card;
         }
 
-        public Card Card { get; }
+        public ICard Card { get; }
 
-        public bool Applies(Creature creature, IGame game)
+        public bool Applies(ICreature creature, IGame game)
         {
             return creature == Card;
         }
@@ -91,7 +91,7 @@ namespace Cards.DM08
         {
         }
 
-        public KachuaDelayedTriggeredAbility(IAbility source, Creature card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
+        public KachuaDelayedTriggeredAbility(IAbility source, ICreature card, Guid turnId) : base(new KachuaAbility(card, turnId), source.Source, source.Controller, true)
         {
         }
 
@@ -103,10 +103,10 @@ namespace Cards.DM08
 
     class KachuaAbility : LinkedTriggeredAbility
     {
-        private readonly Creature _card;
+        private readonly ICreature _card;
         private readonly Guid _turnId;
 
-        public KachuaAbility(Creature card, Guid turnId)
+        public KachuaAbility(ICreature card, Guid turnId)
         {
             _card = card;
             _turnId = turnId;

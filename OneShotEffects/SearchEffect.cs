@@ -18,7 +18,7 @@ public abstract class SearchEffect : SearchAnyDeckEffect
         Reveal = effect.Reveal;
     }
 
-    protected override void Apply(IGame game, IAbility source, params Card[] cards)
+    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
     {
         if (Reveal)
         {

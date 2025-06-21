@@ -32,7 +32,7 @@ public class WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEf
         return "When this creature would be destroyed, add it to your shields face down instead.";
     }
 
-    protected override bool Applies(Creature card, IGame game)
+    protected override bool Applies(ICreature card, IGame game)
     {
         return IsSourceOfAbility(card);
     }

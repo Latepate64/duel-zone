@@ -7,18 +7,19 @@ public interface ICreature : ICard
 {
     int? Power { get; }
     int? PrintedPower { get; }
-    List<Race> Races { get; }
+    IList<Race> Races { get; }
     bool SummoningSickness { get; }
-    List<Supertype> Supertypes { get; }
+    IList<Supertype> Supertypes { get; }
     bool IsNonEvolutionCreature { get; }
     bool IsEvolutionCreature { get; }
     bool IsDragon { get; }
     bool IsBlocker { get; }
 
     void AddGrantedRace(Race race);
-    Creature Copy();
+    ICreature Copy();
     bool Equals(object obj);
     bool HasRace(Race race);
     void IncreasePower(int power);
+    void RemoveSummoningSickness();
     void ResetToPrintedValues();
 }

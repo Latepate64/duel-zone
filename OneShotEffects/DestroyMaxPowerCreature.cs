@@ -27,7 +27,7 @@ public class DestroyMaxPowerCreature : DestroyEffect
         return $"Destroy a creature that has power {_power} or less.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByAnyone(
             game, GetOpponent(game).Id).Where(x => x.Power <= _power);

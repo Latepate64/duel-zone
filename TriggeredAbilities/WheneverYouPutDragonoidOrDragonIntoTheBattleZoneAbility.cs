@@ -25,7 +25,7 @@ public class WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility : WheneverC
         return $"Whenever you put a Dragonoid or a creature that has Dragon in its race into the battle zone, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return Controller == card.Owner && (card.HasRace(Race.Dragonoid) || card.IsDragon);
     }

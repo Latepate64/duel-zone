@@ -2,6 +2,6 @@
 {
     public interface IUnblockableEffect : IContinuousEffect
     {
-        bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game);
+        bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game);
     }
 }

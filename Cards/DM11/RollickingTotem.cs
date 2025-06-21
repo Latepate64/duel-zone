@@ -15,7 +15,7 @@ namespace Cards.DM11
         }
     }
 
-    class RollickingTotemEffect : CardMovingChoiceEffect<Creature>
+    class RollickingTotemEffect : CardMovingChoiceEffect<ICreature>
     {
         public RollickingTotemEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {
@@ -31,7 +31,7 @@ namespace Cards.DM11
             return "Put a creature that has Dragon in its race from your mana zone into the battle zone.";
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
         }

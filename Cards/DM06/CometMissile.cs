@@ -32,7 +32,7 @@ namespace Cards.DM06
             return "Destroy one of your opponent's creatures that has \"blocker\" and power 6000 or less.";
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
                 x => x.IsBlocker && x.Power <= 6000);

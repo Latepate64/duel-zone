@@ -24,7 +24,7 @@ namespace Cards.DM08
 
         public override void Apply(IGame game)
         {
-            var creature = Controller.ChooseCard(game.BattleZone.Creatures, ToString());
+            var creature = Controller.ChooseCard(game.BattleZone.Creatures, ToString()) as ICreature;
             if (creature != null)
             {
                 game.Move(Ability, ZoneType.BattleZone, ZoneType.Hand, creature);

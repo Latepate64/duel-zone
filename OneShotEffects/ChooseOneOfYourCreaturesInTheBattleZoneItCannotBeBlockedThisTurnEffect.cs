@@ -15,7 +15,7 @@ public class ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEff
     {
     }
 
-    public override IOneShotEffect Copy()
+    public override ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect Copy()
     {
         return new ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect(this);
     }
@@ -25,12 +25,12 @@ public class ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEff
         return "Choose one of your creatures in the battle zone. It can't be blocked this turn.";
     }
 
-    protected override void Apply(IGame game, IAbility source, params Creature[] cards)
+    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
         game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }

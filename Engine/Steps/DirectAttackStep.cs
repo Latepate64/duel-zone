@@ -32,9 +32,10 @@
             }
         }
 
-        private static int GetAmountOfShieldsToBreak(IGame game, Creature attackingCreature)
+        private static int GetAmountOfShieldsToBreak(IGame game, ICreature attackingCreature)
         {
-            return game.GetAmountOfShieldsCreatureBreaks(attackingCreature) + game.ContinuousEffects.GetAmountOfShieldsCreatureBreaksAdditionally(attackingCreature);
+            return game.GetAmountOfShieldsCreatureBreaks(attackingCreature) +
+                game.ContinuousEffects.GetAmountOfShieldsCreatureBreaksAdditionally(attackingCreature);
         }
 
         public override Step Copy()

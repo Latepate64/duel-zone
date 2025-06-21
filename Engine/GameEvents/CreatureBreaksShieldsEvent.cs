@@ -2,7 +2,8 @@
 
 namespace Engine.GameEvents
 {
-    public sealed class CreatureBreaksShieldsEvent(Card attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
+    public sealed class CreatureBreaksShieldsEvent(ICreature attacker, int breakAmount) :
+        CreatureMightBreakShieldsEvent(attacker, breakAmount)
     {
         public override void Happen(IGame game)
         {
@@ -17,18 +18,18 @@ namespace Engine.GameEvents
         }
     }
 
-    public abstract class CreatureMightBreakShieldsEvent(Card attacker, int breakAmount) : GameEvent
+    public abstract class CreatureMightBreakShieldsEvent(ICreature attacker, int breakAmount) : GameEvent
     {
-        public Card Attacker { get; } = attacker;
+        public ICreature Attacker { get; } = attacker;
         public int BreakAmount { get; } = breakAmount;
     }
 
-    public abstract class ShieldsMightBreakEvent(IEnumerable<Card> shields) : GameEvent
+    public abstract class ShieldsMightBreakEvent(IEnumerable<ICard> shields) : GameEvent
     {
-        public IEnumerable<Card> Shields { get; } = shields;
+        public IEnumerable<ICard> Shields { get; } = shields;
     }
 
-    public class ShieldsBreakEvent(IEnumerable<Card> shields) : ShieldsMightBreakEvent(shields)
+    public class ShieldsBreakEvent(IEnumerable<ICard> shields) : ShieldsMightBreakEvent(shields)
     {
         public override void Happen(IGame game)
         {

@@ -5,10 +5,10 @@ namespace Engine.Zones;
 
 public interface IManaZone : IZone
 {
-    IEnumerable<Card> TappedCards { get; }
-    IEnumerable<Card> UntappedCards { get; }
+    IEnumerable<ICard> TappedCards { get; }
+    IEnumerable<ICard> UntappedCards { get; }
 
     bool AreAllCivilizationCards(Civilization civ);
     ManaZone Copy();
-    IEnumerable<Card> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum);
+    IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum);
 }

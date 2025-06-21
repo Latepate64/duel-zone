@@ -35,7 +35,7 @@ public class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect : Co
     {
         if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(Race)))
         {
-            (Source as Creature).IncreasePower(Power);
+            (Source as ICreature).IncreasePower(Power);
         }
     }
 }

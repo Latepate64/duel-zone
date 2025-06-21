@@ -28,7 +28,7 @@ public class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect, IRaceable
         return $"Untap all {Race}s in the battle zone.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(Race);
     }

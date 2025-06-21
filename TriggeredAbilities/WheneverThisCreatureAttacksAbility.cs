@@ -23,7 +23,7 @@ public class WheneverThisCreatureAttacksAbility : WheneverCreatureAttacksAbility
         return $"Whenever this creature attacks, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card == Source;
     }

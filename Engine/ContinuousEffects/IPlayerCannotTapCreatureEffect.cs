@@ -2,6 +2,6 @@
 {
     public interface IPlayerCannotTapCreatureEffect : IContinuousEffect
     {
-        bool PlayerCannotTapCreature(Player player, Creature creature, IGame game);
+        bool PlayerCannotTapCreature(IPlayer player, ICreature creature, IGame game);
     }
 }

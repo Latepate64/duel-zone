@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Engine.Choices
 {
-    public interface ICardChoice<T> : IChoice
+    public interface ICardChoice<T> : IChoice where T : ICard
     {
         bool CanBeChosenAutomatically { get; }
         IEnumerable<T> Cards { get; set; }
@@ -13,7 +13,7 @@ namespace Engine.Choices
         IEnumerable<T> ChooseAutomatically();
     }
 
-    public class CardChoice<T> : Choice, ICardChoice<T>
+    public class CardChoice<T> : Choice, ICardChoice<T> where T : ICard
     {
         public CardChoice(ICardChoice<T> choice) : base(choice)
         {
@@ -22,7 +22,8 @@ namespace Engine.Choices
             Mode = choice.Mode;
         }
 
-        public CardChoice(Player maker, string description, ICardChoiceMode<T> mode, params T[] cards) : base(maker, description)
+        public CardChoice(IPlayer maker, string description, ICardChoiceMode<T> mode, params T[] cards) : base(
+            maker, description)
         {
             Cards = cards;
             Mode = mode;

@@ -23,7 +23,7 @@ namespace Cards.DM09
         {
             var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(
                 game, GetOpponent(game).Id).Where(x => x.IsBlocker);
-            var creature = Controller.ChooseCardOptionally(creatures, ToString());
+            var creature = Controller.ChooseCardOptionally(creatures, ToString()) as ICreature;
             if (creature != null)
             {
                 game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
@@ -43,9 +43,9 @@ namespace Cards.DM09
 
     class StormWranglerContinuousEffect : UntilEndOfTurnEffect, IBlocksIfAbleEffect, IUnblockableEffect
     {
-        private readonly Creature _blocker;
+        private readonly ICreature _blocker;
 
-        public StormWranglerContinuousEffect(Creature blocker)
+        public StormWranglerContinuousEffect(ICreature blocker)
         {
             _blocker = blocker;
         }
@@ -55,12 +55,12 @@ namespace Cards.DM09
             _blocker = effect._blocker;
         }
 
-        public bool BlocksIfAble(Creature blocker, Creature attacker, IGame game)
+        public bool BlocksIfAble(ICreature blocker, ICreature attacker, IGame game)
         {
             return blocker == _blocker && IsSourceOfAbility(attacker);
         }
 
-        public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
+        public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
         {
             return IsSourceOfAbility(attacker) && blocker != _blocker;
         }

@@ -22,7 +22,7 @@ namespace Engine
             Id = Guid.NewGuid();
         }
 
-        protected Player(Player player)
+        protected Player(IPlayer player)
         {
             Deck = player.Deck.Copy();
             Graveyard = player.Graveyard.Copy();
@@ -35,11 +35,11 @@ namespace Engine
 
         public Guid AttackableId { get; set; }
 
-        public IEnumerable<Card> CardsInNonsharedZones
+        public IEnumerable<ICard> CardsInNonsharedZones
         {
             get
             {
-                List<Card> cards =
+                List<ICard> cards =
                 [
                     .. Deck.Cards,
                     .. Graveyard.Cards,
@@ -82,9 +82,9 @@ namespace Engine
         /// </summary>
         public ShieldZone ShieldZone { get; private set; } = new ShieldZone();
 
-        public IEnumerable<Zone> Zones => [Deck, Graveyard, Hand, ManaZone, ShieldZone];
+        public IEnumerable<IZone> Zones => [Deck, Graveyard, Hand, ManaZone, ShieldZone];
 
-        public void ArrangeTopCardsOfDeck(params Card[] cards)
+        public void ArrangeTopCardsOfDeck(params ICard[] cards)
         {
             var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
             throw new NotImplementedException();
@@ -96,12 +96,12 @@ namespace Engine
             game.Move(ability, ZoneType.ManaZone, ZoneType.Graveyard, card);
         }
 
-        public bool CanChoose(Creature card, IGame game)
+        public bool CanChoose(ICreature card, IGame game)
         {
             return game.ContinuousEffects.CanPlayerChooseCreature(this, card);
         }
 
-        public void Cast(Card spell, IGame game)
+        public void Cast(ICard spell, IGame game)
         {
             throw new NotImplementedException();
         }
@@ -130,15 +130,15 @@ namespace Engine
 
         public abstract T ChooseAbstractly<T>(T choice) where T : Choice;
 
-        public IEnumerable<T> ChooseAnyNumberOfCards<T>(IEnumerable<T> cards, string description)
+        public IEnumerable<T> ChooseAnyNumberOfCards<T>(IEnumerable<T> cards, string description) where T : ICard
         {
-            return ChooseCards(new CardChoice<T>(this, description, new AnyNumberOfCardsChoiceMode<T>(), [.. cards]));
+            return ChooseCards<T>(new CardChoice<T>(this, description, new AnyNumberOfCardsChoiceMode<T>(), [.. cards]));
         }
 
-        public bool ChooseAttacker(IGame game, IEnumerable<Creature> attackers)
+        public bool ChooseAttacker(IGame game, IEnumerable<ICreature> attackers)
         {
             int minimum = attackers.Any(game.ContinuousEffects.DoesCreatureAttackIfAble) ? 1 : 0;
-            IEnumerable<Card> decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
+            IEnumerable<ICard> decision = ChooseCards(attackers, minimum, 1, "You may choose a creature to attack with.");
             if (decision.Any())
             {
                 var id = decision.Single().Id;
@@ -152,22 +152,23 @@ namespace Engine
             return Choose(new AttackTargetChoice(this, targets)).Choice;
         }
 
-        public T ChooseCard<T>(IEnumerable<T> cards, string description)
+        public ICard ChooseCard(IEnumerable<ICard> cards, string description)
         {
             return ChooseCards(cards, 1, 1, description).SingleOrDefault();
         }
 
-        public T ChooseCardOptionally<T>(IEnumerable<T> cards, string description)
+        public ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description)
         {
             return ChooseCards(cards, 0, 1, description).SingleOrDefault();
         }
 
-        public IEnumerable<T> ChooseCards<T>(IEnumerable<T> cards, int min, int max, string description)
+        public IEnumerable<T> ChooseCards<T>(IEnumerable<T> cards, int min, int max, string description) where T : ICard
         {
-            return ChooseCards(new CardChoice<T>(this, description, new BoundedCardChoiceMode<T>(min, max), [.. cards]));
+            return ChooseCards(
+                new CardChoice<T>(this, description, new BoundedCardChoiceMode<T>(min, max), [.. cards]));
         }
 
-        public IEnumerable<T> ChooseCards<T>(CardChoice<T> choice)
+        public IEnumerable<T> ChooseCards<T>(CardChoice<T> choice) where T : ICard
         {
             if (choice.CanBeChosenAutomatically)
             {
@@ -184,29 +185,30 @@ namespace Engine
             return Choose(new CivilizationChoice(this, description, excluded)).Choice.Value;
         }
 
-        public Creature ChooseControlledCreature(IGame game, string description)
+        public ICreature ChooseControlledCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetCreatures(Id), description);
+            return ChooseCard(game.BattleZone.GetCreatures(Id), description) as ICreature;
         }
 
-        public Creature ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
+        public ICreature ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id, civilization), 0, 1, description).SingleOrDefault();
+            return ChooseCards(
+                game.BattleZone.GetCreatures(Id, civilization), 0, 1, description).SingleOrDefault() as ICreature;
         }
 
-        public Creature ChooseControlledCreatureOptionally(IGame game, string description)
+        public ICreature ChooseControlledCreatureOptionally(IGame game, string description)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, 1, description).SingleOrDefault();
+            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, 1, description).SingleOrDefault() as ICreature;
         }
 
-        public IEnumerable<Creature> ChooseControlledCreatures(IGame game, string description, int amount)
+        public IEnumerable<ICreature> ChooseControlledCreatures(IGame game, string description, int amount)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id), amount, amount, description);
+            return ChooseCards(game.BattleZone.GetCreatures(Id), amount, amount, description).OfType<ICreature>();
         }
 
-        public IEnumerable<Creature> ChooseControlledCreaturesOptionally(int max, IGame game, string description)
+        public IEnumerable<ICreature> ChooseControlledCreaturesOptionally(int max, IGame game, string description)
         {
-            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description);
+            return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description).OfType<ICreature>();
         }
 
         public int ChooseNumber(NumberChoice choice)
@@ -214,17 +216,19 @@ namespace Engine
             return Choose(choice).Choice.Value;
         }
 
-        public Creature ChooseOpponentsCreature(IGame game, string description)
+        public ICreature ChooseOpponentsCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(
+                game, game.GetOpponent(Id)), description) as ICreature;
         }
 
-        public Creature ChooseOpponentsNonEvolutionCreature(IGame game, string description)
+        public ICreature ChooseOpponentsNonEvolutionCreature(IGame game, string description)
         {
-            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description);
+            return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(
+                game, game.GetOpponent(Id)).Where(x => x.IsNonEvolutionCreature), description) as ICreature;
         }
 
-        public Player ChoosePlayer(IGame game, string description)
+        public IPlayer ChoosePlayer(IGame game, string description)
         {
             return Choose(new PlayerChoice(this, description, game.Players)).Choice;
         }
@@ -239,21 +243,21 @@ namespace Engine
             return Choose(new BooleanChoice(this, description)).Choice.Value;
         }
 
-        public abstract Player Copy();
+        public abstract IPlayer Copy();
 
-        public Card DestroyCreatureOptionally(IGame game, IAbility ability)
+        public ICard DestroyCreatureOptionally(IGame game, IAbility ability)
         {
             var card = ChooseCardOptionally(game.GetChoosableCreaturesControlledByAnyone(game, Id), ability.ToString());
-            game.Destroy(ability, card);
+            game.Destroy(ability, card as ICreature);
             return card;
         }
 
-        public Card DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description)
+        public ICard DestroyOpponentsCreatureWithMaxPower(int power, IGame game, string description)
         {
             return ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id)).Where(x => x.Power <= power), description);
         }
 
-        public void Discard(IAbility ability, IGame game, params Card[] cards)
+        public void Discard(IAbility ability, IGame game, params ICard[] cards)
         {
             _ = game.Move(ability, ZoneType.Hand, ZoneType.Graveyard, cards);
         }
@@ -319,7 +323,7 @@ namespace Engine
             }
         }
 
-        public Zone GetZone(ZoneType zone)
+        public IZone GetZone(ZoneType zone)
         {
             return zone switch
             {
@@ -332,7 +336,7 @@ namespace Engine
             };
         }
 
-        public void Look(Player owner, IGame game, params Card[] cards)
+        public void Look(IPlayer owner, IGame game, params ICard[] cards)
         {
             // 701.16d Some effects instruct a player to look at one or more cards.
             // Looking at a card follows the same rules as revealing a card,
@@ -361,7 +365,7 @@ namespace Engine
             }
         }
 
-        public IEnumerable<Card> LookAtTheTopCardsOfYourDeck(int amount, IGame game)
+        public IEnumerable<ICard> LookAtTheTopCardsOfYourDeck(int amount, IGame game)
         {
             var cards = Deck.GetTopCards(amount).ToArray();
             Look(this, game, cards);
@@ -390,7 +394,7 @@ namespace Engine
             }
         }
 
-        public void PutOnTheBottomOfDeckInAnyOrder(Card[] cards)
+        public void PutOnTheBottomOfDeckInAnyOrder(ICard[] cards)
         {
             var arranged = Choose(new ArrangeChoice(this, cards)).Rearranged;
             throw new NotImplementedException();
@@ -423,12 +427,12 @@ namespace Engine
         /// </summary>
         /// <param name="game"></param>
         /// <param name="cards"></param>
-        public void ShowCardsToOpponent(IGame game, params Card[] cards)
+        public void ShowCardsToOpponent(IGame game, params ICard[] cards)
         {
             Reveal(game, game.Players, cards);
         }
 
-        public void Reveal(IGame game, IEnumerable<Player> players, params Card[] cards)
+        public void Reveal(IGame game, IEnumerable<IPlayer> players, params ICard[] cards)
         {
             throw new NotImplementedException();
         }
@@ -447,7 +451,7 @@ namespace Engine
             game.Move(source, ZoneType.Deck, ZoneType.Graveyard, toGraveyard);
         }
 
-        public IEnumerable<Card> RevealTopCardsOfDeck(int amount, IGame game)
+        public IEnumerable<ICard> RevealTopCardsOfDeck(int amount, IGame game)
         {
             var cards = Deck.GetTopCards(amount);
             ShowCardsToOpponent(game, [.. cards]);
@@ -466,9 +470,9 @@ namespace Engine
             //game.ProcessEvents(new ShuffleDeckEvent(this, null));
         }
 
-        public void Tap(IGame game, params Card[] cards)
+        public void Tap(IGame game, params ICard[] cards)
         {
-            var untappedCards = cards.Where(card => card != null && !card.Tapped && (card is not Creature creature ||
+            var untappedCards = cards.Where(card => card != null && !card.Tapped && (card is not ICreature creature ||
                 game.ContinuousEffects.CanPlayerTapCreature(this, creature))).ToList();
             foreach (var card in untappedCards)
             {
@@ -491,12 +495,12 @@ namespace Engine
             return Name;
         }
 
-        public void Unreveal(params Card[] cards)
+        public void Unreveal(params ICard[] cards)
         {
             // TODO: Implement reveal information on cards and remove them here.
         }
 
-        public void Untap(IGame game, params Card[] cards)
+        public void Untap(IGame game, params ICard[] cards)
         {
             var tappedCards = cards.Where(x => x.Tapped).ToList();
             foreach (var card in tappedCards)
@@ -510,10 +514,10 @@ namespace Engine
             }
         }
 
-        public void UseCard(Card card, IGame game)
+        public void UseCard(ICard card, IGame game)
         {
             game.CurrentTurn.CurrentPhase.UsedCards.Add(card.Copy());
-            if (card is Creature creature)
+            if (card is ICreature creature)
             {
                 if (creature.Supertypes.Contains(Supertype.Evolution))
                 {
@@ -548,14 +552,14 @@ namespace Engine
             }
         }
 
-        private bool ChooseAttackTarget(IGame game, Creature attacker)
+        private bool ChooseAttackTarget(IGame game, ICreature attacker)
         {
             IEnumerable<IAttackable> possibleTargets = game.GetPossibleAttackTargets(attacker);
             IAttackable target = possibleTargets.Count() > 1
                 ? ChooseAttackTarget(possibleTargets)
                 : possibleTargets.Single();
             Tap(game, attacker);
-            if (target is Card card && card.Id == attacker.Id)
+            if (target is ICard card && card.Id == attacker.Id)
             {
                 game.AddPendingAbilities([.. attacker.GetTapAbilities().Select(x => x.Copy()).Cast<IResolvableAbility>()]);
                 return true;
@@ -567,17 +571,17 @@ namespace Engine
             }
         }
 
-        private Card ChooseOwnHandCard(IAbility ability)
+        private ICard ChooseOwnHandCard(IAbility ability)
         {
             return ChooseCard(Hand.Cards, ability.ToString());
         }
 
-        private IEnumerable<Card> ChooseOwnHandCards(int amount, string description)
+        private IEnumerable<ICard> ChooseOwnHandCards(int amount, string description)
         {
             return ChooseCards(Hand.Cards, amount, amount, description);
         }
 
-        private Card ChooseOwnMana(IAbility ability)
+        private ICard ChooseOwnMana(IAbility ability)
         {
             return ChooseCard(ManaZone.Cards, ability.ToString());
         }
@@ -591,30 +595,32 @@ namespace Engine
         private void Concede(IGame game)
         {
             //TODO: event
-            //game.Process(new ConcedeEvent { Player = Convert() });
+            //game.Process(new ConcedeEvent { IPlayer = Convert() });
             game.Lose(this);
         }
 
-        public void Evolve(Creature evolutionCreature, IGame game)
+        public void Evolve(ICreature evolutionCreature, IGame game)
         {
             var effect = evolutionCreature.GetEvolutionEffects().Single();
             effect.Evolve(evolutionCreature, game);
         }
 
-        private void PayManaCostAndUseCard(IGame game, IEnumerable<Card> manaCards, Card toUse)
+        private void PayManaCostAndUseCard(IGame game, IEnumerable<ICard> manaCards, ICard toUse)
         {
             Tap(game, [.. manaCards]);
             UseCard(toUse, game);
         }
 
-        private void Summon(Creature creature, IGame game)
+        private void Summon(ICreature creature, IGame game)
         {
             game.ProcessEvents(new CreatureSummonedEvent(this, creature));
         }
 
-        public IEnumerable<Creature> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<Creature> creaturesWithSilentSkill)
+        public IEnumerable<ICreature> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICreature> creaturesWithSilentSkill)
         {
-            return ChooseAnyNumberOfCards(creaturesWithSilentSkill, "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.");
+            return ChooseAnyNumberOfCards(
+                creaturesWithSilentSkill,
+                "Choose which creatures you want to keep tapped to use their Silent skill abilities. Unchosen creatures will untap instead.").OfType<ICreature>();
         }
 
         public void SearchOwnDeck()
@@ -622,31 +628,32 @@ namespace Engine
             //TODO: Reveal deck cards to owner
         }
 
-        public void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, Card[] creatures)
+        public void PutCardsFromOwnDeckIntoOwnHand(IGame game, IAbility ability, ICard[] creatures)
         {
             game.Move(ability, ZoneType.Deck, ZoneType.Hand, creatures);
         }
 
         public void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability)
         {
-            Card[] creatures = [.. ChooseCards(Deck.Creatures, minimum, maximum, description)];
+            ICard[] creatures = [.. ChooseCards(Deck.Creatures, minimum, maximum, description)];
             ShowCardsToOpponent(game, creatures);
             PutCardsFromOwnDeckIntoOwnHand(game, ability, creatures);
         }
 
-        public void PutCreatureFromOwnManaZoneIntoBattleZone(Card mana, IGame game, IAbility ability)
+        public void PutCreatureFromOwnManaZoneIntoBattleZone(ICard mana, IGame game, IAbility ability)
         {
             game.Move(ability, ZoneType.ManaZone, ZoneType.BattleZone, mana);
         }
 
-        public void PutCreatureFromBattleZoneIntoItsOwnersManaZone(Creature creature, IGame game, IAbility ability)
+        public void PutCreatureFromBattleZoneIntoItsOwnersManaZone(ICreature creature, IGame game, IAbility ability)
         {
             game.Move(ability, ZoneType.BattleZone, ZoneType.ManaZone, creature);
         }
 
-        public Creature ChooseCreatureInBattleZoneOptionally(IGame game, string description)
+        public ICreature ChooseCreatureInBattleZoneOptionally(IGame game, string description)
         {
-            return ChooseCardOptionally(game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Id), description);
+            return ChooseCardOptionally(
+                game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, Id), description) as ICreature;
         }
 
         public void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability)
@@ -659,19 +666,19 @@ namespace Engine
             Discard(ability, game, [.. Hand.GetCreaturesWithMaxPower(power)]);
         }
 
-        public Creature DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)
+        public ICreature DestroyOwnCreatureOptionally(string description, IGame game, IAbility ability)
         {
-            Creature creature = ChooseControlledCreatureOptionally(game, description);
+            ICreature creature = ChooseControlledCreatureOptionally(game, description);
             game.Destroy(ability, creature);
             return creature;
         }
 
-        public void PutCreatureFromOwnHandIntoBattleZone(Creature card, IGame game, IAbility ability)
+        public void PutCreatureFromOwnHandIntoBattleZone(ICreature card, IGame game, IAbility ability)
         {
             game.Move(ability, ZoneType.Hand, ZoneType.BattleZone, card);
         }
 
-        public Card RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
+        public ICard RevealTopCardOfOwnDeck(IGame game) => RevealTopCardsOfDeck(1, game).SingleOrDefault();
 
         public void PutTopCardOfOwnDeckIntoOwnHand(IGame game, IAbility ability) => game.Move(
             ability, ZoneType.Deck, ZoneType.Hand, Deck.TopCard);
@@ -683,7 +690,17 @@ namespace Engine
         {
             var blocker = ChooseCard(game.BattleZone.GetChoosableCreaturesControlledByPlayer(
                 game, game.GetOpponent(Id)).Where(x => x.IsBlocker), source.ToString());
-            game.Destroy(source, blocker);
+            game.Destroy(source, blocker as ICreature);
+        }
+
+        public IEnumerable<ICreature> ChooseCreatures(IEnumerable<ICreature> creatures, int v1, int v2, string v3)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICreature ChooseCreaturesOptionally(IEnumerable<ICreature> possibleBlockers, string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

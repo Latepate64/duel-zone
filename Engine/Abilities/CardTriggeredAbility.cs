@@ -10,6 +10,6 @@
         {
         }
 
-        protected abstract bool TriggersFrom(Creature card, IGame game);
+        protected abstract bool TriggersFrom(ICreature card, IGame game);
     }
 }

@@ -23,7 +23,7 @@ public class ThisCreatureHasSlayerEffect : ContinuousEffect, ISlayerEffect
         return "Slayer";
     }
 
-    public bool Applies(Creature creature, Card against, IGame game)
+    public bool Applies(ICreature creature, ICard against, IGame game)
     {
         return IsSourceOfAbility(creature);
     }

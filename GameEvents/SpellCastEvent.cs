@@ -5,10 +5,10 @@ using Interfaces;
 
 namespace GameEvents;
 
-public class SpellCastEvent(Player player, Card spell) : GameEvent
+public class SpellCastEvent(Player player, ICard spell) : GameEvent
 {
     public Player Player { get; } = player;
-    public Card Spell { get; private set; } = spell;
+    public ICard Spell { get; private set; } = spell;
 
     public override void Happen(IGame game)
     {
@@ -28,7 +28,7 @@ public class SpellCastEvent(Player player, Card spell) : GameEvent
         return $"{Player} cast {Spell}.";
     }
 
-    private static void ResolveSpellAbilities(Card spell, IGame game)
+    private static void ResolveSpellAbilities(ICard spell, IGame game)
     {
         foreach (var ability in spell.GetAbilities<SpellAbility>())
         {
@@ -43,7 +43,7 @@ public class SpellCastEvent(Player player, Card spell) : GameEvent
     /// </summary>
     /// <param name="spell"></param>
     /// <param name="game"></param>
-    private void FinishCastingSpell(Card spell, IGame game)
+    private void FinishCastingSpell(ICard spell, IGame game)
     {
         game.ProcessEvents(new CardMovedEvent(Player, ZoneType.SpellStack, ZoneType.Graveyard, spell.Id, false, null));
     }

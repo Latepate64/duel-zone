@@ -30,7 +30,7 @@ public class WhenThisCreatureBattlesAbility : CardTriggeredAbility
         return $"When this creature battles, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card == Source;
     }

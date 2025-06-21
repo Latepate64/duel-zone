@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class ManaRecoveryEffect : CardMovingChoiceEffect<Card>
+public abstract class ManaRecoveryEffect : CardMovingChoiceEffect<ICard>
 {
     protected ManaRecoveryEffect(ManaRecoveryEffect effect) : base(effect)
     {

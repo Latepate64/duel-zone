@@ -13,7 +13,7 @@ public abstract class ChooseAnyNumberOfCardsEffect : OneShotEffect
     {
     }
 
-    protected abstract void Apply(IGame game, IAbility source, params Card[] cards);
+    protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
     public override void Apply(IGame game)
     {
@@ -25,5 +25,5 @@ public abstract class ChooseAnyNumberOfCardsEffect : OneShotEffect
         }
     }
 
-    protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
+    protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
 }

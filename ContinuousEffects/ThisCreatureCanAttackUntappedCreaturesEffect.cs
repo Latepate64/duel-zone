@@ -24,7 +24,7 @@ public class ThisCreatureCanAttackUntappedCreaturesEffect : ContinuousEffect, IC
         return "This creature can attack untapped creatures.";
     }
 
-    public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
+    public bool CanAttackUntappedCreature(ICreature attacker, ICreature targetOfAttack, IGame game)
     {
         return IsSourceOfAbility(attacker);
     }

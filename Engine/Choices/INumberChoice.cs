@@ -12,7 +12,7 @@
             Choice = choice.Choice;
         }
 
-        public NumberChoice(Player maker, string description) : base(maker, description)
+        public NumberChoice(IPlayer maker, string description) : base(maker, description)
         {
         }
 

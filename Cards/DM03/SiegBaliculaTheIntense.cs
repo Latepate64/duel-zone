@@ -17,7 +17,7 @@ namespace Cards.DM03
     {
         public SiegBaliculaTheIntenseEffect() : base() { }
 
-        public bool CanBlock(Creature blocker, Creature attacker, IGame game)
+        public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
         {
             var ability = Ability;
             return blocker.Owner == ability.Controller && blocker != ability.Source && blocker.HasCivilization(Civilization.Light);

@@ -8,7 +8,7 @@ namespace Engine.Zones
     /// </summary>
     public class Graveyard : Zone, IGraveyard
     {
-        public Graveyard(params Card[] cards) : base(ZoneType.Graveyard, cards) { }
+        public Graveyard(params ICard[] cards) : base(ZoneType.Graveyard, cards) { }
 
         public Graveyard(Graveyard zone) : base(zone)
         {

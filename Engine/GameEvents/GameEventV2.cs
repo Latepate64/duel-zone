@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public abstract class GameEventV2(PlayerV2 player, bool passable)
+public abstract class GameEventV2(IPlayerV2 player, bool passable)
 {
-    public PlayerV2 Player { get; } = player;
+    public IPlayerV2 Player { get; } = player;
     public bool Passable { get; } = passable;
 
     /// <param name="state">The current state of the game.</param>

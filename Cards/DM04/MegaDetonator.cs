@@ -49,7 +49,7 @@ namespace Cards.DM04
         {
         }
 
-        public MegaDetonatorContinuousEffect(params Card[] cards) : base(
+        public MegaDetonatorContinuousEffect(params ICard[] cards) : base(
             new StaticAbility(new DoubleBreakerEffect()), cards)
         {
         }

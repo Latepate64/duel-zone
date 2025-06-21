@@ -11,7 +11,7 @@ public class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect : Conti
     {
     }
 
-    public bool CannotAttack(Creature creature, IGame game)
+    public bool CannotAttack(ICreature creature, IGame game)
     {
         return IsSourceOfAbility(creature) && !GetOpponent(game).ShieldZone.HasCards;
     }

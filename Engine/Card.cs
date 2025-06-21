@@ -7,10 +7,11 @@ using System.Linq;
 
 namespace Engine;
 
-public abstract class Card(bool tapped, List<Civilization> civilizations, int manaCost, string name) : ICopyable<Card>, ICard
+public abstract class Card(bool tapped, IList<Civilization> civilizations, int manaCost, string name) :
+    ICopyable<ICard>, ICard
 {
     public IList<IAbility> AddedAbilities { get; } = [];
-    public List<Civilization> Civilizations { get; } = civilizations;
+    public IList<Civilization> Civilizations { get; } = civilizations;
     public bool FaceDown { get; private set; }
     public Guid Id { get; } = Guid.NewGuid();
     public int ManaCost { get; } = manaCost;
@@ -18,13 +19,13 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
     /// <summary>
     /// Id of the card this card is on top of.
     /// </summary>
-    public Card OnTopOf { get; private set; }
+    public ICard OnTopOf { get; private set; }
 
     /// <summary>
     /// 109.5. The words “you” and “your” on an object refer to the object’s controller, its would-be controller (if a player is attempting to play, cast, or activate it), or its owner (if it has no controller).
     /// </summary>
-    public Player Owner { get; }
-    public PlayerV2 OwnerV2 { get; set; }
+    public IPlayer Owner { get; }
+    public IPlayerV2 OwnerV2 { get; set; }
     public int PhysicalCardId { get; }
     public IList<IAbility> PrintedAbilities { get; } = [];
     public string RulesText { get; private set; }
@@ -34,7 +35,7 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
     /// <summary>
     /// The card this card is underneath of.
     /// </summary>
-    public Card Underneath { get; private set; }
+    public ICard Underneath { get; set; }
 
     protected Card(Card card, int timeStamp) : this(card.Tapped, [.. card.Civilizations], card.ManaCost, card.Name)
     {
@@ -93,7 +94,7 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
         AddedAbilities.Add(ability);
     }
 
-    public IList<Card> Deconstruct(IList<Card> deconstructred)
+    public IList<ICard> Deconstruct(IList<ICard> deconstructred)
     {
         if (Underneath != null)
         {
@@ -128,10 +129,10 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
         SetRulesText();
     }
 
-    public void PutOnTopOf(IEnumerable<Card> baits)
+    public void PutOnTopOf(IEnumerable<ICard> baits)
     {
         var remainingBaits = baits.ToList();
-        List<Card> toBeStacked = [];
+        List<ICard> toBeStacked = [];
         while (remainingBaits.Count > 1)
         {
             var card = Owner.ChooseCard(remainingBaits, "Choose a card to be placed on a stack of cards. (the remaining cards will be stacked on top of it)");
@@ -213,7 +214,7 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
         return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
     }
 
-    internal void Tap()
+    public void Tap()
     {
         Tapped = true;
     }
@@ -228,10 +229,10 @@ public abstract class Card(bool tapped, List<Civilization> civilizations, int ma
         throw new NotImplementedException("TODO: delete when BattleEvent is deleted");
     }
 
-    internal void SetTimestamp(int timestamp)
+    public void SetTimestamp(int timestamp)
     {
         Timestamp = timestamp;
     }
 
-    public abstract Card Copy();
+    public abstract ICard Copy();
 }

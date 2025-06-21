@@ -9,7 +9,7 @@ public class ThisCreatureHasSpeedAttackerEffect : ContinuousEffect, ISpeedAttack
     {
     }
 
-    public bool Applies(Creature creature, IGame game)
+    public bool Applies(ICreature creature, IGame game)
     {
         return IsSourceOfAbility(creature);
     }

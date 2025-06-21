@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public abstract class CardSelectionEffect<T> : OneShotEffect where T : Card
+public abstract class CardSelectionEffect<T> : OneShotEffect where T : ICard
 {
     public int Minimum { get; }
     public int Maximum { get; }
@@ -30,7 +30,10 @@ public abstract class CardSelectionEffect<T> : OneShotEffect where T : Card
         if (player != null)
         {
             var chosen = player.ChooseCards(cards, Minimum, Math.Min(Maximum, cards.Count()), ToString());
-            Apply(game, Ability, [.. chosen]);
+            if (chosen != null)
+            {
+                Apply(game, Ability, [.. chosen]);
+            }
         }
     }
 

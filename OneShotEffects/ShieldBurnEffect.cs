@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class ShieldBurnEffect : CardMovingChoiceEffect<Card>
+public abstract class ShieldBurnEffect : CardMovingChoiceEffect<ICard>
 {
     protected ShieldBurnEffect(ShieldBurnEffect effect) : base(effect)
     {

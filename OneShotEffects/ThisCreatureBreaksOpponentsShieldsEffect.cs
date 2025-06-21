@@ -18,8 +18,8 @@ public abstract class ThisCreatureBreaksOpponentsShieldsEffect : BreaksOpponents
         return $"This creature breaks {_amount} of your opponent's shields.";
     }
 
-    protected override Creature GetBreaker(IGame game, IAbility source)
+    protected override ICreature GetBreaker(IGame game, IAbility source)
     {
-        return Ability.Source as Creature;
+        return Ability.Source as ICreature;
     }
 }

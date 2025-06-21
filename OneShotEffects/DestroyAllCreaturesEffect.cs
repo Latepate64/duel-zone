@@ -23,7 +23,7 @@ public class DestroyAllCreaturesEffect : DestroyAreaOfEffect
         return "Destroy all creatures.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return game.BattleZone.Creatures;
     }

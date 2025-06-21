@@ -25,7 +25,7 @@ public class YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHis
         return "Your opponent chooses one of his creatures in the battle zone and puts it into his mana zone.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(GetOpponent(game).Id);
     }

@@ -18,7 +18,7 @@ public class PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect : C
 
     public Civilization Civilization { get; }
 
-    public bool Applies(Card card, IGame game)
+    public bool Applies(ICard card, IGame game)
     {
         return card.HasCivilization(Civilization);
     }

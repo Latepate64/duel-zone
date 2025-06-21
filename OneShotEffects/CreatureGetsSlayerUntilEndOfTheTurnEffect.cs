@@ -11,7 +11,7 @@ public class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfT
     {
     }
 
-    public CreatureGetsSlayerUntilEndOfTheTurnEffect(Card card) : base(
+    public CreatureGetsSlayerUntilEndOfTheTurnEffect(ICard card) : base(
         card, new StaticAbility(new ThisCreatureHasSlayerEffect()))
     {
     }

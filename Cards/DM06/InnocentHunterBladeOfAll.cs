@@ -17,12 +17,12 @@ namespace Cards.DM06
 
     class InnocentHunterEffect : SingleBaitEvolutionEffect
     {
-        public override bool CanEvolve(IGame game, Creature evolutionCreature)
+        public override bool CanEvolve(IGame game, ICreature evolutionCreature)
         {
             return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Any(bait => CanEvolveFrom(bait, evolutionCreature, game));
         }
 
-        public bool CanEvolveFrom(Creature bait, Creature evolutionCard, IGame game)
+        public bool CanEvolveFrom(ICreature bait, ICreature evolutionCard, IGame game)
         {
             return bait == Source;
         }
@@ -37,9 +37,10 @@ namespace Cards.DM06
             return "You can put an evolution creature of any race on this creature.";
         }
 
-        protected override IEnumerable<Creature> GetPossibleBaits(IGame game, Creature evolutionCreature)
+        protected override IEnumerable<ICreature> GetPossibleBaits(IGame game, ICreature evolutionCreature)
         {
-            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
+            return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(
+                bait, evolutionCreature, game));
         }
     }
 }

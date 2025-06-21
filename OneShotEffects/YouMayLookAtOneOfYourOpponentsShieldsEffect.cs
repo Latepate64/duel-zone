@@ -23,7 +23,7 @@ public class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
         return "You may look at one of your opponent's shields. Then put it back where it was.";
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
         return GetOpponent(game).ShieldZone.Cards;
     }

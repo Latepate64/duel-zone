@@ -14,9 +14,9 @@ public class PoweredDoubleBreaker : ContinuousEffect, IBreakerEffect
         return new PoweredDoubleBreaker();
     }
 
-    public int GetAmount(IGame game, Creature creature)
+    public int GetAmount(IGame game, ICreature creature)
     {
-        return IsSourceOfAbility(creature) && (Source as Creature).Power >= 6000 ? 2 : 1;
+        return IsSourceOfAbility(creature) && (Source as ICreature).Power >= 6000 ? 2 : 1;
     }
 
     public override string ToString()

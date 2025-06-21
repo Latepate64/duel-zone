@@ -23,8 +23,8 @@ namespace Cards.DM04
             var creature = Controller.ChooseCardOptionally(game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id), ToString());
             if (creature != null)
             {
-                game.Destroy(Ability, creature);
-                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Ability.Source as Creature));
+                game.Destroy(Ability, creature as ICreature);
+                game.AddContinuousEffects(Ability, new ThreeEyedDragonflyContinuousEffect(Ability.Source as ICreature));
             }
         }
 
@@ -41,14 +41,14 @@ namespace Cards.DM04
 
     class ThreeEyedDragonflyContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
     {
-        private readonly Creature _card;
+        private readonly ICreature _card;
 
         public ThreeEyedDragonflyContinuousEffect(ThreeEyedDragonflyContinuousEffect effect) : base(effect)
         {
             _card = effect._card;
         }
 
-        public ThreeEyedDragonflyContinuousEffect(Creature card) : base(2000)
+        public ThreeEyedDragonflyContinuousEffect(ICreature card) : base(2000)
         {
             _card = card;
         }
@@ -63,7 +63,7 @@ namespace Cards.DM04
             return "This creature gets +2000 power and has \"double breaker\" until the end of the turn.";
         }
 
-        protected override List<Creature> GetAffectedCards(IGame game)
+        protected override List<ICreature> GetAffectedCards(IGame game)
         {
             return [_card];
         }

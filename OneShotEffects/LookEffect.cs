@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public abstract class LookEffect : CardSelectionEffect<Card>
+public abstract class LookEffect : CardSelectionEffect<ICard>
 {
     protected LookEffect(LookEffect effect) : base(effect)
     {
@@ -13,7 +13,7 @@ public abstract class LookEffect : CardSelectionEffect<Card>
     {
     }
 
-    protected override void Apply(IGame game, IAbility source, params Card[] cards)
+    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
     {
         if (cards.Length != 0)
         {

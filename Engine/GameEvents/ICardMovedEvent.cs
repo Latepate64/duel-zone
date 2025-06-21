@@ -6,12 +6,12 @@ namespace Engine.GameEvents
 {
     public interface ICardMovedEvent : IGameEvent
     {
-        Player Player { get; }
+        IPlayer Player { get; }
         Guid CardInSourceZone { get; }
         ZoneType Source { get; }
         ZoneType Destination { get; }
         bool EntersTapped { get; set; }
-        Card CardInDestinationZone { get; set; }
+        ICard CardInDestinationZone { get; set; }
         IAbility Ability { get; }
     }
 }

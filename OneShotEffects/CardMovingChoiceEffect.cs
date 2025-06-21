@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class CardMovingChoiceEffect<T> : CardSelectionEffect<T> where T : Card
+public abstract class CardMovingChoiceEffect<T> : CardSelectionEffect<T> where T : ICard
 {
     public ZoneType SourceZone { get; }
     public ZoneType DestinationZone { get; }

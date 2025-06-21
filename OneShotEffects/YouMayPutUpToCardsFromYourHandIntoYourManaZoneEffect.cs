@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<Card>
+public abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<ICard>
 {
     private readonly int _maximum;
 
@@ -25,7 +25,7 @@ public abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : Car
         return $"{(_maximum == 1 ? "You may put a card" : $"Put up to {_maximum}")} from your hand into your mana zone.";
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
         return Controller.Hand.Cards;
     }

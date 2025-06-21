@@ -23,7 +23,7 @@ public class UntapAllTheCardsInYourManaZoneEffect : UntapAreaOfEffect
         return "Untap all the cards in your mana zone.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return Controller.ManaZone.Cards;
     }

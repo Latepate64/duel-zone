@@ -4,8 +4,8 @@ namespace Engine.Zones;
 
 public interface IDeck : IZone
 {
-    Card TopCard { get; }
+    ICard TopCard { get; }
 
     Deck Copy();
-    IEnumerable<Card> GetTopCards(int amount);
+    IEnumerable<ICard> GetTopCards(int amount);
 }

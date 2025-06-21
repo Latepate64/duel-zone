@@ -42,7 +42,7 @@ public class GigastandEffect : DestructionReplacementEffect
         return "When this creature would be destroyed, you may return it to your hand instead. If you do, discard a card from your hand.";
     }
 
-    protected override bool Applies(Creature card, IGame game)
+    protected override bool Applies(ICreature card, IGame game)
     {
         return IsSourceOfAbility(card);
     }

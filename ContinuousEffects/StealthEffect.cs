@@ -18,7 +18,7 @@ public class StealthEffect : ContinuousEffect, IUnblockableEffect, ICivilization
 
     public Civilization Civilization { get; }
 
-    public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
     {
         return attacker == Source && GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(Civilization));
     }

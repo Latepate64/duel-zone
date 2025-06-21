@@ -27,7 +27,7 @@ public class SearchCardNoRevealEffect : SearchEffect
         return "Search your deck. You may take a card from your deck and put it into your hand. Then shuffle your deck.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return Controller.Deck.Cards;
     }

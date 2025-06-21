@@ -30,7 +30,7 @@ namespace Cards.DM01
             return "Destroy one of your opponent's untapped creatures.";
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, game.GetOpponent(Ability.Controller.Id));
         }

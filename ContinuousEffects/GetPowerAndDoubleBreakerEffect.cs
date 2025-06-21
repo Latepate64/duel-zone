@@ -28,5 +28,5 @@ public abstract class GetPowerAndDoubleBreakerEffect : ContinuousEffect, IPowerM
         GetAffectedCards(game).ForEach(x => x.IncreasePower(_power));
     }
 
-    protected abstract List<Creature> GetAffectedCards(IGame game);
+    protected abstract List<ICreature> GetAffectedCards(IGame game);
 }

@@ -18,10 +18,10 @@ public abstract class DestructionReplacementEffect : ReplacementEffect
     {
         if (gameEvent is CardMovedEvent e)
         {
-            return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone) as Creature, game);
+            return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone) as ICreature, game);
         }
         return false;
     }
 
-    protected abstract bool Applies(Creature creature, IGame game);
+    protected abstract bool Applies(ICreature creature, IGame game);
 }

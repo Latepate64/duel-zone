@@ -23,7 +23,7 @@ public class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
         return $"Crew breaker - {Race}";
     }
 
-    public override int GetAmount(IGame game, Creature creature)
+    public override int GetAmount(IGame game, ICreature creature)
     {
         var ability = Ability;
         return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller.Id).Count(x => x != ability.Source && x.HasRace(Race)) : 1;

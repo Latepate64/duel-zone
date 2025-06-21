@@ -31,7 +31,7 @@ namespace Cards.DM08
             return "You may look at 2 of your opponent's shields. Then put them back where they were.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return GetOpponent(game).ShieldZone.Cards;
         }

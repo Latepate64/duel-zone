@@ -21,7 +21,7 @@ namespace Cards.DM05
             game.Players.ToList().ForEach(x => Apply(x, game, Ability));
         }
 
-        private static void Apply(Player player, IGame game, IAbility source)
+        private static void Apply(IPlayer player, IGame game, IAbility source)
         {
             var amount = player.Hand.Size;
             game.Move(source, ZoneType.Hand, ZoneType.Deck, [.. player.Hand.Cards]);

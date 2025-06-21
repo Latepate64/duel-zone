@@ -25,7 +25,7 @@ public class GameTests
         var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
         var randomizer = new Mock<IRandomizer>();
         randomizer.Setup(x => x.Shuffle(startingPlayer.Deck.Cards.ToList())).Callback(
-            (List<Card> cards) => cards.Reverse());
+            (List<ICard> cards) => cards.Reverse());
         randomizer.Setup(x => x.Shuffle(otherPlayer.Deck.Cards.ToList()));
         var game = new Game(randomizer.Object);
         var startingDeck = startingPlayer.Deck.Cards.ToList();
@@ -572,7 +572,7 @@ public class GameTests
     static Creature CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false,
         int manaCost = 1, bool summoningSickness = true, int power = 1000, PlayerV2 owner = null)
     {
-        return new Creature(tapped, [civilization], manaCost, summoningSickness, power, "Test Creature",
+        return new Creature(tapped, [civilization], manaCost, summoningSickness, power, "Test ICreature",
             [Race.AngelCommand]) { OwnerV2 = owner };
     }
 

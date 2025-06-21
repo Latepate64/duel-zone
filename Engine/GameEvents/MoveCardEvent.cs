@@ -6,12 +6,12 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public abstract class MoveCardEvent(PlayerV2 player, ZoneType destination, bool passable) :
+public abstract class MoveCardEvent(IPlayerV2 player, ZoneType destination, bool passable) :
     GameEventV2(player, passable)
 {
     public ZoneType Destination { get; } = destination;
 
-    internal abstract Card RemoveCardFromCurrentZone();
+    internal abstract ICard RemoveCardFromCurrentZone();
 
     internal override IEnumerable<GameEventV2> Happen(GameState state)
     {

@@ -2,6 +2,6 @@
 {
     public interface ICannotUseShieldTriggerEffect : IContinuousEffect //TODO: Apply in engine
     {
-        bool Applies(Card shield, IGame game);
+        bool Applies(ICard shield, IGame game);
     }
 }

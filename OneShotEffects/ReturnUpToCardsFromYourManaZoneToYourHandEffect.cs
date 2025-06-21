@@ -23,7 +23,7 @@ public abstract class ReturnUpToCardsFromYourManaZoneToYourHandEffect : SelfMana
         return $"Return up to {_amount} cards from your mana zone to your hand.";
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
         return Controller.ManaZone.Cards;
     }

@@ -31,7 +31,7 @@ namespace Cards.DM02
             return "Destroy one of your creatures that has power 3000 or less.";
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id).Where(x => x.Power <= 3000);
         }

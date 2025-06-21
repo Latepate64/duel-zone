@@ -31,7 +31,7 @@ namespace Cards.DM06
             return "Tap all creatures in the battle zone that don't have \"blocker.\"";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.CreaturesThatDoNotHaveBlocker;
         }

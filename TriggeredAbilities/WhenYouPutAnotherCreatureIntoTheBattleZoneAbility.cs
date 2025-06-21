@@ -24,7 +24,7 @@ public class WhenYouPutAnotherCreatureIntoTheBattleZoneAbility : WheneverCreatur
         return $"When you put another creature into the battle zone, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return Source != card && Controller == card.Owner;
     }

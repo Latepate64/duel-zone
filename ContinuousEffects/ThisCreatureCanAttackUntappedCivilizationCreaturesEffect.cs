@@ -18,7 +18,7 @@ public class ThisCreatureCanAttackUntappedCivilizationCreaturesEffect : Continuo
 
     public Civilization Civilization { get; }
 
-    public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
+    public bool CanAttackUntappedCreature(ICreature attacker, ICreature targetOfAttack, IGame game)
     {
         return IsSourceOfAbility(attacker) && targetOfAttack.HasCivilization(Civilization);
     }

@@ -2,6 +2,6 @@
 {
     public interface IAttacksIfAbleEffect : IContinuousEffect
     {
-        bool AttacksIfAble(Creature creature, IGame game);
+        bool AttacksIfAble(ICreature creature, IGame game);
     }
 }

@@ -23,7 +23,7 @@ public class OlgateAbility : DestroyedAbility
         return "Whenever one of your creatures is destroyed, you may untap this creature.";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card.Owner == Controller && card != Source;
     }

@@ -9,7 +9,7 @@ namespace Engine.Abilities
     {
         public Guid Id { get; }
 
-        public Card Source { get; set; }
+        public ICard Source { get; set; }
 
         /// <summary>
         /// 113.8.
@@ -18,7 +18,7 @@ namespace Engine.Abilities
         /// is the player who controlled the ability’s source when it triggered, or, if it had no controller,
         /// the player who owned the ability’s source when it triggered.
         /// </summary>
-        public Player Controller { get; set; }
+        public IPlayer Controller { get; set; }
 
         protected Ability()
         {
@@ -53,7 +53,7 @@ namespace Engine.Abilities
         /// </summary>
         /// <param name="game"></param>
         /// <returns></returns>
-        public Player GetOpponent(IGame game)
+        public IPlayer GetOpponent(IGame game)
         {
             return game.GetOpponent(Controller);
         }

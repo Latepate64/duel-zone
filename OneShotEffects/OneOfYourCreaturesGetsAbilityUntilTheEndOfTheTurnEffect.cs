@@ -23,13 +23,13 @@ public abstract class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : 
         return $"One of your creatures in the battle zone gets \"{_ability.ToString().ToLower()}\" until the end of the turn.";
     }
 
-    protected override void Apply(IGame game, IAbility source, params Creature[] cards)
+    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
         game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
             _ability, cards));
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }

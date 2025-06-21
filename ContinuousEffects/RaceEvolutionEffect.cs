@@ -33,17 +33,17 @@ public class RaceEvolutionEffect : SingleBaitEvolutionEffect, IMultiRaceable
         return string.Join(' ', System.Text.RegularExpressions.Regex.Split(text, @"(?<!^)(?=[A-Z])"));
     }
 
-    public bool CanEvolveFrom(Creature bait, Creature evolutionCard, IGame game)
+    public bool CanEvolveFrom(ICreature bait, ICreature evolutionCard, IGame game)
     {
         return IsSourceOfAbility(evolutionCard) && bait.Races.Intersect(Races).Any();
     }
 
-    public override bool CanEvolve(IGame game, Creature evolutionCreature)
+    public override bool CanEvolve(IGame game, ICreature evolutionCreature)
     {
         return GetPossibleBaits(game, evolutionCreature).Any();
     }
 
-    protected override IEnumerable<Creature> GetPossibleBaits(IGame game, Creature evolutionCreature)
+    protected override IEnumerable<ICreature> GetPossibleBaits(IGame game, ICreature evolutionCreature)
     {
         return game.BattleZone.GetCreatures(evolutionCreature.Owner.Id).Where(bait => CanEvolveFrom(bait, evolutionCreature, game));
     }

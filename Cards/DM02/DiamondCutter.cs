@@ -55,7 +55,7 @@ namespace Cards.DM02
             _controller = effect._controller;
         }
 
-        public bool IgnoreCannotAttackPlayersEffects(Card attacker, IGame game)
+        public bool IgnoreCannotAttackPlayersEffects(ICreature attacker, IGame game)
         {
             return attacker.Owner.Id == _controller;
         }

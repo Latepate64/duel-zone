@@ -13,17 +13,17 @@ namespace Engine.Zones
     /// </summary>
     public abstract class Zone : IDisposable, IZone
     {
-        readonly List<Card> cards = [];
+        readonly List<ICard> cards = [];
         public ZoneType Type { get; }
 
-        public IEnumerable<Creature> Creatures => cards.OfType<Creature>();
-        public IEnumerable<Spell> Spells => cards.OfType<Spell>();
+        public IEnumerable<ICreature> Creatures => cards.OfType<ICreature>();
+        public IEnumerable<ISpell> Spells => cards.OfType<ISpell>();
 
         public int Size => cards.Count;
         public bool HasCards => Size != 0;
-        public IEnumerable<Card> Cards => cards;
+        public IEnumerable<ICard> Cards => cards;
 
-        protected Zone(ZoneType type, params Card[] cards)
+        protected Zone(ZoneType type, params ICard[] cards)
         {
             Type = type;
             this.cards = [.. cards];
@@ -39,12 +39,12 @@ namespace Engine.Zones
             return obj is Zone zone && cards.SequenceEqual(zone.cards) && Type == zone.Type;
         }
 
-        internal void Add(Card card)
+        public void Add(ICard card)
         {
             cards.Add(card);
         }
 
-        internal IEnumerable<Card> Remove(Card card) => cards.Remove(card) ? [card] : [];
+        public IEnumerable<ICard> Remove(ICard card) => cards.Remove(card) ? [card] : [];
 
         protected virtual void Dispose(bool disposing)
         {
@@ -56,43 +56,43 @@ namespace Engine.Zones
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Creature> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
+        public IEnumerable<ICreature> GetCreatures(Guid owner) => Creatures.Where(x => x.Owner.Id == owner);
 
         public int GetCreatureCount(Guid owner) => GetCreatures(owner).Count();
 
-        public IEnumerable<Creature> GetCreatures(params Race[] races) => Creatures.Where(creature => creature.Races.Any(
+        public IEnumerable<ICreature> GetCreatures(params Race[] races) => Creatures.Where(creature => creature.Races.Any(
             race => races.Contains(race)));
 
-        public IEnumerable<Card> GetCards(Civilization civilization) => cards.Where(x => x.HasCivilization(
+        public IEnumerable<ICard> GetCards(Civilization civilization) => cards.Where(x => x.HasCivilization(
             civilization));
 
         public int GetCardCount(Civilization civilization) => GetCards(civilization).Count();
 
         public int GetCreatureCount(Civilization civilization) => GetCreatures(civilization).Count();
 
-        public IEnumerable<Creature> GetCreatures(Civilization civilization) => Creatures.Where(x => x.HasCivilization(
+        public IEnumerable<ICreature> GetCreatures(Civilization civilization) => Creatures.Where(x => x.HasCivilization(
             civilization));
 
-        public IEnumerable<Creature> GetOtherCreatures(Guid creature) => Creatures.Where(x => x.Id != creature);
+        public IEnumerable<ICreature> GetOtherCreatures(Guid creature) => Creatures.Where(x => x.Id != creature);
 
-        public IEnumerable<Creature> GetCreaturesWithMaxPower(int maxPower) => Creatures.Where(x => x.Power <= maxPower);
+        public IEnumerable<ICreature> GetCreaturesWithMaxPower(int maxPower) => Creatures.Where(x => x.Power <= maxPower);
 
-        internal bool Contains(Card card) => cards.Contains(card);
+        internal bool Contains(ICard card) => cards.Contains(card);
 
         internal void Shuffle(IRandomizer randomizer)
         {
             randomizer.Shuffle(cards);
         }
 
-        public IEnumerable<Creature> Dragons => Creatures.Where(x => x.IsDragon);
+        public IEnumerable<ICreature> Dragons => Creatures.Where(x => x.IsDragon);
 
-        public IEnumerable<Card> CardsWithName(string name) => cards.Where(x => x.Name == name);
+        public IEnumerable<ICard> CardsWithName(string name) => cards.Where(x => x.Name == name);
 
-        public IEnumerable<Card> NonCivilizationCards(Civilization civ) => cards.Where(x => !x.HasCivilization(civ));
+        public IEnumerable<ICard> NonCivilizationCards(Civilization civ) => cards.Where(x => !x.HasCivilization(civ));
 
-        public IEnumerable<Card> CardsWithManaCost(int manaCost) => cards.Where(x => x.ManaCost == manaCost);
+        public IEnumerable<ICard> CardsWithManaCost(int manaCost) => cards.Where(x => x.ManaCost == manaCost);
 
-        public void SetOwner(PlayerV2 owner)
+        public void SetOwner(IPlayerV2 owner)
         {
             cards.ForEach(c => c.OwnerV2 = owner);
         }

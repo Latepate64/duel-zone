@@ -10,7 +10,7 @@ public class ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEf
     {
     }
 
-    public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params Card[] cards) : base(
+    public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(
         new StaticAbility(new PowerAttackerEffect(4000)), new StaticAbility(new DoubleBreakerEffect()), cards)
     {
     }

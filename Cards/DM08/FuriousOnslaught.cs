@@ -35,9 +35,9 @@ namespace Cards.DM08
 
     class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, IRaceAddingEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
-        private readonly List<Creature> _cards;
+        private readonly List<ICreature> _cards;
 
-        public FuriousOnslaughtContinuousEffect(List<Creature> cards)
+        public FuriousOnslaughtContinuousEffect(List<ICreature> cards)
         {
             _cards = cards;
         }

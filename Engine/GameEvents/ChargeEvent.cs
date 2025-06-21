@@ -2,11 +2,11 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
+public class ChargeEvent(IPlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
 {
-    public Card ChosenCard { get; set; }
+    public ICard ChosenCard { get; set; }
 
-    internal override Card RemoveCardFromCurrentZone()
+    internal override ICard RemoveCardFromCurrentZone()
     {
         // TODO: Consider that card may not be in hand
         Player.Hand.Remove(ChosenCard);

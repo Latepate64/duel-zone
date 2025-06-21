@@ -19,7 +19,7 @@ public abstract class PowerModifyingMultiplierEffect : ContinuousEffect, IPowerM
 
     public virtual void ModifyPower(IGame game)
     {
-        (Source as Creature).IncreasePower(GetMultiplier(game) * Power);
+        (Source as ICreature).IncreasePower(GetMultiplier(game) * Power);
     }
 
     protected abstract int GetMultiplier(IGame game);

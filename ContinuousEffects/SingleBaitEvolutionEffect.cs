@@ -14,14 +14,14 @@ public abstract class SingleBaitEvolutionEffect : ContinuousEffect, IEvolutionEf
     {
     }
 
-    public abstract bool CanEvolve(IGame game, Creature evolutionCreature);
+    public abstract bool CanEvolve(IGame game, ICreature evolutionCreature);
 
-    public void Evolve(Creature evolutionCreature, IGame game)
+    public void Evolve(ICreature evolutionCreature, IGame game)
     {
         var baits = GetPossibleBaits(game, evolutionCreature);
         var bait = evolutionCreature.Owner.ChooseCard(baits, "Choose a creature to evolve from.");
         game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
     }
 
-    protected abstract IEnumerable<Creature> GetPossibleBaits(IGame game, Creature evolutionCreature);
+    protected abstract IEnumerable<ICreature> GetPossibleBaits(IGame game, ICreature evolutionCreature);
 }

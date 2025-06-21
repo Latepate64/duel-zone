@@ -37,7 +37,7 @@ namespace Cards.DM06
 
         public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone) is Creature creature && creature.IsEvolutionCreature;
+            return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone && game.GetCard(e.CardInSourceZone) is ICreature creature && creature.IsEvolutionCreature;
         }
 
         public override IContinuousEffect Copy()

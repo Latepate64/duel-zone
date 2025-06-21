@@ -32,7 +32,9 @@ namespace Cards.DM07
         public override void Apply(IGame game)
         {
             game.AddContinuousEffects(Ability, new BattleshipMutantContinuousEffect());
-            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new BattleshipMutantAbility(game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)), Ability));
+            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(
+                new BattleshipMutantAbility(game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)),
+                Ability));
         }
 
         public override IOneShotEffect Copy()
@@ -66,7 +68,7 @@ namespace Cards.DM07
             return "Until the end of the turn, each of your darkness creatures in the battle zone gets +4000 power and \"double breaker.\"";
         }
 
-        protected override List<Creature> GetAffectedCards(IGame game)
+        protected override List<ICreature> GetAffectedCards(IGame game)
         {
             return [.. game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)];
         }
@@ -74,15 +76,15 @@ namespace Cards.DM07
 
     class BattleshipMutantAbility : LinkedTriggeredAbility
     {
-        private readonly IEnumerable<Creature> _cards;
-        private readonly Creature _toDestroy;
+        private readonly IEnumerable<ICreature> _cards;
+        private readonly ICreature _toDestroy;
 
-        public BattleshipMutantAbility(IEnumerable<Creature> cards)
+        public BattleshipMutantAbility(IEnumerable<ICreature> cards)
         {
             _cards = cards;
         }
 
-        public BattleshipMutantAbility(Creature toDestroy)
+        public BattleshipMutantAbility(ICreature toDestroy)
         {
             _toDestroy = toDestroy;
         }

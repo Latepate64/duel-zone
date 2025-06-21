@@ -18,7 +18,7 @@ public class TripleBreakerEffect : ContinuousEffect, IBreakerEffect
         return new TripleBreakerEffect(this);
     }
 
-    public int GetAmount(IGame game, Creature creature)
+    public int GetAmount(IGame game, ICreature creature)
     {
         return IsSourceOfAbility(creature) ? 3 : 1;
     }

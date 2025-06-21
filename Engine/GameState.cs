@@ -7,14 +7,14 @@ using Engine.Zones;
 
 namespace Engine;
 
-public class GameState(PlayerV2[] players)
+public class GameState(IPlayerV2[] players)
 {
     /// <summary>
     /// People in the game in an APNAP order.
     /// </summary>
-    public PlayerV2[] Players { get; private set; } = players;
-    public PlayerV2 Winner { get; set; }
-    public List<PlayerV2> Losers { get; init; } = [];
+    public IPlayerV2[] Players { get; private set; } = players;
+    public IPlayerV2 Winner { get; set; }
+    public List<IPlayerV2> Losers { get; init; } = [];
     public EventStack EventsHappening { get; init; } = new();
 
     /// <summary>
@@ -27,8 +27,8 @@ public class GameState(PlayerV2[] players)
     public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
         game: null);
 
-    public PlayerV2 ActivePlayer => Players.First();
-    public IEnumerable<PlayerV2> NonActivePlayers => Players.Skip(1);
+    public IPlayerV2 ActivePlayer => Players.First();
+    public IEnumerable<IPlayerV2> NonActivePlayers => Players.Skip(1);
     public bool GameOver => Winner != null || Losers.Count == Players.Length;
 
     internal void RemovePassableAction()

@@ -29,7 +29,7 @@ namespace Cards.DM06
             return "Choose up to 3 of your opponent's shields and put them into his graveyard.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return GetOpponent(game).ShieldZone.Cards;
         }

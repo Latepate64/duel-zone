@@ -8,12 +8,12 @@ namespace Engine;
 
 public class Creature(
     bool tapped,
-    List<Civilization> civilizations,
+    IList<Civilization> civilizations,
     int manaCost,
     bool summoningSickness,
     int? power,
     string name,
-    List<Race> races)
+    IList<Race> races)
     : Card(
         tapped,
         civilizations,
@@ -24,16 +24,16 @@ public class Creature(
     public int? Power { get; private set; } = power;
     public int? PrintedPower { get; } = power;
     readonly IList<Race> printedRaces = [.. races];
-    public List<Race> Races { get; private set; } = [.. races];
+    public IList<Race> Races { get; private set; } = [.. races];
     public bool SummoningSickness { get; private set; } = summoningSickness;
-    public List<Supertype> Supertypes { get; } = [];
+    public IList<Supertype> Supertypes { get; } = [];
 
     protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(
         tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, [race])
     {
     }
 
-    protected Creature(string name, int manaCost, int power, List<Race> races, params Civilization[] civilizations)
+    protected Creature(string name, int manaCost, int power, IList<Race> races, params Civilization[] civilizations)
         : this(tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, races)
     {
     }
@@ -88,7 +88,7 @@ public class Creature(
         addedRaces.Clear();
     }
 
-    internal void RemoveSummoningSickness()
+    public void RemoveSummoningSickness()
     {
         SummoningSickness = false;
     }
@@ -98,7 +98,7 @@ public class Creature(
         Power += power;
     }
 
-    public override Creature Copy()
+    public override ICreature Copy()
     {
         return new Creature(this);
     }
@@ -108,6 +108,6 @@ public class Creature(
         AddAbilities(ability);
     }
 
-    public bool IsBlocker => GetAbilities<StaticAbility>().SelectMany(
+    public bool IsBlocker => GetAbilities<IStaticAbility>().SelectMany(
         x => x.ContinuousEffects).OfType<IBlockerEffect>().Any();
 }

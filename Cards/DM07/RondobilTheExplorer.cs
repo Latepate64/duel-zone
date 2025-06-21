@@ -14,7 +14,7 @@ namespace Cards.DM07
         }
     }
 
-    class RondobilTheExplorerEffect : CardMovingChoiceEffect<Creature>
+    class RondobilTheExplorerEffect : CardMovingChoiceEffect<ICreature>
     {
         public RondobilTheExplorerEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {
@@ -30,7 +30,7 @@ namespace Cards.DM07
             return "Add one of your creatures from the battle zone to your shields face down.";
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

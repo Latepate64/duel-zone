@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public class AttackEvent(PlayerV2 player, bool passable = true) : GameEventV2(player, passable)
+public class AttackEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
     public Creature AttackingCreature { get; init; }
     public Creature AttackedCreature { get; init; }
-    public PlayerV2 AttackedPlayer { get; init; }
+    public IPlayerV2 AttackedPlayer { get; init; }
     bool shouldEnd;
 
     public override bool Equals(object obj)

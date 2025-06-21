@@ -31,7 +31,7 @@ namespace Cards.DM12
             return "Each of your Chimeras and Armorloids in the battle zone has \"double breaker.\"";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(Controller.Id, Race.Chimera, Race.Armorloid);
         }

@@ -12,7 +12,7 @@ public enum PhaseType
     EndOfTurn
 }
 
-public class TakeTurnEvent(PlayerV2 player, int turnNumber) : GameEventV2(player, false)
+public class TakeTurnEvent(IPlayerV2 player, int turnNumber) : GameEventV2(player, false)
 {
     public int TurnNumber { get; } = turnNumber;
     public PhaseType NextPhase { get; set; }

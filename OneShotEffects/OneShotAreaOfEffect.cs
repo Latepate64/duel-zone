@@ -13,5 +13,5 @@ public abstract class OneShotAreaOfEffect : OneShotEffect
     {
     }
 
-    protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
+    protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
 }

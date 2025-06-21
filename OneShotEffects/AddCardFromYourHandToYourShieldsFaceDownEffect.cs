@@ -23,7 +23,7 @@ public class AddCardFromYourHandToYourShieldsFaceDownEffect : ShieldAdditionEffe
         return "Add a card from your hand to your shields face down.";
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
         return Controller.Hand.Cards;
     }

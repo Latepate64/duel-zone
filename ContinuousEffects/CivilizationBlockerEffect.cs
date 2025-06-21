@@ -18,7 +18,7 @@ public class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect, IMult
 
     public Civilization[] Civilizations { get; }
 
-    public bool CanBlock(Creature blocker, Creature attacker, IGame game)
+    public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
     {
         return IsSourceOfAbility(blocker) && attacker.Civilizations.Intersect(Civilizations).Any();
     }

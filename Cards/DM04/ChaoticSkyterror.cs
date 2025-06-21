@@ -36,7 +36,7 @@ namespace Cards.DM04
             return "Each Demon Command in the battle zone has \"power attacker +4000\" and \"double breaker.\"";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.GetCreatures(Race.DemonCommand);
         }

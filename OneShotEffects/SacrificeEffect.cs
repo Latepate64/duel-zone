@@ -23,7 +23,7 @@ public class SacrificeEffect : DestroyEffect
         return "Destroy one of your creatures.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }

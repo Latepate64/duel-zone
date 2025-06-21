@@ -29,7 +29,7 @@ public class WheneverYouPutRaceCreatureIntoTheBattleZoneAbility : WheneverCreatu
         return $"Whenever you put a {_race} into the battle zone, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return Controller == card.Owner && card.HasRace(_race);
     }

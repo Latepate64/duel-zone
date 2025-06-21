@@ -35,12 +35,12 @@ namespace Cards.DM01
             return "Choose up to 2 of your creatures in the battle zone. They can't be blocked this turn.";
         }
 
-        protected override void Apply(IGame game, IAbility source, params Creature[] cards)
+        protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
         {
             game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
         }
 
-        protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Ability.Controller.Id);
         }

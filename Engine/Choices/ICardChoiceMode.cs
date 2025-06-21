@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace Engine.Choices
 {
-    public interface ICardChoiceMode<T>
+    public interface ICardChoiceMode<T> where T : ICard
     {
         bool CanBeChosenAutomatically(IEnumerable<T> cards);
         IEnumerable<T> ChooseAutomatically(IEnumerable<T> choosableCards);
         bool IsValid(IEnumerable<T> chosenCards);
     }
 
-    public interface IBoundedCardChoiceMode<T> : ICardChoiceMode<T>
+    public interface IBoundedCardChoiceMode<T> : ICardChoiceMode<T> where T : ICard
     {
         int Min { get; }
         int Max { get; }
     }
 
-    public class BoundedCardChoiceMode<T> : IBoundedCardChoiceMode<T>
+    public class BoundedCardChoiceMode<T> : IBoundedCardChoiceMode<T> where T : ICard
     {
         public BoundedCardChoiceMode(int min, int max)
         {
@@ -49,7 +49,7 @@ namespace Engine.Choices
         }
     }
 
-    public class AnyNumberOfCardsChoiceMode<T> : ICardChoiceMode<T>
+    public class AnyNumberOfCardsChoiceMode<T> : ICardChoiceMode<T> where T : ICard
     {
         public bool CanBeChosenAutomatically(IEnumerable<T> cards)
         {

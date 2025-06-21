@@ -8,7 +8,7 @@ namespace Engine.Zones
     /// </summary>
     public class ShieldZone : Zone, IShieldZone
     {
-        public ShieldZone(params Card[] cards) : base(ZoneType.ShieldZone, cards) { }
+        public ShieldZone(params ICard[] cards) : base(ZoneType.ShieldZone, cards) { }
 
         public ShieldZone(ShieldZone zone) : base(zone)
         {

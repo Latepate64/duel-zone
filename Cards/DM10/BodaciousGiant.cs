@@ -28,23 +28,23 @@ namespace Cards.DM10
             _hasBeenAttacked = effect._hasBeenAttacked;
         }
 
-        public bool AttacksIfAble(Creature creature, IGame game)
+        public bool AttacksIfAble(ICreature creature, IGame game)
         {
             return Applies(game, creature);
         }
 
-        private bool Applies(IGame game, Card attacker)
+        private bool Applies(IGame game, ICreature attacker)
         {
             var opponent = GetOpponent(game);
             return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
         }
 
-        public bool CannotAttackCreature(Creature attacker, Creature target, IGame game)
+        public bool CannotAttackCreature(ICreature attacker, ICreature target, IGame game)
         {
             return Applies(game, attacker) && target != Source;
         }
 
-        public bool CannotAttackPlayers(Creature attacker, IGame game)
+        public bool CannotAttackPlayers(ICreature attacker, IGame game)
         {
             return Applies(game, attacker);
         }

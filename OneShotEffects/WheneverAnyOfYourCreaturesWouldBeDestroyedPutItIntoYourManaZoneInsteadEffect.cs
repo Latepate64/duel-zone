@@ -43,7 +43,7 @@ public class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInst
         return "Whenever any of your creatures would be destroyed, put it into your mana zone instead.";
     }
 
-    protected override bool Applies(Creature card, IGame game)
+    protected override bool Applies(ICreature card, IGame game)
     {
         return card.Owner == Controller;
     }

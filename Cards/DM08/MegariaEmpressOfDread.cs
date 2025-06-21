@@ -31,7 +31,7 @@ namespace Cards.DM08
             return "Each creature in the battle zone has \"slayer.\"";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
         {
             return game.BattleZone.Creatures;
         }

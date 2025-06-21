@@ -19,8 +19,8 @@ namespace Cards.Promo
     {
         public override void Apply(IGame game)
         {
-            Card card = Controller.RevealTopCardOfOwnDeck(game);
-            if (card != null && card is Creature creature)
+            var card = Controller.RevealTopCardOfOwnDeck(game);
+            if (card != null && card is ICreature creature)
             {
                 if (creature.HasRace(Race.Survivor))
                 {

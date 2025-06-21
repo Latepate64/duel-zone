@@ -18,7 +18,7 @@ namespace Cards.DM11
 
     class EvilIncarnateAbility : LinkedTriggeredAbility
     {
-        private Player _player;
+        private IPlayer _player;
 
         public EvilIncarnateAbility()
         {

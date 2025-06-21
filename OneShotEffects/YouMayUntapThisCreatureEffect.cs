@@ -23,8 +23,8 @@ public class YouMayUntapThisCreatureEffect : ControllerMayUntapCreatureEffect
         return "You may untap this creature.";
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
-        return new Card[] { Ability.Source };
+        return new ICard[] { Ability.Source };
     }
 }

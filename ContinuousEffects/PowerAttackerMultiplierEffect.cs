@@ -14,7 +14,7 @@ public abstract class PowerAttackerMultiplierEffect : PowerModifyingMultiplierEf
 
     public override void ModifyPower(IGame game)
     {
-        var creature = Source as Creature;
+        var creature = Source as ICreature;
         if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
         {
             creature.IncreasePower(GetMultiplier(game) * Power);

@@ -22,7 +22,7 @@ public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : W
         return "When this creature would be destroyed, return it to your hand instead.";
     }
 
-    protected override bool Applies(Creature card, IGame game)
+    protected override bool Applies(ICreature card, IGame game)
     {
         return IsSourceOfAbility(card);
     }

@@ -15,29 +15,33 @@ namespace Engine.Steps
             ActivePlayerDeclaresBlocker(game, GetCreaturesThatCanBlock(game, Phase.AttackingCreature));
         }
 
-        private IEnumerable<Creature> GetCreaturesThatCanBlock(IGame game, Creature attackingCreature)
+        private IEnumerable<ICreature> GetCreaturesThatCanBlock(IGame game, ICreature attackingCreature)
         {
-            IEnumerable<Creature> creaturesThatCanBlock = game.BattleZone.GetCreatures(game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(creature, attackingCreature, game));
-            IEnumerable<Creature> creaturesThatMustBlock = creaturesThatCanBlock.Where(creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
+            var creaturesThatCanBlock = game.BattleZone.GetCreatures(
+                game.CurrentTurn.NonActivePlayer.Id).Where(creature =>  CanCreatureBlockCreature(
+                    creature, attackingCreature, game));
+            var creaturesThatMustBlock = creaturesThatCanBlock.Where(
+                creature => game.ContinuousEffects.DoesCreatureBlockIfAble(creature, attackingCreature));
             return creaturesThatMustBlock.Any() ? creaturesThatMustBlock : creaturesThatCanBlock;
         }
 
-        private bool CanCreatureBlockCreature(Creature blocker, Creature attackingCreature, IGame game)
+        private bool CanCreatureBlockCreature(ICreature blocker, ICreature attackingCreature, IGame game)
         {
             return !blocker.Tapped &&
                 game.ContinuousEffects.CanCreatureBlockCreature(blocker, attackingCreature) &&
                 game.ContinuousEffects.CanCreatureBeBlocked(attackingCreature, blocker, Phase.AttackTarget);
         }
 
-        private void ActivePlayerDeclaresBlocker(IGame game, IEnumerable<Creature> possibleBlockers)
+        private void ActivePlayerDeclaresBlocker(IGame game, IEnumerable<ICreature> possibleBlockers)
         {
-            var blocker = game.CurrentTurn.NonActivePlayer.ChooseCardOptionally(possibleBlockers, "You may choose a creature to block the attack with.");
+            var blocker = game.CurrentTurn.NonActivePlayer.ChooseCreaturesOptionally(possibleBlockers,
+                "You may choose a creature to block the attack with.");
             if (blocker != null)
             {
                 Phase.BlockingCreature = blocker;
                 game.CurrentTurn.NonActivePlayer.Tap(game, blocker);
                 //TODO: Event
-                //game.Process(new BlockEvent { Card = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
+                //game.Process(new BlockEvent { ICard = blocker.Convert(), BlockedCreature = game.GetCard(Phase.AttackingCreature).Convert() });
                 game.ProcessEvents(new BecomeBlockedEvent(Phase.AttackingCreature, blocker));
             }
             else
@@ -52,7 +56,7 @@ namespace Engine.Steps
                 ? game.ContinuousEffects.DoesBattleHappenAfterCreatureBecomesBlocked(Phase.AttackingCreature, Phase.BlockingCreature)
                     ? new BattleStep(Phase)
                     : new EndOfAttackStep(Phase)
-                : Phase.AttackTarget is Creature
+                : Phase.AttackTarget is ICreature
                     ? new BattleStep(Phase)
                     : new DirectAttackStep(Phase);
         }

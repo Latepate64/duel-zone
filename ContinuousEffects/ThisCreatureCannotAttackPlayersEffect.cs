@@ -9,7 +9,7 @@ public class ThisCreatureCannotAttackPlayersEffect : ContinuousEffect, ICannotAt
     {
     }
 
-    public bool CannotAttackPlayers(Creature creature, IGame game)
+    public bool CannotAttackPlayers(ICreature creature, IGame game)
     {
         return IsSourceOfAbility(creature);
     }

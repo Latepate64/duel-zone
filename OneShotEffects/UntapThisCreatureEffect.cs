@@ -21,8 +21,8 @@ public class UntapThisCreatureEffect : UntapAreaOfEffect
         return "Untap this creature.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
-        return new List<Card> { Ability.Source }.Where(x => x != null);
+        return new List<ICard> { Ability.Source }.Where(x => x != null);
     }
 }

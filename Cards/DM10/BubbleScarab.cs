@@ -31,7 +31,7 @@ namespace Cards.DM10
 
         public override bool CanTrigger(IGameEvent gameEvent, IGame game)
         {
-            return gameEvent is CreatureAttackedEvent e && e.Target is Creature creature && creature.Owner == Controller;
+            return gameEvent is CreatureAttackedEvent e && e.Target is ICreature creature && creature.Owner == Controller;
         }
 
         public override IAbility Copy()
@@ -63,7 +63,7 @@ namespace Cards.DM10
 
     class CreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
     {
-        private readonly Creature _creature;
+        private readonly ICreature _creature;
         private readonly int _power;
 
         public CreatureGetsPowerUntilTheEndOfTheTurnEffect(CreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
@@ -72,7 +72,7 @@ namespace Cards.DM10
             _power = effect._power;
         }
 
-        public CreatureGetsPowerUntilTheEndOfTheTurnEffect(Creature creature, int power)
+        public CreatureGetsPowerUntilTheEndOfTheTurnEffect(ICreature creature, int power)
         {
             _creature = creature;
             _power = power;

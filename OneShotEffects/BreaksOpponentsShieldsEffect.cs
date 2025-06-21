@@ -22,5 +22,5 @@ public abstract class BreaksOpponentsShieldsEffect : OneShotEffect
         game.Break(GetBreaker(game, Ability), _amount);
     }
 
-    protected abstract Creature GetBreaker(IGame game, IAbility source);
+    protected abstract ICreature GetBreaker(IGame game, IAbility source);
 }

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class ManaBurnEffect : CardMovingChoiceEffect<Card>
+public abstract class ManaBurnEffect : CardMovingChoiceEffect<ICard>
 {
     protected ManaBurnEffect(int minimum, int maximum, bool controllerChooses) : base(
         minimum, maximum, controllerChooses, ZoneType.ManaZone, ZoneType.Graveyard)

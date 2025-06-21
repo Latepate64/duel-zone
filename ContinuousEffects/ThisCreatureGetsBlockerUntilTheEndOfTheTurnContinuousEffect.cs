@@ -11,7 +11,7 @@ public class ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect : AddAb
     {
     }
 
-    public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params Card[] cards) : base(
+    public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params ICard[] cards) : base(
         new StaticAbility(new ThisCreatureHasBlockerEffect()), cards)
     {
     }

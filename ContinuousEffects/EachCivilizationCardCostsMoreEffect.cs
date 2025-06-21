@@ -22,7 +22,7 @@ public abstract class EachCivilizationCardCostsMoreEffect : ContinuousEffect, IC
 
     public Civilization Civilization { get; }
 
-    public int GetChange(Card card, IGame game)
+    public int GetChange(ICard card, IGame game)
     {
         return card.HasCivilization(Civilization) ? _increase : 0;
     }

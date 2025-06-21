@@ -30,7 +30,7 @@ namespace Cards.DM02
             return "Return all creatures in the battle zone that have \"blocker\" to their owners' hands.";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.CreaturesThatHaveBlocker;
         }

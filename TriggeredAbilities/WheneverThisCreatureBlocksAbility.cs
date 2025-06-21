@@ -29,7 +29,7 @@ public class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
         return $"Whenever this creature blocks, {OneShotEffect}.";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card == Source;
     }

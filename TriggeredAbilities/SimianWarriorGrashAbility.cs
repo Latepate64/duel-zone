@@ -24,7 +24,7 @@ public class SimianWarriorGrashAbility : DestroyedAbility
         return $"Whenever one of your Armorloids is destroyed, {GetEffectText()}";
     }
 
-    protected override bool TriggersFrom(Creature card, IGame game)
+    protected override bool TriggersFrom(ICreature card, IGame game)
     {
         return card.Owner == Controller && card.HasRace(Race.Armorloid);
     }

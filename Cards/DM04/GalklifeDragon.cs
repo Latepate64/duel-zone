@@ -33,7 +33,7 @@ namespace Cards.DM04
             return "Destroy all light creatures that have power 4000 or less.";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.BattleZone.GetCreatures(Civilization.Light).Where(x => x.Power <= 4000);
         }

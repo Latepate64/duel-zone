@@ -45,7 +45,7 @@ namespace Cards.DM12
             return "Each of your other creatures in battle zone gets +5000 power and has \"blocker\" and \"double breaker\".";
         }
 
-        private List<Creature> GetAffectedCards(IGame game)
+        private List<ICreature> GetAffectedCards(IGame game)
         {
             return [.. game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x))];
         }

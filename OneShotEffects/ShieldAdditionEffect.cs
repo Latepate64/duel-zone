@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class ShieldAdditionEffect : CardSelectionEffect<Card>
+public abstract class ShieldAdditionEffect : CardSelectionEffect<ICard>
 {
     protected ShieldAdditionEffect(ShieldAdditionEffect effect) : base(effect)
     {
@@ -15,7 +15,7 @@ public abstract class ShieldAdditionEffect : CardSelectionEffect<Card>
     {
     }
 
-    protected override void Apply(IGame game, IAbility source, params Card[] cards)
+    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
     {
         game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, cards);
     }

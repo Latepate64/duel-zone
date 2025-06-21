@@ -4,5 +4,5 @@ namespace Cards;
 
 interface ICardAffectable
 {
-    Card Card { get; }
+    ICard Card { get; }
 }

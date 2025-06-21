@@ -4,7 +4,8 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect : CardMovingChoiceEffect<Creature>
+public abstract class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect :
+    CardMovingChoiceEffect<ICreature>
 {
     private readonly string _name;
 
@@ -25,8 +26,8 @@ public abstract class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffe
         return $"You may choose an {_name} in your mana zone and put it into the battle zone.";
     }
 
-    protected override IEnumerable<Creature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
-        return Controller.ManaZone.CardsWithName(_name).OfType<Creature>();
+        return Controller.ManaZone.CardsWithName(_name).OfType<ICreature>();
     }
 }

@@ -37,9 +37,9 @@ namespace Cards.DM10
 
     class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
     {
-        private readonly Player _opponent;
+        private readonly IPlayer _opponent;
 
-        public ForcedFrenzyContinuousEffect(Player opponent)
+        public ForcedFrenzyContinuousEffect(IPlayer opponent)
         {
             _opponent = opponent;
         }
@@ -49,7 +49,7 @@ namespace Cards.DM10
             _opponent = effect._opponent;
         }
 
-        public bool AttacksIfAble(Creature creature, IGame game)
+        public bool AttacksIfAble(ICreature creature, IGame game)
         {
             return creature.Owner == _opponent;
         }

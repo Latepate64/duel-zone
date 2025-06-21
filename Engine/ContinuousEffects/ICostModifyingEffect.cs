@@ -5,7 +5,7 @@
     /// </summary>
     public interface ICostModifyingEffect : IContinuousEffect
     {
-        int GetChange(Card card, IGame game);
+        int GetChange(ICard card, IGame game);
     }
 
     /// <summary>
@@ -13,6 +13,6 @@
     /// </summary>
     public interface IMinimumCostModifyingEffect : IContinuousEffect
     {
-        int GetMinimumCost(Card card, IGame game);
+        int GetMinimumCost(ICard card, IGame game);
     }
 }

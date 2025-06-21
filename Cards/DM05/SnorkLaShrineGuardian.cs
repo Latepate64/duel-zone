@@ -19,13 +19,13 @@ namespace Cards.DM05
 
     class SnorkLaAbility : LinkedTriggeredAbility
     {
-        private readonly Card _card;
+        private readonly ICard _card;
 
         public SnorkLaAbility() : base()
         {
         }
 
-        public SnorkLaAbility(Card card) : base()
+        public SnorkLaAbility(ICard card) : base()
         {
             _card = card;
         }

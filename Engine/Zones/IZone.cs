@@ -7,27 +7,29 @@ namespace Engine.Zones
     public interface IZone
     {
         ZoneType Type { get; }
-        IEnumerable<Creature> Creatures { get; }
-        IEnumerable<Spell> Spells { get; }
+        IEnumerable<ICreature> Creatures { get; }
+        IEnumerable<ISpell> Spells { get; }
         int Size { get; }
         bool HasCards { get; }
-        IEnumerable<Card> Cards { get; }
-        IEnumerable<Creature> Dragons { get; }
+        IEnumerable<ICard> Cards { get; }
+        IEnumerable<ICreature> Dragons { get; }
 
-        IEnumerable<Card> CardsWithManaCost(int manaCost);
-        IEnumerable<Card> CardsWithName(string name);
+        void Add(ICard newObject);
+        IEnumerable<ICard> CardsWithManaCost(int manaCost);
+        IEnumerable<ICard> CardsWithName(string name);
         void Dispose();
         bool Equals(object obj);
         int GetCardCount(Civilization civilization);
-        IEnumerable<Card> GetCards(Civilization civilization);
+        IEnumerable<ICard> GetCards(Civilization civilization);
         int GetCreatureCount(Guid owner);
         int GetCreatureCount(Civilization civilization);
-        IEnumerable<Creature> GetCreatures(Guid owner);
-        IEnumerable<Creature> GetCreatures(params Race[] races);
-        IEnumerable<Creature> GetCreatures(Civilization civilization);
-        IEnumerable<Creature> GetCreaturesWithMaxPower(int maxPower);
-        IEnumerable<Creature> GetOtherCreatures(Guid creature);
-        IEnumerable<Card> NonCivilizationCards(Civilization civ);
-        void SetOwner(PlayerV2 owner);
+        IEnumerable<ICreature> GetCreatures(Guid owner);
+        IEnumerable<ICreature> GetCreatures(params Race[] races);
+        IEnumerable<ICreature> GetCreatures(Civilization civilization);
+        IEnumerable<ICreature> GetCreaturesWithMaxPower(int maxPower);
+        IEnumerable<ICreature> GetOtherCreatures(Guid creature);
+        IEnumerable<ICard> NonCivilizationCards(Civilization civ);
+        IEnumerable<ICard> Remove(ICard card);
+        void SetOwner(IPlayerV2 owner);
     }
 }

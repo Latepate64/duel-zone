@@ -28,7 +28,7 @@ namespace Cards.DM07
             }
         }
 
-        public bool CanAttackUntappedCreature(Creature attacker, Creature targetOfAttack, IGame game)
+        public bool CanAttackUntappedCreature(ICreature attacker, ICreature targetOfAttack, IGame game)
         {
             return YouHaveNoShields(game) && IsSourceOfAbility(attacker);
         }

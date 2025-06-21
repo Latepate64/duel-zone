@@ -19,5 +19,5 @@ public abstract class TapAreaOfEffect : OneShotEffect
         Controller.Tap(game, cards);
     }
 
-    protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
+    protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
 }

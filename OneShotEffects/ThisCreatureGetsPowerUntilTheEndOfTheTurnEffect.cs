@@ -27,7 +27,7 @@ public class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : OneShotEffect, IP
     public override void Apply(IGame game)
     {
         game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-            Power, Ability.Source as Creature));
+            Power, Ability.Source as ICreature));
     }
 
     public override string ToString()

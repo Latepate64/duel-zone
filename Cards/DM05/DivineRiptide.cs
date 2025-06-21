@@ -30,7 +30,7 @@ namespace Cards.DM05
             return "Each player returns all cards from his mana zone to his hand.";
         }
 
-        protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
         {
             return game.Players.SelectMany(x => x.ManaZone.Cards);
         }

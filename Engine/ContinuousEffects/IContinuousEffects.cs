@@ -3,41 +3,40 @@ using Engine.GameEvents;
 using System;
 using System.Collections.Generic;
 
-namespace Engine.ContinuousEffects
-{
-    public interface IContinuousEffects : IDisposable, ICopyable<IContinuousEffects>
-    {
-        IGame Game { get; }
+namespace Engine.ContinuousEffects;
 
-        void Add(Card source, params IStaticAbility[] staticAbilities);
-        void Add(IAbility source, params IContinuousEffect[] continuousEffects);
-        void Apply();
-        bool CanCreatureAttack(Creature creature);
-        bool CanCreatureAttackCreature(Creature attacker, Creature targetOfAttack);
-        bool CanCreatureAttackPlayers(Creature creature);
-        bool CanCreatureAttackUntappedCreature(Creature attacker, Creature c);
-        bool CanCreatureBeAttackedAsThoughItWereTapped(Creature c);
-        bool CanCreatureBeBlocked(Creature attackingCreature, Creature blocker, IAttackable attackTarget);
-        bool CanCreatureBlockCreature(Creature blocker, Creature attackingCreature);
-        bool CanCreatureEvolve(Creature card);
-        bool CanPlayerChooseCreature(Player player, Creature card);
-        bool CanPlayersUseTapAbilities();
-        bool CanPlayerTapCreature(Player player, Creature card);
-        bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(Player player);
-        bool CanPlayerUseCard(Card card);
-        bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
-        bool DoesAnySlayerEffectApply(Creature loser, Creature winner);
-        bool DoesBattleHappenAfterCreatureBecomesBlocked(Creature attackingCreature, Creature blockingCreature);
-        bool DoesCreatureAttackIfAble(Creature attacker);
-        bool DoesCreatureBlockIfAble(Creature blocker, Creature attackingCreature);
-        bool DoesCreatureGetDestroyedInBattle(Creature against, Creature target);
-        bool DoesCreatureHaveSpeedAttacker(Creature creature);
-        bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(Creature creature);
-        int GetAmountOfShieldsCreatureBreaksAdditionally(Creature attackingCreature);
-        IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(Creature attackingCreature);
-        IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent);
-        void Notify(IGameEvent gameEvent);
-        void Remove(IEnumerable<Guid> enumerable);
-        void RemoveExpired(IGameEvent gameEvent);
-    }
+public interface IContinuousEffects : IDisposable, ICopyable<IContinuousEffects>
+{
+    IGame Game { get; }
+
+    void Add(ICard source, params IStaticAbility[] staticAbilities);
+    void Add(IAbility source, params IContinuousEffect[] continuousEffects);
+    void Apply();
+    bool CanCreatureAttack(ICreature creature);
+    bool CanCreatureAttackCreature(ICreature attacker, ICreature targetOfAttack);
+    bool CanCreatureAttackPlayers(ICreature creature);
+    bool CanCreatureAttackUntappedCreature(ICreature attacker, ICreature c);
+    bool CanCreatureBeAttackedAsThoughItWereTapped(ICreature c);
+    bool CanCreatureBeBlocked(ICreature attackingCreature, ICreature blocker, IAttackable attackTarget);
+    bool CanCreatureBlockCreature(ICreature blocker, ICreature attackingCreature);
+    bool CanCreatureEvolve(ICreature card);
+    bool CanPlayerChooseCreature(IPlayer player, ICreature card);
+    bool CanPlayersUseTapAbilities();
+    bool CanPlayerTapCreature(IPlayer player, ICreature card);
+    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
+    bool CanPlayerUseCard(ICard card);
+    bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
+    bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner);
+    bool DoesBattleHappenAfterCreatureBecomesBlocked(ICreature attackingCreature, ICreature blockingCreature);
+    bool DoesCreatureAttackIfAble(ICreature attacker);
+    bool DoesCreatureBlockIfAble(ICreature blocker, ICreature attackingCreature);
+    bool DoesCreatureGetDestroyedInBattle(ICreature against, ICreature target);
+    bool DoesCreatureHaveSpeedAttacker(ICreature creature);
+    bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(ICreature creature);
+    int GetAmountOfShieldsCreatureBreaksAdditionally(ICreature attackingCreature);
+    IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(ICreature attackingCreature);
+    IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent);
+    void Notify(IGameEvent gameEvent);
+    void Remove(IEnumerable<Guid> enumerable);
+    void RemoveExpired(IGameEvent gameEvent);
 }

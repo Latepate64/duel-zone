@@ -5,9 +5,9 @@ namespace ContinuousEffects;
 
 public class ChosenCreaturesCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect, IUnblockableEffect
 {
-    private readonly Card[] _cards;
+    private readonly ICard[] _cards;
 
-    public ChosenCreaturesCannotBeBlockedThisTurnEffect(params Card[] cards) : base()
+    public ChosenCreaturesCannotBeBlockedThisTurnEffect(params ICard[] cards) : base()
     {
         _cards = cards;
     }
@@ -17,7 +17,7 @@ public class ChosenCreaturesCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect
         _cards = effect._cards;
     }
 
-    public bool CannotBeBlocked(Creature attacker, Creature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
     {
         return _cards.Any(x => x.Id == attacker.Id);
 ;        }

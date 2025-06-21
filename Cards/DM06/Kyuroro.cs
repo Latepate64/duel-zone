@@ -46,7 +46,7 @@ namespace Cards.DM06
         }
     }
 
-    class KyuroroEvent(Card attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
+    class KyuroroEvent(ICreature attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
     {
         public override void Happen(IGame game)
         {

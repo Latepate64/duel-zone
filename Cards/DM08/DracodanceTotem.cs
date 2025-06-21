@@ -42,7 +42,7 @@ namespace Cards.DM08
             return "When this creature would be destroyed, if you have a creature that has Dragon in its race in your mana zone, put this creature into your mana zone instead of destroying it. Then return a creature that has Dragon in its race from your mana zone to your hand.";
         }
 
-        protected override bool Applies(Creature card, IGame game)
+        protected override bool Applies(ICreature card, IGame game)
         {
             return IsSourceOfAbility(card) && Controller.ManaZone.Creatures.Any(x => x.IsDragon);
         }
@@ -64,7 +64,7 @@ namespace Cards.DM08
             return "Return a creature that has Dragon in its race from your mana zone to your hand.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
         }

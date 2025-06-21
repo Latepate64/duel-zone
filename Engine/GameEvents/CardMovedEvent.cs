@@ -6,7 +6,7 @@ namespace Engine.GameEvents
 {
     public class CardMovedEvent : GameEvent, ICardMovedEvent
     {
-        public CardMovedEvent(Player player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped, IAbility ability)
+        public CardMovedEvent(IPlayer player, ZoneType source, ZoneType destination, Guid cardInSourceZone, bool tapped, IAbility ability)
         {
             Player = player;
             Source = source;
@@ -27,11 +27,11 @@ namespace Engine.GameEvents
             Ability = e.Ability?.Copy();
         }
 
-        public Card CardInDestinationZone { get; set; }
+        public ICard CardInDestinationZone { get; set; }
         public Guid CardInSourceZone { get; set; }
         public ZoneType Destination { get; set; }
         public bool EntersTapped { get; set; }
-        public Player Player { get; }
+        public IPlayer Player { get; }
         public ZoneType Source { get; }
         public IAbility Ability { get; }
 
@@ -40,7 +40,8 @@ namespace Engine.GameEvents
             if (Player != null)
             {
                 var card = game.GetCard(CardInSourceZone);
-                var removed = (Source == ZoneType.BattleZone ? game.BattleZone : Source == ZoneType.SpellStack ? game.SpellStack : game.GetPlayer(Player.Id).GetZone(Source)).Remove(card);
+                var removed = (Source == ZoneType.BattleZone ? game.BattleZone : Source == ZoneType.SpellStack
+                    ? game.SpellStack : game.GetPlayer(Player.Id).GetZone(Source)).Remove(card);
                 foreach (var removedCard in removed)
                 {
                     if (Destination != ZoneType.Anywhere)
@@ -53,7 +54,8 @@ namespace Engine.GameEvents
                         {
                             // newObject.Tapped = true;
                         }
-                        (Destination == ZoneType.BattleZone ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject);
+                        (Destination == ZoneType.BattleZone
+                            ? game.BattleZone : game.GetPlayer(Player.Id).GetZone(Destination)).Add(newObject);
                         CardInDestinationZone = newObject;
                     }
                 }
@@ -81,7 +83,7 @@ namespace Engine.GameEvents
             return $"{Player} put {CardInDestinationZone} from {ToString(Source)} into {ToString(Destination)}.";
         }
 
-        public override Player GetApplier(IGame game)
+        public override IPlayer GetApplier(IGame game)
         {
             return Player;
         }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Engine.GameEvents;
 
-public class ChargePhaseEvent(PlayerV2 player) : GameEventV2(player, false)
+public class ChargePhaseEvent(IPlayerV2 player) : GameEventV2(player, false)
 {
     bool shouldEnd;
 

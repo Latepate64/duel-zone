@@ -49,7 +49,8 @@ namespace Cards.DM08
         {
         }
 
-        public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<Card> cards, Guid turnId) : base(new LunarChargerAbility(cards, turnId), source.Source, source.Controller, true)
+        public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<ICreature> cards, Guid turnId) : base(
+            new LunarChargerAbility(cards, turnId), source.Source, source.Controller, true)
         {
         }
 
@@ -61,10 +62,10 @@ namespace Cards.DM08
 
     class LunarChargerAbility : LinkedTriggeredAbility
     {
-        private readonly IEnumerable<Card> _cards;
+        private readonly IEnumerable<ICreature> _cards;
         private readonly Guid _turnId;
 
-        public LunarChargerAbility(IEnumerable<Card> cards, Guid turnId)
+        public LunarChargerAbility(IEnumerable<ICreature> cards, Guid turnId)
         {
             _cards = cards;
             _turnId = turnId;

@@ -18,7 +18,7 @@ public class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : Continu
 
     public Civilization[] Civilizations { get; }
 
-    public bool Applies(Creature attacker, Creature targetOfAttack, IGame game)
+    public bool Applies(ICreature attacker, ICreature targetOfAttack, IGame game)
     {
         return IsSourceOfAbility(targetOfAttack) && attacker.Civilizations.Intersect(Civilizations).Any();
     }

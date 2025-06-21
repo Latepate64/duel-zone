@@ -44,9 +44,9 @@ namespace Cards.DM05
 
     class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
     {
-        private readonly Player _player;
+        private readonly IPlayer _player;
 
-        public SlimeVeilContinuousEffect(Player player)
+        public SlimeVeilContinuousEffect(IPlayer player)
         {
             _player = player;
         }
@@ -56,7 +56,7 @@ namespace Cards.DM05
             _player = effect._player;
         }
 
-        public bool AttacksIfAble(Creature creature, IGame game)
+        public bool AttacksIfAble(ICreature creature, IGame game)
         {
             return creature.Owner == _player;
         }

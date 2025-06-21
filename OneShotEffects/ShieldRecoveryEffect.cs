@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public abstract class ShieldRecoveryEffect : CardSelectionEffect<Card>
+public abstract class ShieldRecoveryEffect : CardSelectionEffect<ICard>
 {
     public bool CanUseShieldTrigger { get; }
 
@@ -26,7 +26,7 @@ public abstract class ShieldRecoveryEffect : CardSelectionEffect<Card>
     {
     }
 
-    protected override void Apply(IGame game, IAbility source, params Card[] cards)
+    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
     {
         game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Ability);
     }

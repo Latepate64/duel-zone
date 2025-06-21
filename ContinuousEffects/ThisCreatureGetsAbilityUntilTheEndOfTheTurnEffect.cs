@@ -12,7 +12,7 @@ public class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect : AddAbilitiesUnt
         _ability = effect._ability.Copy();
     }
 
-    public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability, params Engine.Card[] cards) : base(ability, cards)
+    public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability, params Engine.ICard[] cards) : base(ability, cards)
     {
         _ability = ability;
     }

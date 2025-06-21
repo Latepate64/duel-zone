@@ -10,7 +10,7 @@ namespace Engine.Zones
     /// </summary>
     public class Deck : Zone, IDeck
     {
-        public Deck(params Card[] cards) : base(ZoneType.Deck, cards)
+        public Deck(params ICard[] cards) : base(ZoneType.Deck, cards)
         {
         }
 
@@ -18,13 +18,13 @@ namespace Engine.Zones
         {
         }
 
-        public IEnumerable<Card> GetTopCards(int amount) => Cards.TakeLast(amount);
+        public IEnumerable<ICard> GetTopCards(int amount) => Cards.TakeLast(amount);
 
         public Deck Copy()
         {
             return new Deck(this);
         }
 
-        public Card TopCard => GetTopCards(1).SingleOrDefault();
+        public ICard TopCard => GetTopCards(1).SingleOrDefault();
     }
 }

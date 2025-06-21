@@ -17,7 +17,7 @@ namespace Cards.DM08
 
     class SashaBlockerEffect : ContinuousEffect, IBlockerEffect
     {
-        public bool CanBlock(Creature blocker, Creature attacker, IGame game)
+        public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
         {
             return attacker.IsDragon;
         }

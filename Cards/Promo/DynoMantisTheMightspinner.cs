@@ -21,7 +21,7 @@ namespace Cards.Promo
             return new DynoMantisEffect();
         }
 
-        public int GetAmount(IGame game, Creature creature)
+        public int GetAmount(IGame game, ICreature creature)
         {
             return creature.Owner == Controller && !IsSourceOfAbility(creature) && creature.Power >= 5000 ? 1 : 0;
         }

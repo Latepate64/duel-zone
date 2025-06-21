@@ -6,7 +6,7 @@ namespace ContinuousEffects;
 public class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
 {
     private readonly int _power;
-    private readonly Creature[] _cards;
+    private readonly ICreature[] _cards;
 
     public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
     {
@@ -14,7 +14,7 @@ public class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEff
         _cards = effect._cards;
     }
 
-    public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params Creature[] cards) : base()
+    public ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(int power, params ICreature[] cards) : base()
     {
         _power = power;
         _cards = cards;

@@ -31,7 +31,7 @@ public abstract class SearchAnyDeckEffect : OneShotEffect
         (_searchOpponentsDeck ? GetOpponent(game) : Controller).ShuffleOwnDeck(game);
     }
 
-    protected abstract void Apply(IGame game, IAbility source, params Card[] cards);
+    protected abstract void Apply(IGame game, IAbility source, params ICard[] cards);
 
-    protected abstract IEnumerable<Card> GetAffectedCards(IGame game, IAbility source);
+    protected abstract IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source);
 }

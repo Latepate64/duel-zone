@@ -23,7 +23,7 @@ public class ShieldRecoveryCanUseShieldTriggerEffect : ShieldRecoveryEffect
         return "Choose one of your shields and put it into your hand.";
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
         return Controller.ShieldZone.Cards;
     }

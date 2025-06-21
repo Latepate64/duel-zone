@@ -9,7 +9,7 @@ public class ThisCreatureAttacksEachTurnIfAbleEffect : ContinuousEffect, IAttack
     {
     }
 
-    public bool AttacksIfAble(Creature creature, IGame game)
+    public bool AttacksIfAble(ICreature creature, IGame game)
     {
         return IsSourceOfAbility(creature);
     }

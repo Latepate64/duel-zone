@@ -21,12 +21,12 @@ namespace Cards.DM12
             return new FeverNutsEffect();
         }
 
-        public int GetChange(Card card, IGame game)
+        public int GetChange(ICard card, IGame game)
         {
             return card is Creature ? -1 : 0;
         }
 
-        public int GetMinimumCost(Card card, IGame game)
+        public int GetMinimumCost(ICard card, IGame game)
         {
             return card is Creature ? 1 : 0;
         }

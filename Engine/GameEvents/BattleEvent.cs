@@ -1,10 +1,10 @@
 ﻿namespace Engine.GameEvents
 {
-    public class BattleEvent(Creature attackingCreature, Creature defendingCreature) : GameEvent
+    public class BattleEvent(ICreature attackingCreature, ICreature defendingCreature) : GameEvent
     {
-        public Creature AttackingCreature { get; } = attackingCreature;
-        public Creature DefendingCreature { get; } = defendingCreature;
-        public Creature[] Winners { get; private set; } = [];
+        public ICreature AttackingCreature { get; } = attackingCreature;
+        public ICreature DefendingCreature { get; } = defendingCreature;
+        public ICreature[] Winners { get; private set; } = [];
 
         public override void Happen(IGame game)
         {
@@ -22,13 +22,13 @@
                 CheckLoseInBattle(DefendingCreature, AttackingCreature, game);
             }
 
-            void Outcome(Creature winner, Creature loser)
+            void Outcome(ICreature winner, ICreature loser)
             {
                 Winners = [winner];
                 CheckLoseInBattle(loser, winner, game);
                 if (game.ContinuousEffects.DoesAnySlayerEffectApply(loser, winner))
                 {
-                    winner.SetLostInBattle(); // TODO: Not sure if proper way to do
+                    // winner.SetLostInBattle(); // TODO: Not sure if proper way to do
                 }
             }
         }
@@ -38,11 +38,11 @@
             return $"{AttackingCreature} battled {DefendingCreature}.";
         }
 
-        private static void CheckLoseInBattle(Creature target, Creature against, IGame game)
+        private static void CheckLoseInBattle(ICreature target, ICreature against, IGame game)
         {
             if (!game.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
             {
-                target.SetLostInBattle();
+                // target.SetLostInBattle();
             }
         }
     }

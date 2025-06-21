@@ -41,7 +41,7 @@ namespace Cards.DM04
         {
         }
 
-        public SwordOfMalevolentDeathContinuousEffect(int power, params Card[] cards) : base(
+        public SwordOfMalevolentDeathContinuousEffect(int power, params ICard[] cards) : base(
             new StaticAbility(new PowerAttackerEffect(power)), cards)
             {
             }

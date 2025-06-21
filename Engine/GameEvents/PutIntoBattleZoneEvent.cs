@@ -2,21 +2,21 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class PutIntoBattleZoneEvent(PlayerV2 player, bool passable, Card card) :
+public class PutIntoBattleZoneEvent(IPlayerV2 player, bool passable, ICard card) :
     MoveCardEvent(player, ZoneType.BattleZone, passable)
 {
-    public Card Card { get; } = card;
+    public ICard ICard { get; } = card;
 
-    internal override Card RemoveCardFromCurrentZone()
+    internal override ICard RemoveCardFromCurrentZone()
     {
-        Player.Hand.Remove(Card); // TODO: May not be in hand always
-        return Card;
+        Player.Hand.Remove(ICard); // TODO: May not be in hand always
+        return ICard;
     }
 
     public override bool Equals(object obj)
     {
         return base.Equals(obj)
             && obj is PutIntoBattleZoneEvent e
-            && Card == e.Card;
+            && ICard == e.ICard;
     }
 }

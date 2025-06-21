@@ -6,8 +6,8 @@ namespace Engine.Choices
 {
     public interface IPlayerChoice
     {
-        Player Choice { get; set; }
-        IEnumerable<Player> Options { get; }
+        IPlayer Choice { get; set; }
+        IEnumerable<IPlayer> Options { get; }
     }
 
     public class PlayerChoice : Choice, IPlayerChoice
@@ -16,13 +16,13 @@ namespace Engine.Choices
         {
         }
 
-        public PlayerChoice(Player maker, string description, IEnumerable<Player> options) : base(maker, description)
+        public PlayerChoice(IPlayer maker, string description, IEnumerable<IPlayer> options) : base(maker, description)
         {
             Options = options;
         }
 
-        public Player Choice { get; set; }
-        public IEnumerable<Player> Options { get; }
+        public IPlayer Choice { get; set; }
+        public IEnumerable<IPlayer> Options { get; }
 
         public override bool IsValid()
         {

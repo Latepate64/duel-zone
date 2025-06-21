@@ -24,7 +24,7 @@ public class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
         return "Your opponent discards his hand.";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return GetOpponent(game).Hand.Cards;
     }

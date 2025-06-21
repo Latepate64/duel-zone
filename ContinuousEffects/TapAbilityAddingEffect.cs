@@ -29,7 +29,7 @@ public class TapAbilityAddingEffect : AbilityAddingEffect
         return $"Each of your {_civilization} creatures may tap instead of attacking to use this creature's ability. : {AbilitiesAsText}";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game)
     {
         return game.BattleZone.GetCreatures(Controller.Id, _civilization);
     }

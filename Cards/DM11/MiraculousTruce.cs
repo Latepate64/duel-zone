@@ -47,13 +47,13 @@ namespace Cards.DM11
     class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
     {
         private readonly Civilization _civilization;
-        private readonly Player _player;
+        private readonly IPlayer _player;
 
         public MiraculousTruceContinuousEffect()
         {
         }
 
-        public MiraculousTruceContinuousEffect(Civilization civilization, Player player)
+        public MiraculousTruceContinuousEffect(Civilization civilization, IPlayer player)
         {
             _civilization = civilization;
             _player = player;
@@ -65,7 +65,7 @@ namespace Cards.DM11
             _player = effect._player;
         }
 
-        public bool CannotAttackPlayers(Creature attacker, IGame game)
+        public bool CannotAttackPlayers(ICreature attacker, IGame game)
         {
             return attacker.HasCivilization(_civilization);
         }

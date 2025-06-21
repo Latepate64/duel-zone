@@ -13,7 +13,7 @@ public class SkipBattleAfterBecomesBlockedEffect : ContinuousEffect, ISkipBattle
     {
     }
 
-    public bool Applies(Card attacker, Card blocker, IGame game)
+    public bool Applies(ICreature attacker, ICreature blocker, IGame game)
     {
         return attacker == Source;
     }

@@ -13,7 +13,7 @@ public abstract class OpponentManaRecoveryEffect : ManaRecoveryEffect
     {
     }
 
-    protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
     {
         return GetOpponent(game).ManaZone.Cards;
     }

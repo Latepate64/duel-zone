@@ -25,7 +25,7 @@ public class SurvivorEffect : AbilityAddingEffect
         return $"Survivor : {AbilitiesAsText}";
     }
 
-    protected override IEnumerable<Card> GetAffectedCards(IGame game)
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game)
     {
         return game.BattleZone.GetCreatures(Controller.Id, Race.Survivor);
     }

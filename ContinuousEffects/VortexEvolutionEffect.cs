@@ -23,15 +23,15 @@ public class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
     public Race Race1 { get; }
     public Race Race2 { get; }
 
-    public bool CanEvolve(IGame game, Creature evolutionCreature)
+    public bool CanEvolve(IGame game, ICreature evolutionCreature)
     {
         var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        var combinations = new Combinations<Creature>(baits, 2, GenerateOption.WithoutRepetition);
+        var combinations = new Combinations<ICreature>(baits, 2, GenerateOption.WithoutRepetition);
         var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
         return validPairs.Any();
     }
 
-    private bool CanEvolveFrom(Creature evolutionCreature, Creature bait1, Creature bait2)
+    private bool CanEvolveFrom(ICreature evolutionCreature, ICreature bait1, ICreature bait2)
     {
         if (IsSourceOfAbility(evolutionCreature))
         {
@@ -64,13 +64,13 @@ public class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
         return $"Vortex evolution — Put on one of your {Race1}s and one of your {Race2}s.";
     }
 
-    public void Evolve(Creature evolutionCreature, IGame game)
+    public void Evolve(ICreature evolutionCreature, IGame game)
     {
         var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        System.Collections.Generic.IEnumerable<Creature> baits;
+        IEnumerable<ICreature> baits;
         do
         {
-            baits = evolutionCreature.Owner.ChooseCards(creatures, 2, 2, "Choose creatures to evolve from.");
+            baits = evolutionCreature.Owner.ChooseCreatures(creatures, 2, 2, "Choose creatures to evolve from.");
         }
         while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
         game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, [.. baits]));

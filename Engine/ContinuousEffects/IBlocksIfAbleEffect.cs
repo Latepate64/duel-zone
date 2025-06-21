@@ -2,6 +2,6 @@
 {
     public interface IBlocksIfAbleEffect : IContinuousEffect
     {
-        bool BlocksIfAble(Creature blocker, Creature attacker, IGame game);
+        bool BlocksIfAble(ICreature blocker, ICreature attacker, IGame game);
     }
 }

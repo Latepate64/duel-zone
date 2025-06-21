@@ -25,7 +25,7 @@ namespace Engine
         /// <summary>
         /// 102.1. The active player is the player whose turn it is.
         /// </summary>
-        public Player ActivePlayer { get; set; }
+        public IPlayer ActivePlayer { get; set; }
 
         /// <summary>
         /// The phase that is currently being processed.
@@ -39,7 +39,7 @@ namespace Engine
         /// <summary>
         /// 102.1. The other players are nonactive players.
         /// </summary>
-        public Player NonActivePlayer { get; set; }
+        public IPlayer NonActivePlayer { get; set; }
 
         public int Number { get; set; }
 

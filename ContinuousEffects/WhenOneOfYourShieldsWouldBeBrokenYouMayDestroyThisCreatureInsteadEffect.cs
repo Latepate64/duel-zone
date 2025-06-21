@@ -20,7 +20,7 @@ public class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEf
         var shield = Controller.ChooseCardOptionally(e.Shields, ToString());
         if (shield != null)
         {
-            return new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source as Creature, e.Shields.Where(x => x != shield));
+            return new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source as ICreature, e.Shields.Where(x => x != shield));
         }
         else
         {

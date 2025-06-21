@@ -1,5 +1,5 @@
 namespace Engine.GameEvents;
 
-public class ConcedeEvent(PlayerV2 player) : LoseGameEvent(player)
+public class ConcedeEvent(IPlayerV2 player) : LoseGameEvent(player)
 {
 }

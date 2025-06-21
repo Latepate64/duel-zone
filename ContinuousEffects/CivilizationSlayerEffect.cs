@@ -18,7 +18,7 @@ public class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect, IMultiC
 
     public Civilization[] Civilizations { get; }
 
-    public bool Applies(Creature creature, Card against, IGame game)
+    public bool Applies(ICreature creature, ICard against, IGame game)
     {
         return IsSourceOfAbility(creature) && against.Civilizations.Intersect(Civilizations).Any();
     }

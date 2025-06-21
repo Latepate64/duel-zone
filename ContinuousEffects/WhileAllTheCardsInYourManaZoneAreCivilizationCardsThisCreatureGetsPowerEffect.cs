@@ -30,7 +30,7 @@ public class WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsP
     {
         if (Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization))
         {
-            (Source as Creature).IncreasePower(Power);
+            (Source as ICreature).IncreasePower(Power);
         }
     }
 

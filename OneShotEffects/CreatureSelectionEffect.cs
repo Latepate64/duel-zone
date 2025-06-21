@@ -2,7 +2,7 @@ using Engine;
 
 namespace OneShotEffects;
 
-public abstract class CreatureSelectionEffect : CardSelectionEffect<Creature>
+public abstract class CreatureSelectionEffect : CardSelectionEffect<ICreature>
 {
     protected CreatureSelectionEffect(CreatureSelectionEffect effect) : base(effect)
     {

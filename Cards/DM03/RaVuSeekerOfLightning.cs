@@ -32,7 +32,7 @@ namespace Cards.DM03
             return "You may return a light spell from your graveyard to your hand.";
         }
 
-        protected override IEnumerable<Card> GetSelectableCards(IGame game, IAbility source)
+        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
         {
             return Controller.Graveyard.Spells.Where(x => x.HasCivilization(Civilization.Light));
         }

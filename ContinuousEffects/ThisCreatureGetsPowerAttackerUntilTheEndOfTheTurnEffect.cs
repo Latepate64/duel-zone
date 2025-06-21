@@ -13,7 +13,7 @@ public class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : AddAbilit
         _power = effect._power;
     }
 
-    public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params Card[] cards) : base(
+    public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(
         new StaticAbility(new PowerAttackerEffect(power)), cards)
     {
         _power = power;

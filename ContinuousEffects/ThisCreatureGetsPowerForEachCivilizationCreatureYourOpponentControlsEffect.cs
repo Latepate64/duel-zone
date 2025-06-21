@@ -28,7 +28,7 @@ public class ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControl
 
     public void ModifyPower(IGame game)
     {
-        (Source as Creature).IncreasePower(game.BattleZone.GetCreatures(GetOpponent(game).Id).Count(x => x.HasCivilization(Civilizations)) * Power);
+        (Source as ICreature).IncreasePower(game.BattleZone.GetCreatures(GetOpponent(game).Id).Count(x => x.HasCivilization(Civilizations)) * Power);
     }
 
     public override string ToString()

@@ -17,7 +17,7 @@ namespace Engine.Choices
             Targets = choice.Targets;
         }
 
-        public AttackTargetChoice(Player maker, IEnumerable<IAttackable> targets) : base(maker, "Choose a target for the attack.")
+        public AttackTargetChoice(IPlayer maker, IEnumerable<IAttackable> targets) : base(maker, "Choose a target for the attack.")
         {
             Targets = targets;
         }
