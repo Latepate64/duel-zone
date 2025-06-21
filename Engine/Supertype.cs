@@ -1,7 +1,6 @@
-﻿namespace Engine
+﻿namespace Engine;
+
+public enum Supertype
 {
-    public enum Supertype
-    {
-        Evolution
-    }
+    Evolution
 }

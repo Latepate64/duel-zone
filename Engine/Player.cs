@@ -54,33 +54,33 @@ namespace Engine
         /// <summary>
         /// When a game begins, each player’s deck becomes their deck.
         /// </summary>
-        public Deck Deck { get; private set; } = new Deck([]);
+        public IDeck Deck { get; private set; } = new Deck([]);
 
         public bool DirectlyAttacked { get; set; }
 
         /// <summary>
         /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
         /// </summary>
-        public Graveyard Graveyard { get; private set; } = new Graveyard();
+        public IGraveyard Graveyard { get; private set; } = new Graveyard();
 
         /// <summary>
         /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
         /// </summary>
-        public Hand Hand { get; private set; } = new Hand();
+        public IHand Hand { get; private set; } = new Hand();
 
         public Guid Id { get; set; }
 
         /// <summary>
         /// The mana zone is where cards are put in order to produce mana for using other cards. All cards are put into the mana zone upside down. However, multicolored cards are put into the mana zone tapped.
         /// </summary>
-        public ManaZone ManaZone { get; private set; } = new ManaZone();
+        public IManaZone ManaZone { get; private set; } = new ManaZone();
 
         public string Name { get; set; }
 
         /// <summary>
         /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.
         /// </summary>
-        public ShieldZone ShieldZone { get; private set; } = new ShieldZone();
+        public IShieldZone ShieldZone { get; private set; } = new ShieldZone();
 
         public IEnumerable<IZone> Zones => [Deck, Graveyard, Hand, ManaZone, ShieldZone];
 
@@ -106,7 +106,7 @@ namespace Engine
             throw new NotImplementedException();
         }
 
-        public T Choose<T>(T choice) where T : Choice
+        public T Choose<T>(T choice) where T : IChoice
         {
             T choiceMade;
             do
@@ -128,11 +128,11 @@ namespace Engine
             }
         }
 
-        public abstract T ChooseAbstractly<T>(T choice) where T : Choice;
+        public abstract T ChooseAbstractly<T>(T choice) where T : IChoice;
 
         public IEnumerable<T> ChooseAnyNumberOfCards<T>(IEnumerable<T> cards, string description) where T : ICard
         {
-            return ChooseCards<T>(new CardChoice<T>(this, description, new AnyNumberOfCardsChoiceMode<T>(), [.. cards]));
+            return ChooseCards(new CardChoice<T>(this, description, new AnyNumberOfCardsChoiceMode<T>(), [.. cards]));
         }
 
         public bool ChooseAttacker(IGame game, IEnumerable<ICreature> attackers)
@@ -168,7 +168,7 @@ namespace Engine
                 new CardChoice<T>(this, description, new BoundedCardChoiceMode<T>(min, max), [.. cards]));
         }
 
-        public IEnumerable<T> ChooseCards<T>(CardChoice<T> choice) where T : ICard
+        public IEnumerable<T> ChooseCards<T>(ICardChoice<T> choice) where T : ICard
         {
             if (choice.CanBeChosenAutomatically)
             {

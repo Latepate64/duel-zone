@@ -11,30 +11,30 @@ public interface IPlayer
 {
     Guid AttackableId { get; set; }
     IEnumerable<ICard> CardsInNonsharedZones { get; }
-    Deck Deck { get; }
+    IDeck Deck { get; }
     bool DirectlyAttacked { get; set; }
-    Graveyard Graveyard { get; }
-    Hand Hand { get; }
+    IGraveyard Graveyard { get; }
+    IHand Hand { get; }
     Guid Id { get; set; }
-    ManaZone ManaZone { get; }
+    IManaZone ManaZone { get; }
     string Name { get; set; }
-    ShieldZone ShieldZone { get; }
+    IShieldZone ShieldZone { get; }
     IEnumerable<IZone> Zones { get; }
 
     void ArrangeTopCardsOfDeck(params ICard[] cards);
     void BurnOwnMana(IGame game, IAbility ability);
     bool CanChoose(ICreature card, IGame game);
     void Cast(ICard spell, IGame game);
-    T Choose<T>(T choice) where T : Choice;
+    T Choose<T>(T choice) where T : IChoice;
     IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
-    T ChooseAbstractly<T>(T choice) where T : Choice;
+    T ChooseAbstractly<T>(T choice) where T : IChoice;
     IEnumerable<T> ChooseAnyNumberOfCards<T>(IEnumerable<T> cards, string description) where T : ICard;
     bool ChooseAttacker(IGame game, IEnumerable<ICreature> attackers);
     IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
     ICard ChooseCard(IEnumerable<ICard> cards, string description);
     ICard ChooseCardOptionally(IEnumerable<ICard> cards, string description);
     IEnumerable<T> ChooseCards<T>(IEnumerable<T> cards, int min, int max, string description) where T : ICard;
-    IEnumerable<T> ChooseCards<T>(CardChoice<T> choice) where T : ICard;
+    IEnumerable<T> ChooseCards<T>(ICardChoice<T> choice) where T : ICard;
     Civilization ChooseCivilization(string description, params Civilization[] excluded);
     ICreature ChooseControlledCreature(IGame game, string description);
     ICreature ChooseControlledCreatureOptionally(IGame game, string description, Civilization civilization);
@@ -50,7 +50,8 @@ public interface IPlayer
     IPlayer ChoosePlayer(IGame game, string description);
     Race ChooseRace(string description, params Race[] excluded);
     bool ChooseToTakeAction(string description);
-    IEnumerable<ICreature> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICreature> creaturesWithSilentSkill);
+    IEnumerable<ICreature> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(
+        IEnumerable<ICreature> creaturesWithSilentSkill);
     IPlayer Copy();
     void DestroyAllCreaturesThatHaveMaximumPower(int power, IGame game, IAbility ability);
     ICard DestroyCreatureOptionally(IGame game, IAbility ability);
@@ -93,7 +94,8 @@ public interface IPlayer
     void SearchOwnDeck();
     void ShowCardsToOpponent(IGame game, params ICard[] cards);
     void ShuffleOwnDeck(IGame game);
-    void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description, IGame game, IAbility ability);
+    void TakeCreaturesFromOwnDeckShowThemToOpponentAndPutThemIntoOwnHand(int minimum, int maximum, string description,
+        IGame game, IAbility ability);
     void Tap(IGame game, params ICard[] cards);
     void TapOpponentsCreature(IGame game);
     string ToString();
