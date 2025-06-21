@@ -1,3 +1,5 @@
+using Interfaces;
+
 namespace Engine.GameEvents;
 
 public class MoveTopCardOfDeckEvent(PlayerV2 player, ZoneType zoneType) : MoveCardEvent(player, zoneType, false)

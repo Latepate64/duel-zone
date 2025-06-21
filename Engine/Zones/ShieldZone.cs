@@ -1,4 +1,6 @@
-﻿namespace Engine.Zones
+﻿using Interfaces;
+
+namespace Engine.Zones
 {
     /// <summary>
     /// At the beginning of the game, each player puts five shields into their shield zone. Castles are put into the shield zone to fortify a shield.

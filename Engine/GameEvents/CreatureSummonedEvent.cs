@@ -1,4 +1,6 @@
-﻿namespace Engine.GameEvents
+﻿using Interfaces;
+
+namespace Engine.GameEvents
 {
     public class CreatureSummonedEvent(Player player, Creature creature) : GameEvent
     {

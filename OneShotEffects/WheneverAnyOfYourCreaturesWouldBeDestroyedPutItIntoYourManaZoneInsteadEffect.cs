@@ -3,6 +3,7 @@ using Engine;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
+using Interfaces;
 
 namespace OneShotEffects;
 

@@ -1,3 +1,5 @@
+using Interfaces;
+
 namespace Engine.GameEvents;
 
 public class ChargeEvent(PlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)

@@ -1,3 +1,5 @@
+using Interfaces;
+
 namespace Engine.GameEvents;
 
 public class PutIntoBattleZoneEvent(PlayerV2 player, bool passable, Card card) :

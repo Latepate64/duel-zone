@@ -5,12 +5,13 @@ using Interfaces;
 
 namespace Engine.Zones
 {
+
     /// <summary>
     /// A zone is an area where cards can be during a game. There are normally eight zones: deck, hand, battle zone,
     /// graveyard, mana zone, shield zone, hyperspatial zone and "super gacharange zone". Each player has their own
     /// zones except for the battle zone which is shared by each player.
     /// </summary>
-    public abstract class Zone : IDisposable
+    public abstract class Zone : IDisposable, IZone
     {
         readonly List<Card> cards = [];
         public ZoneType Type { get; }

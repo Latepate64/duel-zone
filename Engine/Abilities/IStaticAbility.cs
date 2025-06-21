@@ -1,4 +1,5 @@
 ﻿using Engine.ContinuousEffects;
+using Interfaces;
 using System.Collections.Generic;
 
 namespace Engine.Abilities

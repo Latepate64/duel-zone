@@ -1,4 +1,5 @@
 ﻿using Engine;
+using Interfaces;
 
 namespace OneShotEffects;
 

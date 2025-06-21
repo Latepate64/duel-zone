@@ -1,4 +1,6 @@
-﻿namespace Engine.Steps
+﻿using Interfaces;
+
+namespace Engine.Steps
 {
     /// <summary>
     /// 503.1. The active player may put a card from their hand into their mana zone upside down.

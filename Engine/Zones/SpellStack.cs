@@ -1,4 +1,6 @@
-﻿namespace Engine.Zones
+﻿using Interfaces;
+
+namespace Engine.Zones
 {
     public class SpellStack : Zone, ICopyable<SpellStack>
     {
