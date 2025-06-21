@@ -1,5 +1,4 @@
 using Engine.Abilities;
-using Engine.ContinuousEffects;
 using Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,9 +30,6 @@ public interface ICard
     IList<ICard> Deconstruct(IList<ICard> deconstructred);
     bool Equals(object obj);
     IEnumerable<T> GetAbilities<T>();
-    IEnumerable<IEvolutionEffect> GetEvolutionEffects();
-    IEnumerable<SilentSkillAbility> GetSilentSkillAbilities();
-    IEnumerable<TapAbility> GetTapAbilities();
     bool HasCivilization(params Civilization[] civilizations);
     void InitializeAbilities();
     void PutOnTopOf(IEnumerable<ICard> baits);

@@ -110,4 +110,19 @@ public class Creature(
 
     public bool IsBlocker => GetAbilities<IStaticAbility>().SelectMany(
         x => x.ContinuousEffects).OfType<IBlockerEffect>().Any();
+
+    public IEnumerable<ITapAbility> GetTapAbilities()
+    {
+        return GetAbilities<ITapAbility>();
+    }
+
+    public IEnumerable<ISilentSkillAbility> GetSilentSkillAbilities()
+    {
+        return GetAbilities<ISilentSkillAbility>();
+    }
+
+    public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
+    {
+        return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
+    }
 }

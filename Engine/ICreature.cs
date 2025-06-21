@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Engine.Abilities;
+using Engine.ContinuousEffects;
 using Interfaces;
 
 namespace Engine;
@@ -16,10 +18,10 @@ public interface ICreature : ICard
     bool IsBlocker { get; }
 
     void AddGrantedRace(Race race);
-    ICreature Copy();
-    bool Equals(object obj);
     bool HasRace(Race race);
     void IncreasePower(int power);
     void RemoveSummoningSickness();
-    void ResetToPrintedValues();
+    IEnumerable<IEvolutionEffect> GetEvolutionEffects();
+    IEnumerable<ISilentSkillAbility> GetSilentSkillAbilities();
+    IEnumerable<ITapAbility> GetTapAbilities();
 }

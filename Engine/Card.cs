@@ -185,16 +185,6 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations, int m
         RulesText = string.Join("\r\n", Abilities.Select(x => x.ToString()));
     }
 
-    public IEnumerable<TapAbility> GetTapAbilities()
-    {
-        return GetAbilities<TapAbility>();
-    }
-
-    public IEnumerable<SilentSkillAbility> GetSilentSkillAbilities()
-    {
-        return GetAbilities<SilentSkillAbility>();
-    }
-
     protected void AddShieldTrigger()
     {
         ShieldTrigger = true;
@@ -207,11 +197,6 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations, int m
     protected void AddStaticAbilities(params IContinuousEffect[] effects)
     {
         AddAbilities([.. effects.Select(x => new StaticAbility(x))]);
-    }
-
-    public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
-    {
-        return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
     }
 
     public void Tap()
