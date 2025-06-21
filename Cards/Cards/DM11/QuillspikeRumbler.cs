@@ -1,4 +1,4 @@
-﻿using Abilities.Triggered;
+﻿using TriggeredAbilities;
 using Engine;
 using Engine.GameEvents;
 

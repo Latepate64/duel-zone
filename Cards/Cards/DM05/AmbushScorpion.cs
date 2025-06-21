@@ -1,4 +1,4 @@
-﻿using Abilities.Triggered;
+﻿using TriggeredAbilities;
 using OneShotEffects;
 using ContinuousEffects;
 using Engine.Abilities;

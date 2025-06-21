@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abilities\Abilities.csproj" />
+    <ProjectReference Include="..\TriggeredAbilities\TriggeredAbilities.csproj" />
     <ProjectReference Include="..\ContinuousEffects\ContinuousEffects.csproj" />
     <ProjectReference Include="..\OneShotEffects\OneShotEffects.csproj" />
     <ProjectReference Include="..\Engine\Engine.csproj" />

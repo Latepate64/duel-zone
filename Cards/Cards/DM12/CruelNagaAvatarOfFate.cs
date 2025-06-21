@@ -1,5 +1,5 @@
 ﻿using ContinuousEffects;
-using Abilities.Triggered;
+using TriggeredAbilities;
 using Engine;
 
 namespace Cards.Cards.DM12

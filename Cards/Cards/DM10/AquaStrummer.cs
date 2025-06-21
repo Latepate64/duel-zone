@@ -1,5 +1,5 @@
 ﻿using OneShotEffects;
-using Abilities.Triggered;
+using TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 

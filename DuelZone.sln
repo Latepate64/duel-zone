@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCards", "TestCards\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneShotEffects", "OneShotEffects\OneShotEffects.csproj", "{61E4CF87-C7EF-422C-85DA-B04CC56B4FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abilities", "Abilities\Abilities.csproj", "{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriggeredAbilities", "TriggeredAbilities\TriggeredAbilities.csproj", "{CE5578AB-F8D4-433F-8FCB-D1FD6A001795}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEvents", "GameEvents\GameEvents.csproj", "{69AB4BC8-6674-4062-80A0-77A9563DDFDF}"
 EndProject

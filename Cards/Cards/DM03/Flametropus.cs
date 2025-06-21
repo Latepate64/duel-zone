@@ -1,5 +1,5 @@
 ﻿using ContinuousEffects;
-using Abilities.Triggered;
+using TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
