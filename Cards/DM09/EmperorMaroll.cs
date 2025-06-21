@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.Steps;
+using Interfaces;
 
 namespace Cards.DM09
 {

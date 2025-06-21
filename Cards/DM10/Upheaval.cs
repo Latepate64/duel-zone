@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Abilities;
+using Interfaces;
 using System.Linq;
 
 namespace Cards.DM10

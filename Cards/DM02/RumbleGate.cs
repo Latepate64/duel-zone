@@ -4,6 +4,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
+using Interfaces;
 
 namespace Cards.DM02
 {

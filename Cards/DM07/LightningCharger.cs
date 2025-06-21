@@ -2,7 +2,7 @@
 {
     class LightningCharger : Charger
     {
-        public LightningCharger() : base("Lightning Charger", 4, Engine.Civilization.Light)
+        public LightningCharger() : base("Lightning Charger", 4, Interfaces.Civilization.Light)
         {
             AddSpellAbilities(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
         }

@@ -2,7 +2,7 @@
 {
     class ReusolTheOracle : Engine.Creature
     {
-        public ReusolTheOracle() : base("Reusol, the Oracle", 2, 2000, Engine.Race.LightBringer, Engine.Civilization.Light)
+        public ReusolTheOracle() : base("Reusol, the Oracle", 2, 2000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {
         }
     }

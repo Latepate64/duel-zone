@@ -2,7 +2,7 @@
 {
     class AquaJolter : Engine.Creature
     {
-        public AquaJolter() : base("Aqua Jolter", 3, 2000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
+        public AquaJolter() : base("Aqua Jolter", 3, 2000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
         }

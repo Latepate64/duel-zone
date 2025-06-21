@@ -5,7 +5,7 @@ namespace Cards.DM05
 {
     class BalloonshroomQ : Engine.Creature
     {
-        public BalloonshroomQ() : base("Balloonshroom Q", 4, 2000, [Engine.Race.Survivor, Engine.Race.BalloonMushroom], Engine.Civilization.Nature)
+        public BalloonshroomQ() : base("Balloonshroom Q", 4, 2000, [Interfaces.Race.Survivor, Interfaces.Race.BalloonMushroom], Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new SurvivorEffect(new StaticAbility(
                 new WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect())));

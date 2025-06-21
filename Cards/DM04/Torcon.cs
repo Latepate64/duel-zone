@@ -2,7 +2,7 @@
 {
     class Torcon : Engine.Creature
     {
-        public Torcon() : base("Torcon", 2, 1000, Engine.Race.BeastFolk, Engine.Civilization.Nature)
+        public Torcon() : base("Torcon", 2, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
         {
             AddShieldTrigger();
         }

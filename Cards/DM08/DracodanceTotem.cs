@@ -5,6 +5,7 @@ using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using System.Collections.Generic;
 using System.Linq;
+using Interfaces;
 
 namespace Cards.DM08
 {

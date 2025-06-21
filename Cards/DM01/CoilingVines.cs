@@ -2,7 +2,7 @@
 {
     class CoilingVines : Engine.Creature
     {
-        public CoilingVines() : base("Coiling Vines", 4, 3000, Engine.Race.TreeFolk, Engine.Civilization.Nature)
+        public CoilingVines() : base("Coiling Vines", 4, 3000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new ContinuousEffects.WhenThisCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect());
         }

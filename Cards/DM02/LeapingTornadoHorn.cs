@@ -4,7 +4,7 @@ namespace Cards.DM02
 {
     class LeapingTornadoHorn : Engine.Creature
     {
-        public LeapingTornadoHorn() : base("Leaping Tornado Horn", 3, 2000, Engine.Race.HornedBeast, Engine.Civilization.Nature)
+        public LeapingTornadoHorn() : base("Leaping Tornado Horn", 3, 2000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new LeapingTornadoHornEffect());
         }

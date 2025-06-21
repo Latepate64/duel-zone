@@ -4,7 +4,7 @@ namespace Cards.DM06
 {
     class ChenTregVizierOfBlades : Engine.Creature
     {
-        public ChenTregVizierOfBlades() : base("Chen Treg, Vizier of Blades", 5, 2000, Engine.Race.Initiate, Engine.Civilization.Light)
+        public ChenTregVizierOfBlades() : base("Chen Treg, Vizier of Blades", 5, 2000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {
             AddAbilities(new TapAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
         }

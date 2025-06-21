@@ -2,6 +2,7 @@ using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Interfaces;
 using System.Linq;
 
 namespace Cards;

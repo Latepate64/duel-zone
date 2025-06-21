@@ -5,7 +5,7 @@ namespace Cards.DM06
 {
     class CrazeValkyrieTheDrastic : EvolutionCreature
     {
-        public CrazeValkyrieTheDrastic() : base("Craze Valkyrie, the Drastic", 6, 7500, Engine.Race.Initiate, Engine.Civilization.Light)
+        public CrazeValkyrieTheDrastic() : base("Craze Valkyrie, the Drastic", 6, 7500, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());

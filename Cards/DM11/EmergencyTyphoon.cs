@@ -5,7 +5,7 @@ namespace Cards.DM11
 {
     class EmergencyTyphoon : Spell
     {
-        public EmergencyTyphoon() : base("Emergency Typhoon", 2, Engine.Civilization.Water)
+        public EmergencyTyphoon() : base("Emergency Typhoon", 2, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new EmergencyTyphoonEffect());

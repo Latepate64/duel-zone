@@ -5,9 +5,9 @@ namespace Cards.DM05
 {
     class ScissorScarab : Engine.Creature
     {
-        public ScissorScarab() : base("Scissor Scarab", 7, 5000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
+        public ScissorScarab() : base("Scissor Scarab", 7, 5000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchRaceCreatureEffect(Engine.Race.GiantInsect)));
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchRaceCreatureEffect(Interfaces.Race.GiantInsect)));
         }
     }
 }

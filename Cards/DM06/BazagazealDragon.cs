@@ -6,7 +6,7 @@ namespace Cards.DM06
 {
     class BazagazealDragon : Engine.Creature
     {
-        public BazagazealDragon() : base("Bazagazeal Dragon", 8, 8000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
+        public BazagazealDragon() : base("Bazagazeal Dragon", 8, 8000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
             AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());

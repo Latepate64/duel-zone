@@ -6,7 +6,7 @@ namespace Cards.DM10
 {
     class KaratePotato : Engine.Creature
     {
-        public KaratePotato() : base("Karate Potato", 4, 1000, Engine.Race.WildVeggies, Engine.Civilization.Nature)
+        public KaratePotato() : base("Karate Potato", 4, 1000, Interfaces.Race.WildVeggies, Interfaces.Civilization.Nature)
         {
             AddShieldTrigger();
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new KaratePotatoEffect()));

@@ -2,9 +2,9 @@
 {
     class TyphoonCrawler : Engine.Creature
     {
-        public TyphoonCrawler() : base("Typhoon Crawler", 6, 5000, Engine.Race.EarthEater, Engine.Civilization.Water)
+        public TyphoonCrawler() : base("Typhoon Crawler", 6, 5000, Interfaces.Race.EarthEater, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ContinuousEffects.ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Engine.Civilization.Fire, Engine.Civilization.Nature));
+            AddStaticAbilities(new ContinuousEffects.ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Interfaces.Civilization.Fire, Interfaces.Civilization.Nature));
         }
     }
 }

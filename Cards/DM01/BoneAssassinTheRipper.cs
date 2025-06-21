@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class BoneAssassinTheRipper : Engine.Creature
     {
-        public BoneAssassinTheRipper() : base("Bone Assassin, the Ripper", 4, 2000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
+        public BoneAssassinTheRipper() : base("Bone Assassin, the Ripper", 4, 2000, Interfaces.Race.LivingDead, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasSlayerEffect());
         }

@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Engine.Choices;
+using Interfaces;
 using System.Linq;
 
 namespace Cards.DM12

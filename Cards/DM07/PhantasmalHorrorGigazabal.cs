@@ -4,9 +4,9 @@ namespace Cards.DM07
 {
     class PhantasmalHorrorGigazabal : EvolutionCreature
     {
-        public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Engine.Race.Chimera, Engine.Civilization.Darkness)
+        public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new StealthEffect(Engine.Civilization.Light));
+            AddStaticAbilities(new StealthEffect(Interfaces.Civilization.Light));
             AddStaticAbilities(new DoubleBreakerEffect());
         }
     }

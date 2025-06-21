@@ -2,7 +2,7 @@
 {
     class FruitOfEternity : Engine.Spell
     {
-        public FruitOfEternity() : base("Fruit of Eternity", 4, Engine.Civilization.Nature)
+        public FruitOfEternity() : base("Fruit of Eternity", 4, Interfaces.Civilization.Nature)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect());

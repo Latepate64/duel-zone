@@ -4,7 +4,7 @@ namespace Cards.DM07
 {
     class Cetibols : Engine.Creature
     {
-        public Cetibols() : base("Cetibols", 3, 2000, Engine.Race.SeaHacker, Engine.Civilization.Water)
+        public Cetibols() : base("Cetibols", 3, 2000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
         {
             AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.YouMayDrawCardEffect()));
         }

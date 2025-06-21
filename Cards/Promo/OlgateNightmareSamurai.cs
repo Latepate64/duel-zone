@@ -2,6 +2,7 @@
 using OneShotEffects;
 using ContinuousEffects;
 using Engine;
+using Interfaces;
 
 namespace Cards.Promo;
 

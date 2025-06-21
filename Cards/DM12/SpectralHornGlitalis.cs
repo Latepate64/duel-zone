@@ -2,7 +2,7 @@
 {
     class SpectralHornGlitalis : Engine.Creature
     {
-        public SpectralHornGlitalis() : base("Spectral Horn Glitalis", 3, 4000, [Engine.Race.HornedBeast, Engine.Race.RainbowPhantom], Engine.Civilization.Light, Engine.Civilization.Nature)
+        public SpectralHornGlitalis() : base("Spectral Horn Glitalis", 3, 4000, [Interfaces.Race.HornedBeast, Interfaces.Race.RainbowPhantom], Interfaces.Civilization.Light, Interfaces.Civilization.Nature)
         {
         }
     }

@@ -4,7 +4,7 @@ namespace Cards.DM10
 {
     class MessaBahnaExpanseGuardian : Engine.Creature
     {
-        public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Engine.Race.Guardian, Engine.Civilization.Light)
+        public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureBlocksIfAble());

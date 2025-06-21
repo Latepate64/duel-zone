@@ -4,9 +4,9 @@ namespace Cards.DM05
 {
     class SteelTurretCluster : Engine.Creature
     {
-        public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Engine.Race.CyberCluster, Engine.Civilization.Water)
+        public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Engine.Civilization.Fire, Engine.Civilization.Nature));
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Interfaces.Civilization.Fire, Interfaces.Civilization.Nature));
         }
     }
 }

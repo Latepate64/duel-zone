@@ -4,7 +4,7 @@ namespace Cards.DM11
 {
     class AquaTrickster : WaveStrikerCreature
     {
-        public AquaTrickster() : base("Aqua Trickster", 2, 1000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
+        public AquaTrickster() : base("Aqua Trickster", 2, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
             AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
         }

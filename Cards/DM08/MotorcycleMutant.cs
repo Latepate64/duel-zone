@@ -5,7 +5,7 @@ namespace Cards.DM08
 {
     class MotorcycleMutant : Engine.Creature
     {
-        public MotorcycleMutant() : base("Motorcycle Mutant", 4, 6000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
+        public MotorcycleMutant() : base("Motorcycle Mutant", 4, 6000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());

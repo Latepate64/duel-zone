@@ -2,7 +2,7 @@
 {
     class VenomCharger : Charger
     {
-        public VenomCharger() : base("Venom Charger", 3, Engine.Civilization.Darkness)
+        public VenomCharger() : base("Venom Charger", 3, Interfaces.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect());
         }

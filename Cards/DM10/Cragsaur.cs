@@ -2,7 +2,7 @@
 {
     class Cragsaur : Engine.Creature
     {
-        public Cragsaur() : base("Cragsaur", 3, 3000, Engine.Race.RockBeast, Engine.Civilization.Fire)
+        public Cragsaur() : base("Cragsaur", 3, 3000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {
         }
     }

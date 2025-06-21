@@ -2,7 +2,7 @@
 {
     class IllusionFish : TurboRushCreature
     {
-        public IllusionFish() : base("Illusion Fish", 4, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
+        public IllusionFish() : base("Illusion Fish", 4, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
             AddTurboRushAbility(new ContinuousEffects.ThisCreatureCannotBeBlockedEffect());
         }

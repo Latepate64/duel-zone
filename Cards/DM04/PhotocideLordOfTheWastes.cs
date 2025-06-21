@@ -4,10 +4,10 @@ namespace Cards.DM04
 {
     class PhotocideLordOfTheWastes : Engine.Creature
     {
-        public PhotocideLordOfTheWastes() : base("Photocide, Lord of the Wastes", 5, 9000, Engine.Race.DemonCommand, Engine.Civilization.Darkness)
+        public PhotocideLordOfTheWastes() : base("Photocide, Lord of the Wastes", 5, 9000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Engine.Civilization.Light));
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCivilizationCreaturesEffect(Interfaces.Civilization.Light));
         }
     }
 }

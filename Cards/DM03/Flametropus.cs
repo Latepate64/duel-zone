@@ -3,6 +3,7 @@ using TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Interfaces;
 
 namespace Cards.DM03
 {

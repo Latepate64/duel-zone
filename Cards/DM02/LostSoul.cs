@@ -2,7 +2,7 @@
 {
     class LostSoul : Engine.Spell
     {
-        public LostSoul() : base("Lost Soul", 7, Engine.Civilization.Darkness)
+        public LostSoul() : base("Lost Soul", 7, Interfaces.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.YourOpponentDiscardsHisHandEffect());
         }

@@ -3,6 +3,7 @@ using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
 using System.Linq;
+using Interfaces;
 
 namespace Cards.DM10
 {

@@ -4,6 +4,7 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
 using Engine.Steps;
+using Interfaces;
 using System;
 using System.Linq;
 

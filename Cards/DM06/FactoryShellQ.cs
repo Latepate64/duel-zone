@@ -6,10 +6,10 @@ namespace Cards.DM06
 {
     class FactoryShellQ : Engine.Creature
     {
-        public FactoryShellQ() : base("Factory Shell Q", 6, 2000, [Engine.Race.Survivor, Engine.Race.ColonyBeetle], Engine.Civilization.Nature)
+        public FactoryShellQ() : base("Factory Shell Q", 6, 2000, [Interfaces.Race.Survivor, Interfaces.Race.ColonyBeetle], Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new SurvivorEffect(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new SearchRaceCreatureEffect(Engine.Race.Survivor))));
+                new SearchRaceCreatureEffect(Interfaces.Race.Survivor))));
         }
     }
 }

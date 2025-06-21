@@ -5,7 +5,7 @@ namespace Cards.DM05
 {
     class KingMazelan : Engine.Creature
     {
-        public KingMazelan() : base("King Mazelan", 8, 7000, Engine.Race.Leviathan, Engine.Civilization.Water)
+        public KingMazelan() : base("King Mazelan", 8, 7000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
             AddStaticAbilities(new DoubleBreakerEffect());

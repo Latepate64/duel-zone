@@ -6,7 +6,7 @@ namespace Cards.DM01
 {
     class BloodySquito : Engine.Creature
     {
-        public BloodySquito() : base("Bloody Squito", 2, 4000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
+        public BloodySquito() : base("Bloody Squito", 2, 4000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());

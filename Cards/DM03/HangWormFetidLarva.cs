@@ -2,7 +2,7 @@
 {
     class HangWormFetidLarva : Engine.Creature
     {
-        public HangWormFetidLarva() : base("Hang Worm, Fetid Larva", 5, 4000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
+        public HangWormFetidLarva() : base("Hang Worm, Fetid Larva", 5, 4000, Interfaces.Race.ParasiteWorm, Interfaces.Civilization.Darkness)
         {
         }
     }

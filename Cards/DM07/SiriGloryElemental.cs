@@ -9,7 +9,7 @@ namespace Cards.DM07
 {
     class SiriGloryElemental : Creature
     {
-        public SiriGloryElemental() : base("Siri, Glory Elemental", 6, 7000, Engine.Race.AngelCommand, Engine.Civilization.Light)
+        public SiriGloryElemental() : base("Siri, Glory Elemental", 6, 7000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new SiriEffect());

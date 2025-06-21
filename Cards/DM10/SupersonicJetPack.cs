@@ -2,7 +2,7 @@
 {
     class SupersonicJetPack : Engine.Spell
     {
-        public SupersonicJetPack() : base("Supersonic Jet Pack", 1, Engine.Civilization.Fire)
+        public SupersonicJetPack() : base("Supersonic Jet Pack", 1, Interfaces.Civilization.Fire)
         {
             AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect());
         }

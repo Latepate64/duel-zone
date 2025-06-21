@@ -2,7 +2,7 @@
 {
     class VenomCapsule : SilentSkillCreature
     {
-        public VenomCapsule() : base("Venom Capsule", 2, 1000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
+        public VenomCapsule() : base("Venom Capsule", 2, 1000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
         {
             AddSilentSkillAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect());
         }

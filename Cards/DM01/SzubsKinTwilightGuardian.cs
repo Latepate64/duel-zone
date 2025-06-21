@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class SzubsKinTwilightGuardian : Engine.Creature
     {
-        public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, 6000, Engine.Race.Guardian, Engine.Civilization.Light)
+        public SzubsKinTwilightGuardian() : base("Szubs Kin, Twilight Guardian", 5, 6000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());

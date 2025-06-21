@@ -2,7 +2,7 @@
 {
     class ElectroExplorerSyrion : Engine.Creature
     {
-        public ElectroExplorerSyrion() : base("Electro Explorer Syrion", 3, 4000, [Engine.Race.Gladiator, Engine.Race.CyberLord], Engine.Civilization.Light, Engine.Civilization.Water)
+        public ElectroExplorerSyrion() : base("Electro Explorer Syrion", 3, 4000, [Interfaces.Race.Gladiator, Interfaces.Race.CyberLord], Interfaces.Civilization.Light, Interfaces.Civilization.Water)
         {
         }
     }

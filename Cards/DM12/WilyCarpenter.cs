@@ -6,7 +6,7 @@ namespace Cards.DM12
 {
     class WilyCarpenter : Creature
     {
-        public WilyCarpenter() : base("Wily Carpenter", 3, 1000, Engine.Race.Merfolk, Engine.Civilization.Water)
+        public WilyCarpenter() : base("Wily Carpenter", 3, 1000, Interfaces.Race.Merfolk, Interfaces.Civilization.Water)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WilyCarpenterEffect()));
         }

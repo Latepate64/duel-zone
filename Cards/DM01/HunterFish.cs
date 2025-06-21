@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class HunterFish : Engine.Creature
     {
-        public HunterFish() : base("Hunter Fish", 2, 3000, Engine.Race.Fish, Engine.Civilization.Water)
+        public HunterFish() : base("Hunter Fish", 2, 3000, Interfaces.Race.Fish, Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());

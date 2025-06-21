@@ -3,6 +3,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
 using Engine.GameEvents;
+using Interfaces;
 using System;
 
 namespace Cards.DM10

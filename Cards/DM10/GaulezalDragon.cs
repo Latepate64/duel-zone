@@ -4,7 +4,7 @@ namespace Cards.DM10
 {
     class GaulezalDragon : Engine.Creature
     {
-        public GaulezalDragon() : base("Gaulezal Dragon", 9, 11000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
+        public GaulezalDragon() : base("Gaulezal Dragon", 9, 11000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
         }

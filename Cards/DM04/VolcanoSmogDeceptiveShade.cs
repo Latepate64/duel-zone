@@ -5,7 +5,7 @@ namespace Cards.DM04
 {
     class VolcanoSmogDeceptiveShade : Engine.Creature
     {
-        public VolcanoSmogDeceptiveShade() : base("Volcano Smog, Deceptive Shade", 6, 5000, Engine.Race.Ghost, Engine.Civilization.Darkness)
+        public VolcanoSmogDeceptiveShade() : base("Volcano Smog, Deceptive Shade", 6, 5000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new VolcanoSmogEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.DM04
         {
         }
 
-        public VolcanoSmogEffect(Engine.Civilization civilization = Engine.Civilization.Light) : base(2, civilization)
+        public VolcanoSmogEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Light) : base(2, civilization)
         {
         }
 

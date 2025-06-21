@@ -5,7 +5,7 @@ namespace Cards.DM06
 {
     class RumblesaurQ : Engine.Creature
     {
-        public RumblesaurQ() : base("Rumblesaur Q", 6, 3000, [Engine.Race.Survivor, Engine.Race.RockBeast], Engine.Civilization.Fire)
+        public RumblesaurQ() : base("Rumblesaur Q", 6, 3000, [Interfaces.Race.Survivor, Interfaces.Race.RockBeast], Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureHasSpeedAttackerEffect())));
         }

@@ -5,7 +5,7 @@ namespace Cards.DM05
 {
     class SyforceAuroraElemental : Engine.Creature
     {
-        public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000, Engine.Race.AngelCommand, Engine.Civilization.Light)
+        public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect()));

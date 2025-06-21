@@ -2,7 +2,7 @@
 {
     class WrithingBoneGhoul : Engine.Creature
     {
-        public WrithingBoneGhoul() : base("Writhing Bone Ghoul", 2, 2000, Engine.Race.LivingDead, Engine.Civilization.Darkness)
+        public WrithingBoneGhoul() : base("Writhing Bone Ghoul", 2, 2000, Interfaces.Race.LivingDead, Interfaces.Civilization.Darkness)
         {
         }
     }

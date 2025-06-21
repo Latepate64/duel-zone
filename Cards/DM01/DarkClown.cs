@@ -6,7 +6,7 @@ namespace Cards.DM01
 {
     class DarkClown : Engine.Creature
     {
-        public DarkClown() : base("Dark Clown", 4, 6000, Engine.Race.BrainJacker, Engine.Civilization.Darkness)
+        public DarkClown() : base("Dark Clown", 4, 6000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());

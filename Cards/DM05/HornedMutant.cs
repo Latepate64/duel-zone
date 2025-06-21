@@ -5,7 +5,7 @@ namespace Cards.DM05
 {
     class HornedMutant : Engine.Creature
     {
-        public HornedMutant() : base("Horned Mutant", 5, 3000, Engine.Race.Hedrian, Engine.Civilization.Darkness)
+        public HornedMutant() : base("Horned Mutant", 5, 3000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new HornedMutantEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.DM05
         {
         }
 
-        public HornedMutantEffect(Engine.Civilization civilization = Engine.Civilization.Nature) : base(1, civilization)
+        public HornedMutantEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Nature) : base(1, civilization)
         {
         }
 

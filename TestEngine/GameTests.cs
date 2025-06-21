@@ -4,6 +4,7 @@ using System.Linq;
 using Engine;
 using Engine.GameEvents;
 using Engine.Zones;
+using Interfaces;
 using Moq;
 using Xunit;
 

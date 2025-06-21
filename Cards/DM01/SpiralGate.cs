@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class SpiralGate : Engine.Spell
     {
-        public SpiralGate() : base("Spiral Gate", 2, Engine.Civilization.Water)
+        public SpiralGate() : base("Spiral Gate", 2, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect());

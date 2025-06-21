@@ -4,7 +4,7 @@ namespace Cards.DM06
 {
     class RazorpineTree : Engine.Creature
     {
-        public RazorpineTree() : base("Razorpine Tree", 5, 1000, Engine.Race.StarlightTree, Engine.Civilization.Light)
+        public RazorpineTree() : base("Razorpine Tree", 5, 1000, Interfaces.Race.StarlightTree, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureGetsPowerForEachShieldYouHaveEffect(2000));
         }

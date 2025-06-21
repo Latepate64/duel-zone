@@ -7,7 +7,7 @@ namespace Cards.DM05
 {
     class SkullsweeperQ : Engine.Creature
     {
-        public SkullsweeperQ() : base("Skullsweeper Q", 4, 1000, [Engine.Race.Survivor, Engine.Race.BrainJacker], Engine.Civilization.Darkness)
+        public SkullsweeperQ() : base("Skullsweeper Q", 4, 1000, [Interfaces.Race.Survivor, Interfaces.Race.BrainJacker], Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new SurvivorEffect(new WheneverThisCreatureAttacksAbility(
                 new SkullsweeperQEffect())));

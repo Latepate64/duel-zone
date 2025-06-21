@@ -4,7 +4,7 @@ namespace Cards.DM07
 {
     class PoppleFlowerpetalDancer : Engine.Creature
     {
-        public PoppleFlowerpetalDancer() : base("Popple, Flowerpetal Dancer", 4, 2000, Engine.Race.SnowFaerie, Engine.Civilization.Nature)
+        public PoppleFlowerpetalDancer() : base("Popple, Flowerpetal Dancer", 4, 2000, Interfaces.Race.SnowFaerie, Interfaces.Civilization.Nature)
         {
             AddAbilities(new TapAbility(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect()));
         }

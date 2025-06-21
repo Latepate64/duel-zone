@@ -4,6 +4,7 @@ using Engine.Abilities;
 using Engine.GameEvents;
 using System;
 using System.Linq;
+using Interfaces;
 
 namespace Cards.DM09
 {

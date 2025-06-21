@@ -6,7 +6,7 @@ namespace Cards.DM02
 {
     class EssenceElf : Creature
     {
-        public EssenceElf() : base("Essence Elf", 2, 1000, Engine.Race.TreeFolk, Engine.Civilization.Nature)
+        public EssenceElf() : base("Essence Elf", 2, 1000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new EssenceElfEffect());
         }

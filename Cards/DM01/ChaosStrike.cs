@@ -5,6 +5,7 @@ using Engine.Abilities;
 using Engine.ContinuousEffects;
 using System;
 using System.Collections.Generic;
+using Interfaces;
 
 namespace Cards.DM01
 {

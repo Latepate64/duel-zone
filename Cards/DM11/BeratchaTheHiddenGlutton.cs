@@ -4,7 +4,7 @@ namespace Cards.DM11
 {
     class BeratchaTheHiddenGlutton : Engine.Creature
     {
-        public BeratchaTheHiddenGlutton() : base("Beratcha, the Hidden Glutton", 5, 3000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
+        public BeratchaTheHiddenGlutton() : base("Beratcha, the Hidden Glutton", 5, 3000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasSlayerEffect());
         }

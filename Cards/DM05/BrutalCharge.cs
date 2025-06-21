@@ -3,6 +3,7 @@ using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using System.Linq;
+using Interfaces;
 
 namespace Cards.DM05
 {

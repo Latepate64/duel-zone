@@ -2,6 +2,7 @@
 using TriggeredAbilities;
 using Engine;
 using Engine.ContinuousEffects;
+using Interfaces;
 
 namespace Cards.DM07
 {

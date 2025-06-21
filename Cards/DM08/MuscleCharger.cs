@@ -2,7 +2,7 @@
 {
     class MuscleCharger : Charger
     {
-        public MuscleCharger() : base("Muscle Charger", 3, Engine.Civilization.Nature)
+        public MuscleCharger() : base("Muscle Charger", 3, Interfaces.Civilization.Nature)
         {
             AddSpellAbilities(new OneShotEffects.EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(3000));
         }

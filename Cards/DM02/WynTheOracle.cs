@@ -4,7 +4,7 @@ namespace Cards.DM02
 {
     class WynTheOracle : Engine.Creature
     {
-        public WynTheOracle() : base("Wyn, the Oracle", 2, 1500, Engine.Race.LightBringer, Engine.Civilization.Light)
+        public WynTheOracle() : base("Wyn, the Oracle", 2, 1500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayLookAtOneOfYourOpponentsShieldsEffect()));
         }

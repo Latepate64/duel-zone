@@ -4,9 +4,9 @@ namespace Cards.DM09
 {
     class MicuteTheOracle : Engine.Creature
     {
-        public MicuteTheOracle() : base("Micute, the Oracle", 5, 4000, Engine.Race.LightBringer, Engine.Civilization.Light)
+        public MicuteTheOracle() : base("Micute, the Oracle", 5, 4000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {
-            AddTriggeredAbility(new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Engine.Race.Guardian, new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
+            AddTriggeredAbility(new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Interfaces.Race.Guardian, new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
         }
     }
 }

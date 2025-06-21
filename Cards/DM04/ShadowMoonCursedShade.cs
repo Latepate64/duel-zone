@@ -5,7 +5,7 @@ namespace Cards.DM04
 {
     class ShadowMoonCursedShade : Engine.Creature
     {
-        public ShadowMoonCursedShade() : base("Shadow Moon, Cursed Shade", 4, 3000, Engine.Race.Ghost, Engine.Civilization.Darkness)
+        public ShadowMoonCursedShade() : base("Shadow Moon, Cursed Shade", 4, 3000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ShadowMoonEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.DM04
         {
         }
 
-        public ShadowMoonEffect() : base(Engine.Civilization.Darkness, 2000)
+        public ShadowMoonEffect() : base(Interfaces.Civilization.Darkness, 2000)
         {
         }
 

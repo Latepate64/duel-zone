@@ -7,7 +7,7 @@ namespace Cards.DM07
 {
     class BexTheOracle : Creature
     {
-        public BexTheOracle() : base("Bex, the Oracle", 3, 2500, Engine.Race.LightBringer, Engine.Civilization.Light)
+        public BexTheOracle() : base("Bex, the Oracle", 3, 2500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new BexEffect());
         }

@@ -2,7 +2,7 @@
 {
     class LogicCube : Engine.Spell
     {
-        public LogicCube() : base("Logic Cube", 3, Engine.Civilization.Light)
+        public LogicCube() : base("Logic Cube", 3, Interfaces.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.SearchSpellEffect());

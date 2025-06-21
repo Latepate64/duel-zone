@@ -1,7 +1,7 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
-using System.Linq;
+using Interfaces;
 
 namespace Cards.DM06
 {

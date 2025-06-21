@@ -4,7 +4,7 @@ namespace Cards.DM08
 {
     class Gigaclaws : TurboRushCreature
     {
-        public Gigaclaws() : base("Gigaclaws", 5, 2000, Engine.Race.Chimera, Engine.Civilization.Darkness)
+        public Gigaclaws() : base("Gigaclaws", 5, 2000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
             AddTurboRushAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.YourOpponentDiscardsHisHandEffect()));
         }

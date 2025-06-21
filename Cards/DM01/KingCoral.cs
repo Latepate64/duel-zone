@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class KingCoral : Engine.Creature
     {
-        public KingCoral() : base("King Coral", 3, 1000, Engine.Race.Leviathan, Engine.Civilization.Water)
+        public KingCoral() : base("King Coral", 3, 1000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
         }

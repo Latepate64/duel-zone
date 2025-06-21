@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class DimensionGate : Engine.Spell
     {
-        public DimensionGate() : base("Dimension Gate", 3, Engine.Civilization.Nature)
+        public DimensionGate() : base("Dimension Gate", 3, Interfaces.Civilization.Nature)
         {
             AddShieldTrigger();
             AddSpellAbilities(new SearchCreatureEffect());

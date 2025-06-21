@@ -4,7 +4,7 @@ namespace Cards.DM07
 {
     class TitaniumCluster : Engine.Creature
     {
-        public TitaniumCluster() : base("Titanium Cluster", 4, 4000, Engine.Race.CyberCluster, Engine.Civilization.Water)
+        public TitaniumCluster() : base("Titanium Cluster", 4, 4000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());

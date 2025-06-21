@@ -6,7 +6,7 @@ namespace Cards.DM11
 {
     class BairaTheHiddenLunatic : Engine.Creature
     {
-        public BairaTheHiddenLunatic() : base("Baira, the Hidden Lunatic", 3, 5000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
+        public BairaTheHiddenLunatic() : base("Baira, the Hidden Lunatic", 3, 5000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());

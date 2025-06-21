@@ -6,7 +6,7 @@ namespace Cards.DM03
 {
     class Shtra : Engine.Creature
     {
-        public Shtra() : base("Shtra", 4, 2000, Engine.Race.CyberLord, Engine.Civilization.Water)
+        public Shtra() : base("Shtra", 4, 2000, Interfaces.Race.CyberLord, Interfaces.Civilization.Water)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ShtraEffect()));
         }

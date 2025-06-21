@@ -1,4 +1,4 @@
-﻿using Engine;
+﻿using Interfaces;
 
 namespace ContinuousEffects;
 

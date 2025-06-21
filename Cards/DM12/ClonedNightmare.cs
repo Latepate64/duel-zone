@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.Choices;
+using Interfaces;
 
 namespace Cards.DM12
 {

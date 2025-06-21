@@ -6,7 +6,7 @@ namespace Cards.DM01
 {
     class PoisonousMushroom : Engine.Creature
     {
-        public PoisonousMushroom() : base("Poisonous Mushroom", 2, 1000, Engine.Race.BalloonMushroom, Engine.Civilization.Nature)
+        public PoisonousMushroom() : base("Poisonous Mushroom", 2, 1000, Interfaces.Race.BalloonMushroom, Interfaces.Civilization.Nature)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonousMushroomEffect()));
         }

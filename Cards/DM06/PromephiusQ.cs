@@ -2,7 +2,7 @@
 {
     class PromephiusQ : Engine.Creature
     {
-        public PromephiusQ() : base("Promephius Q", 3, 2000, [Engine.Race.Survivor, Engine.Race.SeaHacker], Engine.Civilization.Water)
+        public PromephiusQ() : base("Promephius Q", 3, 2000, [Interfaces.Race.Survivor, Interfaces.Race.SeaHacker], Interfaces.Civilization.Water)
         {
         }
     }

@@ -2,9 +2,9 @@
 {
     class ÜberdragonZaschack : EvolutionCreature
     {
-        public ÜberdragonZaschack() : base("Überdragon Zaschack", 9, 11000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
+        public ÜberdragonZaschack() : base("Überdragon Zaschack", 9, 11000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ContinuousEffects.CrewBreakerRaceEffect(Engine.Race.ArmoredDragon));
+            AddStaticAbilities(new ContinuousEffects.CrewBreakerRaceEffect(Interfaces.Race.ArmoredDragon));
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     class MysticInscription : Engine.Spell
     {
-        public MysticInscription() : base("Mystic Inscription", 6, Engine.Civilization.Nature)
+        public MysticInscription() : base("Mystic Inscription", 6, Interfaces.Civilization.Nature)
         {
             AddSpellAbilities(new OneShotEffects.AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect());
         }

@@ -5,7 +5,7 @@ namespace Cards.DM04
 {
     class DewMushroom : Engine.Creature
     {
-        public DewMushroom() : base("Dew Mushroom", 3, 1000, Engine.Race.BalloonMushroom, Engine.Civilization.Nature)
+        public DewMushroom() : base("Dew Mushroom", 3, 1000, Interfaces.Race.BalloonMushroom, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new DewMushroomEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.DM04
         {
         }
 
-        public DewMushroomEffect(Engine.Civilization civilization = Engine.Civilization.Darkness) : base(1, civilization)
+        public DewMushroomEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Darkness) : base(1, civilization)
         {
         }
 

@@ -2,6 +2,7 @@
 using Engine;
 using Engine.ContinuousEffects;
 using Engine.Steps;
+using Interfaces;
 
 namespace Cards.DM10
 {

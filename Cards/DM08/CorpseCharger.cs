@@ -2,7 +2,7 @@
 {
     class CorpseCharger : Charger
     {
-        public CorpseCharger() : base("Corpse Charger", 4, Engine.Civilization.Darkness)
+        public CorpseCharger() : base("Corpse Charger", 4, Interfaces.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.ReturnCreatureFromYourGraveyardToYourHandEffect());
         }

@@ -5,7 +5,7 @@ namespace Cards.DM11
 {
     class BelixTheExplorer : Engine.Creature
     {
-        public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Engine.Race.Gladiator, Engine.Civilization.Light)
+        public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect()));

@@ -2,7 +2,7 @@
 {
     class SeaMutantDormel : Engine.Creature
     {
-        public SeaMutantDormel() : base("Sea Mutant Dormel", 3, 4000, [Engine.Race.Merfolk, Engine.Race.Hedrian], Engine.Civilization.Water, Engine.Civilization.Darkness)
+        public SeaMutantDormel() : base("Sea Mutant Dormel", 3, 4000, [Interfaces.Race.Merfolk, Interfaces.Race.Hedrian], Interfaces.Civilization.Water, Interfaces.Civilization.Darkness)
         {
         }
     }

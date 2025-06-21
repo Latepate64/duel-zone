@@ -5,7 +5,7 @@ namespace Cards.DM05
 {
     class SpikestrikeIchthysQ : Engine.Creature
     {
-        public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, [Engine.Race.Survivor, Engine.Race.Fish], Engine.Civilization.Water)
+        public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, [Interfaces.Race.Survivor, Interfaces.Race.Fish], Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureCannotBeBlockedEffect())));
         }

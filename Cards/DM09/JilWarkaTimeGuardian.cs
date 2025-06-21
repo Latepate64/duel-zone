@@ -5,7 +5,7 @@ namespace Cards.DM09
 {
     class JilWarkaTimeGuardian : Engine.Creature
     {
-        public JilWarkaTimeGuardian() : base("Jil Warka, Time Guardian", 3, 2000, Engine.Race.Guardian, Engine.Civilization.Light)
+        public JilWarkaTimeGuardian() : base("Jil Warka, Time Guardian", 3, 2000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());

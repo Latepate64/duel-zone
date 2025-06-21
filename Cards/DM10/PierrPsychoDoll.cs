@@ -4,7 +4,7 @@ namespace Cards.DM10
 {
     class PierrPsychoDoll : Engine.Creature
     {
-        public PierrPsychoDoll() : base("Pierr, Psycho Doll", 2, 1000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
+        public PierrPsychoDoll() : base("Pierr, Psycho Doll", 2, 1000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new ThisCreatureBlocksIfAble());

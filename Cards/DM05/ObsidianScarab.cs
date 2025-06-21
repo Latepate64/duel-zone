@@ -7,7 +7,7 @@ namespace Cards.DM05
 {
     class ObsidianScarab : Engine.Creature
     {
-        public ObsidianScarab() : base("Obsidian Scarab", 6, 5000, Engine.Race.GiantInsect, Engine.Civilization.Nature)
+        public ObsidianScarab() : base("Obsidian Scarab", 6, 5000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new PowerAttackerEffect(3000));
             AddStaticAbilities(new DoubleBreakerEffect());

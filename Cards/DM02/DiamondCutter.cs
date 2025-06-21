@@ -2,6 +2,7 @@
 using Engine;
 using Engine.Abilities;
 using Engine.ContinuousEffects;
+using Interfaces;
 using System;
 
 namespace Cards.DM02

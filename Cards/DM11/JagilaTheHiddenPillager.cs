@@ -6,7 +6,7 @@ namespace Cards.DM11
 {
     class JagilaTheHiddenPillager : WaveStrikerCreature
     {
-        public JagilaTheHiddenPillager() : base("Jagila, the Hidden Pillager", 5, 3000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
+        public JagilaTheHiddenPillager() : base("Jagila, the Hidden Pillager", 5, 3000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {
             AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new JagilaEffect()));
         }

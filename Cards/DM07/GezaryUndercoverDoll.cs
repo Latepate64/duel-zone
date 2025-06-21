@@ -4,9 +4,9 @@ namespace Cards.DM07
 {
     class GezaryUndercoverDoll : Engine.Creature
     {
-        public GezaryUndercoverDoll() : base("Gezary, Undercover Doll", 3, 2000, Engine.Race.DeathPuppet, Engine.Civilization.Darkness)
+        public GezaryUndercoverDoll() : base("Gezary, Undercover Doll", 3, 2000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new StealthEffect(Engine.Civilization.Nature));
+            AddStaticAbilities(new StealthEffect(Interfaces.Civilization.Nature));
         }
     }
 }

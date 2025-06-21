@@ -1,6 +1,7 @@
 ﻿using TriggeredAbilities;
 using Engine;
 using Engine.Abilities;
+using Interfaces;
 
 namespace Cards.DM06
 {

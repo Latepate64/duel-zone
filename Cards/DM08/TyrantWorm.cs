@@ -4,7 +4,7 @@ namespace Cards.DM08
 {
     class TyrantWorm : Engine.Creature
     {
-        public TyrantWorm() : base("Tyrant Worm", 1, 2000, Engine.Race.ParasiteWorm, Engine.Civilization.Darkness)
+        public TyrantWorm() : base("Tyrant Worm", 1, 2000, Interfaces.Race.ParasiteWorm, Interfaces.Civilization.Darkness)
         {
             AddTriggeredAbility(new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyThisCreatureEffect()));
         }

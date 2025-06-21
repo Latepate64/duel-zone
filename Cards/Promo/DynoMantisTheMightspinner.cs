@@ -1,6 +1,7 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Engine.ContinuousEffects;
+using Interfaces;
 
 namespace Cards.Promo
 {

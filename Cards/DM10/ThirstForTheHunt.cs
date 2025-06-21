@@ -2,7 +2,7 @@
 {
     class ThirstForTheHunt : Engine.Spell
     {
-        public ThirstForTheHunt() : base("Thirst for the Hunt", 1, Engine.Civilization.Nature)
+        public ThirstForTheHunt() : base("Thirst for the Hunt", 1, Interfaces.Civilization.Nature)
         {
             AddSpellAbilities(new OneShotEffects.AuraBlastEffect(1000));
         }

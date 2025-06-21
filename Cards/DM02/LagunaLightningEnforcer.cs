@@ -4,7 +4,7 @@ namespace Cards.DM02
 {
     class LagunaLightningEnforcer : Engine.Creature
     {
-        public LagunaLightningEnforcer() : base("Laguna, Lightning Enforcer", 5, 2500, Engine.Race.Berserker, Engine.Civilization.Light)
+        public LagunaLightningEnforcer() : base("Laguna, Lightning Enforcer", 5, 2500, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.SearchSpellEffect()));
         }

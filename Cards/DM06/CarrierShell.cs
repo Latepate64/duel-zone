@@ -4,7 +4,7 @@ namespace Cards.DM06
 {
     class CarrierShell : Engine.Creature
     {
-        public CarrierShell() : base("Carrier Shell", 3, 2000, Engine.Race.ColonyBeetle, Engine.Civilization.Nature)
+        public CarrierShell() : base("Carrier Shell", 3, 2000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new PowerAttackerEffect(3000));
         }

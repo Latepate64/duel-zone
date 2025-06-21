@@ -4,7 +4,7 @@ namespace Cards.DM05
 {
     class CannoneerBargon : Engine.Creature
     {
-        public CannoneerBargon() : base("Cannoneer Bargon", 4, 4000, Engine.Race.Armorloid, Engine.Civilization.Fire)
+        public CannoneerBargon() : base("Cannoneer Bargon", 4, 4000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {
             AddShieldTrigger();
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());

@@ -4,7 +4,7 @@ namespace Cards.DM01
 {
     class KingDepthcon : Engine.Creature
     {
-        public KingDepthcon() : base("King Depthcon", 7, 6000, Engine.Race.Leviathan, Engine.Civilization.Water)
+        public KingDepthcon() : base("King Depthcon", 7, 6000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new DoubleBreakerEffect());
             AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());

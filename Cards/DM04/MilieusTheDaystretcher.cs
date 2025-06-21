@@ -5,7 +5,7 @@ namespace Cards.DM04
 {
     class MilieusTheDaystretcher : Engine.Creature
     {
-        public MilieusTheDaystretcher() : base("Milieus, the Daystretcher", 5, 2500, Engine.Race.Berserker, Engine.Civilization.Light)
+        public MilieusTheDaystretcher() : base("Milieus, the Daystretcher", 5, 2500, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddStaticAbilities(new MilieusEffect());
@@ -18,7 +18,7 @@ namespace Cards.DM04
         {
         }
 
-        public MilieusEffect(Engine.Civilization civilization = Engine.Civilization.Darkness) : base(2, civilization)
+        public MilieusEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Darkness) : base(2, civilization)
         {
         }
 

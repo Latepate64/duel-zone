@@ -5,7 +5,7 @@ namespace Cards.DM05
 {
     class BallusDogfightEnforcerQ : Engine.Creature
     {
-        public BallusDogfightEnforcerQ() : base("Ballus, Dogfight Enforcer Q", 5, 3000, [Engine.Race.Survivor, Engine.Race.Berserker], Engine.Civilization.Light)
+        public BallusDogfightEnforcerQ() : base("Ballus, Dogfight Enforcer Q", 5, 3000, [Interfaces.Race.Survivor, Interfaces.Race.Berserker], Interfaces.Civilization.Light)
         {
             AddStaticAbilities(new SurvivorEffect(new AtTheEndOfYourTurnAbility(
                 new OneShotEffects.UntapThisCreatureEffect())));

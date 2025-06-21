@@ -2,6 +2,7 @@
 using Engine.Abilities;
 using Engine.GameEvents;
 using GameEvents;
+using Interfaces;
 
 namespace Cards.DM09
 {

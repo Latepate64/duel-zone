@@ -2,7 +2,7 @@
 {
     class LogicSphere : Engine.Spell
     {
-        public LogicSphere() : base("Logic Sphere", 3, Engine.Civilization.Light)
+        public LogicSphere() : base("Logic Sphere", 3, Interfaces.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect());

@@ -4,7 +4,7 @@ namespace Cards.DM06
 {
     class ClobberTotem : Engine.Creature
     {
-        public ClobberTotem() : base("Clobber Totem", 6, 4000, Engine.Race.MysteryTotem, Engine.Civilization.Nature)
+        public ClobberTotem() : base("Clobber Totem", 6, 4000, Interfaces.Race.MysteryTotem, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new PowerAttackerEffect(2000));
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(5000));

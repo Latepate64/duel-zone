@@ -4,9 +4,9 @@ namespace Cards.DM06
 {
     class FortMegacluster : EvolutionCreature
     {
-        public FortMegacluster() : base("Fort Megacluster", 5, 5000, Engine.Race.CyberCluster, Engine.Civilization.Water)
+        public FortMegacluster() : base("Fort Megacluster", 5, 5000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new TapAbilityAddingEffect(Engine.Civilization.Water, new OneShotEffects.DrawCardEffect()));
+            AddStaticAbilities(new TapAbilityAddingEffect(Interfaces.Civilization.Water, new OneShotEffects.DrawCardEffect()));
         }
     }
 }

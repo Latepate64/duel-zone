@@ -2,7 +2,7 @@
 {
     class FlohdaniTheSpydroid : SilentSkillCreature
     {
-        public FlohdaniTheSpydroid() : base("Flohdani, the Spydroid", 4, 4000, Engine.Race.Soltrooper, Engine.Civilization.Light)
+        public FlohdaniTheSpydroid() : base("Flohdani, the Spydroid", 4, 4000, Interfaces.Race.Soltrooper, Interfaces.Civilization.Light)
         {
             AddSilentSkillAbility(new OneShotEffects.ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect());
         }

@@ -2,7 +2,7 @@
 {
     class BoomerangComet : Charger
     {
-        public BoomerangComet() : base("Boomerang Comet", 6, Engine.Civilization.Light)
+        public BoomerangComet() : base("Boomerang Comet", 6, Interfaces.Civilization.Light)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect());

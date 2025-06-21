@@ -6,7 +6,7 @@ namespace Cards.DM09
 {
     class WhisperingTotem : Engine.Creature
     {
-        public WhisperingTotem() : base("Whispering Totem", 4, 2000, Engine.Race.MysteryTotem, Engine.Civilization.Nature)
+        public WhisperingTotem() : base("Whispering Totem", 4, 2000, Interfaces.Race.MysteryTotem, Interfaces.Civilization.Nature)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WhisperingTotemEffect()));
         }

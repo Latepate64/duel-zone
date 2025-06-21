@@ -2,7 +2,7 @@
 {
     class AmberGrass : Engine.Creature
     {
-        public AmberGrass() : base("Amber Grass", 4, 3000, Engine.Race.StarlightTree, Engine.Civilization.Light)
+        public AmberGrass() : base("Amber Grass", 4, 3000, Interfaces.Race.StarlightTree, Interfaces.Civilization.Light)
         {
             AddShieldTrigger();
         }

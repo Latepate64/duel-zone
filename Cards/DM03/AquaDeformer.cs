@@ -6,7 +6,7 @@ namespace Cards.DM03
 {
     class AquaDeformer : Engine.Creature
     {
-        public AquaDeformer() : base("Aqua Deformer", 8, 3000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
+        public AquaDeformer() : base("Aqua Deformer", 8, 3000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaDeformerEffect()));
         }

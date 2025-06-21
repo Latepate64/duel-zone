@@ -2,7 +2,7 @@
 {
     class VolcanoCharger : Charger
     {
-        public VolcanoCharger() : base("Volcano Charger", 4, Engine.Civilization.Fire)
+        public VolcanoCharger() : base("Volcano Charger", 4, Interfaces.Civilization.Fire)
         {
             AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
         }

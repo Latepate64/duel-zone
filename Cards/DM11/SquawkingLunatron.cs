@@ -2,7 +2,7 @@
 {
     class SquawkingLunatron : SilentSkillCreature
     {
-        public SquawkingLunatron() : base("Squawking Lunatron", 5, 4000, Engine.Race.CyberMoon, Engine.Civilization.Water)
+        public SquawkingLunatron() : base("Squawking Lunatron", 5, 4000, Interfaces.Race.CyberMoon, Interfaces.Civilization.Water)
         {
             AddSilentSkillAbility(new OneShotEffects.ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect());
         }

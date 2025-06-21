@@ -2,7 +2,7 @@
 {
     class SpasticMissile : Engine.Spell
     {
-        public SpasticMissile() : base("Spastic Missile", 3, Engine.Civilization.Fire)
+        public SpasticMissile() : base("Spastic Missile", 3, Interfaces.Civilization.Fire)
         {
             AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(3000));
         }

@@ -8,7 +8,7 @@ namespace Cards.DM03
 {
     class ÜberdragonJabaha : EvolutionCreature
     {
-        public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Engine.Race.ArmoredDragon, Engine.Civilization.Fire)
+        public ÜberdragonJabaha() : base("Überdragon Jabaha", 7, 11000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new ÜberdragonJabahaEffect());
             AddStaticAbilities(new DoubleBreakerEffect());
@@ -31,7 +31,7 @@ namespace Cards.DM03
 
         protected override IEnumerable<Engine.Card> GetAffectedCards(Engine.IGame game)
         {
-            return game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasCivilization(Engine.Civilization.Fire));
+            return game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasCivilization(Interfaces.Civilization.Fire));
         }
     }
 }

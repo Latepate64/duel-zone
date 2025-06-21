@@ -6,7 +6,7 @@ namespace Cards.DM02
 {
     class AquaBouncer : Engine.Creature
     {
-        public AquaBouncer() : base("Aqua Bouncer", 6, 1000, Engine.Race.LiquidPeople, Engine.Civilization.Water)
+        public AquaBouncer() : base("Aqua Bouncer", 6, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureHasBlockerEffect());
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));

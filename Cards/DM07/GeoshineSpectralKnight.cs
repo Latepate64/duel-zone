@@ -4,7 +4,7 @@ namespace Cards.DM07
 {
     class GeoshineSpectralKnight : Engine.Creature
     {
-        public GeoshineSpectralKnight() : base("Geoshine, Spectral Knight", 5, 4000, Engine.Race.RainbowPhantom, Engine.Civilization.Light)
+        public GeoshineSpectralKnight() : base("Geoshine, Spectral Knight", 5, 4000, Interfaces.Race.RainbowPhantom, Interfaces.Civilization.Light)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect()));
         }

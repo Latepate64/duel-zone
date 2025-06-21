@@ -5,7 +5,7 @@ namespace Cards.DM01
 {
     class VampireSilphy : Engine.Creature
     {
-        public VampireSilphy() : base("Vampire Silphy", 8, 4000, Engine.Race.DarkLord, Engine.Civilization.Darkness)
+        public VampireSilphy() : base("Vampire Silphy", 8, 4000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyMaxPowerAreaOfEffect(3000)));
         }

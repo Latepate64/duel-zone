@@ -2,7 +2,7 @@
 {
     class HopelessVortex : Engine.Spell
     {
-        public HopelessVortex() : base("Hopeless Vortex", 5, Engine.Civilization.Darkness)
+        public HopelessVortex() : base("Hopeless Vortex", 5, Interfaces.Civilization.Darkness)
         {
             AddSpellAbilities(new OneShotEffects.DestroyOneOfYourOpponentsCreaturesEffect());
         }

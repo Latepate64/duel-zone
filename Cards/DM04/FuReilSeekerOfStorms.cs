@@ -4,9 +4,9 @@ namespace Cards.DM04
 {
     class FuReilSeekerOfStorms : Engine.Creature
     {
-        public FuReilSeekerOfStorms() : base("Fu Reil, Seeker of Storms", 6, 5000, Engine.Race.MechaThunder, Engine.Civilization.Light)
+        public FuReilSeekerOfStorms() : base("Fu Reil, Seeker of Storms", 6, 5000, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Engine.Civilization.Darkness));
+            AddStaticAbilities(new PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect(Interfaces.Civilization.Darkness));
         }
     }
 }

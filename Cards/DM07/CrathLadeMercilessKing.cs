@@ -5,7 +5,7 @@ namespace Cards.DM07
 {
     class CrathLadeMercilessKing : Engine.Creature
     {
-        public CrathLadeMercilessKing() : base("Crath Lade, Merciless King", 8, 4000, Engine.Race.DarkLord, Engine.Civilization.Darkness)
+        public CrathLadeMercilessKing() : base("Crath Lade, Merciless King", 8, 4000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {
             AddAbilities(new TapAbility(new CrathLadeEffect()));
         }

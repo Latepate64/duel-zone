@@ -1,6 +1,7 @@
 ﻿using TriggeredAbilities;
 using Engine;
 using Engine.GameEvents;
+using Interfaces;
 
 namespace Cards.DM11
 {

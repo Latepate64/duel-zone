@@ -2,7 +2,7 @@
 {
     class MysticDreamscape : Engine.Spell
     {
-        public MysticDreamscape() : base("Mystic Dreamscape", 4, Engine.Civilization.Water)
+        public MysticDreamscape() : base("Mystic Dreamscape", 4, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
             AddSpellAbilities(new OneShotEffects.ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect());

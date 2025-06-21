@@ -2,7 +2,7 @@
 {
     class TwisterFish : Engine.Creature
     {
-        public TwisterFish() : base("Twister Fish", 5, 3000, Engine.Race.GelFish, Engine.Civilization.Water)
+        public TwisterFish() : base("Twister Fish", 5, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
         }

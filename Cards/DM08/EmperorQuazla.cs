@@ -1,6 +1,6 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
-using Engine;
+using Interfaces;
 
 namespace Cards.DM08
 {

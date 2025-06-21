@@ -1,6 +1,7 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
 using Engine;
+using Interfaces;
 
 namespace Cards.DM05;
 

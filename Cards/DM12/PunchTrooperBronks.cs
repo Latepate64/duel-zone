@@ -4,7 +4,7 @@ namespace Cards.DM12
 {
     class PunchTrooperBronks : Engine.Creature
     {
-        public PunchTrooperBronks() : base("Punch Trooper Bronks", 4, 3000, Engine.Race.Armorloid, Engine.Civilization.Fire)
+        public PunchTrooperBronks() : base("Punch Trooper Bronks", 4, 3000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ScreamSlicerShadowOfFearEffect()));
         }

@@ -2,7 +2,7 @@
 {
     class KejilaTheHiddenHorror : SilentSkillCreature
     {
-        public KejilaTheHiddenHorror() : base("Kejila, the Hidden Horror", 6, 6000, Engine.Race.PandorasBox, Engine.Civilization.Darkness)
+        public KejilaTheHiddenHorror() : base("Kejila, the Hidden Horror", 6, 6000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {
             AddSilentSkillAbility(new OneShotEffects.ThisCreatureBreaksOpponentsTwoShieldsEffect());
         }

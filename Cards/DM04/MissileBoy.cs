@@ -5,7 +5,7 @@ namespace Cards.DM04
 {
     class MissileBoy : Engine.Creature
     {
-        public MissileBoy() : base("Missile Boy", 3, 1000, Engine.Race.Human, Engine.Civilization.Fire)
+        public MissileBoy() : base("Missile Boy", 3, 1000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new MissileBoyEffect());
         }
@@ -17,7 +17,7 @@ namespace Cards.DM04
         {
         }
 
-        public MissileBoyEffect(Engine.Civilization civilization = Engine.Civilization.Light) : base(1, civilization)
+        public MissileBoyEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Light) : base(1, civilization)
         {
         }
 
