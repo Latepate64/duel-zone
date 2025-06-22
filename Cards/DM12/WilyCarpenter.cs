@@ -1,43 +1,13 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+public class WilyCarpenter : Creature
 {
-    class WilyCarpenter : Creature
+    public WilyCarpenter() : base("Wily Carpenter", 3, 1000, Race.Merfolk, Civilization.Water)
     {
-        public WilyCarpenter() : base("Wily Carpenter", 3, 1000, Interfaces.Race.Merfolk, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WilyCarpenterEffect()));
-        }
-    }
-
-    class WilyCarpenterEffect : OneShotEffect
-    {
-
-        public WilyCarpenterEffect(WilyCarpenterEffect effect) : base(effect)
-        {
-        }
-
-        public WilyCarpenterEffect()
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            Controller.DrawCardsOptionally(game, Ability, 2);
-            Controller.DiscardOwnCards(game, Ability, 2);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new WilyCarpenterEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Draw up to 2 cards. Then discard 2 cards from your hand.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WilyCarpenterEffect()));
     }
 }

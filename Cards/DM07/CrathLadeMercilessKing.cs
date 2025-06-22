@@ -1,29 +1,14 @@
 ﻿using OneShotEffects;
 using Engine.Abilities;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+public sealed class CrathLadeMercilessKing : Creature
 {
-    class CrathLadeMercilessKing : Engine.Creature
+    public CrathLadeMercilessKing() : base("Crath Lade, Merciless King", 8, 4000, Race.DarkLord, Civilization.Darkness)
     {
-        public CrathLadeMercilessKing() : base("Crath Lade, Merciless King", 8, 4000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
-        {
-            AddAbilities(new TapAbility(new CrathLadeEffect()));
-        }
-    }
-
-    class CrathLadeEffect : OpponentRandomDiscardEffect
-    {
-        public CrathLadeEffect() : base(2)
-        {
-        }
-
-        public CrathLadeEffect(OpponentRandomDiscardEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new CrathLadeEffect(this);
-        }
+        AddAbilities(new TapAbility(new OpponentRandomDiscardEffect(2)));
     }
 }

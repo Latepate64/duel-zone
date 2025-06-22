@@ -1,66 +1,15 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.Abilities;
-using Engine.GameEvents;
 using Interfaces;
-using System;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class SnorkLaShrineGuardian : Creature
 {
-    class SnorkLaShrineGuardian : Creature
+    public SnorkLaShrineGuardian() : base("Snork La, Shrine Guardian", 3, 3000, Race.Guardian, Civilization.Light)
     {
-        public SnorkLaShrineGuardian() : base("Snork La, Shrine Guardian", 3, 3000, Race.Guardian, Civilization.Light)
-        {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-            AddTriggeredAbility(new SnorkLaAbility());
-        }
-    }
-
-    class SnorkLaAbility : LinkedTriggeredAbility
-    {
-        private readonly ICard _card;
-
-        public SnorkLaAbility() : base()
-        {
-        }
-
-        public SnorkLaAbility(ICard card) : base()
-        {
-            _card = card;
-        }
-
-        public SnorkLaAbility(SnorkLaAbility ability) : base(ability)
-        {
-            _card = ability._card;
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is CardMovedEvent e && e.Ability?.Controller == Controller && e.Source == ZoneType.ManaZone && e.Destination == ZoneType.Graveyard;
-        }
-
-        public override IAbility Copy()
-        {
-            return new SnorkLaAbility(this);
-        }
-
-        public override void Resolve(IGame game)
-        {
-            if (Controller.ChooseToTakeAction(ToString()))
-            {
-                game.Move(this, ZoneType.Graveyard, ZoneType.ManaZone, _card);
-            }
-        }
-
-        public override string ToString()
-        {
-            return "Whenever your opponent causes a card to be put into your graveyard from your mana zone, you may return that card to your mana zone.";
-        }
-
-        public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
-        {
-            return new SnorkLaAbility((gameEvent as CardMovedEvent).CardInDestinationZone);
-        }
+        AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+        AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
+        AddTriggeredAbility(new SnorkLaAbility());
     }
 }

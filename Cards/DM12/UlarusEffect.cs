@@ -1,0 +1,34 @@
+using Engine.Abilities;
+using System.Linq;
+using Interfaces;
+
+namespace Cards.DM12;
+
+public class UlarusEffect : OneShotEffect
+{
+    public UlarusEffect()
+    {
+    }
+
+    public UlarusEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
+
+    public override void Apply(IGame game)
+    {
+        var maximum = game.BattleZone.GetCreatures(Controller.Id).Count();
+        var shields = Controller.ShieldZone.Cards.Union(GetOpponent(game).ShieldZone.Cards);
+        var chosen = Controller.ChooseCards(shields, 0, maximum, ToString()).ToList();
+        chosen.ForEach(x => x.TurnFaceUp());
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new UlarusEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return "For each creature you have in the battle zone, you may choose a shield and turn it face up.";
+    }
+}

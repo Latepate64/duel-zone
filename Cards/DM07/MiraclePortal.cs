@@ -1,81 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
-using Engine.Abilities;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+public class MiraclePortal : Spell
 {
-    class MiraclePortal : Spell
+    public MiraclePortal() : base("Miracle Portal", 4, Civilization.Light)
     {
-        public MiraclePortal() : base("Miracle Portal", 4, Civilization.Light)
-        {
-            AddSpellAbilities(new MiraclePortalOneShotEffect());
-        }
-    }
-
-    class MiraclePortalOneShotEffect : OneShotEffect
-    {
-        public MiraclePortalOneShotEffect()
-        {
-        }
-
-        public MiraclePortalOneShotEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            var creature = Controller.ChooseControlledCreature(game, ToString());
-            if (creature != null)
-            {
-                game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
-            }
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MiraclePortalOneShotEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Choose one of your creatures in the battle zone. This turn, it can't be blocked and you ignore any effects that would prevent that creature from attacking your opponent.";
-        }
-    }
-
-    class MiraclePortalContinuousEffect : UntilEndOfTurnEffect, IUnblockableEffect, IIgnoreCannotAttackPlayersEffects
-    {
-        private readonly ICreature _creature;
-
-        public MiraclePortalContinuousEffect(ICreature creature)
-        {
-            _creature = creature;
-        }
-
-        public MiraclePortalContinuousEffect(MiraclePortalContinuousEffect effect) : base(effect)
-        {
-            _creature = effect._creature;
-        }
-
-        public bool IgnoreCannotAttackPlayersEffects(ICreature attacker, IGame game)
-        {
-            return attacker == _creature;
-        }
-
-        public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
-        {
-            return attacker == _creature;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new MiraclePortalContinuousEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return $"{_creature} can't be blocked and ignore any effects that would prevent {_creature} from attacking your opponent.";
-        }
+        AddSpellAbilities(new MiraclePortalOneShotEffect());
     }
 }

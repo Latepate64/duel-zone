@@ -2,33 +2,13 @@
 using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public class DeklowazTheTerminator : Creature
 {
-    class DeklowazTheTerminator : Creature
+    public DeklowazTheTerminator() : base(
+        "Deklowaz, the Terminator", 6, 5000, Race.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
     {
-        public DeklowazTheTerminator() : base("Deklowaz, the Terminator", 6, 5000, Race.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
-        {
-            AddAbilities(new TapAbility(new DeklowazTheTerminatorEffect()));
-        }
-    }
-
-    class DeklowazTheTerminatorEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            Controller.DestroyAllCreaturesThatHaveMaximumPower(3000, game, Ability);
-            Controller.LookAtOpponentsHand(game);
-            GetOpponent(game).DiscardAllCreaturesThatHaveMaximumPower(3000, game, Ability);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new DeklowazTheTerminatorEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy all creatures that have power 3000 or less. Then look at your opponent's hand. He discards all creatures from it that have power 3000 or less.";
-        }
+        AddAbilities(new TapAbility(new DeklowazTheTerminatorEffect()));
     }
 }

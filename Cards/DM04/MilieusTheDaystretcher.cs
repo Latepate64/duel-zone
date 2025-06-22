@@ -1,30 +1,14 @@
 ﻿using ContinuousEffects;
-using Interfaces.ContinuousEffects;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class MilieusTheDaystretcher : Creature
 {
-    class MilieusTheDaystretcher : Engine.Creature
+    public MilieusTheDaystretcher() : base("Milieus, the Daystretcher", 5, 2500, Race.Berserker, Civilization.Light)
     {
-        public MilieusTheDaystretcher() : base("Milieus, the Daystretcher", 5, 2500, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
-        {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddStaticAbilities(new MilieusEffect());
-        }
-    }
-
-    class MilieusEffect : EachCivilizationCardCostsMoreEffect
-    {
-        public MilieusEffect(EachCivilizationCardCostsMoreEffect effect) : base(effect)
-        {
-        }
-
-        public MilieusEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Darkness) : base(2, civilization)
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new MilieusEffect(this);
-        }
+        AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+        AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(2, Civilization.Darkness));
     }
 }

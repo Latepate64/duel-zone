@@ -1,12 +1,14 @@
 ﻿using ContinuousEffects;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+public class NightMasterShadowOfDecay : Creature
 {
-    class NightMasterShadowOfDecay : Engine.Creature
+    public NightMasterShadowOfDecay() : base(
+        "Night Master, Shadow of Decay", 6, 3000, Race.Ghost, Civilization.Darkness)
     {
-        public NightMasterShadowOfDecay() : base("Night Master, Shadow of Decay", 6, 3000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
-        {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-        }
+        AddStaticAbilities(new ThisCreatureHasBlockerEffect());
     }
 }

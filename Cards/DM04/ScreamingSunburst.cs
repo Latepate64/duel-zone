@@ -1,38 +1,12 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class ScreamingSunburst : Spell
 {
-    class ScreamingSunburst : Spell
+    public ScreamingSunburst() : base("Screaming Sunburst", 3, Civilization.Light)
     {
-        public ScreamingSunburst() : base("Screaming Sunburst", 3, Civilization.Light)
-        {
-            AddSpellAbilities(new ScreamingSunburstEffect());
-        }
-    }
-
-    class ScreamingSunburstEffect : OneShotEffects.TapAreaOfEffect
-    {
-        public ScreamingSunburstEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ScreamingSunburstEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Tap all creatures in the battle zone except light creatures.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.Creatures.Where(x => !x.HasCivilization(Civilization.Light));
-        }
+        AddSpellAbilities(new ScreamingSunburstEffect());
     }
 }

@@ -1,29 +1,13 @@
-﻿using OneShotEffects;
-using Engine.Abilities;
+﻿using Engine;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+public sealed class CraniumClamp : Spell
 {
-    class CraniumClamp : Engine.Spell
+    public CraniumClamp() : base("Cranium Clamp", 4, Civilization.Darkness)
     {
-        public CraniumClamp() : base("Cranium Clamp", 4, Interfaces.Civilization.Darkness)
-        {
-            AddSpellAbilities(new CraniumClampEffect());
-        }
-    }
-
-    class CraniumClampEffect : YourOpponentChoosesAndDiscardsCardsFromHisHandEffect
-    {
-        public CraniumClampEffect() : base(2)
-        {
-        }
-
-        public CraniumClampEffect(YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new CraniumClampEffect(this);
-        }
+        AddSpellAbilities(new YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(2));
     }
 }

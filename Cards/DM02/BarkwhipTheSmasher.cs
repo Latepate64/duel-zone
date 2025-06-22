@@ -1,40 +1,11 @@
-﻿using ContinuousEffects;
-using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
+﻿using Interfaces;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+public class BarkwhipTheSmasher : EvolutionCreature
 {
-    class BarkwhipTheSmasher : EvolutionCreature
+    public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Race.BeastFolk, Civilization.Nature)
     {
-        public BarkwhipTheSmasher() : base("Barkwhip, the Smasher", 2, 5000, Race.BeastFolk, Civilization.Nature)
-        {
-            AddStaticAbilities(new BarkwhipTheSmasherEffect());
-        }
-    }
-
-    class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
-    {
-        public BarkwhipTheSmasherEffect() : base()
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new BarkwhipTheSmasherEffect();
-        }
-
-        public void ModifyPower(IGame game)
-        {
-            if (Ability.Source.Tapped)
-            {
-                game.BattleZone.GetCreatures(Controller.Id).Where(x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.IncreasePower(2000));
-            }
-        }
-
-        public override string ToString()
-        {
-            return "While this creature is tapped, each of your other Beast Folk in the battle zone gets +2000 power.";
-        }
+        AddStaticAbilities(new BarkwhipTheSmasherEffect());
     }
 }

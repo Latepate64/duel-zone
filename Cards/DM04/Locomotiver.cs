@@ -8,7 +8,7 @@ namespace Cards.DM04
         public Locomotiver() : base("Locomotiver", 4, 1000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {
             AddShieldTrigger();
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentDiscardsCardAtRandomEffect()));
+            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

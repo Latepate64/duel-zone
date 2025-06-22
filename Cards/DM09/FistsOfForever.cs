@@ -1,85 +1,12 @@
-﻿using TriggeredAbilities;
-using Engine;
-using Engine.Abilities;
-using Engine.GameEvents;
-using System;
-using System.Linq;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+public class FistsOfForever : Spell
 {
-    class FistsOfForever : Spell
+    public FistsOfForever() : base("Fists of Forever", 1, Civilization.Fire)
     {
-        public FistsOfForever() : base("Fists of Forever", 1, Civilization.Fire)
-        {
-            AddSpellAbilities(new FistsOfForeverEffect());
-        }
-    }
-
-    class FistsOfForeverEffect : OneShotEffect
-    {
-        public FistsOfForeverEffect()
-        {
-        }
-
-        public FistsOfForeverEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            var creature = Controller.ChooseControlledCreature(game, ToString());
-            game.AddDelayedTriggeredAbility(new WheneverSomethingHappensThisTurnAbility(new FistsOfForeverAbility(creature), Ability));
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new FistsOfForeverEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Choose one of your creatures in the battle zone. Whenever that creature wins a battle this turn, untap it.";
-        }
-    }
-
-    class FistsOfForeverAbility : LinkedTriggeredAbility
-    {
-        private readonly ICreature _creature;
-
-        public FistsOfForeverAbility(ICreature creature)
-        {
-            _creature = creature;
-        }
-
-        public FistsOfForeverAbility(FistsOfForeverAbility ability) : base(ability)
-        {
-            _creature = ability._creature;
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is BattleEvent e && e.Winners.Contains(_creature);
-        }
-
-        public override IAbility Copy()
-        {
-            return new FistsOfForeverAbility(this);
-        }
-
-        public override void Resolve(IGame game)
-        {
-            Controller.Untap(game, _creature);
-        }
-
-        public override string ToString()
-        {
-            return $"Whenever {_creature} wins a battle this turn, untap it.";
-        }
-
-        public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
-        {
-            return new FistsOfForeverAbility(this);
-        }
+        AddSpellAbilities(new FistsOfForeverEffect());
     }
 }

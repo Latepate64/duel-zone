@@ -1,36 +1,13 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+public class ThoughtProbe : Spell
 {
-    class ThoughtProbe : Spell
+    public ThoughtProbe() : base("Thought Probe", 4, Civilization.Water)
     {
-        public ThoughtProbe() : base("Thought Probe", 4, Civilization.Water)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new ThoughtProbeEffect());
-        }
-    }
-
-    class ThoughtProbeEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            if (game.BattleZone.GetCreatureCount(GetOpponent(game).Id) >= 3)
-            {
-                Controller.DrawCards(3, game, Ability);
-            }
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ThoughtProbeEffect();
-        }
-
-        public override string ToString()
-        {
-            return "If your opponent has 3 or more creatures in the battle zone, draw 3 cards.";
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(new ThoughtProbeEffect());
     }
 }

@@ -1,38 +1,13 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+public class BonePiercer : Creature
 {
-    class BonePiercer : Creature
+    public BonePiercer() : base("Bone Piercer", 2, 1000, Race.BrainJacker, Civilization.Darkness)
     {
-        public BonePiercer() : base("Bone Piercer", 2, 1000, Race.BrainJacker, Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new BonePiercerEffect()));
-        }
-    }
-
-    class BonePiercerEffect : OneShotEffects.SelfManaRecoveryEffect
-    {
-        public BonePiercerEffect() : base(0, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new BonePiercerEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may return a creature from your mana zone to your hand.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.ManaZone.Creatures;
-        }
+        AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new BonePiercerEffect()));
     }
 }

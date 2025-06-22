@@ -1,40 +1,15 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class BloodwingMantis : Creature
 {
-    class BloodwingMantis : Creature
+    public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Race.GiantInsect, Civilization.Nature)
     {
-        public BloodwingMantis() : base("Bloodwing Mantis", 5, 6000, Race.GiantInsect, Civilization.Nature)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new BloodwingMantisEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    class BloodwingMantisEffect : OneShotEffects.SelfManaRecoveryEffect
-    {
-        public BloodwingMantisEffect() : base(2, 2, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new BloodwingMantisEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Return 2 creatures from your mana zone to your hand.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.ManaZone.Creatures;
-        }
+        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new BloodwingMantisEffect()));
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

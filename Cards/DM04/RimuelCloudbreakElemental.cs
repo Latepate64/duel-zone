@@ -1,39 +1,16 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
 using Engine;
-using Engine.Abilities;
-using System.Linq;
 using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class RimuelCloudbreakElemental : Creature
 {
-    class RimuelCloudbreakElemental : Creature
+    public RimuelCloudbreakElemental() : base(
+        "Rimuel, Cloudbreak Elemental", 8, 6000, Race.AngelCommand, Civilization.Light)
     {
-        public RimuelCloudbreakElemental() : base("Rimuel, Cloudbreak Elemental", 8, 6000, Race.AngelCommand, Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    class RimuelCloudbreakElementalEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var controller = Controller;
-            var amount = controller.ManaZone.UntappedCards.Count(x => x.HasCivilization(Civilization.Light));
-            var creatures = controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), amount, amount, ToString());
-            controller.Tap(game, [.. creatures]);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new RimuelCloudbreakElementalEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Tap one of your opponent's creatures in the battle zone for each untapped light card in your mana zone.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect()));
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

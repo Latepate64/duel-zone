@@ -1,36 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class KeeperOfTheSunlitAbyss : Creature
 {
-    class KeeperOfTheSunlitAbyss : Creature
+    public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Race.CyberVirus, Civilization.Water)
     {
-        public KeeperOfTheSunlitAbyss() : base("Keeper of the Sunlit Abyss", 4, 1000, Race.CyberVirus, Civilization.Water)
-        {
-            AddStaticAbilities(new KeeperOfTheSunlitAbyssEffect());
-        }
-    }
-
-    class KeeperOfTheSunlitAbyssEffect : ContinuousEffect, IPowerModifyingEffect
-    {
-        public KeeperOfTheSunlitAbyssEffect() : base() { }
-
-        public override IContinuousEffect Copy()
-        {
-            return new KeeperOfTheSunlitAbyssEffect();
-        }
-
-        public void ModifyPower(IGame game)
-        {
-            game.BattleZone.Creatures.Where(x => x.HasCivilization(Civilization.Light) || x.HasCivilization(Civilization.Darkness)).ToList().ForEach(x => x.IncreasePower(1000));
-        }
-
-        public override string ToString()
-        {
-            return "Light creatures and darkness creatures in the battle zone each get +1000 power.";
-        }
+        AddStaticAbilities(new KeeperOfTheSunlitAbyssEffect());
     }
 }

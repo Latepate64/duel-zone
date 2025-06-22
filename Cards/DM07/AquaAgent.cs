@@ -1,36 +1,13 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+public sealed class AquaAgent : Creature
 {
-    class AquaAgent : Creature
+    public AquaAgent() : base("Aqua Agent", 6, 2000, Race.LiquidPeople, Civilization.Water)
     {
-        public AquaAgent() : base("Aqua Agent", 6, 2000, Race.LiquidPeople, Civilization.Water)
-        {
-            AddStaticAbilities(new StealthEffect(Civilization.Water), new AquaAgentEffect());
-        }
-    }
-
-    class AquaAgentEffect : DestructionReplacementOptionallyToHandEffect
-    {
-        public AquaAgentEffect() : base() { }
-
-
-        public override IContinuousEffect Copy()
-        {
-            return new AquaAgentEffect();
-        }
-
-        public override string ToString()
-        {
-            return "When this creature would be destroyed, you may return it to your hand instead.";
-        }
-
-        protected override bool Applies(ICreature card, IGame game)
-        {
-            return IsSourceOfAbility(card);
-        }
+        AddStaticAbilities(new StealthEffect(Civilization.Water), new AquaAgentEffect());
     }
 }

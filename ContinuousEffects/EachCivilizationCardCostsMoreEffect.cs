@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public abstract class EachCivilizationCardCostsMoreEffect : ContinuousEffect, ICostModifyingEffect, ICivilizationable
+public class EachCivilizationCardCostsMoreEffect : ContinuousEffect, ICostModifyingEffect, ICivilizationable
 {
     private readonly int _increase;
 
@@ -13,13 +13,18 @@ public abstract class EachCivilizationCardCostsMoreEffect : ContinuousEffect, IC
         _increase = effect._increase;
     }
 
-    protected EachCivilizationCardCostsMoreEffect(int increase, Civilization civilization) : base()
+    public EachCivilizationCardCostsMoreEffect(int increase, Civilization civilization) : base()
     {
         Civilization = civilization;
         _increase = increase;
     }
 
     public Civilization Civilization { get; }
+
+    public override IContinuousEffect Copy()
+    {
+        return new EachCivilizationCardCostsMoreEffect(this);
+    }
 
     public int GetChange(ICard card, IGame game)
     {

@@ -1,30 +1,13 @@
 ﻿using TriggeredAbilities;
-using Engine.Abilities;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class SmileAngler : Creature
 {
-    class SmileAngler : Engine.Creature
+    public SmileAngler() : base("Smile Angler", 6, 3000, Race.GelFish, Civilization.Water)
     {
-        public SmileAngler() : base("Smile Angler", 6, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new SmileAnglerEffect()));
-        }
-    }
-
-    class SmileAnglerEffect : OneShotEffects.OpponentManaRecoveryEffect
-    {
-        public SmileAnglerEffect() : base(0, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SmileAnglerEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may choose a card in your opponent's mana zone and return it to his hand.";
-        }
+        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new SmileAnglerEffect()));
     }
 }

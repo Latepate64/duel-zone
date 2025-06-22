@@ -1,39 +1,13 @@
 ﻿using TriggeredAbilities;
-using OneShotEffects;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+public class ScarletSkyterror : Creature
 {
-    class ScarletSkyterror : Creature
+    public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000, Race.ArmoredWyvern, Civilization.Fire)
     {
-        public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000, Race.ArmoredWyvern, Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ScarletSkyterrorEffect()));
-        }
-    }
-
-    class ScarletSkyterrorEffect : DestroyAreaOfEffect
-    {
-        public ScarletSkyterrorEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ScarletSkyterrorEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy all creatures that have \"blocker.\"";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.CreaturesThatHaveBlocker;
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ScarletSkyterrorEffect()));
     }
 }

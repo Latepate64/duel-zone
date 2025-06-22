@@ -1,47 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
-using Engine.Abilities;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+public class LaserWhip : Spell
 {
-    class LaserWhip : Spell
+    public LaserWhip() : base("Laser Whip", 4, Civilization.Light)
     {
-        public LaserWhip() : base("Laser Whip", 4, Civilization.Light)
-        {
-            AddSpellAbilities(new LaserWhipEffect());
-        }
-    }
-
-    class LaserWhipEffect : OneShotEffect
-    {
-        public LaserWhipEffect()
-        {
-        }
-
-        public LaserWhipEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            var controller = Controller;
-            controller.TapOpponentsCreature(game);
-            var creature = controller.ChooseControlledCreatureOptionally(game, ToString());
-            if (creature != null)
-            {
-                game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(creature));
-            }
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new LaserWhipEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Choose one of your opponent's creatures in the battle zone and tap it. Then you may choose one of your creatures in the battle zone. If you do, it can't be blocked this turn.";
-        }
+        AddSpellAbilities(new LaserWhipEffect());
     }
 }

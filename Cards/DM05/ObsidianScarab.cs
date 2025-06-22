@@ -1,33 +1,20 @@
 ﻿using TriggeredAbilities;
-using OneShotEffects;
 using ContinuousEffects;
-using Engine.Abilities;
+using OneShotEffects;
+using Interfaces;
+using Engine;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class ObsidianScarab : Creature
 {
-    class ObsidianScarab : Engine.Creature
+    const string ObsidianScarabName = "Obsidian Scarab";
+
+    public ObsidianScarab() : base(ObsidianScarabName, 6, 5000, Race.GiantInsect, Civilization.Nature)
     {
-        public ObsidianScarab() : base("Obsidian Scarab", 6, 5000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new PowerAttackerEffect(3000));
-            AddStaticAbilities(new DoubleBreakerEffect());
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new ObsidianScarabEffect()));
-        }
-    }
-
-    class ObsidianScarabEffect : YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect
-    {
-        public ObsidianScarabEffect(YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect effect) : base(effect)
-        {
-        }
-
-        public ObsidianScarabEffect() : base("Obsidian Scarab")
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new AmbushScorpionEffect(this);
-        }
+        AddStaticAbilities(new PowerAttackerEffect(3000));
+        AddStaticAbilities(new DoubleBreakerEffect());
+        AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(
+            new YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(ObsidianScarabName)));
     }
 }

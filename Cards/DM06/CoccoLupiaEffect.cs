@@ -1,0 +1,36 @@
+using ContinuousEffects;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace Cards.DM06;
+
+public sealed class CoccoLupiaEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
+{
+    public CoccoLupiaEffect()
+    {
+    }
+
+    public CoccoLupiaEffect(CoccoLupiaEffect effect) : base(effect)
+    {
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new CoccoLupiaEffect(this);
+    }
+
+    public int GetChange(ICard card, IGame game)
+    {
+        return card.Owner == Controller && card is ICreature creature && creature.IsDragon ? -2 : 0;
+    }
+
+    public int GetMinimumCost(ICard card, IGame game)
+    {
+        return card.Owner == Controller && card is ICreature creature && creature.IsDragon ? 2 : 0;
+    }
+
+    public override string ToString()
+    {
+        return "Your creatures that have Dragon in their race each cost 2 less to summon. They can't cost less than 2.";
+    }
+}

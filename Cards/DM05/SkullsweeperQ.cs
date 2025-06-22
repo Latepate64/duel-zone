@@ -1,32 +1,16 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
 using OneShotEffects;
-using Engine.Abilities;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class SkullsweeperQ : Creature
 {
-    class SkullsweeperQ : Engine.Creature
+    public SkullsweeperQ() : base("Skullsweeper Q", 4, 1000, [Race.Survivor, Race.BrainJacker], Civilization.Darkness)
     {
-        public SkullsweeperQ() : base("Skullsweeper Q", 4, 1000, [Interfaces.Race.Survivor, Interfaces.Race.BrainJacker], Interfaces.Civilization.Darkness)
-        {
-            AddStaticAbilities(new SurvivorEffect(new WheneverThisCreatureAttacksAbility(
-                new SkullsweeperQEffect())));
-        }
-    }
-
-    class SkullsweeperQEffect : YourOpponentChoosesAndDiscardsCardsFromHisHandEffect
-    {
-        public SkullsweeperQEffect() : base(1)
-        {
-        }
-
-        public SkullsweeperQEffect(YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SkullsweeperQEffect(this);
-        }
+        AddStaticAbilities(new SurvivorEffect(new WheneverThisCreatureAttacksAbility(
+            new YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(1))));
     }
 }

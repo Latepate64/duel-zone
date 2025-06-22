@@ -1,38 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+public class Tropico : Creature
 {
-    class Tropico : Creature
+    public Tropico() : base("Tropico", 5, 3000, Race.CyberLord, Civilization.Water)
     {
-        public Tropico() : base("Tropico", 5, 3000, Race.CyberLord, Civilization.Water)
-        {
-            AddStaticAbilities(new TropicoEffect());
-        }
-    }
-
-    class TropicoEffect : ContinuousEffect, IUnblockableEffect
-    {
-        public TropicoEffect() : base()
-        {
-        }
-
-        public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
-        {
-            return attacker == Ability.Source && game.BattleZone.GetCreatures(Controller.Id).Count(x => x != Ability.Source) >= 2;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new TropicoEffect();
-        }
-
-        public override string ToString()
-        {
-            return "This creature can't be blocked while you have at least 2 other creatures in the battle zone.";
-        }
+        AddStaticAbilities(new TropicoEffect());
     }
 }

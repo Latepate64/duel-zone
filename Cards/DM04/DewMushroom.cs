@@ -1,29 +1,13 @@
 ﻿using ContinuousEffects;
-using Interfaces.ContinuousEffects;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class DewMushroom : Creature
 {
-    class DewMushroom : Engine.Creature
+    public DewMushroom() : base("Dew Mushroom", 3, 1000, Race.BalloonMushroom, Civilization.Nature)
     {
-        public DewMushroom() : base("Dew Mushroom", 3, 1000, Interfaces.Race.BalloonMushroom, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new DewMushroomEffect());
-        }
-    }
-
-    class DewMushroomEffect : EachCivilizationCardCostsMoreEffect
-    {
-        public DewMushroomEffect(EachCivilizationCardCostsMoreEffect effect) : base(effect)
-        {
-        }
-
-        public DewMushroomEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Darkness) : base(1, civilization)
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new DewMushroomEffect(this);
-        }
+        AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(1, Civilization.Darkness));
     }
 }

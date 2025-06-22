@@ -7,7 +7,7 @@ namespace Cards.DM12
     {
         public WindmillMutant() : base("Windmill Mutant", 3, 2000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OpponentDiscardsCardAtRandomEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

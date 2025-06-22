@@ -1,41 +1,13 @@
 ﻿using ContinuousEffects;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+public class LegendaryBynor : EvolutionCreature
 {
-    class LegendaryBynor : EvolutionCreature
+    public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Race.Leviathan, Civilization.Water)
     {
-        public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Race.Leviathan, Civilization.Water)
-        {
-            AddStaticAbilities(new LegendaryBynorEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    class LegendaryBynorEffect : ContinuousEffect, IUnblockableEffect
-    {
-        public LegendaryBynorEffect() : base()
-        {
-        }
-
-        public LegendaryBynorEffect(LegendaryBynorEffect effect) : base(effect)
-        {
-        }
-
-        public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
-        {
-            return !IsSourceOfAbility(attacker) && attacker.HasCivilization(Civilization.Water);
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new LegendaryBynorEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Your other water creatures in the battle zone can't be blocked.";
-        }
+        AddStaticAbilities(new LegendaryBynorEffect());
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

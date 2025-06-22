@@ -1,43 +1,12 @@
 ﻿using Engine;
-using Engine.Abilities;
-using Engine.GameEvents;
-using Engine.Steps;
 using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class Pokolul : Creature
 {
-    class Pokolul : Creature
+    public Pokolul() : base("Pokolul", 4, 2000, Race.CyberLord, Civilization.Water)
     {
-        public Pokolul() : base("Pokolul", 4, 2000, Race.CyberLord, Civilization.Water)
-        {
-            AddTriggeredAbility(new PokolulAbility());
-        }
-    }
-
-    class PokolulAbility : TriggeredAbility
-    {
-        public PokolulAbility() : base(new OneShotEffects.YouMayUntapThisCreatureEffect())
-        {
-        }
-
-        public PokolulAbility(PokolulAbility ability) : base(ability)
-        {
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            throw new System.NotImplementedException();
-            // return gameEvent is ShieldTriggerEvent e && e.Player == GetOpponent(game) && game.CurrentTurn.CurrentPhase is AttackPhase phase && phase.AttackingCreature == Source;
-        }
-
-        public override IAbility Copy()
-        {
-            return new PokolulAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return "Whenever your opponent uses the \"shield trigger\" ability of a shield broken by this creature, you may untap this creature.";
-        }
+        AddTriggeredAbility(new PokolulAbility());
     }
 }

@@ -1,20 +1,26 @@
-﻿using Interfaces;
+﻿using Engine.Abilities;
+using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
+public sealed class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
 {
     private readonly int _amount;
 
-    protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
+    public YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
     {
         _amount = amount;
     }
 
-    protected YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(
+    YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(
         YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
     {
         _amount = effect._amount;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(this);
     }
 
     public override string ToString()

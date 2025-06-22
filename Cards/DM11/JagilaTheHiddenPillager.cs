@@ -1,30 +1,14 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
 using OneShotEffects;
-using Engine.Abilities;
+using TriggeredAbilities;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+public sealed class JagilaTheHiddenPillager : WaveStrikerCreature
 {
-    class JagilaTheHiddenPillager : WaveStrikerCreature
+    public JagilaTheHiddenPillager() : base(
+        "Jagila, the Hidden Pillager", 5, 3000, Race.PandorasBox, Civilization.Darkness)
     {
-        public JagilaTheHiddenPillager() : base("Jagila, the Hidden Pillager", 5, 3000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
-        {
-            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new JagilaEffect()));
-        }
-    }
-
-    class JagilaEffect : OpponentRandomDiscardEffect
-    {
-        public JagilaEffect() : base(3)
-        {
-        }
-
-        public JagilaEffect(OpponentRandomDiscardEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new JagilaEffect(this);
-        }
+        AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OpponentRandomDiscardEffect(3)));
     }
 }

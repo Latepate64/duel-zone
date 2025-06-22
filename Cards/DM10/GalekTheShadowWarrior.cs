@@ -1,35 +1,14 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public class GalekTheShadowWarrior : Creature
 {
-    class GalekTheShadowWarrior : Creature
+    public GalekTheShadowWarrior() : base(
+        "Galek, the Shadow Warrior", 5, 2000, [Race.Ghost, Race.Human], Civilization.Darkness, Civilization.Fire)
     {
-        public GalekTheShadowWarrior() : base("Galek, the Shadow Warrior", 5, 2000, [Race.Ghost, Race.Human], Civilization.Darkness, Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect()));
-        }
-    }
-
-    class GalekTheShadowWarriorEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var player = Controller;
-            player.DestroyOpponentsBlocker(game, Ability);
-            game.GetOpponent(player).DiscardAtRandom(game, 1, Ability);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new GalekTheShadowWarriorEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy one of your opponent's creatures that has \"blocker.\" Then your opponent discards a card at random from his hand.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalekTheShadowWarriorEffect()));
     }
 }

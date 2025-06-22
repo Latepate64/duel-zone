@@ -1,38 +1,12 @@
-﻿using OneShotEffects;
-using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+public class DeathSmoke : Spell
 {
-    class DeathSmoke : Spell
+    public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
     {
-        public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
-        {
-            AddSpellAbilities(new DeathSmokeEffect());
-        }
-    }
-
-    class DeathSmokeEffect : DestroyEffect
-    {
-        public DeathSmokeEffect() : base(1, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new DeathSmokeEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy one of your opponent's untapped creatures.";
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(game, game.GetOpponent(Ability.Controller.Id));
-        }
+        AddSpellAbilities(new DeathSmokeEffect());
     }
 }

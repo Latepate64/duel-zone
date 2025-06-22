@@ -1,22 +1,28 @@
-﻿using Interfaces;
+﻿using Engine.Abilities;
+using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect :
+public sealed class YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect :
     CardMovingChoiceEffect<ICreature>
 {
     private readonly string _name;
 
-    protected YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(
+    YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(
         YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect effect) : base(effect)
     {
         _name = effect._name;
     }
 
-    protected YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(string name) : base(
+    public YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(string name) : base(
         0, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
     {
         _name = name;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(this);
     }
 
     public override string ToString()

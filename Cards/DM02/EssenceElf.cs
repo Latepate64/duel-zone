@@ -1,42 +1,11 @@
-﻿using ContinuousEffects;
-using Engine;
-using Interfaces;
-using Interfaces.ContinuousEffects;
+﻿using Engine;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+public class EssenceElf : Creature
 {
-    class EssenceElf : Creature
+    public EssenceElf() : base("Essence Elf", 2, 1000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
     {
-        public EssenceElf() : base("Essence Elf", 2, 1000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new EssenceElfEffect());
-        }
-    }
-
-    class EssenceElfEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
-    {
-        public EssenceElfEffect() : base()
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new EssenceElfEffect();
-        }
-
-        public int GetChange(ICard card, IGame game)
-        {
-            return card.Owner == Controller && card is Spell ? -1 : 0;
-        }
-
-        public int GetMinimumCost(ICard card, IGame game)
-        {
-            return card.Owner == Controller && card is Spell ? 1 : 0;
-        }
-
-        public override string ToString()
-        {
-            return "Your spells each cost 1 less to cast. They can't cost less than 1.";
-        }
+        AddStaticAbilities(new EssenceElfEffect());
     }
 }

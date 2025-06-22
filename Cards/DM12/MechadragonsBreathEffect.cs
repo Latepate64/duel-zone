@@ -1,0 +1,24 @@
+using Engine.Abilities;
+using Interfaces;
+using System.Linq;
+
+namespace Cards.DM12;
+
+public class MechadragonsBreathEffect : OneShotEffect
+{
+    public override void Apply(IGame game)
+    {
+        var power = Controller.ChooseNumber(new MechadragonsBreathChoice(Controller, ToString()));
+        game.Destroy(Ability, [.. game.BattleZone.Creatures.Where(x => x.Power == power)]);
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new MechadragonsBreathEffect();
+    }
+
+    public override string ToString()
+    {
+        return "Choose a number less than or equal to 6000. Destroy all creatures that have that power.";
+    }
+}

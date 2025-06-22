@@ -1,35 +1,15 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
 using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public class NecrodragonBryzenaga : Creature
 {
-    class NecrodragonBryzenaga : Creature
+    public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Race.ZombieDragon, Civilization.Darkness)
     {
-        public NecrodragonBryzenaga() : base("Necrodragon Bryzenaga", 6, 9000, Race.ZombieDragon, Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonBryzenagaEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    class NecrodragonBryzenagaEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            game.PutFromShieldZoneToHand(Controller.ShieldZone.Cards, true, Ability);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new NecrodragonBryzenagaEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Put all your shields into your hand.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new NecrodragonBryzenagaEffect()));
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

@@ -1,37 +1,13 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
-using System.Linq;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public class IntenseEvil : Spell
 {
-    class IntenseEvil : Spell
+    public IntenseEvil() : base("Intense Evil", 3, Civilization.Darkness)
     {
-        public IntenseEvil() : base("Intense Evil", 3, Civilization.Darkness)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new IntenseEvilEffect());
-        }
-    }
-
-    class IntenseEvilEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var player = Controller;
-            var cards = player.ChooseAnyNumberOfCards(game.BattleZone.GetCreatures(player.Id), ToString()).ToArray();
-            game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, cards);
-            player.DrawCards(cards.Length, game, Ability);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new IntenseEvilEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy any number of your creatures. Then draw that many cards.";
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(new IntenseEvilEffect());
     }
 }

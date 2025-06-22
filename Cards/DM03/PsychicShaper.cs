@@ -1,44 +1,12 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
-using System.Linq;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+public class PsychicShaper : Spell
 {
-    class PsychicShaper : Spell
+    public PsychicShaper() : base("Psychic Shaper", 6, Civilization.Water)
     {
-        public PsychicShaper() : base("Psychic Shaper", 6, Civilization.Water)
-        {
-            AddSpellAbilities(new PsychicShaperEffect());
-        }
-    }
-
-    class PsychicShaperEffect : OneShotEffect
-    {
-        public PsychicShaperEffect()
-        {
-        }
-
-        public PsychicShaperEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            var cards = Controller.RevealTopCardsOfDeck(4, game);
-            game.Move(Ability, ZoneType.Deck, ZoneType.Hand, [.. cards.Where(x => x.HasCivilization(Civilization.Water))]);
-            game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, [.. cards.Where(x => !x.HasCivilization(Civilization.Water))]);
-            Controller.Unreveal([.. cards]);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new PsychicShaperEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Reveal the top 4 cards of your deck. Put all water cards from among them into your hand and the rest into your graveyard.";
-        }
+        AddSpellAbilities(new PsychicShaperEffect());
     }
 }

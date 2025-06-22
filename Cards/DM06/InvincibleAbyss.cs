@@ -1,37 +1,12 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
-using System.Collections.Generic;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public sealed class InvincibleAbyss : Spell
 {
-    class InvincibleAbyss : Spell
+    public InvincibleAbyss() : base("Invincible Abyss", 13, Civilization.Darkness)
     {
-        public InvincibleAbyss() : base("Invincible Abyss", 13, Civilization.Darkness)
-        {
-            AddSpellAbilities(new InvincibleAbyssEffect());
-        }
-    }
-
-    class InvincibleAbyssEffect : OneShotEffects.DestroyAreaOfEffect
-    {
-        public InvincibleAbyssEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new InvincibleAbyssEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy all your opponent's creatures.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(GetOpponent(game).Id);
-        }
+        AddSpellAbilities(new InvincibleAbyssEffect());
     }
 }

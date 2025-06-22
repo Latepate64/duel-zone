@@ -1,39 +1,13 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
-using System.Linq;
 using Interfaces;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+public class TimeScout : Creature
 {
-    class TimeScout : Creature
+    public TimeScout() : base("Time Scout", 2, 1000, Race.Merfolk, Civilization.Water)
     {
-        public TimeScout() : base("Time Scout", 2, 1000, Race.Merfolk, Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TimeScoutEffect()));
-        }
-    }
-
-    class TimeScoutEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var cards = GetOpponent(game).Deck.GetTopCards(1).ToArray();
-            if (cards.Any())
-            {
-                Controller.Look(GetOpponent(game), game, cards);
-                GetOpponent(game).Unreveal(cards);
-            }
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new TimeScoutEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Look at the top card of your opponent's deck.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TimeScoutEffect()));
     }
 }

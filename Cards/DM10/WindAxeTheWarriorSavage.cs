@@ -1,43 +1,14 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public class WindAxeTheWarriorSavage : Creature
 {
-    class WindAxeTheWarriorSavage : Creature
+    public WindAxeTheWarriorSavage() : base(
+        "Wind Axe, the Warrior Savage", 5, 2000, [Race.Human, Race.BeastFolk], Civilization.Fire, Civilization.Nature)
     {
-        public WindAxeTheWarriorSavage() : base("Wind Axe, the Warrior Savage", 5, 2000, [Race.Human, Race.BeastFolk], Civilization.Fire, Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageEffect()));
-        }
-    }
-
-    class WindAxeTheWarriorSavageEffect : OneShotEffect
-    {
-        public WindAxeTheWarriorSavageEffect()
-        {
-        }
-
-        public WindAxeTheWarriorSavageEffect(IOneShotEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new WindAxeTheWarriorSavageEffect(this);
-        }
-
-        public override void Apply(IGame game)
-        {
-            var player = Controller;
-            player.DestroyOpponentsBlocker(game, Ability);
-            player.PutFromTopOfDeckIntoManaZone(game, 1, Ability);
-        }
-
-        public override string ToString()
-        {
-            return "Destroy one of your opponent's creatures that has \"blocker.\" Then put the top card of your deck into your mana zone.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new WindAxeTheWarriorSavageEffect()));
     }
 }

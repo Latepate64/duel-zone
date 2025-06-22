@@ -1,48 +1,11 @@
-﻿using ContinuousEffects;
-using Engine.Abilities;
-using Interfaces;
-using Interfaces.ContinuousEffects;
+﻿using Interfaces;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+public class GankloakRogueCommando : SilentSkillCreature
 {
-    class GankloakRogueCommando : SilentSkillCreature
+    public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Race.Human, Civilization.Fire)
     {
-        public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Race.Human, Civilization.Fire)
-        {
-            AddSilentSkillAbility(new GankloakRogueCommandoOneShotEffect());
-        }
-    }
-
-    class GankloakRogueCommandoOneShotEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
-            game.AddContinuousEffects(Ability, new GankloakRogueCommandoContinuousEffect([.. creatures]));
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new GankloakRogueCommandoOneShotEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Each of your fire creatures in the battle zone gets \"double breaker\" until the end of the turn.";
-        }
-    }
-
-    class GankloakRogueCommandoContinuousEffect(params ICard[] cards) : AddAbilitiesUntilEndOfTurnEffect(
-        new StaticAbility(new DoubleBreakerEffect()), cards)
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new GankloakRogueCommandoContinuousEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Each of your fire creatures in the battle zone gets \"double breaker\" until the end of the turn.";
-        }
+        AddSilentSkillAbility(new GankloakRogueCommandoOneShotEffect());
     }
 }

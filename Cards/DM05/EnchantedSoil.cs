@@ -1,37 +1,12 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
-using System.Collections.Generic;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class EnchantedSoil : Spell
 {
-    class EnchantedSoil : Spell
+    public EnchantedSoil() : base("Enchanted Soil", 4, Civilization.Nature)
     {
-        public EnchantedSoil() : base("Enchanted Soil", 4, Civilization.Nature)
-        {
-            AddSpellAbilities(new EnchantedSoilEffect());
-        }
-    }
-
-    class EnchantedSoilEffect : OneShotEffects.FromGraveyardIntoManaZoneEffect
-    {
-        public EnchantedSoilEffect() : base(0, 2, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new EnchantedSoilEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Put up to 2 creatures from your graveyard into your mana zone.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.Graveyard.Creatures;
-        }
+        AddSpellAbilities(new EnchantedSoilEffect());
     }
 }

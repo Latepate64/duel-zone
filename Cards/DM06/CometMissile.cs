@@ -1,41 +1,13 @@
-﻿using OneShotEffects;
-using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public sealed class CometMissile : Spell
 {
-    class CometMissile : Spell
+    public CometMissile() : base("Comet Missile", 1, Civilization.Fire)
     {
-        public CometMissile() : base("Comet Missile", 1, Civilization.Fire)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new CometMissileEffect());
-        }
-    }
-
-    class CometMissileEffect : DestroyEffect
-    {
-        public CometMissileEffect() : base(1, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new CometMissileEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy one of your opponent's creatures that has \"blocker\" and power 6000 or less.";
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
-                x => x.IsBlocker && x.Power <= 6000);
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(new CometMissileEffect());
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards;
 
-class WaveStrikerCreature(string name, int manaCost, int power, Race race, Civilization civilization) : Creature(
+public class WaveStrikerCreature(string name, int manaCost, int power, Race race, Civilization civilization) : Creature(
     name, manaCost, power, race, civilization)
 {
     protected void AddWaveStrikerAbility(params IContinuousEffect[] effects)

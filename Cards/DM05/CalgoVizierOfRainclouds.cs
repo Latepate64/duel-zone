@@ -1,37 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class CalgoVizierOfRainclouds : Creature
 {
-    class CalgoVizierOfRainclouds : Creature
+    public CalgoVizierOfRainclouds() : base("Calgo, Vizier of Rainclouds", 3, 2000, Race.Initiate, Civilization.Light)
     {
-        public CalgoVizierOfRainclouds() : base("Calgo, Vizier of Rainclouds", 3, 2000, Race.Initiate, Civilization.Light)
-        {
-            AddStaticAbilities(new CalgoVizierOfRaincloudsEffect());
-        }
-    }
-
-    class CalgoVizierOfRaincloudsEffect : ContinuousEffect, IUnblockableEffect
-    {
-        public CalgoVizierOfRaincloudsEffect() : base()
-        {
-        }
-
-        public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
-        {
-            return IsSourceOfAbility(attacker) && blocker.Power >= 4000;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new CalgoVizierOfRaincloudsEffect();
-        }
-
-        public override string ToString()
-        {
-            return "This creature can't be blocked by creatures that have power 4000 or more.";
-        }
+        AddStaticAbilities(new CalgoVizierOfRaincloudsEffect());
     }
 }

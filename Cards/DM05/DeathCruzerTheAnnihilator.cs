@@ -1,40 +1,16 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public sealed class DeathCruzerTheAnnihilator : Creature
 {
-    class DeathCruzerTheAnnihilator : Creature
+    public DeathCruzerTheAnnihilator() : base(
+        "Death Cruzer, the Annihilator", 7, 13000, Race.DemonCommand, Civilization.Darkness)
     {
-        public DeathCruzerTheAnnihilator() : base("Death Cruzer, the Annihilator", 7, 13000, Race.DemonCommand, Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect()));
-            AddStaticAbilities(new TripleBreakerEffect());
-        }
-    }
-
-    class DeathCruzerTheAnnihilatorEffect : OneShotEffects.DestroyAreaOfEffect
-    {
-        public DeathCruzerTheAnnihilatorEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new DeathCruzerTheAnnihilatorEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy all your other creatures.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id);
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect()));
+        AddStaticAbilities(new TripleBreakerEffect());
     }
 }

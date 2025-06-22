@@ -1,29 +1,12 @@
 ﻿using ContinuousEffects;
-using Interfaces.ContinuousEffects;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+public class HornedMutant : Engine.Creature
 {
-    class HornedMutant : Engine.Creature
+    public HornedMutant() : base("Horned Mutant", 5, 3000, Race.Hedrian, Civilization.Darkness)
     {
-        public HornedMutant() : base("Horned Mutant", 5, 3000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
-        {
-            AddStaticAbilities(new HornedMutantEffect());
-        }
-    }
-
-    class HornedMutantEffect : EachCivilizationCardCostsMoreEffect
-    {
-        public HornedMutantEffect(EachCivilizationCardCostsMoreEffect effect) : base(effect)
-        {
-        }
-
-        public HornedMutantEffect(Interfaces.Civilization civilization = Interfaces.Civilization.Nature) : base(1, civilization)
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new HornedMutantEffect(this);
-        }
+        AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(1, Civilization.Nature));
     }
 }

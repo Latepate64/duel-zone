@@ -1,47 +1,12 @@
-﻿using OneShotEffects;
-using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public sealed class MysticTreasureChest : Spell
 {
-    class MysticTreasureChest : Spell
+    public MysticTreasureChest() : base("Mystic Treasure Chest", 3, Civilization.Nature)
     {
-        public MysticTreasureChest() : base("Mystic Treasure Chest", 3, Civilization.Nature)
-        {
-            AddSpellAbilities(new MysticTreasureChestEffect());
-        }
-    }
-
-    class MysticTreasureChestEffect : SearchAnyDeckEffect
-    {
-        public MysticTreasureChestEffect()
-        {
-        }
-
-        public MysticTreasureChestEffect(MysticTreasureChestEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MysticTreasureChestEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Search your deck. You may take a non-nature card from your deck and put it into your mana zone. Then shuffle your deck.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICard[] cards)
-        {
-            game.Move(Ability, ZoneType.Deck, ZoneType.ManaZone, cards);
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return Controller.Deck.NonCivilizationCards(Civilization.Nature);
-        }
+        AddSpellAbilities(new MysticTreasureChestEffect());
     }
 }

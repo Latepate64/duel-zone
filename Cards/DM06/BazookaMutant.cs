@@ -1,42 +1,14 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public sealed class BazookaMutant : Creature
 {
-    class BazookaMutant : Creature
+    public BazookaMutant() : base("Bazooka Mutant", 4, 8000, Race.Hedrian, Civilization.Darkness)
     {
-        public BazookaMutant() : base("Bazooka Mutant", 4, 8000, Race.Hedrian, Civilization.Darkness)
-        {
-            AddStaticAbilities(new BazookaMutantEffect());
-            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-        }
-    }
-
-    class BazookaMutantEffect : ContinuousEffect, ICannotAttackCreaturesEffect
-    {
-        public BazookaMutantEffect()
-        {
-        }
-
-        public BazookaMutantEffect(BazookaMutantEffect effect) : base(effect)
-        {
-        }
-
-        public bool CannotAttackCreature(ICreature attacker, ICreature target, IGame game)
-        {
-            return IsSourceOfAbility(attacker) && !target.IsBlocker;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new BazookaMutantEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "This creature can attack only creatures that have \"blocker.\"";
-        }
+        AddStaticAbilities(new BazookaMutantEffect());
+        AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }
 }

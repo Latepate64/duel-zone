@@ -3,18 +3,18 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public abstract class EachOtherCivilizationCreaturePowerEffect : ContinuousEffect, IPowerModifyingEffect
+public class EachOtherCivilizationCreaturePowerEffect : ContinuousEffect, IPowerModifyingEffect
 {
     private readonly Civilization _civilization;
     private readonly int _power;
 
-    protected EachOtherCivilizationCreaturePowerEffect(EachOtherCivilizationCreaturePowerEffect effect) : base(effect)
+    public EachOtherCivilizationCreaturePowerEffect(EachOtherCivilizationCreaturePowerEffect effect) : base(effect)
     {
         _civilization = effect._civilization;
         _power = effect._power;
     }
 
-    protected EachOtherCivilizationCreaturePowerEffect(Civilization civilization, int power) : base()
+    public EachOtherCivilizationCreaturePowerEffect(Civilization civilization, int power) : base()
     {
         _civilization = civilization;
         _power = power;
@@ -28,5 +28,10 @@ public abstract class EachOtherCivilizationCreaturePowerEffect : ContinuousEffec
     public override string ToString()
     {
         return $"Each other {_civilization} creature in the battle zone gets +{_power} power.";
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new EachOtherCivilizationCreaturePowerEffect(this);
     }
 }

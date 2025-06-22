@@ -1,40 +1,11 @@
-﻿using Engine.Abilities;
-using Engine.GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+public sealed class CosmicNebula : EvolutionCreature
 {
-    class CosmicNebula : EvolutionCreature
+    public CosmicNebula() : base("Cosmic Nebula", 5, 3000, Race.CyberVirus, Civilization.Water)
     {
-        public CosmicNebula() : base("Cosmic Nebula", 5, 3000, Race.CyberVirus, Civilization.Water)
-        {
-            AddTriggeredAbility(new CosmicNebulaAbility());
-        }
-    }
-
-    class CosmicNebulaAbility : TriggeredAbility
-    {
-        public CosmicNebulaAbility() : base(new OneShotEffects.YouMayDrawCardEffect())
-        {
-        }
-
-        public CosmicNebulaAbility(CosmicNebulaAbility ability) : base(ability)
-        {
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw && e.Turn.ActivePlayer == Controller;
-        }
-
-        public override IAbility Copy()
-        {
-            return new CosmicNebulaAbility(this);
-        }
-
-        public override string ToString()
-        {
-            return "Whenever you draw the card at the start of your turn, you may draw an extra card.";
-        }
+        AddTriggeredAbility(new CosmicNebulaAbility());
     }
 }

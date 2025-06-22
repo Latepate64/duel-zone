@@ -1,37 +1,14 @@
 ﻿using Engine;
 using Engine.Abilities;
 using Interfaces;
-using System.Collections.Generic;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public sealed class BlissTotemAvatarOfLuck : Creature
 {
-    class BlissTotemAvatarOfLuck : Creature
+    public BlissTotemAvatarOfLuck() : base(
+        "Bliss Totem, Avatar of Luck", 6, 5000, Race.MysteryTotem, Civilization.Nature)
     {
-        public BlissTotemAvatarOfLuck() : base("Bliss Totem, Avatar of Luck", 6, 5000, Race.MysteryTotem, Civilization.Nature)
-        {
-            AddAbilities(new TapAbility(new BlissTotemAvatarOfLuckEffect()));
-        }
-    }
-
-    class BlissTotemAvatarOfLuckEffect : OneShotEffects.FromGraveyardIntoManaZoneEffect
-    {
-        public BlissTotemAvatarOfLuckEffect() : base(0, 3, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new BlissTotemAvatarOfLuckEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Put up to 3 cards from your graveyard into your mana zone.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.Graveyard.Cards;
-        }
+        AddAbilities(new TapAbility(new BlissTotemAvatarOfLuckEffect()));
     }
 }

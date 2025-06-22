@@ -1,59 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
-using Engine.Abilities;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class SwordOfMalevolentDeath : Spell
 {
-    class SwordOfMalevolentDeath : Spell
+    public SwordOfMalevolentDeath() : base("Sword of Malevolent Death", 4, Civilization.Darkness)
     {
-        public SwordOfMalevolentDeath() : base("Sword of Malevolent Death", 4, Civilization.Darkness)
-        {
-            AddSpellAbilities(new SwordOfMalevolentDeathOneShotEffect());
-        }
-    }
-
-    class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
-            var power = creatures.Count(x => x.HasCivilization(Civilization.Darkness)) * 1000;
-            game.AddContinuousEffects(Ability, new SwordOfMalevolentDeathContinuousEffect(power, [.. creatures]));
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SwordOfMalevolentDeathOneShotEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Until the end of the turn, each of your creatures in the battle zone gets \"While attacking, this creature gets +1000 power for each darkness card in your mana zone.\"";
-        }
-    }
-
-    class SwordOfMalevolentDeathContinuousEffect : ContinuousEffects.AddAbilitiesUntilEndOfTurnEffect
-    {
-        public SwordOfMalevolentDeathContinuousEffect(SwordOfMalevolentDeathContinuousEffect effect) : base(effect)
-        {
-        }
-
-        public SwordOfMalevolentDeathContinuousEffect(int power, params ICard[] cards) : base(
-            new StaticAbility(new PowerAttackerEffect(power)), cards)
-            {
-            }
-
-        public override IContinuousEffect Copy()
-        {
-            return new SwordOfMalevolentDeathContinuousEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Until the end of the turn, this creature has \"While attacking, this creature gets +1000 power for each darkness card in your mana zone.\"";
-        }
+        AddSpellAbilities(new SwordOfMalevolentDeathOneShotEffect());
     }
 }

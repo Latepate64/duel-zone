@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using OneShotEffects;
+using TriggeredAbilities;
 
 namespace Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.DM02
     {
         public DarkTitanMaginn() : base("Dark Titan Maginn", 6, 4000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.OpponentDiscardsCardAtRandomEffect()));
+            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OpponentRandomDiscardEffect()));
         }
     }
 }

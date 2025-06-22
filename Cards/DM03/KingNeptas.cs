@@ -1,39 +1,13 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 using Interfaces;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+public class KingNeptas : Creature
 {
-    class KingNeptas : Creature
+    public KingNeptas() : base("King Neptas", 6, 5000, Race.Leviathan, Civilization.Water)
     {
-        public KingNeptas() : base("King Neptas", 6, 5000, Race.Leviathan, Civilization.Water)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new KingNeptasEffect()));
-        }
-    }
-
-    class KingNeptasEffect : OneShotEffects.BounceEffect
-    {
-        public KingNeptasEffect() : base(0, 1)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new KingNeptasEffect();
-        }
-
-        public override string ToString()
-        {
-            return "You may choose a creature in the battle zone that has power 2000 or less and return it to its owner's hand.";
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id).Where(x => x.Power <= 2000);
-        }
+        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new KingNeptasEffect()));
     }
 }

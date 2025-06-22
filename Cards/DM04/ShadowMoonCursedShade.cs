@@ -1,29 +1,13 @@
 ﻿using ContinuousEffects;
-using Interfaces.ContinuousEffects;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+public class ShadowMoonCursedShade : Creature
 {
-    class ShadowMoonCursedShade : Engine.Creature
+    public ShadowMoonCursedShade() : base("Shadow Moon, Cursed Shade", 4, 3000, Race.Ghost, Civilization.Darkness)
     {
-        public ShadowMoonCursedShade() : base("Shadow Moon, Cursed Shade", 4, 3000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
-        {
-            AddStaticAbilities(new ShadowMoonEffect());
-        }
-    }
-
-    class ShadowMoonEffect : EachOtherCivilizationCreaturePowerEffect
-    {
-        public ShadowMoonEffect(EachOtherCivilizationCreaturePowerEffect effect) : base(effect)
-        {
-        }
-
-        public ShadowMoonEffect() : base(Interfaces.Civilization.Darkness, 2000)
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new ShadowMoonEffect(this);
-        }
+        AddStaticAbilities(new EachOtherCivilizationCreaturePowerEffect(Civilization.Darkness, 2000));
     }
 }

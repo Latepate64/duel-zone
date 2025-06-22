@@ -1,35 +1,12 @@
 ﻿using TriggeredAbilities;
-using OneShotEffects;
-using Engine.Abilities;
+using Engine;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+public class Shtra : Creature
 {
-    class Shtra : Engine.Creature
+    public Shtra() : base("Shtra", 4, 2000, Interfaces.Race.CyberLord, Interfaces.Civilization.Water)
     {
-        public Shtra() : base("Shtra", 4, 2000, Interfaces.Race.CyberLord, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ShtraEffect()));
-        }
-    }
-
-    class ShtraEffect : MutualManaRecoveryEffect
-    {
-        public ShtraEffect() : base(1)
-        {
-        }
-
-        public ShtraEffect(MutualManaRecoveryEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ShtraEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Return a card from your mana zone to your hand. Then your opponent chooses a card in his mana zone and returns it to his hand.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ShtraEffect()));
     }
 }

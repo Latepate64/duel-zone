@@ -3,16 +3,16 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class OpponentRandomDiscardEffect : OneShotEffect
+public sealed class OpponentRandomDiscardEffect : OneShotEffect
 {
     public int Amount { get; set; }
 
-    protected OpponentRandomDiscardEffect(int amount)
+    public OpponentRandomDiscardEffect(int amount = 1)
     {
         Amount = amount;
     }
 
-    protected OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
+    OpponentRandomDiscardEffect(OpponentRandomDiscardEffect effect)
     {
         Amount = effect.Amount;
     }
@@ -25,5 +25,10 @@ public abstract class OpponentRandomDiscardEffect : OneShotEffect
     public override string ToString()
     {
         return $"Your opponent discards {(Amount == 1 ? "a card" : $"{Amount} cards")} at random from his hand.";
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new OpponentRandomDiscardEffect(this);
     }
 }

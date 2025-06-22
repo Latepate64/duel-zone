@@ -1,38 +1,14 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+public class KingNautilus : Creature
 {
-    class KingNautilus : Creature
+    public KingNautilus() : base("King Nautilus", 8, 6000, Race.Leviathan, Civilization.Water)
     {
-        public KingNautilus() : base("King Nautilus", 8, 6000, Race.Leviathan, Civilization.Water)
-        {
-            AddStaticAbilities(new KingNautilusEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    class KingNautilusEffect : ContinuousEffect, IUnblockableEffect
-    {
-        public KingNautilusEffect() : base()
-        {
-        }
-
-        public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
-        {
-            return attacker.HasRace(Race.LiquidPeople);
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new KingNautilusEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Liquid People can't be blocked.";
-        }
+        AddStaticAbilities(new KingNautilusEffect());
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

@@ -1,64 +1,16 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
-using OneShotEffects;
+﻿using ContinuousEffects;
 using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+public class GandarSeekerOfExplosions : Creature
 {
-    class GandarSeekerOfExplosions : Creature
+    public GandarSeekerOfExplosions() : base(
+        "Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)
     {
-        public GandarSeekerOfExplosions() : base("Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)
-        {
-            AddStaticAbilities(new DoubleBreakerEffect());
-            AddAbilities(new TapAbility(new GandarSeekerOfExplosionsEffect()));
-        }
-    }
-
-    class GandarSeekerOfExplosionsEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            throw new System.NotImplementedException();
-            // game.AddDelayedTriggeredAbility(
-            //     new AtTheEndOfTheTurnDelayedTriggeredAbility(
-            //         Ability,
-            //         game.CurrentTurn.Id,
-            //         new GandarSeekerOfExplosionsUntapEffect()));
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new GandarSeekerOfExplosionsEffect();
-        }
-
-        public override string ToString()
-        {
-            return "At the end of the turn, untap all your light creatures.";
-        }
-    }
-
-    class GandarSeekerOfExplosionsUntapEffect : UntapAreaOfEffect
-    {
-        public GandarSeekerOfExplosionsUntapEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new GandarSeekerOfExplosionsUntapEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Untap all your light creatures.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreatures(Ability.Controller.Id, Civilization.Light);
-        }
+        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new TapAbility(new GandarSeekerOfExplosionsEffect()));
     }
 }

@@ -1,44 +1,13 @@
-﻿using OneShotEffects;
-using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+public sealed class ProtectiveForce : Spell
 {
-    class ProtectiveForce : Spell
+    public ProtectiveForce() : base("Protective Force", 1, Civilization.Light)
     {
-        public ProtectiveForce() : base("Protective Force", 1, Civilization.Light)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new ProtectiveForceEffect());
-        }
-    }
-
-    class ProtectiveForceEffect : CreatureSelectionEffect
-    {
-        public ProtectiveForceEffect() : base(1, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ProtectiveForceEffect();
-        }
-
-        public override string ToString()
-        {
-            return "One of your creatures in the battle zone that has \"blocker\" gets +4000 power until the end of the turn.";
-        }
-
-        protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
-        {
-            game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(4000, cards));
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.CreaturesThatHaveBlockerOwnedBy(Ability.Controller);
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(new ProtectiveForceEffect());
     }
 }

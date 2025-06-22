@@ -1,30 +1,13 @@
 ﻿using TriggeredAbilities;
-using OneShotEffects;
-using Engine.Abilities;
+using Engine;
+using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+public class PoisonousMushroom : Creature
 {
-    class PoisonousMushroom : Engine.Creature
+    public PoisonousMushroom() : base("Poisonous Mushroom", 2, 1000, Race.BalloonMushroom, Civilization.Nature)
     {
-        public PoisonousMushroom() : base("Poisonous Mushroom", 2, 1000, Interfaces.Race.BalloonMushroom, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonousMushroomEffect()));
-        }
-    }
-
-    class PoisonousMushroomEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
-    {
-        public PoisonousMushroomEffect() : base(1)
-        {
-        }
-
-        public PoisonousMushroomEffect(PoisonousMushroomEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new PoisonousMushroomEffect(this);
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PoisonousMushroomEffect()));
     }
 }

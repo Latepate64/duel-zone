@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards;
 
-class SilentSkillCreature : Creature
+public class SilentSkillCreature : Creature
 {
     public SilentSkillCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
     {

@@ -1,35 +1,14 @@
 ﻿using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public class EstolVizierOfAqua : Creature
 {
-    class EstolVizierOfAqua : Creature
+    public EstolVizierOfAqua() : base(
+        "Estol, Vizier of Aqua", 5, 2000, [Race.Initiate, Race.LiquidPeople], Civilization.Light, Civilization.Water)
     {
-        public EstolVizierOfAqua() : base("Estol, Vizier of Aqua", 5, 2000, [Race.Initiate, Race.LiquidPeople], Civilization.Light, Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect()));
-        }
-    }
-
-    class EstolVizierOfAquaEffect : OneShotEffect
-    {
-        public override void Apply(IGame game)
-        {
-            var controller = Controller;
-            controller.PutFromTopOfDeckIntoShieldZone(1, game, Ability);
-            controller.LookAtOneOfOpponentsShields(game, Ability);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new EstolVizierOfAquaEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Add the top card of your deck to your shields face down. Then look at one of your opponent's shields.";
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EstolVizierOfAquaEffect()));
     }
 }

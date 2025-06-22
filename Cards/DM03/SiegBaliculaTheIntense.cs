@@ -1,35 +1,11 @@
-﻿using ContinuousEffects;
-using Interfaces;
-using Interfaces.ContinuousEffects;
+﻿using Interfaces;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+public class SiegBaliculaTheIntense : EvolutionCreature
 {
-    class SiegBaliculaTheIntense : EvolutionCreature
+    public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Race.Initiate, Civilization.Light)
     {
-        public SiegBaliculaTheIntense() : base("Sieg Balicula, the Intense", 3, 5000, Race.Initiate, Civilization.Light)
-        {
-            AddStaticAbilities(new SiegBaliculaTheIntenseEffect());
-        }
-    }
-
-    class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEffect
-    {
-        public SiegBaliculaTheIntenseEffect() : base() { }
-
-        public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
-        {
-            var ability = Ability;
-            return blocker.Owner == ability.Controller && blocker != ability.Source && blocker.HasCivilization(Civilization.Light);
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new SiegBaliculaTheIntenseEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Each of your other light creatures in the battle zone has \"blocker.\"";
-        }
+        AddStaticAbilities(new SiegBaliculaTheIntenseEffect());
     }
 }

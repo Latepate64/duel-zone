@@ -1,39 +1,13 @@
 ﻿using TriggeredAbilities;
-using OneShotEffects;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+public class SaucerHeadShark : Creature
 {
-    class SaucerHeadShark : Creature
+    public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Race.GelFish, Civilization.Water)
     {
-        public SaucerHeadShark() : base("Saucer-Head Shark", 5, 3000, Race.GelFish, Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SaucerHeadSharkEffect()));
-        }
-    }
-
-    class SaucerHeadSharkEffect : BounceAreaOfEffect
-    {
-        public SaucerHeadSharkEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new SaucerHeadSharkEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Return each creature in the battle zone that has power 2000 or less to its owner's hand.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetCreaturesWithMaxPower(2000);
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SaucerHeadSharkEffect()));
     }
 }
