@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class EngineerKipo : Engine.Creature
+    sealed class EngineerKipo : Engine.Creature
     {
         public EngineerKipo() : base("Engineer Kipo", 2, 2000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
         {

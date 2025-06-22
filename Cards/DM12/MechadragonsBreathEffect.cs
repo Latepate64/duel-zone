@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM12;
 
-public class MechadragonsBreathEffect : OneShotEffect
+public sealed class MechadragonsBreathEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

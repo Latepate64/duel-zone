@@ -2,6 +2,6 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class ConcedeEvent(IPlayerV2 player) : LoseGameEvent(player)
+public sealed class ConcedeEvent(IPlayerV2 player) : LoseGameEvent(player)
 {
 }

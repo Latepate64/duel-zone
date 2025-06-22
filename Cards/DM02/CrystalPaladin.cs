@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class CrystalPaladin : EvolutionCreature
+public sealed class CrystalPaladin : EvolutionCreature
 {
     public CrystalPaladin() : base("Crystal Paladin", 4, 5000, Race.LiquidPeople, Civilization.Water)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class UntapAllTheCardsInYourManaZoneEffect : UntapAreaOfEffect
+public sealed class UntapAllTheCardsInYourManaZoneEffect : UntapAreaOfEffect
 {
     public UntapAllTheCardsInYourManaZoneEffect() : base()
     {

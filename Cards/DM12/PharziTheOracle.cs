@@ -2,7 +2,7 @@
 
 namespace Cards.DM12
 {
-    class PharziTheOracle : Engine.Creature
+    sealed class PharziTheOracle : Engine.Creature
     {
         public PharziTheOracle() : base("Pharzi, the Oracle", 2, 1000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

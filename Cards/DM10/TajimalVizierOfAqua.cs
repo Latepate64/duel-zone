@@ -1,12 +1,11 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class TajimalVizierOfAqua : Creature
+    sealed class TajimalVizierOfAqua : Creature
     {
         public TajimalVizierOfAqua() : base("Tajimal, Vizier of Aqua", 3, 4000, [Race.Initiate, Race.LiquidPeople], Civilization.Light, Civilization.Water)
         {
@@ -16,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class TajimalEffect : ContinuousEffect, IPowerModifyingEffect
+    sealed class TajimalEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public TajimalEffect()
         {

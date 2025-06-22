@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class AncientHornTheWatcherAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+public sealed class AncientHornTheWatcherAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
 {
     public AncientHornTheWatcherAbility(IOneShotEffect effect) : base(effect)
     {

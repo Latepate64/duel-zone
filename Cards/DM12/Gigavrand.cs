@@ -6,7 +6,7 @@ using System;
 
 namespace Cards.DM12
 {
-    class Gigavrand : Creature
+    sealed class Gigavrand : Creature
     {
         public Gigavrand() : base("Gigavrand", 6, 3000, Race.Chimera, Civilization.Darkness)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM12
         }
     }
 
-    class GigavrandAbility : LinkedTriggeredAbility, IWatcher
+    sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
     {
         private int _cardsDrawnByOpponent;
 

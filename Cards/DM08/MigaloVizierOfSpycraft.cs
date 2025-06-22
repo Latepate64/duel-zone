@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM08
 {
-    class MigaloVizierOfSpycraft : TurboRushCreature
+    sealed class MigaloVizierOfSpycraft : TurboRushCreature
     {
         public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Race.Initiate, Civilization.Light)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM08
         }
     }
 
-    class MigaloVizierOfSpycraftEffect : LookEffect
+    sealed class MigaloVizierOfSpycraftEffect : LookEffect
     {
         public MigaloVizierOfSpycraftEffect() : base(0, 2)
         {

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class ChaosStrikeOneShotEffect : CreatureSelectionEffect
+public sealed class ChaosStrikeOneShotEffect : CreatureSelectionEffect
 {
     public ChaosStrikeOneShotEffect() : base(1, 1, true)
     {

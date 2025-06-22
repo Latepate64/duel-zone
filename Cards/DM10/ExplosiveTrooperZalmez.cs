@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    class ExplosiveTrooperZalmez : Engine.Creature
+    sealed class ExplosiveTrooperZalmez : Engine.Creature
     {
         public ExplosiveTrooperZalmez() : base("Explosive Trooper Zalmez", 3, 2000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {

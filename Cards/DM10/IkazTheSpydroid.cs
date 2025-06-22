@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace Cards.DM10
 {
-    class IkazTheSpydroid : Creature
+    sealed class IkazTheSpydroid : Creature
     {
         public IkazTheSpydroid() : base("Ikaz, the Spydroid", 4, 4000, Race.Soltrooper, Civilization.Light)
         {
@@ -18,7 +18,7 @@ namespace Cards.DM10
         }
     }
 
-    class IkazTheSpydroidEffect : CreatureSelectionEffect
+    sealed class IkazTheSpydroidEffect : CreatureSelectionEffect
     {
         public IkazTheSpydroidEffect() : base(1, 1, true)
         {
@@ -45,7 +45,7 @@ namespace Cards.DM10
         }
     }
 
-    class IkazTheSpydroidUntapEffect : UntapAreaOfEffect, ICardAffectable
+    sealed class IkazTheSpydroidUntapEffect : UntapAreaOfEffect, ICardAffectable
     {
         public IkazTheSpydroidUntapEffect(ICard card) : base()
         {

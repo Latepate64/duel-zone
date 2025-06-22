@@ -7,7 +7,7 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect :
+public sealed class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect :
     DestructionReplacementEffect, IExpirable
 {
 

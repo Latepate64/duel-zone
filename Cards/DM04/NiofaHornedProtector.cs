@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class NiofaHornedProtector : EvolutionCreature
+public sealed class NiofaHornedProtector : EvolutionCreature
 {
     public NiofaHornedProtector() : base("Niofa, Horned Protector", 6, 9000, Race.HornedBeast, Civilization.Nature)
     {

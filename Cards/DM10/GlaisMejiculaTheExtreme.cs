@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class GlaisMejiculaTheExtreme : EvolutionCreature
+    sealed class GlaisMejiculaTheExtreme : EvolutionCreature
     {
         public GlaisMejiculaTheExtreme() : base("Glais Mejicula, the Extreme", 2, 5500, Race.Initiate, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class GlaisMejiculaEffect : WhenOneOfYourShieldsWouldBeBrokenEffect
+    sealed class GlaisMejiculaEffect : WhenOneOfYourShieldsWouldBeBrokenEffect
     {
         public GlaisMejiculaEffect()
         {
@@ -52,7 +52,7 @@ namespace Cards.DM10
         }
     }
 
-    class GlaisMejiculaEvent(IEnumerable<ICard> remainingShields, IEnumerable<ICard> discard, IAbility ability) : GameEvent
+    sealed class GlaisMejiculaEvent(IEnumerable<ICard> remainingShields, IEnumerable<ICard> discard, IAbility ability) : GameEvent
     {
         private readonly IAbility _ability = ability;
         private readonly IEnumerable<ICard> _discard = discard;

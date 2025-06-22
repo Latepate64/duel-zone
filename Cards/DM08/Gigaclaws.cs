@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    class Gigaclaws : TurboRushCreature
+    sealed class Gigaclaws : TurboRushCreature
     {
         public Gigaclaws() : base("Gigaclaws", 5, 2000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

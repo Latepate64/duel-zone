@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class SearchCardNoRevealEffect : SearchEffect
+public sealed class SearchCardNoRevealEffect : SearchEffect
 {
     public SearchCardNoRevealEffect() : base(false)
     {

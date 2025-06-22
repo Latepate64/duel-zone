@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect : OneShotEffect
+public sealed class AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect : OneShotEffect
 {
     public AddTheTopCardOfYourDeckToYourShieldsFaceDownEffect()
     {

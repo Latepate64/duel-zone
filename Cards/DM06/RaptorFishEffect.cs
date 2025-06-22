@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class RaptorFishEffect : OneShotEffect
+public sealed class RaptorFishEffect : OneShotEffect
 {
     public RaptorFishEffect()
     {

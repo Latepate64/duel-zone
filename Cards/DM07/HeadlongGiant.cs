@@ -6,7 +6,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM07
 {
-    class HeadlongGiant : Creature
+    sealed class HeadlongGiant : Creature
     {
         public HeadlongGiant() : base("Headlong Giant", 9, 14000, Race.Giant, Civilization.Nature)
         {
@@ -16,7 +16,7 @@ namespace Cards.DM07
         }
     }
 
-    class HeadlongGiantEffect : ContinuousEffect, ICannotAttackEffect
+    sealed class HeadlongGiantEffect : ContinuousEffect, ICannotAttackEffect
     {
         public HeadlongGiantEffect()
         {

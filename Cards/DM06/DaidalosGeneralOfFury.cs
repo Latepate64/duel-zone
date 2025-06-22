@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    class DaidalosGeneralOfFury : Engine.Creature
+    sealed class DaidalosGeneralOfFury : Engine.Creature
     {
         public DaidalosGeneralOfFury() : base("Daidalos, General of Fury", 4, 11000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {

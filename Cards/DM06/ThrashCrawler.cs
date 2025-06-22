@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    class ThrashCrawler : Engine.Creature
+    sealed class ThrashCrawler : Engine.Creature
     {
         public ThrashCrawler() : base("Thrash Crawler", 4, 5000, Interfaces.Race.EarthEater, Interfaces.Civilization.Water)
         {

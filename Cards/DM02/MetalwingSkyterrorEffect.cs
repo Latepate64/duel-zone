@@ -7,7 +7,7 @@ using OneShotEffects;
 
 namespace Cards.DM02;
 
-public class MetalwingSkyterrorEffect : DestroyEffect
+public sealed class MetalwingSkyterrorEffect : DestroyEffect
 {
     public MetalwingSkyterrorEffect() : base(0, 1, true)
     {

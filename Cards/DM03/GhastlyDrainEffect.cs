@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class GhastlyDrainEffect : ChooseAnyNumberOfCardsEffect
+public sealed class GhastlyDrainEffect : ChooseAnyNumberOfCardsEffect
 {
     public GhastlyDrainEffect() : base()
     {

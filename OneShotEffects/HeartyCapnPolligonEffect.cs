@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class HeartyCapnPolligonEffect : OneShotEffect
+public sealed class HeartyCapnPolligonEffect : OneShotEffect
 {
     public HeartyCapnPolligonEffect()
     {

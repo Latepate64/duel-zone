@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class SurvivorEffect : AbilityAddingEffect
+public sealed class SurvivorEffect : AbilityAddingEffect
 {
     public SurvivorEffect(SurvivorEffect effect) : base(effect)
     {

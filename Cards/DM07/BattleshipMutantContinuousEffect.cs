@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM07;
 
-public class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
+public sealed class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
 {
     public BattleshipMutantContinuousEffect(BattleshipMutantContinuousEffect effect) : base(effect)
     {

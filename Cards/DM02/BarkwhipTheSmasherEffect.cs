@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM02;
 
-public class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
 {
     public BarkwhipTheSmasherEffect() : base()
     {

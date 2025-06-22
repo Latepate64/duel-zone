@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class BlazeCannon : Spell
+public sealed class BlazeCannon : Spell
 {
     public BlazeCannon() : base("Blaze Cannon", 7, Civilization.Fire)
     {

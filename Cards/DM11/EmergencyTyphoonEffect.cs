@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class EmergencyTyphoonEffect : OneShotEffect
+public sealed class EmergencyTyphoonEffect : OneShotEffect
 {
 
     public EmergencyTyphoonEffect(EmergencyTyphoonEffect effect) : base(effect)

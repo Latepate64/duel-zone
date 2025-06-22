@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
+public sealed class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
 {
     public GalsaurEffect() : base()
     {

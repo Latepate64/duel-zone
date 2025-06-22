@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class ReapAndSowEffect : OneShotEffect
+public sealed class ReapAndSowEffect : OneShotEffect
 {
     public ReapAndSowEffect()
     {

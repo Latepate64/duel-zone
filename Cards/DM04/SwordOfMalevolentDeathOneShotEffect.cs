@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
+public sealed class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class GlenaVueleTheHypnotic : EvolutionCreature
+public sealed class GlenaVueleTheHypnotic : EvolutionCreature
 {
     public GlenaVueleTheHypnotic() : base("Glena Vuele, the Hypnotic", 5, 8500, Race.Guardian, Civilization.Light)
     {

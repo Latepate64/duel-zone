@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM07
 {
-    class FreezingIcehammer : Spell
+    sealed class FreezingIcehammer : Spell
     {
         public FreezingIcehammer() : base("Freezing Icehammer", 3, Civilization.Nature)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM07
         }
     }
 
-    class FreezingIcehammerEffect : OneShotEffects.ManaFeedEffect
+    sealed class FreezingIcehammerEffect : OneShotEffects.ManaFeedEffect
     {
         public FreezingIcehammerEffect() : base(1, 1, true)
         {

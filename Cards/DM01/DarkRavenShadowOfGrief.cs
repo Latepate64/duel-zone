@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class DarkRavenShadowOfGrief : Engine.Creature
+    sealed class DarkRavenShadowOfGrief : Engine.Creature
     {
         public DarkRavenShadowOfGrief() : base("Dark Raven, Shadow of Grief", 4, 1000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
         {

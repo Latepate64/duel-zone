@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    class Gigamente : SilentSkillCreature
+    sealed class Gigamente : SilentSkillCreature
     {
         public Gigamente() : base("Gigamente", 4, 3000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

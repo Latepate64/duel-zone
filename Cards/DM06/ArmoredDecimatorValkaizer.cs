@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class ArmoredDecimatorValkaizer : EvolutionCreature
+    sealed class ArmoredDecimatorValkaizer : EvolutionCreature
     {
         public ArmoredDecimatorValkaizer() : base("Armored Decimator Valkaizer", 5, 5000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {

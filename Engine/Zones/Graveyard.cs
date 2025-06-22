@@ -6,7 +6,7 @@ namespace Engine.Zones;
 /// <summary>
 /// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
 /// </summary>
-public class Graveyard : Zone, IGraveyard
+public sealed class Graveyard : Zone, IGraveyard
 {
     public Graveyard(params ICard[] cards) : base(ZoneType.Graveyard, cards) { }
 

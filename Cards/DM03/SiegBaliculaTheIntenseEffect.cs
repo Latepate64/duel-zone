@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEffect
+public sealed class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEffect
 {
     public SiegBaliculaTheIntenseEffect() : base() { }
 

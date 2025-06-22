@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class SearchCreatureEffect : SearchEffect
+public sealed class SearchCreatureEffect : SearchEffect
 {
     public SearchCreatureEffect() : base(true)
     {

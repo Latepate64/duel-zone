@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class Gigarayze : Creature
+    sealed class Gigarayze : Creature
     {
         public Gigarayze() : base("Gigarayze", 4, 2000, Race.Chimera, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM12
         }
     }
 
-    class GigarayzeEffect : OneShotEffects.SalvageCivilizationCreatureEffect
+    sealed class GigarayzeEffect : OneShotEffects.SalvageCivilizationCreatureEffect
     {
         public GigarayzeEffect() : base(0, 1)
         {

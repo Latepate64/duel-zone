@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM03;
 
-public class ÜberdragonJabahaEffect : AbilityAddingEffect
+public sealed class ÜberdragonJabahaEffect : AbilityAddingEffect
 {
     public ÜberdragonJabahaEffect() : base(new StaticAbility(new PowerAttackerEffect(2000))) { }
 

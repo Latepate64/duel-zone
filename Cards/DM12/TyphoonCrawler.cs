@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM12
 {
-    class TyphoonCrawler : Engine.Creature
+    sealed class TyphoonCrawler : Engine.Creature
     {
         public TyphoonCrawler() : base("Typhoon Crawler", 6, 5000, Interfaces.Race.EarthEater, Interfaces.Civilization.Water)
         {

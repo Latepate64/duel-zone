@@ -6,7 +6,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM07
 {
-    class GazariasDragon : Creature
+    sealed class GazariasDragon : Creature
     {
         public GazariasDragon() : base("Gazarias Dragon", 5, 4000, Race.ArmoredDragon, Civilization.Fire)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM07
         }
     }
 
-    class GazariasDragonEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    sealed class GazariasDragonEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         public GazariasDragonEffect()
         {

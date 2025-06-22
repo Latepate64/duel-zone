@@ -6,7 +6,7 @@ using ContinuousEffects;
 
 namespace Cards.DM01;
 
-public class MagmaGazerEffect : CreatureSelectionEffect
+public sealed class MagmaGazerEffect : CreatureSelectionEffect
 {
     public MagmaGazerEffect() : base(1, 1, true)
     {

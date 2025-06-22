@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Engine;
 
-public class Randomizer : IRandomizer
+public sealed class Randomizer : IRandomizer
 {
     public void Shuffle(List<ICard> cards)
     {

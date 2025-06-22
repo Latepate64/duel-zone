@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class StormWranglerEffect : OneShotEffect
+public sealed class StormWranglerEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

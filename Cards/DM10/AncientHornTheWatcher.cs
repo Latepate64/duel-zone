@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM10
 {
-    class AncientHornTheWatcher : Engine.Creature
+    sealed class AncientHornTheWatcher : Engine.Creature
     {
         public AncientHornTheWatcher() : base("Ancient Horn, the Watcher", 5, 5000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

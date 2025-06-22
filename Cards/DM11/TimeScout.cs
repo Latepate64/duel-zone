@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class TimeScout : Creature
+public sealed class TimeScout : Creature
 {
     public TimeScout() : base("Time Scout", 2, 1000, Race.Merfolk, Civilization.Water)
     {

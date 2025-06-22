@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class LaserWingEffect : CreatureSelectionEffect
+public sealed class LaserWingEffect : CreatureSelectionEffect
 {
     public LaserWingEffect() : base(0, 2, true)
     {

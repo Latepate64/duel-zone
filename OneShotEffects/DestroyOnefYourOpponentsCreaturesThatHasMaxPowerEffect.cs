@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect : DestroyEffect, IPowerable
+public sealed class DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect : DestroyEffect, IPowerable
 {
     public DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(int power) : base(1, 1, true)
     {

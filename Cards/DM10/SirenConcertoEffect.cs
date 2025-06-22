@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class SirenConcertoEffect : OneShotEffect
+public sealed class SirenConcertoEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

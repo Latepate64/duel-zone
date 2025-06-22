@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     private readonly IAbility _ability;
 

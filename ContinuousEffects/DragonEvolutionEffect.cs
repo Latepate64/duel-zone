@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class DragonEvolutionEffect : SingleBaitEvolutionEffect
+public sealed class DragonEvolutionEffect : SingleBaitEvolutionEffect
 {
     public DragonEvolutionEffect() : base()
     {

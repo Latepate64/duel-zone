@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class CataclysmicEruption : Spell
+public sealed class CataclysmicEruption : Spell
 {
     public CataclysmicEruption() : base("Cataclysmic Eruption", 8, Civilization.Fire)
     {

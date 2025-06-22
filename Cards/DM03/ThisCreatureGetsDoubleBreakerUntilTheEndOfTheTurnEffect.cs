@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(
         ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class AgiraTheWarlordCrawler : EvolutionCreature
+    sealed class AgiraTheWarlordCrawler : EvolutionCreature
     {
         public AgiraTheWarlordCrawler() : base("Agira, the Warlord Crawler", 4, 5500, Race.Gladiator, Race.EarthEater, Civilization.Light, Civilization.Water)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM12
         }
     }
 
-    class AgiraAbility : TriggeredAbility
+    sealed class AgiraAbility : TriggeredAbility
     {
         public AgiraAbility() : base(new OneShotEffects.YouMayDrawCardEffect())
         {

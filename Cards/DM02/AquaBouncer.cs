@@ -4,7 +4,7 @@ using ContinuousEffects;
 
 namespace Cards.DM02
 {
-    class AquaBouncer : Engine.Creature
+    sealed class AquaBouncer : Engine.Creature
     {
         public AquaBouncer() : base("Aqua Bouncer", 6, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {

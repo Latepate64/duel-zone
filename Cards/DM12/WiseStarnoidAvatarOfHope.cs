@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class WiseStarnoidAvatarOfHope : VortexEvolutionCreature
+    sealed class WiseStarnoidAvatarOfHope : VortexEvolutionCreature
     {
         public WiseStarnoidAvatarOfHope() : base("Wise Starnoid, Avatar of Hope", 5, 9000, Civilization.Light, Civilization.Water, Race.Starnoid, Race.LightBringer, Race.CyberLord)
         {

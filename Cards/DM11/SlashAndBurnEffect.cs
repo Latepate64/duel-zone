@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class SlashAndBurnEffect : OneShotEffect
+public sealed class SlashAndBurnEffect : OneShotEffect
 {
     public SlashAndBurnEffect()
     {

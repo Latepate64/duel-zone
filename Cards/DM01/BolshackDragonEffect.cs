@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM01;
 
-public class BolshackDragonEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
+public sealed class BolshackDragonEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
 {
     public override IContinuousEffect Copy()
     {

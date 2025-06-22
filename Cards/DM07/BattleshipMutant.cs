@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class BattleshipMutant : Creature
+public sealed class BattleshipMutant : Creature
 {
     public BattleshipMutant() : base("Battleship Mutant", 6, 5000, Race.Hedrian, Civilization.Darkness)
     {

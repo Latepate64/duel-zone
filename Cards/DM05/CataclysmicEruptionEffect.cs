@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM05;
 
-public class CataclysmicEruptionEffect : OneShotEffect
+public sealed class CataclysmicEruptionEffect : OneShotEffect
 {
     public CataclysmicEruptionEffect()
     {

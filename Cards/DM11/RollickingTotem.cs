@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class RollickingTotem : SilentSkillCreature
+    sealed class RollickingTotem : SilentSkillCreature
     {
         public RollickingTotem() : base("Rollicking Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM11
         }
     }
 
-    class RollickingTotemEffect : CardMovingChoiceEffect<ICreature>
+    sealed class RollickingTotemEffect : CardMovingChoiceEffect<ICreature>
     {
         public RollickingTotemEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
         {

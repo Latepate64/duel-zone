@@ -6,7 +6,7 @@ using ContinuousEffects;
 
 namespace Cards.DM01;
 
-public class BurningPowerEffect : CreatureSelectionEffect
+public sealed class BurningPowerEffect : CreatureSelectionEffect
 {
     public BurningPowerEffect() : base(1, 1, true)
     {

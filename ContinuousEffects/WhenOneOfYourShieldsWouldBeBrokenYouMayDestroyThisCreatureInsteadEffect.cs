@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEffect : WhenOneOfYourShieldsWouldBeBrokenEffect
+public sealed class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEffect : WhenOneOfYourShieldsWouldBeBrokenEffect
 {
     public WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEffect()
     {

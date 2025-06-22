@@ -1,6 +1,6 @@
 ﻿namespace Engine.Abilities
 {
-    public class SpellAbility : ResolvableAbility
+    public sealed class SpellAbility : ResolvableAbility
     {
         public SpellAbility(IOneShotEffect effect) : base(effect)
         { }

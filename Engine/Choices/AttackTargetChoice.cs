@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class AttackTargetChoice : Choice, IAttackTargetChoice
+public sealed class AttackTargetChoice : Choice, IAttackTargetChoice
 {
     public AttackTargetChoice(IAttackTargetChoice choice) : base(choice)
     {

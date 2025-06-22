@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM10;
 
-public class UpheavalEffect : OneShotEffect
+public sealed class UpheavalEffect : OneShotEffect
 {
     public UpheavalEffect()
     {

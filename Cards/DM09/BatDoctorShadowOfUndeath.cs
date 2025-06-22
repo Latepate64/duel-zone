@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM09
 {
-    class BatDoctorShadowOfUndeath : Creature
+    sealed class BatDoctorShadowOfUndeath : Creature
     {
         public BatDoctorShadowOfUndeath() : base("Bat Doctor, Shadow of Undeath", 3, 2000, Race.Ghost, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM09
         }
     }
 
-    class BatDoctorShadowOfUndeathEffect : SalvageEffect
+    sealed class BatDoctorShadowOfUndeathEffect : SalvageEffect
     {
         public BatDoctorShadowOfUndeathEffect() : base(0, 1, true)
         {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class BattleshipMutantEffect : OneShotEffect
+public sealed class BattleshipMutantEffect : OneShotEffect
 {
     public BattleshipMutantEffect()
     {

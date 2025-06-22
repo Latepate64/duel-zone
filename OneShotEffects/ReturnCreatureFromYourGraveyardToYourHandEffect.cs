@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ReturnCreatureFromYourGraveyardToYourHandEffect : SalvageCreatureEffect
+public sealed class ReturnCreatureFromYourGraveyardToYourHandEffect : SalvageCreatureEffect
 {
     public ReturnCreatureFromYourGraveyardToYourHandEffect() : base(1, 1)
     {

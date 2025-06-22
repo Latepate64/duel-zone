@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class BonfireLizard : WaveStrikerCreature
+    sealed class BonfireLizard : WaveStrikerCreature
     {
         public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Race.MeltWarrior, Civilization.Fire)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM11
         }
     }
 
-    class BonfireLizardEffect : OneShotEffects.DestroyEffect
+    sealed class BonfireLizardEffect : OneShotEffects.DestroyEffect
     {
         public BonfireLizardEffect() : base(0, 2, true)
         {

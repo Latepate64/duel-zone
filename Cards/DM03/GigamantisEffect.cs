@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class GigamantisEffect : WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect
+public sealed class GigamantisEffect : WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect
 {
     public GigamantisEffect() : base()
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class YouMayReturnSpellFromYourGraveyardToYourHandEffect : SalvageEffect
+public sealed class YouMayReturnSpellFromYourGraveyardToYourHandEffect : SalvageEffect
 {
     public YouMayReturnSpellFromYourGraveyardToYourHandEffect() : base(0, 1, true)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class SimianWarriorGrashAbility : DestroyedAbility
+public sealed class SimianWarriorGrashAbility : DestroyedAbility
 {
     public SimianWarriorGrashAbility(IOneShotEffect effect) : base(effect)
     {

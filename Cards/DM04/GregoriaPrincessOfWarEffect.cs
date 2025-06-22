@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM04;
 
-public class GregoriaPrincessOfWarEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
+public sealed class GregoriaPrincessOfWarEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
 {
     public GregoriaPrincessOfWarEffect() : base() { }
 

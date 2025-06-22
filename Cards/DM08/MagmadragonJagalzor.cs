@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class MagmadragonJagalzor : TurboRushCreature
+    sealed class MagmadragonJagalzor : TurboRushCreature
     {
         public MagmadragonJagalzor() : base("Magmadragon Jagalzor", 6, 6000, Race.VolcanoDragon, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM08
         }
     }
 
-    class MagmadragonJagalzorEffect : ContinuousEffect, ISpeedAttackerEffect
+    sealed class MagmadragonJagalzorEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public MagmadragonJagalzorEffect() : base()
         {

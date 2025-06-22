@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class SilvermoonTrailblazer : Creature
+public sealed class SilvermoonTrailblazer : Creature
 {
     public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000, Race.BeastFolk, Civilization.Nature)
     {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM06;
 
-public class InvincibleTechnologyEffect : OneShotEffect
+public sealed class InvincibleTechnologyEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect : SalvageEffect, IRaceable
+public sealed class YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect : SalvageEffect, IRaceable
 {
     public YouMayReturnRaceCreatureFromYourGraveyardToYourHandEffect(Race race) : base(0, 1, true)
     {

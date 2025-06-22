@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09
 {
-    class AerodactylKooza : Creature
+    sealed class AerodactylKooza : Creature
     {
         public AerodactylKooza() : base("Aerodactyl Kooza", 3, 1000, Race.Armorloid, Civilization.Fire)
         {

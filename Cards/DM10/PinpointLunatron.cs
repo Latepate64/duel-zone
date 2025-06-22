@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM10
 {
-    class PinpointLunatron : SilentSkillCreature
+    sealed class PinpointLunatron : SilentSkillCreature
     {
         public PinpointLunatron() : base("Pinpoint Lunatron", 6, 2000, Race.CyberMoon, Civilization.Water)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM10
         }
     }
 
-    class PinpointLunatronEffect : CardSelectionEffect<ICard>
+    sealed class PinpointLunatronEffect : CardSelectionEffect<ICard>
     {
         public PinpointLunatronEffect() : base(1, 1, true)
         {

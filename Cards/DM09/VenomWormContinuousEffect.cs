@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09;
 
-public class VenomWormContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class VenomWormContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     private readonly Race _race;
 

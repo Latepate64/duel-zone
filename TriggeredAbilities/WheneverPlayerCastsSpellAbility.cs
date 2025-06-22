@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverPlayerCastsSpellAbility : TriggeredAbility
+public sealed class WheneverPlayerCastsSpellAbility : TriggeredAbility
 {
     public WheneverPlayerCastsSpellAbility(IOneShotEffect effect) : base(effect)
     {

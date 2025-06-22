@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class MiraculousRebirth : Spell
+public sealed class MiraculousRebirth : Spell
 {
     public MiraculousRebirth() : base("Miraculous Rebirth", 6, Civilization.Fire, Civilization.Nature)
     {

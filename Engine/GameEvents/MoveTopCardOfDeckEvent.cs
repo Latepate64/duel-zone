@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class MoveTopCardOfDeckEvent(IPlayerV2 player, ZoneType zoneType) : MoveCardEvent(player, zoneType, false)
+public sealed class MoveTopCardOfDeckEvent(IPlayerV2 player, ZoneType zoneType) : MoveCardEvent(player, zoneType, false)
 {
     internal override ICard RemoveCardFromCurrentZone()
     {

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class NiofaHornedProtectorEffect : SearchEffect
+public sealed class NiofaHornedProtectorEffect : SearchEffect
 {
     public NiofaHornedProtectorEffect() : base(true)
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
+public sealed class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
 {
     public WheneverThisCreatureBlocksAbility(OneShotEffect effect) : base(effect)
     {

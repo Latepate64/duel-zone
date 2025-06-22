@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class DeklowazTheTerminatorEffect : OneShotEffect
+public sealed class DeklowazTheTerminatorEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

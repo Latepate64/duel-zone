@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    class RazaVegaThunderGuardian : Engine.Creature
+    sealed class RazaVegaThunderGuardian : Engine.Creature
     {
         public RazaVegaThunderGuardian() : base("Raza Vega, Thunder Guardian", 10, 3000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {

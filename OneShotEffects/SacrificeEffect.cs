@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class SacrificeEffect : DestroyEffect
+public sealed class SacrificeEffect : DestroyEffect
 {
     public SacrificeEffect() : base(1, 1, true)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class StaticWarp : Spell
+public sealed class StaticWarp : Spell
 {
     public StaticWarp() : base("Static Warp", 2, Civilization.Light)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents
 {
-    public class EvolutionEvent(IPlayer player, ICard card, params ICard[] baits) : GameEvent
+    public sealed class EvolutionEvent(IPlayer player, ICard card, params ICard[] baits) : GameEvent
     {
         public IPlayer Player { get; } = player;
         public ICard EvolutionCreature { get; } = card;

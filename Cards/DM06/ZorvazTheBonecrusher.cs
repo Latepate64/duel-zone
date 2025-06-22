@@ -4,7 +4,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM06
 {
-    class ZorvazTheBonecrusher : Engine.Creature
+    sealed class ZorvazTheBonecrusher : Engine.Creature
     {
         public ZorvazTheBonecrusher() : base("Zorvaz, the Bonecrusher", 5, 8000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {

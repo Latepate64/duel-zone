@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DrawTwoCardsEffect : OneShotEffect
+public sealed class DrawTwoCardsEffect : OneShotEffect
 {
     public DrawTwoCardsEffect()
     {

@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09
 {
-    class GabzagulWarlordOfPain : Creature
+    sealed class GabzagulWarlordOfPain : Creature
     {
         public GabzagulWarlordOfPain() : base("Gabzagul, Warlord of Pain", 6, 5000, Race.DarkLord, Civilization.Darkness)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM09
         }
     }
 
-    class GabzagulWarlordOfPainEffect : ContinuousEffect, IAttacksIfAbleEffect
+    sealed class GabzagulWarlordOfPainEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
         public GabzagulWarlordOfPainEffect() : base()
         {

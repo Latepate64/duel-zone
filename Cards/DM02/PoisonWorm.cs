@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class PoisonWorm : Creature
+public sealed class PoisonWorm : Creature
 {
     public PoisonWorm() : base("Poison Worm", 4, 4000, Race.ParasiteWorm, Civilization.Darkness)
     {

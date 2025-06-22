@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM03;
 
-public class ShtraEffect : MutualManaRecoveryEffect
+public sealed class ShtraEffect : MutualManaRecoveryEffect
 {
     public ShtraEffect() : base(1)
     {

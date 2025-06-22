@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
+public sealed class YouLoseTheGameAtTheEndOfTheExtraTurnEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -5,7 +5,7 @@ namespace Engine.Steps
     /// <summary>
     /// 502.1. The active player draws a card. This is a turn-based action.
     /// </summary>
-    public class DrawPhase : Phase, ITurnBasedActionable
+    public sealed class DrawPhase : Phase, ITurnBasedActionable
     {
         public DrawPhase() : base(PhaseOrStep.Draw)
         {

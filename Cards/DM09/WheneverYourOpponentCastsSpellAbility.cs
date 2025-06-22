@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class WheneverYourOpponentCastsSpellAbility : TriggeredAbility
+public sealed class WheneverYourOpponentCastsSpellAbility : TriggeredAbility
 {
     public WheneverYourOpponentCastsSpellAbility(IOneShotEffect effect) : base(effect)
     {

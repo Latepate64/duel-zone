@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM07;
 
-public class ApocalypseViseChoiceMode : ICardChoiceMode<ICreature>
+public sealed class ApocalypseViseChoiceMode : ICardChoiceMode<ICreature>
 {
     public bool CanBeChosenAutomatically(IEnumerable<ICreature> cards)
     {

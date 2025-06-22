@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    class StormShell : Engine.Creature
+    sealed class StormShell : Engine.Creature
     {
         public StormShell() : base("Storm Shell", 7, 2000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {

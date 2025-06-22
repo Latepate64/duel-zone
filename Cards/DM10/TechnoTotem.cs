@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class TechnoTotem : Creature
+    sealed class TechnoTotem : Creature
     {
         public TechnoTotem() : base("Techno Totem", 4, 5000, Race.MysteryTotem, Civilization.Light, Civilization.Nature)
         {
@@ -16,7 +16,7 @@ namespace Cards.DM10
         }
     }
 
-    class TechnoTotemEffect : ContinuousEffect, IAbilityAddingEffect
+    sealed class TechnoTotemEffect : ContinuousEffect, IAbilityAddingEffect
     {
         public TechnoTotemEffect()
         {

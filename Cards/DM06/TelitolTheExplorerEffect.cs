@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class TelitolTheExplorerEffect : OneShotEffect
+public sealed class TelitolTheExplorerEffect : OneShotEffect
 {
     public TelitolTheExplorerEffect()
     {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Promo
 {
-    class QTronicOmnistrain : EvolutionCreature
+    sealed class QTronicOmnistrain : EvolutionCreature
     {
         public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Race.Survivor, Civilization.Nature)
         {
@@ -14,7 +14,7 @@ namespace Cards.Promo
         }
     }
 
-    class QTronicOmnistrainEffect : ContinuousEffect, IRaceAddingEffect
+    sealed class QTronicOmnistrainEffect : ContinuousEffect, IRaceAddingEffect
     {
         public void AddRace(IGame game)
         {

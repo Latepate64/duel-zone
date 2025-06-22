@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect : OneShotEffect
+public sealed class ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect : OneShotEffect
 {
     public ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect(
         ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect effect) : base(effect)

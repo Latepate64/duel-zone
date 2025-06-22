@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class SkyswordTheSavageVizierEffect : OneShotEffect
+public sealed class SkyswordTheSavageVizierEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

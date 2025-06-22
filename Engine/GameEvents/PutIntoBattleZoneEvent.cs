@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class PutIntoBattleZoneEvent(IPlayerV2 player, bool passable, ICard card) :
+public sealed class PutIntoBattleZoneEvent(IPlayerV2 player, bool passable, ICard card) :
     MoveCardEvent(player, ZoneType.BattleZone, passable)
 {
     public ICard ICard { get; } = card;

@@ -2,7 +2,7 @@
 
 namespace ContinuousEffects;
 
-public class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
+public sealed class WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
 {
     public WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect() : base()
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class BonePiercer : Creature
+public sealed class BonePiercer : Creature
 {
     public BonePiercer() : base("Bone Piercer", 2, 1000, Race.BrainJacker, Civilization.Darkness)
     {

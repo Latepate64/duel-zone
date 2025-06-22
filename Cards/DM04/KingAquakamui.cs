@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class KingAquakamui : Creature
+public sealed class KingAquakamui : Creature
 {
     public KingAquakamui() : base("King Aquakamui", 7, 5000, Race.Leviathan, Civilization.Water)
     {

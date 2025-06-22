@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM08;
 
-public class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
+public sealed class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
 {
     public YourCreaturesCannotBeBlockedThisTurnEffect() : base()
     {

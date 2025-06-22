@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM10;
 
-public class StaticWarpEffect : OneShotEffect
+public sealed class StaticWarpEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

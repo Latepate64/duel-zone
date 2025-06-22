@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class SilvermoonTrailblazerOneShotEffect : OneShotEffect
+public sealed class SilvermoonTrailblazerOneShotEffect : OneShotEffect
 {
     public SilvermoonTrailblazerOneShotEffect()
     {

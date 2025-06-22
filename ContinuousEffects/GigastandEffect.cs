@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class GigastandEffect : DestructionReplacementEffect
+public sealed class GigastandEffect : DestructionReplacementEffect
 {
     public GigastandEffect() : base()
     {

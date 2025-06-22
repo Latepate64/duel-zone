@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class DeathSmokeEffect : DestroyEffect
+public sealed class DeathSmokeEffect : DestroyEffect
 {
     public DeathSmokeEffect() : base(1, 1, true)
     {

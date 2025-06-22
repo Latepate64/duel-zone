@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class EnigmaticCascadeEffect : OneShotEffect
+public sealed class EnigmaticCascadeEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

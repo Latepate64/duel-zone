@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class MiraculousSnare : Spell
+    sealed class MiraculousSnare : Spell
     {
         public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM11
         }
     }
 
-    class MiraculousSnareEffect : CardMovingChoiceEffect<ICreature>
+    sealed class MiraculousSnareEffect : CardMovingChoiceEffect<ICreature>
     {
         public MiraculousSnareEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {

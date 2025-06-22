@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM09
 {
-    class KaluteVizierOfEternity : Creature
+    sealed class KaluteVizierOfEternity : Creature
     {
         public KaluteVizierOfEternity() : base("Kalute, Vizier of Eternity", 2, 1000, Race.Initiate, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM09
         }
     }
 
-    class KaluteEffect : DestructionReplacementEffect
+    sealed class KaluteEffect : DestructionReplacementEffect
     {
         public KaluteEffect()
         {

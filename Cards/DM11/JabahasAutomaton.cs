@@ -2,7 +2,7 @@
 
 namespace Cards.DM11
 {
-    class JabahasAutomaton : EvolutionCreature
+    sealed class JabahasAutomaton : EvolutionCreature
     {
         public JabahasAutomaton() : base("Jabaha's Automaton", 5, 6000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
         {

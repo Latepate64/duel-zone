@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class NecrodragonBryzenagaEffect : OneShotEffect
+public sealed class NecrodragonBryzenagaEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

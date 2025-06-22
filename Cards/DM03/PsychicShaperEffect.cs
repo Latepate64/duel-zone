@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM03;
 
-public class PsychicShaperEffect : OneShotEffect
+public sealed class PsychicShaperEffect : OneShotEffect
 {
     public PsychicShaperEffect()
     {

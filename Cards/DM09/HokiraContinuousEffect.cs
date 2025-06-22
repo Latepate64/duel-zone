@@ -7,7 +7,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09;
 
-public class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IExpirable
+public sealed class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IExpirable
 {
     private readonly Race _race;
 

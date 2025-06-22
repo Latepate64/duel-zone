@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM02;
 
-public class KingNautilusEffect : ContinuousEffect, IUnblockableEffect
+public sealed class KingNautilusEffect : ContinuousEffect, IUnblockableEffect
 {
     public KingNautilusEffect() : base()
     {

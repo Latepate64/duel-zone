@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class UlarusPunishmentElemental : Creature
+public sealed class UlarusPunishmentElemental : Creature
 {
     public UlarusPunishmentElemental() : base(
         "Ularus, Punishment Elemental", 5, 4500, Race.AngelCommand, Civilization.Light)

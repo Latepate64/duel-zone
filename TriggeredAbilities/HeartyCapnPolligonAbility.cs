@@ -1,10 +1,9 @@
 ﻿using OneShotEffects;
-using Engine.GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
+public sealed class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
 {
     public HeartyCapnPolligonAbility() : base(new HeartyCapnPolligonEffect())
     {

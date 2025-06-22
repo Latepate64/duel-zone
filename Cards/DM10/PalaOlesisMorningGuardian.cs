@@ -2,11 +2,10 @@
 using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
-using System.Linq;
 
 namespace Cards.DM10
 {
-    class PalaOlesisMorningGuardian : Creature
+    sealed class PalaOlesisMorningGuardian : Creature
     {
         public PalaOlesisMorningGuardian() : base("Pala Olesis, Morning Guardian", 3, 2500, Race.Guardian, Civilization.Light)
         {
@@ -16,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class PalaOlesisMorningGuardianEffect : ContinuousEffect, IPowerModifyingEffect
+    sealed class PalaOlesisMorningGuardianEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public PalaOlesisMorningGuardianEffect() : base()
         {

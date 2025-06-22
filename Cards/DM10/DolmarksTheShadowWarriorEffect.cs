@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class DolmarksTheShadowWarriorEffect : OneShotEffect
+public sealed class DolmarksTheShadowWarriorEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

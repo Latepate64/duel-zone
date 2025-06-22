@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM05
 {
-    class GalliaZohlIronGuardianQ : Engine.Creature
+    sealed class GalliaZohlIronGuardianQ : Engine.Creature
     {
         public GalliaZohlIronGuardianQ() : base("Gallia Zohl, Iron Guardian Q", 5, 2000, [Interfaces.Race.Survivor, Interfaces.Race.Guardian], Interfaces.Civilization.Light)
         {

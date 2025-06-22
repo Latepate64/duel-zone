@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
+public sealed class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
 {
     public Race Race { get; }
 

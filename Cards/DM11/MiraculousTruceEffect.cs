@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class MiraculousTruceEffect : OneShotEffect
+public sealed class MiraculousTruceEffect : OneShotEffect
 {
     public MiraculousTruceEffect()
     {

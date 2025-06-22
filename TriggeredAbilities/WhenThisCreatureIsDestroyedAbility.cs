@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WhenThisCreatureIsDestroyedAbility : DestroyedAbility
+public sealed class WhenThisCreatureIsDestroyedAbility : DestroyedAbility
 {
     public WhenThisCreatureIsDestroyedAbility(WhenThisCreatureIsDestroyedAbility ability) : base(ability)
     {

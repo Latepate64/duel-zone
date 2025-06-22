@@ -2,7 +2,7 @@
 
 namespace Cards.DM12
 {
-    class MizoyTheOracle : Engine.Creature
+    sealed class MizoyTheOracle : Engine.Creature
     {
         public MizoyTheOracle() : base("Mizoy, the Oracle", 3, 2500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

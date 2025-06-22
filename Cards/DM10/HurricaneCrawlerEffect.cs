@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class HurricaneCrawlerEffect : OneShotEffect
+public sealed class HurricaneCrawlerEffect : OneShotEffect
 {
     public HurricaneCrawlerEffect()
     {

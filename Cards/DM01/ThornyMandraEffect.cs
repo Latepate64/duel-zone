@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class ThornyMandraEffect : FromGraveyardIntoManaZoneEffect
+public sealed class ThornyMandraEffect : FromGraveyardIntoManaZoneEffect
 {
     public ThornyMandraEffect() : base(0, 1, true)
     {

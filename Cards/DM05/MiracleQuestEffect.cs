@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class MiracleQuestEffect : OneShotEffect
+public sealed class MiracleQuestEffect : OneShotEffect
 {
     public MiracleQuestEffect()
     {

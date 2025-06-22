@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class RoarOfTheEarthEffect : SelfManaRecoveryEffect
+public sealed class RoarOfTheEarthEffect : SelfManaRecoveryEffect
 {
     public RoarOfTheEarthEffect() : base(1, 1, true) { }
 

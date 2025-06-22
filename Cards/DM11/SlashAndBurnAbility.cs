@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class SlashAndBurnAbility : LinkedTriggeredAbility
+public sealed class SlashAndBurnAbility : LinkedTriggeredAbility
 {
     public SlashAndBurnAbility()
     {

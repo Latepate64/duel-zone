@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class MetalwingSkyterror : Creature
+public sealed class MetalwingSkyterror : Creature
 {
     public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000, Race.ArmoredWyvern, Civilization.Fire)
     {

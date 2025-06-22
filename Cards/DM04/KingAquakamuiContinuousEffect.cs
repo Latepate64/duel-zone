@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM04;
 
-public class KingAquakamuiContinuousEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class KingAquakamuiContinuousEffect : ContinuousEffect, IPowerModifyingEffect
 {
     public KingAquakamuiContinuousEffect(KingAquakamuiContinuousEffect effect) : base(effect)
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ShadowMoonCursedShade : Creature
+public sealed class ShadowMoonCursedShade : Creature
 {
     public ShadowMoonCursedShade() : base("Shadow Moon, Cursed Shade", 4, 3000, Race.Ghost, Civilization.Darkness)
     {

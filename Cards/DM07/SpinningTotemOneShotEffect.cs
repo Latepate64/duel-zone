@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class SpinningTotemOneShotEffect : OneShotEffect
+public sealed class SpinningTotemOneShotEffect : OneShotEffect
 {
     public SpinningTotemOneShotEffect()
     {

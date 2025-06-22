@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM06
 {
-    class ProclamationOfDeath : Engine.Spell
+    sealed class ProclamationOfDeath : Engine.Spell
     {
         public ProclamationOfDeath() : base("Proclamation of Death", 4, Interfaces.Civilization.Darkness)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    class HawkeyeLunatron : Engine.Creature
+    sealed class HawkeyeLunatron : Engine.Creature
     {
         public HawkeyeLunatron() : base("Hawkeye Lunatron", 8, 6000, Interfaces.Race.CyberMoon, Interfaces.Civilization.Water)
         {

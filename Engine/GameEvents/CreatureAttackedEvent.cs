@@ -1,9 +1,8 @@
-﻿using Engine.Steps;
-using Interfaces;
+﻿using Interfaces;
 
 namespace Engine.GameEvents
 {
-    public class CreatureAttackedEvent(ICreature attacker, IAttackable id) : GameEvent
+    public sealed class CreatureAttackedEvent(ICreature attacker, IAttackable id) : GameEvent
     {
         public ICreature Attacker { get; } = attacker;
         public IAttackable Target { get; } = id;

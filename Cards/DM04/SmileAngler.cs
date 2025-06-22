@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class SmileAngler : Creature
+public sealed class SmileAngler : Creature
 {
     public SmileAngler() : base("Smile Angler", 6, 3000, Race.GelFish, Civilization.Water)
     {

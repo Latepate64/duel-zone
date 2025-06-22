@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class ArmoredWarriorQuelosEffect : OneShotEffect
+public sealed class ArmoredWarriorQuelosEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

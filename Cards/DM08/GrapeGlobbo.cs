@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class GrapeGlobbo : Creature
+public sealed class GrapeGlobbo : Creature
 {
     public GrapeGlobbo() : base("Grape Globbo", 2, 1000, Race.CyberVirus, Civilization.Water)
     {

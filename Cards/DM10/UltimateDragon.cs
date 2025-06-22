@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class UltimateDragon : Creature
+    sealed class UltimateDragon : Creature
     {
         public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM10
         }
     }
 
-    class UltimateDragonPowerEffect(int power = 5000) : PowerModifyingMultiplierEffect(power)
+    sealed class UltimateDragonPowerEffect(int power = 5000) : PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {
@@ -32,7 +32,7 @@ namespace Cards.DM10
         }
     }
 
-    class UltimateDragonBreakerEffect : CrewBreakerEffect
+    sealed class UltimateDragonBreakerEffect : CrewBreakerEffect
     {
         public override IContinuousEffect Copy()
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    class GezaryUndercoverDoll : Engine.Creature
+    sealed class GezaryUndercoverDoll : Engine.Creature
     {
         public GezaryUndercoverDoll() : base("Gezary, Undercover Doll", 3, 2000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {

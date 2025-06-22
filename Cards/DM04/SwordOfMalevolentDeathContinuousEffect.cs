@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM04;
 
-public class SwordOfMalevolentDeathContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class SwordOfMalevolentDeathContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     public SwordOfMalevolentDeathContinuousEffect(SwordOfMalevolentDeathContinuousEffect effect) : base(effect)
     {

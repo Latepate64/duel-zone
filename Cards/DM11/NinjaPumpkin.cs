@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11
 {
-    class NinjaPumpkin : WaveStrikerCreature
+    sealed class NinjaPumpkin : WaveStrikerCreature
     {
         public NinjaPumpkin() : base("Ninja Pumpkin", 3, 2000, Race.WildVeggies, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class NinjaPumpkinEffect : ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect, IPowerModifyingEffect
+    sealed class NinjaPumpkinEffect : ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect, IPowerModifyingEffect
     {
         public NinjaPumpkinEffect(int blockerMaxPower = 5000) : base(blockerMaxPower)
         {

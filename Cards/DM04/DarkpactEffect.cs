@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class DarkpactEffect : OneShotEffect
+public sealed class DarkpactEffect : OneShotEffect
 {
     public DarkpactEffect()
     {

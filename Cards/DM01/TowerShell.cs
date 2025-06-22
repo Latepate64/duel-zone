@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class TowerShell : Engine.Creature
+    sealed class TowerShell : Engine.Creature
     {
         public TowerShell() : base("Tower Shell", 6, 5000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {

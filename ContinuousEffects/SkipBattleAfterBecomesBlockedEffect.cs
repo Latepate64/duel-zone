@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class SkipBattleAfterBecomesBlockedEffect : ContinuousEffect, ISkipBattleAfterBlockEffect
+public sealed class SkipBattleAfterBecomesBlockedEffect : ContinuousEffect, ISkipBattleAfterBlockEffect
 {
     public SkipBattleAfterBecomesBlockedEffect()
     {

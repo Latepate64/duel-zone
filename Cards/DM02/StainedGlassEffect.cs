@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class StainedGlassEffect : BounceEffect
+public sealed class StainedGlassEffect : BounceEffect
 {
     public StainedGlassEffect() : base(0, 1)
     {

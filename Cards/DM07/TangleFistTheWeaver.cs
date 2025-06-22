@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM07
 {
-    class TangleFistTheWeaver : Engine.Creature
+    sealed class TangleFistTheWeaver : Engine.Creature
     {
         public TangleFistTheWeaver() : base("Tangle Fist, the Weaver", 4, 2000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
         {
@@ -11,7 +11,7 @@ namespace Cards.DM07
         }
     }
 
-    class TangleFistEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
+    sealed class TangleFistEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
     {
         public TangleFistEffect() : base(3)
         {

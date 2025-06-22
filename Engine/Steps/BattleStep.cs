@@ -5,7 +5,7 @@ namespace Engine.Steps
     /// <summary>
     /// 508.1. If the attacking creature was declared to attack another creature or if the attack was redirected to target a creature, that creature and the attacking creature battle.
     /// </summary>
-    public class BattleStep : Step
+    public sealed class BattleStep : Step
     {
         public BattleStep(AttackPhase phase) : base(phase, PhaseOrStep.Battle)
         {

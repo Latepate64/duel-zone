@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM11
 {
-    class SpinningTerrorTheWretched : Creature
+    sealed class SpinningTerrorTheWretched : Creature
     {
         public SpinningTerrorTheWretched() : base("Spinning Terror, the Wretched", 2, 1000, Race.DevilMask, Civilization.Darkness)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class SpinningTerrorTheWretchedEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class SpinningTerrorTheWretchedEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

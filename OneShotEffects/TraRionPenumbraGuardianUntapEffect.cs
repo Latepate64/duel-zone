@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect, IRaceable
+public sealed class TraRionPenumbraGuardianUntapEffect : UntapAreaOfEffect, IRaceable
 {
     public TraRionPenumbraGuardianUntapEffect(Race race) : base()
     {

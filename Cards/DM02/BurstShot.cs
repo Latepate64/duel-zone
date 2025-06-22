@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class BurstShot : Engine.Spell
+    sealed class BurstShot : Engine.Spell
     {
         public BurstShot() : base("Burst Shot", 6, Interfaces.Civilization.Fire)
         {

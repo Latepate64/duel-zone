@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM08;
 
-public class LunarChargerAbility : LinkedTriggeredAbility
+public sealed class LunarChargerAbility : LinkedTriggeredAbility
 {
     private readonly IEnumerable<ICreature> _cards;
     private readonly Guid _turnId;

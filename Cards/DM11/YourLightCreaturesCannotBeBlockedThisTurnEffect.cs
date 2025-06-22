@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM11;
 
-public class YourLightCreaturesCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect, IUnblockableEffect
+public sealed class YourLightCreaturesCannotBeBlockedThisTurnEffect : UntilEndOfTurnEffect, IUnblockableEffect
 {
     public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base()
     {

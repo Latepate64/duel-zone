@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class HokiraOneShotEffect : OneShotEffect
+public sealed class HokiraOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM07
 {
-    class VacuumGel : Spell
+    sealed class VacuumGel : Spell
     {
         public VacuumGel() : base("Vacuum Gel", 4, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM07
         }
     }
 
-    class VacuumGelEffect : DestroyEffect
+    sealed class VacuumGelEffect : DestroyEffect
     {
         public VacuumGelEffect() : base(1, 1, true)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    class ColossusBoost : Engine.Spell
+    sealed class ColossusBoost : Engine.Spell
     {
         public ColossusBoost() : base("Colossus Boost", 1, Interfaces.Civilization.Fire)
         {

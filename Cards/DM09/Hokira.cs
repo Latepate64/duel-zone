@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class Hokira : Creature
+public sealed class Hokira : Creature
 {
     public Hokira() : base("Hokira", 4, 3000, Race.CyberLord, Civilization.Water)
     {

@@ -2,7 +2,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public class YouMayDrawCardEffect : YouMayDrawCardsEffect
+public sealed class YouMayDrawCardEffect : YouMayDrawCardsEffect
 {
     public YouMayDrawCardEffect() : base(1)
     {

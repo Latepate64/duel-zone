@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ReBilSeekerOfArchery : Creature
+public sealed class ReBilSeekerOfArchery : Creature
 {
     public ReBilSeekerOfArchery() : base("Re Bil, Seeker of Archery", 7, 6000, Race.MechaThunder, Civilization.Light)
     {

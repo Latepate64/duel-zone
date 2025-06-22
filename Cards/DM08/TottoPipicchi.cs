@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class TottoPipicchi : Creature
+    sealed class TottoPipicchi : Creature
     {
         public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Race.FireBird, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM08
         }
     }
 
-    class TottoPipicchiEffect : ContinuousEffect, ISpeedAttackerEffect
+    sealed class TottoPipicchiEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public TottoPipicchiEffect() : base()
         {

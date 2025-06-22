@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class SwordOfBenevolentLifeEffect : OneShotEffect
+public sealed class SwordOfBenevolentLifeEffect : OneShotEffect
 {
     public SwordOfBenevolentLifeEffect()
     {

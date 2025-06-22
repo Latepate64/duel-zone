@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class FromManaZoneToShieldsFaceDownEffect : CardMovingChoiceEffect<ICard>
+public sealed class FromManaZoneToShieldsFaceDownEffect : CardMovingChoiceEffect<ICard>
 {
     public FromManaZoneToShieldsFaceDownEffect(FromManaZoneToShieldsFaceDownEffect effect) : base(effect)
     {

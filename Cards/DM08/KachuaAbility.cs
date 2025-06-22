@@ -6,7 +6,7 @@ using System;
 
 namespace Cards.DM08;
 
-public class KachuaAbility : LinkedTriggeredAbility
+public sealed class KachuaAbility : LinkedTriggeredAbility
 {
     private readonly ICreature _card;
     private readonly Guid _turnId;

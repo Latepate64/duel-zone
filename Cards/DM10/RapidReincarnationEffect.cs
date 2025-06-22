@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM10;
 
-public class RapidReincarnationEffect : OneShotEffect
+public sealed class RapidReincarnationEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

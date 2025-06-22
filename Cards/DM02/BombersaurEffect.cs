@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM02;
 
-public class BombersaurEffect : MutualManaSacrificeEffect
+public sealed class BombersaurEffect : MutualManaSacrificeEffect
 {
     public BombersaurEffect() : base(2)
     {

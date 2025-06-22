@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM05
 {
-    class AvalancheGiant : Engine.Creature
+    sealed class AvalancheGiant : Engine.Creature
     {
         public AvalancheGiant() : base("Avalanche Giant", 6, 8000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
         {

@@ -8,7 +8,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Engine;
 
-public class GameState(IPlayerV2[] players)
+public sealed class GameState(IPlayerV2[] players)
 {
     /// <summary>
     /// People in the game in an APNAP order.

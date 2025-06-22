@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    class RaylaTruthEnforcer : Engine.Creature
+    sealed class RaylaTruthEnforcer : Engine.Creature
     {
         public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, 3000, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
         {

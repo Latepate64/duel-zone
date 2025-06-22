@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM10;
 
-public class MummyWrapShadowOfFatigueEffect : OneShotEffect
+public sealed class MummyWrapShadowOfFatigueEffect : OneShotEffect
 {
     public MummyWrapShadowOfFatigueEffect()
     {

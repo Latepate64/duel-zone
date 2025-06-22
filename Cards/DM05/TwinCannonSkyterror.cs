@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    class TwinCannonSkyterror : Engine.Creature
+    sealed class TwinCannonSkyterror : Engine.Creature
     {
         public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, 7000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {

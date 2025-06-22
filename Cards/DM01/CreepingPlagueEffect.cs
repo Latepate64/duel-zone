@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class CreepingPlagueEffect : OneShotEffect
+public sealed class CreepingPlagueEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM04
 {
-    class AstralWarper : EvolutionCreature
+    sealed class AstralWarper : EvolutionCreature
     {
         public AstralWarper() : base("Astral Warper", 6, 5000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {

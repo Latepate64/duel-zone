@@ -6,7 +6,7 @@ using OneShotEffects;
 
 namespace Cards.DM02;
 
-public class PoisonWormEffect : DestroyEffect
+public sealed class PoisonWormEffect : DestroyEffect
 {
     public PoisonWormEffect() : base(1, 1, true)
     {

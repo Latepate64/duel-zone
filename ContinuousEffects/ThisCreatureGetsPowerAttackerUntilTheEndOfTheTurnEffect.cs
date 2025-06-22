@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     private readonly int _power;
 

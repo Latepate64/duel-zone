@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class TraRionPenumbraGuardianEffect : OneShotEffect
+public sealed class TraRionPenumbraGuardianEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

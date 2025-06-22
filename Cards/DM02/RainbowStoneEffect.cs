@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class RainbowStoneEffect : SearchAnyDeckEffect
+public sealed class RainbowStoneEffect : SearchAnyDeckEffect
 {
     public RainbowStoneEffect() : base()
     {

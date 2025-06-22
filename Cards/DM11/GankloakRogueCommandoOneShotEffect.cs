@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class GankloakRogueCommandoOneShotEffect : OneShotEffect
+public sealed class GankloakRogueCommandoOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

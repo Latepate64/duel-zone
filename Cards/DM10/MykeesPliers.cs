@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM10
 {
-    class MykeesPliers : Creature
+    sealed class MykeesPliers : Creature
     {
         public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Race.Xenoparts, Civilization.Fire)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class MykeesPliersEffect : AbilityAddingEffect
+    sealed class MykeesPliersEffect : AbilityAddingEffect
     {
         public MykeesPliersEffect() : base(new StaticAbility(new ThisCreatureHasSpeedAttackerEffect()))
         {

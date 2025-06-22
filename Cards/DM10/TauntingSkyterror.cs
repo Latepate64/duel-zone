@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class TauntingSkyterror : Creature
+    sealed class TauntingSkyterror : Creature
     {
         public TauntingSkyterror() : base("Taunting Skyterror", 5, 3000, Race.ArmoredWyvern, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM10
         }
     }
 
-    class TauntingSkyterrorEffect : ContinuousEffect, IAttacksIfAbleEffect
+    sealed class TauntingSkyterrorEffect : ContinuousEffect, IAttacksIfAbleEffect
     {
         public TauntingSkyterrorEffect()
         {

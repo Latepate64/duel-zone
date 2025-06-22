@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class LookAtYourOpponentsHandEffect : OneShotEffect
+public sealed class LookAtYourOpponentsHandEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

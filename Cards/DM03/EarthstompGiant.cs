@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class EarthstompGiant : Creature
+public sealed class EarthstompGiant : Creature
 {
     public EarthstompGiant() : base("Earthstomp Giant", 5, 8000, Race.Giant, Civilization.Nature)
     {

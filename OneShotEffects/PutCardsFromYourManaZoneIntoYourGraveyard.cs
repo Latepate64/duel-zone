@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class PutCardsFromYourManaZoneIntoYourGraveyard : ManaBurnEffect
+public sealed class PutCardsFromYourManaZoneIntoYourGraveyard : ManaBurnEffect
 {
     private readonly int _amount;
 

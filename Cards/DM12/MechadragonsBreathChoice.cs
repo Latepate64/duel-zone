@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class MechadragonsBreathChoice : NumberChoice
+public sealed class MechadragonsBreathChoice : NumberChoice
 {
     public MechadragonsBreathChoice(NumberChoice choice) : base(choice)
     {

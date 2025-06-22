@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM01
 {
-    class AquaSoldier : Engine.Creature
+    sealed class AquaSoldier : Engine.Creature
     {
         public AquaSoldier() : base("Aqua Soldier", 3, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {

@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class BoundedCardChoiceMode<T> : IBoundedCardChoiceMode<T> where T : ICard
+public sealed class BoundedCardChoiceMode<T> : IBoundedCardChoiceMode<T> where T : ICard
 {
     public BoundedCardChoiceMode(int min, int max)
     {

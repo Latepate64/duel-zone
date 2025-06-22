@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class WaveLanceEffect : OneShotEffect
+public sealed class WaveLanceEffect : OneShotEffect
 {
     public WaveLanceEffect()
     {

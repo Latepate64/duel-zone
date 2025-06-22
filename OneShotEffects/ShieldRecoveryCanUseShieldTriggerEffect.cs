@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ShieldRecoveryCanUseShieldTriggerEffect : ShieldRecoveryEffect
+public sealed class ShieldRecoveryCanUseShieldTriggerEffect : ShieldRecoveryEffect
 {
     public ShieldRecoveryCanUseShieldTriggerEffect() : base(true, 1)
     {

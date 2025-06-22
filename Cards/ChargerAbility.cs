@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards;
 
-public class ChargerAbility : StaticAbility
+public sealed class ChargerAbility : StaticAbility
 {
     public ChargerAbility() : base(new ContinuousEffects.ThisSpellHasChargerEffect())
     {

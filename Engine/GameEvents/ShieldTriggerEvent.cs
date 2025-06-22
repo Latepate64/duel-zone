@@ -2,7 +2,7 @@
 
 namespace Engine.GameEvents
 {
-    public class ShieldTriggerEvent(IPlayer player, ICard trigger) : GameEvent
+    public sealed class ShieldTriggerEvent(IPlayer player, ICard trigger) : GameEvent
     {
         public IPlayer Player { get; } = player;
         public ICard Trigger { get; } = trigger;

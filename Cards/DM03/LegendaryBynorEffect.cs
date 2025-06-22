@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class LegendaryBynorEffect : ContinuousEffect, IUnblockableEffect
+public sealed class LegendaryBynorEffect : ContinuousEffect, IUnblockableEffect
 {
     public LegendaryBynorEffect() : base()
     {

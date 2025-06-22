@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
+public sealed class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
 {
     private readonly IAbility[] _abilities;
 

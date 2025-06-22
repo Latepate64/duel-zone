@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class Soulswap : Spell
+public sealed class Soulswap : Spell
 {
     public Soulswap() : base("Soulswap", 3, Civilization.Nature)
     {

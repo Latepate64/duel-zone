@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class NaturalSnare : Spell
+public sealed class NaturalSnare : Spell
 {
     public NaturalSnare() : base("Natural Snare", 6, Civilization.Nature)
     {

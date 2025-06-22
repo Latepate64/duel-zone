@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class ApocalypseViseEffect : OneShotEffect
+public sealed class ApocalypseViseEffect : OneShotEffect
 {
     public ApocalypseViseEffect()
     {

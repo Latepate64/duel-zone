@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM12
 {
-    class ClonedSpikeHorn : Creature
+    sealed class ClonedSpikeHorn : Creature
     {
         public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Race.HornedBeast, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM12
         }
     }
 
-    class ClonedSpikeHornEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class ClonedSpikeHornEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

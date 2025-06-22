@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    class ÜberdragonBajula : DragonEvolutionCreature
+    sealed class ÜberdragonBajula : DragonEvolutionCreature
     {
         public ÜberdragonBajula() : base("Überdragon Bajula", 7, 13000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

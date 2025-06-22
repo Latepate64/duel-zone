@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ScreamSlicerShadowOfFearEffect : OneShotEffect
+public sealed class ScreamSlicerShadowOfFearEffect : OneShotEffect
 {
     public ScreamSlicerShadowOfFearEffect()
     {

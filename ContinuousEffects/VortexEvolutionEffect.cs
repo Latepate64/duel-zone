@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
+public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
 {
     public VortexEvolutionEffect(Race race1, Race race2)
     {

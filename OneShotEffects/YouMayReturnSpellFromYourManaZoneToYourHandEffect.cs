@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class YouMayReturnSpellFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
+public sealed class YouMayReturnSpellFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
 {
     public YouMayReturnSpellFromYourManaZoneToYourHandEffect() : base(0, 1, true)
     {

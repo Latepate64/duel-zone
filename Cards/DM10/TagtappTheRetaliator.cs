@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class TagtappTheRetaliator : Creature
+    sealed class TagtappTheRetaliator : Creature
     {
         public TagtappTheRetaliator() : base("Tagtapp, the Retaliator", 3, 3000, Race.SpiritQuartz, Civilization.Fire, Civilization.Nature)
         {
@@ -12,7 +12,7 @@ namespace Cards.DM10
         }
     }
 
-    class TagtappTheRetaliatorEffect(int power = 1000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class TagtappTheRetaliatorEffect(int power = 1000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

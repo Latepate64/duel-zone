@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class ManaBonanza : Spell
+public sealed class ManaBonanza : Spell
 {
     public ManaBonanza() : base("Mana Bonanza", 8, Civilization.Nature)
     {

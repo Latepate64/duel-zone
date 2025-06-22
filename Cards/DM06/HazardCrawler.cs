@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class HazardCrawler : Engine.Creature
+    sealed class HazardCrawler : Engine.Creature
     {
         public HazardCrawler() : base("Hazard Crawler", 5, 6000, Interfaces.Race.EarthEater, Interfaces.Civilization.Water)
         {

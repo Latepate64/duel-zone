@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
+public sealed class ThisCreatureGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
 {
     public ThisCreatureGetsPowerEffect(ThisCreatureGetsPowerEffect effect) : base(effect)
     {

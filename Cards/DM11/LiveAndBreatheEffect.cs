@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class LiveAndBreatheEffect : OneShotEffect
+public sealed class LiveAndBreatheEffect : OneShotEffect
 {
     public LiveAndBreatheEffect()
     {

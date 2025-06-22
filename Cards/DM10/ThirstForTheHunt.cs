@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    class ThirstForTheHunt : Engine.Spell
+    sealed class ThirstForTheHunt : Engine.Spell
     {
         public ThirstForTheHunt() : base("Thirst for the Hunt", 1, Interfaces.Civilization.Nature)
         {

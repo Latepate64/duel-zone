@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class BattleshipMutantAbility : LinkedTriggeredAbility
+public sealed class BattleshipMutantAbility : LinkedTriggeredAbility
 {
     private readonly IEnumerable<ICreature> _cards;
     private readonly ICreature _toDestroy;

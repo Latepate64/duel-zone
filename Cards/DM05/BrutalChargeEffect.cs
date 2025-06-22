@@ -4,7 +4,7 @@ using System;
 
 namespace Cards.DM05;
 
-public class BrutalChargeEffect : OneShotEffect
+public sealed class BrutalChargeEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

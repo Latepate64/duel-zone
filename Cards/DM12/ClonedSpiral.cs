@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class ClonedSpiral : Spell
+    sealed class ClonedSpiral : Spell
     {
         public ClonedSpiral() : base("Cloned Spiral", 4, Civilization.Water)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM12
         }
     }
 
-    class ClonedSpiralEffect : ClonedEffect
+    sealed class ClonedSpiralEffect : ClonedEffect
     {
         public ClonedSpiralEffect() : base("Cloned Spiral")
         {

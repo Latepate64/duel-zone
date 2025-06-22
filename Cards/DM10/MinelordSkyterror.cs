@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    class MinelordSkyterror : SilentSkillCreature
+    sealed class MinelordSkyterror : SilentSkillCreature
     {
         public MinelordSkyterror() : base("Minelord Skyterror", 4, 3000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {

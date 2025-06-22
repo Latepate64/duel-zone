@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class LeapingTornadoHorn : Engine.Creature
+    sealed class LeapingTornadoHorn : Engine.Creature
     {
         public LeapingTornadoHorn() : base("Leaping Tornado Horn", 3, 2000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM12
 {
-    class WingeyeMoth : Creature
+    sealed class WingeyeMoth : Creature
     {
         public WingeyeMoth() : base("Wingeye Moth", 5, 3000, Race.GiantInsect, Civilization.Nature)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM12
         }
     }
 
-    class WingeyeMothAbility : LinkedTriggeredAbility
+    sealed class WingeyeMothAbility : LinkedTriggeredAbility
     {
         public WingeyeMothAbility() : base()
         {

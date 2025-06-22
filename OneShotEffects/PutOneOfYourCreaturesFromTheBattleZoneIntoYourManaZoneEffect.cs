@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect : ManaFeedEffect
+public sealed class PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect : ManaFeedEffect
 {
     public PutOneOfYourCreaturesFromTheBattleZoneIntoYourManaZoneEffect() : base(1, 1, true)
     {

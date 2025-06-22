@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DiscardCardFromYourHandEffect : DiscardEffect
+public sealed class DiscardCardFromYourHandEffect : DiscardEffect
 {
     public DiscardCardFromYourHandEffect() : base(1, 1, true)
     {

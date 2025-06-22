@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.Steps
 {
-    public class AttackDeclarationStep : Step
+    public sealed class AttackDeclarationStep : Step
     {
         bool _tapAbilityUsed;
 

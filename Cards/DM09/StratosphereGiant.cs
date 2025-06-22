@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Cards.DM09
 {
-    class StratosphereGiant : Creature
+    sealed class StratosphereGiant : Creature
     {
         public StratosphereGiant() : base("Stratosphere Giant", 8, 13000, Race.Giant, Civilization.Nature)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM09
         }
     }
 
-    class StratosphereGiantEffect : CardMovingChoiceEffect<ICreature>
+    sealed class StratosphereGiantEffect : CardMovingChoiceEffect<ICreature>
     {
         public StratosphereGiantEffect() : base(0, 2, false, ZoneType.Hand, ZoneType.BattleZone)
         {

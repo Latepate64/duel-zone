@@ -6,7 +6,7 @@ namespace Engine.Steps
     /// <summary>
     /// 504.1. Normally, the active player can use cards only during their main phase.
     /// </summary>
-    public class MainPhase : PriorityPhase
+    public sealed class MainPhase : PriorityPhase
     {
         public MainPhase() : base(PhaseOrStep.Main)
         {

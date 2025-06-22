@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM01;
 
-public class TropicoEffect : ContinuousEffect, IUnblockableEffect
+public sealed class TropicoEffect : ContinuousEffect, IUnblockableEffect
 {
     public TropicoEffect() : base()
     {

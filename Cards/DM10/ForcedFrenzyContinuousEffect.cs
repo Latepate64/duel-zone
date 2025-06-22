@@ -7,7 +7,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10;
 
-public class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+public sealed class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
 {
     private readonly IPlayer _opponent;
 

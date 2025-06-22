@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class AuraPegasusEffect : OneShotEffect
+public sealed class AuraPegasusEffect : OneShotEffect
 {
     public AuraPegasusEffect()
     {

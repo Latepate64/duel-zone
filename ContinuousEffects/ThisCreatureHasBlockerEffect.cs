@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureHasBlockerEffect : ContinuousEffect, IBlockerEffect
+public sealed class ThisCreatureHasBlockerEffect : ContinuousEffect, IBlockerEffect
 {
     public ThisCreatureHasBlockerEffect() : base()
     {

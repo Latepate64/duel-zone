@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM07
 {
-    class RiptideCharger : Charger
+    sealed class RiptideCharger : Charger
     {
         public RiptideCharger() : base("Riptide Charger", 5, Interfaces.Civilization.Water)
         {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class VolcanoSmogDeceptiveShade : Creature
+public sealed class VolcanoSmogDeceptiveShade : Creature
 {
     public VolcanoSmogDeceptiveShade() : base(
         "Volcano Smog, Deceptive Shade", 6, 5000, Race.Ghost, Civilization.Darkness)

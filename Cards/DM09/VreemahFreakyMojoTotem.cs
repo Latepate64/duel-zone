@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class VreemahFreakyMojoTotem : Creature
+public sealed class VreemahFreakyMojoTotem : Creature
 {
     public VreemahFreakyMojoTotem() : base(
         "Vreemah, Freaky Mojo Totem", 5, 4000, Race.MysteryTotem, Civilization.Nature)

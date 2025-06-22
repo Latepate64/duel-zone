@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class InfernalCommandEffect : OneShotEffect
+public sealed class InfernalCommandEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

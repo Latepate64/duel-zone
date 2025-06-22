@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class MishaChannelerOfSuns : Creature
+    sealed class MishaChannelerOfSuns : Creature
     {
         public MishaChannelerOfSuns() : base("Misha, Channeler of Suns", 5, 5000, Race.MechaDelSol, Civilization.Light)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM08
         }
     }
 
-    class ThisCreatureCannotBeAttackedByDragonsEffect : ContinuousEffect, ICannotBeAttackedEffect
+    sealed class ThisCreatureCannotBeAttackedByDragonsEffect : ContinuousEffect, ICannotBeAttackedEffect
     {
         public ThisCreatureCannotBeAttackedByDragonsEffect() : base()
         {

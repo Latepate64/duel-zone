@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility : TriggeredAbility
+public sealed class WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility : TriggeredAbility
 {
     public WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(IOneShotEffect effect) : base(effect)
     {

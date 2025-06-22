@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM12
 {
-    class FeverNuts : Creature
+    sealed class FeverNuts : Creature
     {
         public FeverNuts() : base("Fever Nuts", 3, 1000, Interfaces.Race.WildVeggies, Interfaces.Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM12
         }
     }
 
-    class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
+    sealed class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
     {
         public FeverNutsEffect() : base() { }
 

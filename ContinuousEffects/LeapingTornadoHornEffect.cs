@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class LeapingTornadoHornEffect : PowerAttackerMultiplierEffect
+public sealed class LeapingTornadoHornEffect : PowerAttackerMultiplierEffect
 {
     public LeapingTornadoHornEffect(int power = 1000) : base(power)
     {

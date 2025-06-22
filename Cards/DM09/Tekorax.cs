@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class Tekorax : Creature
+public sealed class Tekorax : Creature
 {
     public Tekorax() : base("Tekorax", 5, 3000, Race.SeaHacker, Civilization.Water)
     {

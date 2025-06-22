@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM09
 {
-    class PetrovaChannelerOfSuns : Creature
+    sealed class PetrovaChannelerOfSuns : Creature
     {
         public PetrovaChannelerOfSuns() : base("Petrova, Channeler of Suns", 5, 3500, Race.AngelCommand, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM09
         }
     }
 
-    class PetrovaEffect : ReplacementEffect
+    sealed class PetrovaEffect : ReplacementEffect
     {
         public PetrovaEffect()
         {
@@ -47,7 +47,7 @@ namespace Cards.DM09
         }
     }
 
-    class PetrovaEvent : CardMovedEvent
+    sealed class PetrovaEvent : CardMovedEvent
     {
         private readonly Race _race;
 
@@ -73,7 +73,7 @@ namespace Cards.DM09
         }
     }
 
-    class PetrovaBuffEffect : ContinuousEffect, IPowerModifyingEffect, IExpirable
+    sealed class PetrovaBuffEffect : ContinuousEffect, IPowerModifyingEffect, IExpirable
     {
         private readonly Race _race;
 

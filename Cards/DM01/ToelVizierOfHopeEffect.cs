@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class ToelVizierOfHopeEffect : ControllerMayUntapCreatureEffect
+public sealed class ToelVizierOfHopeEffect : ControllerMayUntapCreatureEffect
 {
     public ToelVizierOfHopeEffect() : base()
     {

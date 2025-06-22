@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM07
 {
-    class EnergyCharger : Charger
+    sealed class EnergyCharger : Charger
     {
         public EnergyCharger() : base("Energy Charger", 3, Interfaces.Civilization.Fire)
         {

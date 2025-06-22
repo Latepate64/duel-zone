@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class NightMasterShadowOfDecay : Creature
+public sealed class NightMasterShadowOfDecay : Creature
 {
     public NightMasterShadowOfDecay() : base(
         "Night Master, Shadow of Decay", 6, 3000, Race.Ghost, Civilization.Darkness)

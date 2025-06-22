@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM02;
 
-public class ArmoredBlasterValdiosEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class ArmoredBlasterValdiosEffect : ContinuousEffect, IPowerModifyingEffect
 {
     public ArmoredBlasterValdiosEffect() : base() { }
 

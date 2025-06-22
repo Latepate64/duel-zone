@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM01;
 
-public class PoisonousMushroomEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
+public sealed class PoisonousMushroomEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
 {
     public PoisonousMushroomEffect() : base(1)
     {

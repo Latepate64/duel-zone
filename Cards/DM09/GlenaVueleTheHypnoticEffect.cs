@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class GlenaVueleTheHypnoticEffect : OneShotEffect
+public sealed class GlenaVueleTheHypnoticEffect : OneShotEffect
 {
     public GlenaVueleTheHypnoticEffect()
     {

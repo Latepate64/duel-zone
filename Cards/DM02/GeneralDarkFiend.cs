@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM02
 {
-    class GeneralDarkFiend : Engine.Creature
+    sealed class GeneralDarkFiend : Engine.Creature
     {
         public GeneralDarkFiend() : base("General Dark Fiend", 5, 6000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {

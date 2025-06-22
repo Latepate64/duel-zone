@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class ChargePhaseEvent(IPlayerV2 player) : GameEventV2(player, false)
+public sealed class ChargePhaseEvent(IPlayerV2 player) : GameEventV2(player, false)
 {
     bool shouldEnd;
 

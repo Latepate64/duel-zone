@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11;
 
-public class GankloakRogueCommandoContinuousEffect(params ICard[] cards) : AddAbilitiesUntilEndOfTurnEffect(
+public sealed class GankloakRogueCommandoContinuousEffect(params ICard[] cards) : AddAbilitiesUntilEndOfTurnEffect(
     new StaticAbility(new DoubleBreakerEffect()), cards)
 {
     public override IContinuousEffect Copy()

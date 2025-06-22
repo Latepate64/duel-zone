@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    class Meteosaur : Engine.Creature
+    sealed class Meteosaur : Engine.Creature
     {
         public Meteosaur() : base("Meteosaur", 5, 2000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {

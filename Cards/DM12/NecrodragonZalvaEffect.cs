@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class NecrodragonZalvaEffect : OneShotEffect
+public sealed class NecrodragonZalvaEffect : OneShotEffect
 {
     public NecrodragonZalvaEffect()
     {

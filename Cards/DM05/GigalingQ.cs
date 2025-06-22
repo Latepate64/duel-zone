@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM05
 {
-    class GigalingQ : Engine.Creature
+    sealed class GigalingQ : Engine.Creature
     {
         public GigalingQ() : base("Gigaling Q", 5, 2000, [Interfaces.Race.Survivor, Interfaces.Race.Chimera], Interfaces.Civilization.Darkness)
         {

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class TelitolTheExplorer : Creature
+public sealed class TelitolTheExplorer : Creature
 {
     public TelitolTheExplorer() : base("Telitol, the Explorer", 4, 3000, Race.Gladiator, Civilization.Light)
     {

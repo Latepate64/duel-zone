@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM07
 {
-    class MulchCharger : Charger
+    sealed class MulchCharger : Charger
     {
         public MulchCharger() : base("Mulch Charger", 3, Interfaces.Civilization.Nature)
         {

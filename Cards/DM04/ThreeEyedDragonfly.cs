@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ThreeEyedDragonfly : Creature
+public sealed class ThreeEyedDragonfly : Creature
 {
     public ThreeEyedDragonfly() : base("Three-Eyed Dragonfly", 5, 4000, Race.GiantInsect, Civilization.Nature)
     {

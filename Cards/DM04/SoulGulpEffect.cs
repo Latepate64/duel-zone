@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class SoulGulpEffect : OneShotEffect
+public sealed class SoulGulpEffect : OneShotEffect
 {
     public SoulGulpEffect()
     {

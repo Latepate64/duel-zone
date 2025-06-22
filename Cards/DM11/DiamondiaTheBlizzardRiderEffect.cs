@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class DiamondiaTheBlizzardRiderEffect : OneShotEffect
+public sealed class DiamondiaTheBlizzardRiderEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09;
 
-public class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect, ICanAttackUntappedCreaturesEffect,
+public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect, ICanAttackUntappedCreaturesEffect,
     IUnblockableEffect
 {
     private readonly Race _race;

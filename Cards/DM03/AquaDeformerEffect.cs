@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM03;
 
-public class AquaDeformerEffect : MutualManaRecoveryEffect
+public sealed class AquaDeformerEffect : MutualManaRecoveryEffect
 {
     public AquaDeformerEffect() : base(1)
     {

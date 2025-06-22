@@ -5,7 +5,7 @@ using System;
 
 namespace Cards.DM02;
 
-public class DiamondCutterContinuousEffect : UntilEndOfTurnEffect, IIgnoreCannotAttackPlayersEffects
+public sealed class DiamondCutterContinuousEffect : UntilEndOfTurnEffect, IIgnoreCannotAttackPlayersEffects
 {
     private readonly Guid _controller;
 

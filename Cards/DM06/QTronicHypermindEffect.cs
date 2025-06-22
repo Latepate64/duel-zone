@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class QTronicHypermindEffect : OneShotEffect
+public sealed class QTronicHypermindEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

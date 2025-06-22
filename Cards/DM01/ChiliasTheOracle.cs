@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class ChiliasTheOracle : Engine.Creature
+    sealed class ChiliasTheOracle : Engine.Creature
     {
         public ChiliasTheOracle() : base("Chilias, the Oracle", 4, 2500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

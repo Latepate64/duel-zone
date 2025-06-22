@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class NeveTheLevelerAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+public sealed class NeveTheLevelerAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
 {
     public NeveTheLevelerAbility(IOneShotEffect effect) : base(effect)
     {

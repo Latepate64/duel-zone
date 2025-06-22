@@ -7,7 +7,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM05;
 
-public class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+public sealed class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
 {
     private readonly IPlayer _player;
 

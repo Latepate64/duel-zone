@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ThreeEyedDragonflyOneShotEffect : OneShotEffect
+public sealed class ThreeEyedDragonflyOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

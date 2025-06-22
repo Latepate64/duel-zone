@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class GigiosHammerOneShotEffect : OneShotEffect
+public sealed class GigiosHammerOneShotEffect : OneShotEffect
 {
     public GigiosHammerOneShotEffect()
     {

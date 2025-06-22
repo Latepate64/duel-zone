@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class FullDefensorEffect : OneShotEffect
+public sealed class FullDefensorEffect : OneShotEffect
 {
     public FullDefensorEffect() : base()
     {

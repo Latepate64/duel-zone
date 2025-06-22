@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class PouchShellEffect : CreatureSelectionEffect
+public sealed class PouchShellEffect : CreatureSelectionEffect
 {
     public PouchShellEffect() : base(0, 1, true)
     {

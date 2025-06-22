@@ -5,7 +5,7 @@ using OneShotEffects;
 
 namespace Cards.DM03;
 
-public class BonePiercerEffect : SelfManaRecoveryEffect
+public sealed class BonePiercerEffect : SelfManaRecoveryEffect
 {
     public BonePiercerEffect() : base(0, 1, true)
     {

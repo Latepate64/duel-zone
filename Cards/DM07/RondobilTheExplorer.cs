@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM07
 {
-    class RondobilTheExplorer : Creature
+    sealed class RondobilTheExplorer : Creature
     {
         public RondobilTheExplorer() : base("Rondobil, the Explorer", 6, 5000, Race.Gladiator, Civilization.Light)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM07
         }
     }
 
-    class RondobilTheExplorerEffect : CardMovingChoiceEffect<ICreature>
+    sealed class RondobilTheExplorerEffect : CardMovingChoiceEffect<ICreature>
     {
         public RondobilTheExplorerEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
         {

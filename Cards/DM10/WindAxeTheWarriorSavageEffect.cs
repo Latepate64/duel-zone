@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class WindAxeTheWarriorSavageEffect : OneShotEffect
+public sealed class WindAxeTheWarriorSavageEffect : OneShotEffect
 {
     public WindAxeTheWarriorSavageEffect()
     {

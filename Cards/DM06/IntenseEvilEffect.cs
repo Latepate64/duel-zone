@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM06;
 
-public class IntenseEvilEffect : OneShotEffect
+public sealed class IntenseEvilEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

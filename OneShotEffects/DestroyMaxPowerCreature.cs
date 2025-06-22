@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DestroyMaxPowerCreature : DestroyEffect
+public sealed class DestroyMaxPowerCreature : DestroyEffect
 {
     private readonly int _power;
 

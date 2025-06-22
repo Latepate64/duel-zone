@@ -2,7 +2,7 @@
 
 namespace Engine.GameEvents
 {
-    public class BecomeBlockedEvent(ICreature attacker, ICreature blocker) : GameEvent
+    public sealed class BecomeBlockedEvent(ICreature attacker, ICreature blocker) : GameEvent
     {
         public ICreature Attacker { get; } = attacker;
         public ICreature Blocker { get; } = blocker;

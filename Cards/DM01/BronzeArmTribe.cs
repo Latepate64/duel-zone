@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    class BronzeArmTribe : Engine.Creature
+    sealed class BronzeArmTribe : Engine.Creature
     {
         public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
         {

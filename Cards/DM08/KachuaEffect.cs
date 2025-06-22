@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM08;
 
-public class KachuaEffect : OneShotEffect
+public sealed class KachuaEffect : OneShotEffect
 {
     public KachuaEffect()
     {

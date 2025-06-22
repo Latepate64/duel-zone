@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class MarrowOozeTheTwisterEffect : OneShotEffect
+public sealed class MarrowOozeTheTwisterEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

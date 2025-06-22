@@ -5,7 +5,7 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class EventStack(params GameEventV2[] events)
+public sealed class EventStack(params GameEventV2[] events)
 {
     readonly Stack<GameEventV2[]> events = new([events]);
 

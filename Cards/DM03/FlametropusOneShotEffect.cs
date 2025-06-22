@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class FlametropusOneShotEffect : OneShotEffect
+public sealed class FlametropusOneShotEffect : OneShotEffect
 {
     public FlametropusOneShotEffect()
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class ThoughtProbeEffect : OneShotEffect
+public sealed class ThoughtProbeEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

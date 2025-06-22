@@ -4,7 +4,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class CivilizationChoice : Choice, ICivilizationChoice
+public sealed class CivilizationChoice : Choice, ICivilizationChoice
 {
     public CivilizationChoice(CivilizationChoice choice) : base(choice)
     {

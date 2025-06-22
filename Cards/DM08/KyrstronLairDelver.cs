@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM08
 {
-    class KyrstronLairDelver : Creature
+    sealed class KyrstronLairDelver : Creature
     {
         public KyrstronLairDelver() : base("Kyrstron, Lair Delver", 5, 1000, Race.Dragonoid, Civilization.Fire)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM08
         }
     }
 
-    class KyrstronLairDelverEffect : CardMovingChoiceEffect<ICreature>
+    sealed class KyrstronLairDelverEffect : CardMovingChoiceEffect<ICreature>
     {
         public KyrstronLairDelverEffect() : base(0, 1, true, ZoneType.Hand, ZoneType.BattleZone)
         {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WhenThisCreatureAttacksPlayerAbility : WheneverThisCreatureAttacksAbility
+public sealed class WhenThisCreatureAttacksPlayerAbility : WheneverThisCreatureAttacksAbility
 {
     public WhenThisCreatureAttacksPlayerAbility(IOneShotEffect effect) : base(effect)
     {

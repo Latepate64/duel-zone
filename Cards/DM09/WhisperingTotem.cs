@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.DM09
 {
-    class WhisperingTotem : Engine.Creature
+    sealed class WhisperingTotem : Engine.Creature
     {
         public WhisperingTotem() : base("Whispering Totem", 4, 2000, Interfaces.Race.MysteryTotem, Interfaces.Civilization.Nature)
         {
@@ -12,7 +12,7 @@ namespace Cards.DM09
         }
     }
 
-    class WhisperingTotemEffect : SearchCardWithNameEffect
+    sealed class WhisperingTotemEffect : SearchCardWithNameEffect
     {
         public WhisperingTotemEffect(SearchCardWithNameEffect effect) : base(effect)
         {

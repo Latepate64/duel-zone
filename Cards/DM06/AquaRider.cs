@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class AquaRider : Engine.Creature
+    sealed class AquaRider : Engine.Creature
     {
         public AquaRider() : base("Aqua Rider", 4, 2000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {

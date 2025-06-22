@@ -3,7 +3,7 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class EventsThatWouldHappen
+public sealed class EventsThatWouldHappen
 {
     readonly List<GameEventV2> _eventsThatWouldHappen = [];
 

@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class SnipStrikerBullraizerEffect : ContinuousEffect, ICannotAttackEffect
+public sealed class SnipStrikerBullraizerEffect : ContinuousEffect, ICannotAttackEffect
 {
     public SnipStrikerBullraizerEffect() : base()
     {

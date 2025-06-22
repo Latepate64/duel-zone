@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11
 {
-    class LockdownLizard : Creature
+    sealed class LockdownLizard : Creature
     {
         public LockdownLizard() : base("Lockdown Lizard", 4, 3000, Race.MeltWarrior, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class LockdownLizardEffect : ContinuousEffect, IPlayersCannotUseTapAbilities
+    sealed class LockdownLizardEffect : ContinuousEffect, IPlayersCannotUseTapAbilities
     {
         public LockdownLizardEffect()
         {

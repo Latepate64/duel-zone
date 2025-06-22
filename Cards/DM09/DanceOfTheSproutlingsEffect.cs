@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class DanceOfTheSproutlingsEffect : OneShotEffect
+public sealed class DanceOfTheSproutlingsEffect : OneShotEffect
 {
     public DanceOfTheSproutlingsEffect()
     {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class BurnwispLizard : Creature
+    sealed class BurnwispLizard : Creature
     {
         public BurnwispLizard() : base("Burnwisp Lizard", 5, 4000, Race.MeltWarrior, Civilization.Fire)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM10
         }
     }
 
-    class BurnwispLizardEffect : ContinuousEffect, ISpeedAttackerEffect
+    sealed class BurnwispLizardEffect : ContinuousEffect, ISpeedAttackerEffect
     {
         public BurnwispLizardEffect() : base()
         {

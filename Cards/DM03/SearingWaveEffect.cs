@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM03;
 
-public class SearingWaveEffect : DestroyAreaOfEffect
+public sealed class SearingWaveEffect : DestroyAreaOfEffect
 {
     public SearingWaveEffect() : base()
     {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM08
 {
-    class SuperNecrodragonAbzoDolba : DragonEvolutionCreature
+    sealed class SuperNecrodragonAbzoDolba : DragonEvolutionCreature
     {
         public SuperNecrodragonAbzoDolba() : base("Super Necrodragon Abzo Dolba", 6, 11000, Race.ZombieDragon, Civilization.Darkness)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM08
         }
     }
 
-    class SuperNecrodragonAbzoDolbaEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
+    sealed class SuperNecrodragonAbzoDolbaEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

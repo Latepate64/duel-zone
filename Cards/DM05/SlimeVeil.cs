@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class SlimeVeil : Spell
+public sealed class SlimeVeil : Spell
 {
     public SlimeVeil() : base("Slime Veil", 1, Civilization.Darkness)
     {

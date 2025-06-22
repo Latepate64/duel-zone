@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class WilyCarpenter : Creature
+public sealed class WilyCarpenter : Creature
 {
     public WilyCarpenter() : base("Wily Carpenter", 3, 1000, Race.Merfolk, Civilization.Water)
     {

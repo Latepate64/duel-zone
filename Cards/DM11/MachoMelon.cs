@@ -2,7 +2,7 @@
 
 namespace Cards.DM11
 {
-    class MachoMelon : WaveStrikerCreature
+    sealed class MachoMelon : WaveStrikerCreature
     {
         public MachoMelon() : base("Macho Melon", 2, 1000, Interfaces.Race.WildVeggies, Interfaces.Civilization.Nature)
         {

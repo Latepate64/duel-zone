@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    class ThreeFacedAshuraFang : Engine.Creature
+    sealed class ThreeFacedAshuraFang : Engine.Creature
     {
         public ThreeFacedAshuraFang() : base("Three-Faced Ashura Fang", 4, 4000, Interfaces.Race.DevilMask, Interfaces.Civilization.Darkness)
         {

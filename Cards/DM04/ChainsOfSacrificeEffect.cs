@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ChainsOfSacrificeEffect : DestroyEffect
+public sealed class ChainsOfSacrificeEffect : DestroyEffect
 {
     public ChainsOfSacrificeEffect() : base(0, 2, true)
     {

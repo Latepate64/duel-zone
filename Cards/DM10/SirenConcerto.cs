@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class SirenConcerto : Spell
+public sealed class SirenConcerto : Spell
 {
     public SirenConcerto() : base("Siren Concerto", 1, Civilization.Water)
     {

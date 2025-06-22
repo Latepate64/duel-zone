@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class CometEyeTheSpectralSpud : EvolutionCreature
+public sealed class CometEyeTheSpectralSpud : EvolutionCreature
 {
     public CometEyeTheSpectralSpud() : base("Comet Eye, The Spectral Spud", 4, 5500, Race.WildVeggies,
         Race.RainbowPhantom, Civilization.Light, Civilization.Nature)

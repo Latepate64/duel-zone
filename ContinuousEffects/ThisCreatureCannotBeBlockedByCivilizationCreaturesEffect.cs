@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect : ContinuousEffect, IUnblockableEffect, ICivilizationable
+public sealed class ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect : ContinuousEffect, IUnblockableEffect, ICivilizationable
 {
     public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect effect) : base(effect)
     {

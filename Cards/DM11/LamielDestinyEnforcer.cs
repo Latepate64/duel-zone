@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class LamielDestinyEnforcer : WaveStrikerCreature
+    sealed class LamielDestinyEnforcer : WaveStrikerCreature
     {
         public LamielDestinyEnforcer() : base("Lamiel, Destiny Enforcer", 5, 3000, Race.Berserker, Civilization.Light)
         {
@@ -12,7 +12,7 @@ namespace Cards.DM11
         }
     }
 
-    class LamielAbility : TriggeredAbility
+    sealed class LamielAbility : TriggeredAbility
     {
         public LamielAbility() : base(new OneShotEffects.YouMayDrawCardEffect())
         {

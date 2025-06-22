@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class AquaGrappler : Creature
+public sealed class AquaGrappler : Creature
 {
     public AquaGrappler() : base("Aqua Grappler", 5, 3000, Race.LiquidPeople, Civilization.Water)
     {

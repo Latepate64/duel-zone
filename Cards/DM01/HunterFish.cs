@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class HunterFish : Engine.Creature
+    sealed class HunterFish : Engine.Creature
     {
         public HunterFish() : base("Hunter Fish", 2, 3000, Interfaces.Race.Fish, Interfaces.Civilization.Water)
         {

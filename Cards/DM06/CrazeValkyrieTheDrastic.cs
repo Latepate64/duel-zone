@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    class CrazeValkyrieTheDrastic : EvolutionCreature
+    sealed class CrazeValkyrieTheDrastic : EvolutionCreature
     {
         public CrazeValkyrieTheDrastic() : base("Craze Valkyrie, the Drastic", 6, 7500, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {

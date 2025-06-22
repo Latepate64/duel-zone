@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class TropicCrawler : Creature
+    sealed class TropicCrawler : Creature
     {
         public TropicCrawler() : base("Tropic Crawler", 4, 3000, Race.EarthEater, Civilization.Water)
         {
@@ -18,7 +18,7 @@ namespace Cards.DM12
         }
     }
 
-    class TropicCrawlerEffect : CardMovingChoiceEffect<ICreature>
+    sealed class TropicCrawlerEffect : CardMovingChoiceEffect<ICreature>
     {
         public TropicCrawlerEffect() : base(1, 1, false, ZoneType.BattleZone, ZoneType.Hand)
         {

@@ -2,7 +2,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public class ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect : ReturnUpToCardsFromYourManaZoneToYourHandEffect
+public sealed class ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect : ReturnUpToCardsFromYourManaZoneToYourHandEffect
 {
     public ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect() : base(2)
     {

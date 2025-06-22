@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09
 {
-    class MihailCelestialElemental : Creature
+    sealed class MihailCelestialElemental : Creature
     {
         public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Race.AngelCommand, Civilization.Light)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM09
         }
     }
 
-    class MihailCelestialElementalEffect : ContinuousEffects.DestructionReplacementEffect
+    sealed class MihailCelestialElementalEffect : ContinuousEffects.DestructionReplacementEffect
     {
         public MihailCelestialElementalEffect() : base()
         {
@@ -40,7 +40,7 @@ namespace Cards.DM09
         }
     }
 
-    class MihailEvent : GameEvent
+    sealed class MihailEvent : GameEvent
     {
         public override void Happen(IGame game)
         {

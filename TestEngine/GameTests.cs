@@ -10,7 +10,7 @@ using Xunit;
 
 namespace TestEngine;
 
-public class GameTests
+public sealed class GameTests
 {
     const int DeckSize = 15;
 

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class FistsOfForeverEffect : OneShotEffect
+public sealed class FistsOfForeverEffect : OneShotEffect
 {
     public FistsOfForeverEffect()
     {

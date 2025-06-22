@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class GalekTheShadowWarrior : Creature
+public sealed class GalekTheShadowWarrior : Creature
 {
     public GalekTheShadowWarrior() : base(
         "Galek, the Shadow Warrior", 5, 2000, [Race.Ghost, Race.Human], Civilization.Darkness, Civilization.Fire)

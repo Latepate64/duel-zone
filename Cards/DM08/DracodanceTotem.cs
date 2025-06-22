@@ -9,7 +9,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class DracodanceTotem : Creature
+    sealed class DracodanceTotem : Creature
     {
         public DracodanceTotem() : base("Dracodance Totem", 2, 1000, Race.MysteryTotem, Civilization.Nature)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM08
         }
     }
 
-    class DracodanceTotemEffect : ContinuousEffects.DestructionReplacementEffect
+    sealed class DracodanceTotemEffect : ContinuousEffects.DestructionReplacementEffect
     {
         public DracodanceTotemEffect() : base() 
         {
@@ -48,7 +48,7 @@ namespace Cards.DM08
         }
     }
 
-    class DracodanceTotemRecoveryEffect : OneShotEffects.ManaRecoveryEffect
+    sealed class DracodanceTotemRecoveryEffect : OneShotEffects.ManaRecoveryEffect
     {
         public DracodanceTotemRecoveryEffect() : base(1, 1, true)
         {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class PangaeasWill : Spell
+public sealed class PangaeasWill : Spell
 {
     public PangaeasWill() : base("Pangaea's Will", 3, Civilization.Nature)
     {

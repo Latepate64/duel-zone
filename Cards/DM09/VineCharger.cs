@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM09
 {
-    class VineCharger : Charger
+    sealed class VineCharger : Charger
     {
         public VineCharger() : base("Vine Charger", 4, Interfaces.Civilization.Nature)
         {

@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IPlayerCannotChooseCreatureEffect
+public sealed class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IPlayerCannotChooseCreatureEffect
 {
     public OpponentCannotChooseThisCreatureEffect() : base()
     {

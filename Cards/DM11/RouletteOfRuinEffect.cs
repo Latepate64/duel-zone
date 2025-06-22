@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class RouletteOfRuinEffect : OneShotEffect
+public sealed class RouletteOfRuinEffect : OneShotEffect
 {
     public RouletteOfRuinEffect()
     {

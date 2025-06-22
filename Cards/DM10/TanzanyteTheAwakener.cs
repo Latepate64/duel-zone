@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Cards.DM10
 {
-    class TanzanyteTheAwakener : Creature
+    sealed class TanzanyteTheAwakener : Creature
     {
         public TanzanyteTheAwakener() : base("Tanzanyte, the Awakener", 7, 9000, Race.SpiritQuartz, Civilization.Water, Civilization.Darkness)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM10
         }
     }
 
-    class TanzanyteTheAwakenerEffect : CreatureSelectionEffect
+    sealed class TanzanyteTheAwakenerEffect : CreatureSelectionEffect
     {
         public TanzanyteTheAwakenerEffect() : base(1, 1, true)
         {

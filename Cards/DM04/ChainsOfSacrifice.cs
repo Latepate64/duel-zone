@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ChainsOfSacrifice : Spell
+public sealed class ChainsOfSacrifice : Spell
 {
     public ChainsOfSacrifice() : base("Chains of Sacrifice", 8, Civilization.Darkness)
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : CreatureSelectionEffect, IPowerable
+public sealed class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : CreatureSelectionEffect, IPowerable
 {
     public int Power { get; }
 

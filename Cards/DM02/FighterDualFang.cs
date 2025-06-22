@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM02
 {
-    class FighterDualFang : EvolutionCreature
+    sealed class FighterDualFang : EvolutionCreature
     {
         public FighterDualFang() : base("Fighter Dual Fang", 6, 8000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
         {

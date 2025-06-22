@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class ForcedFrenzyEffect : OneShotEffect
+public sealed class ForcedFrenzyEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

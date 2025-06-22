@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class UncannyTurnipEffect : OneShotEffect
+public sealed class UncannyTurnipEffect : OneShotEffect
 {
     public UncannyTurnipEffect()
     {

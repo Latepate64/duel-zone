@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class UseCardEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
+public sealed class UseCardEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
     public ICard Card { get; init; }
     public IEnumerable<ICard> PaymentCards { get; init; } = [];

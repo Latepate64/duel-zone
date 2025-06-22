@@ -2,7 +2,7 @@
 
 namespace Cards.DM11
 {
-    class YulianaChannelerOfSuns : Engine.Creature
+    sealed class YulianaChannelerOfSuns : Engine.Creature
     {
         public YulianaChannelerOfSuns() : base("Yuliana, Channeler of Suns", 3, 3000, Interfaces.Race.MechaDelSol, Interfaces.Civilization.Light)
         {

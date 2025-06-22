@@ -1,5 +1,4 @@
-﻿using Engine.GameEvents;
-using Engine.Steps;
+﻿using Engine.Steps;
 using Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using System.Linq;
 
 namespace Engine
 {
-    public class Turn : IDisposable
+    public sealed class Turn
     {
         public Turn() : base()
         {
@@ -49,12 +48,6 @@ namespace Engine
         /// </summary>
         public IList<Phase> Phases { get; private set; } = [];
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public void Play(IGame game, int number)
         {
             Number = number;
@@ -84,14 +77,6 @@ namespace Engine
         public override string ToString()
         {
             return $"Turn {Number}";
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Phases = null;
-            }
         }
     }
 }

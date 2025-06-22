@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class WilyCarpenterEffect : OneShotEffect
+public sealed class WilyCarpenterEffect : OneShotEffect
 {
 
     public WilyCarpenterEffect(WilyCarpenterEffect effect) : base(effect)

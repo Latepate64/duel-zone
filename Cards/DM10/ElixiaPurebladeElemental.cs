@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class ElixiaPurebladeElemental : Creature
+    sealed class ElixiaPurebladeElemental : Creature
     {
         public ElixiaPurebladeElemental() : base("Elixia, Pureblade Elemental", 6, 1000, Race.AngelCommand, Civilization.Light)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM10
         }
     }
 
-    class ElixiaEffect : PowerModifyingMultiplierEffect
+    sealed class ElixiaEffect : PowerModifyingMultiplierEffect
     {
         public ElixiaEffect(int power = 3000) : base(power)
         {

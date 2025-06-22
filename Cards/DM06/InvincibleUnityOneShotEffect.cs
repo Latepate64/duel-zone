@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class InvincibleUnityOneShotEffect : OneShotEffect
+public sealed class InvincibleUnityOneShotEffect : OneShotEffect
 {
     public InvincibleUnityOneShotEffect()
     {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    class TyrantWorm : Engine.Creature
+    sealed class TyrantWorm : Engine.Creature
     {
         public TyrantWorm() : base("Tyrant Worm", 1, 2000, Interfaces.Race.ParasiteWorm, Interfaces.Civilization.Darkness)
         {

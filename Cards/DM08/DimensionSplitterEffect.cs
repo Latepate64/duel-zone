@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class DimensionSplitterEffect : OneShotEffect
+public sealed class DimensionSplitterEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

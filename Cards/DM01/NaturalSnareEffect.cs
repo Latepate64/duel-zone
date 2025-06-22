@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class NaturalSnareEffect : ManaFeedEffect
+public sealed class NaturalSnareEffect : ManaFeedEffect
 {
     public NaturalSnareEffect() : base(1, 1, true)
     {

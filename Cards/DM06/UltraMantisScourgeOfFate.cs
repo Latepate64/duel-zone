@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class UltraMantisScourgeOfFate : EvolutionCreature
+    sealed class UltraMantisScourgeOfFate : EvolutionCreature
     {
         public UltraMantisScourgeOfFate() : base("Ultra Mantis, Scourge of Fate", 6, 9000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {

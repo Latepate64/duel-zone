@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class EldritchPoisonEffect : OneShotEffect
+public sealed class EldritchPoisonEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

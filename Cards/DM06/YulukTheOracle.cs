@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM06
 {
-    class YulukTheOracle : Creature
+    sealed class YulukTheOracle : Creature
     {
         public YulukTheOracle() : base("Yuluk, the Oracle", 1, 2500, Race.LightBringer, Civilization.Light)
         {

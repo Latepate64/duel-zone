@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM02;
 
-public class ArmoredCannonBalbaroEffect(int power = 2000) : ContinuousEffects.PowerAttackerMultiplierEffect(power)
+public sealed class ArmoredCannonBalbaroEffect(int power = 2000) : ContinuousEffects.PowerAttackerMultiplierEffect(power)
 {
     public override IContinuousEffect Copy()
     {

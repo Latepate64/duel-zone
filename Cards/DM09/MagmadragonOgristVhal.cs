@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09
 {
-    class MagmadragonOgristVhal : Creature
+    sealed class MagmadragonOgristVhal : Creature
     {
         public MagmadragonOgristVhal() : base("Magmadragon Ogrist Vhal", 7, 3000, Race.VolcanoDragon, Civilization.Fire)
         {
@@ -12,7 +12,7 @@ namespace Cards.DM09
         }
     }
 
-    class MagmadragonOgristVhalEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class MagmadragonOgristVhalEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

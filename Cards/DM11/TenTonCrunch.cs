@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM11
 {
-    class TenTonCrunch : Engine.Spell
+    sealed class TenTonCrunch : Engine.Spell
     {
         public TenTonCrunch() : base("Ten-Ton Crunch", 4, Interfaces.Civilization.Fire)
         {

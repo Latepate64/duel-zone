@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class SphereOfWonder : Spell
+public sealed class SphereOfWonder : Spell
 {
     public SphereOfWonder() : base("Sphere of Wonder", 4, Civilization.Light)
     {

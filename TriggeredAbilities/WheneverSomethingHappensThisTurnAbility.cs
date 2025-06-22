@@ -9,7 +9,7 @@ namespace TriggeredAbilities;
 /// <summary>
 /// Delayed triggered ability that reads "Whenever X happens this turn, Y happens.".
 /// </summary>
-public class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAbility, IExpirable
+public sealed class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAbility, IExpirable
 {
     public WheneverSomethingHappensThisTurnAbility(WheneverSomethingHappensThisTurnAbility ability) : base(ability)
     {

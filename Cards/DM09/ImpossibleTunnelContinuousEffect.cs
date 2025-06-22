@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM09;
 
-public class ImpossibleTunnelContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
+public sealed class ImpossibleTunnelContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
 {
     private readonly Race _race;
 

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
+public sealed class YourOpponentDiscardsHisHandEffect : CardMovingAreaOfEffect
 {
     public YourOpponentDiscardsHisHandEffect() : base(ZoneType.Hand, ZoneType.Graveyard)
     {

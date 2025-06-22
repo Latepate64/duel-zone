@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverAnyOfYourCreaturesAttacksAbility : WheneverCreatureAttacksAbility
+public sealed class WheneverAnyOfYourCreaturesAttacksAbility : WheneverCreatureAttacksAbility
 {
     public WheneverAnyOfYourCreaturesAttacksAbility(IOneShotEffect effect) : base(effect)
     {

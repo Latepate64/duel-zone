@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class EstolVizierOfAquaEffect : OneShotEffect
+public sealed class EstolVizierOfAquaEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class ZaltanEffect : OneShotEffect
+public sealed class ZaltanEffect : OneShotEffect
 {
     public ZaltanEffect()
     {

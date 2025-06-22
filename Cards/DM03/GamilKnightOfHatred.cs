@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class GamilKnightOfHatred : Creature
+public sealed class GamilKnightOfHatred : Creature
 {
     public GamilKnightOfHatred() : base("Gamil, Knight of Hatred", 6, 4000, Race.DemonCommand, Civilization.Darkness)
     {

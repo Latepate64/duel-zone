@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class Flametropus : Creature
+public sealed class Flametropus : Creature
 {
     public Flametropus() : base("Flametropus", 4, 3000, Race.RockBeast, Civilization.Fire)
     {

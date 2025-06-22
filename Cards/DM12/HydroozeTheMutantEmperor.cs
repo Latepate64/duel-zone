@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM12
 {
-    class HydroozeTheMutantEmperor : EvolutionCreature
+    sealed class HydroozeTheMutantEmperor : EvolutionCreature
     {
         public HydroozeTheMutantEmperor() : base("Hydrooze, the Mutant Emperor", 4, 5000, Race.CyberLord, Race.Hedrian, Civilization.Water, Civilization.Darkness)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM12
         }
     }
 
-    class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
+    sealed class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
     {
         public HydroozeTheMutantEmperorUnblockableEffect() : base()
         {

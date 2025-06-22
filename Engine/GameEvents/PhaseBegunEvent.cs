@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents
 {
-    public class PhaseBegunEvent(Phase nextPhase, Turn currentTurn) : GameEvent
+    public sealed class PhaseBegunEvent(Phase nextPhase, Turn currentTurn) : GameEvent
     {
         public Turn Turn { get; } = currentTurn;
         public Phase Phase { get; } = nextPhase;

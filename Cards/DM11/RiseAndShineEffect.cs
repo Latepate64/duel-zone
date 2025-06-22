@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM11;
 
-public class RiseAndShineEffect : OneShotEffect
+public sealed class RiseAndShineEffect : OneShotEffect
 {
     public RiseAndShineEffect()
     {

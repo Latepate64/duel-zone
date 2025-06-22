@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class BrutalChargeDelayedEffect : OneShotEffect
+public sealed class BrutalChargeDelayedEffect : OneShotEffect
 {
     public BrutalChargeDelayedEffect()
     {

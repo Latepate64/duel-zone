@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    class AcidRefluxTheFleshboiler : Engine.Creature
+    sealed class AcidRefluxTheFleshboiler : Engine.Creature
     {
         public AcidRefluxTheFleshboiler() : base("Acid Reflux, the Fleshboiler", 5, 3000, Interfaces.Race.DevilMask, Interfaces.Civilization.Darkness)
         {

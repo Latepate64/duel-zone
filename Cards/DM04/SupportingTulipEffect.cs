@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM04;
 
-public class SupportingTulipEffect : AbilityAddingEffect
+public sealed class SupportingTulipEffect : AbilityAddingEffect
 {
     public SupportingTulipEffect(SupportingTulipEffect effect) : base(effect)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.Promo;
 
-public class BrigadeShellQEffect : OneShotEffect
+public sealed class BrigadeShellQEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

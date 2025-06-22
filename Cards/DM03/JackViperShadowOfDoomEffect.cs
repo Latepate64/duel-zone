@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class JackViperShadowOfDoomEffect : DestructionReplacementOptionallyToHandEffect
+public sealed class JackViperShadowOfDoomEffect : DestructionReplacementOptionallyToHandEffect
 {
     public JackViperShadowOfDoomEffect() : base()
     {

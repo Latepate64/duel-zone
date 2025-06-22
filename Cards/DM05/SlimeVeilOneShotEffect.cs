@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class SlimeVeilOneShotEffect : OneShotEffect
+public sealed class SlimeVeilOneShotEffect : OneShotEffect
 {
     public SlimeVeilOneShotEffect()
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class TekoraxEffect : OneShotEffect
+public sealed class TekoraxEffect : OneShotEffect
 {
     public TekoraxEffect()
     {

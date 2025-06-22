@@ -3,7 +3,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices
 {
-    public class BooleanChoice : Choice, IBooleanChoice
+    public sealed class BooleanChoice : Choice, IBooleanChoice
     {
         public BooleanChoice(IBooleanChoice choice) : base(choice)
         {

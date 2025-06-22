@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class KeeperOfTheSunlitAbyssEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class KeeperOfTheSunlitAbyssEffect : ContinuousEffect, IPowerModifyingEffect
 {
     public KeeperOfTheSunlitAbyssEffect() : base() { }
 

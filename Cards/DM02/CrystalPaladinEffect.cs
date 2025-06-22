@@ -5,7 +5,7 @@ using OneShotEffects;
 
 namespace Cards.DM02;
 
-public class CrystalPaladinEffect : BounceAreaOfEffect
+public sealed class CrystalPaladinEffect : BounceAreaOfEffect
 {
     public CrystalPaladinEffect() : base()
     {

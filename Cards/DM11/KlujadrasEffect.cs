@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class KlujadrasEffect : OneShotEffect
+public sealed class KlujadrasEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

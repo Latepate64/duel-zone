@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM04;
 
-public class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseCardEffect
+public sealed class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseCardEffect
 {
     public AlcadeiasLordOfSpiritsEffect(AlcadeiasLordOfSpiritsEffect effect) : base(effect)
     {

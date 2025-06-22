@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class RainbowStone : Spell
+public sealed class RainbowStone : Spell
 {
     public RainbowStone() : base("Rainbow Stone", 4, Civilization.Nature)
     {

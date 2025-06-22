@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public class SpellCastEvent(Player player, ICard spell) : GameEvent
+public sealed class SpellCastEvent(Player player, ICard spell) : GameEvent
 {
     public Player Player { get; } = player;
     public ICard Spell { get; private set; } = spell;

@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class SparkleFlowerEffect : ContinuousEffect, IBlockerEffect
+public sealed class SparkleFlowerEffect : ContinuousEffect, IBlockerEffect
 {
     public SparkleFlowerEffect() : base()
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class RoarOfTheEarth : Spell
+public sealed class RoarOfTheEarth : Spell
 {
     public RoarOfTheEarth() : base("Roar of the Earth", 2, Civilization.Nature)
     {

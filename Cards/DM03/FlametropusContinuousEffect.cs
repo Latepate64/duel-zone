@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class FlametropusContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class FlametropusContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     public FlametropusContinuousEffect(FlametropusContinuousEffect effect) : base(effect)
     {

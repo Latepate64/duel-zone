@@ -1,12 +1,10 @@
-﻿using Engine.GameEvents;
-using Interfaces;
+﻿using Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Engine.Steps
 {
-    public class BlockDeclarationStep : Step
+    public sealed class BlockDeclarationStep : Step
     {
         public BlockDeclarationStep(AttackPhase phase) : base(phase, PhaseOrStep.BlockDeclaration)
         {

@@ -1,10 +1,9 @@
 ﻿using Engine.Abilities;
-using Engine.GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility : TriggeredAbility
+public sealed class WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility : TriggeredAbility
 {
     public WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(IOneShotEffect effect) : base(effect)
     {

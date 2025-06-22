@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    class KingTriumphant : Engine.Creature
+    sealed class KingTriumphant : Engine.Creature
     {
         public KingTriumphant() : base("King Triumphant", 8, 7000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {

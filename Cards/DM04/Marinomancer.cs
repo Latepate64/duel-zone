@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class Marinomancer : Creature
+public sealed class Marinomancer : Creature
 {
     public Marinomancer() : base("Marinomancer", 5, 2000, Race.CyberLord, Civilization.Water)
     {

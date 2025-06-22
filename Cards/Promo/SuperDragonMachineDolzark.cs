@@ -9,7 +9,7 @@ using Interfaces;
 
 namespace Cards.Promo
 {
-    class SuperDragonMachineDolzark : Creature
+    sealed class SuperDragonMachineDolzark : Creature
     {
         public SuperDragonMachineDolzark() : base("Super Dragon Machine Dolzark", 6, 7000, [Race.ArmoredDragon, Race.EarthDragon], Civilization.Fire, Civilization.Nature)
         {
@@ -18,7 +18,7 @@ namespace Cards.Promo
         }
     }
 
-    class DolzarkAbility : WheneverCreatureAttacksAbility
+    sealed class DolzarkAbility : WheneverCreatureAttacksAbility
     {
         public DolzarkAbility() : base(new DolzarkEffect())
         {
@@ -44,7 +44,7 @@ namespace Cards.Promo
         }
     }
 
-    class DolzarkEffect : CardMovingChoiceEffect<ICreature>
+    sealed class DolzarkEffect : CardMovingChoiceEffect<ICreature>
     {
         public DolzarkEffect() : base(0, 1, true, ZoneType.BattleZone, ZoneType.ManaZone)
         {

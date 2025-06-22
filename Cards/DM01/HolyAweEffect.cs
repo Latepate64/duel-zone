@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM01;
 
-public class HolyAweEffect : TapAreaOfEffect
+public sealed class HolyAweEffect : TapAreaOfEffect
 {
     public HolyAweEffect() : base()
     {

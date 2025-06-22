@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class TapAbilityAddingEffect : AbilityAddingEffect
+public sealed class TapAbilityAddingEffect : AbilityAddingEffect
 {
     private readonly Civilization _civilization;
 

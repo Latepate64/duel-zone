@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class SpinalParasite : Creature
+    sealed class SpinalParasite : Creature
     {
         public SpinalParasite() : base("Spinal Parasite", 5, 2000, Race.BrainJacker, Civilization.Darkness)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM10
         }
     }
 
-    class SpinalParasiteAbility : LinkedTriggeredAbility
+    sealed class SpinalParasiteAbility : LinkedTriggeredAbility
     {
         private IPlayer _player;
 
@@ -59,7 +59,7 @@ namespace Cards.DM10
         }
     }
 
-    class SpinalParasiteContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect
+    sealed class SpinalParasiteContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect
     {
         private readonly ICreature _creature;
 

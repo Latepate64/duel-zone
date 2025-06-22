@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM05;
 
-public class ThunderNetEffect : OneShotEffect
+public sealed class ThunderNetEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class MayPutTopCardOfDeckIntoManaZoneEffect : OneShotEffect
+public sealed class MayPutTopCardOfDeckIntoManaZoneEffect : OneShotEffect
 {
     public MayPutTopCardOfDeckIntoManaZoneEffect()
     {

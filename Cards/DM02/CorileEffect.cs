@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class CorileEffect : CardMovingChoiceEffect<ICreature>
+public sealed class CorileEffect : CardMovingChoiceEffect<ICreature>
 {
     public CorileEffect(CorileEffect effect) : base(effect)
     {

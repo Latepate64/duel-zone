@@ -4,7 +4,7 @@ using System;
 
 namespace Cards.DM08;
 
-public class KachuaDelayedTriggeredAbility : DelayedTriggeredAbility
+public sealed class KachuaDelayedTriggeredAbility : DelayedTriggeredAbility
 {
     public KachuaDelayedTriggeredAbility(KachuaDelayedTriggeredAbility ability) : base(ability)
     {

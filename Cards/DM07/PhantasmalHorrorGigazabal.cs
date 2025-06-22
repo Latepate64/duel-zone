@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    class PhantasmalHorrorGigazabal : EvolutionCreature
+    sealed class PhantasmalHorrorGigazabal : EvolutionCreature
     {
         public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

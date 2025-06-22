@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    class Gigakail : Engine.Creature
+    sealed class Gigakail : Engine.Creature
     {
         public Gigakail() : base("Gigakail", 5, 4000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

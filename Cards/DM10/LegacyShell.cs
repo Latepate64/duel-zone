@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM10
 {
-    class LegacyShell : Creature
+    sealed class LegacyShell : Creature
     {
         public LegacyShell() : base("Legacy Shell", 5, 4000, Race.ColonyBeetle, Civilization.Nature)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class LegacyShellEffect : AbilityAddingEffect
+    sealed class LegacyShellEffect : AbilityAddingEffect
     {
         public LegacyShellEffect() : base(new StaticAbility(new PowerAttackerEffect(3000)))
         {

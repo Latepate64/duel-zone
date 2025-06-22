@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class CosmicDarts : Spell
+    sealed class CosmicDarts : Spell
     {
         public CosmicDarts() : base("Cosmic Darts", 1, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM12
         }
     }
 
-    class CosmicDartsEffect : CardSelectionEffect<ICard>
+    sealed class CosmicDartsEffect : CardSelectionEffect<ICard>
     {
         public CosmicDartsEffect() : base(1, 1, false)
         {

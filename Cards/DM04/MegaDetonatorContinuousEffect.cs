@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM04;
 
-public class MegaDetonatorContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class MegaDetonatorContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     public MegaDetonatorContinuousEffect(MegaDetonatorContinuousEffect effect) : base(effect)
     {

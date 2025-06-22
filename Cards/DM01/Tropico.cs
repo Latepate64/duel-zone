@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class Tropico : Creature
+public sealed class Tropico : Creature
 {
     public Tropico() : base("Tropico", 5, 3000, Race.CyberLord, Civilization.Water)
     {

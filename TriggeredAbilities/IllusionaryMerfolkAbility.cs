@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class IllusionaryMerfolkAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+public sealed class IllusionaryMerfolkAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
 {
     public IllusionaryMerfolkAbility(IOneShotEffect effect) : base(effect)
     {

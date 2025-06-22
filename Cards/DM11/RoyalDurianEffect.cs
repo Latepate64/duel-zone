@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class RoyalDurianEffect : OneShotEffect
+public sealed class RoyalDurianEffect : OneShotEffect
 {
     public RoyalDurianEffect()
     {

@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class DoubleBreakerEffect : ContinuousEffect, IBreakerEffect
+public sealed class DoubleBreakerEffect : ContinuousEffect, IBreakerEffect
 {
     public DoubleBreakerEffect() : base()
     {

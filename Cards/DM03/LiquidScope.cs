@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class LiquidScope : Spell
+public sealed class LiquidScope : Spell
 {
     public LiquidScope() : base("Liquid Scope", 4, Civilization.Water)
     {

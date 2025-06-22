@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class RimuelCloudbreakElementalEffect : OneShotEffect
+public sealed class RimuelCloudbreakElementalEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

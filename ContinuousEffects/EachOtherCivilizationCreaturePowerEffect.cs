@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class EachOtherCivilizationCreaturePowerEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class EachOtherCivilizationCreaturePowerEffect : ContinuousEffect, IPowerModifyingEffect
 {
     private readonly Civilization _civilization;
     private readonly int _power;

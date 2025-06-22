@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11
 {
-    class SapianTarkFlameDervish : WaveStrikerCreature
+    sealed class SapianTarkFlameDervish : WaveStrikerCreature
     {
         public SapianTarkFlameDervish() : base("Sapian Tark, Flame Dervish", 3, 2000, Race.Dragonoid, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class SapianTarkFlameDervishEffect : ThisCreatureCanAttackUntappedCreaturesEffect, IPowerModifyingEffect
+    sealed class SapianTarkFlameDervishEffect : ThisCreatureCanAttackUntappedCreaturesEffect, IPowerModifyingEffect
     {
         public override IContinuousEffect Copy()
         {

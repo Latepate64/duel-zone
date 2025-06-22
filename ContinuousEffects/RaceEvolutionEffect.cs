@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class RaceEvolutionEffect : SingleBaitEvolutionEffect, IMultiRaceable
+public sealed class RaceEvolutionEffect : SingleBaitEvolutionEffect, IMultiRaceable
 {
     public RaceEvolutionEffect(RaceEvolutionEffect effect) : base(effect)
     {

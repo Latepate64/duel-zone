@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class RainbowGate : Spell
+    sealed class RainbowGate : Spell
     {
         public RainbowGate() : base("Rainbow Gate", 2, Civilization.Nature)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM11
         }
     }
 
-    class RainbowGateEffect : SearchEffect
+    sealed class RainbowGateEffect : SearchEffect
     {
         public RainbowGateEffect() : base(true)
         {

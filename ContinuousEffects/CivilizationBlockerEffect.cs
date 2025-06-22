@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect, IMultiCivilizationable
+public sealed class CivilizationBlockerEffect : ContinuousEffect, IBlockerEffect, IMultiCivilizationable
 {
     public CivilizationBlockerEffect(params Civilization[] civilizations) : base()
     {

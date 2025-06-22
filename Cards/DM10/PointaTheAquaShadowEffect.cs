@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class PointaTheAquaShadowEffect : OneShotEffect
+public sealed class PointaTheAquaShadowEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class TransmogrifyEffect : OneShotEffect
+public sealed class TransmogrifyEffect : OneShotEffect
 {
     public TransmogrifyEffect()
     {

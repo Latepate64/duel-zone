@@ -4,7 +4,7 @@ using System;
 
 namespace Cards.DM04;
 
-public class WhiskingWhirlwindEffect : OneShotEffect
+public sealed class WhiskingWhirlwindEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

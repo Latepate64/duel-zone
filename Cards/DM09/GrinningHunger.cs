@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class GrinningHunger : Spell
+public sealed class GrinningHunger : Spell
 {
     public GrinningHunger() : base("Grinning Hunger", 4, Civilization.Darkness)
     {

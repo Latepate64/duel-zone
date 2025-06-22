@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09
 {
-    class TerradragonAnristVhal : Creature
+    sealed class TerradragonAnristVhal : Creature
     {
         public TerradragonAnristVhal() : base("Terradragon Anrist Vhal", 6, 0, Race.EarthDragon, Civilization.Nature)
         {
@@ -12,7 +12,7 @@ namespace Cards.DM09
         }
     }
 
-    class TerradragonAnristVhalEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class TerradragonAnristVhalEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

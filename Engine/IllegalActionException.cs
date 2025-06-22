@@ -3,7 +3,7 @@ using Engine.GameEvents;
 
 namespace Engine;
 
-public class IllegalActionException(GameEventV2 gameEvent, IllegalActionType type) : Exception
+public sealed class IllegalActionException(GameEventV2 gameEvent, IllegalActionType type) : Exception
 {
     public GameEventV2 GameEvent { get; } = gameEvent;
     public IllegalActionType Type { get; } = type;

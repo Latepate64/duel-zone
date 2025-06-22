@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM01;
 
-public class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
 {
     public IocantTheOracleEffect() : base()
     {

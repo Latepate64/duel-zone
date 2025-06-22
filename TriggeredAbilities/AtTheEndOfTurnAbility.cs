@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class AtTheEndOfTurnAbility : TriggeredAbility
+public sealed class AtTheEndOfTurnAbility : TriggeredAbility
 {
     public Guid Turn { get; }
 

@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class RyudmilaChannelerOfSuns : Creature
+    sealed class RyudmilaChannelerOfSuns : Creature
     {
         public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Race.MechaDelSol, Civilization.Light)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM10
         }
     }
 
-    class RyudmilaChannelerOfSunsEffect : ContinuousEffects.DestructionReplacementEffect
+    sealed class RyudmilaChannelerOfSunsEffect : ContinuousEffects.DestructionReplacementEffect
     {
         public RyudmilaChannelerOfSunsEffect() : base()
         {
@@ -40,7 +40,7 @@ namespace Cards.DM10
         }
     }
 
-    class RyudmilaEvent(ICard card) : GameEvent
+    sealed class RyudmilaEvent(ICard card) : GameEvent
     {
         private readonly ICard _card = card;
 

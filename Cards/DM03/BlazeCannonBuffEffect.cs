@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class BlazeCannonBuffEffect : OneShotEffect
+public sealed class BlazeCannonBuffEffect : OneShotEffect
 {
     public BlazeCannonBuffEffect() : base()
     {

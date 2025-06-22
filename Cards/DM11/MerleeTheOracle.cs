@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM11
 {
-    class MerleeTheOracle : WaveStrikerCreature
+    sealed class MerleeTheOracle : WaveStrikerCreature
     {
         public MerleeTheOracle() : base("Merlee, the Oracle", 2, 1500, Race.LightBringer, Civilization.Light)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class MerleeTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
+    sealed class MerleeTheOracleEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public MerleeTheOracleEffect() : base()
         {

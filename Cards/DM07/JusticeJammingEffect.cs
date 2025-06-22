@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class JusticeJammingEffect : OneShotEffect
+public sealed class JusticeJammingEffect : OneShotEffect
 {
     public JusticeJammingEffect()
     {

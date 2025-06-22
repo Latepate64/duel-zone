@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class BombazarDragonOfDestinyEffect : OneShotEffect
+public sealed class BombazarDragonOfDestinyEffect : OneShotEffect
 {
     public BombazarDragonOfDestinyEffect()
     {

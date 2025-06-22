@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class WhiskingWhirlwindUntapEffect : UntapAreaOfEffect
+public sealed class WhiskingWhirlwindUntapEffect : UntapAreaOfEffect
 {
     public WhiskingWhirlwindUntapEffect() : base()
     {

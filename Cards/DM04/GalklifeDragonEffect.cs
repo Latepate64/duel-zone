@@ -6,7 +6,7 @@ using OneShotEffects;
 
 namespace Cards.DM04;
 
-public class GalklifeDragonEffect : DestroyAreaOfEffect
+public sealed class GalklifeDragonEffect : DestroyAreaOfEffect
 {
     public GalklifeDragonEffect() : base()
     {

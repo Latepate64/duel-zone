@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class WheneverAnyOfYourCreaturesFinishesAttackingAbility : TriggeredAbility
+public sealed class WheneverAnyOfYourCreaturesFinishesAttackingAbility : TriggeredAbility
 {
     public WheneverAnyOfYourCreaturesFinishesAttackingAbility() : base(new MiracleQuestDrawEffect())
     {

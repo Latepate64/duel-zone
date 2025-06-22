@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class TakeExtraTurnAfterThisOneEffect : OneShotEffect
+public sealed class TakeExtraTurnAfterThisOneEffect : OneShotEffect
 {
     public TakeExtraTurnAfterThisOneEffect()
     {

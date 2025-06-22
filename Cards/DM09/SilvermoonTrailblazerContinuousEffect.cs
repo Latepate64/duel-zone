@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09;
 
-public class SilvermoonTrailblazerContinuousEffect : UntilEndOfTurnEffect, IUnblockableEffect
+public sealed class SilvermoonTrailblazerContinuousEffect : UntilEndOfTurnEffect, IUnblockableEffect
 {
     private readonly Race _race;
 

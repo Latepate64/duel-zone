@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    class BulglufTheSpydroid : SilentSkillCreature
+    sealed class BulglufTheSpydroid : SilentSkillCreature
     {
         public BulglufTheSpydroid() : base("Bulgluf, the Spydroid", 6, 4000, Interfaces.Race.Soltrooper, Interfaces.Civilization.Light)
         {

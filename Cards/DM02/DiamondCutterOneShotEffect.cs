@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class DiamondCutterOneShotEffect : OneShotEffect
+public sealed class DiamondCutterOneShotEffect : OneShotEffect
 {
     public DiamondCutterOneShotEffect()
     {

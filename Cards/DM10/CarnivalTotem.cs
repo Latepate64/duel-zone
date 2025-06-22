@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class CarnivalTotem : Creature
+public sealed class CarnivalTotem : Creature
 {
     public CarnivalTotem() : base("Carnival Totem", 6, 7000, Race.MysteryTotem, Civilization.Nature)
     {

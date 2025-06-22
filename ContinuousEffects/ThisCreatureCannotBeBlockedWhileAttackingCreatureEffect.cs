@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect : ContinuousEffect, IUnblockableEffect
+public sealed class ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect : ContinuousEffect, IUnblockableEffect
 {
     public ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect()
     {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class CarnivalTotemEffect : OneShotEffect
+public sealed class CarnivalTotemEffect : OneShotEffect
 {
     public CarnivalTotemEffect()
     {

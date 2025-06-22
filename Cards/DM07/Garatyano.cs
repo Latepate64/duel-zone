@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM07
 {
-    class Garatyano : Creature
+    sealed class Garatyano : Creature
     {
         public Garatyano() : base("Garatyano", 4, 2000, Race.SeaHacker, Civilization.Water)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM07
         }
     }
 
-    class GaratyanoEffect : LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect
+    sealed class GaratyanoEffect : LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect
     {
         public GaratyanoEffect() : base(3)
         {

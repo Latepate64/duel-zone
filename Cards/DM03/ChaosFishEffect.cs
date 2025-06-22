@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class ChaosFishEffect : OneShotEffect
+public sealed class ChaosFishEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    class Cetibols : Engine.Creature
+    sealed class Cetibols : Engine.Creature
     {
         public Cetibols() : base("Cetibols", 3, 2000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
         {

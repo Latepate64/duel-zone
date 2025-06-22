@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DestroyAfterBattleEffect : OneShotEffect
+public sealed class DestroyAfterBattleEffect : OneShotEffect
 {
     public DestroyAfterBattleEffect()
     {

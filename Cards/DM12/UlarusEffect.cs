@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class UlarusEffect : OneShotEffect
+public sealed class UlarusEffect : OneShotEffect
 {
     public UlarusEffect()
     {

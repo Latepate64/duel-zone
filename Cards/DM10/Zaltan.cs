@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class Zaltan : Creature
+public sealed class Zaltan : Creature
 {
     public Zaltan() : base("Zaltan", 5, 3000, Race.CyberLord, Civilization.Water)
     {

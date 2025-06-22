@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    class PierrPsychoDoll : Engine.Creature
+    sealed class PierrPsychoDoll : Engine.Creature
     {
         public PierrPsychoDoll() : base("Pierr, Psycho Doll", 2, 1000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class ManaBonanzaEffect : OneShotEffect
+public sealed class ManaBonanzaEffect : OneShotEffect
 {
     public ManaBonanzaEffect()
     {

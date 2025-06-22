@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class FunkyWizardEffect : OneShotEffect
+public sealed class FunkyWizardEffect : OneShotEffect
 {
     public FunkyWizardEffect()
     {

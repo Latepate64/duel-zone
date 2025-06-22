@@ -6,7 +6,7 @@ namespace TriggeredAbilities;
 /// <summary>
 /// 603.12.
 /// </summary>
-public class ReflexiveTriggeredAbility : ResolvableAbility
+public sealed class ReflexiveTriggeredAbility : ResolvableAbility
 {
     public ReflexiveTriggeredAbility(IOneShotEffect effect, IAbility ability) : base(effect)
     {

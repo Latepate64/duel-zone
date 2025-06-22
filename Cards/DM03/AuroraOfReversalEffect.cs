@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class AuroraOfReversalEffect : ChooseAnyNumberOfCardsEffect
+public sealed class AuroraOfReversalEffect : ChooseAnyNumberOfCardsEffect
 {
     public AuroraOfReversalEffect() : base()
     {

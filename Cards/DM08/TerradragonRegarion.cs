@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    class TerradragonRegarion : Engine.Creature
+    sealed class TerradragonRegarion : Engine.Creature
     {
         public TerradragonRegarion() : base("Terradragon Regarion", 5, 4000, Interfaces.Race.EarthDragon, Interfaces.Civilization.Nature)
         {

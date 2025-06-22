@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class RaVuSeekerOfLightningEffect : SalvageEffect
+public sealed class RaVuSeekerOfLightningEffect : SalvageEffect
 {
     public RaVuSeekerOfLightningEffect() : base(0, 1, true)
     {

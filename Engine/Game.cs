@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Engine;
 
-public class Game(IRandomizer randomizer, int maxLoopCount = 5)
+public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
 {
     readonly IRandomizer randomizer = randomizer;
     readonly int maxLoopCount = maxLoopCount;

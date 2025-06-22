@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class DracobarrierEffect : OneShotEffect
+public sealed class DracobarrierEffect : OneShotEffect
 {
     public DracobarrierEffect()
     {

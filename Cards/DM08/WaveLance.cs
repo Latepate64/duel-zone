@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class WaveLance : Spell
+public sealed class WaveLance : Spell
 {
     public WaveLance() : base("Wave Lance", 3, Civilization.Water)
     {

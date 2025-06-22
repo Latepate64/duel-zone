@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM06
 {
-    class PhantomDragonsFlame : Engine.Spell
+    sealed class PhantomDragonsFlame : Engine.Spell
     {
         public PhantomDragonsFlame() : base("Phantom Dragon's Flame", 3, Interfaces.Civilization.Fire)
         {

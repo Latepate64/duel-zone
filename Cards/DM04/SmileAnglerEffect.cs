@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM04;
 
-public class SmileAnglerEffect : OpponentManaRecoveryEffect
+public sealed class SmileAnglerEffect : OpponentManaRecoveryEffect
 {
     public SmileAnglerEffect() : base(0, 1, true)
     {

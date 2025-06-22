@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM09
 {
-    class ZeppelinCrawler : Creature
+    sealed class ZeppelinCrawler : Creature
     {
         public ZeppelinCrawler() : base("Zeppelin Crawler", 5, 4000, Race.EarthEater, Civilization.Water)
         {

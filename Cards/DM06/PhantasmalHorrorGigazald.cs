@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM06
 {
-    class PhantasmalHorrorGigazald : EvolutionCreature
+    sealed class PhantasmalHorrorGigazald : EvolutionCreature
     {
         public PhantasmalHorrorGigazald() : base("Phantasmal Horror Gigazald", 5, 5000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

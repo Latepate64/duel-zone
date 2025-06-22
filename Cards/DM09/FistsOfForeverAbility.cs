@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class FistsOfForeverAbility : LinkedTriggeredAbility
+public sealed class FistsOfForeverAbility : LinkedTriggeredAbility
 {
     private readonly ICreature _creature;
 

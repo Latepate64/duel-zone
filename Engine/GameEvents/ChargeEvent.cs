@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class ChargeEvent(IPlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
+public sealed class ChargeEvent(IPlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
 {
     public ICard ChosenCard { get; set; }
 

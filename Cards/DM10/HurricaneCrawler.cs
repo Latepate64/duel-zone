@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class HurricaneCrawler : Creature
+public sealed class HurricaneCrawler : Creature
 {
     public HurricaneCrawler() : base("Hurricane Crawler", 5, 4000, Race.EarthEater, Civilization.Water)
     {

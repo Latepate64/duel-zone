@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {
     public CreatureGetsSlayerUntilEndOfTheTurnEffect(CreatureGetsSlayerUntilEndOfTheTurnEffect effect) : base(effect)
     {

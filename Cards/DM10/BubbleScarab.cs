@@ -8,7 +8,7 @@ using System;
 
 namespace Cards.DM10
 {
-    class BubbleScarab : Creature
+    sealed class BubbleScarab : Creature
     {
         public BubbleScarab() : base("Bubble Scarab", 5, 4000, Race.GiantInsect, Civilization.Nature)
         {
@@ -16,7 +16,7 @@ namespace Cards.DM10
         }
     }
 
-    class BubbleScarabAbility : LinkedTriggeredAbility
+    sealed class BubbleScarabAbility : LinkedTriggeredAbility
     {
         private Creature _attackTarget;
 
@@ -61,7 +61,7 @@ namespace Cards.DM10
         }
     }
 
-    class CreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
+    sealed class CreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
     {
         private readonly ICreature _creature;
         private readonly int _power;

@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class ClobberTotem : Engine.Creature
+    sealed class ClobberTotem : Engine.Creature
     {
         public ClobberTotem() : base("Clobber Totem", 6, 4000, Interfaces.Race.MysteryTotem, Interfaces.Civilization.Nature)
         {

@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class BlazeCannonRestrictionEffect : ContinuousEffect, ICannotUseCardEffect
+public sealed class BlazeCannonRestrictionEffect : ContinuousEffect, ICannotUseCardEffect
 {
     public BlazeCannonRestrictionEffect(BlazeCannonRestrictionEffect effect) : base(effect)
     {

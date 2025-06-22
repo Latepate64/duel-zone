@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class GiganduraEffect : OneShotEffect
+public sealed class GiganduraEffect : OneShotEffect
 {
     public GiganduraEffect()
     {

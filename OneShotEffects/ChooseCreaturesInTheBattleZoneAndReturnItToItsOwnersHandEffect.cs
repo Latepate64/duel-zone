@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect : BounceEffect
+public sealed class ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect : BounceEffect
 {
     public ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect() : base(1, 1)
     {

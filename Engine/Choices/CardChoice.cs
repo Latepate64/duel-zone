@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class CardChoice<T> : Choice, ICardChoice<T> where T : ICard
+public sealed class CardChoice<T> : Choice, ICardChoice<T> where T : ICard
 {
     public CardChoice(ICardChoice<T> choice) : base(choice)
     {

@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
+public sealed class ThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
 {
     public ThisCreatureCannotAttackEffect() : base()
     {

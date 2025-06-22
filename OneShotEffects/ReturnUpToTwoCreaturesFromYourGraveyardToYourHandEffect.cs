@@ -2,7 +2,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public class ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect :
+public sealed class ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect :
     ReturnUpToCreaturesFromYourGraveyardToYourHandEffect
 {
     public ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect() : base(2)

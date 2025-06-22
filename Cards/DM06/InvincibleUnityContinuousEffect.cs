@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM06;
 
-public class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect, IPowerModifyingEffect
+public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect, IPowerModifyingEffect
 {
     private readonly List<ICreature> _cards;
 

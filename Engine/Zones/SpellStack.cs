@@ -3,7 +3,7 @@ using Interfaces.Zones;
 
 namespace Engine.Zones;
 
-public class SpellStack : Zone, ISpellStack
+public sealed class SpellStack : Zone, ISpellStack
 {
     public SpellStack() : base(ZoneType.SpellStack)
     {

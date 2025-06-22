@@ -5,7 +5,7 @@ using ContinuousEffects;
 
 namespace Cards.DM09;
 
-public class VreemahFreakyMojoTotemContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
+public sealed class VreemahFreakyMojoTotemContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
 {
     public VreemahFreakyMojoTotemContinuousEffect() : base(2000)
     {

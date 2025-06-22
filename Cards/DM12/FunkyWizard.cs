@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class FunkyWizard : Creature
+public sealed class FunkyWizard : Creature
 {
     public FunkyWizard() : base("Funky Wizard", 4, 2000, Race.Merfolk, Civilization.Water)
     {

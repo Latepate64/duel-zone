@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class RothusTheTravelerEffect : OneShotEffect
+public sealed class RothusTheTravelerEffect : OneShotEffect
 {
     public RothusTheTravelerEffect()
     {

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class SaucerHeadSharkEffect : BounceAreaOfEffect
+public sealed class SaucerHeadSharkEffect : BounceAreaOfEffect
 {
     public SaucerHeadSharkEffect() : base()
     {

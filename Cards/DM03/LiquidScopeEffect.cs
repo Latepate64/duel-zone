@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM03;
 
-public class LiquidScopeEffect : OneShotEffect
+public sealed class LiquidScopeEffect : OneShotEffect
 {
     public LiquidScopeEffect()
     {

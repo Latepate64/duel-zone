@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class GandarSeekerOfExplosions : Creature
+public sealed class GandarSeekerOfExplosions : Creature
 {
     public GandarSeekerOfExplosions() : base(
         "Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)

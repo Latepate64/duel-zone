@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
+public sealed class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
 {
     private ICreature _creature;
 

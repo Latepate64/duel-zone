@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM08;
 
-public class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, IRaceAddingEffect, IPowerModifyingEffect,
+public sealed class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, IRaceAddingEffect, IPowerModifyingEffect,
     IAbilityAddingEffect
 {
     private readonly List<ICreature> _cards;

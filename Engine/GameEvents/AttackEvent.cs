@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class AttackEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
+public sealed class AttackEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
     public Creature AttackingCreature { get; init; }
     public Creature AttackedCreature { get; init; }

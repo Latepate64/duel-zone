@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+public sealed class WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
     public WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(
         WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility ability) : base(ability)

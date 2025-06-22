@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class MiraclePortalOneShotEffect : OneShotEffect
+public sealed class MiraclePortalOneShotEffect : OneShotEffect
 {
     public MiraclePortalOneShotEffect()
     {

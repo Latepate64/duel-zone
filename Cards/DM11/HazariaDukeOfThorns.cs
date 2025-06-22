@@ -2,7 +2,7 @@
 
 namespace Cards.DM11
 {
-    class HazariaDukeOfThorns : WaveStrikerCreature
+    sealed class HazariaDukeOfThorns : WaveStrikerCreature
     {
         public HazariaDukeOfThorns() : base("Hazaria, Duke of Thorns", 4, 2000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {

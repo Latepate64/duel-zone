@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureHasSlayerEffect : ContinuousEffect, ISlayerEffect
+public sealed class ThisCreatureHasSlayerEffect : ContinuousEffect, ISlayerEffect
 {
     public ThisCreatureHasSlayerEffect(ThisCreatureHasSlayerEffect effect) : base(effect)
     {

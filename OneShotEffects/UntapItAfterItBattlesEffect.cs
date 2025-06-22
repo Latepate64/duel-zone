@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class UntapItAfterItBattlesEffect : OneShotEffect
+public sealed class UntapItAfterItBattlesEffect : OneShotEffect
 {
     public UntapItAfterItBattlesEffect()
     {

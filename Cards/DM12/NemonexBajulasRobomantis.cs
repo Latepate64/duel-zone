@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class NemonexBajulasRobomantis : EvolutionCreature
+    sealed class NemonexBajulasRobomantis : EvolutionCreature
     {
         public NemonexBajulasRobomantis() : base("Nemonex, Bajula's Robomantis", 6, 5000, Race.Xenoparts, Race.GiantInsect, Civilization.Fire, Civilization.Nature)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM12
         }
     }
 
-    class NemonexAbility : TriggeredAbility
+    sealed class NemonexAbility : TriggeredAbility
     {
         public NemonexAbility() : base(new OneShotEffects.YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect())
         {

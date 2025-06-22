@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM09
 {
-    class AzaghastTyrantOfShadows : EvolutionCreature
+    sealed class AzaghastTyrantOfShadows : EvolutionCreature
     {
         public AzaghastTyrantOfShadows() : base("Azaghast, Tyrant of Shadows", 7, 9000, Race.DarkLord, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM09
         }
     }
 
-    class YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect : OneShotEffects.DestroyEffect
+    sealed class YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect : OneShotEffects.DestroyEffect
     {
         public YouMayDestroyOneOfYourOpponentsUntappedCreaturesEffect() : base(0, 1, true)
         {

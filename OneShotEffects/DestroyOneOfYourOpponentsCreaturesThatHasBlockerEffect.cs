@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : DestroyEffect
+public sealed class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : DestroyEffect
 {
     public DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect() : base(1, 1, true)
     {

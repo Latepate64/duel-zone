@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class KuukaiFinderOfKarma : EvolutionCreature
+    sealed class KuukaiFinderOfKarma : EvolutionCreature
     {
         public KuukaiFinderOfKarma() : base("Kuukai, Finder of Karma", 5, 10500, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
         {

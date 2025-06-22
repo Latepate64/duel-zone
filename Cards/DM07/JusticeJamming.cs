@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class JusticeJamming : Spell
+public sealed class JusticeJamming : Spell
 {
     public JusticeJamming() : base("Justice Jamming", 3, Civilization.Light)
     {

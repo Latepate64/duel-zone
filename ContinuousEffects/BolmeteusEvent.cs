@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace ContinuousEffects;
 
-public class BolmeteusEvent(ICreature attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
+public sealed class BolmeteusEvent(ICreature attacker, int breakAmount) : CreatureMightBreakShieldsEvent(attacker, breakAmount)
 {
     public override void Happen(IGame game)
     {

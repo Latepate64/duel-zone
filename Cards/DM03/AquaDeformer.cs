@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class AquaDeformer : Creature
+public sealed class AquaDeformer : Creature
 {
     public AquaDeformer() : base("Aqua Deformer", 8, 3000, Race.LiquidPeople, Civilization.Water)
     {

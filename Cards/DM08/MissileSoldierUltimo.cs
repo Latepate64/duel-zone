@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class MissileSoldierUltimo : TurboRushCreature
+    sealed class MissileSoldierUltimo : TurboRushCreature
     {
         public MissileSoldierUltimo() : base("Missile Soldier Ultimo", 3, 2000, Race.Dragonoid, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM08
         }
     }
 
-    class MissileSoldierUltimoEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
+    sealed class MissileSoldierUltimoEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect, IAbilityAddingEffect
     {
         public MissileSoldierUltimoEffect() : base()
         {

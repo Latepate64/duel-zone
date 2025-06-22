@@ -2,7 +2,7 @@
 
 namespace Engine.Steps
 {
-    public class DirectAttackStep : Step
+    public sealed class DirectAttackStep : Step
     {
         public DirectAttackStep(AttackPhase phase) : base(phase, PhaseOrStep.DirectAttack)
         {

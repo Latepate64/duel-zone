@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM01
 {
-    class PangaeasSong : Engine.Spell
+    sealed class PangaeasSong : Engine.Spell
     {
         public PangaeasSong() : base("Pangaea's Song", 1, Interfaces.Civilization.Nature)
         {

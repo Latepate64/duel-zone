@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class PippieKuppieEffect : ContinuousEffect, IPowerModifyingEffect
+public sealed class PippieKuppieEffect : ContinuousEffect, IPowerModifyingEffect
 {
     public PippieKuppieEffect(PippieKuppieEffect effect) : base(effect)
     {

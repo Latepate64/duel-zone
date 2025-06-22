@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class SphereOfWonderEffect : OneShotEffect
+public sealed class SphereOfWonderEffect : OneShotEffect
 {
     public SphereOfWonderEffect()
     {

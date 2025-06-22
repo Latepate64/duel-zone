@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM09;
 
-public class VenomWormOneShotEffect : OneShotEffect
+public sealed class VenomWormOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

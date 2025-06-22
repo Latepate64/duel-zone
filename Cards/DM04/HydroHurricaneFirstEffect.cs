@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class HydroHurricaneFirstEffect : OneShotEffect
+public sealed class HydroHurricaneFirstEffect : OneShotEffect
 {
     public HydroHurricaneFirstEffect()
     {

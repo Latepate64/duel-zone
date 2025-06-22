@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public class ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect : OpponentManaRecoveryEffect
+public sealed class ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect : OpponentManaRecoveryEffect
 {
     public ChooseCardInYourOpponentsManaZoneAndReturnItToHisHandEffect() : base(1, 1, true)
     {

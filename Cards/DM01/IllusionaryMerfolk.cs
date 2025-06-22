@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class IllusionaryMerfolk : Creature
+public sealed class IllusionaryMerfolk : Creature
 {
     public IllusionaryMerfolk() : base("Illusionary Merfolk", 5, 4000, Race.GelFish, Civilization.Water)
     {

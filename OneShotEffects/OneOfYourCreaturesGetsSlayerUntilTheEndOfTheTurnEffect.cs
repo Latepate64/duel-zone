@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public class OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect :
+public sealed class OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect :
     OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
 {
     public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect() : base(new StaticAbility(

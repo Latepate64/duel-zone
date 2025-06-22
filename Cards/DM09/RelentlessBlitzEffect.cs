@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class RelentlessBlitzEffect : OneShotEffect
+public sealed class RelentlessBlitzEffect : OneShotEffect
 {
     public RelentlessBlitzEffect()
     {

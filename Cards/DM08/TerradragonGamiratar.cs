@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Cards.DM08
 {
-    class TerradragonGamiratar : Creature
+    sealed class TerradragonGamiratar : Creature
     {
         public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Race.EarthDragon, Civilization.Nature)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM08
         }
     }
 
-    class TerradragonGamiratarEffect : CardMovingChoiceEffect<ICreature>
+    sealed class TerradragonGamiratarEffect : CardMovingChoiceEffect<ICreature>
     {
         public TerradragonGamiratarEffect() : base(0, 1, false, ZoneType.Hand, ZoneType.BattleZone)
         {

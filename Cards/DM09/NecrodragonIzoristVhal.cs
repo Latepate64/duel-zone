@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM09
 {
-    class NecrodragonIzoristVhal : Creature
+    sealed class NecrodragonIzoristVhal : Creature
     {
         public NecrodragonIzoristVhal() : base("Necrodragon Izorist Vhal", 6, 0, Race.ZombieDragon, Civilization.Darkness)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM09
         }
     }
 
-    class NecrodragonIzoristVhalEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
+    sealed class NecrodragonIzoristVhalEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

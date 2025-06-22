@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class NeveTheLevelerEffect : OneShotEffect
+public sealed class NeveTheLevelerEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

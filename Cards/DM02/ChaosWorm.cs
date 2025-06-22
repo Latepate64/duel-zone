@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class ChaosWorm : EvolutionCreature
+    sealed class ChaosWorm : EvolutionCreature
     {
         public ChaosWorm() : base("Chaos Worm", 5, 5000, Interfaces.Race.ParasiteWorm, Interfaces.Civilization.Darkness)
         {

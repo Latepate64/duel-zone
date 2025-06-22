@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class FluorogillManta : Creature
+    sealed class FluorogillManta : Creature
     {
         public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Race.GelFish, Civilization.Water)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM10
         }
     }
 
-    class FluorogillMantaEffect : ContinuousEffect, IUnblockableEffect
+    sealed class FluorogillMantaEffect : ContinuousEffect, IUnblockableEffect
     {
         public FluorogillMantaEffect() : base()
         {

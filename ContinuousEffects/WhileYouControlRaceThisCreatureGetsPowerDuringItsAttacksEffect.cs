@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IRaceable
+public sealed class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IRaceable
 {
     public int Power { get; }
     public Race Race { get; }

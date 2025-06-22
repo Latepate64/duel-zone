@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM04;
 
-public class ScreamingSunburstEffect : TapAreaOfEffect
+public sealed class ScreamingSunburstEffect : TapAreaOfEffect
 {
     public ScreamingSunburstEffect() : base()
     {

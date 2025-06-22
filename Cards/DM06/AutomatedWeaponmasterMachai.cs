@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM06
 {
-    class AutomatedWeaponmasterMachai : Engine.Creature
+    sealed class AutomatedWeaponmasterMachai : Engine.Creature
     {
         public AutomatedWeaponmasterMachai() : base("Automated Weaponmaster Machai", 4, 4000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {

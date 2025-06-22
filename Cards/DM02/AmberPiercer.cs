@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class AmberPiercer : Engine.Creature
+    sealed class AmberPiercer : Engine.Creature
     {
         public AmberPiercer() : base("Amber Piercer", 4, 2000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
         {

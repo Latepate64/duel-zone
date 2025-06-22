@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class PsyshroomEffect : FromGraveyardIntoManaZoneEffect
+public sealed class PsyshroomEffect : FromGraveyardIntoManaZoneEffect
 {
     public PsyshroomEffect() : base(0, 1, true)
     {

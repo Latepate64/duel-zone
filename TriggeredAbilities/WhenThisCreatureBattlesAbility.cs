@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WhenThisCreatureBattlesAbility : CardTriggeredAbility
+public sealed class WhenThisCreatureBattlesAbility : CardTriggeredAbility
 {
     public WhenThisCreatureBattlesAbility(IOneShotEffect effect) : base(effect)
     {

@@ -4,7 +4,7 @@ using OneShotEffects;
 
 namespace Cards.Promo
 {
-    class VelyrikaDragon : Engine.Creature
+    sealed class VelyrikaDragon : Engine.Creature
     {
         public VelyrikaDragon() : base("Velyrika Dragon", 7, 7000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

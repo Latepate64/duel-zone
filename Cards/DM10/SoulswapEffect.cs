@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class SoulswapEffect : OneShotEffect
+public sealed class SoulswapEffect : OneShotEffect
 {
     public override IOneShotEffect Copy()
     {

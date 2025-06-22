@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM09
 {
-    class KelpCandle : Creature
+    sealed class KelpCandle : Creature
     {
         public KelpCandle() : base("Kelp Candle", 2, 1000, Race.CyberVirus, Civilization.Water)
         {

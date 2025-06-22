@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class ScreamingSunburst : Spell
+public sealed class ScreamingSunburst : Spell
 {
     public ScreamingSunburst() : base("Screaming Sunburst", 3, Civilization.Light)
     {

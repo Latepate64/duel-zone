@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class StampedingLonghorn : Engine.Creature
+    sealed class StampedingLonghorn : Engine.Creature
     {
         public StampedingLonghorn() : base("Stampeding Longhorn", 5, 4000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

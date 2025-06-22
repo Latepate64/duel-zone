@@ -9,7 +9,7 @@ namespace Engine.Zones;
 /// <summary>
 /// When a game begins, each player’s deck becomes their deck.
 /// </summary>
-public class Deck : Zone, IDeck
+public sealed class Deck : Zone, IDeck
 {
     public Deck(params ICard[] cards) : base(ZoneType.Deck, cards)
     {

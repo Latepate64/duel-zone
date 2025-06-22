@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08
 {
-    class EmperorQuazla : EvolutionCreature
+    sealed class EmperorQuazla : EvolutionCreature
     {
         public EmperorQuazla() : base("Emperor Quazla", 6, 5000, Race.CyberLord, Civilization.Water)
         {

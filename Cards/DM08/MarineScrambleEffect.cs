@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class MarineScrambleEffect : OneShotEffect
+public sealed class MarineScrambleEffect : OneShotEffect
 {
     public MarineScrambleEffect() : base()
     {

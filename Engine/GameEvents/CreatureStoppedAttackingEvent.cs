@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents
 {
-    public class CreatureStoppedAttackingEvent(ICard card, AttackPhase attackPhase) : GameEvent
+    public sealed class CreatureStoppedAttackingEvent(ICard card, AttackPhase attackPhase) : GameEvent
     {
         public ICard AttackingCreature { get; } = card;
         public AttackPhase AttackPhase { get; } = attackPhase;

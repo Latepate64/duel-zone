@@ -2,7 +2,7 @@
 
 namespace Cards.Promo
 {
-    class LothRixTheIridescent : EvolutionCreature
+    sealed class LothRixTheIridescent : EvolutionCreature
     {
         public LothRixTheIridescent() : base("Loth Rix, the Iridescent", 6, 4000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {

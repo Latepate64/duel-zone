@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class AfterBattleAbility : TriggeredAbility
+public sealed class AfterBattleAbility : TriggeredAbility
 {
     public AfterBattleAbility(OneShotEffect effect) : base(effect)
     {

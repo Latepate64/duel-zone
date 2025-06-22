@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class HeavyweightDragon : Creature
+    sealed class HeavyweightDragon : Creature
     {
         public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Race.ArmoredDragon, Civilization.Fire)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM11
         }
     }
 
-    class HeavyweightDragonEffect : CreatureSelectionEffect
+    sealed class HeavyweightDragonEffect : CreatureSelectionEffect
     {
         public HeavyweightDragonEffect() : base(0, 2, true)
         {

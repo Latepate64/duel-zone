@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    class Vikorakys : TurboRushCreature
+    sealed class Vikorakys : TurboRushCreature
     {
         public Vikorakys() : base("Vikorakys", 3, 1000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
         {

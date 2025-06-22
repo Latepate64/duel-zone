@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class ImpossibleTunnelOneShotEffect : OneShotEffect
+public sealed class ImpossibleTunnelOneShotEffect : OneShotEffect
 {
     public ImpossibleTunnelOneShotEffect()
     {

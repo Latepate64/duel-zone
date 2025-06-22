@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class NarielTheOracle : Creature
+    sealed class NarielTheOracle : Creature
     {
         public NarielTheOracle() : base("Nariel, the Oracle", 4, 1000, Race.LightBringer, Civilization.Light)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM08
         }
     }
 
-    class NarielTheOracleEffect : ContinuousEffect, ICannotAttackEffect
+    sealed class NarielTheOracleEffect : ContinuousEffect, ICannotAttackEffect
     {
         public NarielTheOracleEffect() : base()
         {

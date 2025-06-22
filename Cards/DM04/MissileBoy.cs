@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class MissileBoy : Creature
+public sealed class MissileBoy : Creature
 {
     public MissileBoy() : base("Missile Boy", 3, 1000, Race.Human, Civilization.Fire)
     {

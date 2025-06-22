@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM02;
 
-public class ReconOperationEffect : LookEffect
+public sealed class ReconOperationEffect : LookEffect
 {
     public ReconOperationEffect() : base(0, 3)
     {

@@ -2,7 +2,7 @@
 
 namespace Engine.Abilities;
 
-public class TapAbility : ActivatedAbility, ITapAbility
+public sealed class TapAbility : ActivatedAbility, ITapAbility
 {
     public TapAbility(IOneShotEffect effect) : base(effect)
     {

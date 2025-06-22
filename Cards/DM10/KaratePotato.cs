@@ -4,7 +4,7 @@ using Engine.Abilities;
 
 namespace Cards.DM10
 {
-    class KaratePotato : Engine.Creature
+    sealed class KaratePotato : Engine.Creature
     {
         public KaratePotato() : base("Karate Potato", 4, 1000, Interfaces.Race.WildVeggies, Interfaces.Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM10
         }
     }
 
-    class KaratePotatoEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
+    sealed class KaratePotatoEffect : YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
     {
         public KaratePotatoEffect() : base(2)
         {

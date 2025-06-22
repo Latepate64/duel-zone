@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class PlasmaChaserEffect : OneShotEffect
+public sealed class PlasmaChaserEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

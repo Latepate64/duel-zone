@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class Corile : Creature
+public sealed class Corile : Creature
 {
     public Corile() : base("Corile", 5, 2000, Race.CyberLord, Civilization.Water)
     {

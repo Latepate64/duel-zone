@@ -2,7 +2,7 @@
 
 namespace Engine.GameEvents
 {
-    public class CreatureSummonedEvent(IPlayer player, ICreature creature) : GameEvent
+    public sealed class CreatureSummonedEvent(IPlayer player, ICreature creature) : GameEvent
     {
         public IPlayer Player { get; } = player;
         public ICreature Creature { get; } = creature;

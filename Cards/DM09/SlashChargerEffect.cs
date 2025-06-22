@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class SlashChargerEffect : OneShotEffect
+public sealed class SlashChargerEffect : OneShotEffect
 {
     public SlashChargerEffect()
     {

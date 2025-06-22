@@ -4,7 +4,7 @@ using System;
 
 namespace Cards.DM08;
 
-public class LunarChargerEffect : OneShotEffect
+public sealed class LunarChargerEffect : OneShotEffect
 {
     public LunarChargerEffect()
     {

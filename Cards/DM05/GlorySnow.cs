@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class GlorySnow : Spell
+public sealed class GlorySnow : Spell
 {
     public GlorySnow() : base("Glory Snow", 4, Civilization.Light)
     {

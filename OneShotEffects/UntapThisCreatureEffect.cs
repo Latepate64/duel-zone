@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class UntapThisCreatureEffect : UntapAreaOfEffect
+public sealed class UntapThisCreatureEffect : UntapAreaOfEffect
 {
     public UntapThisCreatureEffect() : base() { }
 

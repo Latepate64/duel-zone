@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08
 {
-    class NastashaChannelerOfSuns : Creature
+    sealed class NastashaChannelerOfSuns : Creature
     {
         public NastashaChannelerOfSuns() : base("Nastasha, Channeler of Suns", 7, 6000, Race.MechaDelSol, Civilization.Light)
         {

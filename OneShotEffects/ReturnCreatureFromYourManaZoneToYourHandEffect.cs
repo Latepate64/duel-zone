@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ReturnCreatureFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
+public sealed class ReturnCreatureFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
 {
     public ReturnCreatureFromYourManaZoneToYourHandEffect() : base(1, 1, true)
     {

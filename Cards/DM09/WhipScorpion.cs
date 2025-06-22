@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    class WhipScorpion : Engine.Creature
+    sealed class WhipScorpion : Engine.Creature
     {
         public WhipScorpion() : base("Whip Scorpion", 5, 2000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {

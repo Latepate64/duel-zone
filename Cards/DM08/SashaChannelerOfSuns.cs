@@ -1,12 +1,11 @@
 ﻿using ContinuousEffects;
 using Engine;
-using Engine.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08
 {
-    class SashaChannelerOfSuns : Creature
+    sealed class SashaChannelerOfSuns : Creature
     {
         public SashaChannelerOfSuns() : base("Sasha, Channeler of Suns", 8, 9500, Race.MechaDelSol, Civilization.Light)
         {
@@ -15,7 +14,7 @@ namespace Cards.DM08
         }
     }
 
-    class SashaBlockerEffect : ContinuousEffect, IBlockerEffect
+    sealed class SashaBlockerEffect : ContinuousEffect, IBlockerEffect
     {
         public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
         {
@@ -33,7 +32,7 @@ namespace Cards.DM08
         }
     }
 
-    class SashaPowerEffect : ContinuousEffect, IPowerModifyingEffect
+    sealed class SashaPowerEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public SashaPowerEffect()
         {

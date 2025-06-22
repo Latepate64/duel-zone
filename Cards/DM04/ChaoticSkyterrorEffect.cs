@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM04;
 
-public class ChaoticSkyterrorEffect : AbilityAddingEffect
+public sealed class ChaoticSkyterrorEffect : AbilityAddingEffect
 {
     public ChaoticSkyterrorEffect(ChaoticSkyterrorEffect effect) : base(effect)
     {

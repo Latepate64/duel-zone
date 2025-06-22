@@ -8,7 +8,7 @@ using Interfaces;
 
 namespace Cards.DM07
 {
-    class SiriGloryElemental : Creature
+    sealed class SiriGloryElemental : Creature
     {
         public SiriGloryElemental() : base("Siri, Glory Elemental", 6, 7000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
@@ -17,7 +17,7 @@ namespace Cards.DM07
         }
     }
 
-    class SiriEffect : ContinuousEffect, IAbilityAddingEffect
+    sealed class SiriEffect : ContinuousEffect, IAbilityAddingEffect
     {
         public SiriEffect() : base()
         {

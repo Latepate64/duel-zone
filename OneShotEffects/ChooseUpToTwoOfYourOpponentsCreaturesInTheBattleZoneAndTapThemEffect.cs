@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect : TapChoiceEffect
+public sealed class ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect : TapChoiceEffect
 {
     public ChooseUpToTwoOfYourOpponentsCreaturesInTheBattleZoneAndTapThemEffect() : base(0, 2, true)
     {

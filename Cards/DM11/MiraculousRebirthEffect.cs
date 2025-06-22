@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM11;
 
-public class MiraculousRebirthEffect : OneShotEffect
+public sealed class MiraculousRebirthEffect : OneShotEffect
 {
     public MiraculousRebirthEffect()
     {

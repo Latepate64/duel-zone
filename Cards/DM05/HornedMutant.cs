@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class HornedMutant : Engine.Creature
+public sealed class HornedMutant : Engine.Creature
 {
     public HornedMutant() : base("Horned Mutant", 5, 3000, Race.Hedrian, Civilization.Darkness)
     {

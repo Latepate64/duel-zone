@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM10
 {
-    class LemikVizierOfThought : Creature
+    sealed class LemikVizierOfThought : Creature
     {
         public LemikVizierOfThought() : base("Lemik, Vizier of Thought", 5, 3000, Race.Initiate, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class LemikVizierOfThoughtEffect : AbilityAddingEffect
+    sealed class LemikVizierOfThoughtEffect : AbilityAddingEffect
     {
         public LemikVizierOfThoughtEffect() : base(new StaticAbility(new ThisCreatureHasBlockerEffect()))
         {

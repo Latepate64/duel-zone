@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class JigglyTotemEffect : PowerAttackerMultiplierEffect
+public sealed class JigglyTotemEffect : PowerAttackerMultiplierEffect
 {
     public JigglyTotemEffect(JigglyTotemEffect effect) : base(effect)
     {

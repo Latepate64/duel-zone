@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM10
 {
-    class HourglassMutant : Creature
+    sealed class HourglassMutant : Creature
     {
         public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Race.Hedrian, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class HourglassMutantEffect : AbilityAddingEffect
+    sealed class HourglassMutantEffect : AbilityAddingEffect
     {
         public HourglassMutantEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
         {

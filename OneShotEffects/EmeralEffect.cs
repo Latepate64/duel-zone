@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class EmeralEffect : OneShotEffect
+public sealed class EmeralEffect : OneShotEffect
 {
     public EmeralEffect()
     {

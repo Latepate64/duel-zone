@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect, IMultiCivilizationable
+public sealed class CivilizationSlayerEffect : ContinuousEffect, ISlayerEffect, IMultiCivilizationable
 {
     public CivilizationSlayerEffect(params Civilization[] civilizations) : base()
     {

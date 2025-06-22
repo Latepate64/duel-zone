@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11
 {
-    class SalivaWorm : WaveStrikerCreature
+    sealed class SalivaWorm : WaveStrikerCreature
     {
         public SalivaWorm() : base("Saliva Worm", 3, 2000, Race.ParasiteWorm, Civilization.Darkness)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class SalivaWormEffect : StealthEffect, IPowerModifyingEffect
+    sealed class SalivaWormEffect : StealthEffect, IPowerModifyingEffect
     {
         public SalivaWormEffect(Civilization civilization = Civilization.Darkness) : base(civilization)
         {

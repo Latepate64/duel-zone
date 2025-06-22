@@ -2,7 +2,7 @@
 
 namespace Cards.DM11
 {
-    class WarlordAilzonius : EvolutionCreature
+    sealed class WarlordAilzonius : EvolutionCreature
     {
         public WarlordAilzonius() : base("Warlord Ailzonius", 5, 8000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {

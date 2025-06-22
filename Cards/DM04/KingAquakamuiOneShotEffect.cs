@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class KingAquakamuiOneShotEffect : OneShotEffect
+public sealed class KingAquakamuiOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

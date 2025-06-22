@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class GigaberosEffect : OneShotEffect
+public sealed class GigaberosEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

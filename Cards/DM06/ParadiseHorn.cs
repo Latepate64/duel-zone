@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class ParadiseHorn : Engine.Creature
+    sealed class ParadiseHorn : Engine.Creature
     {
         public ParadiseHorn() : base("Paradise Horn", 4, 3000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

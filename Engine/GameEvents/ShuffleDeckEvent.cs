@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : GameEventV2(player, false)
+public sealed class ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : GameEventV2(player, false)
 {
     readonly IRandomizer randomizer = randomizer;
 

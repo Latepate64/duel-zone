@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM07
 {
-    class ScalpelSpider : Creature
+    sealed class ScalpelSpider : Creature
     {
         public ScalpelSpider() : base("Scalpel Spider", 3, 2000, Race.BrainJacker, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM07
         }
     }
 
-    class ScalpelSpiderAbility : LinkedTriggeredAbility
+    sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
     {
         public ScalpelSpiderAbility() : base()
         {

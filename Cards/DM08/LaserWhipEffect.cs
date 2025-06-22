@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class LaserWhipEffect : OneShotEffect
+public sealed class LaserWhipEffect : OneShotEffect
 {
     public LaserWhipEffect()
     {

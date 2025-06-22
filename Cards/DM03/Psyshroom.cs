@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class Psyshroom : Creature
+public sealed class Psyshroom : Creature
 {
     public Psyshroom() : base("Psyshroom", 4, 2000, Race.BalloonMushroom, Civilization.Nature)
     {

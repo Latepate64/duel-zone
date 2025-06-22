@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class CopperLocust : Creature
+    sealed class CopperLocust : Creature
     {
         public CopperLocust() : base("Copper Locust", 3, 5000, Race.GiantInsect, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM12
         }
     }
 
-    class CopperLocustAbility : TriggeredAbility
+    sealed class CopperLocustAbility : TriggeredAbility
     {
         public CopperLocustAbility() : base(new OneShotEffects.DestroyThisCreatureEffect())
         {

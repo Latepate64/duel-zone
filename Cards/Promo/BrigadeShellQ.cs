@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.Promo;
 
-public class BrigadeShellQ : Creature
+public sealed class BrigadeShellQ : Creature
 {
     public BrigadeShellQ() : base("Brigade Shell Q", 3, 1000, [Race.Survivor, Race.ColonyBeetle], Civilization.Nature)
     {

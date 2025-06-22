@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class OptionalMadnessEffect : MadnessEffect
+public sealed class OptionalMadnessEffect : MadnessEffect
 {
     public OptionalMadnessEffect()
     {

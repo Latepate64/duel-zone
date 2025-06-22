@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class ClonedNightmare : Spell
+    sealed class ClonedNightmare : Spell
     {
         public ClonedNightmare() : base("Cloned Nightmare", 3, Civilization.Darkness)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM12
         }
     }
 
-    class ClonedNightmareEffect : ClonedEffect
+    sealed class ClonedNightmareEffect : ClonedEffect
     {
         public ClonedNightmareEffect() : base("Cloned Nightmare")
         {
@@ -45,7 +45,7 @@ namespace Cards.DM12
         }
     }
 
-    class ClonedNightmareChoice : NumberChoice
+    sealed class ClonedNightmareChoice : NumberChoice
     {
         private readonly int _max;
 

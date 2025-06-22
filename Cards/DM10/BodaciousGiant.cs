@@ -6,7 +6,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class BodaciousGiant : Creature
+    sealed class BodaciousGiant : Creature
     {
         public BodaciousGiant() : base("Bodacious Giant", 8, 12000, Race.Giant, Civilization.Nature)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class BodaciousGiantEffect : ContinuousEffect, IAttacksIfAbleEffect, ICannotAttackCreaturesEffect, ICannotAttackPlayersEffect, IWatcher
+    sealed class BodaciousGiantEffect : ContinuousEffect, IAttacksIfAbleEffect, ICannotAttackCreaturesEffect, ICannotAttackPlayersEffect, IWatcher
     {
         private bool _hasBeenAttacked;
 

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class ScarletSkyterrorEffect : DestroyAreaOfEffect
+public sealed class ScarletSkyterrorEffect : DestroyAreaOfEffect
 {
     public ScarletSkyterrorEffect() : base()
     {

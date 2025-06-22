@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class PlayerChoice : Choice, IPlayerChoice
+public sealed class PlayerChoice : Choice, IPlayerChoice
 {
     public PlayerChoice(PlayerChoice choice) : base(choice)
     {

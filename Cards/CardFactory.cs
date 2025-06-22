@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Cards
 {
-    public class CardFactory : ICardFactory
+    public sealed class CardFactory : ICardFactory
     {
         private static readonly Random Random = new();
 

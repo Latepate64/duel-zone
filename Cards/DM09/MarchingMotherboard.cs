@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class MarchingMotherboard : Creature
+public sealed class MarchingMotherboard : Creature
 {
     public MarchingMotherboard() : base("Marching Motherboard", 6, 2000, Race.CyberVirus, Civilization.Water)
     {

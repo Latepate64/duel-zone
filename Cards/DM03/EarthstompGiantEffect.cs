@@ -5,7 +5,7 @@ using OneShotEffects;
 
 namespace Cards.DM03;
 
-public class EarthstompGiantEffect : ManaRecoveryAreaOfEffect
+public sealed class EarthstompGiantEffect : ManaRecoveryAreaOfEffect
 {
     public EarthstompGiantEffect() : base()
     {

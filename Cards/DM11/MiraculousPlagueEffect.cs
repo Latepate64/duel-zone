@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM11;
 
-public class MiraculousPlagueEffect : OneShotEffect
+public sealed class MiraculousPlagueEffect : OneShotEffect
 {
     public MiraculousPlagueEffect()
     {

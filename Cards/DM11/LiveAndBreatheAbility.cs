@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class LiveAndBreatheAbility : LinkedTriggeredAbility
+public sealed class LiveAndBreatheAbility : LinkedTriggeredAbility
 {
     private string _name;
 

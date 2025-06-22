@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class GalekTheShadowWarriorEffect : OneShotEffect
+public sealed class GalekTheShadowWarriorEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -2,7 +2,7 @@
 
 namespace Engine.Steps
 {
-    public class EndOfAttackStep : Step
+    public sealed class EndOfAttackStep : Step
     {
         public EndOfAttackStep(AttackPhase phase) : base(phase, PhaseOrStep.EndOfAttack)
         {

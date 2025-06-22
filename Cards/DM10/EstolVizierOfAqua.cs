@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class EstolVizierOfAqua : Creature
+public sealed class EstolVizierOfAqua : Creature
 {
     public EstolVizierOfAqua() : base(
         "Estol, Vizier of Aqua", 5, 2000, [Race.Initiate, Race.LiquidPeople], Civilization.Light, Civilization.Water)

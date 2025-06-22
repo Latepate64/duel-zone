@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class SpinningTotemTriggeredAbility : LinkedTriggeredAbility
+public sealed class SpinningTotemTriggeredAbility : LinkedTriggeredAbility
 {
     private readonly ICreature _breaker;
 

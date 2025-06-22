@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM01;
 
-public class HolyAwe : Spell
+public sealed class HolyAwe : Spell
 {
     public HolyAwe() : base("Holy Awe", 6, Civilization.Light)
     {

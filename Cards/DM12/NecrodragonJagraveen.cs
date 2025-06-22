@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM12
 {
-    class NecrodragonJagraveen : Engine.Creature
+    sealed class NecrodragonJagraveen : Engine.Creature
     {
         public NecrodragonJagraveen() : base("Necrodragon Jagraveen", 6, 6000, Interfaces.Race.ZombieDragon, Interfaces.Civilization.Darkness)
         {

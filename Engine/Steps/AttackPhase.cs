@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Engine.Steps
 {
-    public class AttackPhase : Phase
+    public sealed class AttackPhase : Phase
     {
         public ICreature AttackingCreature { get; internal set; }
         public IAttackable AttackTarget { get; set; }

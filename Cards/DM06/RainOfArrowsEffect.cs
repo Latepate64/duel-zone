@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM06;
 
-public class RainOfArrowsEffect : OneShotEffect
+public sealed class RainOfArrowsEffect : OneShotEffect
 {
     public RainOfArrowsEffect()
     {

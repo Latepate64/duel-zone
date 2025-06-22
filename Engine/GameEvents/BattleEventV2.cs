@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class BattleEventV2(IPlayerV2 player, ICreature attackingCreature, ICreature defendingCreature) : GameEventV2(
+public sealed class BattleEventV2(IPlayerV2 player, ICreature attackingCreature, ICreature defendingCreature) : GameEventV2(
     player, passable: false)
 {
     public ICreature AttackingCreature { get; } = attackingCreature;

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
+public sealed class YouMayLookAtOneOfYourOpponentsShieldsEffect : LookEffect
 {
     public YouMayLookAtOneOfYourOpponentsShieldsEffect() : base(0, 1)
     {

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM09;
 
-public class GrinningHungerEffect : OneShotEffect
+public sealed class GrinningHungerEffect : OneShotEffect
 {
     public GrinningHungerEffect()
     {

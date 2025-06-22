@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class KingBenthosEffect : OneShotEffect
+public sealed class KingBenthosEffect : OneShotEffect
 {
     public KingBenthosEffect() : base()
     {

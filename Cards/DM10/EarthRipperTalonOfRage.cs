@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM10
 {
-    class EarthRipperTalonOfRage : EvolutionCreature
+    sealed class EarthRipperTalonOfRage : EvolutionCreature
     {
         public EarthRipperTalonOfRage() : base("Earth Ripper, Talon of Rage", 4, 6000, Race.BeastFolk, Civilization.Nature)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class EarthRipperTalonOfRageEffect : OneShotEffects.ManaRecoveryAreaOfEffect
+    sealed class EarthRipperTalonOfRageEffect : OneShotEffects.ManaRecoveryAreaOfEffect
     {
         public EarthRipperTalonOfRageEffect() : base()
         {

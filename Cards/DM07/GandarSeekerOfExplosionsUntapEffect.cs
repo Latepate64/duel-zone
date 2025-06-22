@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class GandarSeekerOfExplosionsUntapEffect : UntapAreaOfEffect
+public sealed class GandarSeekerOfExplosionsUntapEffect : UntapAreaOfEffect
 {
     public GandarSeekerOfExplosionsUntapEffect() : base()
     {

@@ -7,7 +7,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10;
 
-public class InfernalCommandContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+public sealed class InfernalCommandContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
 {
     private readonly ICreature _creature;
 

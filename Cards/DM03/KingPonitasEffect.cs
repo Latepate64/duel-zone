@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class KingPonitasEffect : SearchEffect
+public sealed class KingPonitasEffect : SearchEffect
 {
     public KingPonitasEffect() : base(true)
     {

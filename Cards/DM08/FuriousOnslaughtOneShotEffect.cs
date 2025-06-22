@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class FuriousOnslaughtOneShotEffect : OneShotEffect
+public sealed class FuriousOnslaughtOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class GamilKnightOfHatredEffect : SalvageCivilizationCreatureEffect
+public sealed class GamilKnightOfHatredEffect : SalvageCivilizationCreatureEffect
 {
     public GamilKnightOfHatredEffect() : base(0, 1)
     {

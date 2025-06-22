@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class HideAndSeek : Spell
+public sealed class HideAndSeek : Spell
 {
     public HideAndSeek() : base("Hide and Seek", 4, Civilization.Water, Civilization.Darkness)
     {

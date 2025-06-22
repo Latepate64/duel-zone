@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM08
 {
-    class MegariaEmpressOfDread : Creature
+    sealed class MegariaEmpressOfDread : Creature
     {
         public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Race.DarkLord, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM08
         }
     }
 
-    class MegariaEmpressOfDreadEffect : AbilityAddingEffect
+    sealed class MegariaEmpressOfDreadEffect : AbilityAddingEffect
     {
         public MegariaEmpressOfDreadEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
         {

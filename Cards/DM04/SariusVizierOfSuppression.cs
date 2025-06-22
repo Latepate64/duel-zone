@@ -2,7 +2,7 @@
 
 namespace Cards.DM04
 {
-    class SariusVizierOfSuppression : Engine.Creature
+    sealed class SariusVizierOfSuppression : Engine.Creature
     {
         public SariusVizierOfSuppression() : base("Sarius, Vizier of Suppression", 2, 3000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {

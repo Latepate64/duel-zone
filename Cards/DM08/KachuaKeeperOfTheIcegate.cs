@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class KachuaKeeperOfTheIcegate : Creature
+public sealed class KachuaKeeperOfTheIcegate : Creature
 {
     public KachuaKeeperOfTheIcegate() : base(
         "Kachua, Keeper of the Icegate", 7, 3000, Race.SnowFaerie, Civilization.Nature)

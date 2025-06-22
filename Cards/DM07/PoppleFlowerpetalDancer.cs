@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    class PoppleFlowerpetalDancer : Engine.Creature
+    sealed class PoppleFlowerpetalDancer : Engine.Creature
     {
         public PoppleFlowerpetalDancer() : base("Popple, Flowerpetal Dancer", 4, 2000, Interfaces.Race.SnowFaerie, Interfaces.Civilization.Nature)
         {

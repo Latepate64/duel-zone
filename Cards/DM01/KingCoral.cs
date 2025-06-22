@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class KingCoral : Engine.Creature
+    sealed class KingCoral : Engine.Creature
     {
         public KingCoral() : base("King Coral", 3, 1000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM08
 {
-    class SeniaOrchardAvenger : TurboRushCreature
+    sealed class SeniaOrchardAvenger : TurboRushCreature
     {
         public SeniaOrchardAvenger() : base("Senia, Orchard Avenger", 4, 3000, Race.TreeFolk, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM08
         }
     }
 
-    class SeniaOrchardAvengerEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect
+    sealed class SeniaOrchardAvengerEffect : ContinuousEffects.GetPowerAndDoubleBreakerEffect
     {
         public SeniaOrchardAvengerEffect() : base(5000)
         {

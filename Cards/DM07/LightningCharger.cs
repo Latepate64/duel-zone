@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM07
 {
-    class LightningCharger : Charger
+    sealed class LightningCharger : Charger
     {
         public LightningCharger() : base("Lightning Charger", 4, Interfaces.Civilization.Light)
         {

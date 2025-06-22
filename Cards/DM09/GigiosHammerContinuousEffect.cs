@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.DM09;
 
-public class GigiosHammerContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
+public sealed class GigiosHammerContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect, IAbilityAddingEffect
 {
     private readonly Race _race;
 

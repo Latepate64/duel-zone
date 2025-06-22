@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class DogarnTheMarauderEffect : PowerAttackerMultiplierEffect
+public sealed class DogarnTheMarauderEffect : PowerAttackerMultiplierEffect
 {
     public DogarnTheMarauderEffect(int power) : base(power)
     {

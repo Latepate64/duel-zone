@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DestroyMaxPowerAreaOfEffect : DestroyAreaOfEffect, IPowerable
+public sealed class DestroyMaxPowerAreaOfEffect : DestroyAreaOfEffect, IPowerable
 {
     public DestroyMaxPowerAreaOfEffect(int power) : base()
     {

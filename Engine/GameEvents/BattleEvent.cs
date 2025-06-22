@@ -2,7 +2,7 @@
 
 namespace Engine.GameEvents
 {
-    public class BattleEvent(ICreature attackingCreature, ICreature defendingCreature) : GameEvent
+    public sealed class BattleEvent(ICreature attackingCreature, ICreature defendingCreature) : GameEvent
     {
         public ICreature AttackingCreature { get; } = attackingCreature;
         public ICreature DefendingCreature { get; } = defendingCreature;

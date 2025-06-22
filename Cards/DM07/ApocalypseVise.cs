@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class ApocalypseVise : Spell
+public sealed class ApocalypseVise : Spell
 {
     public ApocalypseVise() : base("Apocalypse Vise", 7, Civilization.Fire)
     {

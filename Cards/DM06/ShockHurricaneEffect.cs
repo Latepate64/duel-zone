@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM06;
 
-public class ShockHurricaneEffect : OneShotEffect
+public sealed class ShockHurricaneEffect : OneShotEffect
 {
     public ShockHurricaneEffect()
     {

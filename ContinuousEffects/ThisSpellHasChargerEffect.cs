@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisSpellHasChargerEffect : ReplacementEffect, IChargerEffect
+public sealed class ThisSpellHasChargerEffect : ReplacementEffect, IChargerEffect
 {
     public ThisSpellHasChargerEffect() : base()
     {

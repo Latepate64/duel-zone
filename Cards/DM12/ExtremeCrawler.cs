@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class ExtremeCrawler : Creature
+    sealed class ExtremeCrawler : Creature
     {
         public ExtremeCrawler() : base("Extreme Crawler", 5, 7000, Race.EarthEater, Civilization.Water)
         {
@@ -16,7 +16,7 @@ namespace Cards.DM12
         }
     }
 
-    class ExtremeCrawlerEffect : OneShotEffects.BounceAreaOfEffect
+    sealed class ExtremeCrawlerEffect : OneShotEffects.BounceAreaOfEffect
     {
         public ExtremeCrawlerEffect() : base()
         {

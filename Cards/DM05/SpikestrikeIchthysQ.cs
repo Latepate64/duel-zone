@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM05
 {
-    class SpikestrikeIchthysQ : Engine.Creature
+    sealed class SpikestrikeIchthysQ : Engine.Creature
     {
         public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, [Interfaces.Race.Survivor, Interfaces.Race.Fish], Interfaces.Civilization.Water)
         {

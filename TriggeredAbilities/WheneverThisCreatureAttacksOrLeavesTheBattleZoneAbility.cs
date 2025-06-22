@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverThisCreatureAttacksOrLeavesTheBattleZoneAbility : TriggeredAbility
+public sealed class WheneverThisCreatureAttacksOrLeavesTheBattleZoneAbility : TriggeredAbility
 {
     public WheneverThisCreatureAttacksOrLeavesTheBattleZoneAbility(IOneShotEffect effect) : base(effect)
     {

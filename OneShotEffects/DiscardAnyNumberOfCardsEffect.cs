@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DiscardAnyNumberOfCardsEffect : ChooseAnyNumberOfCardsEffect
+public sealed class DiscardAnyNumberOfCardsEffect : ChooseAnyNumberOfCardsEffect
 {
     public DiscardAnyNumberOfCardsEffect() : base()
     {

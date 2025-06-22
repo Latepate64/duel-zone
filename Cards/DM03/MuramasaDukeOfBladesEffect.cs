@@ -6,7 +6,7 @@ using OneShotEffects;
 
 namespace Cards.DM03;
 
-public class MuramasaDukeOfBladesEffect : DestroyEffect
+public sealed class MuramasaDukeOfBladesEffect : DestroyEffect
 {
     public MuramasaDukeOfBladesEffect() : base(0, 1, true)
     {

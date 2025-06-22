@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class AuraBlastEffect : OneShotEffect, IPowerable
+public sealed class AuraBlastEffect : OneShotEffect, IPowerable
 {
     public AuraBlastEffect(int power) : base()
     {

@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class EachOfYourOtherRacesGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IMultiRaceable
+public sealed class EachOfYourOtherRacesGetsPowerEffect : ContinuousEffect, IPowerModifyingEffect, IMultiRaceable
 {
     public EachOfYourOtherRacesGetsPowerEffect(params Race[] races) : base()
     {

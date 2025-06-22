@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM12
 {
-    class PincerScarab : Creature
+    sealed class PincerScarab : Creature
     {
         public PincerScarab() : base("Pincer Scarab", 4, 1000, Race.GiantInsect, Civilization.Nature)
         {
@@ -12,7 +12,7 @@ namespace Cards.DM12
         }
     }
 
-    class PincerScarabEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class PincerScarabEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM05;
 
-public class GlorySnowEffect : OneShotEffect
+public sealed class GlorySnowEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

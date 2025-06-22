@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
+public sealed class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
 {
     public AfterAttackDelayedTriggeredAbility(AfterAttackDelayedTriggeredAbility ability) : base(ability)
     {

@@ -6,7 +6,7 @@ using OneShotEffects;
 
 namespace Cards.DM04;
 
-public class BallomMasterOfDeathEffect : DestroyAreaOfEffect
+public sealed class BallomMasterOfDeathEffect : DestroyAreaOfEffect
 {
     public BallomMasterOfDeathEffect() : base()
     {

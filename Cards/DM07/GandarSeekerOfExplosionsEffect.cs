@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class GandarSeekerOfExplosionsEffect : OneShotEffect
+public sealed class GandarSeekerOfExplosionsEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

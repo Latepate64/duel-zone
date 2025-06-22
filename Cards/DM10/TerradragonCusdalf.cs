@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class TerradragonCusdalf : Creature
+    sealed class TerradragonCusdalf : Creature
     {
         public TerradragonCusdalf() : base("Terradragon Cusdalf", 5, 7000, Race.EarthDragon, Civilization.Nature)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class TerradragonCusdalfEffect : ContinuousEffect, IPlayerCannotUntapCardsInManaZoneAtStartOfTurn
+    sealed class TerradragonCusdalfEffect : ContinuousEffect, IPlayerCannotUntapCardsInManaZoneAtStartOfTurn
     {
         public TerradragonCusdalfEffect()
         {

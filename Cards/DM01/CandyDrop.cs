@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class CandyDrop : Engine.Creature
+    sealed class CandyDrop : Engine.Creature
     {
         public CandyDrop() : base("Candy Drop", 3, 1000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {

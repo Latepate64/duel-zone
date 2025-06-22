@@ -6,7 +6,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11
 {
-    class AsraVizierOfSafety : WaveStrikerCreature
+    sealed class AsraVizierOfSafety : WaveStrikerCreature
     {
         public AsraVizierOfSafety() : base("Asra, Vizier of Safety", 3, 2000, Race.Initiate, Civilization.Light)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM11
         }
     }
 
-    class AsraVizierOfSafetyEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    sealed class AsraVizierOfSafetyEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         public AsraVizierOfSafetyEffect() : base() { }
 

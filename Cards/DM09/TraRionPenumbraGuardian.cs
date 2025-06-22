@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class TraRionPenumbraGuardian : Creature
+public sealed class TraRionPenumbraGuardian : Creature
 {
     public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Race.Guardian, Civilization.Light)
     {

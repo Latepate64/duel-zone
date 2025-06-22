@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class MarchingMotherboardAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+public sealed class MarchingMotherboardAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
 {
     public MarchingMotherboardAbility(MarchingMotherboardAbility ability) : base(ability)
     {

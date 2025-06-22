@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class AtTheEndOfTheTurnDelayedTriggeredAbility : DelayedTriggeredAbility
+public sealed class AtTheEndOfTheTurnDelayedTriggeredAbility : DelayedTriggeredAbility
 {
     public AtTheEndOfTheTurnDelayedTriggeredAbility(IAbility ability, Guid turn, OneShotEffect effect) : base(
         new AtTheEndOfTurnAbility(turn, effect), ability.Source, ability.Controller, true)

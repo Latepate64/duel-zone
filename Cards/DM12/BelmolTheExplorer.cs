@@ -2,7 +2,7 @@
 
 namespace Cards.DM12
 {
-    class BelmolTheExplorer : Engine.Creature
+    sealed class BelmolTheExplorer : Engine.Creature
     {
         public BelmolTheExplorer() : base("Belmol, the Explorer", 2, 3500, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {

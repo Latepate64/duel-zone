@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class VessTheOracle : Engine.Creature
+    sealed class VessTheOracle : Engine.Creature
     {
         public VessTheOracle() : base("Vess, the Oracle", 1, 2000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

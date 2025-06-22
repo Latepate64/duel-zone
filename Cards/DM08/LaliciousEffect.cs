@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class LaliciousEffect : OneShotEffect
+public sealed class LaliciousEffect : OneShotEffect
 {
     public LaliciousEffect()
     {

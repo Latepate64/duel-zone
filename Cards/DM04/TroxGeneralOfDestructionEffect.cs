@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class TroxGeneralOfDestructionEffect : OneShotEffect
+public sealed class TroxGeneralOfDestructionEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

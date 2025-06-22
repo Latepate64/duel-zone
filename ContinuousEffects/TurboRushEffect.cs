@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class TurboRushEffect : ContinuousEffect, IAbilityAddingEffect
+public sealed class TurboRushEffect : ContinuousEffect, IAbilityAddingEffect
 {
     private readonly IAbility _ability;
 

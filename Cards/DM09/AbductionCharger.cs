@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    class AbductionCharger : Charger
+    sealed class AbductionCharger : Charger
     {
         public AbductionCharger() : base("Abduction Charger", 7, Interfaces.Civilization.Water)
         {

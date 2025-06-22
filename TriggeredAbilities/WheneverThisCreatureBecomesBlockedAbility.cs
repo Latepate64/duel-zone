@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverThisCreatureBecomesBlockedAbility : BecomeBlockedAbility
+public sealed class WheneverThisCreatureBecomesBlockedAbility : BecomeBlockedAbility
 {
     public WheneverThisCreatureBecomesBlockedAbility(IOneShotEffect effect) : base(effect)
     { 

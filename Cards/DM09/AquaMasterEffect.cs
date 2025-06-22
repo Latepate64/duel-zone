@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class AquaMasterEffect : OneShotEffect
+public sealed class AquaMasterEffect : OneShotEffect
 {
     public AquaMasterEffect()
     {

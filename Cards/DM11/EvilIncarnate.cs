@@ -6,7 +6,7 @@ using System;
 
 namespace Cards.DM11
 {
-    class EvilIncarnate : EvolutionCreature
+    sealed class EvilIncarnate : EvolutionCreature
     {
         public EvilIncarnate() : base("Evil Incarnate", 6, 11000, Race.DevilMask, Civilization.Darkness)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM11
         }
     }
 
-    class EvilIncarnateAbility : LinkedTriggeredAbility
+    sealed class EvilIncarnateAbility : LinkedTriggeredAbility
     {
         private IPlayer _player;
 

@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM08;
 
-public class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect, ICardAffectable
+public sealed class KachuaContinuousEffect : ContinuousEffect, ISpeedAttackerEffect, ICardAffectable
 {
     public KachuaContinuousEffect(ICard card)
     {

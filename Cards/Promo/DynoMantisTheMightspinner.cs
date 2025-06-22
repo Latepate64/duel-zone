@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.Promo
 {
-    class DynoMantisTheMightspinner : EvolutionCreature
+    sealed class DynoMantisTheMightspinner : EvolutionCreature
     {
         public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Race.GiantInsect, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.Promo
         }
     }
 
-    class DynoMantisEffect : ContinuousEffect, IBreaksAdditionalShieldsEffect
+    sealed class DynoMantisEffect : ContinuousEffect, IBreaksAdditionalShieldsEffect
     {
         public override IContinuousEffect Copy()
         {

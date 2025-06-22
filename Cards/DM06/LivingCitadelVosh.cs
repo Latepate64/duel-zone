@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class LivingCitadelVosh : EvolutionCreature
+    sealed class LivingCitadelVosh : EvolutionCreature
     {
         public LivingCitadelVosh() : base("Living Citadel Vosh", 5, 5000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {

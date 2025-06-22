@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM02;
 
-public class RumbleGateOneShotEffect : OneShotEffect
+public sealed class RumbleGateOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

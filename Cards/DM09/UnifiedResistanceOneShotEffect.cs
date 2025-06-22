@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM09;
 
-public class UnifiedResistanceOneShotEffect : OneShotEffect
+public sealed class UnifiedResistanceOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

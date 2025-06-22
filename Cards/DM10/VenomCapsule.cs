@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    class VenomCapsule : SilentSkillCreature
+    sealed class VenomCapsule : SilentSkillCreature
     {
         public VenomCapsule() : base("Venom Capsule", 2, 1000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
         {

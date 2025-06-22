@@ -30,7 +30,7 @@ namespace Engine.GameEvents
         public IEnumerable<ICard> Shields { get; } = shields;
     }
 
-    public class ShieldsBreakEvent(IEnumerable<ICard> shields) : ShieldsMightBreakEvent(shields)
+    public sealed class ShieldsBreakEvent(IEnumerable<ICard> shields) : ShieldsMightBreakEvent(shields)
     {
         public override void Happen(IGame game)
         {

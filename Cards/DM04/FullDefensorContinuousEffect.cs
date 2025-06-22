@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM04;
 
-public class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirable
+public sealed class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirable
 {
     private readonly Guid _player;
     private readonly ICard[] _cards;

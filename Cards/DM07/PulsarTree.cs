@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07
 {
-    class PulsarTree : Creature
+    sealed class PulsarTree : Creature
     {
         public PulsarTree() : base("Pulsar Tree", 5, 1000, Race.StarlightTree, Civilization.Light)
         {

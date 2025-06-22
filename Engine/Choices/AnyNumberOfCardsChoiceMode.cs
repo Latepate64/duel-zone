@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class AnyNumberOfCardsChoiceMode<T> : ICardChoiceMode<T> where T : ICard
+public sealed class AnyNumberOfCardsChoiceMode<T> : ICardChoiceMode<T> where T : ICard
 {
     public bool CanBeChosenAutomatically(IEnumerable<T> cards)
     {

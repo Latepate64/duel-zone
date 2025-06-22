@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM07
 {
-    class CrypticTotem : Creature
+    sealed class CrypticTotem : Creature
     {
         public CrypticTotem() : base("Cryptic Totem", 6, 6000, Race.MysteryTotem, Civilization.Nature)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM07
         }
     }
 
-    class CrypticTotemEffect : ContinuousEffect, ICannotUseShieldTriggerEffect
+    sealed class CrypticTotemEffect : ContinuousEffect, ICannotUseShieldTriggerEffect
     {
         public CrypticTotemEffect()
         {

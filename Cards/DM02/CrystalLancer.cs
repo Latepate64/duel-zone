@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class CrystalLancer : EvolutionCreature
+    sealed class CrystalLancer : EvolutionCreature
     {
         public CrystalLancer() : base("Crystal Lancer", 6, 8000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {

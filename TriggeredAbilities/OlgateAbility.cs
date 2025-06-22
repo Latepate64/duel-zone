@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class OlgateAbility : DestroyedAbility
+public sealed class OlgateAbility : DestroyedAbility
 {
     public OlgateAbility(IOneShotEffect effect) : base(effect)
     {

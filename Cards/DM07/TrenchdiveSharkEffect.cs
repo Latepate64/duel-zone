@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM07;
 
-public class TrenchdiveSharkEffect : OneShotEffect
+public sealed class TrenchdiveSharkEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

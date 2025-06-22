@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    class NeonCluster : Engine.Creature
+    sealed class NeonCluster : Engine.Creature
     {
         public NeonCluster() : base("Neon Cluster", 7, 4000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {

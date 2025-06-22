@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class IceVaporShadowOfAnguishEffect : OneShotEffect
+public sealed class IceVaporShadowOfAnguishEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

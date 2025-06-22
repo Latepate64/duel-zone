@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ReturnCardFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
+public sealed class ReturnCardFromYourManaZoneToYourHandEffect : SelfManaRecoveryEffect
 {
     public ReturnCardFromYourManaZoneToYourHandEffect() : base(1, 1, true)
     {

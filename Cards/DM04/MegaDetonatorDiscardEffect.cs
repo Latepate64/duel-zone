@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class MegaDetonatorDiscardEffect : OneShotEffect
+public sealed class MegaDetonatorDiscardEffect : OneShotEffect
 {
     public MegaDetonatorDiscardEffect()
     {

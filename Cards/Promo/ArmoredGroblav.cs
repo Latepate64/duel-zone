@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.Promo
 {
-    class ArmoredGroblav : EvolutionCreature
+    sealed class ArmoredGroblav : EvolutionCreature
     {
         public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Race.Human, Civilization.Fire)
         {
@@ -14,7 +14,7 @@ namespace Cards.Promo
         }
     }
 
-    class ArmoredGroblavEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
+    sealed class ArmoredGroblavEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

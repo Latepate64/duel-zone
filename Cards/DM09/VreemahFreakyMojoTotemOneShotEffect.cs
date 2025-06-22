@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class VreemahFreakyMojoTotemOneShotEffect : OneShotEffect
+public sealed class VreemahFreakyMojoTotemOneShotEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

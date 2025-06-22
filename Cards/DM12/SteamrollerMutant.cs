@@ -2,7 +2,7 @@
 
 namespace Cards.DM12
 {
-    class SteamrollerMutant : WaveStrikerCreature
+    sealed class SteamrollerMutant : WaveStrikerCreature
     {
         public SteamrollerMutant() : base("Steamroller Mutant", 4, 3000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {

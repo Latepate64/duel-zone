@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cards.DM06;
 
-public class CrisisBoulderEffect : OneShotEffect
+public sealed class CrisisBoulderEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

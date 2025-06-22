@@ -4,7 +4,7 @@ using Interfaces.Zones;
 
 namespace Engine;
 
-public class PlayerV2 : IPlayerV2
+public sealed class PlayerV2 : IPlayerV2
 {
     public IDeck Deck { get; init; } = new Deck();
     public IShieldZone ShieldZone { get; init; } = new ShieldZone();

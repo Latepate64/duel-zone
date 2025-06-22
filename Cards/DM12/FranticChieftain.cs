@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class FranticChieftain : Creature
+    sealed class FranticChieftain : Creature
     {
         public FranticChieftain() : base("Frantic Chieftain", 2, 2000, Race.Merfolk, Civilization.Water)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM12
         }
     }
 
-    class FranticChieftainEffect : OneShotEffects.BounceEffect
+    sealed class FranticChieftainEffect : OneShotEffects.BounceEffect
     {
         public FranticChieftainEffect() : base(1, 1)
         {

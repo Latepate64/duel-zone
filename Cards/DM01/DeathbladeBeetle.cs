@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class DeathbladeBeetle : Engine.Creature
+    sealed class DeathbladeBeetle : Engine.Creature
     {
         public DeathbladeBeetle() : base("Deathblade Beetle", 5, 3000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {

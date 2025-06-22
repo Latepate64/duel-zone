@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM10
 {
-    class UlexTheDauntless : Creature
+    sealed class UlexTheDauntless : Creature
     {
         public UlexTheDauntless() : base("Ulex, the Dauntless", 3, 3000, Race.SpiritQuartz, Civilization.Darkness, Civilization.Fire)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM10
         }
     }
 
-    class YourOpponentCannotTapThisCreatureEffect : ContinuousEffect, IPlayerCannotTapCreatureEffect
+    sealed class YourOpponentCannotTapThisCreatureEffect : ContinuousEffect, IPlayerCannotTapCreatureEffect
     {
         public YourOpponentCannotTapThisCreatureEffect()
         {

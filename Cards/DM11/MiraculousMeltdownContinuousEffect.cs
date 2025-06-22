@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11;
 
-public class MiraculousMeltdownContinuousEffect : ContinuousEffect, ICannotUseCardEffect
+public sealed class MiraculousMeltdownContinuousEffect : ContinuousEffect, ICannotUseCardEffect
 {
     public MiraculousMeltdownContinuousEffect()
     {

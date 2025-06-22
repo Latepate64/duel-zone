@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM08
 {
-    class VolcanoCharger : Charger
+    sealed class VolcanoCharger : Charger
     {
         public VolcanoCharger() : base("Volcano Charger", 4, Interfaces.Civilization.Fire)
         {

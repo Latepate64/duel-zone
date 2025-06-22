@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class MysticMagician : Creature
+    sealed class MysticMagician : Creature
     {
         public MysticMagician() : base("Mystic Magician", 5, 3000, Race.Merfolk, Civilization.Water)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class MysticMagicianTappedEffect : ReplacementEffect
+    sealed class MysticMagicianTappedEffect : ReplacementEffect
     {
         public MysticMagicianTappedEffect()
         {
@@ -50,7 +50,7 @@ namespace Cards.DM10
         }
     }
 
-    class MysticMagicianDestroyedEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
+    sealed class MysticMagicianDestroyedEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
     {
         public MysticMagicianDestroyedEffect()
         {

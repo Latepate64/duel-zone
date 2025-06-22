@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureHasSpeedAttackerEffect : ContinuousEffect, ISpeedAttackerEffect
+public sealed class ThisCreatureHasSpeedAttackerEffect : ContinuousEffect, ISpeedAttackerEffect
 {
     public ThisCreatureHasSpeedAttackerEffect() : base()
     {

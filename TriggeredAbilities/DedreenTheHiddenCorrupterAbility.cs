@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class DedreenTheHiddenCorrupterAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
+public sealed class DedreenTheHiddenCorrupterAbility : WhenYouPutThisCreatureIntoTheBattleZoneAbility
 {
     private readonly int _shieldsMaximum;
 

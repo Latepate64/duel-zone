@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class NotDestroyedInBattleEffect : ContinuousEffect, INotDestroyedInBattleEffect, ICivilizationable
+public sealed class NotDestroyedInBattleEffect : ContinuousEffect, INotDestroyedInBattleEffect, ICivilizationable
 {
     public NotDestroyedInBattleEffect(Civilization civilization) : base()
     {

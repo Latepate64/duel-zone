@@ -5,7 +5,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM02;
 
-public class ElfXEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
+public sealed class ElfXEffect : ContinuousEffect, ICostModifyingEffect, IMinimumCostModifyingEffect
 {
     public ElfXEffect() : base() { }
 

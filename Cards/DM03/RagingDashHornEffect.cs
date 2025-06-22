@@ -6,7 +6,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM03;
 
-public class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
+public sealed class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
 {
     public RagingDashHornEffect() : base() { }
 

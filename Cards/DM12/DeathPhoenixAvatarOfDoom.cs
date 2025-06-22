@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class DeathPhoenixAvatarOfDoom : VortexEvolutionCreature
+    sealed class DeathPhoenixAvatarOfDoom : VortexEvolutionCreature
     {
         public DeathPhoenixAvatarOfDoom() : base("Death Phoenix, Avatar of Doom", 4, 9000, Civilization.Darkness, Civilization.Fire, Race.Phoenix, Race.ZombieDragon, Race.FireBird)
         {

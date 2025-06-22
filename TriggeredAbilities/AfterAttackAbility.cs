@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class AfterAttackAbility : TriggeredAbility
+public sealed class AfterAttackAbility : TriggeredAbility
 {
     public Guid Attacker { get; }
 

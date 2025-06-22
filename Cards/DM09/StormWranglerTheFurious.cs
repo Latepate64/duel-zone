@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class StormWranglerTheFurious : EvolutionCreature
+public sealed class StormWranglerTheFurious : EvolutionCreature
 {
     public StormWranglerTheFurious() : base("Storm Wrangler, the Furious", 4, 5000, Race.BeastFolk, Civilization.Nature)
     {

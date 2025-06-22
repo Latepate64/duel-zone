@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    class WynTheOracle : Engine.Creature
+    sealed class WynTheOracle : Engine.Creature
     {
         public WynTheOracle() : base("Wyn, the Oracle", 2, 1500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

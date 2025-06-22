@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM04;
 
-public class MarinomancerEffect : OneShotEffect
+public sealed class MarinomancerEffect : OneShotEffect
 {
     public MarinomancerEffect()
     {

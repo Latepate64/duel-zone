@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect : ShieldBurnEffect
+public sealed class ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect : ShieldBurnEffect
 {
     public ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect() : base(1, 1, true)
     {

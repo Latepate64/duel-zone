@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect : ManaBurnEffect
+public sealed class ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect : ManaBurnEffect
 {
     public ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect() : base(1, 1, true)
     {

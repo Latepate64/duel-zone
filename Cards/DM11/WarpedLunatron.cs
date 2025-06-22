@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Cards.DM11
 {
-    class WarpedLunatron : Creature
+    sealed class WarpedLunatron : Creature
     {
         public WarpedLunatron() : base("Warped Lunatron", 7, 6000, Race.CyberMoon, Civilization.Water)
         {
@@ -19,7 +19,7 @@ namespace Cards.DM11
         }
     }
 
-    class WarpedLunatronEffect : ContinuousEffect, ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn
+    sealed class WarpedLunatronEffect : ContinuousEffect, ICreaturesDoNotUntapAtTheStartOfEachPlayersTurn
     {
         public WarpedLunatronEffect()
         {
@@ -40,7 +40,7 @@ namespace Cards.DM11
         }
     }
 
-    class WarpedLunatronAbility : LinkedTriggeredAbility
+    sealed class WarpedLunatronAbility : LinkedTriggeredAbility
     {
         private IPlayer _player;
 

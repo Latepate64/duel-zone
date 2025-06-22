@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM08;
 
-public class LunarChargerDelayedTriggeredAbility : DelayedTriggeredAbility
+public sealed class LunarChargerDelayedTriggeredAbility : DelayedTriggeredAbility
 {
     public LunarChargerDelayedTriggeredAbility(LunarChargerDelayedTriggeredAbility ability) : base(ability)
     {

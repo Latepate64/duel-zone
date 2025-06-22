@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM12
 {
-    class PhantomachTheGigatrooper : EvolutionCreature
+    sealed class PhantomachTheGigatrooper : EvolutionCreature
     {
         public PhantomachTheGigatrooper() : base("Phantomach, the Gigatrooper", 5, 6000, Race.Chimera, Race.Armorloid, Civilization.Darkness, Civilization.Fire)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM12
         }
     }
 
-    class PhantomachDoubleBreakerEffect : AbilityAddingEffect
+    sealed class PhantomachDoubleBreakerEffect : AbilityAddingEffect
     {
         public PhantomachDoubleBreakerEffect() : base(new StaticAbility(new DoubleBreakerEffect()))
         {

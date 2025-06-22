@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class AddCardFromYourHandToYourShieldsFaceDownEffect : ShieldAdditionEffect
+public sealed class AddCardFromYourHandToYourShieldsFaceDownEffect : ShieldAdditionEffect
 {
     public AddCardFromYourHandToYourShieldsFaceDownEffect() : base(1, 1, true)
     {

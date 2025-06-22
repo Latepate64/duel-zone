@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM12
 {
-    class ClonedDeflector : Spell
+    sealed class ClonedDeflector : Spell
     {
         public ClonedDeflector() : base("Cloned Deflector", 3, Civilization.Light)
         {
@@ -14,7 +14,7 @@ namespace Cards.DM12
         }
     }
 
-    class ClonedDeflectorEffect : ClonedEffect
+    sealed class ClonedDeflectorEffect : ClonedEffect
     {
         public ClonedDeflectorEffect() : base("Cloned Deflector")
         {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class DestroyAllCreaturesThatHaveExactPower : DestroyAreaOfEffect
+public sealed class DestroyAllCreaturesThatHaveExactPower : DestroyAreaOfEffect
 {
     private readonly int _power;
 

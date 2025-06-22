@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM08;
 
-public class AquaGrapplerEffect : OneShotEffect
+public sealed class AquaGrapplerEffect : OneShotEffect
 {
     public AquaGrapplerEffect()
     {

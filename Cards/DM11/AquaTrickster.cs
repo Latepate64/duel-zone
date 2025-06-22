@@ -2,7 +2,7 @@
 
 namespace Cards.DM11
 {
-    class AquaTrickster : WaveStrikerCreature
+    sealed class AquaTrickster : WaveStrikerCreature
     {
         public AquaTrickster() : base("Aqua Trickster", 2, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    class BoltailDragon : Engine.Creature
+    sealed class BoltailDragon : Engine.Creature
     {
         public BoltailDragon() : base("Boltail Dragon", 7, 9000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class BolmeteusEffect : ReplacementEffect
+public sealed class BolmeteusEffect : ReplacementEffect
 {
     public BolmeteusEffect()
     {

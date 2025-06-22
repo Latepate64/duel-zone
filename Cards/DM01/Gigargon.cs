@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    class Gigargon : Engine.Creature
+    sealed class Gigargon : Engine.Creature
     {
         public Gigargon() : base("Gigargon", 8, 3000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

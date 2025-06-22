@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Engine.GameEvents;
 
-public class PutIntoGraveyardEvent(IPlayerV2 player, ICard card) : GameEventV2(player, false)
+public sealed class PutIntoGraveyardEvent(IPlayerV2 player, ICard card) : GameEventV2(player, false)
 {
     public ICard ICard { get; } = card;
 

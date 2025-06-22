@@ -2,7 +2,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public class MutualSingleManaSacrificeEffect : MutualManaSacrificeEffect
+public sealed class MutualSingleManaSacrificeEffect : MutualManaSacrificeEffect
 {
     public MutualSingleManaSacrificeEffect() : base(1)
     {

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cards.DM12
 {
-    class KilstineNebulaElemental : WaveStrikerCreature
+    sealed class KilstineNebulaElemental : WaveStrikerCreature
     {
         public KilstineNebulaElemental() : base("Kilstine, Nebula Elemental", 7, 5000, Race.AngelCommand, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM12
         }
     }
 
-    class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
+    sealed class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
     {
         public KilstineNebulaElementalEffect() : base()
         {

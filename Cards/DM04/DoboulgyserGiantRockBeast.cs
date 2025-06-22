@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM04
 {
-    class DoboulgyserGiantRockBeast : EvolutionCreature
+    sealed class DoboulgyserGiantRockBeast : EvolutionCreature
     {
         public DoboulgyserGiantRockBeast() : base("Doboulgyser, Giant Rock Beast", 6, 8000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {

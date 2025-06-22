@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class GigiosHammer : Creature
+public sealed class GigiosHammer : Creature
 {
     public GigiosHammer() : base("Gigio's Hammer", 3, 2000, Race.Xenoparts, Civilization.Fire)
     {

@@ -2,7 +2,7 @@ using Engine.Abilities;
 
 namespace OneShotEffects;
 
-public class PutTopTwoCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+public sealed class PutTopTwoCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
 {
     public PutTopTwoCardOfDeckIntoManaZoneEffect() : base(2)
     {

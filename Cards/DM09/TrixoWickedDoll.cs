@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    class TrixoWickedDoll : Engine.Creature
+    sealed class TrixoWickedDoll : Engine.Creature
     {
         public TrixoWickedDoll() : base("Trixo, Wicked Doll", 4, 2000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {

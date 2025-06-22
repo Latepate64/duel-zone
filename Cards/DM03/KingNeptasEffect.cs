@@ -6,7 +6,7 @@ using OneShotEffects;
 
 namespace Cards.DM03;
 
-public class KingNeptasEffect : BounceEffect
+public sealed class KingNeptasEffect : BounceEffect
 {
     public KingNeptasEffect() : base(0, 1)
     {

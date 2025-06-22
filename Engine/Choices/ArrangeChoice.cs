@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class ArrangeChoice : Choice, IArrangeChoice
+public sealed class ArrangeChoice : Choice, IArrangeChoice
 {
     public ArrangeChoice(ArrangeChoice choice) : base(choice)
     {

@@ -5,7 +5,7 @@ using OneShotEffects;
 
 namespace Cards.DM02;
 
-public class LarbaGeerTheImmaculateEffect : TapAreaOfEffect
+public sealed class LarbaGeerTheImmaculateEffect : TapAreaOfEffect
 {
     public LarbaGeerTheImmaculateEffect() : base()
     {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    class ColiseumShell : Engine.Creature
+    sealed class ColiseumShell : Engine.Creature
     {
         public ColiseumShell() : base("Coliseum Shell", 4, 3000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    class SteelTurretCluster : Engine.Creature
+    sealed class SteelTurretCluster : Engine.Creature
     {
         public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cards.Promo
 {
-    class StarCryDragon : Creature
+    sealed class StarCryDragon : Creature
     {
         public StarCryDragon() : base("Star-Cry Dragon", 7, 8000, Race.ArmoredDragon, Civilization.Fire)
         {
@@ -15,7 +15,7 @@ namespace Cards.Promo
         }
     }
 
-    class StarCryDragonEffect : ContinuousEffect, IPowerModifyingEffect
+    sealed class StarCryDragonEffect : ContinuousEffect, IPowerModifyingEffect
     {
         public StarCryDragonEffect() : base()
         {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Cards.DM09;
 
-public class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IExpirable
+public sealed class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IExpirable
 {
     private readonly Guid _player;
     private readonly ICard[] _cards;

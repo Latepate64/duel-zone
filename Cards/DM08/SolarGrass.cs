@@ -7,7 +7,7 @@ using Interfaces;
 
 namespace Cards.DM08
 {
-    class SolarGrass : TurboRushCreature
+    sealed class SolarGrass : TurboRushCreature
     {
         public SolarGrass() : base("Solar Grass", 5, 3000, Race.StarlightTree, Civilization.Light)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM08
         }
     }
 
-    class SolarGrassEffect : UntapAreaOfEffect
+    sealed class SolarGrassEffect : UntapAreaOfEffect
     {
         public SolarGrassEffect() : base()
         {

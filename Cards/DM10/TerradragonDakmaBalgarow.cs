@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Cards.DM10
 {
-    class TerradragonDakmaBalgarow : Creature
+    sealed class TerradragonDakmaBalgarow : Creature
     {
         public TerradragonDakmaBalgarow() : base("Terradragon Dakma Balgarow", 7, 1000, Race.EarthDragon, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM10
         }
     }
 
-    class TerradragonDakmaBalgarowEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
+    sealed class TerradragonDakmaBalgarowEffect(int power = 2000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
     {
         public override IContinuousEffect Copy()
         {

@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class ZombieCarnivalEffect : OneShotEffect
+public sealed class ZombieCarnivalEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

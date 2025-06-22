@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM12;
 
-public class CometEyeOneShotEffect : OneShotEffect
+public sealed class CometEyeOneShotEffect : OneShotEffect
 {
     public CometEyeOneShotEffect()
     {

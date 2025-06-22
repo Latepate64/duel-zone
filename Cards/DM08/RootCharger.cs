@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM08
 {
-    class RootCharger : Charger
+    sealed class RootCharger : Charger
     {
         public RootCharger() : base("Root Charger", 3, Interfaces.Civilization.Nature)
         {

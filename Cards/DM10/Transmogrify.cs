@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM10;
 
-public class Transmogrify : Spell
+public sealed class Transmogrify : Spell
 {
     public Transmogrify() : base("Transmogrify", 3, Civilization.Water)
     {

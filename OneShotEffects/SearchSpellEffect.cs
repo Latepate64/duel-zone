@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class SearchSpellEffect : SearchEffect
+public sealed class SearchSpellEffect : SearchEffect
 {
     public SearchSpellEffect() : base(true)
     {

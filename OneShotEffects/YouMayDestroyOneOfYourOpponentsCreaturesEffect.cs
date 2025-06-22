@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public class YouMayDestroyOneOfYourOpponentsCreaturesEffect : DestroyEffect
+public sealed class YouMayDestroyOneOfYourOpponentsCreaturesEffect : DestroyEffect
 {
     public YouMayDestroyOneOfYourOpponentsCreaturesEffect() : base(0, 1, true)
     {

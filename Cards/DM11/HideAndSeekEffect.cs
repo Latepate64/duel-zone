@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class HideAndSeekEffect : OneShotEffect
+public sealed class HideAndSeekEffect : OneShotEffect
 {
     public HideAndSeekEffect()
     {

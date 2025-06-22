@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class TimeScoutEffect : OneShotEffect
+public sealed class TimeScoutEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

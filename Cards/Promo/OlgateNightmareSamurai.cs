@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.Promo;
 
-public class OlgateNightmareSamurai : Creature
+public sealed class OlgateNightmareSamurai : Creature
 {
     public OlgateNightmareSamurai() : base("Olgate, Nightmare Samurai", 7, 6000, Race.DemonCommand, Civilization.Darkness)
     {

@@ -4,7 +4,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class RaptorFish : Creature
+public sealed class RaptorFish : Creature
 {
     public RaptorFish() : base("Raptor Fish", 6, 3000, Race.GelFish, Civilization.Water)
     {

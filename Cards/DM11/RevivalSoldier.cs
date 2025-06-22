@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM11
 {
-    class RevivalSoldier : WaveStrikerCreature
+    sealed class RevivalSoldier : WaveStrikerCreature
     {
         public RevivalSoldier() : base("Revival Soldier", 3, 2000, Interfaces.Race.Merfolk, Interfaces.Civilization.Water)
         {

@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class OpponentSummonOrCastAbility : TriggeredAbility
+public sealed class OpponentSummonOrCastAbility : TriggeredAbility
 {
     public OpponentSummonOrCastAbility(IOneShotEffect effect) : base(effect)
     {

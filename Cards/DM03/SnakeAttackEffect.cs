@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM03;
 
-public class SnakeAttackEffect : OneShotEffect
+public sealed class SnakeAttackEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {

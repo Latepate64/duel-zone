@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
+public sealed class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable
 {
     public PowerAttackerEffect(PowerAttackerEffect effect) : base(effect)
     {

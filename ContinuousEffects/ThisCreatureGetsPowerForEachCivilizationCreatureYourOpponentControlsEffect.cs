@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IMultiCivilizationable
+public sealed class ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IMultiCivilizationable
 {
     public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect effect) : base(effect)
     {

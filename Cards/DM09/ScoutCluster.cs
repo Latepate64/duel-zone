@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM09
 {
-    class ScoutCluster : Engine.Creature
+    sealed class ScoutCluster : Engine.Creature
     {
         public ScoutCluster() : base("Scout Cluster", 3, 4000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {

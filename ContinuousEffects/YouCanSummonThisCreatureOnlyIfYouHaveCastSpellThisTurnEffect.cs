@@ -1,10 +1,9 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect : ContinuousEffect, ICannotUseCardEffect
+public sealed class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect : ContinuousEffect, ICannotUseCardEffect
 {
     public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect()
     {

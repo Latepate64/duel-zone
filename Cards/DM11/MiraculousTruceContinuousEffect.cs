@@ -7,7 +7,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards.DM11;
 
-public class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
+public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
 {
     private readonly Civilization _civilization;
     private readonly IPlayer _player;

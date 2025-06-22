@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM09;
 
-public class EmperorMarollEffect : OneShotEffect
+public sealed class EmperorMarollEffect : OneShotEffect
 {
     public EmperorMarollEffect()
     {

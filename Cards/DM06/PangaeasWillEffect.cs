@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM06;
 
-public class PangaeasWillEffect : OneShotEffect
+public sealed class PangaeasWillEffect : OneShotEffect
 {
     public PangaeasWillEffect()
     {

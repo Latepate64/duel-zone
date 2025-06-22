@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class LiveAndBreathe : Spell
+public sealed class LiveAndBreathe : Spell
 {
     public LiveAndBreathe() : base("Live and Breathe", 3, Civilization.Light, Civilization.Nature)
     {

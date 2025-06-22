@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace Cards.DM11;
 
-public class BaraidTheExplorerEffect : OneShotEffect
+public sealed class BaraidTheExplorerEffect : OneShotEffect
 {
     public BaraidTheExplorerEffect() : base()
     {

@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM08
 {
-    class IllusionFish : TurboRushCreature
+    sealed class IllusionFish : TurboRushCreature
     {
         public IllusionFish() : base("Illusion Fish", 4, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {

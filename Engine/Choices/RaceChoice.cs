@@ -5,7 +5,7 @@ using Interfaces.Choices;
 
 namespace Engine.Choices;
 
-public class RaceChoice : Choice, IRaceChoice
+public sealed class RaceChoice : Choice, IRaceChoice
 {
     public RaceChoice(IRaceChoice choice) : base(choice)
     {

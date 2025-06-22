@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM08
 {
-    class MuscleCharger : Charger
+    sealed class MuscleCharger : Charger
     {
         public MuscleCharger() : base("Muscle Charger", 3, Interfaces.Civilization.Nature)
         {

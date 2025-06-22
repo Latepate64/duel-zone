@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM08
 {
-    class CorpseCharger : Charger
+    sealed class CorpseCharger : Charger
     {
         public CorpseCharger() : base("Corpse Charger", 4, Interfaces.Civilization.Darkness)
         {

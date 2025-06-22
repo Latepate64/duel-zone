@@ -6,7 +6,7 @@ using Interfaces;
 
 namespace Cards.DM10
 {
-    class SmashWarriorStagrandu : Creature
+    sealed class SmashWarriorStagrandu : Creature
     {
         public SmashWarriorStagrandu() : base("Smash Warrior Stagrandu", 2, 1000, Race.Armorloid, Civilization.Fire)
         {
@@ -15,7 +15,7 @@ namespace Cards.DM10
         }
     }
 
-    class StagranduAbility : WheneverThisCreatureAttacksAbility
+    sealed class StagranduAbility : WheneverThisCreatureAttacksAbility
     {
         public StagranduAbility() : base(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(9000))
         {

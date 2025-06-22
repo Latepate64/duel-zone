@@ -3,7 +3,7 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
-public class WheneverAnotherCreatureIsDestroyedAbility : DestroyedAbility
+public sealed class WheneverAnotherCreatureIsDestroyedAbility : DestroyedAbility
 {
     public WheneverAnotherCreatureIsDestroyedAbility(IOneShotEffect effect) : base(effect) { }
 

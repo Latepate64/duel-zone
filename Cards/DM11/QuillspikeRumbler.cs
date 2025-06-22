@@ -5,7 +5,7 @@ using Interfaces;
 
 namespace Cards.DM11
 {
-    class QuillspikeRumbler : Creature
+    sealed class QuillspikeRumbler : Creature
     {
         public QuillspikeRumbler() : base("Quillspike Rumbler", 4, 3000, Race.BeastFolk, Civilization.Nature)
         {
@@ -13,7 +13,7 @@ namespace Cards.DM11
         }
     }
 
-    class QuillspikeRumblerAbility : WheneverThisCreatureAttacksAbility
+    sealed class QuillspikeRumblerAbility : WheneverThisCreatureAttacksAbility
     {
         public QuillspikeRumblerAbility() : base(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000))
         {
