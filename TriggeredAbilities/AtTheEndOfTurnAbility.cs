@@ -9,7 +9,7 @@ public sealed class AtTheEndOfTurnAbility : TriggeredAbility
 {
     public Guid Turn { get; }
 
-    public AtTheEndOfTurnAbility(Guid turn, OneShotEffect effect) : base(effect)
+    public AtTheEndOfTurnAbility(Guid turn, IOneShotEffect effect) : base(effect)
     {
         Turn = turn;
     }

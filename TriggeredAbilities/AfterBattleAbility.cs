@@ -6,7 +6,7 @@ namespace TriggeredAbilities;
 
 public sealed class AfterBattleAbility : TriggeredAbility
 {
-    public AfterBattleAbility(OneShotEffect effect) : base(effect)
+    public AfterBattleAbility(IOneShotEffect effect) : base(effect)
     {
     }
 

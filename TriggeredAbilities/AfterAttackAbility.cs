@@ -8,7 +8,7 @@ public sealed class AfterAttackAbility : TriggeredAbility
 {
     public Guid Attacker { get; }
 
-    public AfterAttackAbility(OneShotEffect effect, Guid attacker) : base(effect)
+    public AfterAttackAbility(IOneShotEffect effect, Guid attacker) : base(effect)
     {
         Attacker = attacker;
     }

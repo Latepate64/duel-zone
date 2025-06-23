@@ -6,7 +6,7 @@ namespace TriggeredAbilities;
 
 public sealed class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
 {
-    public WheneverThisCreatureBlocksAbility(OneShotEffect effect) : base(effect)
+    public WheneverThisCreatureBlocksAbility(IOneShotEffect effect) : base(effect)
     {
     }
 

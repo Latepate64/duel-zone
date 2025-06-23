@@ -1,4 +1,3 @@
-using Engine.Abilities;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -9,7 +8,7 @@ public sealed class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
     {
     }
 
-    public AfterAttackDelayedTriggeredAbility(OneShotEffect effect, IAbility ability, Guid attacker) : base(
+    public AfterAttackDelayedTriggeredAbility(IOneShotEffect effect, IAbility ability, Guid attacker) : base(
         new AfterAttackAbility(effect, attacker), ability.Source, ability.Controller, true)
     {
     }

@@ -1,7 +1,7 @@
-﻿using Interfaces;
-using System;
+﻿using Engine.Abilities;
+using Interfaces;
 
-namespace Engine.Abilities;
+namespace TriggeredAbilities;
 
 /// <summary>
 /// 603.1. Triggered abilities have a trigger condition and an effect. They are written as “[When/Whenever/At] [trigger condition or event], [effect]. [Instructions (if any).]”
