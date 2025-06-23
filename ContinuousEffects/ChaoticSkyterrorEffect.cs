@@ -1,0 +1,33 @@
+using Engine.Abilities;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+using System.Collections.Generic;
+
+namespace ContinuousEffects;
+
+public sealed class ChaoticSkyterrorEffect : AbilityAddingEffect
+{
+    public ChaoticSkyterrorEffect(ChaoticSkyterrorEffect effect) : base(effect)
+    {
+    }
+
+    public ChaoticSkyterrorEffect() : base(new StaticAbility(new PowerAttackerEffect(4000)),
+        new StaticAbility(new DoubleBreakerEffect()))
+    {
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new ChaoticSkyterrorEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return "Each Demon Command in the battle zone has \"power attacker +4000\" and \"double breaker.\"";
+    }
+
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+    {
+        return game.BattleZone.GetCreatures(Race.DemonCommand);
+    }
+}

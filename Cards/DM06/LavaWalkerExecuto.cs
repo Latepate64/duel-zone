@@ -1,5 +1,6 @@
 ﻿using ContinuousEffects;
 using Interfaces;
+using OneShotEffects;
 
 namespace Cards.DM06;
 

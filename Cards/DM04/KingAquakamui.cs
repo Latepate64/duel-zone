@@ -1,6 +1,8 @@
 ﻿using TriggeredAbilities;
 using Engine;
 using Interfaces;
+using OneShotEffects;
+using ContinuousEffects;
 
 namespace Cards.DM04;
 

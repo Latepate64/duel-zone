@@ -1,0 +1,30 @@
+using Engine.Abilities;
+using System.Linq;
+using Interfaces;
+
+namespace OneShotEffects;
+
+public sealed class TrenchdiveSharkEffect : OneShotEffect
+{
+    public override void Apply(IGame game)
+    {
+        var player = Controller;
+        var cards = player.ChooseCards(player.Hand.Cards, 0, 2, ToString());
+        if (cards.Any())
+        {
+            game.Move(Ability, ZoneType.Hand, ZoneType.ShieldZone, [.. cards]);
+            var shields = player.ChooseCards(player.ShieldZone.Cards, cards.Count(), cards.Count(), ToString());
+            game.Move(Ability, ZoneType.ShieldZone, ZoneType.Hand, [.. shields]);
+        }
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new TrenchdiveSharkEffect();
+    }
+
+    public override string ToString()
+    {
+        return "You may add up to 2 cards from your hand to your shields face down. If you do, choose the same number of your shields and put them into your hand. You can't use the \"shield trigger\" ability of those shields.";
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Interfaces;
+using TriggeredAbilities;
 
 namespace Cards.DM07;
 

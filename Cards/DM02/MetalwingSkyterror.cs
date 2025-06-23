@@ -2,6 +2,7 @@
 using ContinuousEffects;
 using Engine;
 using Interfaces;
+using OneShotEffects;
 
 namespace Cards.DM02;
 

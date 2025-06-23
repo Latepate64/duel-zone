@@ -1,4 +1,6 @@
 ﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
 namespace Cards.DM07;
 
@@ -6,6 +8,6 @@ public sealed class CosmicNebula : EvolutionCreature
 {
     public CosmicNebula() : base("Cosmic Nebula", 5, 3000, Race.CyberVirus, Civilization.Water)
     {
-        AddTriggeredAbility(new CosmicNebulaAbility());
+        AddTriggeredAbility(new CosmicNebulaAbility(new YouMayDrawCardEffect()));
     }
 }

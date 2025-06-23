@@ -1,5 +1,6 @@
 ﻿using ContinuousEffects;
 using Interfaces;
+using TriggeredAbilities;
 
 namespace Cards.DM11;
 

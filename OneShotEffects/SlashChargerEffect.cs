@@ -1,0 +1,37 @@
+using Engine.Abilities;
+using Interfaces;
+
+namespace OneShotEffects;
+
+public sealed class SlashChargerEffect : OneShotEffect
+{
+    public SlashChargerEffect()
+    {
+    }
+
+    public SlashChargerEffect(IOneShotEffect effect) : base(effect)
+    {
+    }
+
+    public override void Apply(IGame game)
+    {
+        var controller = Controller;
+        var player = controller.ChoosePlayer(game, ToString());
+        var card = controller.ChooseCard(player.Deck.Cards, ToString());
+        if (card != null)
+        {
+            game.Move(Ability, ZoneType.Deck, ZoneType.Graveyard, card);
+        }
+        player.ShuffleOwnDeck(game);
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new SlashChargerEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return "Search a player's deck. You may take a card from that deck and put it into that player's graveyard. Then the player shuffles his deck.";
+    }
+}

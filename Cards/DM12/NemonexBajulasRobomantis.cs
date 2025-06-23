@@ -1,6 +1,7 @@
 ﻿using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
+using TriggeredAbilities;
 
 namespace Cards.DM12;
 
