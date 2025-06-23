@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class WispHowlerShadowOfTears : Engine.Creature
+    sealed class WispHowlerShadowOfTears : Creature
     {
         public WispHowlerShadowOfTears() : base("Wisp Howler, Shadow of Tears", 3, 2000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
         {

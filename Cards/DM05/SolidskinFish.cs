@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class SolidskinFish : Engine.Creature
+    sealed class SolidskinFish : Creature
     {
         public SolidskinFish() : base("Solidskin Fish", 3, 3000, Interfaces.Race.Fish, Interfaces.Civilization.Water)
         {

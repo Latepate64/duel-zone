@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM04
 {
-    sealed class Magmarex : Engine.Creature
+    sealed class Magmarex : Creature
     {
         public Magmarex() : base("Magmarex", 5, 3000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {

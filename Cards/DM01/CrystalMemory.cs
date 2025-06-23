@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class CrystalMemory : Engine.Spell
+    sealed class CrystalMemory : Spell
     {
         public CrystalMemory() : base("Crystal Memory", 4, Interfaces.Civilization.Water)
         {

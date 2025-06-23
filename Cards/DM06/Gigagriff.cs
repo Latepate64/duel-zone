@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class Gigagriff : Engine.Creature
+    sealed class Gigagriff : Creature
     {
         public Gigagriff() : base("Gigagriff", 6, 4000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

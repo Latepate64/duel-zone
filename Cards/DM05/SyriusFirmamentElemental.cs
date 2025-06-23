@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class SyriusFirmamentElemental : Engine.Creature
+    sealed class SyriusFirmamentElemental : Creature
     {
         public SyriusFirmamentElemental() : base("Syrius, Firmament Elemental", 11, 12000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {

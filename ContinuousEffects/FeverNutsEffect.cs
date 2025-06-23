@@ -1,4 +1,3 @@
-using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -15,12 +14,12 @@ public sealed class FeverNutsEffect : ContinuousEffect, ICostModifyingEffect, IM
 
     public int GetChange(ICard card, IGame game)
     {
-        return card is Creature ? -1 : 0;
+        return card is ICreature ? -1 : 0;
     }
 
     public int GetMinimumCost(ICard card, IGame game)
     {
-        return card is Creature ? 1 : 0;
+        return card is ICreature ? 1 : 0;
     }
 
     public override string ToString()

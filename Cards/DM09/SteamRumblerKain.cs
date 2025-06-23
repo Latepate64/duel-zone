@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    sealed class SteamRumblerKain : Engine.Creature
+    sealed class SteamRumblerKain : Creature
     {
         public SteamRumblerKain() : base("Steam Rumbler Kain", 4, 5000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {

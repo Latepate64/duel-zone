@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM09
 {
-    sealed class StallobTheLifequasher : Engine.Creature
+    sealed class StallobTheLifequasher : Creature
     {
         public StallobTheLifequasher() : base("Stallob, the Lifequasher", 8, 6000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {

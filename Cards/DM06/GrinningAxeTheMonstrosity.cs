@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class GrinningAxeTheMonstrosity : Engine.Creature
+    sealed class GrinningAxeTheMonstrosity : Creature
     {
         public GrinningAxeTheMonstrosity() : base("Grinning Axe, the Monstrosity", 3, 1000, Interfaces.Race.DevilMask, Interfaces.Civilization.Darkness)
         {

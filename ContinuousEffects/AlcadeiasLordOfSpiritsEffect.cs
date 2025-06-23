@@ -1,4 +1,3 @@
-using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -26,6 +25,6 @@ public sealed class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseC
 
     public bool Applies(ICard card, IGame game)
     {
-        return card is Spell && !card.HasCivilization(Civilization.Light);
+        return card is ISpell && !card.HasCivilization(Civilization.Light);
     }
 }

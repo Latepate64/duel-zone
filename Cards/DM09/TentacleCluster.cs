@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    sealed class TentacleCluster : Engine.Creature
+    sealed class TentacleCluster : Creature
     {
         public TentacleCluster() : base("Tentacle Cluster", 5, 2000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {

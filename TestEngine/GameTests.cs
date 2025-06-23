@@ -550,12 +550,12 @@ public sealed class GameTests
 
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
-        var deckCards = new List<Card>();
+        var deckCards = new List<ICreature>();
         for (int i = 0; i < deckSize; ++i)
         {
             deckCards.Add(CreateCreature());
         }
-        var handCards = new List<Card>();
+        var handCards = new List<ICreature>();
         for (int i = 0; i < handSize; ++i)
         {
             handCards.Add(CreateCreature());
@@ -569,11 +569,19 @@ public sealed class GameTests
         return player;
     }
 
-    static Creature CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false,
+    static ICreature CreateCreature(Civilization civilization = Civilization.Light, bool tapped = false,
         int manaCost = 1, bool summoningSickness = true, int power = 1000, PlayerV2 owner = null)
     {
-        return new Creature(tapped, [civilization], manaCost, summoningSickness, power, "Test ICreature",
-            [Race.AngelCommand]) { OwnerV2 = owner };
+        var creature = new Mock<ICreature>();
+        creature.SetupProperty(x => x.Tapped, tapped);
+        creature.SetupGet(x => x.Civilizations).Returns([civilization]);
+        creature.SetupGet(x => x.ManaCost).Returns(manaCost);
+        creature.SetupGet(x => x.SummoningSickness).Returns(summoningSickness);
+        creature.SetupGet(x => x.Power).Returns(power);
+        creature.SetupGet(x => x.OwnerV2).Returns(owner);
+        creature.SetupGet(x => x.Name).Returns("Test Creature");
+        creature.SetupGet(x => x.Races).Returns([Race.AngelCommand]);
+        return creature.Object;
     }
 
     static GameState CreateGameState()

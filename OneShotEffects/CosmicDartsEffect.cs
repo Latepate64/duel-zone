@@ -1,8 +1,4 @@
-using OneShotEffects;
-using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -29,7 +25,7 @@ public sealed class CosmicDartsEffect : CardSelectionEffect<ICard>
         {
             Controller.Look(Controller, game, cards);
             var card = cards.Single();
-            if (card is Spell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
+            if (card is ISpell && Controller.ChooseToTakeAction($"You may cast {card.Name} for no cost."))
             {
                 Controller.Cast(card, game);
             }

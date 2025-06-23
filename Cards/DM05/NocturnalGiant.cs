@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class NocturnalGiant : Engine.Creature
+    sealed class NocturnalGiant : Creature
     {
         public NocturnalGiant() : base("Nocturnal Giant", 7, 7000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
         {

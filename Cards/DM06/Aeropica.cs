@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class Aeropica : Engine.Creature
+    sealed class Aeropica : Creature
     {
         public Aeropica() : base("Aeropica", 7, 4000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
         {

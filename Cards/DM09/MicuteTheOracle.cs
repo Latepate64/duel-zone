@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    sealed class MicuteTheOracle : Engine.Creature
+    sealed class MicuteTheOracle : Creature
     {
         public MicuteTheOracle() : base("Micute, the Oracle", 5, 4000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    sealed class Scratchclaw : Engine.Creature
+    sealed class Scratchclaw : Creature
     {
         public Scratchclaw() : base("Scratchclaw", 4, 1000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {

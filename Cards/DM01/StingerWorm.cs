@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    sealed class StingerWorm : Engine.Creature
+    sealed class StingerWorm : Creature
     {
         public StingerWorm() : base("Stinger Worm", 3, 5000, Interfaces.Race.ParasiteWorm, Interfaces.Civilization.Darkness)
         {

@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM07
 {
-    sealed class SplashZebrafish : Engine.Creature
+    sealed class SplashZebrafish : Creature
     {
         public SplashZebrafish() : base("Splash Zebrafish", 4, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {

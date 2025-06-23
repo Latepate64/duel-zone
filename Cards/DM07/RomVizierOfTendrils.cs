@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    sealed class RomVizierOfTendrils : Engine.Creature
+    sealed class RomVizierOfTendrils : Creature
     {
         public RomVizierOfTendrils() : base("Rom, Vizier of Tendrils", 4, 2000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {

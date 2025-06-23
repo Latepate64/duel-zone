@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class SolarRay : Engine.Spell
+    sealed class SolarRay : Spell
     {
         public SolarRay() : base("Solar Ray", 2, Interfaces.Civilization.Light)
         {

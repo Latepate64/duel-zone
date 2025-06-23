@@ -1,6 +1,5 @@
 using ContinuousEffects;
 using Engine.Abilities;
-using System.Linq;
 using Interfaces;
 
 namespace OneShotEffects;

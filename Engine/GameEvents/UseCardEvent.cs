@@ -55,7 +55,7 @@ public sealed class UseCardEvent(IPlayerV2 player, bool passable = true) : GameE
         shouldEnd = true;
         foreach (var card in PaymentCards)
         {
-            card.Tap();
+            card.Tapped = true;
         }
         if (Card is ICreature creature)
         {

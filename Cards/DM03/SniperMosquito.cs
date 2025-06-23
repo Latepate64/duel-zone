@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM03
 {
-    sealed class SniperMosquito : Engine.Creature
+    sealed class SniperMosquito : Creature
     {
         public SniperMosquito() : base("Sniper Mosquito", 1, 2000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {

@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM06
 {
-    sealed class CutthroatSkyterror : Engine.Creature
+    sealed class CutthroatSkyterror : Creature
     {
         public CutthroatSkyterror() : base("Cutthroat Skyterror", 3, 5000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {

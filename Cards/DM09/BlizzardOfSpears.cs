@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    sealed class BlizzardOfSpears : Engine.Spell
+    sealed class BlizzardOfSpears : Spell
     {
         public BlizzardOfSpears() : base("Blizzard of Spears", 6, Interfaces.Civilization.Fire)
         {

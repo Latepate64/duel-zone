@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class PoisonousDahlia : Engine.Creature
+    sealed class PoisonousDahlia : Creature
     {
         public PoisonousDahlia() : base("Poisonous Dahlia", 4, 5000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
         {

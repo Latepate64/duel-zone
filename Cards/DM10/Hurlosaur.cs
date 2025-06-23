@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    sealed class Hurlosaur : Engine.Creature
+    sealed class Hurlosaur : Creature
     {
         public Hurlosaur() : base("Hurlosaur", 6, 2000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {

@@ -1,15 +1,13 @@
 using ContinuousEffects;
-using Engine;
 using Engine.Abilities;
 using Engine.GameEvents;
 using Interfaces;
-using System;
 
 namespace TriggeredAbilities;
 
 public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 {
-    private Creature _attackTarget;
+    private ICreature _attackTarget;
 
     public BubbleScarabAbility()
     {
@@ -47,7 +45,7 @@ public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        _attackTarget = (gameEvent as CreatureAttackedEvent).Target as Creature;
+        _attackTarget = (gameEvent as CreatureAttackedEvent).Target as ICreature;
         return new BubbleScarabAbility(this);
     }
 }

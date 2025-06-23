@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class VirtualTripwire : Engine.Spell
+    sealed class VirtualTripwire : Spell
     {
         public VirtualTripwire() : base("Virtual Tripwire", 3, Interfaces.Civilization.Water)
         {

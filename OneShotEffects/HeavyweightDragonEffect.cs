@@ -1,8 +1,4 @@
-using OneShotEffects;
-using Engine;
 using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -25,7 +21,7 @@ public sealed class HeavyweightDragonEffect : CreatureSelectionEffect
 
     protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
-        if (cards.Sum(x => x.Power) < (Ability.Source as Creature).Power)
+        if (cards.Sum(x => x.Power) < (Ability.Source as ICreature).Power)
         {
             game.Destroy(source, cards);
         }

@@ -4,8 +4,6 @@ using Engine.GameEvents;
 using Engine.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
-using System;
-using System.Collections.Generic;
 
 namespace ContinuousEffects;
 

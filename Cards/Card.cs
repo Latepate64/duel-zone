@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Engine;
+namespace Cards;
 
 public abstract class Card(bool tapped, IList<Civilization> civilizations, int manaCost, string name) :
     ICopyable<ICard>, ICard
@@ -30,7 +30,7 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations, int m
     public IList<IAbility> PrintedAbilities { get; } = [];
     public string RulesText { get; private set; }
     public bool ShieldTrigger { get; private set; }
-    public bool Tapped { get; private set; } = tapped;
+    public bool Tapped { get; set; } = tapped;
     public int Timestamp { get; private set; }
     /// <summary>
     /// The card this card is underneath of.
@@ -197,11 +197,6 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations, int m
     protected void AddStaticAbilities(params IContinuousEffect[] effects)
     {
         AddAbilities([.. effects.Select(x => new StaticAbility(x))]);
-    }
-
-    public void Tap()
-    {
-        Tapped = true;
     }
 
     public void TurnFaceUp()

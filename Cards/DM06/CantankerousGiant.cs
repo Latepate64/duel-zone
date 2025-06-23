@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class CantankerousGiant : Engine.Creature
+    sealed class CantankerousGiant : Creature
     {
         public CantankerousGiant() : base("Cantankerous Giant", 7, 8000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
         {

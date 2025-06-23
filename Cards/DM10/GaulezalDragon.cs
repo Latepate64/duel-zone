@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    sealed class GaulezalDragon : Engine.Creature
+    sealed class GaulezalDragon : Creature
     {
         public GaulezalDragon() : base("Gaulezal Dragon", 9, 11000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

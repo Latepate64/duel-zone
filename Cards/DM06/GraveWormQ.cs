@@ -4,7 +4,7 @@ using OneShotEffects;
 
 namespace Cards.DM06
 {
-    sealed class GraveWormQ : Engine.Creature
+    sealed class GraveWormQ : Creature
     {
         public GraveWormQ() : base("Grave Worm Q", 5, 3000, [Interfaces.Race.Survivor, Interfaces.Race.ParasiteWorm], Interfaces.Civilization.Darkness)
         {

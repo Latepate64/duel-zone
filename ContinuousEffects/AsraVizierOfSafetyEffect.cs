@@ -1,5 +1,3 @@
-using ContinuousEffects;
-using Engine;
 using Engine.Abilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -26,7 +24,7 @@ public sealed class AsraVizierOfSafetyEffect : ContinuousEffect, IPowerModifying
 
     public void ModifyPower(IGame game)
     {
-        (Source as Creature).IncreasePower(4000);
+        (Source as ICreature).IncreasePower(4000);
     }
 
     public override string ToString()

@@ -2,7 +2,6 @@ using Engine.Abilities;
 using Engine.GameEvents;
 using Engine.Steps;
 using Interfaces;
-using System;
 
 namespace TriggeredAbilities;
 

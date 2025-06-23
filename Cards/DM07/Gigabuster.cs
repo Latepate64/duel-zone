@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM07
 {
-    sealed class Gigabuster : Engine.Creature
+    sealed class Gigabuster : Creature
     {
         public Gigabuster() : base("Gigabuster", 5, 5000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

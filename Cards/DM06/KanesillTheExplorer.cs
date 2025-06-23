@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class KanesillTheExplorer : Engine.Creature
+    sealed class KanesillTheExplorer : Creature
     {
         public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, 4000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {

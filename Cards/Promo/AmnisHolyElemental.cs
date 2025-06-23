@@ -1,6 +1,6 @@
 ﻿namespace Cards.Promo
 {
-    sealed class AmnisHolyElemental : Engine.Creature
+    sealed class AmnisHolyElemental : Creature
     {
         public AmnisHolyElemental() : base("Amnis, Holy Elemental", 7, 5000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {

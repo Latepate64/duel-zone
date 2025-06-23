@@ -1,7 +1,5 @@
-using Engine;
 using Engine.Abilities;
 using Interfaces;
-using System.Linq;
 
 namespace OneShotEffects;
 
@@ -22,7 +20,7 @@ public sealed class RainOfArrowsEffect : OneShotEffect
         {
             Controller.Look(GetOpponent(game), game, cards);
             GetOpponent(game).Discard(Ability, game, [.. cards.Where(x => x.HasCivilization(Civilization.Darkness)
-                && x is Spell)]);
+                && x is ISpell)]);
             GetOpponent(game).Unreveal(cards);
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Cards.DM04
 {
-    sealed class ExplodingCactus : Engine.Creature
+    sealed class ExplodingCactus : Creature
     {
         public ExplodingCactus() : base("Exploding Cactus", 3, 2000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
         {

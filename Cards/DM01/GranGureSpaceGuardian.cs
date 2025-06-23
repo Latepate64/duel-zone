@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class GranGureSpaceGuardian : Engine.Creature
+    sealed class GranGureSpaceGuardian : Creature
     {
         public GranGureSpaceGuardian() : base("Gran Gure, Space Guardian", 6, 9000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {

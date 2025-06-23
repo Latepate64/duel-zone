@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class Teleportation : Engine.Spell
+    sealed class Teleportation : Spell
     {
         public Teleportation() : base("Teleportation", 5, Interfaces.Civilization.Water)
         {

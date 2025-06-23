@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM01
 {
-    sealed class AuraBlast : Engine.Spell
+    sealed class AuraBlast : Spell
     {
         public AuraBlast() : base("Aura Blast", 4, Interfaces.Civilization.Nature)
         {

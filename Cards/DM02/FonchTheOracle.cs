@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    sealed class FonchTheOracle : Engine.Creature
+    sealed class FonchTheOracle : Creature
     {
         public FonchTheOracle() : base("Fonch, the Oracle", 4, 2000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

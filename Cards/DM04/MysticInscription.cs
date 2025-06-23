@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM04
 {
-    sealed class MysticInscription : Engine.Spell
+    sealed class MysticInscription : Spell
     {
         public MysticInscription() : base("Mystic Inscription", 6, Interfaces.Civilization.Nature)
         {

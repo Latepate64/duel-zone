@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class CursedPincher : Engine.Creature
+    sealed class CursedPincher : Creature
     {
         public CursedPincher() : base("Cursed Pincher", 4, 2000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
         {

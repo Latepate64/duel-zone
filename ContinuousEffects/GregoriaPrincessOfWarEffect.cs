@@ -1,7 +1,6 @@
 using Engine.Abilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
-using System.Collections.Generic;
 
 namespace ContinuousEffects;
 

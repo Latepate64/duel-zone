@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM11
 {
-    sealed class BelixTheExplorer : Engine.Creature
+    sealed class BelixTheExplorer : Creature
     {
         public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {

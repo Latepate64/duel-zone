@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class LeQuistTheOracle : Engine.Creature
+    sealed class LeQuistTheOracle : Creature
     {
         public LeQuistTheOracle() : base("Le Quist, the Oracle", 2, 1500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {

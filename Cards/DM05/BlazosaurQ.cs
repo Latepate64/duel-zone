@@ -3,7 +3,7 @@ using Engine.Abilities;
 
 namespace Cards.DM05
 {
-    sealed class BlazosaurQ : Engine.Creature
+    sealed class BlazosaurQ : Creature
     {
         public BlazosaurQ() : base("Blazosaur Q", 2, 1000, [Interfaces.Race.Survivor, Interfaces.Race.RockBeast], Interfaces.Civilization.Fire)
         {

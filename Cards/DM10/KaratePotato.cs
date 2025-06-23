@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM10;
 
-sealed class KaratePotato : Engine.Creature
+sealed class KaratePotato : Creature
 {
     public KaratePotato() : base("Karate Potato", 4, 1000, Interfaces.Race.WildVeggies, Interfaces.Civilization.Nature)
     {

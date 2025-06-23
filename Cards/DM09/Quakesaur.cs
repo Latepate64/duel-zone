@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    sealed class Quakesaur : Engine.Creature
+    sealed class Quakesaur : Creature
     {
         public Quakesaur() : base("Quakesaur", 5, 3000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {

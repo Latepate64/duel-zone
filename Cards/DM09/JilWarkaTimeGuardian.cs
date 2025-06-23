@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM09
 {
-    sealed class JilWarkaTimeGuardian : Engine.Creature
+    sealed class JilWarkaTimeGuardian : Creature
     {
         public JilWarkaTimeGuardian() : base("Jil Warka, Time Guardian", 3, 2000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.Promo
 {
-    sealed class AngryMaple : Engine.Creature
+    sealed class AngryMaple : Creature
     {
         public AngryMaple() : base("Angry Maple", 3, 1000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
         {

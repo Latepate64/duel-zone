@@ -477,7 +477,7 @@ namespace Engine
                 game.ContinuousEffects.CanPlayerTapCreature(this, creature))).ToList();
             foreach (var card in untappedCards)
             {
-                card.Tap();
+                card.Tapped = true;
             }
             if (untappedCards.Count != 0)
             {
@@ -526,7 +526,7 @@ namespace Engine
                 }
                 Summon(creature, game);
             }
-            else if (card is Spell spell)
+            else if (card is ISpell spell)
             {
                 Cast(spell, game);
             }

@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    sealed class DreamPirateShadowOfTheft : Engine.Creature
+    sealed class DreamPirateShadowOfTheft : Creature
     {
         public DreamPirateShadowOfTheft() : base("Dream Pirate, Shadow of Theft", 4, 3000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
         {

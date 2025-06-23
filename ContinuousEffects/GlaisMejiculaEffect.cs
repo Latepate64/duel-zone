@@ -1,9 +1,7 @@
-using ContinuousEffects;
 using Engine.GameEvents;
 using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
-using System.Linq;
 
 namespace ContinuousEffects;
 

@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class DeathligerLionOfChaos : Engine.Creature
+    sealed class DeathligerLionOfChaos : Creature
     {
         public DeathligerLionOfChaos() : base("Deathliger, Lion of Chaos", 7, 9000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {

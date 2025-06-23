@@ -2,7 +2,7 @@
 
 namespace Cards.DM09
 {
-    sealed class CyclolinkSpectralKnight : Engine.Creature
+    sealed class CyclolinkSpectralKnight : Creature
     {
         public CyclolinkSpectralKnight() : base("Cyclolink, Spectral Knight", 4, 3000, Interfaces.Race.RainbowPhantom, Interfaces.Civilization.Light)
         {

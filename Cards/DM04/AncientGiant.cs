@@ -2,7 +2,7 @@
 
 namespace Cards.DM04
 {
-    sealed class AncientGiant : Engine.Creature
+    sealed class AncientGiant : Creature
     {
         public AncientGiant() : base("Ancient Giant", 8, 9000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
         {

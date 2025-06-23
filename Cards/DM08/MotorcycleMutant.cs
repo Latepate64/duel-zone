@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM08
 {
-    sealed class MotorcycleMutant : Engine.Creature
+    sealed class MotorcycleMutant : Creature
     {
         public MotorcycleMutant() : base("Motorcycle Mutant", 4, 6000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {

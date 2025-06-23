@@ -4,7 +4,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    sealed class PyrofighterMagnus : Engine.Creature
+    sealed class PyrofighterMagnus : Creature
     {
         public PyrofighterMagnus() : base("Pyrofighter Magnus", 3, 3000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
         {

@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM04
 {
-    sealed class MongrelMan : Engine.Creature
+    sealed class MongrelMan : Creature
     {
         public MongrelMan() : base("Mongrel Man", 5, 2000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {

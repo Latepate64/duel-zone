@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class RoaringGreatHorn : Engine.Creature
+    sealed class RoaringGreatHorn : Creature
     {
         public RoaringGreatHorn() : base("Roaring Great-Horn", 7, 8000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

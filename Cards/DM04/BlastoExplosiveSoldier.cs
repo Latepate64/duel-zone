@@ -2,7 +2,7 @@
 
 namespace Cards.DM04
 {
-    sealed class BlastoExplosiveSoldier : Engine.Creature
+    sealed class BlastoExplosiveSoldier : Creature
     {
         public BlastoExplosiveSoldier() : base("Blasto, Explosive Soldier", 3, 2000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
         {

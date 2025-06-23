@@ -1,5 +1,3 @@
-using TriggeredAbilities;
-using Engine;
 using Engine.GameEvents;
 using Interfaces;
 using Engine.Abilities;
@@ -18,7 +16,7 @@ public sealed class QuillspikeRumblerAbility : WheneverThisCreatureAttacksAbilit
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Target is Card;
+        return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Target is ICreature;
     }
 
     public override string ToString()

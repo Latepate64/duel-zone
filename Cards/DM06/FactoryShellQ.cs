@@ -4,7 +4,7 @@ using OneShotEffects;
 
 namespace Cards.DM06
 {
-    sealed class FactoryShellQ : Engine.Creature
+    sealed class FactoryShellQ : Creature
     {
         public FactoryShellQ() : base("Factory Shell Q", 6, 2000, [Interfaces.Race.Survivor, Interfaces.Race.ColonyBeetle], Interfaces.Civilization.Nature)
         {

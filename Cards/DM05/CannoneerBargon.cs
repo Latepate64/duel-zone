@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class CannoneerBargon : Engine.Creature
+    sealed class CannoneerBargon : Creature
     {
         public CannoneerBargon() : base("Cannoneer Bargon", 4, 4000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class CrowWinger : Engine.Creature
+    sealed class CrowWinger : Creature
     {
         public CrowWinger() : base("Crow Winger", 2, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM05
 {
-    sealed class BolgashDragon : Engine.Creature
+    sealed class BolgashDragon : Creature
     {
         public BolgashDragon() : base("Bolgash Dragon", 8, 4000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

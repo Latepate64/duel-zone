@@ -1,5 +1,3 @@
-using ContinuousEffects;
-using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -27,7 +25,7 @@ public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect, ICan
 
     public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
     {
-        return attacker.HasRace(_race) && targetOfAttack is Card;
+        return attacker.HasRace(_race) && targetOfAttack is ICreature;
     }
 
     public override IContinuousEffect Copy()

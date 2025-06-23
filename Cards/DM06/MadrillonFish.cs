@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class MadrillonFish : Engine.Creature
+    sealed class MadrillonFish : Creature
     {
         public MadrillonFish() : base("Madrillon Fish", 2, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {

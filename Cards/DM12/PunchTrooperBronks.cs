@@ -2,7 +2,7 @@
 
 namespace Cards.DM12
 {
-    sealed class PunchTrooperBronks : Engine.Creature
+    sealed class PunchTrooperBronks : Creature
     {
         public PunchTrooperBronks() : base("Punch Trooper Bronks", 4, 3000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    sealed class HypersquidWalter : Engine.Creature
+    sealed class HypersquidWalter : Creature
     {
         public HypersquidWalter() : base("Hypersquid Walter", 3, 1000, Interfaces.Race.CyberLord, Interfaces.Civilization.Water)
         {

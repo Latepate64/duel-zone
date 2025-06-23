@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    sealed class BakkraHornTheSilent : Engine.Creature
+    sealed class BakkraHornTheSilent : Creature
     {
         public BakkraHornTheSilent() : base("Bakkra Horn, the Silent", 4, 2000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    sealed class BruiserDragon : Engine.Creature
+    sealed class BruiserDragon : Creature
     {
         public BruiserDragon() : base("Bruiser Dragon", 5, 5000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

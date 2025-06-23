@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    sealed class SplinterclawWasp : Engine.Creature
+    sealed class SplinterclawWasp : Creature
     {
         public SplinterclawWasp() : base("Splinterclaw Wasp", 7, 4000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {

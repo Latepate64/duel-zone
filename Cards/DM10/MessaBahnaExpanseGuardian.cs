@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    sealed class MessaBahnaExpanseGuardian : Engine.Creature
+    sealed class MessaBahnaExpanseGuardian : Creature
     {
         public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {

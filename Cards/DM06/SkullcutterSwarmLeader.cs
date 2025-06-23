@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class SkullcutterSwarmLeader : Engine.Creature
+    sealed class SkullcutterSwarmLeader : Creature
     {
         public SkullcutterSwarmLeader() : base("Skullcutter, Swarm Leader", 4, 4000, Interfaces.Race.DevilMask, Interfaces.Civilization.Darkness)
         {

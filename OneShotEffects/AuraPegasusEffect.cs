@@ -1,6 +1,4 @@
-using Engine;
 using Engine.Abilities;
-using System.Linq;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -18,7 +16,7 @@ public sealed class AuraPegasusEffect : OneShotEffect
     public override void Apply(IGame game)
     {
         var cards = Controller.RevealTopCardsOfDeck(1, game);
-        game.Move(Ability, ZoneType.Deck, cards.All(x => x is Creature c && c.IsNonEvolutionCreature)
+        game.Move(Ability, ZoneType.Deck, cards.All(x => x is ICreature c && c.IsNonEvolutionCreature)
             ? ZoneType.BattleZone : ZoneType.Hand, [.. cards]);
     }
 

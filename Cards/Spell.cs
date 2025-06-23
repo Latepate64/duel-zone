@@ -2,7 +2,7 @@ using System.Linq;
 using Engine.Abilities;
 using Interfaces;
 
-namespace Engine;
+namespace Cards;
 
 public class Spell : Card, ISpell
 {

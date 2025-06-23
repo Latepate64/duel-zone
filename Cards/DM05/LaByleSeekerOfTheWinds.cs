@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM05
 {
-    sealed class LaByleSeekerOfTheWinds : Engine.Creature
+    sealed class LaByleSeekerOfTheWinds : Creature
     {
         public LaByleSeekerOfTheWinds() : base("La Byle, Seeker of the Winds", 7, 5000, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
         {

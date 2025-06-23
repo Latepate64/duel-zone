@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    sealed class BaragaBladeOfGloom : Engine.Creature
+    sealed class BaragaBladeOfGloom : Creature
     {
         public BaragaBladeOfGloom() : base("Baraga, Blade of Gloom", 4, 4000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {

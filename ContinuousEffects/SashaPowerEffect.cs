@@ -23,10 +23,10 @@ public sealed class SashaPowerEffect : ContinuousEffect, IPowerModifyingEffect
         throw new System.NotImplementedException();
         // if (game.CurrentTurn.CurrentPhase is AttackPhase a)
         // {
-        //     var against = a.GetCreatureBattlingAgainst(Source as Creature);
+        //     var against = a.GetCreatureBattlingAgainst(Source as ICreature);
         //     if (against != null && against.IsDragon)
         //     {
-        //         (Source as Creature).IncreasePower(6000);
+        //         (Source as ICreature).IncreasePower(6000);
         //     }
         // }
     }

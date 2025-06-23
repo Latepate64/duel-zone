@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class AquaSniper : Engine.Creature
+    sealed class AquaSniper : Creature
     {
         public AquaSniper() : base("Aqua Sniper", 8, 5000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {

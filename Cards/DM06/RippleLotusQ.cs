@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    sealed class RippleLotusQ : Engine.Creature
+    sealed class RippleLotusQ : Creature
     {
         public RippleLotusQ() : base("Ripple Lotus Q", 6, 2000, [Interfaces.Race.Survivor, Interfaces.Race.CyberVirus], Interfaces.Civilization.Water)
         {

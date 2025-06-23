@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    sealed class FortressShell : Engine.Creature
+    sealed class FortressShell : Creature
     {
         public FortressShell() : base("Fortress Shell", 9, 5000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {

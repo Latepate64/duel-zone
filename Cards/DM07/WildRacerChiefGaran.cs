@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    sealed class WildRacerChiefGaran : Engine.Creature
+    sealed class WildRacerChiefGaran : Creature
     {
         public WildRacerChiefGaran() : base("Wild Racer Chief Garan", 3, 2000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {

@@ -4,7 +4,7 @@ using ContinuousEffects;
 
 namespace Cards.DM01
 {
-    sealed class ExplosiveFighterUcarn : Engine.Creature
+    sealed class ExplosiveFighterUcarn : Creature
     {
         public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, 9000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
         {

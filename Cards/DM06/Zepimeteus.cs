@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class Zepimeteus : Engine.Creature
+    sealed class Zepimeteus : Creature
     {
         public Zepimeteus() : base("Zepimeteus", 1, 2000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
         {

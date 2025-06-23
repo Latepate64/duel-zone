@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class Sopian : Engine.Creature
+    sealed class Sopian : Creature
     {
         public Sopian() : base("Sopian", 4, 2000, Interfaces.Race.CyberLord, Interfaces.Civilization.Water)
         {

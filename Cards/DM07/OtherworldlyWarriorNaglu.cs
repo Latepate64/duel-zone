@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    sealed class OtherworldlyWarriorNaglu : Engine.Creature
+    sealed class OtherworldlyWarriorNaglu : Creature
     {
         public OtherworldlyWarriorNaglu() : base("Otherworldly Warrior Naglu", 6, 4000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {

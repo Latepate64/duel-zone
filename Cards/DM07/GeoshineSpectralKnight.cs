@@ -2,7 +2,7 @@
 
 namespace Cards.DM07
 {
-    sealed class GeoshineSpectralKnight : Engine.Creature
+    sealed class GeoshineSpectralKnight : Creature
     {
         public GeoshineSpectralKnight() : base("Geoshine, Spectral Knight", 5, 4000, Interfaces.Race.RainbowPhantom, Interfaces.Civilization.Light)
         {

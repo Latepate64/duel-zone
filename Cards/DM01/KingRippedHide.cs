@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    sealed class KingRippedHide : Engine.Creature
+    sealed class KingRippedHide : Creature
     {
         public KingRippedHide() : base("King Ripped-Hide", 7, 5000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {

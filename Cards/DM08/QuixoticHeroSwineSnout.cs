@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    sealed class QuixoticHeroSwineSnout : Engine.Creature
+    sealed class QuixoticHeroSwineSnout : Creature
     {
         public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
         {

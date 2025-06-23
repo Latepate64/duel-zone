@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    sealed class AnglerCluster : Engine.Creature
+    sealed class AnglerCluster : Creature
     {
         public AnglerCluster() : base("Angler Cluster", 3, 3000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {

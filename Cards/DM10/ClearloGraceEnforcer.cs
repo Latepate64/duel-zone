@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    sealed class ClearloGraceEnforcer : Engine.Creature
+    sealed class ClearloGraceEnforcer : Creature
     {
         public ClearloGraceEnforcer() : base("Clearlo, Grace Enforcer", 3, 1000, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
         {

@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    sealed class MaskedPomegranate : Engine.Creature
+    sealed class MaskedPomegranate : Creature
     {
         public MaskedPomegranate() : base("Masked Pomegranate", 5, 1000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
         {

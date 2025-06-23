@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class GarabonTheGlider : Engine.Creature
+    sealed class GarabonTheGlider : Creature
     {
         public GarabonTheGlider() : base("Garabon, the Glider", 2, 1000, Interfaces.Race.SnowFaerie, Interfaces.Civilization.Nature)
         {

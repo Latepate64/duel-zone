@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    sealed class StingerBall : Engine.Creature
+    sealed class StingerBall : Creature
     {
         public StingerBall() : base("Stinger Ball", 3, 1000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {

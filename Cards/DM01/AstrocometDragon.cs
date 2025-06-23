@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class AstrocometDragon : Engine.Creature
+    sealed class AstrocometDragon : Creature
     {
         public AstrocometDragon() : base("Astrocomet Dragon", 7, 6000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM11
 {
-    sealed class SolarTrap : Engine.Spell
+    sealed class SolarTrap : Spell
     {
         public SolarTrap() : base("Solar Trap", 1, Interfaces.Civilization.Light)
         {

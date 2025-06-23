@@ -1,4 +1,3 @@
-using System.Linq;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 

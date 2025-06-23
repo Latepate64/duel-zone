@@ -1,7 +1,5 @@
 using Engine.Abilities;
 using Interfaces;
-using OneShotEffects;
-using System.Collections.Generic;
 
 namespace OneShotEffects;
 

@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class TerrorPit : Engine.Spell
+    sealed class TerrorPit : Spell
     {
         public TerrorPit() : base("Terror Pit", 6, Interfaces.Civilization.Darkness)
         {

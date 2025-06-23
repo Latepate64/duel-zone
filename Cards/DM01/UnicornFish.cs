@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    sealed class UnicornFish : Engine.Creature
+    sealed class UnicornFish : Creature
     {
         public UnicornFish() : base("Unicorn Fish", 4, 1000, Interfaces.Race.Fish, Interfaces.Civilization.Water)
         {

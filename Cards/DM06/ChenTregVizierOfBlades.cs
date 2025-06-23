@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class ChenTregVizierOfBlades : Engine.Creature
+    sealed class ChenTregVizierOfBlades : Creature
     {
         public ChenTregVizierOfBlades() : base("Chen Treg, Vizier of Blades", 5, 2000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {

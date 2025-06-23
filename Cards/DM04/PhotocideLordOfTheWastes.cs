@@ -2,7 +2,7 @@
 
 namespace Cards.DM04
 {
-    sealed class PhotocideLordOfTheWastes : Engine.Creature
+    sealed class PhotocideLordOfTheWastes : Creature
     {
         public PhotocideLordOfTheWastes() : base("Photocide, Lord of the Wastes", 5, 9000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {

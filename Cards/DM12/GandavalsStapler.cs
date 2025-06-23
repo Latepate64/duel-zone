@@ -2,7 +2,7 @@
 
 namespace Cards.DM12
 {
-    sealed class GandavalsStapler : Engine.Creature
+    sealed class GandavalsStapler : Creature
     {
         public GandavalsStapler() : base("Gandaval's Stapler", 2, 3000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
         {

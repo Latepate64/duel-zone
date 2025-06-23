@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class FireSweeperBurningHellion : Engine.Creature
+    sealed class FireSweeperBurningHellion : Creature
     {
         public FireSweeperBurningHellion() : base("Fire Sweeper Burning Hellion", 4, 3000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
         {

@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM12
 {
-    sealed class Gigabalza : Engine.Creature
+    sealed class Gigabalza : Creature
     {
         public Gigabalza() : base("Gigabalza", 4, 1000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {

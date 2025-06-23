@@ -2,7 +2,7 @@
 
 namespace Cards.DM03
 {
-    sealed class BabyZoppe : Engine.Creature
+    sealed class BabyZoppe : Creature
     {
         public BabyZoppe() : base("Baby Zoppe", 3, 2000, Interfaces.Race.FireBird, Interfaces.Civilization.Fire)
         {

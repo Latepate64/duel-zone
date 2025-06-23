@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class MarineFlower : Engine.Creature
+    sealed class MarineFlower : Creature
     {
         public MarineFlower() : base("Marine Flower", 1, 2000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {

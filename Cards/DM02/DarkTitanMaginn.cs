@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM02
 {
-    sealed class DarkTitanMaginn : Engine.Creature
+    sealed class DarkTitanMaginn : Creature
     {
         public DarkTitanMaginn() : base("Dark Titan Maginn", 6, 4000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {

@@ -3,7 +3,7 @@ using TriggeredAbilities;
 
 namespace Cards.DM10
 {
-    sealed class DedreenTheHiddenCorrupter : Engine.Creature
+    sealed class DedreenTheHiddenCorrupter : Creature
     {
         public DedreenTheHiddenCorrupter() : base("Dedreen, the Hidden Corrupter", 5, 4000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {

@@ -1,5 +1,4 @@
 using ContinuousEffects;
-using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -20,7 +19,7 @@ public sealed class IocantTheOracleEffect : ContinuousEffect, IPowerModifyingEff
     {
         if (game.BattleZone.GetCreatureCount(Controller.Id, Race.AngelCommand) > 0)
         {
-            (Source as Creature).IncreasePower(2000);
+            (Source as ICreature).IncreasePower(2000);
         }
     }
 

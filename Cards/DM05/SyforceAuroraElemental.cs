@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM05
 {
-    sealed class SyforceAuroraElemental : Engine.Creature
+    sealed class SyforceAuroraElemental : Creature
     {
         public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {

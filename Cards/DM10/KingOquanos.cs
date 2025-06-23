@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM10
 {
-    sealed class KingOquanos : Engine.Creature
+    sealed class KingOquanos : Creature
     {
         public KingOquanos() : base("King Oquanos", 8, 2000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {

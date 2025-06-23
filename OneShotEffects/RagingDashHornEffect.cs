@@ -1,4 +1,3 @@
-using Engine;
 using Engine.Abilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -28,7 +27,7 @@ public sealed class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffe
     {
         if (Applies(game))
         {
-            (Source as Creature).IncreasePower(3000);
+            (Source as ICreature).IncreasePower(3000);
         }
     }
 

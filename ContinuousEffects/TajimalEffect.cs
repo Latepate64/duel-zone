@@ -23,10 +23,10 @@ public sealed class TajimalEffect : ContinuousEffect, IPowerModifyingEffect
         throw new System.NotImplementedException();
         // if (game.CurrentTurn.CurrentPhase is AttackPhase a)
         // {
-        //     var against = a.GetCreatureBattlingAgainst(Source as Creature);
+        //     var against = a.GetCreatureBattlingAgainst(Source as ICreature);
         //     if (against != null && against.HasCivilization(Civilization.Fire))
         //     {
-        //         (Source as Creature).IncreasePower(4000);
+        //         (Source as ICreature).IncreasePower(4000);
         //     }
         // }
     }

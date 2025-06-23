@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class GatlingSkyterror : Engine.Creature
+    sealed class GatlingSkyterror : Creature
     {
         public GatlingSkyterror() : base("Gatling Skyterror", 7, 7000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {

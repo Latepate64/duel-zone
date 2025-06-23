@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class CosmogoldSpectralKnight : Engine.Creature
+    sealed class CosmogoldSpectralKnight : Creature
     {
         public CosmogoldSpectralKnight() : base("Cosmogold, Spectral Knight", 4, 3000, Interfaces.Race.RainbowPhantom, Interfaces.Civilization.Light)
         {

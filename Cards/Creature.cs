@@ -3,7 +3,7 @@ using System.Linq;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace Engine;
+namespace Cards;
 
 public class Creature(
     bool tapped,

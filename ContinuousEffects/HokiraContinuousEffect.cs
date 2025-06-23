@@ -1,4 +1,3 @@
-using ContinuousEffects;
 using Engine;
 using Engine.GameEvents;
 using Engine.Steps;

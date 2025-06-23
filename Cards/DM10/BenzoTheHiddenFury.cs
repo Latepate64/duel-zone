@@ -2,7 +2,7 @@
 
 namespace Cards.DM10
 {
-    sealed class BenzoTheHiddenFury : Engine.Creature
+    sealed class BenzoTheHiddenFury : Creature
     {
         public BenzoTheHiddenFury() : base("Benzo, the Hidden Fury", 4, 2000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {

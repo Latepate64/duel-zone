@@ -2,7 +2,7 @@
 
 namespace Cards.DM08
 {
-    sealed class CandyCluster : Engine.Creature
+    sealed class CandyCluster : Creature
     {
         public CandyCluster() : base("Candy Cluster", 3, 1000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {

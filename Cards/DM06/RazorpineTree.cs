@@ -2,7 +2,7 @@
 
 namespace Cards.DM06
 {
-    sealed class RazorpineTree : Engine.Creature
+    sealed class RazorpineTree : Creature
     {
         public RazorpineTree() : base("Razorpine Tree", 5, 1000, Interfaces.Race.StarlightTree, Interfaces.Civilization.Light)
         {

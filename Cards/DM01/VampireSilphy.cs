@@ -3,7 +3,7 @@ using OneShotEffects;
 
 namespace Cards.DM01
 {
-    sealed class VampireSilphy : Engine.Creature
+    sealed class VampireSilphy : Creature
     {
         public VampireSilphy() : base("Vampire Silphy", 8, 4000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {

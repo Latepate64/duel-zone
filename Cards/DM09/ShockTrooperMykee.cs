@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM09
 {
-    sealed class ShockTrooperMykee : Engine.Creature
+    sealed class ShockTrooperMykee : Creature
     {
         public ShockTrooperMykee() : base("Shock Trooper Mykee", 6, 1000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {

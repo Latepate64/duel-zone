@@ -6,8 +6,8 @@ namespace Engine.GameEvents;
 
 public sealed class AttackEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
 {
-    public Creature AttackingCreature { get; init; }
-    public Creature AttackedCreature { get; init; }
+    public ICreature AttackingCreature { get; init; }
+    public ICreature AttackedCreature { get; init; }
     public IPlayerV2 AttackedPlayer { get; init; }
     bool shouldEnd;
 
@@ -46,7 +46,7 @@ public sealed class AttackEvent(IPlayerV2 player, bool passable = true) : GameEv
             return [];
         }
         shouldEnd = true;
-        AttackingCreature.Tap();
+        AttackingCreature.Tapped = true;
         // TODO: Check if blocking happens
         if (AttackedCreature != null)
         {

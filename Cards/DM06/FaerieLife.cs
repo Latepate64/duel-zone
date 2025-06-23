@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM06
 {
-    sealed class FaerieLife : Engine.Spell
+    sealed class FaerieLife : Spell
     {
         public FaerieLife() : base("Faerie Life", 2, Interfaces.Civilization.Nature)
         {

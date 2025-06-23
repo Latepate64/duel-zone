@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class ArtisanPicora : Engine.Creature
+    sealed class ArtisanPicora : Creature
     {
         public ArtisanPicora() : base("Artisan Picora", 1, 2000, Interfaces.Race.MachineEater, Interfaces.Civilization.Fire)
         {

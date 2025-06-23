@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM06
 {
-    sealed class SpasticMissile : Engine.Spell
+    sealed class SpasticMissile : Spell
     {
         public SpasticMissile() : base("Spastic Missile", 3, Interfaces.Civilization.Fire)
         {

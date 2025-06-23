@@ -2,7 +2,7 @@
 
 namespace Cards.DM01
 {
-    sealed class WanderingBraineater : Engine.Creature
+    sealed class WanderingBraineater : Creature
     {
         public WanderingBraineater() : base("Wandering Braineater", 2, 2000, Interfaces.Race.LivingDead, Interfaces.Civilization.Darkness)
         {

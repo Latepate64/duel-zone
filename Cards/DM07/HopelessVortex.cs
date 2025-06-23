@@ -1,6 +1,6 @@
 ﻿namespace Cards.DM07
 {
-    sealed class HopelessVortex : Engine.Spell
+    sealed class HopelessVortex : Spell
     {
         public HopelessVortex() : base("Hopeless Vortex", 5, Interfaces.Civilization.Darkness)
         {

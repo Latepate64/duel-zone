@@ -2,7 +2,7 @@
 
 namespace Cards.DM02
 {
-    sealed class RumblingTerahorn : Engine.Creature
+    sealed class RumblingTerahorn : Creature
     {
         public RumblingTerahorn() : base("Rumbling Terahorn", 5, 3000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {

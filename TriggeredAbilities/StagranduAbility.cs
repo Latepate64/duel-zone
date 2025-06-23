@@ -1,5 +1,3 @@
-using TriggeredAbilities;
-using Engine;
 using Engine.GameEvents;
 using Interfaces;
 using Engine.Abilities;
@@ -19,6 +17,6 @@ public sealed class StagranduAbility : WheneverThisCreatureAttacksAbility
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
         return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e
-            && e.Target is Creature c && c.Power >= 6000;
+            && e.Target is ICreature c && c.Power >= 6000;
     }
 }

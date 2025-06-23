@@ -3,7 +3,7 @@ using ContinuousEffects;
 
 namespace Cards.DM06
 {
-    sealed class LaveilSeekerOfCatastrophe : Engine.Creature
+    sealed class LaveilSeekerOfCatastrophe : Creature
     {
         public LaveilSeekerOfCatastrophe() : base("Laveil, Seeker of Catastrophe", 8, 8500, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
         {

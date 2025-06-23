@@ -15,7 +15,7 @@ public interface ICard
     IList<IAbility> PrintedAbilities { get; }
     string RulesText { get; }
     bool ShieldTrigger { get; }
-    bool Tapped { get; }
+    bool Tapped { get; set; }
     int Timestamp { get; }
     ICard Underneath { get; set; }
     bool IsMultiColored { get; }
@@ -31,7 +31,6 @@ public interface ICard
     void ResetToPrintedValues();
     void SeparateTopCard();
     void SetTimestamp(int v);
-    void Tap();
     string ToString();
     void TurnFaceUp();
 }

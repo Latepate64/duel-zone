@@ -1,5 +1,3 @@
-using ContinuousEffects;
-using Engine;
 using Engine.Abilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -33,7 +31,7 @@ public sealed class GazariasDragonEffect : ContinuousEffect, IPowerModifyingEffe
     {
         if (!Controller.ShieldZone.HasCards)
         {
-            (Source as Creature).IncreasePower(4000);
+            (Source as ICreature).IncreasePower(4000);
         }
     }
 
