@@ -1,5 +1,5 @@
 ﻿using OneShotEffects;
-using Engine.Abilities;
+using Abilities;
 using Interfaces;
 
 namespace Cards.DM07;

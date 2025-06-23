@@ -1,6 +1,6 @@
 ﻿using Interfaces;
 
-namespace Engine.Abilities;
+namespace Abilities;
 
 public sealed class TapAbility : ActivatedAbility, ITapAbility
 {

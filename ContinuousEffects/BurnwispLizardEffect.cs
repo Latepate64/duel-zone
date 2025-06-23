@@ -11,7 +11,7 @@ public sealed class BurnwispLizardEffect : ContinuousEffect, ISpeedAttackerEffec
 
     public bool Applies(ICreature creature, IGame game)
     {
-        return creature.Owner == Controller && creature.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+        return creature.Owner == Controller && creature.GetAbilities<Abilities.SilentSkillAbility>().Any();
     }
 
     public override IContinuousEffect Copy()

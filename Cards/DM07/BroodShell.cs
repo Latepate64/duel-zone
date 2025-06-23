@@ -1,4 +1,4 @@
-﻿using Engine.Abilities;
+﻿using Abilities;
 
 namespace Cards.DM07
 {

@@ -27,7 +27,7 @@ public sealed class MysticMagicianTappedEffect : ReplacementEffect
     {
         return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone
             && game.GetCard(e.CardInSourceZone).Owner == Controller
-            && game.GetCard(e.CardInSourceZone).GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            && game.GetCard(e.CardInSourceZone).GetAbilities<Abilities.SilentSkillAbility>().Any();
     }
 
     public override IContinuousEffect Copy()

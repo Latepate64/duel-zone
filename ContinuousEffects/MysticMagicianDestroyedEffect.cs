@@ -27,6 +27,6 @@ public sealed class MysticMagicianDestroyedEffect : WhenCreatureWouldBeDestroyed
     protected override bool Applies(ICreature card, IGame game)
     {
         return card != null && card.Owner == Controller
-            && card.GetAbilities<Engine.Abilities.SilentSkillAbility>().Any();
+            && card.GetAbilities<Abilities.SilentSkillAbility>().Any();
     }
 }

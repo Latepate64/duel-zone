@@ -1,5 +1,5 @@
 using System.Linq;
-using Engine.Abilities;
+using Abilities;
 using Interfaces;
 
 namespace Cards;
