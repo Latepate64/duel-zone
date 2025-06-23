@@ -1,4 +1,6 @@
 ﻿
+using Interfaces;
+
 namespace Engine.Abilities
 {
     public abstract class ActivatedAbility : ResolvableAbility

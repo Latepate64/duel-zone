@@ -1,4 +1,4 @@
-using Engine.Abilities;
+using Interfaces;
 
 namespace OneShotEffects;
 

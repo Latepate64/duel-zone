@@ -1,7 +1,7 @@
+using Engine.Abilities;
 using Interfaces;
-using System;
 
-namespace Engine.Abilities;
+namespace TriggeredAbilities;
 
 /// <summary>
 /// Triggered ability whose effect is tightly coupled with the trigger condition.
