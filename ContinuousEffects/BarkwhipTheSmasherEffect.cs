@@ -1,0 +1,30 @@
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects;
+
+public sealed class BarkwhipTheSmasherEffect : ContinuousEffect, IPowerModifyingEffect
+{
+    public BarkwhipTheSmasherEffect() : base()
+    {
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new BarkwhipTheSmasherEffect();
+    }
+
+    public void ModifyPower(IGame game)
+    {
+        if (Ability.Source.Tapped)
+        {
+            game.BattleZone.GetCreatures(Controller.Id).Where(
+                x => !IsSourceOfAbility(x) && x.HasRace(Race.BeastFolk)).ToList().ForEach(x => x.IncreasePower(2000));
+        }
+    }
+
+    public override string ToString()
+    {
+        return "While this creature is tapped, each of your other Beast Folk in the battle zone gets +2000 power.";
+    }
+}
