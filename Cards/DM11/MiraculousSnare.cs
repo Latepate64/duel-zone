@@ -1,39 +1,12 @@
-﻿using OneShotEffects;
-using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+public sealed class MiraculousSnare : Spell
 {
-    sealed class MiraculousSnare : Spell
+    public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
     {
-        public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
-        {
-            AddSpellAbilities(new MiraculousSnareEffect());
-        }
-    }
-
-    sealed class MiraculousSnareEffect : CardMovingChoiceEffect<ICreature>
-    {
-        public MiraculousSnareEffect() : base(1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new MiraculousSnareEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Choose a non-evolution creature in the battle zone and add it to its owner's shields face down.";
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByAnyone(game, GetOpponent(game).Id).Where(x => !x.IsEvolutionCreature);
-        }
+        AddSpellAbilities(new MiraculousSnareEffect());
     }
 }

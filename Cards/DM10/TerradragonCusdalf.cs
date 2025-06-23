@@ -1,43 +1,15 @@
 ﻿using ContinuousEffects;
 using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public sealed class TerradragonCusdalf : Creature
 {
-    sealed class TerradragonCusdalf : Creature
+    public TerradragonCusdalf() : base("Terradragon Cusdalf", 5, 7000, Race.EarthDragon, Civilization.Nature)
     {
-        public TerradragonCusdalf() : base("Terradragon Cusdalf", 5, 7000, Race.EarthDragon, Civilization.Nature)
-        {
-            AddStaticAbilities(new PowerAttackerEffect(4000));
-            AddStaticAbilities(new DoubleBreakerEffect());
-            AddStaticAbilities(new TerradragonCusdalfEffect());
-        }
-    }
-
-    sealed class TerradragonCusdalfEffect : ContinuousEffect, IPlayerCannotUntapCardsInManaZoneAtStartOfTurn
-    {
-        public TerradragonCusdalfEffect()
-        {
-        }
-
-        public TerradragonCusdalfEffect(IContinuousEffect effect) : base(effect)
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new TerradragonCusdalfEffect(this);
-        }
-
-        public bool PlayerCannotUntapCardsInManaZoneAtStartOfTurn(IPlayer player)
-        {
-            return player == Controller;
-        }
-
-        public override string ToString()
-        {
-            return "You can't untap the cards in your mana zone at the start of each of your turns.";
-        }
+        AddStaticAbilities(new PowerAttackerEffect(4000));
+        AddStaticAbilities(new DoubleBreakerEffect());
+        AddStaticAbilities(new TerradragonCusdalfEffect());
     }
 }

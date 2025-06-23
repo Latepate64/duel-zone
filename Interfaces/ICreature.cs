@@ -15,7 +15,7 @@ public interface ICreature : ICard
     bool IsBlocker { get; }
 
     void AddGrantedRace(Race race);
-    bool HasRace(Race race);
+    bool HasRace(params Race[] races);
     void IncreasePower(int power);
     void RemoveSummoningSickness();
     IEnumerable<IEvolutionEffect> GetEvolutionEffects();

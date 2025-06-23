@@ -2,43 +2,17 @@
 using TriggeredAbilities;
 using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
+using OneShotEffects;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class HeadlongGiant : Creature
 {
-    sealed class HeadlongGiant : Creature
+    public HeadlongGiant() : base("Headlong Giant", 9, 14000, Race.Giant, Civilization.Nature)
     {
-        public HeadlongGiant() : base("Headlong Giant", 9, 14000, Race.Giant, Civilization.Nature)
-        {
-            AddStaticAbilities(new HeadlongGiantEffect(), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(4000));
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.DiscardCardFromYourHandEffect()));
-            AddStaticAbilities(new TripleBreakerEffect());
-        }
-    }
-
-    sealed class HeadlongGiantEffect : ContinuousEffect, ICannotAttackEffect
-    {
-        public HeadlongGiantEffect()
-        {
-        }
-
-        public HeadlongGiantEffect(HeadlongGiantEffect effect) : base(effect)
-        {
-        }
-
-        public bool CannotAttack(ICreature creature, IGame game)
-        {
-            return IsSourceOfAbility(creature) && !Controller.Hand.HasCards;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new HeadlongGiantEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "This creature can't attack if you have no cards in your hand.";
-        }
+        AddStaticAbilities(new HeadlongGiantEffect(), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
+            4000));
+        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new DiscardCardFromYourHandEffect()));
+        AddStaticAbilities(new TripleBreakerEffect());
     }
 }

@@ -1,45 +1,20 @@
-﻿using System.Collections.Generic;
-using Interfaces;
+﻿using Interfaces;
 
-namespace Engine.GameEvents
+namespace Engine.GameEvents;
+
+public sealed class CreatureBreaksShieldsEvent(ICreature attacker, int breakAmount) :
+    CreatureMightBreakShieldsEvent(attacker, breakAmount)
 {
-    public sealed class CreatureBreaksShieldsEvent(ICreature attacker, int breakAmount) :
-        CreatureMightBreakShieldsEvent(attacker, breakAmount)
+    public override void Happen(IGame game)
     {
-        public override void Happen(IGame game)
-        {
-            var owner = Attacker.Owner;
-            var cards = owner.ChooseCards(game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
-            game.ProcessEvents(new ShieldsBreakEvent(cards));
-        }
-
-        public override string ToString()
-        {
-            return $"{Attacker} broke {BreakAmount} shields.";
-        }
+        var owner = Attacker.Owner;
+        var cards = owner.ChooseCards(
+            game.GetOpponent(owner).ShieldZone.Cards, BreakAmount, BreakAmount, "Choose shields to break.");
+        game.ProcessEvents(new ShieldsBreakEvent(cards));
     }
 
-    public abstract class CreatureMightBreakShieldsEvent(ICreature attacker, int breakAmount) : GameEvent
+    public override string ToString()
     {
-        public ICreature Attacker { get; } = attacker;
-        public int BreakAmount { get; } = breakAmount;
-    }
-
-    public abstract class ShieldsMightBreakEvent(IEnumerable<ICard> shields) : GameEvent
-    {
-        public IEnumerable<ICard> Shields { get; } = shields;
-    }
-
-    public sealed class ShieldsBreakEvent(IEnumerable<ICard> shields) : ShieldsMightBreakEvent(shields)
-    {
-        public override void Happen(IGame game)
-        {
-            game.PutFromShieldZoneToHand(Shields, true, null);
-        }
-
-        public override string ToString()
-        {
-            return $"{Shields} were broken.";
-        }
+        return $"{Attacker} broke {BreakAmount} shields.";
     }
 }

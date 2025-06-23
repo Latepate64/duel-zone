@@ -1,40 +1,15 @@
 ﻿using TriggeredAbilities;
 using ContinuousEffects;
 using Engine;
-using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+public sealed class ExtremeCrawler : Creature
 {
-    sealed class ExtremeCrawler : Creature
+    public ExtremeCrawler() : base("Extreme Crawler", 5, 7000, Race.EarthEater, Civilization.Water)
     {
-        public ExtremeCrawler() : base("Extreme Crawler", 5, 7000, Race.EarthEater, Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ExtremeCrawlerEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    sealed class ExtremeCrawlerEffect : OneShotEffects.BounceAreaOfEffect
-    {
-        public ExtremeCrawlerEffect() : base()
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ExtremeCrawlerEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Return all your other creatures from the battle zone to your hand.";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id);
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new ExtremeCrawlerEffect()));
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

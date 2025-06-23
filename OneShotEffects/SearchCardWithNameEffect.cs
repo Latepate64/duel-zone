@@ -1,17 +1,18 @@
+using Engine.Abilities;
 using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class SearchCardWithNameEffect : SearchEffect
+public sealed class SearchCardWithNameEffect : SearchEffect
 {
-    private readonly string _name;
+    readonly string _name;
 
-    protected SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
+    SearchCardWithNameEffect(SearchCardWithNameEffect effect) : base(effect)
     {
         _name = effect._name;
     }
 
-    protected SearchCardWithNameEffect(string name) : base(true)
+    public SearchCardWithNameEffect(string name) : base(true)
     {
         _name = name;
     }
@@ -24,5 +25,10 @@ public abstract class SearchCardWithNameEffect : SearchEffect
     protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
         return Controller.Deck.CardsWithName(_name);
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new SearchCardWithNameEffect(this);
     }
 }

@@ -1,34 +1,13 @@
 ﻿using ContinuousEffects;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.Promo
+namespace Cards.Promo;
+
+public sealed class ArmoredGroblav : EvolutionCreature
 {
-    sealed class ArmoredGroblav : EvolutionCreature
+    public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Race.Human, Civilization.Fire)
     {
-        public ArmoredGroblav() : base("Armored Groblav", 5, 6000, Race.Human, Civilization.Fire)
-        {
-            AddStaticAbilities(new ArmoredGroblavEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-    }
-
-    sealed class ArmoredGroblavEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new ArmoredGroblavEffect();
-        }
-
-        public override string ToString()
-        {
-            return $"While attacking, this creature gets +{Power} power for each other fire creature in the battle zone.";
-        }
-
-        protected override int GetMultiplier(IGame game)
-        {
-            return game.BattleZone.GetOtherCreatures(Source.Id, Civilization.Fire).Count();
-        }
+        AddStaticAbilities(new ArmoredGroblavEffect());
+        AddStaticAbilities(new DoubleBreakerEffect());
     }
 }

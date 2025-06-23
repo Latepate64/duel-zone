@@ -1,32 +1,14 @@
-﻿using Engine;
+﻿using ContinuousEffects;
+using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public sealed class TagtappTheRetaliator : Creature
 {
-    sealed class TagtappTheRetaliator : Creature
+    public TagtappTheRetaliator() : base(
+        "Tagtapp, the Retaliator", 3, 3000, Race.SpiritQuartz, Civilization.Fire, Civilization.Nature)
     {
-        public TagtappTheRetaliator() : base("Tagtapp, the Retaliator", 3, 3000, Race.SpiritQuartz, Civilization.Fire, Civilization.Nature)
-        {
-            AddStaticAbilities(new TagtappTheRetaliatorEffect(), new ContinuousEffects.PoweredDoubleBreaker());
-        }
-    }
-
-    sealed class TagtappTheRetaliatorEffect(int power = 1000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new TagtappTheRetaliatorEffect();
-        }
-
-        public override string ToString()
-        {
-            return $"This creature gets +{Power} power for each water card in your opponent's mana zone.";
-        }
-
-        protected override int GetMultiplier(IGame game)
-        {
-            return game.GetPlayer(game.GetOpponent(Controller.Id)).ManaZone.GetCardCount(Civilization.Water);
-        }
+        AddStaticAbilities(new TagtappTheRetaliatorEffect(), new PoweredDoubleBreaker());
     }
 }

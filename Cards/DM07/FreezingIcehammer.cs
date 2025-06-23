@@ -1,38 +1,12 @@
 ﻿using Engine;
-using Engine.Abilities;
 using Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class FreezingIcehammer : Spell
 {
-    sealed class FreezingIcehammer : Spell
+    public FreezingIcehammer() : base("Freezing Icehammer", 3, Civilization.Nature)
     {
-        public FreezingIcehammer() : base("Freezing Icehammer", 3, Civilization.Nature)
-        {
-            AddSpellAbilities(new FreezingIcehammerEffect());
-        }
-    }
-
-    sealed class FreezingIcehammerEffect : OneShotEffects.ManaFeedEffect
-    {
-        public FreezingIcehammerEffect() : base(1, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new FreezingIcehammerEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Choose one of your opponent's water or darkness creatures in the battle zone. Your opponent puts that creature into his mana zone.";
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(x => x.HasCivilization(Civilization.Water, Civilization.Darkness));
-        }
+        AddSpellAbilities(new FreezingIcehammerEffect());
     }
 }

@@ -6,7 +6,9 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards;
 
-class TurboRushCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : Creature(name, manaCost, power, race, civilizations)
+public class TurboRushCreature(
+    string name, int manaCost, int power, Race race, params Civilization[] civilizations) : Creature(
+        name, manaCost, power, race, civilizations)
 {
     protected void AddTurboRushAbility(ITriggeredAbility ability)
     {

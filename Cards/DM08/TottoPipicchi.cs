@@ -1,37 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+public sealed class TottoPipicchi : Creature
 {
-    sealed class TottoPipicchi : Creature
+    public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Race.FireBird, Civilization.Fire)
     {
-        public TottoPipicchi() : base("Totto Pipicchi", 3, 1000, Race.FireBird, Civilization.Fire)
-        {
-            AddStaticAbilities(new TottoPipicchiEffect());
-        }
-    }
-
-    sealed class TottoPipicchiEffect : ContinuousEffect, ISpeedAttackerEffect
-    {
-        public TottoPipicchiEffect() : base()
-        {
-        }
-
-        public bool Applies(ICreature creature, IGame game)
-        {
-            return creature.IsDragon;
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new TottoPipicchiEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Each creature in the battle zone that has Dragon in its race has \"speed attacker.\"";
-        }
+        AddStaticAbilities(new TottoPipicchiEffect());
     }
 }

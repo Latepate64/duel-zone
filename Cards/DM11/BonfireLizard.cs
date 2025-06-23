@@ -1,39 +1,12 @@
 ﻿using TriggeredAbilities;
-using Engine.Abilities;
-using System.Collections.Generic;
-using System.Linq;
 using Interfaces;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+public sealed class BonfireLizard : WaveStrikerCreature
 {
-    sealed class BonfireLizard : WaveStrikerCreature
+    public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Race.MeltWarrior, Civilization.Fire)
     {
-        public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Race.MeltWarrior, Civilization.Fire)
-        {
-            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BonfireLizardEffect()));
-        }
-    }
-
-    sealed class BonfireLizardEffect : OneShotEffects.DestroyEffect
-    {
-        public BonfireLizardEffect() : base(0, 2, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new BonfireLizardEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Destroy up to 2 of your opponent's creatures that have \"blocker.\"";
-        }
-
-        protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-        {
-            return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
-                x => x.IsBlocker);
-        }
+        AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BonfireLizardEffect()));
     }
 }

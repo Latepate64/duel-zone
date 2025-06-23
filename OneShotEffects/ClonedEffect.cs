@@ -5,7 +5,7 @@ namespace OneShotEffects;
 
 public abstract class ClonedEffect : OneShotEffect
 {
-    private readonly string _name;
+    protected readonly string _name;
 
     protected ClonedEffect(string name)
     {

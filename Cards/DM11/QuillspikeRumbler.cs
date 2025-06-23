@@ -1,36 +1,13 @@
-﻿using TriggeredAbilities;
-using Engine;
-using Engine.GameEvents;
+﻿using Engine;
 using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+public sealed class QuillspikeRumbler : Creature
 {
-    sealed class QuillspikeRumbler : Creature
+    public QuillspikeRumbler() : base("Quillspike Rumbler", 4, 3000, Race.BeastFolk, Civilization.Nature)
     {
-        public QuillspikeRumbler() : base("Quillspike Rumbler", 4, 3000, Race.BeastFolk, Civilization.Nature)
-        {
-            AddTriggeredAbility(new QuillspikeRumblerAbility());
-        }
-    }
-
-    sealed class QuillspikeRumblerAbility : WheneverThisCreatureAttacksAbility
-    {
-        public QuillspikeRumblerAbility() : base(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000))
-        {
-        }
-
-        public QuillspikeRumblerAbility(WheneverThisCreatureAttacksAbility ability) : base(ability)
-        {
-        }
-
-        public override bool CanTrigger(IGameEvent gameEvent, IGame game)
-        {
-            return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e && e.Target is Card;
-        }
-
-        public override string ToString()
-        {
-            return "Whenever this creature attacks a creature, this creature gets +3000 power until the end of the turn.";
-        }
+        AddTriggeredAbility(new QuillspikeRumblerAbility(new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
     }
 }

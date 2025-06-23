@@ -1,32 +1,16 @@
 ﻿using OneShotEffects;
 using TriggeredAbilities;
 using Engine;
-using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class AquaStrummer : Creature
 {
-    sealed class AquaStrummer : Creature
+    public AquaStrummer() : base(
+        "Aqua Strummer", 3, 2000, Race.LiquidPeople, Civilization.Water)
     {
-        public AquaStrummer() : base("Aqua Strummer", 3, 2000, Race.LiquidPeople, Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new AquaStrummerEffect()));
-        }
-    }
-
-    sealed class AquaStrummerEffect : LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect
-    {
-        public AquaStrummerEffect() : base(5)
-        {
-        }
-
-        public AquaStrummerEffect(LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect effect) : base(effect)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new AquaStrummerEffect(this);
-        }
+        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+            new LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(5)));
     }
 }

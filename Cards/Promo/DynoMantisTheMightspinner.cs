@@ -1,33 +1,14 @@
 ﻿using ContinuousEffects;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.Promo
+namespace Cards.Promo;
+
+public sealed class DynoMantisTheMightspinner : EvolutionCreature
 {
-    sealed class DynoMantisTheMightspinner : EvolutionCreature
+    public DynoMantisTheMightspinner() : base(
+        "Dyno Mantis, the Mightspinner", 5, 7000, Race.GiantInsect, Civilization.Nature)
     {
-        public DynoMantisTheMightspinner() : base("Dyno Mantis, the Mightspinner", 5, 7000, Race.GiantInsect, Civilization.Nature)
-        {
-            AddStaticAbilities(new DoubleBreakerEffect());
-            AddStaticAbilities(new DynoMantisEffect());
-        }
-    }
-
-    sealed class DynoMantisEffect : ContinuousEffect, IBreaksAdditionalShieldsEffect
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new DynoMantisEffect();
-        }
-
-        public int GetAmount(IGame game, ICreature creature)
-        {
-            return creature.Owner == Controller && !IsSourceOfAbility(creature) && creature.Power >= 5000 ? 1 : 0;
-        }
-
-        public override string ToString()
-        {
-            return "Each of your other creatures in the battle zone that has power 5000 or more breaks one more shield.";
-        }
+        AddStaticAbilities(new DoubleBreakerEffect());
+        AddStaticAbilities(new DynoMantisEffect());
     }
 }

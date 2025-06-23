@@ -1,39 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
-using Engine.Abilities;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Collections.Generic;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class MegariaEmpressOfDread : Creature
 {
-    sealed class MegariaEmpressOfDread : Creature
+    public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Race.DarkLord, Civilization.Darkness)
     {
-        public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Race.DarkLord, Civilization.Darkness)
-        {
-            AddStaticAbilities(new MegariaEmpressOfDreadEffect());
-        }
-    }
-
-    sealed class MegariaEmpressOfDreadEffect : AbilityAddingEffect
-    {
-        public MegariaEmpressOfDreadEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
-        {
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new MegariaEmpressOfDreadEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Each creature in the battle zone has \"slayer.\"";
-        }
-
-        protected override IEnumerable<ICard> GetAffectedCards(IGame game)
-        {
-            return game.BattleZone.Creatures;
-        }
+        AddStaticAbilities(new MegariaEmpressOfDreadEffect());
     }
 }

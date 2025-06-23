@@ -1,33 +1,13 @@
-﻿using Engine;
+﻿using ContinuousEffects;
+using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+public sealed class ClonedSpikeHorn : Creature
 {
-    sealed class ClonedSpikeHorn : Creature
+    public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Race.HornedBeast, Civilization.Nature)
     {
-        public ClonedSpikeHorn() : base("Cloned Spike-Horn", 4, 3000, Race.HornedBeast, Civilization.Nature)
-        {
-            AddStaticAbilities(new ClonedSpikeHornEffect(), new ContinuousEffects.PoweredDoubleBreaker());
-        }
-    }
-
-    sealed class ClonedSpikeHornEffect(int power = 3000) : ContinuousEffects.PowerModifyingMultiplierEffect(power)
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new ClonedSpikeHornEffect();
-        }
-
-        public override string ToString()
-        {
-            return $"This creature gets +{Power} power for each Cloned Spike-Horn in each graveyard.";
-        }
-
-        protected override int GetMultiplier(IGame game)
-        {
-            return game.Players.SelectMany(x => x.Graveyard.Cards).Count(x => x.Name == "Cloned Spike-Horn");
-        }
+        AddStaticAbilities(new ClonedSpikeHornEffect(Name), new PoweredDoubleBreaker());
     }
 }

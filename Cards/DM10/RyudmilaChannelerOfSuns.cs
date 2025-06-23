@@ -1,58 +1,15 @@
-﻿using Engine;
-using Engine.GameEvents;
+﻿using ContinuousEffects;
+using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public sealed class RyudmilaChannelerOfSuns : Creature
 {
-    sealed class RyudmilaChannelerOfSuns : Creature
+    public RyudmilaChannelerOfSuns() : base(
+        "Ryudmila, Channeler of Suns", 5, 2000, Race.MechaDelSol, Civilization.Light)
     {
-        public RyudmilaChannelerOfSuns() : base("Ryudmila, Channeler of Suns", 5, 2000, Race.MechaDelSol, Civilization.Light)
-        {
-            AddStaticAbilities(new ContinuousEffects.ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(2000), new RyudmilaChannelerOfSunsEffect());
-        }
-    }
-
-    sealed class RyudmilaChannelerOfSunsEffect : ContinuousEffects.DestructionReplacementEffect
-    {
-        public RyudmilaChannelerOfSunsEffect() : base()
-        {
-        }
-
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            return new RyudmilaEvent(Source);
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new RyudmilaChannelerOfSunsEffect();
-        }
-
-        public override string ToString()
-        {
-            return "When this creature would be destroyed, shuffle it into your deck instead.";
-        }
-
-        protected override bool Applies(ICreature card, IGame game)
-        {
-            return IsSourceOfAbility(card);
-        }
-    }
-
-    sealed class RyudmilaEvent(ICard card) : GameEvent
-    {
-        private readonly ICard _card = card;
-
-        public override void Happen(IGame game)
-        {
-            game.Move(null, ZoneType.BattleZone, ZoneType.Deck, _card);
-            _card.Owner.ShuffleOwnDeck(game);
-        }
-
-        public override string ToString()
-        {
-            return "Shuffle it into your deck instead.";
-        }
+        AddStaticAbilities(
+            new ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(2000), new RyudmilaChannelerOfSunsEffect());
     }
 }

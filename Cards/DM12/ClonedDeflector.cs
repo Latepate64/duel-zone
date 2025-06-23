@@ -1,44 +1,13 @@
-﻿using OneShotEffects;
-using Engine;
-using Engine.Abilities;
+﻿using Engine;
 using Interfaces;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+public sealed class ClonedDeflector : Spell
 {
-    sealed class ClonedDeflector : Spell
+    public ClonedDeflector() : base("Cloned Deflector", 3, Civilization.Light)
     {
-        public ClonedDeflector() : base("Cloned Deflector", 3, Civilization.Light)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new ClonedDeflectorEffect());
-        }
-    }
-
-    sealed class ClonedDeflectorEffect : ClonedEffect
-    {
-        public ClonedDeflectorEffect() : base("Cloned Deflector")
-        {
-        }
-
-        public ClonedDeflectorEffect(ClonedDeflectorEffect effect) : base(effect)
-        {
-        }
-
-        public override void Apply(IGame game)
-        {
-            var player = Controller;
-            var creatures = player.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id), 1, GetAmount(game), ToString());
-            player.Tap(game, [.. creatures]);
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new ClonedDeflectorEffect(this);
-        }
-
-        public override string ToString()
-        {
-            return "Choose one of your opponent's creatures in the battle zone. Then, for each Cloned Deflector in each graveyard, you may choose another of your opponent's creatures in the battle zone. Tap all those creatures.";
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(new ClonedDeflectorEffect(Name));
     }
 }

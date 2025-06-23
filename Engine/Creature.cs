@@ -74,9 +74,9 @@ public class Creature(
         }
     }
 
-    public bool HasRace(Race race)
+    public bool HasRace(params Race[] races)
     {
-        return Races.Contains(race);
+        return Races.Intersect(races).Any();
     }
 
     public override void ResetToPrintedValues()

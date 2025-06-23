@@ -1,21 +1,27 @@
-﻿using Interfaces;
+﻿using Engine.Abilities;
+using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<ICard>
+public sealed class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<ICard>
 {
-    private readonly int _maximum;
+    readonly int _maximum;
 
-    protected YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(
+    public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(
         0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
     {
         _maximum = maximum;
     }
 
-    protected YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+    YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
         YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(effect)
     {
         _maximum = effect._maximum;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(this);
     }
 
     public override string ToString()

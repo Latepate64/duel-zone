@@ -1,55 +1,13 @@
 ﻿using Engine;
-using Engine.GameEvents;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+public sealed class MihailCelestialElemental : Creature
 {
-    sealed class MihailCelestialElemental : Creature
+    public MihailCelestialElemental() : base(
+        "Mihail, Celestial Elemental", 8, 4000, Race.AngelCommand, Civilization.Light)
     {
-        public MihailCelestialElemental() : base("Mihail, Celestial Elemental", 8, 4000, Race.AngelCommand, Civilization.Light)
-        {
-            AddStaticAbilities(new MihailCelestialElementalEffect());
-        }
-    }
-
-    sealed class MihailCelestialElementalEffect : ContinuousEffects.DestructionReplacementEffect
-    {
-        public MihailCelestialElementalEffect() : base()
-        {
-        }
-
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            return new MihailEvent();
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new MihailCelestialElementalEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Whenever another creature would be destroyed, it stays in the battle zone instead.";
-        }
-
-        protected override bool Applies(ICreature card, IGame game)
-        {
-            return !IsSourceOfAbility(card);
-        }
-    }
-
-    sealed class MihailEvent : GameEvent
-    {
-        public override void Happen(IGame game)
-        {
-            // Do nothing
-        }
-
-        public override string ToString()
-        {
-            return "It stays in the battle zone instead.";
-        }
+        AddStaticAbilities(new MihailCelestialElementalEffect());
     }
 }

@@ -1,53 +1,12 @@
-﻿using ContinuousEffects;
-using Engine;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
-using System.Linq;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+public sealed class UltimateDragon : Creature
 {
-    sealed class UltimateDragon : Creature
+    public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
     {
-        public UltimateDragon() : base("Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
-        {
-            AddStaticAbilities(new UltimateDragonPowerEffect(), new UltimateDragonBreakerEffect());
-        }
-    }
-
-    sealed class UltimateDragonPowerEffect(int power = 5000) : PowerModifyingMultiplierEffect(power)
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new UltimateDragonPowerEffect();
-        }
-
-        public override string ToString()
-        {
-            return $"This creature gets +{Power} power for each of your other creatures in the battle zone that has Dragon in its race.";
-        }
-
-        protected override int GetMultiplier(IGame game)
-        {
-            return game.BattleZone.GetOtherCreatures(Controller.Id, Source.Id).Count(x => x.IsDragon);
-        }
-    }
-
-    sealed class UltimateDragonBreakerEffect : CrewBreakerEffect
-    {
-        public override IContinuousEffect Copy()
-        {
-            return new UltimateDragonBreakerEffect();
-        }
-
-        public override int GetAmount(IGame game, ICreature creature)
-        {
-            var ability = Ability;
-            return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller.Id).Count(x => x != ability.Source && x.IsDragon) : 1;
-        }
-
-        public override string ToString()
-        {
-            return "Crew breaker - Dragon";
-        }
+        AddStaticAbilities(new UltimateDragonPowerEffect(), new UltimateDragonBreakerEffect());
     }
 }

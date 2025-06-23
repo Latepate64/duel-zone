@@ -1,72 +1,12 @@
-﻿using TriggeredAbilities;
-using Engine;
-using Engine.Abilities;
-using Engine.GameEvents;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Engine;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class DracodanceTotem : Creature
 {
-    sealed class DracodanceTotem : Creature
+    public DracodanceTotem() : base("Dracodance Totem", 2, 1000, Race.MysteryTotem, Civilization.Nature)
     {
-        public DracodanceTotem() : base("Dracodance Totem", 2, 1000, Race.MysteryTotem, Civilization.Nature)
-        {
-            AddStaticAbilities(new DracodanceTotemEffect());
-        }
-    }
-
-    sealed class DracodanceTotemEffect : ContinuousEffects.DestructionReplacementEffect
-    {
-        public DracodanceTotemEffect() : base() 
-        {
-        }
-
-        public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
-        {
-            game.AddReflexiveTriggeredAbility(new ReflexiveTriggeredAbility(new DracodanceTotemRecoveryEffect(), Ability));
-            return new CardMovedEvent(gameEvent as ICardMovedEvent)
-            {
-                Destination = ZoneType.Hand
-            };
-        }
-
-        public override IContinuousEffect Copy()
-        {
-            return new DracodanceTotemEffect();
-        }
-
-        public override string ToString()
-        {
-            return "When this creature would be destroyed, if you have a creature that has Dragon in its race in your mana zone, put this creature into your mana zone instead of destroying it. Then return a creature that has Dragon in its race from your mana zone to your hand.";
-        }
-
-        protected override bool Applies(ICreature card, IGame game)
-        {
-            return IsSourceOfAbility(card) && Controller.ManaZone.Creatures.Any(x => x.IsDragon);
-        }
-    }
-
-    sealed class DracodanceTotemRecoveryEffect : OneShotEffects.ManaRecoveryEffect
-    {
-        public DracodanceTotemRecoveryEffect() : base(1, 1, true)
-        {
-        }
-
-        public override IOneShotEffect Copy()
-        {
-            return new DracodanceTotemRecoveryEffect();
-        }
-
-        public override string ToString()
-        {
-            return "Return a creature that has Dragon in its race from your mana zone to your hand.";
-        }
-
-        protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-        {
-            return Controller.ManaZone.Creatures.Where(x => x.IsDragon);
-        }
+        AddStaticAbilities(new DracodanceTotemEffect());
     }
 }
