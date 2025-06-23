@@ -1,10 +1,8 @@
 using ContinuousEffects;
-using OneShotEffects;
 using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM01;
+namespace OneShotEffects;
 
 public sealed class LaserWingEffect : CreatureSelectionEffect
 {

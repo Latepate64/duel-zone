@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using OneShotEffects;
+using TriggeredAbilities;
 
 namespace Cards.DM11
 {
@@ -6,7 +7,7 @@ namespace Cards.DM11
     {
         public HeartyCapnPolligon() : base("Hearty Cap'n Polligon", 1, 2000, Interfaces.Race.SnowFaerie, Interfaces.Civilization.Nature)
         {
-            AddTriggeredAbility(new HeartyCapnPolligonAbility());
+            AddTriggeredAbility(new HeartyCapnPolligonAbility(new HeartyCapnPolligonEffect()));
         }
     }
 }

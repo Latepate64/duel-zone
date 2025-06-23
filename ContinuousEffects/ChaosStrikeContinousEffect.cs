@@ -1,9 +1,7 @@
-using ContinuousEffects;
-using System;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace Cards.DM01;
+namespace ContinuousEffects;
 
 public sealed class ChaosStrikeContinousEffect : UntilEndOfTurnEffect, ICanBeAttackedAsThoughTappedEffect
 {

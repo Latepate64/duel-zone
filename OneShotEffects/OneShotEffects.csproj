@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ContinuousEffects\ContinuousEffects.csproj" />
     <ProjectReference Include="..\Engine\Engine.csproj" />
+    <ProjectReference Include="..\TriggeredAbilities\TriggeredAbilities.csproj" />
   </ItemGroup>
 
 </Project>

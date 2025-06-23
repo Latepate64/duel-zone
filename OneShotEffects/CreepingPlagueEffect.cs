@@ -2,7 +2,7 @@ using TriggeredAbilities;
 using Engine.Abilities;
 using Interfaces;
 
-namespace Cards.DM01;
+namespace OneShotEffects;
 
 public sealed class CreepingPlagueEffect : OneShotEffect
 {

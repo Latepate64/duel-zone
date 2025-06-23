@@ -1,9 +1,8 @@
-﻿using ContinuousEffects;
-using Engine.Abilities;
+﻿using Engine.Abilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace OneShotEffects;
+namespace ContinuousEffects;
 
 public sealed class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
 {

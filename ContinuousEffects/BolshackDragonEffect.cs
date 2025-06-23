@@ -1,8 +1,7 @@
-using ContinuousEffects;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace Cards.DM01;
+namespace ContinuousEffects;
 
 public sealed class BolshackDragonEffect(int power = 1000) : PowerAttackerMultiplierEffect(power)
 {

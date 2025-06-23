@@ -1,10 +1,8 @@
-using OneShotEffects;
 using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 using ContinuousEffects;
 
-namespace Cards.DM01;
+namespace OneShotEffects;
 
 public sealed class BurningPowerEffect : CreatureSelectionEffect
 {

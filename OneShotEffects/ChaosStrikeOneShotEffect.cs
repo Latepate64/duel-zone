@@ -1,9 +1,8 @@
-using OneShotEffects;
+using ContinuousEffects;
 using Engine.Abilities;
-using System.Collections.Generic;
 using Interfaces;
 
-namespace Cards.DM01;
+namespace OneShotEffects;
 
 public sealed class ChaosStrikeOneShotEffect : CreatureSelectionEffect
 {

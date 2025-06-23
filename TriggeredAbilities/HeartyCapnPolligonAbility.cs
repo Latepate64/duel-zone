@@ -1,14 +1,10 @@
-﻿using OneShotEffects;
-using Interfaces;
+﻿using Interfaces;
+using Engine.Abilities;
 
 namespace TriggeredAbilities;
 
-public sealed class HeartyCapnPolligonAbility : AtTheEndOfYourTurnAbility
+public sealed class HeartyCapnPolligonAbility(IOneShotEffect effect) : AtTheEndOfYourTurnAbility(effect)
 {
-    public HeartyCapnPolligonAbility() : base(new HeartyCapnPolligonEffect())
-    {
-    }
-
     public override bool CheckInterveningIfClause(IGame game)
     {
         // if this creature broke any shields that turn

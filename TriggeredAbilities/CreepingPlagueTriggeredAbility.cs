@@ -1,10 +1,9 @@
-using OneShotEffects;
+using ContinuousEffects;
 using Engine.Abilities;
 using Engine.GameEvents;
-using System;
 using Interfaces;
 
-namespace Cards.DM01;
+namespace TriggeredAbilities;
 
 public sealed class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
 {

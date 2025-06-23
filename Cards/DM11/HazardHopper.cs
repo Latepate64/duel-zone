@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using OneShotEffects;
+using TriggeredAbilities;
 
 namespace Cards.DM11
 {
@@ -6,7 +7,7 @@ namespace Cards.DM11
     {
         public HazardHopper() : base("Hazard Hopper", 4, 5000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {
-            AddTriggeredAbility(new HeartyCapnPolligonAbility());
+            AddTriggeredAbility(new HeartyCapnPolligonAbility(new HeartyCapnPolligonEffect()));
         }
     }
 }
