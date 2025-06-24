@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abilities\Abilities.csproj" />
-    <ProjectReference Include="..\Engine\Engine.csproj" />
   </ItemGroup>
 
 </Project>

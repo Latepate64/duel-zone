@@ -118,8 +118,7 @@ public sealed class BattleZone : Zone, IBattleZone
 
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) => Creatures.Where(c => c.OwnerV2 == player);
 
-    internal IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player) => GetCreatures(player).Where(
-        x => !x.Tapped);
+    public IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player) => GetCreatures(player).Where(x => !x.Tapped);
 
     public IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(IPlayer player) => CreaturesThatHaveBlocker.Where(
         c => c.Owner == player);

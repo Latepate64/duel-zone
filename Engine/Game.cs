@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 
 namespace Engine;
@@ -42,7 +42,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         Continue();
     }
 
-    public void Play(GameEventV2 action)
+    public void Play(IGameEventV2 action)
     {
         ArgumentNullException.ThrowIfNull(action);
         if (State.GameOver)
@@ -61,9 +61,9 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         _originalState = State;
     }
 
-    void Continue(GameEventV2 action)
+    void Continue(IGameEventV2 action)
     {
-        if (action is ConcedeEvent concede)
+        if (action is IConcedeEvent concede)
         {
             concede.Happen(State);
             return;
@@ -76,7 +76,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         {
             throw new IllegalActionException(action, IllegalActionType.UnexpectedPlayer);
         }
-        if (action is PassAction)
+        if (action is IPassAction)
         {
             // TODO: Throw if there was no action to be passed
             State.RemovePassableAction();

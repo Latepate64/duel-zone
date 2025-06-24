@@ -33,7 +33,7 @@ public sealed class WhileYouControlRaceThisCreatureGetsPowerDuringItsAttacksEffe
     public void ModifyPower(IGame game)
     {
         throw new NotImplementedException();
-        // if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(Race)))
+        // if (game.CurrentTurn.CurrentPhase is GameEvents.Steps.AttackPhase phase && game.BattleZone.GetCreatures(Ability.Id).Any(x => x.HasRace(Race)))
         // {
         //     (Source as ICreature).IncreasePower(Power);
         // }

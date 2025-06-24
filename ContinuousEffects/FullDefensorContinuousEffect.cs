@@ -1,7 +1,6 @@
-using Engine;
 using Abilities;
-using Engine.GameEvents;
-using Engine.Steps;
+using GameEvents;
+using GameEvents.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 

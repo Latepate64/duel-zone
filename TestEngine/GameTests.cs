@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Engine;
-using Engine.GameEvents;
 using Engine.Zones;
+using GameEvents;
 using Interfaces;
 using Moq;
 using Xunit;
@@ -253,7 +253,7 @@ public sealed class GameTests
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new MainPhaseEvent(player))
+            EventsHappening = new EventStack(new MainPhaseEvent(player))
         };
         state.PassableAction = new UseCardEvent(state.ActivePlayer);
         var game = CreateGame(state);
@@ -280,7 +280,7 @@ public sealed class GameTests
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new MainPhaseEvent(player))
+            EventsHappening = new EventStack(new MainPhaseEvent(player))
         };
         state.PassableAction = new UseCardEvent(state.ActivePlayer);
         var game = CreateGame(state);
@@ -307,7 +307,7 @@ public sealed class GameTests
         };
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new MainPhaseEvent(player))
+            EventsHappening = new EventStack(new MainPhaseEvent(player))
         };
         state.PassableAction = new UseCardEvent(state.ActivePlayer);
         var toUse = player.Hand.Cards.Last();
@@ -333,7 +333,7 @@ public sealed class GameTests
         var player = CreatePlayer(DeckSize);
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new AttackPhaseEvent(player))
+            EventsHappening = new EventStack(new AttackPhaseEvent(player))
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
 
@@ -352,7 +352,7 @@ public sealed class GameTests
         var attackingCreature = CreateCreature(tapped: true);
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -375,7 +375,7 @@ public sealed class GameTests
         var attackingCreature = CreateCreature();
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -398,7 +398,7 @@ public sealed class GameTests
         var attackingCreature = CreateCreature(summoningSickness: false);
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -422,7 +422,7 @@ public sealed class GameTests
         var attackedCreature = CreateCreature();
         var state = new GameState([player, (CreatePlayer(DeckSize))])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -449,7 +449,7 @@ public sealed class GameTests
         var defendingCreature = CreateCreature(power: 1000, owner: opponent);
         var state = new GameState([player, opponent])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature, defendingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -477,7 +477,7 @@ public sealed class GameTests
         var defendingCreature = CreateCreature(power: 2000, owner: opponent);
         var state = new GameState([player, opponent])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature, defendingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -504,7 +504,7 @@ public sealed class GameTests
         var defendingCreature = CreateCreature(power: 1000, owner: opponent);
         var state = new GameState([player, opponent])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature, defendingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -530,7 +530,7 @@ public sealed class GameTests
         var attackingCreature = CreateCreature(summoningSickness: false, owner: player);
         var state = new GameState([player, opponent])
         {
-            EventsHappening = new(new AttackPhaseEvent(player)),
+            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
             BattleZone = new BattleZone([attackingCreature]),
         };
         state.PassableAction = new AttackEvent(state.ActivePlayer);
@@ -590,7 +590,7 @@ public sealed class GameTests
         var otherPlayer = CreatePlayer(DeckSize);
         return new GameState([startingPlayer, otherPlayer])
         {
-            EventsHappening = new(new TakeTurnEvent(startingPlayer, 1))
+            EventsHappening = new EventStack(new TakeTurnEvent(startingPlayer, 1))
         };
     }
 

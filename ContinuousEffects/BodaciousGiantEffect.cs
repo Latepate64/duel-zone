@@ -1,4 +1,4 @@
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -56,7 +56,7 @@ public sealed class BodaciousGiantEffect : ContinuousEffect, IAttacksIfAbleEffec
         {
             _hasBeenAttacked = true;
         }
-        else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn)
+        else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
         {
             _hasBeenAttacked = false;
         }

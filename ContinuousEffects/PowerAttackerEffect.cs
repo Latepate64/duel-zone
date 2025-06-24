@@ -26,7 +26,7 @@ public sealed class PowerAttackerEffect : ContinuousEffect, IPowerModifyingEffec
     {
         throw new NotImplementedException();
         // var creature = Source as ICreature;
-        // if (game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase phase && phase.AttackingCreature == creature)
+        // if (game.CurrentTurn.CurrentPhase is GameEvents.Steps.AttackPhase phase && phase.AttackingCreature == creature)
         // {
         //     creature.IncreasePower(Power);
         // }

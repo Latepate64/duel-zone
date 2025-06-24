@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.GameEvents;
 using Engine.Zones;
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace Engine;
 
-public sealed class GameState(IPlayerV2[] players)
+public sealed class GameState(IPlayerV2[] players) : IGameState
 {
     /// <summary>
     /// People in the game in an APNAP order.
@@ -16,15 +16,15 @@ public sealed class GameState(IPlayerV2[] players)
     public IPlayerV2[] Players { get; private set; } = players;
     public IPlayerV2 Winner { get; set; }
     public List<IPlayerV2> Losers { get; init; } = [];
-    public EventStack EventsHappening { get; init; } = new();
+    public IEventStack EventsHappening { get; init; } = new EventStack();
 
     /// <summary>
     /// An action that a player either takes or passes (eg. if a player may draw a card)
     /// </summary>
-    public GameEventV2 PassableAction { get; set; }
-    public EventsThatWouldHappen EventsThatWouldHappen { get; } = new();
+    public IGameEventV2 PassableAction { get; set; }
+    public IEventsThatWouldHappen EventsThatWouldHappen { get; } = new EventsThatWouldHappen();
     public int TurnNumber { get; internal set; }
-    public BattleZone BattleZone { get; init; } = new BattleZone();
+    public IBattleZone BattleZone { get; init; } = new BattleZone();
     public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
         game: null);
 

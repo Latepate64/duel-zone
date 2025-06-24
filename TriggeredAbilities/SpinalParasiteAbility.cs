@@ -1,5 +1,5 @@
 using ContinuousEffects;
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -19,7 +19,7 @@ public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn
+        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn
             && e.Turn.ActivePlayer == GetOpponent(game);
     }
 

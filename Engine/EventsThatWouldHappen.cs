@@ -1,23 +1,23 @@
 using System.Collections.Generic;
-using Engine.GameEvents;
+using Interfaces;
 
 namespace Engine;
 
-public sealed class EventsThatWouldHappen
+public sealed class EventsThatWouldHappen : IEventsThatWouldHappen
 {
-    readonly List<GameEventV2> _eventsThatWouldHappen = [];
+    readonly List<IGameEventV2> _eventsThatWouldHappen = [];
 
-    internal void Add(params GameEventV2[] events)
+    public void Add(params IGameEventV2[] events)
     {
         _eventsThatWouldHappen.AddRange(events);
     }
 
-    internal IEnumerable<GameEventV2> Get()
+    public IEnumerable<IGameEventV2> Get()
     {
         return [.. _eventsThatWouldHappen];
     }
 
-    internal void Clear()
+    public void Clear()
     {
         _eventsThatWouldHappen.Clear();
     }

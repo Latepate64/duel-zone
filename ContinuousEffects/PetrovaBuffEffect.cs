@@ -1,5 +1,4 @@
-using Engine;
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 

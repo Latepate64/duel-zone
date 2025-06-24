@@ -20,7 +20,7 @@ public sealed class TurboRushEffect : ContinuousEffect, IAbilityAddingEffect
     public void AddAbility(IGame game)
     {
         throw new NotImplementedException();
-        // var events = game.CurrentTurn.GameEvents.OfType<Engine.GameEvents.CreatureBreaksShieldsEvent>();
+        // var events = game.CurrentTurn.GameEvents.OfType<GameEvents.CreatureBreaksShieldsEvent>();
         // if (events.Any(e => game.BattleZone.GetCreatures(Controller.Id).Any(c => e.Attacker.Id == c.Id && !IsSourceOfAbility(c))))
         // {
         //     Source.AddGrantedAbility(_ability.Copy());

@@ -1,13 +1,11 @@
 ﻿using Abilities;
-using Engine;
-using Engine.GameEvents;
 using Interfaces;
 
 namespace GameEvents;
 
-public sealed class SpellCastEvent(Player player, ICard spell) : GameEvent
+public sealed class SpellCastEvent(IPlayer player, ICard spell) : GameEvent
 {
-    public Player Player { get; } = player;
+    public IPlayer Player { get; } = player;
     public ICard Spell { get; private set; } = spell;
 
     public override void Happen(IGame game)

@@ -1,4 +1,4 @@
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -18,7 +18,7 @@ public sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.EndOfTurn
+        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.EndOfTurn
             && ValidInterveningIfClause;
     }
 
@@ -54,7 +54,7 @@ public sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
         {
             ++_cardsDrawnByOpponent;
         }
-        else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == Engine.Steps.PhaseOrStep.StartOfTurn)
+        else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
         {
             _cardsDrawnByOpponent = 0;
         }

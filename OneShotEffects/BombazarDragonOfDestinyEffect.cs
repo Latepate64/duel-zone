@@ -1,4 +1,3 @@
-using Engine;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -15,9 +14,9 @@ public sealed class BombazarDragonOfDestinyEffect : OneShotEffect
 
     public override void Apply(IGame game)
     {
-        game.Destroy(Ability, [.. game.BattleZone.Creatures.Where(p => p != Ability.Source && p.Power.Value == 6000)]);
-        Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
         throw new System.NotImplementedException();
+        // game.Destroy(Ability, [.. game.BattleZone.Creatures.Where(p => p != Ability.Source && p.Power.Value == 6000)]);
+        // Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
         // game.ExtraTurns.Push(turn);
         // game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(
         //     Ability, turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()));

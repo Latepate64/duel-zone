@@ -1,5 +1,5 @@
 ﻿using Abilities;
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;

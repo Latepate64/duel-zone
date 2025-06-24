@@ -1,4 +1,4 @@
-using Engine.GameEvents;
+using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,7 +15,7 @@ public sealed class CosmicNebulaAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == Engine.Steps.PhaseOrStep.Draw
+        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.Draw
             && e.Turn.ActivePlayer == Controller;
     }
 

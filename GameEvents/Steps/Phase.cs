@@ -1,0 +1,75 @@
+﻿using Interfaces;
+
+namespace GameEvents.Steps
+{
+    public abstract class Phase : ICopyable<Phase>
+    {
+        public abstract Phase GetNextPhase(IGame game);
+
+        public virtual void Play(IGame game)
+        {
+            if (this is ITurnBasedActionable turnBasedActionable)
+            {
+                turnBasedActionable.PerformTurnBasedAction(game);
+            }
+            Progress(game);
+        }
+
+        internal void Progress(IGame game)
+        {
+            if (!game.Ended)
+            {
+                game.ResolveReflexiveTriggeredAbilities();
+                if (game.CheckStateBasedActions())
+                {
+                    Progress(game);
+                }
+                else
+                {
+                    ResolveAbilities(game);
+                    if (!game.Ended && this is PriorityPhase priorityPhase && !priorityPhase.PerformPriorityAction(game))
+                    {
+                        Progress(game);
+                    }
+                }
+            }
+        }
+
+        private void ResolveAbilities(IGame game)
+        {
+            while (PendingAbilities.Count != 0)
+            {
+                var abilityGroups = PendingAbilities.GroupBy(x => x.Controller.Id);
+                foreach (var abilities in abilityGroups)
+                {
+                    var ability = game.GetPlayer(abilities.Key).ChooseAbility(abilities);
+                    ability.Resolve(game);
+
+                    // 608.2m As the final part of an ability’s resolution, the ability is removed from the stack and ceases to exist.
+                    _ = PendingAbilities.Remove(ability);
+                }
+            }
+        }
+
+        protected Phase(Phase phase)
+        {
+            PendingAbilities = [.. phase.PendingAbilities.Select(x => x.Copy()).Cast<IResolvableAbility>()];
+            GameEvents = new Queue<IGameEvent>(phase.GameEvents);
+            UsedCards = [.. phase.UsedCards];
+            Type = phase.Type;
+        }
+
+        protected Phase(PhaseOrStep type)
+        {
+            Type = type;
+        }
+
+        public List<ICard> UsedCards { get; } = [];
+        public List<IResolvableAbility> PendingAbilities { get; internal set; } = [];
+
+        public Queue<IGameEvent> GameEvents { get; } = new Queue<IGameEvent>();
+        public PhaseOrStep Type { get; }
+
+        public abstract Phase Copy();
+    }
+}

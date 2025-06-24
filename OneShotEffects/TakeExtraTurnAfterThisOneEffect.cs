@@ -1,5 +1,4 @@
-﻿using Engine;
-using Interfaces;
+﻿using Interfaces;
 
 namespace OneShotEffects;
 
@@ -15,8 +14,8 @@ public sealed class TakeExtraTurnAfterThisOneEffect : OneShotEffect
 
     public override void Apply(IGame game)
     {
-        Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
         throw new NotImplementedException();
+        // Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
         // game.ExtraTurns.Push(turn);
     }
 

@@ -17,7 +17,7 @@ public sealed class WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAb
     {
         throw new NotImplementedException();
         // return gameEvent is BecomeUnblockedEvent e && e.Attacker == Source
-        // && game.CurrentTurn.CurrentPhase is Engine.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game);
+        // && game.CurrentTurn.CurrentPhase is GameEvents.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game);
     }
 
     public override IAbility Copy()

@@ -1,5 +1,4 @@
 ﻿using Engine.Choices;
-using Engine.GameEvents;
 using Engine.Zones;
 using Interfaces;
 using Interfaces.Choices;
@@ -614,7 +613,8 @@ namespace Engine
 
         private void Summon(ICreature creature, IGame game)
         {
-            game.ProcessEvents(new CreatureSummonedEvent(this, creature));
+            throw new NotImplementedException();
+            // game.ProcessEvents(new CreatureSummonedEvent(this, creature));
         }
 
         public IEnumerable<ICreature> ChooseWhichCreaturesToKeepTappedToUseTheirSilentSkillAbilities(IEnumerable<ICreature> creaturesWithSilentSkill)
