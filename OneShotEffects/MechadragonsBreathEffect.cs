@@ -1,4 +1,3 @@
-using Engine.Choices;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -7,7 +6,7 @@ public sealed class MechadragonsBreathEffect : OneShotEffect
 {
     public override void Apply(IGame game)
     {
-        var power = Controller.ChooseNumber(new MechadragonsBreathChoice(Controller, ToString()));
+        var power = Controller.ChooseNumber(ToString(), 0, 6000);
         game.Destroy(Ability, [.. game.BattleZone.Creatures.Where(x => x.Power == power)]);
     }
 

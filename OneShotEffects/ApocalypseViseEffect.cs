@@ -1,4 +1,3 @@
-using Engine.Choices;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -15,12 +14,7 @@ public sealed class ApocalypseViseEffect : OneShotEffect
 
     public override void Apply(IGame game)
     {
-        game.Destroy(
-            Ability,
-            [.. Controller.ChooseCards(
-                new CardChoice<ICreature>(Controller, ToString(), new ApocalypseViseChoiceMode(),
-                [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id)])
-                )]);
+        game.Destroy(Ability, [.. Controller.ChooseAnyNumberOfOpponentsCreatureThatHaveTotalMaxPower(game)]);
     }
 
     public override IOneShotEffect Copy()

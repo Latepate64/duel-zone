@@ -211,9 +211,9 @@ namespace Engine
             return ChooseCards(game.BattleZone.GetCreatures(Id), 0, max, description).OfType<ICreature>();
         }
 
-        public int ChooseNumber(INumberChoice choice)
+        public int ChooseNumber(string description, int min, int? max)
         {
-            return Choose(choice).Choice.Value;
+            return Choose(new NumberChoice(this, description, min, max)).Choice.Value;
         }
 
         public ICreature ChooseOpponentsCreature(IGame game, string description)
@@ -702,6 +702,13 @@ namespace Engine
         public ICreature ChooseCreaturesOptionally(IEnumerable<ICreature> possibleBlockers, string v)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<ICreature> ChooseAnyNumberOfOpponentsCreatureThatHaveTotalMaxPower(IGame game)
+        {
+            return ChooseCards(
+                new CardChoice<ICreature>(this, ToString(), new ApocalypseViseChoiceMode(),
+                [.. game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, game.GetOpponent(Id))]));
         }
     }
 }

@@ -1,5 +1,4 @@
 using Interfaces;
-using Engine.Choices;
 
 namespace OneShotEffects;
 
@@ -18,8 +17,8 @@ public sealed class ClonedNightmareEffect : ClonedEffect
         var number = GetAmount(game);
         if (number > 1)
         {
-            number = Controller.ChooseNumber(new ClonedNightmareChoice(
-                Controller, "Choose how many cards your opponent will discard at random from their hand.", number));
+            number = Controller.ChooseNumber(
+                "Choose how many cards your opponent will discard at random from their hand.", 1, number);
         }
         GetOpponent(game).DiscardAtRandom(game, number, Ability);
     }

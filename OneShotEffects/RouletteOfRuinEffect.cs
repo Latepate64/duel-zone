@@ -14,7 +14,7 @@ public sealed class RouletteOfRuinEffect : OneShotEffect
 
     public override void Apply(IGame game)
     {
-        var number = Controller.ChooseNumber(new Engine.Choices.NumberChoice(Controller, ToString()));
+        var number = Controller.ChooseNumber(ToString(), 0, null);
         foreach (var player in new System.Guid[] { Ability.Controller.Id, game.GetOpponent(Ability.Controller.Id) })
         {
             game.GetPlayer(player).ShowCardsToOpponent(game, [.. game.GetPlayer(player).Hand.Cards]);

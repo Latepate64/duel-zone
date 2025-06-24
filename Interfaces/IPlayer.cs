@@ -25,6 +25,7 @@ public interface IPlayer
     IResolvableAbility ChooseAbility(IEnumerable<IResolvableAbility> abilities);
     T ChooseAbstractly<T>(T choice) where T : IChoice;
     IEnumerable<T> ChooseAnyNumberOfCards<T>(IEnumerable<T> cards, string description) where T : ICard;
+    IEnumerable<ICreature> ChooseAnyNumberOfOpponentsCreatureThatHaveTotalMaxPower(IGame game);
     bool ChooseAttacker(IGame game, IEnumerable<ICreature> attackers);
     IAttackable ChooseAttackTarget(IEnumerable<IAttackable> targets);
     ICard ChooseCard(IEnumerable<ICard> cards, string description);
@@ -40,7 +41,7 @@ public interface IPlayer
     ICreature ChooseCreatureInBattleZoneOptionally(IGame game, string description);
     IEnumerable<ICreature> ChooseCreatures(IEnumerable<ICreature> creatures, int v1, int v2, string v3);
     ICreature ChooseCreaturesOptionally(IEnumerable<ICreature> possibleBlockers, string v);
-    int ChooseNumber(INumberChoice choice);
+    int ChooseNumber(string description, int min, int? max);
     ICreature ChooseOpponentsCreature(IGame game, string description);
     ICreature ChooseOpponentsNonEvolutionCreature(IGame game, string description);
     IPlayer ChoosePlayer(IGame game, string description);
