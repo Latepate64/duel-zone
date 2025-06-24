@@ -1,5 +1,4 @@
-﻿using Abilities;
-using Interfaces;
+﻿using Interfaces;
 
 namespace GameEvents;
 
@@ -28,7 +27,7 @@ public sealed class SpellCastEvent(IPlayer player, ICard spell) : GameEvent
 
     private static void ResolveSpellAbilities(ICard spell, IGame game)
     {
-        foreach (var ability in spell.GetAbilities<SpellAbility>())
+        foreach (var ability in spell.GetAbilities<ISpellAbility>())
         {
             //ability.Source = spell.Id;
             //ability.Controller = spell.Owner;

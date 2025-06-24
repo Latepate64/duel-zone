@@ -2,7 +2,7 @@
 
 namespace Abilities;
 
-public sealed class SpellAbility : ResolvableAbility
+public sealed class SpellAbility : ResolvableAbility, ISpellAbility
 {
     public SpellAbility(IOneShotEffect effect) : base(effect)
     { }
@@ -10,7 +10,7 @@ public sealed class SpellAbility : ResolvableAbility
     public SpellAbility(SpellAbility ability) : base(ability)
     { }
 
-    public override Ability Copy()
+    public override IAbility Copy()
     {
         return new SpellAbility(this);
     }

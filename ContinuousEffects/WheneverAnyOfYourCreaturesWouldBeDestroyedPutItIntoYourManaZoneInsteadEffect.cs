@@ -1,10 +1,9 @@
-using ContinuousEffects;
 using GameEvents;
 using GameEvents.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace OneShotEffects;
+namespace ContinuousEffects;
 
 public sealed class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect :
     DestructionReplacementEffect, IExpirable
