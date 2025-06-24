@@ -1,5 +1,4 @@
-﻿using Engine;
-using Interfaces;
+﻿using Interfaces;
 
 namespace OneShotEffects;
 
@@ -7,12 +6,17 @@ namespace OneShotEffects;
 /// 610.1. A one-shot effect does something just once and doesn’t have a duration.
 /// Examples include moving an object from one zone to another.
 /// </summary>
-public abstract class OneShotEffect : Effect, IOneShotEffect, IDisposable
+public abstract class OneShotEffect : IOneShotEffect
 {
+    public IAbility Ability { get; set; }
+    public IPlayer Controller => Ability.Controller;
+    public ICard Source => Ability.Source;
+
     protected OneShotEffect() { }
 
-    protected OneShotEffect(IOneShotEffect effect) : base(effect)
+    protected OneShotEffect(IOneShotEffect effect)
     {
+        Ability = effect.Ability.Copy();
     }
 
     /// <summary>
@@ -26,4 +30,11 @@ public abstract class OneShotEffect : Effect, IOneShotEffect, IDisposable
     public abstract void Apply(IGame game);
 
     public abstract IOneShotEffect Copy();
+
+    public override abstract string ToString();
+
+    protected IPlayer GetOpponent(IGame game)
+    {
+        return game.GetOpponent(Controller);
+    }
 }

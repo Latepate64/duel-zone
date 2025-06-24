@@ -1,5 +1,4 @@
-﻿using Combinatorics.Collections;
-using GameEvents;
+﻿using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -24,10 +23,11 @@ public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
 
     public bool CanEvolve(IGame game, ICreature evolutionCreature)
     {
-        var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        var combinations = new Combinations<ICreature>(baits, 2, GenerateOption.WithoutRepetition);
-        var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
-        return validPairs.Any();
+        throw new NotImplementedException();
+        // var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
+        // var combinations = new Combinations<ICreature>(baits, 2, GenerateOption.WithoutRepetition);
+        // var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
+        // return validPairs.Any();
     }
 
     private bool CanEvolveFrom(ICreature evolutionCreature, ICreature bait1, ICreature bait2)
