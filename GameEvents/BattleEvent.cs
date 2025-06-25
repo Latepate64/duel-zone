@@ -10,11 +10,11 @@ namespace GameEvents
 
         public override void Happen(IGame game)
         {
-            if (AttackingCreature.Power.Value > DefendingCreature.Power.Value)
+            if (AttackingCreature.Power > DefendingCreature.Power)
             {
                 Outcome(AttackingCreature, DefendingCreature);
             }
-            else if (AttackingCreature.Power.Value < DefendingCreature.Power.Value)
+            else if (AttackingCreature.Power < DefendingCreature.Power)
             {
                 Outcome(DefendingCreature, AttackingCreature);
             }

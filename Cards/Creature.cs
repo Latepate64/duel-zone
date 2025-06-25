@@ -10,7 +10,7 @@ public class Creature(
     IList<Civilization> civilizations,
     int manaCost,
     bool summoningSickness,
-    int? power,
+    int power,
     string name,
     IList<Race> races)
     : Card(
@@ -20,8 +20,8 @@ public class Creature(
         name), ICreature
 {
     readonly IList<Race> addedRaces = [];
-    public int? Power { get; private set; } = power;
-    public int? PrintedPower { get; } = power;
+    public int Power { get; private set; } = power;
+    public int PrintedPower { get; } = power;
     readonly IList<Race> printedRaces = [.. races];
     public IList<Race> Races { get; private set; } = [.. races];
     public bool SummoningSickness { get; private set; } = summoningSickness;

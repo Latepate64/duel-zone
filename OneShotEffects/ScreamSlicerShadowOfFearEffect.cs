@@ -16,7 +16,7 @@ public sealed class ScreamSlicerShadowOfFearEffect : OneShotEffect
     {
         var controller = Controller;
         var creatures = game.BattleZone.Creatures.Where(
-            x => x.Power == game.BattleZone.Creatures.Min(x => x.Power.Value) && controller.CanChoose(x, game));
+            x => x.Power == game.BattleZone.Creatures.Min(x => x.Power) && controller.CanChoose(x, game));
         game.Destroy(Ability, controller.ChooseCard(creatures, ToString()) as ICreature);
     }
 

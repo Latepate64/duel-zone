@@ -4,8 +4,8 @@ namespace Interfaces;
 
 public interface ICreature : ICard
 {
-    int? Power { get; }
-    int? PrintedPower { get; }
+    int Power { get; }
+    int PrintedPower { get; }
     IList<Race> Races { get; }
     bool SummoningSickness { get; }
     IList<Supertype> Supertypes { get; }

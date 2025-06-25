@@ -28,11 +28,11 @@ public sealed class BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
             return [];
         }
         shouldEnd = true;
-        if (AttackingCreature.Power.Value > DefendingCreature.Power.Value)
+        if (AttackingCreature.Power > DefendingCreature.Power)
         {
             return SetWinnerAndGetDestroyEvents(state, AttackingCreature, DefendingCreature);
         }
-        else if (AttackingCreature.Power.Value < DefendingCreature.Power.Value)
+        else if (AttackingCreature.Power < DefendingCreature.Power)
         {
             return SetWinnerAndGetDestroyEvents(state, DefendingCreature, AttackingCreature);
         }
