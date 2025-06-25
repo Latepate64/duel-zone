@@ -2,8 +2,21 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class StartOfTurnEvent(IPlayerV2 player) : GameEventV2(player, false)
+public sealed class StartOfTurnEvent : GameEventV2
 {
+    public StartOfTurnEvent(IPlayerV2 player) : base(player, false)
+    {
+    }
+
+    StartOfTurnEvent(IGameEventV2 gameEvent) : base(gameEvent)
+    {
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new StartOfTurnEvent(this);
+    }
+
     public override IEnumerable<IGameEventV2> Happen(IGameState state)
     {
         // 1.1) Remove any summoning sickness from your creatures in the battle zone.

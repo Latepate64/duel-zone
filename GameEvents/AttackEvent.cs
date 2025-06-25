@@ -2,12 +2,24 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class AttackEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
+public sealed class AttackEvent : GameEventV2
 {
     public ICreature AttackingCreature { get; init; }
     public ICreature AttackedCreature { get; init; }
     public IPlayerV2 AttackedPlayer { get; init; }
     bool shouldEnd;
+
+    public AttackEvent(IPlayerV2 player, bool passable = true) : base(player, passable)
+    {
+    }
+
+    AttackEvent(AttackEvent gameEvent) : base(gameEvent)
+    {
+        AttackingCreature = gameEvent.AttackingCreature.Copy();
+        AttackedCreature = gameEvent.AttackedCreature.Copy();
+        AttackedPlayer = gameEvent.AttackedPlayer.Copy();
+        shouldEnd = gameEvent.shouldEnd;
+    }
 
     public override bool Equals(object obj)
     {
@@ -59,5 +71,10 @@ public sealed class AttackEvent(IPlayerV2 player, bool passable = true) : GameEv
             return [new LoseGameEvent(AttackedPlayer)];
         }
         throw new NotImplementedException();
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new AttackEvent(this);
     }
 }

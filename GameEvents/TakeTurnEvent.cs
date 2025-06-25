@@ -12,10 +12,21 @@ public enum PhaseType
     EndOfTurn
 }
 
-public sealed class TakeTurnEvent(IPlayerV2 player, int turnNumber) : GameEventV2(player, false)
+public sealed class TakeTurnEvent : GameEventV2
 {
-    public int TurnNumber { get; } = turnNumber;
+    public int TurnNumber { get; }
     public PhaseType NextPhase { get; set; }
+
+    public TakeTurnEvent(IPlayerV2 player, int turnNumber) : base(player, false)
+    {
+        TurnNumber = turnNumber;
+    }
+
+    TakeTurnEvent(TakeTurnEvent gameEvent) : base(gameEvent)
+    {
+        NextPhase = gameEvent.NextPhase;
+        TurnNumber = gameEvent.TurnNumber;
+    }
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
@@ -56,5 +67,10 @@ public sealed class TakeTurnEvent(IPlayerV2 player, int turnNumber) : GameEventV
             && obj is TakeTurnEvent e
             && TurnNumber == e.TurnNumber
             && NextPhase == e.NextPhase;
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new TakeTurnEvent(this);
     }
 }

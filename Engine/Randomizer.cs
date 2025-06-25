@@ -6,6 +6,11 @@ namespace Engine;
 
 public sealed class Randomizer : IRandomizer
 {
+    public IRandomizer Copy()
+    {
+        return new Randomizer();
+    }
+
     public void Shuffle(List<ICard> cards)
     {
         Random random = new(Guid.NewGuid().GetHashCode());

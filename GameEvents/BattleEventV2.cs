@@ -2,13 +2,28 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class BattleEventV2(IPlayerV2 player, ICreature attackingCreature, ICreature defendingCreature) : GameEventV2(
-    player, passable: false)
+public sealed class BattleEventV2 : GameEventV2
 {
-    public ICreature AttackingCreature { get; } = attackingCreature;
-    public ICreature DefendingCreature { get; } = defendingCreature;
+    public ICreature AttackingCreature { get; }
+    public ICreature DefendingCreature { get; }
     readonly List<ICard> winners = [];
     bool shouldEnd;
+
+    public BattleEventV2(IPlayerV2 player, ICreature attackingCreature, ICreature defendingCreature) : base(
+        player, passable: false)
+    {
+        AttackingCreature = attackingCreature;
+        DefendingCreature = defendingCreature;
+    }
+
+    BattleEventV2(BattleEventV2 gameEvent) : base(gameEvent)
+    {
+        AttackingCreature = gameEvent.AttackingCreature.Copy();
+        DefendingCreature = gameEvent.DefendingCreature.Copy();
+        winners = [.. gameEvent.winners.Select(x => x.Copy())];
+        shouldEnd = gameEvent.shouldEnd;
+    }
+
     public IEnumerable<ICard> Winners => winners;
 
     public override bool Equals(object obj)
@@ -57,5 +72,10 @@ public sealed class BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
             return [new PutIntoGraveyardEvent(target.OwnerV2, target)];
         }
         return [];
+    }
+
+    public override BattleEventV2 Copy()
+    {
+        return new BattleEventV2(this);
     }
 }

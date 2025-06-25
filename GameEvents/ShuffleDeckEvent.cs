@@ -2,9 +2,19 @@
 
 namespace GameEvents;
 
-public sealed class ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : GameEventV2(player, false)
+public sealed class ShuffleDeckEvent : GameEventV2
 {
-    readonly IRandomizer randomizer = randomizer;
+    readonly IRandomizer randomizer;
+
+    ShuffleDeckEvent(ShuffleDeckEvent gameEvent) : base(gameEvent)
+    {
+        randomizer = gameEvent.randomizer.Copy();
+    }
+
+    public ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : base(player, false)
+    {
+        this.randomizer = randomizer;
+    }
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
@@ -14,5 +24,10 @@ public sealed class ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) :
         // TODO: Become new objects
         Player.Deck.Shuffle(randomizer);
         return [];
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new ShuffleDeckEvent(this);
     }
 }

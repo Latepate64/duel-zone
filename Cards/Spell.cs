@@ -19,7 +19,7 @@ public class Spell : Card, ISpell
     {
     }
 
-    public override Spell Copy()
+    public override ISpell Copy()
     {
         return new Spell(this);
     }

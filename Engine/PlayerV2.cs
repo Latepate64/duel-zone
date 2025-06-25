@@ -12,6 +12,11 @@ public sealed class PlayerV2 : IPlayerV2
     public IManaZone ManaZone { get; init; } = new ManaZone();
     public IGraveyard Graveyard { get; init; } = new Graveyard();
 
+    public IPlayerV2 Copy()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void SetOwnerForCards()
     {
         Deck.SetOwner(this);

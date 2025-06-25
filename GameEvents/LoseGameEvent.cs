@@ -2,8 +2,21 @@ using Interfaces;
 
 namespace GameEvents;
 
-public class LoseGameEvent(IPlayerV2 player) : GameEventV2(player, false)
+public class LoseGameEvent : GameEventV2
 {
+    public LoseGameEvent(IPlayerV2 player) : base(player, false)
+    {
+    }
+
+    LoseGameEvent(IGameEventV2 gameEvent) : base(gameEvent)
+    {
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new LoseGameEvent(this);
+    }
+
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
         state.Losers.Add(Player);

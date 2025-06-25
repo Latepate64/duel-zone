@@ -2,9 +2,18 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class DrawPhaseEvent(IPlayerV2 player) : GameEventV2(player, false)
+public sealed class DrawPhaseEvent : GameEventV2
 {
     bool shouldEnd;
+
+    public DrawPhaseEvent(IPlayerV2 player) : base(player, false)
+    {
+    }
+
+    DrawPhaseEvent(DrawPhaseEvent gameEvent) : base(gameEvent)
+    {
+        shouldEnd = gameEvent.shouldEnd;
+    }
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
@@ -19,5 +28,10 @@ public sealed class DrawPhaseEvent(IPlayerV2 player) : GameEventV2(player, false
     public override bool Equals(object obj)
     {
         return base.Equals(obj) && obj is DrawPhaseEvent e && shouldEnd == e.shouldEnd;
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new DrawPhaseEvent(this);
     }
 }

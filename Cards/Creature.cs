@@ -97,11 +97,6 @@ public class Creature(
         Power += power;
     }
 
-    public override ICreature Copy()
-    {
-        return new Creature(this);
-    }
-
     protected void AddTriggeredAbility(ITriggeredAbility ability)
     {
         AddAbilities(ability);
@@ -123,5 +118,10 @@ public class Creature(
     public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
     {
         return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
+    }
+
+    public override ICreature Copy()
+    {
+        return new Creature(this);
     }
 }

@@ -14,4 +14,5 @@ public enum IllegalActionType
     AttackingCreatureHasSummoningSickness,
     AttackedCreatureAndAttackedPlayerAreNull,
     AttackedCreatureAndAttackedPlayerAreNotNull,
+    ChosenCardIsNull,
 }

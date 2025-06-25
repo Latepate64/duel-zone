@@ -2,10 +2,22 @@ using Interfaces;
 
 namespace GameEvents;
 
-public abstract class GameEventV2(IPlayerV2 player, bool passable) : IGameEventV2
+public abstract class GameEventV2 : IGameEventV2
 {
-    public IPlayerV2 Player { get; } = player;
-    public bool Passable { get; } = passable;
+    public GameEventV2(IPlayerV2 player, bool passable)
+    {
+        Player = player;
+        Passable = passable;
+    }
+
+    protected GameEventV2(IGameEventV2 gameEvent)
+    {
+        Player = gameEvent.Player.Copy();
+        Passable = gameEvent.Passable;
+    }
+    
+    public IPlayerV2 Player { get; }
+    public bool Passable { get; }
 
     /// <param name="state">The current state of the game.</param>
     /// <returns>Events that would happen during the event. If none, the event has completely happened.</returns>
@@ -22,4 +34,6 @@ public abstract class GameEventV2(IPlayerV2 player, bool passable) : IGameEventV
             && Player == e.Player
             && Passable == e.Passable;
     }
+
+    public abstract IGameEventV2 Copy();
 }

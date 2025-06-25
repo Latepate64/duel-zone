@@ -10,5 +10,6 @@ public interface IPlayerV2
     IManaZone ManaZone { get; init; }
     IGraveyard Graveyard { get; init; }
 
+    IPlayerV2 Copy();
     void SetOwnerForCards();
 }

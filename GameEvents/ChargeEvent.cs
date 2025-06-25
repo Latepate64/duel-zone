@@ -2,14 +2,26 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class ChargeEvent(IPlayerV2 player, bool passable = true) : MoveCardEvent(player, ZoneType.ManaZone, passable)
+public sealed class ChargeEvent : MoveCardEvent
 {
-    public ICard ChosenCard { get; set; }
+    public ICard? ChosenCard { get; set; }
 
-    internal override ICard RemoveCardFromCurrentZone()
+    public ChargeEvent(IPlayerV2 player, bool passable = true) : base(player, ZoneType.ManaZone, passable)
+    {
+    }
+
+    public ChargeEvent(ChargeEvent gameEvent) : base(gameEvent)
+    {
+        ChosenCard = gameEvent.ChosenCard?.Copy();
+    }
+
+    internal override ICard? RemoveCardFromCurrentZone()
     {
         // TODO: Consider that card may not be in hand
-        Player.Hand.Remove(ChosenCard);
+        if (ChosenCard != null)
+        {
+            Player.Hand.Remove(ChosenCard);
+        }
         return ChosenCard;
     }
 
@@ -17,7 +29,9 @@ public sealed class ChargeEvent(IPlayerV2 player, bool passable = true) : MoveCa
     {
         var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(gameEvent);
         // TODO: Consider that card may not be in hand
-        IllegalActionException.ThrowIf(charge, !Player.Hand.Contains(charge.ChosenCard),
+        IllegalActionException.ThrowIf(charge, charge.ChosenCard == null,
+            IllegalActionType.ChosenCardIsNull);
+        IllegalActionException.ThrowIf(charge, !Player.Hand.Contains(charge.ChosenCard!),
             IllegalActionType.HandDoesNotContainCard);
     }
 
@@ -26,5 +40,10 @@ public sealed class ChargeEvent(IPlayerV2 player, bool passable = true) : MoveCa
         return base.Equals(obj)
             && obj is ChargeEvent e
             && ChosenCard == e.ChosenCard;
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new ChargeEvent(this);
     }
 }

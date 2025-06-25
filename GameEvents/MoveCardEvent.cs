@@ -2,12 +2,21 @@ using Interfaces;
 
 namespace GameEvents;
 
-public abstract class MoveCardEvent(IPlayerV2 player, ZoneType destination, bool passable) :
-    GameEventV2(player, passable)
+public abstract class MoveCardEvent : GameEventV2
 {
-    public ZoneType Destination { get; } = destination;
+    public ZoneType Destination { get; }
 
-    internal abstract ICard RemoveCardFromCurrentZone();
+    public MoveCardEvent(IPlayerV2 player, ZoneType destination, bool passable) : base(player, passable)
+    {
+        Destination = destination;
+    }
+
+    protected MoveCardEvent(MoveCardEvent gameEvent) : base(gameEvent)
+    {
+        Destination = gameEvent.Destination;
+    }
+
+    internal abstract ICard? RemoveCardFromCurrentZone();
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {

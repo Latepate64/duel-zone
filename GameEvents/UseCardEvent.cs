@@ -2,11 +2,22 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class UseCardEvent(IPlayerV2 player, bool passable = true) : GameEventV2(player, passable)
+public sealed class UseCardEvent : GameEventV2
 {
     public ICard Card { get; init; }
     public IEnumerable<ICard> PaymentCards { get; init; } = [];
     bool shouldEnd;
+
+    public UseCardEvent(IPlayerV2 player, bool passable = true) : base(player, passable)
+    {
+    }
+
+    UseCardEvent(UseCardEvent gameEvent) : base(gameEvent)
+    {
+        Card = gameEvent.Card.Copy();
+        PaymentCards = gameEvent.PaymentCards.Select(x => x.Copy());
+        shouldEnd = gameEvent.shouldEnd;
+    }
 
     public override bool Equals(object obj)
     {
@@ -67,5 +78,10 @@ public sealed class UseCardEvent(IPlayerV2 player, bool passable = true) : GameE
             return [new PutIntoGraveyardEvent(Player, spell)];
         }
         throw new InvalidOperationException();
+    }
+
+    public override IGameEventV2 Copy()
+    {
+        return new UseCardEvent(this);
     }
 }
