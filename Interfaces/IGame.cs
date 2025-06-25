@@ -35,7 +35,7 @@ public interface IGame
     void Break(ICreature creature, int breakAmount);
 
     bool CanAttackAtLeastOneCreature(ICreature creature);
-    bool CanAttackAtLeastSomething(ICreature creature) => CanAttackAtLeastOneCreature(creature) || CanAttackPlayers(creature);
+    bool CanAttackAtLeastSomething(ICreature creature);
 
     bool CanAttackCreature(ICard attacker, ICard targetOfAttack);
 
@@ -55,7 +55,7 @@ public interface IGame
 
     ICard GetCard(Guid id);
 
-    IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id) => BattleZone.GetChoosableCreaturesControlledByAnyone(game, id);
+    IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(IGame game, Guid id);
     IEnumerable<ICreature> GetCreaturesThatHaveAttackTargets();
     IPlayer GetOpponent(IPlayer player);
     Guid GetOpponent(Guid player);
@@ -77,10 +77,10 @@ public interface IGame
     int GetAmountOfShieldsCreatureBreaks(ICreature attackingCreature);
     void ProcessCreatureAttackedEvent(ICreature attacker, IAttackable target);
     void AddPendingSilentSkillAbilities(IEnumerable<ICreature> cards);
-    IEnumerable<ICreature> GetBattleZoneCreatures(IPlayer player) => BattleZone.GetCreatures(player);
-    IEnumerable<ICreature> GetBattleZoneCreaturesWithSilentSkill(IPlayer player) => BattleZone.GetCreaturesWithSilentSkill(player);
-    void RemoveSummoningSicknesses(IPlayer player) => BattleZone.RemoveSummoningSicknesses(player);
-    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player) => ContinuousEffects.CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(player);
-    bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn() => ContinuousEffects.DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
-    int GetAmountOfBattleZoneCreatures(IPlayer player) => GetBattleZoneCreatures(player).Count();
+    IEnumerable<ICreature> GetBattleZoneCreatures(IPlayer player);
+    IEnumerable<ICreature> GetBattleZoneCreaturesWithSilentSkill(IPlayer player);
+    void RemoveSummoningSicknesses(IPlayer player);
+    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
+    bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
+    int GetAmountOfBattleZoneCreatures(IPlayer player);
 }

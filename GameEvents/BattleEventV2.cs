@@ -21,7 +21,7 @@ public sealed class BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
             && e.shouldEnd == shouldEnd;
     }
 
-    public override IEnumerable<GameEventV2> Happen(IGameState state)
+    public override IEnumerable<IGameEventV2> Happen(IGameState state)
     {
         if (shouldEnd)
         {
@@ -44,13 +44,13 @@ public sealed class BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
         }
     }
 
-    IEnumerable<GameEventV2> SetWinnerAndGetDestroyEvents(IGameState state, ICreature winner, ICreature loser)
+    IEnumerable<IGameEventV2> SetWinnerAndGetDestroyEvents(IGameState state, ICreature winner, ICreature loser)
     {
         winners.Add(winner);
         return GetDestroyEvents(state, loser, winner);
     }
 
-    static IEnumerable<GameEventV2> GetDestroyEvents(IGameState state, ICreature target, ICreature against)
+    static IEnumerable<IGameEventV2> GetDestroyEvents(IGameState state, ICreature target, ICreature against)
     {
         if (state.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
         {
