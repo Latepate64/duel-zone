@@ -36,7 +36,7 @@ public sealed class AttackEvent : GameEventV2
         var attack = IllegalActionException.ThrowIfNotOfType<AttackEvent>(gameEvent);
         IllegalActionException.ThrowIf(attack, attack.AttackingCreature == null,
             IllegalActionType.AttackingCreatureIsNull);
-        IllegalActionException.ThrowIf(attack, attack.AttackingCreature.Tapped,
+        IllegalActionException.ThrowIf(attack, attack.AttackingCreature!.Tapped,
             IllegalActionType.AttackingCreatureIsTapped);
         // TODO: Check if any effect bypasses summoning sickness
         IllegalActionException.ThrowIf(attack, attack.AttackingCreature.SummoningSickness,
