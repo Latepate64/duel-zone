@@ -32,7 +32,7 @@ public sealed class BattleEventV2 : GameEventV2
             && obj is BattleEventV2 e
             && e.AttackingCreature == AttackingCreature
             && e.DefendingCreature == DefendingCreature
-            && e.winners == winners
+            && e.winners.SequenceEqual(winners)
             && e.shouldEnd == shouldEnd;
     }
 
