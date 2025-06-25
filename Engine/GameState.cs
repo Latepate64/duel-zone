@@ -15,7 +15,7 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     /// </summary>
     public IPlayerV2[] Players { get; private set; } = players;
     public IPlayerV2 Winner { get; set; }
-    public List<IPlayerV2> Losers { get; init; } = [];
+    public IList<IPlayerV2> Losers { get; init; } = [];
     public IEventStack EventsHappening { get; init; } = new EventStack();
 
     /// <summary>

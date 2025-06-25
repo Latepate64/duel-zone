@@ -111,7 +111,10 @@ public sealed class GameTests
         }
         else
         {
-            state.Losers.AddRange(state.Players);
+            foreach (var player in state.Players)
+            {
+                state.Losers.Add(player);
+            }
         }
 
         var game = CreateGame(state);
