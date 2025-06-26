@@ -92,4 +92,27 @@ public class AttackEventTests
         // Assert
         Assert.Equal(IllegalActionType.AttackedCreatureAndAttackedPlayerAreNotNull, ex.Type);
     }
+
+    [Fact]
+    public void AttackingACreatureTapsTheAttackingCreatureAndCreatesABattleEvent()
+    {
+        // Arrange
+        var creature = new Mock<ICreature>();
+        creature.SetupGet(x => x.SummoningSickness).Returns(false);
+        var player = Mock.Of<IPlayerV2>();
+        var attack = new AttackEvent(player)
+        {
+            AttackingCreature = creature.Object,
+            AttackedCreature = Mock.Of<ICreature>(),
+        };
+        var expected = new BattleEventV2(player, attack.AttackingCreature, attack.AttackedCreature);
+
+        // Act
+        attack.Validate(attack);
+        var events = attack.Happen(Mock.Of<IGameState>());
+
+        // Assert
+        creature.Verify(x => x.Tapped, Times.Once());
+        Assert.Equal(expected, events.Single());
+    }
 }
