@@ -1,0 +1,13 @@
+﻿using ContinuousEffects;
+
+namespace Cards.DM09
+{
+    sealed class WhipScorpion : Creature
+    {
+        public WhipScorpion() : base("Whip Scorpion", 5, 2000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
+        {
+            AddShieldTrigger();
+            AddStaticAbilities(new PowerAttackerEffect(3000));
+        }
+    }
+}

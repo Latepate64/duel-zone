@@ -1,32 +1,59 @@
-﻿using Engine.Abilities;
-using Engine.Zones;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Zones;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
-namespace Engine
+namespace Engine;
+
+public sealed class GameState(IPlayerV2[] players) : IGameState
 {
-    class GameState : IGameState
+    /// <summary>
+    /// People in the game in an APNAP order.
+    /// </summary>
+    public IPlayerV2[] Players { get; private set; } = players;
+    public IPlayerV2 Winner { get; set; }
+    public IList<IPlayerV2> Losers { get; init; } = [];
+    public IEventStack EventsHappening { get; init; } = new EventStack();
+
+    /// <summary>
+    /// An action that a player either takes or passes (eg. if a player may draw a card)
+    /// </summary>
+    public IGameEventV2 PassableAction { get; set; }
+    public IEventsThatWouldHappen EventsThatWouldHappen { get; } = new EventsThatWouldHappen();
+    public int TurnNumber { get; internal set; }
+    public IBattleZone BattleZone { get; init; } = new BattleZone();
+    public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
+        game: null);
+
+    public IPlayerV2 ActivePlayer => Players.First();
+    public IEnumerable<IPlayerV2> NonActivePlayers => Players.Skip(1);
+    public bool GameOver => Winner != null || Losers.Count == Players.Length;
+
+    internal void RemovePassableAction()
     {
-        public IBattleZone BattleZone { get; } = new BattleZone();
-        public List<DelayedTriggeredAbility> DelayedTriggeredAbilities { get; } = new List<DelayedTriggeredAbility>();
-        public IList<IPlayer> Players { get; }
-        public SpellStack SpellStack { get; } = new SpellStack();
+        PassableAction = null;
+    }
 
-        public GameState(IGameState state)
-        {
-            BattleZone = state.BattleZone.Copy();
-            DelayedTriggeredAbilities = state.DelayedTriggeredAbilities.Select(x => x.Copy()).ToList();
-            Players = state.Players.Select(x => x.Copy()).ToList();
-            SpellStack = state.SpellStack.Copy();
-        }
-        public GameState(params IPlayer[] players)
-        {
-            Players = players.ToList();
-        }
+    internal void UpdatePlayerOrder()
+    {
+        // TODO: This doesn't work correctly with over two players
+        Players = [.. Players.Reverse()];
+    }
 
-        public IGameState Copy()
-        {
-            return new GameState(this);
-        }
+    public override bool Equals(object obj)
+    {
+        return obj is GameState state
+            && Players.SequenceEqual(state.Players)
+            && Winner == state.Winner
+            && Losers.SequenceEqual(state.Losers)
+            && EventsHappening == state.EventsHappening
+            && PassableAction == state.PassableAction
+            && EventsThatWouldHappen == state.EventsThatWouldHappen
+            && TurnNumber == state.TurnNumber
+            && BattleZone == state.BattleZone
+            && ContinuousEffects == state.ContinuousEffects;
     }
 }

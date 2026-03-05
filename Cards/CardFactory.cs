@@ -1,5 +1,5 @@
-﻿using Cards.ContinuousEffects;
-using Engine;
+﻿using ContinuousEffects;
+using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +7,18 @@ using System.Text.RegularExpressions;
 
 namespace Cards
 {
-    public class CardFactory : ICardFactory
+    public sealed class CardFactory : ICardFactory
     {
         private static readonly Random Random = new();
 
         public Card Create(string name)
         {
-            return Activator.CreateInstance(System.Reflection.Assembly.GetExecutingAssembly().GetTypes().First(type => type.Namespace != null && type.Namespace.StartsWith("Cards.Cards") && type.Name == ToPascalCase(name))) as Card;
+            return Activator.CreateInstance(System.Reflection.Assembly.GetExecutingAssembly().GetTypes().First(type => type.Namespace != null && type.Namespace.StartsWith("Cards") && type.Name == ToPascalCase(name))) as Card;
         }
 
         static public Card Create(string name, string set)
         {
-            return Activator.CreateInstance(null, $"Cards.Cards.{set}.{ToPascalCase(name)}").Unwrap() as Card;
+            return Activator.CreateInstance(null, $"Cards.{set}.{ToPascalCase(name)}").Unwrap() as Card;
         }
 
         public static string ToPascalCase(string original)
@@ -26,7 +26,7 @@ namespace Cards
             // replace white spaces with undescore, then replace all invalid chars with empty string
             var pascalCase = new Regex("[^_a-zA-Z0-9]").Replace(new Regex(@"(?<=\s)").Replace(original, "_"), string.Empty)
                 // split by underscores
-                .Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(['_'], StringSplitOptions.RemoveEmptyEntries)
                 // set first letter to uppercase
                 .Select(w => new Regex("^[a-z]").Replace(w, m => m.Value.ToUpper()))
                 // replace second and all following upper case letters to lower if there is no next lower (ABC -> Abc)
@@ -40,7 +40,7 @@ namespace Cards
 
         static public IEnumerable<Card> CreateAll()
         {
-            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards.Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability") && !t.Name.EndsWith("Filter") && !t.Name.EndsWith("Event") && !t.Name.EndsWith("Choice")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
+            return System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Namespace.StartsWith("Cards") && !t.Name.EndsWith("Effect") && !t.Name.EndsWith("Ability") && !t.Name.EndsWith("Filter") && !t.Name.EndsWith("Event") && !t.Name.EndsWith("Choice")).Select(x => Activator.CreateInstance(x)).OfType<Card>();
         }
 
         static public IEnumerable<Type> EffectTypes => System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace != null && t.Name.EndsWith("Effect"));
@@ -60,9 +60,9 @@ namespace Cards
             else
             {
                 List<object> arguments = GetArguments(interfaces);
-                if (arguments.Any())
+                if (arguments.Count != 0)
                 {
-                    return Activator.CreateInstance(type, arguments.ToArray()) as IEffect;
+                    return Activator.CreateInstance(type, [.. arguments]) as IEffect;
                 }
                 else
                 {

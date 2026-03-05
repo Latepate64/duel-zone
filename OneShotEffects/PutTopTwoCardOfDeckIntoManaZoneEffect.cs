@@ -1,0 +1,19 @@
+using Interfaces;
+
+namespace OneShotEffects;
+
+public sealed class PutTopTwoCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+{
+    public PutTopTwoCardOfDeckIntoManaZoneEffect() : base(2)
+    {
+    }
+
+    public PutTopTwoCardOfDeckIntoManaZoneEffect(PutTopTwoCardOfDeckIntoManaZoneEffect effect) : base(effect)
+    {
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new PutTopTwoCardOfDeckIntoManaZoneEffect(this);
+    }
+}

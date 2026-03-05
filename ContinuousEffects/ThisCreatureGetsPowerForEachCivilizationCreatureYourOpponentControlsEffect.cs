@@ -1,0 +1,38 @@
+﻿using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects;
+
+public sealed class ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect : ContinuousEffect, IPowerModifyingEffect, IPowerable, IMultiCivilizationable
+{
+    public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect effect) : base(effect)
+    {
+        Power = effect.Power;
+        Civilizations = effect.Civilizations;
+    }
+
+    public ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(int power, params Civilization[] civilizations) : base()
+    {
+        Power = power;
+        Civilizations = civilizations;
+    }
+
+    public int Power { get; }
+    public Civilization[] Civilizations { get; }
+
+    public override ContinuousEffect Copy()
+    {
+        return new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(this);
+    }
+
+    public void ModifyPower(IGame game)
+    {
+        (Source as ICreature).IncreasePower(game.BattleZone.GetCreatures(GetOpponent(game).Id).Count(x => x.HasCivilization(Civilizations)) * Power);
+    }
+
+    public override string ToString()
+    {
+        var joined = string.Join(" and ", Civilizations.Select(x => $"{x.ToString().ToLower()} creature"));
+        return $"This creature gets +{Power} power for each {joined} your opponent has in the battle zone.";
+    }
+}

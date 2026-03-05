@@ -1,212 +1,127 @@
-﻿using Cards.ContinuousEffects;
-using Cards.TriggeredAbilities;
-using Engine;
-using Engine.Abilities;
+using System.Collections.Generic;
 using System.Linq;
+using Interfaces;
+using Interfaces.ContinuousEffects;
 
-namespace Cards
+namespace Cards;
+
+public class Creature(
+    bool tapped,
+    IList<Civilization> civilizations,
+    int manaCost,
+    bool summoningSickness,
+    int power,
+    string name,
+    IList<Race> races)
+    : Card(
+        tapped,
+        civilizations,
+        manaCost,
+        name), ICreature
 {
-    class Creature : Card
+    readonly IList<Race> addedRaces = [];
+    public int Power { get; private set; } = power;
+    public int PrintedPower { get; } = power;
+    readonly IList<Race> printedRaces = [.. races];
+    public IList<Race> Races { get; private set; } = [.. races];
+    public bool SummoningSickness { get; private set; } = summoningSickness;
+    public IList<Supertype> Supertypes { get; } = [];
+
+    protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(
+        tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, [race])
     {
-        /// <summary>
-        /// This constructor should be used for cards with one race.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="manaCost"></param>
-        /// <param name="power"></param>
-        /// <param name="race"></param>
-        /// <param name="civilizations"></param>
-        protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(name, manaCost, power, civilizations)
-        {
-            SetPrintedRaces(race);
-        }
+    }
 
-        protected Creature(string name, int manaCost, int power, Race race, Civilization civilization) : this(name, manaCost, power, race, new Civilization[] { civilization })
-        {
-        }
+    protected Creature(string name, int manaCost, int power, IList<Race> races, params Civilization[] civilizations)
+        : this(tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, races)
+    {
+    }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1, Civilization civilization2) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization1, civilization2 })
-        {
-            SetPrintedRaces(race1, race2);
-        }
+    protected Creature(Creature creature) : this(creature.Tapped, creature.Civilizations, creature.ManaCost,
+        creature.SummoningSickness, creature.Power, creature.Name, creature.Races)
+    {
+        addedRaces = [.. creature.addedRaces];
+        printedRaces = [.. creature.printedRaces];
+        Races = [.. creature.Races];
+        Supertypes = [.. creature.Supertypes];
+    }
 
-        /// <summary>
-        /// This constructor should be used for multicolored cards. Add races for the card in the constructor of the inheritor.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="manaCost"></param>
-        /// <param name="power"></param>
-        protected Creature(string name, int manaCost, int power, params Civilization[] civilizations) : base(CardType.Creature, name, manaCost, power, civilizations)
-        {
-            Power = power;
-        }
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj)
+            && obj is Creature c
+            && c.addedRaces.SequenceEqual(addedRaces)
+            && c.Power == Power
+            && c.PrintedPower == PrintedPower
+            && c.printedRaces.SequenceEqual(printedRaces)
+            && c.Races.SequenceEqual(Races)
+            && c.SummoningSickness == SummoningSickness
+            && c.Supertypes.SequenceEqual(Supertypes);
+    }
 
-        protected Creature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization) : base(CardType.Creature, name, manaCost, power, new Civilization[] { civilization })
-        {
-            SetPrintedRaces(race1, race2);
-        }
+    public bool IsNonEvolutionCreature => !Supertypes.Contains(Supertype.Evolution);
+    public bool IsEvolutionCreature => Supertypes.Contains(Supertype.Evolution);
 
-        public Creature(ICard card) : base(card)
-        {
-        }
+    public bool IsDragon => Races.Intersect([Race.EarthDragon, Race.ZombieDragon, Race.ArmoredDragon,
+        Race.VolcanoDragon]).Any();
 
-        #region Static abilities
-        protected void AddBlockerAbility()
+    public void AddGrantedRace(Race race)
+    {
+        addedRaces.Add(race);
+        if (!Races.Contains(race))
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-        }
-
-        protected void AddThisCreatureCannotAttackAbility()
-        {
-            AddStaticAbilities(new ThisCreatureCannotAttackEffect());
-        }
-
-        protected void AddSlayerAbility()
-        {
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
-        }
-
-        protected void AddPowerAttackerAbility(int power)
-        {
-            AddStaticAbilities(new PowerAttackerEffect(power));
-        }
-
-        protected void AddThisCreatureCannotBeBlockedAbility()
-        {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
-        }
-
-        protected void AddDoubleBreakerAbility()
-        {
-            AddStaticAbilities(new DoubleBreakerEffect());
-        }
-
-        protected void AddTripleBreakerAbility()
-        {
-            AddStaticAbilities(new TripleBreakerEffect());
-        }
-
-        protected void AddThisCreatureCannotAttackPlayersAbility()
-        {
-            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-        }
-
-        protected void AddThisCreatureCanAttackUntappedCreaturesAbility()
-        {
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
-        }
-
-        protected void AddSpeedAttackerAbility()
-        {
-            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
-        }
-
-        protected void AddThisCreatureCannotBeAttackedAbility()
-        {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
-        }
-
-        protected void AddThisCreatureBlocksIfAble()
-        {
-            AddStaticAbilities(new ThisCreatureBlocksIfAble());
-        }
-        #endregion Static abilities
-
-        #region Triggered abilities
-        protected void AddTriggeredAbility(ITriggeredAbility ability)
-        {
-            AddAbilities(ability);
-        }
-
-        protected void AddWhenYouPutThisCreatureIntoTheBattleZoneAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(effect));
-        }
-
-        protected void AddAtTheEndOfYourTurnAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new AtTheEndOfYourTurnAbility(effect));
-        }
-
-        protected void AddWheneverThisCreatureAttacksAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(effect));
-        }
-
-        protected void AddWhenThisCreatureIsDestroyedAbility(IOneShotEffect effect)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(effect));
-        }
-        #endregion Triggered abilities
-
-        protected void AddTapAbility(IOneShotEffect effect)
-        {
-            AddAbilities(new TapAbility(effect));
-        }
-
-        protected void AddSurvivorAbility(Engine.ContinuousEffects.IContinuousEffect effect)
-        {
-            AddStaticAbilities(new SurvivorEffect(new StaticAbility(effect)));
-        }
-
-        protected void AddSurvivorAbility(ITriggeredAbility ability)
-        {
-            AddStaticAbilities(new SurvivorEffect(ability));
-        }
-
-        public override ICard Copy()
-        {
-            return new Creature(this);
+            Races.Add(race);
         }
     }
 
-    class TurboRushCreature : Creature
+    public bool HasRace(params Race[] races)
     {
-        public TurboRushCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
-        {
-        }
-
-        protected void AddTurboRushAbility(ITriggeredAbility ability)
-        {
-            AddStaticAbilities(new TurboRushEffect(ability));
-        }
-
-        protected void AddTurboRushAbility(Engine.ContinuousEffects.IContinuousEffect effect)
-        {
-            AddStaticAbilities(new TurboRushEffect(new StaticAbility(effect)));
-        }
+        return Races.Intersect(races).Any();
     }
 
-    class SilentSkillCreature : Creature
+    public override void ResetToPrintedValues()
     {
-        public SilentSkillCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
-        {
-        }
-
-        public SilentSkillCreature(string name, int manaCost, int power, Race race, Civilization civilization1, Civilization civilization2) : base(name, manaCost, power, race, civilization1, civilization2)
-        {
-        }
-
-        protected void AddSilentSkillAbility(IOneShotEffect effect)
-        {
-            AddAbilities(new SilentSkillAbility(effect));
-        }
+        base.ResetToPrintedValues();
+        Power = PrintedPower;
+        Races = [.. printedRaces];
+        addedRaces.Clear();
     }
 
-    class WaveStrikerCreature : Creature
+    public void RemoveSummoningSickness()
     {
-        public WaveStrikerCreature(string name, int manaCost, int power, Race race, Civilization civilization) : base(name, manaCost, power, race, civilization)
-        {
-        }
+        SummoningSickness = false;
+    }
 
-        protected void AddWaveStrikerAbility(params Engine.ContinuousEffects.IContinuousEffect[] effects)
-        {
-            AddAbilities(new StaticAbilities.WaveStrikerAbility(effects.Select(x => new StaticAbility(x)).ToArray()));
-        }
+    public void IncreasePower(int power)
+    {
+        Power += power;
+    }
 
-        protected void AddWaveStrikerAbility(ITriggeredAbility ability)
-        {
-            AddAbilities(new StaticAbilities.WaveStrikerAbility(ability));
-        }
+    protected void AddTriggeredAbility(ITriggeredAbility ability)
+    {
+        AddAbilities(ability);
+    }
+
+    public bool IsBlocker => GetAbilities<IStaticAbility>().SelectMany(
+        x => x.ContinuousEffects).OfType<IBlockerEffect>().Any();
+
+    public IEnumerable<ITapAbility> GetTapAbilities()
+    {
+        return GetAbilities<ITapAbility>();
+    }
+
+    public IEnumerable<ISilentSkillAbility> GetSilentSkillAbilities()
+    {
+        return GetAbilities<ISilentSkillAbility>();
+    }
+
+    public IEnumerable<IEvolutionEffect> GetEvolutionEffects()
+    {
+        return GetAbilities<IStaticAbility>().Select(x => x.ContinuousEffects).OfType<IEvolutionEffect>();
+    }
+
+    public override ICreature Copy()
+    {
+        return new Creature(this);
     }
 }

@@ -1,45 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Interfaces;
+using Interfaces.Zones;
 
-namespace Engine.Zones
+namespace Engine.Zones;
+
+
+/// <summary>
+/// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
+/// </summary>
+public sealed class Hand : Zone, IHand
 {
-    /// <summary>
-    /// The hand is where a player holds cards that have been drawn. Cards can be put into a player’s hand by other effects as well. At the beginning of the game, each player draws five cards.
-    /// </summary>
-    public class Hand : Zone, IHand
+    public Hand(params ICard[] cards) : base(ZoneType.Hand, cards)
     {
-        public Hand() : base(ZoneType.Hand) { }
+    }
 
-        public Hand(Zone zone) : base(zone)
-        {
-        }
+    public Hand(Zone zone) : base(zone)
+    {
+    }
 
-        public override void Add(ICard card, IGame game)
-        {
-            card.KnownTo = new List<Guid> { card.Owner.Id };
-            Cards.Add(card);
-        }
-
-        public IHand Copy()
-        {
-            return new Hand(this);
-        }
-
-        public override List<ICard> Remove(ICard card, IGame game)
-        {
-            if (Cards.Remove(card))
-            {
-                return new List<ICard> { card };
-            }
-            else
-            {
-                return new List<ICard>();
-            }
-        }
-
-        public override string ToString()
-        {
-            return "hand";
-        }
+    public override IZone Copy()
+    {
+        return new Hand(this);
     }
 }

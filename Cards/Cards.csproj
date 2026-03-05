@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.csproj" />
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
+    <ProjectReference Include="..\TriggeredAbilities\TriggeredAbilities.csproj" />
+    <ProjectReference Include="..\ContinuousEffects\ContinuousEffects.csproj" />
+    <ProjectReference Include="..\OneShotEffects\OneShotEffects.csproj" />
   </ItemGroup>
 
   <ItemGroup>

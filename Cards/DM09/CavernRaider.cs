@@ -1,0 +1,12 @@
+﻿using TriggeredAbilities;
+
+namespace Cards.DM09
+{
+    sealed class CavernRaider : Creature
+    {
+        public CavernRaider() : base("Cavern Raider", 3, 2000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
+        {
+            AddTriggeredAbility(new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.SearchCreatureEffect()));
+        }
+    }
+}

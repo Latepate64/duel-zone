@@ -1,0 +1,34 @@
+﻿using Interfaces;
+
+namespace OneShotEffects;
+
+public sealed class YourOpponentChoosesAndDiscardsCardsFromHisHandEffect : DiscardEffect
+{
+    private readonly int _amount;
+
+    public YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(int amount) : base(amount, amount, false)
+    {
+        _amount = amount;
+    }
+
+    YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(
+        YourOpponentChoosesAndDiscardsCardsFromHisHandEffect effect) : base(effect)
+    {
+        _amount = effect._amount;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return $"Your opponent chooses and discards {(_amount > 1 ? $"{_amount} cards" : "a card")} from his hand.";
+    }
+
+    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+    {
+        return GetOpponent(game).Hand.Cards;
+    }
+}

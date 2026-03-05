@@ -1,0 +1,32 @@
+﻿using Interfaces;
+
+namespace TriggeredAbilities;
+
+public sealed class WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility : TriggeredAbility
+{
+    public WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(IOneShotEffect effect) : base(effect)
+    {
+    }
+
+    public WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(
+        WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility ability) : base(ability)
+    {
+    }
+
+    public override bool CanTrigger(IGameEvent gameEvent, IGame game)
+    {
+        throw new NotImplementedException();
+        // return gameEvent is BecomeUnblockedEvent e && e.Attacker == Source
+        // && game.CurrentTurn.CurrentPhase is GameEvents.Steps.AttackPhase a && a.AttackTarget == GetOpponent(game);
+    }
+
+    public override IAbility Copy()
+    {
+        return new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(this);
+    }
+
+    public override string ToString()
+    {
+        return $"Whenever this creature is attacking your opponent and isn't blocked, {GetEffectText()}";
+    }
+}

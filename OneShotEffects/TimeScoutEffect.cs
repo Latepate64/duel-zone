@@ -1,0 +1,26 @@
+using Interfaces;
+
+namespace OneShotEffects;
+
+public sealed class TimeScoutEffect : OneShotEffect
+{
+    public override void Apply(IGame game)
+    {
+        var cards = GetOpponent(game).Deck.GetTopCards(1).ToArray();
+        if (cards.Length != 0)
+        {
+            Controller.Look(GetOpponent(game), game, cards);
+            GetOpponent(game).Unreveal(cards);
+        }
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new TimeScoutEffect();
+    }
+
+    public override string ToString()
+    {
+        return "Look at the top card of your opponent's deck.";
+    }
+}

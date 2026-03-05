@@ -1,51 +1,35 @@
-﻿using Engine;
-using Engine.Abilities;
 using System.Linq;
+using Abilities;
+using Interfaces;
 
-namespace Cards
+namespace Cards;
+
+public class Spell : Card, ISpell
 {
-    class Spell : Card
+    protected Spell(string name, int manaCost, Civilization civilization) : base(false, [civilization], manaCost, name)
     {
-        public Spell(ICard card) : base(card)
-        {
-        }
-
-        protected Spell(string name, int manaCost, Civilization civilization) : base(CardType.Spell, name, manaCost, null, civilization)
-        {
-        }
-
-        protected Spell(string name, int manaCost, Civilization civilization1, Civilization civilization2) : base(CardType.Spell, name, manaCost, null, civilization1, civilization2)
-        {
-        }
-
-        public override ICard Copy()
-        {
-            return new Spell(this);
-        }
-
-        /// <summary>
-        /// Adds a spell ability for each one-shot effect provided.
-        /// </summary>
-        /// <param name="oneShotEffects"></param>
-        protected void AddSpellAbilities(params IOneShotEffect[] oneShotEffects)
-        {
-            AddAbilities(oneShotEffects.Select(x => new SpellAbility(x)).ToArray());
-        }
     }
 
-    abstract class Charger : Spell
+    protected Spell(string name, int manaCost, Civilization civilization1, Civilization civilization2) : base(false,
+        [civilization1, civilization2], manaCost, name)
     {
-        protected Charger(string name, int manaCost, Civilization civilization) : base(name, manaCost, civilization)
-        {
-            AddAbilities(new ChargerAbility());
-        }
     }
 
-    class ChargerAbility : StaticAbility
+    public Spell(Spell spell) : base(spell)
     {
-        public ChargerAbility() : base(new ContinuousEffects.ThisSpellHasChargerEffect())
-        {
-            FunctionZone = ZoneType.SpellStack;
-        }
+    }
+
+    public override ISpell Copy()
+    {
+        return new Spell(this);
+    }
+
+    /// <summary>
+    /// Adds a spell ability for each one-shot effect provided.
+    /// </summary>
+    /// <param name="oneShotEffects"></param>
+    protected void AddSpellAbilities(params IOneShotEffect[] oneShotEffects)
+    {
+        AddAbilities([.. oneShotEffects.Select(x => new SpellAbility(x))]);
     }
 }

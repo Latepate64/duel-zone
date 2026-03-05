@@ -1,0 +1,39 @@
+﻿using Abilities;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects;
+
+public sealed class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
+{
+    private readonly IAbility[] _abilities;
+
+    public WaveStrikerEffect(WaveStrikerEffect effect) : base(effect)
+    {
+        _abilities = effect._abilities;
+    }
+
+    public WaveStrikerEffect(params IAbility[] abilities) : base()
+    {
+        _abilities = abilities;
+    }
+
+    public void AddAbility(IGame game)
+    {
+        if (game.BattleZone.Creatures.Count(x => x.GetAbilities<StaticAbility>().Select(
+            x => x.ContinuousEffects).OfType<WaveStrikerEffect>().Any()) >= 3)
+        {
+            _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
+        }
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new WaveStrikerEffect();
+    }
+
+    public override string ToString()
+    {
+        return $"Wave striker: {string.Join(", ", _abilities.Select(x => x.ToString()))}";
+    }
+}

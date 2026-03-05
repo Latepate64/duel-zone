@@ -1,0 +1,22 @@
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects;
+
+public sealed class TerradragonDakmaBalgarowEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
+{
+    public override IContinuousEffect Copy()
+    {
+        return new TerradragonDakmaBalgarowEffect();
+    }
+
+    public override string ToString()
+    {
+        return $"This creature gets +{Power} power for each shield you and your opponent have.";
+    }
+
+    protected override int GetMultiplier(IGame game)
+    {
+        return game.Players.SelectMany(x => x.ShieldZone.Cards).Count();
+    }
+}

@@ -1,0 +1,34 @@
+using Interfaces;
+
+namespace TriggeredAbilities;
+
+public sealed class WheneverYouPutRaceCreatureIntoTheBattleZoneAbility : WheneverCreatureIsPutIntoTheBattleZoneAbility
+{
+    private readonly Race _race;
+
+    public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(
+        WheneverYouPutRaceCreatureIntoTheBattleZoneAbility ability) : base(ability)
+    {
+        _race = ability._race;
+    }
+
+    public WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(Race race, IOneShotEffect effect) : base(effect)
+    {
+        _race = race;
+    }
+
+    public override IAbility Copy()
+    {
+        return new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(this);
+    }
+
+    public override string ToString()
+    {
+        return $"Whenever you put a {_race} into the battle zone, {GetEffectText()}";
+    }
+
+    protected override bool TriggersFrom(ICreature card, IGame game)
+    {
+        return Controller == card.Owner && card.HasRace(_race);
+    }
+}

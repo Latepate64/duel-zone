@@ -1,0 +1,13 @@
+﻿using ContinuousEffects;
+using Abilities;
+
+namespace Cards.DM05
+{
+    sealed class SmashHornQ : Creature
+    {
+        public SmashHornQ() : base("Smash Horn Q", 3, 2000, [Interfaces.Race.Survivor, Interfaces.Race.HornedBeast], Interfaces.Civilization.Nature)
+        {
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureGetsPowerEffect(1000))));
+        }
+    }
+}

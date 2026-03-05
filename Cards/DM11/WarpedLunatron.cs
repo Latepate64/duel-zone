@@ -1,0 +1,15 @@
+﻿using ContinuousEffects;
+using Interfaces;
+using TriggeredAbilities;
+
+namespace Cards.DM11;
+
+public sealed class WarpedLunatron : Creature
+{
+    public WarpedLunatron() : base("Warped Lunatron", 7, 6000, Race.CyberMoon, Civilization.Water)
+    {
+        AddStaticAbilities(new WarpedLunatronEffect());
+        AddTriggeredAbility(new WarpedLunatronAbility());
+        AddStaticAbilities(new DoubleBreakerEffect());
+    }
+}

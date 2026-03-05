@@ -1,36 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Interfaces;
+using Interfaces.Zones;
 
-namespace Engine.Zones
+namespace Engine.Zones;
+
+public sealed class SpellStack : Zone, ISpellStack
 {
-    public class SpellStack : Zone, ICopyable<SpellStack>
+    public SpellStack() : base(ZoneType.SpellStack)
     {
-        public SpellStack() : base(ZoneType.SpellStack)
-        {
-        }
+    }
 
-        public SpellStack(IZone zone) : base(zone)
-        {
-        }
+    public SpellStack(Zone zone) : base(zone)
+    {
+    }
 
-        public override void Add(ICard card, IGame game)
-        {
-            Cards.Add(card);
-        }
-
-        public SpellStack Copy()
-        {
-            return new SpellStack(this);
-        }
-
-        public override List<ICard> Remove(ICard card, IGame game)
-        {
-            Cards.Remove(card);
-            return new List<ICard> { card };
-        }
-
-        public override string ToString()
-        {
-            return "spell stack";
-        }
+    public override IZone Copy()
+    {
+        return new SpellStack(this);
     }
 }

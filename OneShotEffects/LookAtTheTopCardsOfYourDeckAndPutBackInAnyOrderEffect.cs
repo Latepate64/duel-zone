@@ -1,0 +1,37 @@
+﻿using Interfaces;
+
+namespace OneShotEffects;
+
+public sealed class LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect :
+    OneShotEffect
+{
+    readonly int _amount;
+
+    public LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(int amount)
+    {
+        _amount = amount;
+    }
+
+    LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(
+        LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect effect) : base(
+            effect)
+    {
+        _amount = effect._amount;
+    }
+
+    public override void Apply(IGame game)
+    {
+        var cards = Controller.LookAtTheTopCardsOfYourDeck(_amount, game);
+        Controller.ArrangeTopCardsOfDeck([.. cards]);
+    }
+
+    public override string ToString()
+    {
+        return $"Look at up to {_amount} cards from the top of your deck and put them back in any order.";
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new LookAtTheTopCardsOfYourDeckAndPutBackInAnyOrderEffect(this);
+    }
+}

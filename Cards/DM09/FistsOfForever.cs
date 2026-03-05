@@ -1,0 +1,12 @@
+﻿using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM09;
+
+public sealed class FistsOfForever : Spell
+{
+    public FistsOfForever() : base("Fists of Forever", 1, Civilization.Fire)
+    {
+        AddSpellAbilities(new FistsOfForeverEffect());
+    }
+}
