@@ -6,11 +6,10 @@ public sealed class BattleEventV2 : GameEventV2
 {
     public ICreature AttackingCreature { get; }
     public ICreature DefendingCreature { get; }
-    readonly List<ICard> winners = [];
     bool shouldEnd;
 
-    public BattleEventV2(IPlayerV2 player, ICreature attackingCreature, ICreature defendingCreature) : base(
-        player, passable: false)
+    public BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
+    ICreature defendingCreature) : base(player, passable: false)
     {
         AttackingCreature = attackingCreature;
         DefendingCreature = defendingCreature;
@@ -20,20 +19,17 @@ public sealed class BattleEventV2 : GameEventV2
     {
         AttackingCreature = gameEvent.AttackingCreature.Copy();
         DefendingCreature = gameEvent.DefendingCreature.Copy();
-        winners = [.. gameEvent.winners.Select(x => x.Copy())];
         shouldEnd = gameEvent.shouldEnd;
     }
 
-    public IEnumerable<ICard> Winners => winners;
-
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj)
-            && obj is BattleEventV2 e
-            && e.AttackingCreature == AttackingCreature
-            && e.DefendingCreature == DefendingCreature
-            && e.winners.SequenceEqual(winners)
-            && e.shouldEnd == shouldEnd;
+        if (!base.Equals(obj)) return false;
+        if (obj is not BattleEventV2 e) return false;
+        if (e.AttackingCreature != AttackingCreature) return false;
+        if (e.DefendingCreature != DefendingCreature) return false;
+        if (e.shouldEnd != shouldEnd) return false;
+        return true;
     }
 
     public override IEnumerable<IGameEventV2> Happen(IGameState state)
@@ -45,31 +41,26 @@ public sealed class BattleEventV2 : GameEventV2
         shouldEnd = true;
         if (AttackingCreature.Power > DefendingCreature.Power)
         {
-            return SetWinnerAndGetDestroyEvents(state, AttackingCreature, DefendingCreature);
+            return GetDestroyEvents(
+                state, AttackingCreature, DefendingCreature);
         }
         else if (AttackingCreature.Power < DefendingCreature.Power)
         {
-            return SetWinnerAndGetDestroyEvents(state, DefendingCreature, AttackingCreature);
+            return GetDestroyEvents(
+                state, DefendingCreature, AttackingCreature);
         }
-        else
-        {
-            return [
-                .. GetDestroyEvents(state, AttackingCreature, DefendingCreature),
-                .. GetDestroyEvents(state, DefendingCreature, AttackingCreature)];
-        }
+        return [
+            .. GetDestroyEvents(state, AttackingCreature, DefendingCreature),
+            .. GetDestroyEvents(state, DefendingCreature, AttackingCreature)];
     }
 
-    IEnumerable<IGameEventV2> SetWinnerAndGetDestroyEvents(IGameState state, ICreature winner, ICreature loser)
+    static IEnumerable<IGameEventV2> GetDestroyEvents(
+        IGameState state, ICreature creature1, ICreature creature2)
     {
-        winners.Add(winner);
-        return GetDestroyEvents(state, loser, winner);
-    }
-
-    static IEnumerable<IGameEventV2> GetDestroyEvents(IGameState state, ICreature target, ICreature against)
-    {
-        if (state.ContinuousEffects.DoesCreatureGetDestroyedInBattle(against, target))
+        if (state.ContinuousEffects.DoesCreatureGetDestroyedInBattle(
+            creature1, creature2))
         {
-            return [new PutIntoGraveyardEvent(target.OwnerV2, target)];
+            return [new PutIntoGraveyardEvent(creature2.OwnerV2, creature2)];
         }
         return [];
     }
@@ -77,5 +68,14 @@ public sealed class BattleEventV2 : GameEventV2
     public override BattleEventV2 Copy()
     {
         return new BattleEventV2(this);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(
+            base.GetHashCode(),
+            AttackingCreature,
+            DefendingCreature,
+            shouldEnd);
     }
 }

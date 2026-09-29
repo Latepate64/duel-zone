@@ -20,7 +20,8 @@ public abstract class GameEventV2 : IGameEventV2
     public bool Passable { get; }
 
     /// <param name="state">The current state of the game.</param>
-    /// <returns>Events that would happen during the event. If none, the event has completely happened.</returns>
+    /// <returns>Events that would happen during the event.
+    /// If none, the event has completely happened.</returns>
     public abstract IEnumerable<IGameEventV2> Happen(IGameState state);
 
     public virtual void Validate(IGameEventV2 gameEvent)
@@ -28,12 +29,18 @@ public abstract class GameEventV2 : IGameEventV2
         throw new IllegalActionException(gameEvent, IllegalActionType.Unknown);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return obj is GameEventV2 e
-            && Player == e.Player
-            && Passable == e.Passable;
+        if (obj is not GameEventV2 e) return false;
+        if (Player != e.Player) return false;
+        if (Passable != e.Passable) return false;
+        return true;
     }
 
     public abstract IGameEventV2 Copy();
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Player, Passable);
+    }
 }
