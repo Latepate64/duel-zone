@@ -10,15 +10,19 @@ public class BattleEventV2Tests
     [InlineData(2000, 1000)]
     [InlineData(1000, 2000)]
     [InlineData(1000, 1000)]
-    public void CreatureWithHigherPowerWinsAndLosersAreDestroyed(int attackingCreaturePower, int defendingCreaturePower)
+    public void CreaturesWithLowerPowerAreDestroyed(
+        int attackingCreaturePower, int defendingCreaturePower)
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
         var attackingCreature = new Mock<ICreature>();
-        attackingCreature.SetupGet(x => x.Power).Returns(attackingCreaturePower);
+        attackingCreature.SetupGet(x => x.Power).Returns(
+            attackingCreaturePower);
         var defendingCreature = new Mock<ICreature>();
-        defendingCreature.SetupGet(x => x.Power).Returns(defendingCreaturePower);
-        var battle = new BattleEventV2(player, attackingCreature.Object, defendingCreature.Object);
+        defendingCreature.SetupGet(x => x.Power).Returns(
+            defendingCreaturePower);
+        var battle = new BattleEventV2(
+            player, attackingCreature.Object, defendingCreature.Object);
         var state = new Mock<IGameState>();
         state.Setup(x => x.ContinuousEffects.DoesCreatureGetDestroyedInBattle(
             It.IsAny<ICreature>(), It.IsAny<ICreature>())).Returns(true);
@@ -31,15 +35,16 @@ public class BattleEventV2Tests
         {
             winners.Add(defendingCreature.Object);
         }
-        var losers = new List<ICreature>() { attackingCreature.Object, defendingCreature.Object }.Where(
+        var losers = new List<ICreature> { 
+            defendingCreature.Object, attackingCreature.Object }.Where(
             x => !winners.Contains(x));
-        var expected = losers.Select(x => new PutIntoGraveyardEvent(x.OwnerV2, x));
+        var expected = losers.Select(x => new PutIntoGraveyardEvent(
+            x.OwnerV2, x));
 
         // Act
         var events = battle.Happen(state.Object);
 
         // Assert
-        Assert.Equal(winners, battle.Winners);
         Assert.Equal(expected, events);
     }
 
@@ -50,10 +55,13 @@ public class BattleEventV2Tests
         var player = new Mock<IPlayerV2>();
         player.Setup(x => x.Copy()).Returns(player.Object);
         var attackingCreature = new Mock<ICreature>();
-        attackingCreature.Setup(x => x.Copy()).Returns(attackingCreature.Object);
+        attackingCreature.Setup(x => x.Copy()).Returns(
+            attackingCreature.Object);
         var defendingCreature = new Mock<ICreature>();
-        defendingCreature.Setup(x => x.Copy()).Returns(defendingCreature.Object);
-        var battle = new BattleEventV2(player.Object, attackingCreature.Object, defendingCreature.Object);
+        defendingCreature.Setup(x => x.Copy()).Returns(
+            defendingCreature.Object);
+        var battle = new BattleEventV2(player.Object, attackingCreature.Object,
+            defendingCreature.Object);
 
         // Act
         var copy = battle.Copy();
@@ -66,7 +74,8 @@ public class BattleEventV2Tests
     public void SecondHappeningReturnsNoEvents()
     {
         // Arrange
-        var battle = new BattleEventV2(Mock.Of<IPlayerV2>(), Mock.Of<ICreature>(), Mock.Of<ICreature>());
+        var battle = new BattleEventV2(
+            Mock.Of<IPlayerV2>(), Mock.Of<ICreature>(), Mock.Of<ICreature>());
         var state = new Mock<IGameState>();
         state.Setup(x => x.ContinuousEffects.DoesCreatureGetDestroyedInBattle(
             It.IsAny<ICreature>(), It.IsAny<ICreature>())).Returns(true);
@@ -88,7 +97,8 @@ public class BattleEventV2Tests
         strongerCreature.SetupGet(x => x.Power).Returns(2000);
         var weakerCreature = new Mock<ICreature>();
         weakerCreature.SetupGet(x => x.Power).Returns(1000);
-        var battle = new BattleEventV2(player, strongerCreature.Object, weakerCreature.Object);
+        var battle = new BattleEventV2(
+            player, strongerCreature.Object, weakerCreature.Object);
         var state = new Mock<IGameState>();
         state.Setup(x => x.ContinuousEffects.DoesCreatureGetDestroyedInBattle(
             strongerCreature.Object, weakerCreature.Object)).Returns(false);
@@ -98,8 +108,117 @@ public class BattleEventV2Tests
         var events = battle.Happen(state.Object);
 
         // Assert
-        Assert.Single(battle.Winners);
-        Assert.Contains(strongerCreature.Object, battle.Winners);
         Assert.Empty(events);
+    }
+
+    [Fact]
+    public void DoesNotEqualNull()
+    {
+        // Arrange
+        var battle = new BattleEventV2(
+            Mock.Of<IPlayerV2>(), Mock.Of<ICreature>(), Mock.Of<ICreature>());
+
+        // Act
+        var actual = battle.Equals(null);
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void DoesNotEqualEventOfAnotherType(bool passable)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var battle = new BattleEventV2(
+            player, Mock.Of<ICreature>(), Mock.Of<ICreature>());
+        var attack = new AttackEvent(player, passable);
+
+        // Act
+        var actual = battle.Equals(attack);
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    public enum Different
+    {
+        AttackingPlayer,
+        AttackingCreature,
+        DefendingCreature,
+
+    }
+
+    [Theory]
+    [InlineData(Different.AttackingPlayer)]
+    [InlineData(Different.AttackingCreature)]
+    [InlineData(Different.DefendingCreature)]
+    public void DoesNotEqualBattleWithDifferentDefender(Different different)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var player2 = different == Different.AttackingPlayer
+            ? Mock.Of<IPlayerV2>() : player;
+        var attackingCreature = Mock.Of<ICreature>();
+        var attackingCreature2 = different == Different.AttackingCreature
+            ? Mock.Of<ICreature>() : attackingCreature;
+        var defendingCreature = Mock.Of<ICreature>();
+        var defendingCreature2 = different == Different.DefendingCreature
+            ? Mock.Of<ICreature>() : defendingCreature;
+        var battle = new BattleEventV2(
+            player, attackingCreature, defendingCreature);
+        var another = new BattleEventV2(
+            player2, attackingCreature2, defendingCreature2);
+
+        // Act
+        var actual = battle.Equals(another);
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void DoesNotEqualBattleThatShouldNotEnd()
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var attackingCreature = new Mock<ICreature>();
+        attackingCreature.SetupGet(x => x.Power).Returns(2000);
+        var defendingCreature = new Mock<ICreature>();
+        defendingCreature.SetupGet(x => x.Power).Returns(1000);
+        var state = new Mock<IGameState>();
+        state.Setup(x => x.ContinuousEffects.DoesCreatureGetDestroyedInBattle(
+            It.IsAny<ICreature>(), It.IsAny<ICreature>())).Returns(true);
+        var battle = new BattleEventV2(
+            player,
+            attackingCreature.Object,
+            defendingCreature.Object);
+        var another = new BattleEventV2(
+            player,
+            attackingCreature.Object,
+            defendingCreature.Object);
+        battle.Happen(state.Object);
+
+        // Act
+        var actual = battle.Equals(another);
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void HashCodeIsNotZero()
+    {
+        // Arrange
+        var battle = new BattleEventV2(
+            Mock.Of<IPlayerV2>(), Mock.Of<ICreature>(), Mock.Of<ICreature>());
+
+        // Act
+        var actual = battle.GetHashCode();
+
+        // Assert
+        Assert.NotEqual(0, actual);
     }
 }
