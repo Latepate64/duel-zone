@@ -2,13 +2,13 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class UseCardEvent : GameEventV2
+public sealed class UseCardEvent : PassableGameEvent
 {
     public ICard Card { get; init; }
     public IEnumerable<ICard> PaymentCards { get; init; } = [];
     bool shouldEnd;
 
-    public UseCardEvent(IPlayerV2 player, bool passable = true) : base(player, passable)
+    public UseCardEvent(IPlayerV2 player) : base(player)
     {
     }
 
@@ -28,7 +28,7 @@ public sealed class UseCardEvent : GameEventV2
             && shouldEnd == e.shouldEnd;
     }
 
-    public override void Validate(IGameEventV2 gameEvent)
+    public override void Validate(IPassableGameEvent gameEvent)
     {
         var use = IllegalActionException.ThrowIfNotOfType<UseCardEvent>(gameEvent);
         IllegalActionException.ThrowIf(use, !Player.Hand.Cards.Contains(use.Card),
@@ -69,7 +69,7 @@ public sealed class UseCardEvent : GameEventV2
         {
             // TODO: Consider evolution creature (supertype)
             // TODO: Create a separate event for putting
-            return [new PutIntoBattleZoneEvent(Player, false, creature)];
+            return [new PutIntoBattleZoneEvent(Player, creature)];
         }
         if (Card is ISpell spell)
         {

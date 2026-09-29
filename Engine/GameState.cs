@@ -21,7 +21,7 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     /// <summary>
     /// An action that a player either takes or passes (eg. if a player may draw a card)
     /// </summary>
-    public IGameEventV2 PassableAction { get; set; }
+    public IPassableGameEvent PassableAction { get; set; }
     public IEventsThatWouldHappen EventsThatWouldHappen { get; } = new EventsThatWouldHappen();
     public int TurnNumber { get; internal set; }
     public IBattleZone BattleZone { get; init; } = new BattleZone();

@@ -125,16 +125,14 @@ public class BattleEventV2Tests
         Assert.False(actual);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void DoesNotEqualEventOfAnotherType(bool passable)
+    [Fact]
+    public void DoesNotEqualEventOfAnotherType()
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
         var battle = new BattleEventV2(
             player, Mock.Of<ICreature>(), Mock.Of<ICreature>());
-        var attack = new AttackEvent(player, passable);
+        var attack = new AttackEvent(player);
 
         // Act
         var actual = battle.Equals(attack);

@@ -8,7 +8,7 @@ public sealed class MoveTopCardOfDeckEvent : MoveCardEvent
     {
     }
 
-    public MoveTopCardOfDeckEvent(IPlayerV2 player, ZoneType zoneType) : base(player, zoneType, false)
+    public MoveTopCardOfDeckEvent(IPlayerV2 player, ZoneType zoneType) : base(player, zoneType)
     {
     }
 

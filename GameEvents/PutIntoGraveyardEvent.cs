@@ -6,7 +6,7 @@ public sealed class PutIntoGraveyardEvent : GameEventV2
 {
     public ICard Card { get; }
 
-    public PutIntoGraveyardEvent(IPlayerV2 player, ICard card) : base(player, false)
+    public PutIntoGraveyardEvent(IPlayerV2 player, ICard card) : base(player)
     {
         Card = card;
     }

@@ -2,14 +2,14 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class AttackEvent : GameEventV2
+public sealed class AttackEvent : PassableGameEvent
 {
     public ICreature AttackingCreature { get; init; }
     public ICreature AttackedCreature { get; init; }
     public IPlayerV2 AttackedPlayer { get; init; }
     bool shouldEnd;
 
-    public AttackEvent(IPlayerV2 player, bool passable = true) : base(player, passable)
+    public AttackEvent(IPlayerV2 player) : base(player)
     {
     }
 
@@ -31,7 +31,7 @@ public sealed class AttackEvent : GameEventV2
             && a.shouldEnd == shouldEnd;
     }
 
-    public override void Validate(IGameEventV2 gameEvent)
+    public override void Validate(IPassableGameEvent gameEvent)
     {
         var attack = IllegalActionException.ThrowIfNotOfType<AttackEvent>(gameEvent);
         IllegalActionException.ThrowIf(attack, attack.AttackingCreature == null,

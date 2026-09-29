@@ -4,7 +4,7 @@ namespace GameEvents;
 
 public sealed class MainPhaseEvent : GameEventV2
 {
-    public MainPhaseEvent(IPlayerV2 player) : base(player, false)
+    public MainPhaseEvent(IPlayerV2 player) : base(player)
     {
     }
 

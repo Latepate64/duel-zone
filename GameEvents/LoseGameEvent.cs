@@ -4,7 +4,7 @@ namespace GameEvents;
 
 public class LoseGameEvent : GameEventV2
 {
-    public LoseGameEvent(IPlayerV2 player) : base(player, false)
+    public LoseGameEvent(IPlayerV2 player) : base(player)
     {
     }
 
