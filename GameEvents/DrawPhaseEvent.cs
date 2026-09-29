@@ -6,7 +6,7 @@ public sealed class DrawPhaseEvent : GameEventV2
 {
     bool shouldEnd;
 
-    public DrawPhaseEvent(IPlayerV2 player) : base(player, false)
+    public DrawPhaseEvent(IPlayerV2 player) : base(player)
     {
     }
 

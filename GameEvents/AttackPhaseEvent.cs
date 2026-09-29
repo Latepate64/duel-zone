@@ -4,7 +4,7 @@ namespace GameEvents;
 
 public sealed class AttackPhaseEvent : GameEventV2
 {
-    public AttackPhaseEvent(IPlayerV2 player) : base(player, false)
+    public AttackPhaseEvent(IPlayerV2 player) : base(player)
     {
     }
 

@@ -17,7 +17,7 @@ public sealed class TakeTurnEvent : GameEventV2
     public int TurnNumber { get; }
     public PhaseType NextPhase { get; set; }
 
-    public TakeTurnEvent(IPlayerV2 player, int turnNumber) : base(player, false)
+    public TakeTurnEvent(IPlayerV2 player, int turnNumber) : base(player)
     {
         TurnNumber = turnNumber;
     }

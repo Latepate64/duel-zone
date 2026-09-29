@@ -9,7 +9,7 @@ public interface IGameState
     IPlayerV2 Winner { get; set; }
     IList<IPlayerV2> Losers { get; init; }
     IEventStack EventsHappening { get; init; }
-    IGameEventV2 PassableAction { get; set; }
+    IPassableGameEvent PassableAction { get; set; }
     IEventsThatWouldHappen EventsThatWouldHappen { get; }
     int TurnNumber { get; }
     IBattleZone BattleZone { get; init; }

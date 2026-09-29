@@ -9,7 +9,7 @@ public sealed class BattleEventV2 : GameEventV2
     bool shouldEnd;
 
     public BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
-    ICreature defendingCreature) : base(player, passable: false)
+    ICreature defendingCreature) : base(player)
     {
         AttackingCreature = attackingCreature;
         DefendingCreature = defendingCreature;

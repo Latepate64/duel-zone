@@ -83,7 +83,10 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
             Continue();
             return;
         }
-        State.PassableAction.Validate(action);
+        if (action is IPassableGameEvent passable)
+        {
+            State.PassableAction.Validate(passable);
+        }
         State.RemovePassableAction();
         State.EventsThatWouldHappen.Add(action);
         Continue();
@@ -124,7 +127,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
             Continue(loopCounter);
             return;
         }
-        var passables = events.Where(x => x.Passable);
+        var passables = events.OfType<IPassableGameEvent>();
         if (passables.Count() == 1)
         {
             State.PassableAction = passables.Single();

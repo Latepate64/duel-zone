@@ -4,7 +4,7 @@ namespace GameEvents;
 
 public sealed class PassAction : GameEventV2, IPassAction
 {
-    public PassAction(IPlayerV2 player) : base(player, false)
+    public PassAction(IPlayerV2 player) : base(player)
     {
     }
 

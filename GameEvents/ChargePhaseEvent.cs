@@ -6,7 +6,7 @@ public sealed class ChargePhaseEvent : GameEventV2
 {
     bool shouldEnd;
 
-    public ChargePhaseEvent(IPlayerV2 player) : base(player, false)
+    public ChargePhaseEvent(IPlayerV2 player) : base(player)
     {
     }
 
@@ -20,7 +20,7 @@ public sealed class ChargePhaseEvent : GameEventV2
         if (!shouldEnd && Player.Hand.HasCards)
         {
             shouldEnd = true;
-            return [new ChargeEvent(Player, true)];
+            return [new ChargeEvent(Player)];
         }
         return [];
     }

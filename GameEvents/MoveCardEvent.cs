@@ -6,7 +6,7 @@ public abstract class MoveCardEvent : GameEventV2
 {
     public ZoneType Destination { get; }
 
-    public MoveCardEvent(IPlayerV2 player, ZoneType destination, bool passable) : base(player, passable)
+    public MoveCardEvent(IPlayerV2 player, ZoneType destination) : base(player)
     {
         Destination = destination;
     }

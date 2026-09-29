@@ -6,8 +6,8 @@ public sealed class PutIntoBattleZoneEvent : MoveCardEvent
 {
     public ICard Card { get; }
 
-    public PutIntoBattleZoneEvent(IPlayerV2 player, bool passable, ICard card) : base(
-        player, ZoneType.BattleZone, passable)
+    public PutIntoBattleZoneEvent(IPlayerV2 player, ICard card) : base(
+        player, ZoneType.BattleZone)
     {
         Card = card;
     }

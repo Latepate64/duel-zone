@@ -4,7 +4,7 @@ namespace GameEvents;
 
 public sealed class StartOfTurnEvent : GameEventV2
 {
-    public StartOfTurnEvent(IPlayerV2 player) : base(player, false)
+    public StartOfTurnEvent(IPlayerV2 player) : base(player)
     {
     }
 

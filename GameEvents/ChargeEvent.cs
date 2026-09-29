@@ -2,11 +2,11 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class ChargeEvent : MoveCardEvent
+public sealed class ChargeEvent : PassableGameEvent
 {
     public ICard? ChosenCard { get; set; }
 
-    public ChargeEvent(IPlayerV2 player, bool passable = true) : base(player, ZoneType.ManaZone, passable)
+    public ChargeEvent(IPlayerV2 player) : base(player)
     {
     }
 
@@ -15,17 +15,7 @@ public sealed class ChargeEvent : MoveCardEvent
         ChosenCard = gameEvent.ChosenCard?.Copy();
     }
 
-    internal override ICard? RemoveCardFromCurrentZone()
-    {
-        // TODO: Consider that card may not be in hand
-        if (ChosenCard != null)
-        {
-            Player.Hand.Remove(ChosenCard);
-        }
-        return ChosenCard;
-    }
-
-    public override void Validate(IGameEventV2 gameEvent)
+    public override void Validate(IPassableGameEvent gameEvent)
     {
         var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(gameEvent);
         // TODO: Consider that card may not be in hand
@@ -45,5 +35,26 @@ public sealed class ChargeEvent : MoveCardEvent
     public override IGameEventV2 Copy()
     {
         return new ChargeEvent(this);
+    }
+
+    public override IEnumerable<IGameEventV2> Happen(IGameState state)
+    {
+        var card = RemoveCardFromCurrentZone();
+        // TODO: Multicolored tapped
+        if (card != null)
+        {
+            Player.ManaZone.Add(card);
+        }
+        return [];
+    }
+
+    internal ICard? RemoveCardFromCurrentZone()
+    {
+        // TODO: Consider that card may not be in hand
+        if (ChosenCard != null)
+        {
+            Player.Hand.Remove(ChosenCard);
+        }
+        return ChosenCard;
     }
 }
