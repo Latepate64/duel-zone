@@ -17,19 +17,22 @@ public sealed class ChargeEvent : PassableGameEvent
 
     public override void Validate(IPassableGameEvent gameEvent)
     {
-        var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(gameEvent);
+        var charge = IllegalActionException.ThrowIfNotOfType<ChargeEvent>(
+            gameEvent);
         // TODO: Consider that card may not be in hand
         IllegalActionException.ThrowIf(charge, charge.ChosenCard == null,
             IllegalActionType.ChosenCardIsNull);
-        IllegalActionException.ThrowIf(charge, !Player.Hand.Contains(charge.ChosenCard!),
+        IllegalActionException.ThrowIf(charge,
+            !Player.Hand.Contains(charge.ChosenCard!),
             IllegalActionType.HandDoesNotContainCard);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj)
-            && obj is ChargeEvent e
-            && ChosenCard == e.ChosenCard;
+        if (!base.Equals(obj)) return false;
+        if (obj is not ChargeEvent e) return false;
+        if (ChosenCard != e.ChosenCard) return false;
+        return true;
     }
 
     public override IGameEventV2 Copy()
@@ -56,5 +59,10 @@ public sealed class ChargeEvent : PassableGameEvent
             Player.Hand.Remove(ChosenCard);
         }
         return ChosenCard;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), ChosenCard?.GetHashCode());
     }
 }
