@@ -4,9 +4,9 @@ namespace GameEvents;
 
 public sealed class AttackEvent : PassableGameEvent
 {
-    public ICreature AttackingCreature { get; init; }
-    public ICreature AttackedCreature { get; init; }
-    public IPlayerV2 AttackedPlayer { get; init; }
+    public ICreature? AttackingCreature { get; init; }
+    public ICreature? AttackedCreature { get; init; }
+    public IPlayerV2? AttackedPlayer { get; init; }
     bool shouldEnd;
 
     public AttackEvent(IPlayerV2 player) : base(player)
@@ -15,35 +15,42 @@ public sealed class AttackEvent : PassableGameEvent
 
     AttackEvent(AttackEvent gameEvent) : base(gameEvent)
     {
-        AttackingCreature = gameEvent.AttackingCreature.Copy();
-        AttackedCreature = gameEvent.AttackedCreature.Copy();
-        AttackedPlayer = gameEvent.AttackedPlayer.Copy();
+        AttackingCreature = gameEvent.AttackingCreature?.Copy();
+        AttackedCreature = gameEvent.AttackedCreature?.Copy();
+        AttackedPlayer = gameEvent.AttackedPlayer?.Copy();
         shouldEnd = gameEvent.shouldEnd;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj)
-            && obj is AttackEvent a
-            && a.AttackingCreature == AttackingCreature
-            && a.AttackedCreature == AttackedCreature
-            && a.AttackedPlayer == AttackedPlayer
-            && a.shouldEnd == shouldEnd;
+        if (!base.Equals(obj)) return false;
+        if (obj is not AttackEvent a) return false;
+        if (a.AttackingCreature != AttackingCreature) return false;
+        if (a.AttackedCreature != AttackedCreature) return false;
+        if (a.AttackedPlayer != AttackedPlayer) return false;
+        if (a.shouldEnd != shouldEnd) return false;
+        return true;
     }
 
     public override void Validate(IPassableGameEvent gameEvent)
     {
-        var attack = IllegalActionException.ThrowIfNotOfType<AttackEvent>(gameEvent);
-        IllegalActionException.ThrowIf(attack, attack.AttackingCreature == null,
+        var attack = IllegalActionException.ThrowIfNotOfType<AttackEvent>(
+            gameEvent);
+        IllegalActionException.ThrowIf(
+            attack, attack.AttackingCreature == null,
             IllegalActionType.AttackingCreatureIsNull);
-        IllegalActionException.ThrowIf(attack, attack.AttackingCreature!.Tapped,
+        IllegalActionException.ThrowIf(
+            attack, attack.AttackingCreature!.Tapped,
             IllegalActionType.AttackingCreatureIsTapped);
         // TODO: Check if any effect bypasses summoning sickness
-        IllegalActionException.ThrowIf(attack, attack.AttackingCreature.SummoningSickness,
+        IllegalActionException.ThrowIf(
+            attack, attack.AttackingCreature.SummoningSickness,
             IllegalActionType.AttackingCreatureHasSummoningSickness);
-        IllegalActionException.ThrowIf(attack, attack.AttackedCreature == null && attack.AttackedPlayer == null,
+        IllegalActionException.ThrowIf(attack,
+            attack.AttackedCreature == null && attack.AttackedPlayer == null,
             IllegalActionType.AttackedCreatureAndAttackedPlayerAreNull);
-        IllegalActionException.ThrowIf(attack, attack.AttackedCreature != null && attack.AttackedPlayer != null,
+        IllegalActionException.ThrowIf(attack,
+            attack.AttackedCreature != null && attack.AttackedPlayer != null,
             IllegalActionType.AttackedCreatureAndAttackedPlayerAreNotNull);
         // TODO: Check if the attacking creature can attack the chosen creature
         // TODO: Check if the attacking creature can attack the chosen player
@@ -51,30 +58,44 @@ public sealed class AttackEvent : PassableGameEvent
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
-        if (shouldEnd)
+        if (shouldEnd) return [];
+        try
         {
-            return [];
+            shouldEnd = true;
+            if (AttackingCreature == null) return [];
+            AttackingCreature.Tapped = true;
+            // TODO: Check if blocking happens
+            if (AttackedCreature != null)
+            {
+                return [new BattleEventV2(
+                    Player, AttackingCreature, AttackedCreature)];
+            }
+            if (!AttackedPlayer!.ShieldZone.HasCards)
+            {
+                return [new LoseGameEvent(AttackedPlayer)];
+            }
+            throw new NotImplementedException("Break shields");
         }
-        shouldEnd = true;
-        AttackingCreature.Tapped = true;
-        // TODO: Check if blocking happens
-        if (AttackedCreature != null)
+        catch
         {
-            return [new BattleEventV2(Player, AttackingCreature, AttackedCreature)];
+            shouldEnd = false;
+            AttackingCreature!.Tapped = false;
+            throw;
         }
-        if (AttackedPlayer == null)
-        {
-            throw new InvalidOperationException();
-        }
-        if (!AttackedPlayer.ShieldZone.HasCards)
-        {
-            return [new LoseGameEvent(AttackedPlayer)];
-        }
-        throw new NotImplementedException();
     }
 
     public override IGameEventV2 Copy()
     {
         return new AttackEvent(this);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(
+            base.GetHashCode(),
+            AttackedCreature?.GetHashCode(),
+            AttackedCreature?.GetHashCode(),
+            AttackedPlayer?.GetHashCode(),
+            shouldEnd);
     }
 }
