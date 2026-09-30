@@ -23,15 +23,21 @@ public sealed class PutIntoBattleZoneEvent : MoveCardEvent
         return Card;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj)
-            && obj is PutIntoBattleZoneEvent e
-            && Card == e.Card;
+        if (!base.Equals(obj)) return false;
+        if (obj is not PutIntoBattleZoneEvent e) return false;
+        if (Card != e.Card) return false;
+        return true;
     }
 
     public override IGameEventV2 Copy()
     {
         return new PutIntoBattleZoneEvent(this);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), Card.GetHashCode());
     }
 }
