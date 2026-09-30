@@ -146,7 +146,6 @@ public class BattleEventV2Tests
         AttackingPlayer,
         AttackingCreature,
         DefendingCreature,
-
     }
 
     [Theory]
