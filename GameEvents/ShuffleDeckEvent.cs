@@ -11,7 +11,8 @@ public sealed class ShuffleDeckEvent : GameEventV2
         randomizer = gameEvent.randomizer.Copy();
     }
 
-    public ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : base(player)
+    public ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : base(
+        player)
     {
         this.randomizer = randomizer;
     }

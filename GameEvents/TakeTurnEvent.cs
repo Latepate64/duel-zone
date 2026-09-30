@@ -2,20 +2,10 @@ using Interfaces;
 
 namespace GameEvents;
 
-public enum PhaseType
-{
-    StartOfTurn,
-    Draw,
-    Charge,
-    Main,
-    Attack,
-    EndOfTurn
-}
-
 public sealed class TakeTurnEvent : GameEventV2
 {
     public int TurnNumber { get; }
-    public PhaseType NextPhase { get; set; }
+    public PhaseType NextPhase { get; private set; } = PhaseType.StartOfTurn;
 
     public TakeTurnEvent(IPlayerV2 player, int turnNumber) : base(player)
     {
@@ -61,16 +51,25 @@ public sealed class TakeTurnEvent : GameEventV2
         return [];
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj)
-            && obj is TakeTurnEvent e
-            && TurnNumber == e.TurnNumber
-            && NextPhase == e.NextPhase;
+        if (!base.Equals(obj)) return false;
+        if (obj is not TakeTurnEvent e) return false;
+        if (TurnNumber != e.TurnNumber) return false;
+        if (NextPhase != e.NextPhase) return false;
+        return true;
     }
 
     public override IGameEventV2 Copy()
     {
         return new TakeTurnEvent(this);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(
+            base.GetHashCode(),
+            TurnNumber.GetHashCode(),
+            NextPhase.GetHashCode());
     }
 }
