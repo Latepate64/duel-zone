@@ -45,17 +45,24 @@ public abstract class MoveCardEvent : GameEventV2
         if (Destination == ZoneType.BattleZone)
         {
             state.BattleZone.Add(card);
-            state.ContinuousEffects.Add(card, [.. card.GetAbilities<IStaticAbility>().Where(
-                x => x.FunctionZone == ZoneType.BattleZone)]);
+            state.ContinuousEffects.Add(
+                card, [.. card.GetAbilities<IStaticAbility>().Where(
+                    x => x.FunctionZone == ZoneType.BattleZone)]);
             return [];
         }
         throw new NotImplementedException();
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj)
-            && obj is MoveCardEvent moveCardEvent
-            && Destination == moveCardEvent.Destination;
+        if (!base.Equals(obj)) return false;
+        if (obj is not MoveCardEvent moveCardEvent) return false;
+        if (Destination != moveCardEvent.Destination) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), Destination.GetHashCode());
     }
 }

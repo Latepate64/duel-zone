@@ -8,12 +8,14 @@ public sealed class MoveTopCardOfDeckEvent : MoveCardEvent
     {
     }
 
-    public MoveTopCardOfDeckEvent(IPlayerV2 player, ZoneType zoneType) : base(player, zoneType)
+    public MoveTopCardOfDeckEvent(IPlayerV2 player, ZoneType zoneType) : base(
+        player, zoneType)
     {
     }
 
     internal override ICard? RemoveCardFromCurrentZone()
     {
+        if (!Player.Deck.HasCards) return null;
         var card = Player.Deck.TopCard;
         Player.Deck.Remove(card);
         return card;
