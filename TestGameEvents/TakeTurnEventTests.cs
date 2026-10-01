@@ -12,7 +12,7 @@ public class TakeTurnEventTests
         // Arrange
         var player = new Mock<IPlayerV2>();
         player.Setup(x => x.Copy()).Returns(player.Object);
-        var e = new TakeTurnEvent(player.Object, 1);
+        var e = new TakeTurnEvent(player.Object, true);
 
         // Act
         var actual = e.Copy();
@@ -40,14 +40,13 @@ public class TakeTurnEventTests
         // Arrange
         var player = new Mock<IPlayerV2>();
         player.Setup(x => x.Copy()).Returns(player.Object);
-        var first = new TakeTurnEvent(player.Object, 1);
+        var first = new TakeTurnEvent(player.Object, true);
         GameEventV2 second = different == Different.Event
             ? new AttackEvent(player.Object)
             : new TakeTurnEvent(
                 different == Different.Player
                     ? Mock.Of<IPlayerV2>() : player.Object,
-                different == Different.TurnNumber
-                    ? 2 : 1);
+                different != Different.TurnNumber);
         if (different == Different.NextPhase)
         {
             second.Happen(Mock.Of<IGameState>());
@@ -65,8 +64,8 @@ public class TakeTurnEventTests
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
-        var e = new TakeTurnEvent(player, 1);
-        var another = new TakeTurnEvent(player, 1);
+        var e = new TakeTurnEvent(player, true);
+        var another = new TakeTurnEvent(player, true);
         var expected = another.GetHashCode();
 
         // Act
@@ -86,7 +85,7 @@ public class TakeTurnEventTests
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
-        var e = new TakeTurnEvent(player, 2);
+        var e = new TakeTurnEvent(player, false);
         GameEventV2 expected = phaseType == PhaseType.Draw
             ? new StartOfTurnEvent(player)
             : phaseType == PhaseType.Charge
@@ -115,7 +114,7 @@ public class TakeTurnEventTests
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
-        var e = new TakeTurnEvent(player, 1);
+        var e = new TakeTurnEvent(player, true);
         var expected = new ChargePhaseEvent(player);
         _ = e.Happen(Mock.Of<IGameState>());
 
@@ -132,7 +131,7 @@ public class TakeTurnEventTests
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
-        var e = new TakeTurnEvent(player, 2);
+        var e = new TakeTurnEvent(player, false);
         for (var i = 0; i < 5; ++i)
         {
             _ = e.Happen(Mock.Of<IGameState>());

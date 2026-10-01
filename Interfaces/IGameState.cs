@@ -11,7 +11,7 @@ public interface IGameState
     IEventStack EventsHappening { get; init; }
     IPassableGameEvent PassableAction { get; set; }
     IEventsThatWouldHappen EventsThatWouldHappen { get; }
-    int TurnNumber { get; }
+    int TurnNumber { get; set; }
     IBattleZone BattleZone { get; init; }
     IContinuousEffects ContinuousEffects { get; }
     IPlayerV2 ActivePlayer { get; }

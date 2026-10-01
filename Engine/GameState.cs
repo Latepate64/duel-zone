@@ -23,7 +23,7 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     /// </summary>
     public IPassableGameEvent PassableAction { get; set; }
     public IEventsThatWouldHappen EventsThatWouldHappen { get; } = new EventsThatWouldHappen();
-    public int TurnNumber { get; internal set; }
+    public int TurnNumber { get; set; }
     public IBattleZone BattleZone { get; init; } = new BattleZone();
     public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
         game: null);

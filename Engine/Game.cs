@@ -118,7 +118,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
                 State.UpdatePlayerOrder();
             }
             State.EventsThatWouldHappen.Add(
-                new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber));
+                new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber == 1));
             Continue(loopCounter);
             return;
         }

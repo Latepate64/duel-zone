@@ -189,7 +189,7 @@ public sealed class GameTests
     }
 
     [Fact]
-    public void ProceedToOpponentsChargeAfterActivePlayerPassesCharging()
+    public void ProceedToUseCardEventAfterActivePlayerPassesCharging()
     {
         // Arrange
         var startingPlayer = CreatePlayer(DeckSize);
@@ -197,7 +197,7 @@ public sealed class GameTests
         var state = new GameState([startingPlayer, otherPlayer])
         {
             EventsHappening = new EventStack(new TakeTurnEvent(
-                startingPlayer, 1, PhaseType.Main)),
+                startingPlayer, true, PhaseType.Main)),
             PassableAction = new ChargeEvent(startingPlayer)
         };
         var game = CreateGame(state);
@@ -461,6 +461,29 @@ public sealed class GameTests
         Assert.True(state.GameOver);
     }
 
+    [Fact]
+    public void PlayerOrderIsUpdatedAfterTurnEnds()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            EventsHappening = new EventStack(new TakeTurnEvent(
+                startingPlayer, true, PhaseType.Attack)),
+            PassableAction = new AttackEvent(startingPlayer),
+            TurnNumber = 1
+        };
+        var game = CreateGame(state);
+
+        // Act
+        game.Play(new PassAction(startingPlayer));
+
+        // Assert
+        Assert.Equal(startingPlayer, state.NonActivePlayers.Single());
+        Assert.Equal(otherPlayer, state.ActivePlayer);
+    }
+
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var deckCards = new List<ICreature>();
@@ -503,7 +526,8 @@ public sealed class GameTests
         var otherPlayer = CreatePlayer(DeckSize);
         return new GameState([startingPlayer, otherPlayer])
         {
-            EventsHappening = new EventStack(new TakeTurnEvent(startingPlayer, 1))
+            EventsHappening = new EventStack(new TakeTurnEvent(
+                startingPlayer, true))
         };
     }
 
