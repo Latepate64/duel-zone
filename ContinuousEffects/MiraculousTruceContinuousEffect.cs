@@ -1,5 +1,3 @@
-using GameEvents;
-using GameEvents.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -38,8 +36,9 @@ public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotA
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
-            && phase.Turn.ActivePlayer == _player;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
+        //     && phase.Turn.ActivePlayer == _player;
     }
 
     public override string ToString()

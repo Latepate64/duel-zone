@@ -18,8 +18,9 @@ public sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.EndOfTurn
-            && ValidInterveningIfClause;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.EndOfTurn
+        //     && ValidInterveningIfClause;
     }
 
     public override IAbility Copy()
@@ -54,10 +55,11 @@ public sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
         {
             ++_cardsDrawnByOpponent;
         }
-        else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
-        {
-            _cardsDrawnByOpponent = 0;
-        }
+        throw new NotImplementedException();
+        // else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
+        // {
+        //     _cardsDrawnByOpponent = 0;
+        // }
     }
 
     private bool ValidInterveningIfClause => _cardsDrawnByOpponent >= 2;

@@ -1,6 +1,4 @@
-﻿using GameEvents;
-using GameEvents.Steps;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -24,6 +22,7 @@ public sealed class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAb
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 }

@@ -1,5 +1,3 @@
-using GameEvents;
-using GameEvents.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -26,7 +24,8 @@ public sealed class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnI
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 
     public override string ToString()

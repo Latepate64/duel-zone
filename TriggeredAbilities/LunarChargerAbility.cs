@@ -1,5 +1,3 @@
-using GameEvents;
-using GameEvents.Steps;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -23,7 +21,8 @@ public sealed class LunarChargerAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == _turnId;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == _turnId;
     }
 
     public override IAbility Copy()

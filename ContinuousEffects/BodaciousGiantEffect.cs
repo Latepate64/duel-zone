@@ -56,9 +56,10 @@ public sealed class BodaciousGiantEffect : ContinuousEffect, IAttacksIfAbleEffec
         {
             _hasBeenAttacked = true;
         }
-        else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
-        {
-            _hasBeenAttacked = false;
-        }
+        throw new NotImplementedException();
+        // else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
+        // {
+        //     _hasBeenAttacked = false;
+        // }
     }
 }
