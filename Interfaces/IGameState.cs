@@ -5,7 +5,7 @@ namespace Interfaces;
 
 public interface IGameState
 {
-    IPlayerV2[] Players { get; }
+    IPlayerV2[] Players { get; set; }
     IPlayerV2 Winner { get; set; }
     IList<IPlayerV2> Losers { get; init; }
     IEventStack EventsHappening { get; init; }

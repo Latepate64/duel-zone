@@ -484,6 +484,27 @@ public sealed class GameTests
         Assert.Equal(otherPlayer, state.ActivePlayer);
     }
 
+    [Fact]
+    public void
+        EventsHappeningReturningMoreThanOnePassableGameEventThrowsNotImplementedException()
+    {
+        // Arrange
+        var state = new Mock<IGameState>();
+        state.SetupGet(x => x.PassableAction).Returns(
+            Mock.Of<IPassableGameEvent>);
+        state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
+        state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
+        state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns([
+            Mock.Of<IPassableGameEvent>(),
+            Mock.Of<IPassableGameEvent>()
+        ]);
+        var game = CreateGame(state.Object);
+
+        // Act + Assert
+        Assert.Throws<NotImplementedException>(
+            () => game.Play(Mock.Of<IPassAction>()));
+    }
+
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
     {
         var deckCards = new List<ICreature>();
@@ -540,6 +561,6 @@ public sealed class GameTests
         return game;
     }
 
-    static Game CreateGame(GameState state, int maxloopCount = 99) => new(
+    static Game CreateGame(IGameState state, int maxloopCount = 99) => new(
         Mock.Of<IRandomizer>(), state, maxloopCount);
 }

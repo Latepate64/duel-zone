@@ -10,11 +10,11 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
     readonly IRandomizer randomizer = randomizer;
     readonly int maxLoopCount = maxLoopCount;
 
-    public GameState State { get; private set; }
+    public IGameState State { get; private set; }
 
-    GameState _originalState;
+    IGameState _originalState;
 
-    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 5)
+    public Game(IRandomizer randomizer, IGameState state, int maxLoopCount = 5)
         : this(randomizer, maxLoopCount)
     {
         State = state;
@@ -85,7 +85,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         if (action is IPassAction)
         {
             // TODO: Throw if there was no action to be passed
-            State.RemovePassableAction();
+            State.PassableAction = null;
             Continue();
             return;
         }
@@ -93,7 +93,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         {
             State.PassableAction.Validate(passable);
         }
-        State.RemovePassableAction();
+        State.PassableAction = null;
         State.EventsThatWouldHappen.Add(action);
         Continue();
     }
@@ -115,7 +115,8 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         {
             if (State.TurnNumber > 0)
             {
-                State.UpdatePlayerOrder();
+                // TODO: This doesn't work correctly with over two players
+                State.Players = [.. State.Players.Reverse()];
             }
             State.EventsThatWouldHappen.Add(
                 new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber == 1));

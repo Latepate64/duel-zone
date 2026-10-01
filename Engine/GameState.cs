@@ -13,7 +13,7 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     /// <summary>
     /// People in the game in an APNAP order.
     /// </summary>
-    public IPlayerV2[] Players { get; private set; } = players;
+    public IPlayerV2[] Players { get; set; } = players;
     public IPlayerV2 Winner { get; set; }
     public IList<IPlayerV2> Losers { get; init; } = [];
     public IEventStack EventsHappening { get; init; } = new EventStack();
@@ -31,17 +31,6 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     public IPlayerV2 ActivePlayer => Players.First();
     public IEnumerable<IPlayerV2> NonActivePlayers => Players.Skip(1);
     public bool GameOver => Winner != null || Losers.Count == Players.Length;
-
-    internal void RemovePassableAction()
-    {
-        PassableAction = null;
-    }
-
-    internal void UpdatePlayerOrder()
-    {
-        // TODO: This doesn't work correctly with over two players
-        Players = [.. Players.Reverse()];
-    }
 
     public override bool Equals(object obj)
     {
