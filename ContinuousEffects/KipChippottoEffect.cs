@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -16,17 +15,7 @@ public sealed class KipChippottoEffect : DestructionReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        if (Controller.ChooseToTakeAction(ToString()))
-        {
-            return new CardMovedEvent(gameEvent as ICardMovedEvent)
-            {
-                CardInSourceZone = Source.Id
-            };
-        }
-        else
-        {
-            return gameEvent;
-        }
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

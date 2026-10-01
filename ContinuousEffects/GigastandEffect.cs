@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
@@ -16,19 +15,7 @@ public sealed class GigastandEffect : DestructionReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        if (Controller.ChooseToTakeAction(ToString()))
-        {
-            throw new NotImplementedException();
-            // game.AddReflexiveTriggeredAbility(new ReflexiveTriggeredAbility(new DiscardCardFromYourHandEffect(), Ability));
-            return new CardMovedEvent(gameEvent as ICardMovedEvent)
-            {
-                Destination = ZoneType.Hand
-            };
-        }
-        else
-        {
-            return gameEvent;
-        }
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

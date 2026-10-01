@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -19,10 +18,7 @@ public sealed class KaluteEffect : DestructionReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        return new CardMovedEvent(gameEvent as ICardMovedEvent)
-        {
-            Destination = ZoneType.Hand
-        };
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

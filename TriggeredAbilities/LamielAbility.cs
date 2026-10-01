@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,8 +14,7 @@ public sealed class LamielAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard
-            && e.CardInDestinationZone.Owner == Controller && e.CardInDestinationZone != Source;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

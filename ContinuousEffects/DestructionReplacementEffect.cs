@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace ContinuousEffects;
 
@@ -15,11 +14,7 @@ public abstract class DestructionReplacementEffect : ReplacementEffect
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
     {
-        if (gameEvent is CardMovedEvent e)
-        {
-            return e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard && Applies(game.GetCard(e.CardInSourceZone) as ICreature, game);
-        }
-        return false;
+        throw new NotImplementedException();
     }
 
     protected abstract bool Applies(ICreature creature, IGame game);
