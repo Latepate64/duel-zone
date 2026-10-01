@@ -22,16 +22,25 @@ public sealed class ChargePhaseEvent : GameEventV2
             shouldEnd = true;
             return [new ChargeEvent(Player)];
         }
+        shouldEnd = true;
         return [];
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj) && obj is ChargePhaseEvent e && e.shouldEnd == shouldEnd;
+        if (!base.Equals(obj)) return false;
+        if (obj is not ChargePhaseEvent e) return false;
+        if (e.shouldEnd != shouldEnd) return false;
+        return true;
     }
 
     public override IGameEventV2 Copy()
     {
         return new ChargePhaseEvent(this);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), shouldEnd.GetHashCode());
     }
 }

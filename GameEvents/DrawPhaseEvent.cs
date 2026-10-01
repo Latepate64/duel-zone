@@ -25,13 +25,21 @@ public sealed class DrawPhaseEvent : GameEventV2
         return [];
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
-        return base.Equals(obj) && obj is DrawPhaseEvent e && shouldEnd == e.shouldEnd;
+        if (!base.Equals(obj)) return false;
+        if (obj is not DrawPhaseEvent e) return false;
+        if (shouldEnd != e.shouldEnd) return false;
+        return true;
     }
 
     public override IGameEventV2 Copy()
     {
         return new DrawPhaseEvent(this);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), shouldEnd.GetHashCode());
     }
 }
