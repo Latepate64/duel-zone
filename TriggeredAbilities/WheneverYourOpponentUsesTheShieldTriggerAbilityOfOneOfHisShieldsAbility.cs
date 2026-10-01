@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -16,7 +15,7 @@ public sealed class WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShi
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is ShieldTriggerEvent e && e.Player == GetOpponent(game);
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

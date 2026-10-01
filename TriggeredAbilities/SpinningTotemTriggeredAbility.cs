@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -33,13 +32,12 @@ public sealed class SpinningTotemTriggeredAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        return new SpinningTotemTriggeredAbility((gameEvent as BecomeBlockedEvent).Attacker);
+        throw new NotImplementedException();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeBlockedEvent e && e.Attacker.Owner == Controller && e.Attacker.HasCivilization(
-            Civilization.Nature);
+        throw new NotImplementedException();
     }
 
     public override void Resolve(IGame game)

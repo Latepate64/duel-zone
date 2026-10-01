@@ -1,5 +1,4 @@
 using ContinuousEffects;
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -19,7 +18,7 @@ public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureAttackedEvent e && e.Target is ICreature creature && creature.Owner == Controller;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()
@@ -44,7 +43,6 @@ public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        _attackTarget = (gameEvent as CreatureAttackedEvent).Target as ICreature;
-        return new BubbleScarabAbility(this);
+        throw new NotImplementedException();
     }
 }

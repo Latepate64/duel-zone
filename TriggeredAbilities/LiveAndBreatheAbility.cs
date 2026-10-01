@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -18,7 +17,7 @@ public sealed class LiveAndBreatheAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureSummonedEvent e && e.Player == Controller;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()
@@ -41,7 +40,6 @@ public sealed class LiveAndBreatheAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        _name = (gameEvent as CreatureSummonedEvent).Creature.Name;
-        return new LiveAndBreatheAbility(this);
+        throw new NotImplementedException();
     }
 }

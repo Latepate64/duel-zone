@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -52,14 +51,6 @@ public sealed class BodaciousGiantEffect : ContinuousEffect, IAttacksIfAbleEffec
 
     public void Watch(IGame game, IGameEvent gameEvent)
     {
-        if (gameEvent is CreatureAttackedEvent e && e.Target == Source)
-        {
-            _hasBeenAttacked = true;
-        }
         throw new NotImplementedException();
-        // else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
-        // {
-        //     _hasBeenAttacked = false;
-        // }
     }
 }

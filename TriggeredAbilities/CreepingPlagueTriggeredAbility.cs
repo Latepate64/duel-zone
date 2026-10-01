@@ -1,5 +1,4 @@
 using ContinuousEffects;
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -19,7 +18,7 @@ public sealed class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeBlockedEvent e && e.Attacker == Source && Controller == Source.Owner;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()
@@ -39,7 +38,6 @@ public sealed class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        _creature = (gameEvent as BecomeBlockedEvent).Attacker;
-        return Copy() as ITriggeredAbility;
+        throw new NotImplementedException();
     }
 }

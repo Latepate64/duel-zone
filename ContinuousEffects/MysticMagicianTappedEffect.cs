@@ -16,11 +16,7 @@ public sealed class MysticMagicianTappedEffect : ReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        return new CardMovedEvent(gameEvent as ICardMovedEvent)
-        {
-            Destination = ZoneType.BattleZone,
-            EntersTapped = true,
-        };
+        throw new NotImplementedException();
     }
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)

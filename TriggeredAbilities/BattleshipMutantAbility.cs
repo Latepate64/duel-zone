@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -26,7 +25,7 @@ public sealed class BattleshipMutantAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BattleEvent e && _cards.Any(x => x == e.AttackingCreature || x == e.DefendingCreature);
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()
@@ -46,8 +45,6 @@ public sealed class BattleshipMutantAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        var e = gameEvent as BattleEvent;
-        var toDestroy = _cards.Single(x => x == e.AttackingCreature || x == e.DefendingCreature);
-        return new BattleshipMutantAbility(toDestroy);
+        throw new NotImplementedException();
     }
 }

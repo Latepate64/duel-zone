@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -16,16 +15,7 @@ public sealed class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureIn
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        var e = gameEvent as ShieldsBreakEvent;
-        var shield = Controller.ChooseCardOptionally(e.Shields, ToString());
-        if (shield != null)
-        {
-            return new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(Source as ICreature, e.Shields.Where(x => x != shield));
-        }
-        else
-        {
-            return gameEvent;
-        }
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

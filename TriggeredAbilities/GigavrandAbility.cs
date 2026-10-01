@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -49,17 +48,7 @@ public sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
 
     public void Watch(IGame game, IGameEvent gameEvent)
     {
-        if (gameEvent is CardMovedEvent e &&
-            e.Player == GetOpponent(game) &&
-            e.Destination == ZoneType.Hand)
-        {
-            ++_cardsDrawnByOpponent;
-        }
         throw new NotImplementedException();
-        // else if (gameEvent is PhaseBegunEvent p && p.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn)
-        // {
-        //     _cardsDrawnByOpponent = 0;
-        // }
     }
 
     private bool ValidInterveningIfClause => _cardsDrawnByOpponent >= 2;

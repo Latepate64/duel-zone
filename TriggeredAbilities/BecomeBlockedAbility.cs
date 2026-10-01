@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -15,6 +14,6 @@ public abstract class BecomeBlockedAbility : CardTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Attacker, game);
+        throw new NotImplementedException();
     }
 }

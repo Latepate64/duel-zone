@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace ContinuousEffects;
 
@@ -15,6 +14,6 @@ public abstract class MadnessEffect : ReplacementEffect
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CardMovedEvent e && e.Source == ZoneType.Hand && e.Destination == ZoneType.Graveyard && Source.Id == e.CardInSourceZone;
+        throw new NotImplementedException();
     }
 }

@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using ContinuousEffects;
 
@@ -16,7 +15,7 @@ public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureAttackedEvent e && e.Target == Source;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

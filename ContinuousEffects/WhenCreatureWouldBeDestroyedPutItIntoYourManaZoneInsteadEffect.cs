@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace ContinuousEffects;
 
@@ -15,9 +14,6 @@ public abstract class WhenCreatureWouldBeDestroyedPutItIntoYourManaZoneInsteadEf
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        return new CardMovedEvent(gameEvent as ICardMovedEvent)
-        {
-            Destination = ZoneType.ManaZone
-        };
+        throw new NotImplementedException();
     }
 }

@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,8 +14,7 @@ public sealed class SlashAndBurnAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone && e.Destination == ZoneType.Graveyard
-            && e.CardInDestinationZone.Owner == GetOpponent(game);
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

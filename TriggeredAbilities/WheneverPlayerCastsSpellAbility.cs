@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -15,7 +14,7 @@ public sealed class WheneverPlayerCastsSpellAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is SpellCastEvent;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

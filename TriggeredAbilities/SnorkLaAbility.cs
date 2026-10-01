@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -23,8 +22,7 @@ public sealed class SnorkLaAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CardMovedEvent e && e.Ability?.Controller == Controller
-            && e.Source == ZoneType.ManaZone && e.Destination == ZoneType.Graveyard;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()
@@ -47,6 +45,6 @@ public sealed class SnorkLaAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        return new SnorkLaAbility((gameEvent as CardMovedEvent).CardInDestinationZone);
+        throw new NotImplementedException();
     }
 }

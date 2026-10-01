@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -15,8 +14,7 @@ public sealed class WhenThisCreatureLeavesBattleZoneAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CardMovedEvent e && e.Source == ZoneType.BattleZone
-            && game.GetCard(e.CardInSourceZone) == Source;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

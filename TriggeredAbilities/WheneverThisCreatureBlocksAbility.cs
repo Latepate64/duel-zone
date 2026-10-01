@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -16,7 +15,7 @@ public sealed class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeBlockedEvent e && TriggersFrom(e.Blocker, game);
+        throw new NotImplementedException();
     }
 
     public override Ability Copy()

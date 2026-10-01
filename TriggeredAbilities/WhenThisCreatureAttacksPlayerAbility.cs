@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -15,8 +14,7 @@ public sealed class WhenThisCreatureAttacksPlayerAbility : WheneverThisCreatureA
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return base.CanTrigger(gameEvent, game) && gameEvent is CreatureAttackedEvent e
-            && e.Target == game.GetAttackable(game.GetOpponent(Controller.Id));
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

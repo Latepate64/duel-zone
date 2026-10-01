@@ -16,8 +16,7 @@ public sealed class PetrovaEffect : ReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        var race = Controller.ChooseRace(ToString(), Race.MechaDelSol);
-        return new PetrovaEvent(gameEvent as CardMovedEvent, race);
+        throw new NotImplementedException();
     }
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)

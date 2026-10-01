@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -16,19 +15,7 @@ public sealed class GlaisMejiculaEffect : WhenOneOfYourShieldsWouldBeBrokenEffec
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        var e = gameEvent as ShieldsBreakEvent;
-        var maximum = Controller.Hand.Size / 2;
-        var shields = Controller.ChooseCards(e.Shields, 0, maximum, ToString());
-        if (shields.Any())
-        {
-            var toDiscard = Controller.ChooseCards(
-                Controller.Hand.Cards, 2 * shields.Count(), 2 * shields.Count(), ToString());
-            return new GlaisMejiculaEvent(e.Shields.Where(x => x != shields), toDiscard, Ability);
-        }
-        else
-        {
-            return gameEvent;
-        }
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

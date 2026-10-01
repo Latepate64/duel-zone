@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace ContinuousEffects;
 
@@ -15,6 +14,6 @@ public abstract class WhenOneOfYourShieldsWouldBeBrokenEffect : ReplacementEffec
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is ShieldsBreakEvent e && e.Shields.First().Owner == Controller;
+        throw new NotImplementedException();
     }
 }

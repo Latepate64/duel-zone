@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
@@ -16,13 +15,12 @@ public sealed class BolmeteusEffect : ReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        var e = gameEvent as CreatureBreaksShieldsEvent;
-        return new BolmeteusEvent(e.Attacker, e.BreakAmount);
+        throw new NotImplementedException();
     }
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker == Source;
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

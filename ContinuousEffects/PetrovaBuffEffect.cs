@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -30,8 +29,7 @@ public sealed class PetrovaBuffEffect : ContinuousEffect, IPowerModifyingEffect,
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
-        var sourceCard = Source;
-        return gameEvent is CardMovedEvent e && e.CardInSourceZone == sourceCard.Id && e.Source == ZoneType.BattleZone;
+        throw new NotImplementedException();
     }
 
     public override string ToString()
