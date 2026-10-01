@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,8 +14,9 @@ public sealed class WingeyeMothAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.Draw
-            && e.Turn.ActivePlayer == Controller && InterveningIfClauseValid(game);
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.Draw
+        //     && e.Turn.ActivePlayer == Controller && InterveningIfClauseValid(game);
     }
 
     public override IAbility Copy()

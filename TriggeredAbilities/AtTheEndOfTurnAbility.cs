@@ -1,6 +1,4 @@
 ﻿using Abilities;
-using GameEvents;
-using GameEvents.Steps;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -20,8 +18,9 @@ public sealed class AtTheEndOfTurnAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == Turn
-            && CheckInterveningIfClause(game);
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == PhaseOrStep.EndOfTurn && e.Turn.Id == Turn
+        //     && CheckInterveningIfClause(game);
     }
 
     public override Ability Copy()

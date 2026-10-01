@@ -1,5 +1,4 @@
 using ContinuousEffects;
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -19,8 +18,9 @@ public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn
-            && e.Turn.ActivePlayer == GetOpponent(game);
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn
+        //     && e.Turn.ActivePlayer == GetOpponent(game);
     }
 
     public override IAbility Copy()
@@ -42,7 +42,8 @@ public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        _player = (gameEvent as PhaseBegunEvent).Turn.ActivePlayer;
-        return new SpinalParasiteAbility(this);
+        throw new NotImplementedException();
+        // _player = (gameEvent as PhaseBegunEvent).Turn.ActivePlayer;
+        // return new SpinalParasiteAbility(this);
     }
 }

@@ -1,7 +1,6 @@
-using GameEvents;
 using Interfaces;
 
-namespace ContinuousEffects;
+namespace GameEvents;
 
 public sealed class WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEvent(ICreature creature, IEnumerable<ICard> remainingShields) : GameEvent
 {

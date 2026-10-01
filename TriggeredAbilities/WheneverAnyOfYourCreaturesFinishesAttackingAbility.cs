@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -16,7 +15,8 @@ public sealed class WheneverAnyOfYourCreaturesFinishesAttackingAbility : Trigger
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == Controller;
+        throw new NotImplementedException();
+        // return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Owner == Controller;
     }
 
     public override IAbility Copy()

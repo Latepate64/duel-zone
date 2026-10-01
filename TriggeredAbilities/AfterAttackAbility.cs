@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -20,7 +19,8 @@ public sealed class AfterAttackAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
+        throw new NotImplementedException();
+        // return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
     }
 
     public override Ability Copy()

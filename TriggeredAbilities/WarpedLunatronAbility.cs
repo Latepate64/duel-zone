@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -18,7 +17,8 @@ public sealed class WarpedLunatronAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn; //TODO: Not sure if works as is 
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent e && e.Phase.Type == GameEvents.Steps.PhaseOrStep.StartOfTurn; //TODO: Not sure if works as is 
     }
 
     public override IAbility Copy()
@@ -41,7 +41,8 @@ public sealed class WarpedLunatronAbility : LinkedTriggeredAbility
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
     {
-        _player = (gameEvent as PhaseBegunEvent).Turn.ActivePlayer;
-        return Copy() as ITriggeredAbility;
+        throw new NotImplementedException();
+        // _player = (gameEvent as PhaseBegunEvent).Turn.ActivePlayer;
+        // return Copy() as ITriggeredAbility;
     }
 }

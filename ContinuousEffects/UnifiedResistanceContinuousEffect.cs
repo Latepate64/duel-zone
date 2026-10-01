@@ -1,6 +1,4 @@
 using Abilities;
-using GameEvents;
-using GameEvents.Steps;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -31,8 +29,9 @@ public sealed class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IEx
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
-            && phase.Turn.ActivePlayer.Id == _player;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
+        //     && phase.Turn.ActivePlayer.Id == _player;
     }
 
     public override string ToString()

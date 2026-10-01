@@ -1,6 +1,4 @@
-﻿using GameEvents;
-using GameEvents.Steps;
-using Interfaces;
+﻿using Interfaces;
 
 namespace ContinuousEffects;
 
@@ -16,6 +14,7 @@ public abstract class GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect : GetPo
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
+        throw new NotImplementedException();
+        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 }
