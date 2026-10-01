@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -16,7 +15,7 @@ public sealed class AfterBattleAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return CheckInterveningIfClause(game) && gameEvent is BattleEvent;
+        throw new NotImplementedException();
     }
 
     public override Ability Copy()

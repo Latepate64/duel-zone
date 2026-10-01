@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -15,8 +14,7 @@ public sealed class WhenThisCreatureBattlesAbility : CardTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BattleEvent e && (TriggersFrom(e.AttackingCreature, game)
-            || TriggersFrom(e.DefendingCreature, game));
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

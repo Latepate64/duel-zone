@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -19,7 +18,7 @@ public sealed class WheneverOneOfYourRaceBlocksAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeBlockedEvent e && e.Blocker.Owner == Controller && e.Blocker.HasRace(races);
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

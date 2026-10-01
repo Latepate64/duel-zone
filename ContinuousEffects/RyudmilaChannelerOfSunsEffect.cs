@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -12,7 +11,7 @@ public sealed class RyudmilaChannelerOfSunsEffect : DestructionReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        return new RyudmilaEvent(Source);
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()

@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,7 +14,7 @@ public sealed class CopperLocustAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is EvolutionEvent;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

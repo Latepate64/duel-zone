@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,6 +14,6 @@ public abstract class WheneverCreatureAttacksAbility : CardTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureAttackedEvent e && TriggersFrom(e.Attacker, game);
+        throw new NotImplementedException();
     }
 }

@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -19,7 +18,7 @@ public sealed class FistsOfForeverAbility : LinkedTriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BattleEvent e && e.Winners.Contains(_creature);
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

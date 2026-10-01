@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
@@ -72,6 +71,6 @@ public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
             baits = evolutionCreature.Owner.ChooseCreatures(creatures, 2, 2, "Choose creatures to evolve from.");
         }
         while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
-        game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, [.. baits]));
+        throw new NotImplementedException();
     }
 }

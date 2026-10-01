@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -15,8 +14,7 @@ public sealed class NemonexAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is BecomeUnblockedEvent e && e.Attacker.Owner == Controller
-            && e.Attacker.HasRace(Race.Xenoparts, Race.GiantInsect);
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

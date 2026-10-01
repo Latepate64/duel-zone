@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -20,7 +19,7 @@ public abstract class SingleBaitEvolutionEffect : ContinuousEffect, IEvolutionEf
     {
         var baits = GetPossibleBaits(game, evolutionCreature);
         var bait = evolutionCreature.Owner.ChooseCard(baits, "Choose a creature to evolve from.");
-        game.ProcessEvents(new EvolutionEvent(evolutionCreature.Owner, evolutionCreature, bait));
+        throw new NotImplementedException();
     }
 
     protected abstract IEnumerable<ICreature> GetPossibleBaits(IGame game, ICreature evolutionCreature);

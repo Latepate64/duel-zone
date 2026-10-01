@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -15,9 +14,7 @@ public sealed class OpponentSummonOrCastAbility : TriggeredAbility
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
     {
-        var opponent = game.GetOpponent(Controller);
-        return gameEvent is CreatureSummonedEvent summon && summon.Player == opponent
-            || gameEvent is SpellCastEvent cast && cast.Player == opponent;
+        throw new NotImplementedException();
     }
 
     public override IAbility Copy()

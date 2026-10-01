@@ -1,4 +1,3 @@
-using GameEvents;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -16,13 +15,12 @@ public sealed class KyuroroEffect : ReplacementEffect
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
     {
-        var e = gameEvent as CreatureBreaksShieldsEvent;
-        return new KyuroroEvent(e.Attacker, e.BreakAmount);
+        throw new NotImplementedException();
     }
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is CreatureBreaksShieldsEvent e && e.Attacker.Owner == game.GetOpponent(Controller);
+        throw new NotImplementedException();
     }
 
     public override IContinuousEffect Copy()
