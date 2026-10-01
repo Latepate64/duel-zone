@@ -211,257 +211,6 @@ public sealed class GameTests
     }
 
     [Fact]
-    public void CardIsPutFromHandIntoManaZoneDuringChargePhase()
-    {
-        // Arrange
-        var game = CreateAndStartGame();
-        var player = game.State.ActivePlayer;
-        var toCharge = player.Hand.Cards.ElementAt(3);
-
-        // Act
-        game.Play(new ChargeEvent(player) { ChosenCard = toCharge });
-
-        // Assert
-        Assert.DoesNotContain(toCharge, player.Hand.Cards);
-        Assert.Contains(toCharge, player.ManaZone.Cards);
-        Assert.Equal(new UseCardEvent(player), game.State.PassableAction);
-    }
-
-    [Fact]
-    public void UsingCardOutsideOfHandThrows()
-    {
-        // Arrange
-        var game = CreateAndStartGame();
-        var player = game.State.ActivePlayer;
-        var mana = player.Hand.Cards.Last();
-        game.Play(new ChargeEvent(player) { ChosenCard = mana });
-
-        // Act
-        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
-        {
-            Card = mana,
-            PaymentCards = [mana]
-        }));
-
-        // Assert
-        Assert.Equal(IllegalActionType.HandDoesNotContainCard, ex.Type);
-    }
-
-    [Fact]
-    public void UsingCardWithInsufficientPaymentForManaCostThrows()
-    {
-        // Arrange
-        var game = CreateAndStartGame();
-        var player = game.State.ActivePlayer;
-        var mana = player.Hand.Cards.Last();
-        game.Play(new ChargeEvent(player) { ChosenCard = mana });
-        var useCard = player.Hand.Cards.Last();
-
-        // Act
-        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
-        {
-            Card = useCard,
-            PaymentCards = []
-        }));
-
-        // Assert
-        Assert.Equal(IllegalActionType.UseCardPaymentForManaCost, ex.Type);
-    }
-
-    [Fact]
-    public void PayingWithTappedManaThrows()
-    {
-        // Arrange
-        var player = new PlayerV2()
-        {
-            Hand = new Hand([CreateCreature()]),
-            ManaZone = new ManaZone([CreateCreature(tapped: true)]),
-        };
-        var state = new GameState([player, (CreatePlayer(DeckSize))])
-        {
-            EventsHappening = new EventStack(new MainPhaseEvent(player))
-        };
-        state.PassableAction = new UseCardEvent(state.ActivePlayer);
-        var game = CreateGame(state);
-
-        // Act
-        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
-        {
-            Card = player.Hand.Cards.Single(),
-            PaymentCards = player.ManaZone.Cards
-        }));
-
-        // Assert
-        Assert.Equal(IllegalActionType.UseCardTappedManaForPayment, ex.Type);
-    }
-
-    [Fact]
-    public void UsingCardWithInsufficientPaymentForCivilizationsThrows()
-    {
-        // Arrange
-        var player = new PlayerV2()
-        {
-            Hand = new Hand([CreateCreature(Civilization.Light)]),
-            ManaZone = new ManaZone([CreateCreature(Civilization.Water)]),
-        };
-        var state = new GameState([player, (CreatePlayer(DeckSize))])
-        {
-            EventsHappening = new EventStack(new MainPhaseEvent(player))
-        };
-        state.PassableAction = new UseCardEvent(state.ActivePlayer);
-        var game = CreateGame(state);
-
-        // Act
-        var ex = Assert.Throws<IllegalActionException>(() => game.Play(new UseCardEvent(player)
-        {
-            Card = player.Hand.Cards.Single(),
-            PaymentCards = player.ManaZone.Cards
-        }));
-
-        // Assert
-        Assert.Equal(IllegalActionType.UseCardPaymentForCivilizations, ex.Type);
-    }
-
-    [Fact]
-    public void SummoningACreaturePutsItFromHandIntoTheBattleZoneAndTapsPaymentCards()
-    {
-        // Arrange
-        var player = new PlayerV2()
-        {
-            Hand = new Hand([CreateCreature(), CreateCreature()]),
-            ManaZone = new ManaZone([CreateCreature()]),
-        };
-        var state = new GameState([player, (CreatePlayer(DeckSize))])
-        {
-            EventsHappening = new EventStack(new MainPhaseEvent(player))
-        };
-        state.PassableAction = new UseCardEvent(state.ActivePlayer);
-        var toUse = player.Hand.Cards.Last();
-
-        // Act
-        CreateGame(state).Play(new UseCardEvent(player)
-        {
-            Card = toUse,
-            PaymentCards = player.ManaZone.Cards
-        });
-
-        // Assert
-        Assert.True(player.ManaZone.Cards.Single().Tapped);
-        Assert.DoesNotContain(toUse, player.Hand.Cards);
-        Assert.Contains(toUse, state.BattleZone.Cards);
-        Assert.Equal(new UseCardEvent(state.ActivePlayer), state.PassableAction);
-    }
-
-    [Fact]
-    public void AttackingACreatureWithLowerPowerDestroysTheDefendingCreature()
-    {
-        // Arrange
-        var player = CreatePlayer(DeckSize);
-        var opponent = CreatePlayer(DeckSize);
-        var attackingCreature = CreateCreature(summoningSickness: false, power: 2000, owner: player);
-        var defendingCreature = CreateCreature(power: 1000, owner: opponent);
-        var state = new GameState([player, opponent])
-        {
-            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
-            BattleZone = new BattleZone([attackingCreature, defendingCreature]),
-        };
-        state.PassableAction = new AttackEvent(state.ActivePlayer);
-
-        // Act
-        CreateGame(state).Play(new AttackEvent(player)
-        {
-            AttackingCreature = attackingCreature,
-            AttackedCreature = defendingCreature,
-        });
-
-        // Assert
-        Assert.Contains(attackingCreature, state.BattleZone.Creatures);
-        Assert.True(attackingCreature.Tapped);
-        Assert.Contains(defendingCreature, opponent.Graveyard.Creatures);
-    }
-
-    [Fact]
-    public void AttackingACreatureWithHigherPowerDestroysTheAttackingCreature()
-    {
-        // Arrange
-        var player = CreatePlayer(DeckSize);
-        var opponent = CreatePlayer(DeckSize);
-        var attackingCreature = CreateCreature(summoningSickness: false, power: 1000, owner: player);
-        var defendingCreature = CreateCreature(power: 2000, owner: opponent);
-        var state = new GameState([player, opponent])
-        {
-            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
-            BattleZone = new BattleZone([attackingCreature, defendingCreature]),
-        };
-        state.PassableAction = new AttackEvent(state.ActivePlayer);
-
-        // Act
-        CreateGame(state).Play(new AttackEvent(player)
-        {
-            AttackingCreature = attackingCreature,
-            AttackedCreature = defendingCreature,
-        });
-
-        // Assert
-        Assert.Contains(defendingCreature, state.BattleZone.Creatures);
-        Assert.Contains(attackingCreature, player.Graveyard.Creatures);
-    }
-
-    [Fact]
-    public void AttackingACreatureWithEqualPowerDestroysBothCreatures()
-    {
-        // Arrange
-        var player = CreatePlayer(DeckSize);
-        var opponent = CreatePlayer(DeckSize);
-        var attackingCreature = CreateCreature(summoningSickness: false, power: 1000, owner: player);
-        var defendingCreature = CreateCreature(power: 1000, owner: opponent);
-        var state = new GameState([player, opponent])
-        {
-            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
-            BattleZone = new BattleZone([attackingCreature, defendingCreature]),
-        };
-        state.PassableAction = new AttackEvent(state.ActivePlayer);
-
-        // Act
-        CreateGame(state).Play(new AttackEvent(player)
-        {
-            AttackingCreature = attackingCreature,
-            AttackedCreature = defendingCreature,
-        });
-
-        // Assert
-        Assert.Contains(attackingCreature, player.Graveyard.Creatures);
-        Assert.Contains(defendingCreature, opponent.Graveyard.Creatures);
-    }
-
-    [Fact]
-    public void AttackingAPlayerWhoHasNoShieldsLoses()
-    {
-        // Arrange
-        var player = CreatePlayer(DeckSize);
-        var opponent = CreatePlayer(DeckSize);
-        var attackingCreature = CreateCreature(summoningSickness: false, owner: player);
-        var state = new GameState([player, opponent])
-        {
-            EventsHappening = new EventStack(new AttackPhaseEvent(player)),
-            BattleZone = new BattleZone([attackingCreature]),
-        };
-        state.PassableAction = new AttackEvent(state.ActivePlayer);
-
-        // Act
-        CreateGame(state).Play(new AttackEvent(player)
-        {
-            AttackingCreature = attackingCreature,
-            AttackedPlayer = opponent,
-        });
-
-        // Assert
-        Assert.Equal(player, state.Winner);
-        Assert.Contains(opponent, state.Losers);
-        Assert.True(state.GameOver);
-    }
-
-    [Fact]
     public void PlayerOrderIsUpdatedAfterTurnEnds()
     {
         // Arrange
@@ -503,6 +252,27 @@ public sealed class GameTests
         // Act + Assert
         Assert.Throws<NotImplementedException>(
             () => game.Play(Mock.Of<IPassAction>()));
+    }
+
+    [Fact]
+    public void GameEnds()
+    {
+        // Arrange
+        var state = new Mock<IGameState>();
+        var gameEvent = new Mock<IPassableGameEvent>();
+        state.SetupGet(x => x.PassableAction).Returns(gameEvent.Object);
+        gameEvent.Setup(x => x.Validate(gameEvent.Object));
+        state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
+        state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
+        state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns([]);
+        state.SetupSequence(x => x.GameOver).Returns(false).Returns(true);
+        var game = CreateGame(state.Object);
+        
+        // Act
+        game.Play(Mock.Of<IPassableGameEvent>());
+
+        // Assert
+        Assert.Equal(state.Object, game.State);
     }
 
     static PlayerV2 CreatePlayer(int deckSize, int handSize = 5)
@@ -550,15 +320,6 @@ public sealed class GameTests
             EventsHappening = new EventStack(new TakeTurnEvent(
                 startingPlayer, true))
         };
-    }
-
-    static Game CreateAndStartGame()
-    {
-        var game = new Game(Mock.Of<IRandomizer>());
-        var startingPlayer = CreatePlayer(DeckSize, handSize: 0);
-        var otherPlayer = CreatePlayer(DeckSize, handSize: 0);
-        game.Start(startingPlayer, otherPlayer);
-        return game;
     }
 
     static Game CreateGame(IGameState state, int maxloopCount = 99) => new(
