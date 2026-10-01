@@ -14,7 +14,8 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
 
     GameState _originalState;
 
-    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 5) : this(randomizer, maxLoopCount)
+    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 5)
+        : this(randomizer, maxLoopCount)
     {
         State = state;
         _originalState = state;
@@ -31,13 +32,17 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State);
         for (int i = 0; i < 5; ++i)
         {
-            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.ShieldZone).Happen(State);
-            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.ShieldZone).Happen(State);
+            new MoveTopCardOfDeckEvent(
+                startingPlayer, ZoneType.ShieldZone).Happen(State);
+            new MoveTopCardOfDeckEvent(
+                otherPlayer, ZoneType.ShieldZone).Happen(State);
         }
         for (int i = 0; i < 5; ++i)
         {
-            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
-            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
+            new MoveTopCardOfDeckEvent(
+                startingPlayer, ZoneType.Hand).Happen(State);
+            new MoveTopCardOfDeckEvent(
+                otherPlayer, ZoneType.Hand).Happen(State);
         }
         Continue();
     }
@@ -74,7 +79,8 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         }
         if (action.Player != State.PassableAction.Player)
         {
-            throw new IllegalActionException(action, IllegalActionType.UnexpectedPlayer);
+            throw new IllegalActionException(
+                action, IllegalActionType.UnexpectedPlayer);
         }
         if (action is IPassAction)
         {
@@ -111,19 +117,18 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
             {
                 State.UpdatePlayerOrder();
             }
-            State.EventsThatWouldHappen.Add(new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber));
+            State.EventsThatWouldHappen.Add(
+                new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber));
             Continue(loopCounter);
             return;
         }
         var events = State.EventsHappening.Happen(State);
-        if (State.GameOver)
-        {
-            return;
-        }
+        if (State.GameOver) return;
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
-            // TODO: Broadcast happened event to clients, triggers and watchers
+            // TODO: Broadcast events that happened to
+            // clients, triggers and watchers
             Continue(loopCounter);
             return;
         }

@@ -5,11 +5,13 @@ namespace GameEvents;
 public sealed class TakeTurnEvent : GameEventV2
 {
     public int TurnNumber { get; }
-    public PhaseType NextPhase { get; private set; } = PhaseType.StartOfTurn;
+    public PhaseType NextPhase { get; private set; }
 
-    public TakeTurnEvent(IPlayerV2 player, int turnNumber) : base(player)
+    public TakeTurnEvent(IPlayerV2 player, int turnNumber,
+        PhaseType nextPhase = PhaseType.StartOfTurn) : base(player)
     {
         TurnNumber = turnNumber;
+        NextPhase = nextPhase;
     }
 
     TakeTurnEvent(TakeTurnEvent gameEvent) : base(gameEvent)

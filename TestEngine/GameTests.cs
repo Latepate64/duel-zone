@@ -180,11 +180,34 @@ public sealed class GameTests
         var game = CreateGame(state, 0);
 
         // Act
-        var ex = Assert.Throws<InvalidOperationException>(() => game.Play(new PassAction(state.ActivePlayer)));
+        var ex = Assert.Throws<InvalidOperationException>(() => game.Play(
+            new PassAction(state.ActivePlayer)));
 
         // Assert
         Assert.Equal("Looped too many times", ex.Message);
         Assert.Equal(state, game.State);
+    }
+
+    [Fact]
+    public void ProceedToOpponentsChargeAfterActivePlayerPassesCharging()
+    {
+        // Arrange
+        var startingPlayer = CreatePlayer(DeckSize);
+        var otherPlayer = CreatePlayer(DeckSize);
+        var state = new GameState([startingPlayer, otherPlayer])
+        {
+            EventsHappening = new EventStack(new TakeTurnEvent(
+                startingPlayer, 1, PhaseType.Main)),
+            PassableAction = new ChargeEvent(startingPlayer)
+        };
+        var game = CreateGame(state);
+
+        // Act
+        game.Play(new PassAction(startingPlayer));
+
+        // Assert
+        Assert.Equal(
+            new UseCardEvent(startingPlayer), game.State.PassableAction);
     }
 
     [Fact]
@@ -493,5 +516,6 @@ public sealed class GameTests
         return game;
     }
 
-    static Game CreateGame(GameState state, int maxloopCount = 99) => new(Mock.Of<IRandomizer>(), state, maxloopCount);
+    static Game CreateGame(GameState state, int maxloopCount = 99) => new(
+        Mock.Of<IRandomizer>(), state, maxloopCount);
 }
