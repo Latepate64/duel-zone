@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameEvents;
 using Interfaces;
 
 namespace Engine;
@@ -64,8 +63,8 @@ public sealed class Game(int maxLoopCount = 5)
         }
         if (action.Player != State.PassableAction.Player)
         {
-            throw new IllegalActionException(
-                action, IllegalActionType.UnexpectedPlayer);
+            throw new InvalidOperationException(
+                "Unexpected player tried to take action");
         }
         if (action is IPassAction)
         {
@@ -97,13 +96,7 @@ public sealed class Game(int maxLoopCount = 5)
         }
         if (State.EventsHappening.IsEmpty)
         {
-            if (State.TurnNumber > 0)
-            {
-                State.SwapActivePlayer();
-            }
-            State.EventsThatWouldHappen.Add(
-                new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber == 1));
-            return Continue(loopCounter);
+            return PlayState.ChangeTurn;
         }
         var events = State.EventsHappening.Happen(State);
         CheckEmptyDecks();

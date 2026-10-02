@@ -1,6 +1,5 @@
 using System;
 using Engine;
-using GameEvents;
 using Interfaces;
 using Moq;
 using Xunit;
@@ -9,35 +8,6 @@ namespace TestEngine;
 
 public sealed class GameTests
 {
-    [Fact]
-    public void PlayerOrderIsUpdatedAfterTurnEnds()
-    {
-        var activePlayer = new Mock<IPlayerV2>();
-        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var nonActivePlayer = new Mock<IPlayerV2>();
-        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var state = new Mock<IGameState>();
-        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
-        state.SetupGet(x => x.NonActivePlayers).Returns([
-            nonActivePlayer.Object]);
-        state.SetupGet(x => x.PassableAction).Returns(
-            Mock.Of<IPassableGameEvent>);
-        state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
-        state.SetupSequence(x => x.EventsHappening.IsEmpty)
-            .Returns(true).Returns(false);
-        state.SetupSequence(x => x.GameOver).Returns(false).Returns(true);
-        state.SetupGet(x => x.TurnNumber).Returns(1);
-        var game = CreateGame(state.Object);
-
-        // Act
-        var playState = game.Play(Mock.Of<IPassAction>());
-
-        // Assert
-        state.Verify(x => x.SwapActivePlayer());
-        Assert.Equal(state.Object, game.State);
-        Assert.Equal(PlayState.GameOver, playState);
-    }
-
     [Fact]
     public void
         EventsHappeningReturningMoreThanOnePassableGameEventThrowsNotImplementedException()
@@ -67,8 +37,10 @@ public sealed class GameTests
         Assert.Equal(state.Object, game.State);
     }
 
-    [Fact]
-    public void GameEnds()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GameEnds(bool loop)
     {
         // Arrange
         var activePlayer = new Mock<IPlayerV2>();
@@ -79,21 +51,37 @@ public sealed class GameTests
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
         state.SetupGet(x => x.NonActivePlayers).Returns([
             nonActivePlayer.Object]);
-        var gameEvent = new Mock<IPassableGameEvent>();
-        state.SetupGet(x => x.PassableAction).Returns(gameEvent.Object);
-        gameEvent.Setup(x => x.Validate(gameEvent.Object));
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
-        state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns([]);
-        state.SetupSequence(x => x.GameOver).Returns(false).Returns(true);
+        var passableAction = new Mock<IPassableGameEvent>();
+        if (loop)
+        {
+            passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
+        }
+        else
+        {
+            passableAction.Setup(x => x.Validate(passableAction.Object));
+            state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns(
+                []);
+            state.SetupSequence(x => x.GameOver).Returns(false).Returns(true);
+        }
+        state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         var game = CreateGame(state.Object);
         
-        // Act
-        var playState = game.Play(Mock.Of<IPassableGameEvent>());
-
-        // Assert
-        Assert.Equal(state.Object, game.State);
-        Assert.Equal(PlayState.GameOver, playState);
+        // Act + Assert
+        if (loop)
+        {
+            var ex = Assert.Throws<InvalidOperationException>(
+                () => game.Play(passableAction.Object));
+            Assert.Equal(state.Object, game.State);
+            Assert.Equal("Looped too many times", ex.Message);
+        }
+        else
+        {
+            var playState = game.Play(Mock.Of<IPassableGameEvent>());
+            Assert.Equal(state.Object, game.State);
+            Assert.Equal(PlayState.GameOver, playState);
+        }
     }
 
     [Fact]
@@ -137,7 +125,7 @@ public sealed class GameTests
         // Assert
         Assert.Equal(
             [startingPlayer.Object, otherPlayer.Object], game.State.Losers);
-        Assert.Equal(PlayState.GameOver, playState);
+        Assert.Equal(PlayState.ChangeTurn, playState);
     }
 
     [Theory]
@@ -191,43 +179,13 @@ public sealed class GameTests
         gameEvent.SetupGet(x => x.Player).Returns(Mock.Of<IPlayerV2>());
         
         // Act
-        var illegalActionException = Assert.Throws<IllegalActionException>(
+        var illegalActionException = Assert.Throws<InvalidOperationException>(
             () => game.Play(gameEvent.Object));
 
         // Assert
-        Assert.Equal(
-            IllegalActionType.UnexpectedPlayer, illegalActionException.Type);
+        Assert.Equal("Unexpected player tried to take action",
+            illegalActionException.Message);
         Assert.Equal(state.Object, game.State);
-    }
-
-    [Fact]
-    public void LoopCounterFull()
-    {
-        // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
-        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var nonActivePlayer = new Mock<IPlayerV2>();
-        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var state = new Mock<IGameState>();
-        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
-        state.SetupGet(x => x.NonActivePlayers).Returns([
-            nonActivePlayer.Object]);
-        var passableAction = new Mock<IPassableGameEvent>();
-        passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
-        state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
-        state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
-        state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
-        var gameEvent = new Mock<IGameEventV2>();
-        gameEvent.SetupGet(x => x.Player).Returns(activePlayer.Object);
-        var game = CreateGame(state.Object, maxloopCount: 0);
-        
-        // Act
-        var ex = Assert.Throws<InvalidOperationException>(
-            () => game.Play(gameEvent.Object));
-
-        // Assert
-        Assert.Equal(state.Object, game.State);
-        Assert.Equal("Looped too many times", ex.Message);
     }
 
     public enum TestMode
