@@ -115,8 +115,7 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         {
             if (State.TurnNumber > 0)
             {
-                // TODO: This doesn't work correctly with over two players
-                State.Players = [.. State.Players.Reverse()];
+                State.SwapActivePlayer();
             }
             State.EventsThatWouldHappen.Add(
                 new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber == 1));

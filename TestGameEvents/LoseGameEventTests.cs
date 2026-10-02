@@ -46,7 +46,8 @@ public class LoseGameEventTests
         var lose = new LoseGameEvent(loser);
         var state = new Mock<IGameState>();
         state.Setup(x => x.Losers.Add(loser));
-        state.SetupGet(x => x.Players).Returns([loser, winner]);
+        state.SetupGet(x => x.ActivePlayer).Returns(winner);
+        state.SetupGet(x => x.NonActivePlayers).Returns([loser]);
 
         // Act
         var actual = lose.Happen(state.Object);

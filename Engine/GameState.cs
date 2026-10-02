@@ -10,10 +10,6 @@ namespace Engine;
 
 public sealed class GameState(IPlayerV2[] players) : IGameState
 {
-    /// <summary>
-    /// People in the game in an APNAP order.
-    /// </summary>
-    public IPlayerV2[] Players { get; set; } = players;
     public IPlayerV2 Winner { get; set; }
     public IList<IPlayerV2> Losers { get; init; } = [];
     public IEventStack EventsHappening { get; init; } = new EventStack();
@@ -28,14 +24,14 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
         game: null);
 
-    public IPlayerV2 ActivePlayer => Players.First();
-    public IEnumerable<IPlayerV2> NonActivePlayers => Players.Skip(1);
-    public bool GameOver => Winner != null || Losers.Count == Players.Length;
+    public IPlayerV2 ActivePlayer { get; set; }
+    public IEnumerable<IPlayerV2> NonActivePlayers { get; set; } = [];
+    public bool GameOver => Winner != null ||
+        (ActivePlayer == null && !NonActivePlayers.Any());
 
     public override bool Equals(object obj)
     {
         return obj is GameState state
-            && Players.SequenceEqual(state.Players)
             && Winner == state.Winner
             && Losers.SequenceEqual(state.Losers)
             && EventsHappening == state.EventsHappening
@@ -44,5 +40,14 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
             && TurnNumber == state.TurnNumber
             && BattleZone == state.BattleZone
             && ContinuousEffects == state.ContinuousEffects;
+    }
+
+    public void SwapActivePlayer()
+    {
+        // TODO: This doesn't work correctly with over two players
+        var nonActive = NonActivePlayers.Single();
+        var active = ActivePlayer;
+        ActivePlayer = nonActive;
+        NonActivePlayers = [active];
     }
 }
