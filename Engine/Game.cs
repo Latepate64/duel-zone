@@ -1,50 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using GameEvents;
 using Interfaces;
 
 namespace Engine;
 
-public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
+public sealed class Game(int maxLoopCount = 5)
 {
-    readonly IRandomizer randomizer = randomizer;
     readonly int maxLoopCount = maxLoopCount;
 
-    public GameState State { get; private set; }
+    public IGameState State { get; private set; }
 
-    GameState _originalState;
+    IGameState _originalState;
 
-    public Game(IRandomizer randomizer, GameState state, int maxLoopCount = 5) : this(randomizer, maxLoopCount)
+    public Game(IGameState state, int maxLoopCount = 5)
+        : this(maxLoopCount)
     {
         State = state;
         _originalState = state;
     }
 
-    public void Start(IPlayerV2 startingPlayer, IPlayerV2 otherPlayer)
-    {
-        if (State != null)
-        {
-            throw new InvalidOperationException("Game has started already");
-        }
-        State = new GameState([startingPlayer, otherPlayer]);
-        new ShuffleDeckEvent(startingPlayer, randomizer).Happen(State);
-        new ShuffleDeckEvent(otherPlayer, randomizer).Happen(State);
-        for (int i = 0; i < 5; ++i)
-        {
-            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.ShieldZone).Happen(State);
-            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.ShieldZone).Happen(State);
-        }
-        for (int i = 0; i < 5; ++i)
-        {
-            new MoveTopCardOfDeckEvent(startingPlayer, ZoneType.Hand).Happen(State);
-            new MoveTopCardOfDeckEvent(otherPlayer, ZoneType.Hand).Happen(State);
-        }
-        Continue();
-    }
-
     public void Play(IGameEventV2 action)
     {
         ArgumentNullException.ThrowIfNull(action);
+        if (action is IStartGameEvent start)
+        {
+            if (State != null)
+            {
+                throw new InvalidOperationException("Game has started already");
+            }
+            State = new GameState([start.Player, start.OtherPlayer]);
+            start.Happen(State);
+            Continue();
+            return;
+        }
         if (State.GameOver)
         {
             throw new InvalidOperationException("Game has ended already");
@@ -74,12 +63,13 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         }
         if (action.Player != State.PassableAction.Player)
         {
-            throw new IllegalActionException(action, IllegalActionType.UnexpectedPlayer);
+            throw new InvalidOperationException(
+                "Unexpected player tried to take action");
         }
         if (action is IPassAction)
         {
             // TODO: Throw if there was no action to be passed
-            State.RemovePassableAction();
+            State.PassableAction = null;
             Continue();
             return;
         }
@@ -87,9 +77,10 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         {
             State.PassableAction.Validate(passable);
         }
-        State.RemovePassableAction();
+        State.PassableAction = null;
         State.EventsThatWouldHappen.Add(action);
         Continue();
+        return;
     }
 
     void Continue(int loopCounter = 0)
@@ -107,15 +98,10 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         }
         if (State.EventsHappening.IsEmpty)
         {
-            if (State.TurnNumber > 0)
-            {
-                State.UpdatePlayerOrder();
-            }
-            State.EventsThatWouldHappen.Add(new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber));
-            Continue(loopCounter);
             return;
         }
         var events = State.EventsHappening.Happen(State);
+        CheckEmptyDecks();
         if (State.GameOver)
         {
             return;
@@ -123,7 +109,8 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
-            // TODO: Broadcast happened event to clients, triggers and watchers
+            // TODO: Broadcast events that happened to
+            // clients, triggers and watchers
             Continue(loopCounter);
             return;
         }
@@ -139,5 +126,17 @@ public sealed class Game(IRandomizer randomizer, int maxLoopCount = 5)
         }
         State.EventsThatWouldHappen.Add([.. events]);
         Continue(loopCounter);
+    }
+
+    void CheckEmptyDecks()
+    {
+        var players = new List<IPlayerV2> { State.ActivePlayer };
+        players.AddRange(State.NonActivePlayers);
+        var losers = players.Where(x => !x.Deck.HasCards);
+        if (losers.Any())
+        {
+            State.Losers = [.. losers];
+            State.Winner = players.SingleOrDefault(x => !losers.Contains(x));
+        }
     }
 }

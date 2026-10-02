@@ -4,18 +4,20 @@ namespace GameEvents;
 
 public sealed class TakeTurnEvent : GameEventV2
 {
-    public int TurnNumber { get; }
-    public PhaseType NextPhase { get; private set; } = PhaseType.StartOfTurn;
+    public bool SkipDrawPhase { get; }
+    public PhaseType NextPhase { get; private set; }
 
-    public TakeTurnEvent(IPlayerV2 player, int turnNumber) : base(player)
+    public TakeTurnEvent(IPlayerV2 player, bool skipDrawPhase,
+        PhaseType nextPhase = PhaseType.StartOfTurn) : base(player)
     {
-        TurnNumber = turnNumber;
+        SkipDrawPhase = skipDrawPhase;
+        NextPhase = nextPhase;
     }
 
     TakeTurnEvent(TakeTurnEvent gameEvent) : base(gameEvent)
     {
         NextPhase = gameEvent.NextPhase;
-        TurnNumber = gameEvent.TurnNumber;
+        SkipDrawPhase = gameEvent.SkipDrawPhase;
     }
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
@@ -28,7 +30,7 @@ public sealed class TakeTurnEvent : GameEventV2
         if (NextPhase == PhaseType.Draw)
         {
             NextPhase = PhaseType.Charge;
-            if (TurnNumber > 1)
+            if (!SkipDrawPhase)
             {
                 return [new DrawPhaseEvent(Player)];
             }
@@ -55,7 +57,7 @@ public sealed class TakeTurnEvent : GameEventV2
     {
         if (!base.Equals(obj)) return false;
         if (obj is not TakeTurnEvent e) return false;
-        if (TurnNumber != e.TurnNumber) return false;
+        if (SkipDrawPhase != e.SkipDrawPhase) return false;
         if (NextPhase != e.NextPhase) return false;
         return true;
     }
@@ -69,7 +71,7 @@ public sealed class TakeTurnEvent : GameEventV2
     {
         return HashCode.Combine(
             base.GetHashCode(),
-            TurnNumber.GetHashCode(),
+            SkipDrawPhase.GetHashCode(),
             NextPhase.GetHashCode());
     }
 }

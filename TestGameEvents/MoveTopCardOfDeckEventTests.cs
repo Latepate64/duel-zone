@@ -21,8 +21,11 @@ public class MoveTopCardOfDeckEventTests
         Assert.Equal(e, actual);
     }
 
-    [Fact]
-    public void TopCardOfDeckIsMovedToDestination()
+    [Theory]
+    [InlineData(ZoneType.ManaZone)]
+    [InlineData(ZoneType.Hand)]
+    [InlineData(ZoneType.ShieldZone)]
+    public void TopCardOfDeckIsMovedToDestination(ZoneType destination)
     {
         // Arrange
         var card = Mock.Of<ICard>();
@@ -30,8 +33,19 @@ public class MoveTopCardOfDeckEventTests
         player.SetupGet(x => x.Deck.HasCards).Returns(true);
         player.SetupGet(x => x.Deck.TopCard).Returns(card);
         player.Setup(x => x.Deck.Remove(card));
-        player.Setup(x => x.ManaZone.Add(card));
-        var e = new MoveTopCardOfDeckEvent(player.Object, ZoneType.ManaZone);
+        if (destination == ZoneType.ManaZone)
+        {
+            player.Setup(x => x.ManaZone.Add(card));
+        }
+        if (destination == ZoneType.Hand)
+        {
+            player.Setup(x => x.Hand.Add(card));
+        }
+        if (destination == ZoneType.ShieldZone)
+        {
+            player.Setup(x => x.ShieldZone.Add(card));
+        }
+        var e = new MoveTopCardOfDeckEvent(player.Object, destination);
 
         // Act
         var events = e.Happen(Mock.Of<IGameState>());
@@ -39,7 +53,18 @@ public class MoveTopCardOfDeckEventTests
         // Assert
         Assert.Empty(events);
         player.Verify(x => x.Deck.Remove(card));
-        player.Verify(x => x.ManaZone.Add(card));
+        if (destination == ZoneType.ManaZone)
+        {
+            player.Verify(x => x.ManaZone.Add(card));
+        }
+        if (destination == ZoneType.Hand)
+        {
+            player.Verify(x => x.Hand.Add(card));
+        }
+        if (destination == ZoneType.ShieldZone)
+        {
+            player.Verify(x => x.ShieldZone.Add(card));
+        }
     }
 
     [Fact]

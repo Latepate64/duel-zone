@@ -4,7 +4,6 @@ public enum IllegalActionType
 {
     Unknown,
     UnexpectedType,
-    UnexpectedPlayer,
     HandDoesNotContainCard,
     UseCardTappedManaForPayment,
     UseCardPaymentForManaCost,
