@@ -6,7 +6,7 @@ namespace Interfaces;
 public interface IGameState
 {
     IPlayerV2 Winner { get; set; }
-    IList<IPlayerV2> Losers { get; init; }
+    IList<IPlayerV2> Losers { get; set; }
     IEventStack EventsHappening { get; init; }
     IPassableGameEvent PassableAction { get; set; }
     IEventsThatWouldHappen EventsThatWouldHappen { get; }

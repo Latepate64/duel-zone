@@ -11,7 +11,7 @@ namespace Engine;
 public sealed class GameState(IPlayerV2[] players) : IGameState
 {
     public IPlayerV2 Winner { get; set; }
-    public IList<IPlayerV2> Losers { get; init; } = [];
+    public IList<IPlayerV2> Losers { get; set; } = [];
     public IEventStack EventsHappening { get; init; } = new EventStack();
 
     /// <summary>
@@ -24,8 +24,9 @@ public sealed class GameState(IPlayerV2[] players) : IGameState
     public IContinuousEffects ContinuousEffects { get; internal set; } = new ContinuousEffects.ContinuousEffects(
         game: null);
 
-    public IPlayerV2 ActivePlayer { get; set; }
-    public IEnumerable<IPlayerV2> NonActivePlayers { get; set; } = [];
+    public IPlayerV2 ActivePlayer { get; set; } = players.First();
+    public IEnumerable<IPlayerV2> NonActivePlayers { get; set; } = players.Skip(
+        1);
     public bool GameOver => Winner != null ||
         (ActivePlayer == null && !NonActivePlayers.Any());
 

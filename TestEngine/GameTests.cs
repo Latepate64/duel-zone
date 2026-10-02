@@ -12,9 +12,14 @@ public sealed class GameTests
     [Fact]
     public void PlayerOrderIsUpdatedAfterTurnEnds()
     {
-        var startingPlayer = Mock.Of<IPlayerV2>();
-        var otherPlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = new Mock<IPlayerV2>();
+        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
+        var nonActivePlayer = new Mock<IPlayerV2>();
+        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
+        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
+        state.SetupGet(x => x.NonActivePlayers).Returns([
+            nonActivePlayer.Object]);
         state.SetupGet(x => x.PassableAction).Returns(
             Mock.Of<IPassableGameEvent>);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
@@ -37,7 +42,14 @@ public sealed class GameTests
         EventsHappeningReturningMoreThanOnePassableGameEventThrowsNotImplementedException()
     {
         // Arrange
+        var activePlayer = new Mock<IPlayerV2>();
+        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
+        var nonActivePlayer = new Mock<IPlayerV2>();
+        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
+        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
+        state.SetupGet(x => x.NonActivePlayers).Returns([
+            nonActivePlayer.Object]);
         state.SetupGet(x => x.PassableAction).Returns(
             Mock.Of<IPassableGameEvent>);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
@@ -58,7 +70,14 @@ public sealed class GameTests
     public void GameEnds()
     {
         // Arrange
+        var activePlayer = new Mock<IPlayerV2>();
+        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
+        var nonActivePlayer = new Mock<IPlayerV2>();
+        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
+        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
+        state.SetupGet(x => x.NonActivePlayers).Returns([
+            nonActivePlayer.Object]);
         var gameEvent = new Mock<IPassableGameEvent>();
         state.SetupGet(x => x.PassableAction).Returns(gameEvent.Object);
         gameEvent.Setup(x => x.Validate(gameEvent.Object));
@@ -83,13 +102,15 @@ public sealed class GameTests
         var game = CreateGame(state);
         var startingPlayer = Mock.Of<IPlayerV2>();
         var otherPlayer = Mock.Of<IPlayerV2>();
+        var startGame = Mock.Of<IStartGameEvent>();
         
         // Act
-        _ = Assert.Throws<InvalidOperationException>(
-            () => game.Start(startingPlayer, otherPlayer));
+        var ex = Assert.Throws<InvalidOperationException>(
+            () => game.Play(startGame));
 
         // Assert
         Assert.Equal(state, game.State);
+        Assert.Equal("Game has started already", ex.Message);
     }
 
     [Fact]
@@ -97,17 +118,23 @@ public sealed class GameTests
     {
         // Arrange
         var randomizer = Mock.Of<IRandomizer>();
-        var game = new Game(randomizer, 0);
+        var game = new Game();
         var startingPlayer = new Mock<IPlayerV2>();
         startingPlayer.Setup(x => x.Deck.Shuffle(randomizer));
+        startingPlayer.SetupGet(x => x.Deck.HasCards).Returns(false);
         var otherPlayer = new Mock<IPlayerV2>();
         otherPlayer.Setup(x => x.Deck.Shuffle(randomizer));
+        otherPlayer.SetupGet(x => x.Deck.HasCards).Returns(false);
+        var startGame = new Mock<IStartGameEvent>();
+        startGame.SetupGet(x => x.Player).Returns(startingPlayer.Object);
+        startGame.SetupGet(x => x.OtherPlayer).Returns(otherPlayer.Object);
         
         // Act
-        game.Start(startingPlayer.Object, otherPlayer.Object);
+        game.Play(startGame.Object);
 
         // Assert
-        Assert.NotNull(game.State);
+        Assert.Equal(
+            [startingPlayer.Object, otherPlayer.Object], game.State.Losers);
     }
 
     [Theory]
@@ -121,11 +148,14 @@ public sealed class GameTests
         var game = CreateGame(state.Object);
         
         // Act
-        _ = Assert.Throws<InvalidOperationException>(
+        var ex = Assert.Throws<InvalidOperationException>(
             () => game.Play(Mock.Of<IGameEventV2>()));
 
         // Assert
         Assert.Equal(state.Object, game.State);
+        Assert.Equal(
+            ended ? "Game has ended already" : "No passable action found",
+            ex.Message);
     }
 
     [Fact]
@@ -170,23 +200,30 @@ public sealed class GameTests
     public void LoopCounterFull()
     {
         // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var passableAction = new Mock<IPassableGameEvent>();
-        passableAction.SetupGet(x => x.Player).Returns(player);
+        var activePlayer = new Mock<IPlayerV2>();
+        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
+        var nonActivePlayer = new Mock<IPlayerV2>();
+        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
+        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
+        state.SetupGet(x => x.NonActivePlayers).Returns([
+            nonActivePlayer.Object]);
+        var passableAction = new Mock<IPassableGameEvent>();
+        passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
         var gameEvent = new Mock<IGameEventV2>();
-        gameEvent.SetupGet(x => x.Player).Returns(player);
+        gameEvent.SetupGet(x => x.Player).Returns(activePlayer.Object);
         var game = CreateGame(state.Object, maxloopCount: 0);
         
         // Act
-        _ = Assert.Throws<InvalidOperationException>(
+        var ex = Assert.Throws<InvalidOperationException>(
             () => game.Play(gameEvent.Object));
 
         // Assert
         Assert.Equal(state.Object, game.State);
+        Assert.Equal("Looped too many times", ex.Message);
     }
 
     public enum TestMode
@@ -203,10 +240,16 @@ public sealed class GameTests
     public void GameEndsSuccessfully(TestMode testMode)
     {
         // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var passableAction = new Mock<IPassableGameEvent>();
-        passableAction.SetupGet(x => x.Player).Returns(player);
+        var activePlayer = new Mock<IPlayerV2>();
+        activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
+        var nonActivePlayer = new Mock<IPlayerV2>();
+        nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
+        state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
+        state.SetupGet(x => x.NonActivePlayers).Returns([
+            nonActivePlayer.Object]);
+        var passableAction = new Mock<IPassableGameEvent>();
+        passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         state.Setup(x => x.EventsHappening.Push());
         var wouldHappen = Mock.Of<IGameEventV2>();
@@ -215,7 +258,7 @@ public sealed class GameTests
                 .Returns(false).Returns(false).Returns(true);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
         var gameEvent = new Mock<IGameEventV2>();
-        gameEvent.SetupGet(x => x.Player).Returns(player);
+        gameEvent.SetupGet(x => x.Player).Returns(activePlayer.Object);
         var game = CreateGame(state.Object, maxloopCount: 1);
         var passable = Mock.Of<IPassableGameEvent>();
         if (testMode == TestMode.Passable)
@@ -254,5 +297,5 @@ public sealed class GameTests
     }
 
     static Game CreateGame(IGameState state, int maxloopCount = 99) => new(
-        Mock.Of<IRandomizer>(), state, maxloopCount);
+        state, maxloopCount);
 }
