@@ -20,7 +20,7 @@ public sealed class Game(int maxLoopCount = 5)
         _originalState = state;
     }
 
-    public PlayState Play(IGameEventV2 action)
+    public void Play(IGameEventV2 action)
     {
         ArgumentNullException.ThrowIfNull(action);
         if (action is IStartGameEvent start)
@@ -31,7 +31,8 @@ public sealed class Game(int maxLoopCount = 5)
             }
             State = new GameState([start.Player, start.OtherPlayer]);
             start.Happen(State);
-            return Continue();
+            Continue();
+            return;
         }
         if (State.GameOver)
         {
@@ -39,23 +40,22 @@ public sealed class Game(int maxLoopCount = 5)
         }
         try
         {
-            var playState = Continue(action);
-            _originalState = State;
-            return playState;
+            Continue(action);
         }
         catch
         {
             State = _originalState;
             throw;
         }
+        _originalState = State;
     }
 
-    PlayState Continue(IGameEventV2 action)
+    void Continue(IGameEventV2 action)
     {
         if (action is IConcedeEvent concede)
         {
             concede.Happen(State);
-            return PlayState.GameOver;
+            return;
         }
         if (State.PassableAction == null)
         {
@@ -70,7 +70,8 @@ public sealed class Game(int maxLoopCount = 5)
         {
             // TODO: Throw if there was no action to be passed
             State.PassableAction = null;
-            return Continue();
+            Continue();
+            return;
         }
         if (action is IPassableGameEvent passable)
         {
@@ -78,10 +79,11 @@ public sealed class Game(int maxLoopCount = 5)
         }
         State.PassableAction = null;
         State.EventsThatWouldHappen.Add(action);
-        return Continue();
+        Continue();
+        return;
     }
 
-    PlayState Continue(int loopCounter = 0)
+    void Continue(int loopCounter = 0)
     {
         if (loopCounter++ > maxLoopCount)
         {
@@ -96,30 +98,34 @@ public sealed class Game(int maxLoopCount = 5)
         }
         if (State.EventsHappening.IsEmpty)
         {
-            return PlayState.ChangeTurn;
+            return;
         }
         var events = State.EventsHappening.Happen(State);
         CheckEmptyDecks();
-        if (State.GameOver) return PlayState.GameOver;
+        if (State.GameOver)
+        {
+            return;
+        }
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
             // TODO: Broadcast events that happened to
             // clients, triggers and watchers
-            return Continue(loopCounter);
+            Continue(loopCounter);
+            return;
         }
         var passables = events.OfType<IPassableGameEvent>();
         if (passables.Count() == 1)
         {
             State.PassableAction = passables.Single();
-            return PlayState.Action;
+            return;
         }
         if (passables.Count() > 1)
         {
             throw new NotImplementedException();
         }
         State.EventsThatWouldHappen.Add([.. events]);
-        return Continue(loopCounter);
+        Continue(loopCounter);
     }
 
     void CheckEmptyDecks()

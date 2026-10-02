@@ -8,9 +8,11 @@ namespace TestEngine;
 
 public sealed class GameTests
 {
-    [Fact]
-    public void
-        EventsHappeningReturningMoreThanOnePassableGameEventThrowsNotImplementedException()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void EventsHappening(bool eventsHappeningIsEmpty
+        )
     {
         // Arrange
         var activePlayer = new Mock<IPlayerV2>();
@@ -24,16 +26,29 @@ public sealed class GameTests
         state.SetupGet(x => x.PassableAction).Returns(
             Mock.Of<IPassableGameEvent>);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
-        state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
-        state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns([
-            Mock.Of<IPassableGameEvent>(),
-            Mock.Of<IPassableGameEvent>()
-        ]);
+        state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(
+            eventsHappeningIsEmpty);
+        if (!eventsHappeningIsEmpty)
+        {
+            state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns([
+                Mock.Of<IPassableGameEvent>(),
+                Mock.Of<IPassableGameEvent>()
+            ]);
+        }
         var game = CreateGame(state.Object);
 
-        // Act + Assert
-        Assert.Throws<NotImplementedException>(
-            () => game.Play(Mock.Of<IPassAction>()));
+        // Act
+        if (eventsHappeningIsEmpty)
+        {
+            game.Play(Mock.Of<IPassAction>());
+        }
+        else
+        {
+            Assert.Throws<NotImplementedException>(
+                () => game.Play(Mock.Of<IPassAction>()));
+        }
+
+        // Assert
         Assert.Equal(state.Object, game.State);
     }
 
@@ -78,9 +93,8 @@ public sealed class GameTests
         }
         else
         {
-            var playState = game.Play(Mock.Of<IPassableGameEvent>());
+            game.Play(Mock.Of<IPassableGameEvent>());
             Assert.Equal(state.Object, game.State);
-            Assert.Equal(PlayState.GameOver, playState);
         }
     }
 
@@ -120,12 +134,11 @@ public sealed class GameTests
         startGame.SetupGet(x => x.OtherPlayer).Returns(otherPlayer.Object);
         
         // Act
-        var playState = game.Play(startGame.Object);
+        game.Play(startGame.Object);
 
         // Assert
         Assert.Equal(
             [startingPlayer.Object, otherPlayer.Object], game.State.Losers);
-        Assert.Equal(PlayState.ChangeTurn, playState);
     }
 
     [Theory]
@@ -158,12 +171,11 @@ public sealed class GameTests
         var concede = new Mock<IConcedeEvent>();
         
         // Act
-        var playState = game.Play(concede.Object);
+        game.Play(concede.Object);
 
         // Assert
         Assert.Equal(state.Object, game.State);
         concede.Verify(x => x.Happen(state.Object));
-        Assert.Equal(PlayState.GameOver, playState);
     }
 
     [Fact]
@@ -238,7 +250,7 @@ public sealed class GameTests
         }
         
         // Act
-        var playState = game.Play(gameEvent.Object);
+        game.Play(gameEvent.Object);
 
         // Assert
         Assert.Equal(state.Object, game.State);
@@ -247,17 +259,14 @@ public sealed class GameTests
             state.Verify(x => x.EventsThatWouldHappen.Clear());
             state.Verify(x => x.EventsHappening.Push(wouldHappen));  
             state.Verify(x => x.EventsHappening.Pop());
-            Assert.Equal(PlayState.GameOver, playState);
         }
         if (testMode == TestMode.Passable)
         {
             state.VerifySet(x => x.PassableAction = passable);
-            Assert.Equal(PlayState.Action, playState);
         }
         if (testMode == TestMode.NotPassable)
         {
             state.Verify(x => x.EventsThatWouldHappen.Add(notPassable));
-            Assert.Equal(PlayState.GameOver, playState);
         }
     }
 
