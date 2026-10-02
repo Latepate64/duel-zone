@@ -21,7 +21,7 @@ public sealed class Game(int maxLoopCount = 5)
         _originalState = state;
     }
 
-    public void Play(IGameEventV2 action)
+    public PlayState Play(IGameEventV2 action)
     {
         ArgumentNullException.ThrowIfNull(action);
         if (action is IStartGameEvent start)
@@ -32,8 +32,7 @@ public sealed class Game(int maxLoopCount = 5)
             }
             State = new GameState([start.Player, start.OtherPlayer]);
             start.Happen(State);
-            Continue();
-            return;
+            return Continue();
         }
         if (State.GameOver)
         {
@@ -41,22 +40,23 @@ public sealed class Game(int maxLoopCount = 5)
         }
         try
         {
-            Continue(action);
+            var playState = Continue(action);
+            _originalState = State;
+            return playState;
         }
         catch
         {
             State = _originalState;
             throw;
         }
-        _originalState = State;
     }
 
-    void Continue(IGameEventV2 action)
+    PlayState Continue(IGameEventV2 action)
     {
         if (action is IConcedeEvent concede)
         {
             concede.Happen(State);
-            return;
+            return PlayState.GameOver;
         }
         if (State.PassableAction == null)
         {
@@ -71,8 +71,7 @@ public sealed class Game(int maxLoopCount = 5)
         {
             // TODO: Throw if there was no action to be passed
             State.PassableAction = null;
-            Continue();
-            return;
+            return Continue();
         }
         if (action is IPassableGameEvent passable)
         {
@@ -80,10 +79,10 @@ public sealed class Game(int maxLoopCount = 5)
         }
         State.PassableAction = null;
         State.EventsThatWouldHappen.Add(action);
-        Continue();
+        return Continue();
     }
 
-    void Continue(int loopCounter = 0)
+    PlayState Continue(int loopCounter = 0)
     {
         if (loopCounter++ > maxLoopCount)
         {
@@ -104,32 +103,30 @@ public sealed class Game(int maxLoopCount = 5)
             }
             State.EventsThatWouldHappen.Add(
                 new TakeTurnEvent(State.ActivePlayer, ++State.TurnNumber == 1));
-            Continue(loopCounter);
-            return;
+            return Continue(loopCounter);
         }
         var events = State.EventsHappening.Happen(State);
         CheckEmptyDecks();
-        if (State.GameOver) return;
+        if (State.GameOver) return PlayState.GameOver;
         if (!events.Any())
         {
             _ = State.EventsHappening.Pop();
             // TODO: Broadcast events that happened to
             // clients, triggers and watchers
-            Continue(loopCounter);
-            return;
+            return Continue(loopCounter);
         }
         var passables = events.OfType<IPassableGameEvent>();
         if (passables.Count() == 1)
         {
             State.PassableAction = passables.Single();
-            return;
+            return PlayState.Action;
         }
         if (passables.Count() > 1)
         {
             throw new NotImplementedException();
         }
         State.EventsThatWouldHappen.Add([.. events]);
-        Continue(loopCounter);
+        return Continue(loopCounter);
     }
 
     void CheckEmptyDecks()

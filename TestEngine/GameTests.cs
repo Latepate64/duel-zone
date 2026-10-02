@@ -30,11 +30,12 @@ public sealed class GameTests
         var game = CreateGame(state.Object);
 
         // Act
-        game.Play(Mock.Of<IPassAction>());
+        var playState = game.Play(Mock.Of<IPassAction>());
 
         // Assert
         state.Verify(x => x.SwapActivePlayer());
         Assert.Equal(state.Object, game.State);
+        Assert.Equal(PlayState.GameOver, playState);
     }
 
     [Fact]
@@ -88,10 +89,11 @@ public sealed class GameTests
         var game = CreateGame(state.Object);
         
         // Act
-        game.Play(Mock.Of<IPassableGameEvent>());
+        var playState = game.Play(Mock.Of<IPassableGameEvent>());
 
         // Assert
         Assert.Equal(state.Object, game.State);
+        Assert.Equal(PlayState.GameOver, playState);
     }
 
     [Fact]
@@ -130,11 +132,12 @@ public sealed class GameTests
         startGame.SetupGet(x => x.OtherPlayer).Returns(otherPlayer.Object);
         
         // Act
-        game.Play(startGame.Object);
+        var playState = game.Play(startGame.Object);
 
         // Assert
         Assert.Equal(
             [startingPlayer.Object, otherPlayer.Object], game.State.Losers);
+        Assert.Equal(PlayState.GameOver, playState);
     }
 
     [Theory]
@@ -167,11 +170,12 @@ public sealed class GameTests
         var concede = new Mock<IConcedeEvent>();
         
         // Act
-        game.Play(concede.Object);
+        var playState = game.Play(concede.Object);
 
         // Assert
         Assert.Equal(state.Object, game.State);
         concede.Verify(x => x.Happen(state.Object));
+        Assert.Equal(PlayState.GameOver, playState);
     }
 
     [Fact]
@@ -276,7 +280,7 @@ public sealed class GameTests
         }
         
         // Act
-        game.Play(gameEvent.Object);
+        var playState = game.Play(gameEvent.Object);
 
         // Assert
         Assert.Equal(state.Object, game.State);
@@ -285,14 +289,17 @@ public sealed class GameTests
             state.Verify(x => x.EventsThatWouldHappen.Clear());
             state.Verify(x => x.EventsHappening.Push(wouldHappen));  
             state.Verify(x => x.EventsHappening.Pop());
+            Assert.Equal(PlayState.GameOver, playState);
         }
         if (testMode == TestMode.Passable)
         {
             state.VerifySet(x => x.PassableAction = passable);
+            Assert.Equal(PlayState.Action, playState);
         }
         if (testMode == TestMode.NotPassable)
         {
             state.Verify(x => x.EventsThatWouldHappen.Add(notPassable));
+            Assert.Equal(PlayState.GameOver, playState);
         }
     }
 
