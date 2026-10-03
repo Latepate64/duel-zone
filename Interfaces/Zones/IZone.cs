@@ -14,7 +14,6 @@ public interface IZone
     IEnumerable<ICard> CardsWithManaCost(int manaCost);
     IEnumerable<ICard> CardsWithName(string name);
     void Dispose();
-    bool Equals(object obj);
     int GetCardCount(Civilization civilization);
     IEnumerable<ICard> GetCards(Civilization civilization);
     int GetCreatureCount(Guid owner);

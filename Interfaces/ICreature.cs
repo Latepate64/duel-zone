@@ -21,5 +21,4 @@ public interface ICreature : ICard
     IEnumerable<IEvolutionEffect> GetEvolutionEffects();
     IEnumerable<ISilentSkillAbility> GetSilentSkillAbilities();
     IEnumerable<ITapAbility> GetTapAbilities();
-    new ICreature Copy();
 }

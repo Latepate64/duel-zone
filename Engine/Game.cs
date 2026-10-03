@@ -29,7 +29,7 @@ public sealed class Game(int maxLoopCount = 5)
             {
                 throw new InvalidOperationException("Game has started already");
             }
-            State = new GameState([start.Player, start.OtherPlayer]);
+            State = new GameState(start.Player, start.OtherPlayer);
             start.Happen(State);
             Continue();
             return;
