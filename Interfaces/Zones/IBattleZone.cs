@@ -26,4 +26,5 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetTappedCreatures(Guid controller);
     void RemoveSummoningSicknesses(IPlayer player);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
+    new IBattleZone Copy();
 }

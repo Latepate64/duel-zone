@@ -16,7 +16,7 @@ public sealed class BattleZone : Zone, IBattleZone
     {
     }
 
-    public BattleZone(BattleZone zone) : base(zone)
+    BattleZone(BattleZone zone) : base(zone)
     {
     }
 
@@ -122,6 +122,11 @@ public sealed class BattleZone : Zone, IBattleZone
 
     public IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(IPlayer player) => CreaturesThatHaveBlocker.Where(
         c => c.Owner == player);
+
+    IBattleZone IBattleZone.Copy()
+    {
+        return new BattleZone(this);
+    }
 
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(x => x.IsBlocker);
 

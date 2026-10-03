@@ -6,4 +6,5 @@ public interface IEventStack
     void Push(params IGameEventV2[] gameEvents);
     public IGameEventV2[] Pop();
     IEnumerable<IGameEventV2> Happen(IGameState state);
+    IEventStack Copy();
 }
