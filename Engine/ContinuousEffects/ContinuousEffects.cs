@@ -233,5 +233,26 @@ namespace Engine.ContinuousEffects
             continuousEffects.ToList().ForEach(x => { x.Timestamp = Game.GetTimestamp(); x.Ability = source; });
             _continuousEffects.AddRange(continuousEffects);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not ContinuousEffects effects) return false;
+            if (Game == null && effects.Game != null) return false;
+            if (Game != null && !Game.Equals(effects.Game)) return false;
+            if (!_continuousEffects.SequenceEqual(
+                effects._continuousEffects)) return false;
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+            hash.Add(Game);
+            foreach (var x in _continuousEffects)
+            {
+                hash.Add(x);
+            }
+            return hash.ToHashCode();
+        }
     }
 }

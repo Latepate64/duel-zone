@@ -15,8 +15,8 @@ public sealed class AttackEvent : PassableGameEvent
 
     AttackEvent(AttackEvent gameEvent) : base(gameEvent)
     {
-        AttackingCreature = gameEvent.AttackingCreature?.Copy();
-        AttackedCreature = gameEvent.AttackedCreature?.Copy();
+        AttackingCreature = gameEvent.AttackingCreature?.Copy() as ICreature;
+        AttackedCreature = gameEvent.AttackedCreature?.Copy() as ICreature;
         AttackedPlayer = gameEvent.AttackedPlayer?.Copy();
         shouldEnd = gameEvent.shouldEnd;
     }

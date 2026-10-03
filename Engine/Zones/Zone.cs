@@ -31,12 +31,29 @@ public abstract class Zone : IDisposable, IZone
 
     protected Zone(Zone zone)
     {
-        cards = [.. zone.Cards.Select(x => x.Copy())];
+        var creature = zone.cards.First();
+        var copy = creature.Copy();
+        cards = [.. zone.cards.Select(x => x.Copy())];
+        Type = zone.Type;
     }
 
     public override bool Equals(object obj)
     {
-        return obj is Zone zone && cards.SequenceEqual(zone.cards) && Type == zone.Type;
+        if (obj is not Zone zone) return false;
+        if (!cards.SequenceEqual(zone.cards)) return false;
+        if (!Type.Equals(zone.Type)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        hash.Add(Type);
+        foreach (var x in cards)
+        {
+            hash.Add(x);
+        }
+        return hash.ToHashCode();
     }
 
     public void Add(ICard card)

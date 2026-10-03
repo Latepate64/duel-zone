@@ -7,7 +7,7 @@ public interface IGameState
 {
     IPlayerV2 Winner { get; set; }
     IList<IPlayerV2> Losers { get; set; }
-    IEventStack EventsHappening { get; init; }
+    IEventStack EventsHappening { get; }
     IPassableGameEvent PassableAction { get; set; }
     IEventsThatWouldHappen EventsThatWouldHappen { get; }
     int TurnNumber { get; set; }

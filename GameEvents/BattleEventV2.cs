@@ -17,8 +17,8 @@ public sealed class BattleEventV2 : GameEventV2
 
     BattleEventV2(BattleEventV2 gameEvent) : base(gameEvent)
     {
-        AttackingCreature = gameEvent.AttackingCreature.Copy();
-        DefendingCreature = gameEvent.DefendingCreature.Copy();
+        AttackingCreature = (ICreature)gameEvent.AttackingCreature.Copy();
+        DefendingCreature = (ICreature)gameEvent.DefendingCreature.Copy();
         shouldEnd = gameEvent.shouldEnd;
     }
 
