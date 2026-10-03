@@ -2,7 +2,7 @@
 
 namespace TriggeredAbilities;
 
-public abstract class DelayedTriggeredAbility : IDisposable, ICopyable<IDelayedTriggeredAbility>, IDelayedTriggeredAbility
+public abstract class DelayedTriggeredAbility : IDisposable, IDelayedTriggeredAbility
 {
     internal ITriggeredAbility TriggeredAbility { get; private set; }
 

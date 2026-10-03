@@ -5,9 +5,23 @@ using Interfaces;
 
 namespace Engine;
 
-public sealed class EventStack(params IGameEventV2[] events) : IEventStack
+public sealed class EventStack : IEventStack
 {
-    readonly Stack<IGameEventV2[]> events = new([events]);
+    readonly Stack<IGameEventV2[]> events = new();
+
+    public EventStack()
+    {
+    }
+
+    EventStack(EventStack eventStack)
+    {
+        events = new Stack<IGameEventV2[]>(eventStack.events);
+    }
+
+    public IEventStack Copy()
+    {
+        return new EventStack(this);
+    }
 
     public void Push(params IGameEventV2[] gameEvents)
     {
@@ -23,12 +37,23 @@ public sealed class EventStack(params IGameEventV2[] events) : IEventStack
 
     public override bool Equals(object obj)
     {
-        return obj is EventStack stack
-            && events.SequenceEqual(stack.events);
+        if (obj is not EventStack stack) return false;
+        if (!events.SequenceEqual(stack.events)) return false;
+        return true;
     }
 
     public IEnumerable<IGameEventV2> Happen(IGameState state)
     {
         return [.. events.Peek().SelectMany(x => x.Happen(state))];
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        foreach (var e in events)
+        {
+            hash.Add(e);
+        }
+        return hash.ToHashCode();
     }
 }

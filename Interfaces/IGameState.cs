@@ -16,6 +16,5 @@ public interface IGameState
     IPlayerV2 ActivePlayer { get; set; }
     IEnumerable<IPlayerV2> NonActivePlayers { get; set; }
     bool GameOver { get; }
-
-    void SwapActivePlayer();
+    IGameState Copy();
 }

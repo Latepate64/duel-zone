@@ -1,6 +1,6 @@
 ﻿namespace Interfaces.ContinuousEffects;
 
-public interface IContinuousEffects : IDisposable, ICopyable<IContinuousEffects>
+public interface IContinuousEffects : IDisposable
 {
     IGame Game { get; }
 
@@ -20,6 +20,7 @@ public interface IContinuousEffects : IDisposable, ICopyable<IContinuousEffects>
     bool CanPlayerTapCreature(IPlayer player, ICreature card);
     bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
     bool CanPlayerUseCard(ICard card);
+    IContinuousEffects Copy();
     bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
     bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner);
     bool DoesBattleHappenAfterCreatureBecomesBlocked(ICreature attackingCreature, ICreature blockingCreature);

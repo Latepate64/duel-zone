@@ -7,6 +7,15 @@ public sealed class EventsThatWouldHappen : IEventsThatWouldHappen
 {
     readonly List<IGameEventV2> _eventsThatWouldHappen = [];
 
+    public EventsThatWouldHappen()
+    {
+    }
+
+    EventsThatWouldHappen(EventsThatWouldHappen events)
+    {
+        _eventsThatWouldHappen = events._eventsThatWouldHappen;
+    }
+
     public void Add(params IGameEventV2[] events)
     {
         _eventsThatWouldHappen.AddRange(events);
@@ -20,5 +29,10 @@ public sealed class EventsThatWouldHappen : IEventsThatWouldHappen
     public void Clear()
     {
         _eventsThatWouldHappen.Clear();
+    }
+
+    public IEventsThatWouldHappen Copy()
+    {
+        return new EventsThatWouldHappen(this);
     }
 }

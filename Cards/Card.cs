@@ -7,8 +7,8 @@ using System.Linq;
 
 namespace Cards;
 
-public abstract class Card(bool tapped, IList<Civilization> civilizations, int manaCost, string name) :
-    ICopyable<ICard>, ICard
+public abstract class Card(bool tapped, IList<Civilization> civilizations,
+    int manaCost, string name) : ICard
 {
     public IList<IAbility> AddedAbilities { get; } = [];
     public IList<Civilization> Civilizations { get; } = civilizations;
