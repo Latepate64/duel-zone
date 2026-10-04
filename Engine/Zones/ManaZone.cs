@@ -35,6 +35,6 @@ public sealed class ManaZone : Zone, IManaZone
         int maximum)
     {
         return Creatures.Where(
-            c => !c.IsEvolutionCreature && c.ManaCost <= maximum);
+            c => c.IsNonEvolutionCreature && c.ManaCost <= maximum);
     }
 }
