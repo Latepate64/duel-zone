@@ -1,6 +1,6 @@
 ﻿namespace Interfaces.ContinuousEffects;
 
-public interface IContinuousEffects : IDisposable
+public interface IContinuousEffects
 {
     IGame Game { get; }
 
@@ -33,6 +33,5 @@ public interface IContinuousEffects : IDisposable
     IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(ICreature attackingCreature);
     IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent);
     void Notify(IGameEvent gameEvent);
-    void Remove(IEnumerable<Guid> enumerable);
     void RemoveExpired(IGameEvent gameEvent);
 }
