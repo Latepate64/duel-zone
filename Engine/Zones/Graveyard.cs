@@ -4,7 +4,8 @@ using Interfaces.Zones;
 namespace Engine.Zones;
 
 /// <summary>
-/// A player’s graveyard is their discard pile. Discarded cards, destroyed creatures and spells cast are put in their owner's graveyard.
+/// A player’s graveyard is their discard pile. Discarded cards, destroyed
+/// creatures and spells cast are put in their owner's graveyard.
 /// </summary>
 public sealed class Graveyard : Zone, IGraveyard
 {
