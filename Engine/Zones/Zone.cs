@@ -31,8 +31,6 @@ public abstract class Zone : IDisposable, IZone
 
     protected Zone(Zone zone)
     {
-        var creature = zone.cards.First();
-        var copy = creature.Copy();
         cards = [.. zone.cards.Select(x => x.Copy())];
         Type = zone.Type;
     }

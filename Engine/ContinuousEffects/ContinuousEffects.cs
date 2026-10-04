@@ -216,11 +216,17 @@ public sealed class ContinuousEffects : IContinuousEffects
     public bool CanCreatureAttackCreature(
         ICreature attacker, ICreature targetOfAttack)
     {
-        // TODO: Merge ICannotBeAttackedEffect and ICannotAttackCreaturesEffect
-        return !GetContinuousEffects<ICannotBeAttackedEffect>().Any(
-            x => x.Applies(attacker, targetOfAttack, Game)) &&
-            !GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(
-                x => x.CannotAttackCreature(attacker, targetOfAttack, Game));
+        if (GetContinuousEffects<ICannotBeAttackedEffect>().Any(
+            x => x.Applies(attacker, targetOfAttack, Game)))
+        {
+            return false;
+        }
+        if (GetContinuousEffects<ICannotAttackCreaturesEffect>().Any(
+            x => x.CannotAttackCreature(attacker, targetOfAttack, Game)))
+        {
+            return false;
+        }
+        return true;
     }
 
     public bool CanCreatureAttackPlayers(ICreature creature)

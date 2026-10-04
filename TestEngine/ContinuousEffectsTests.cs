@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine.ContinuousEffects;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -329,5 +330,396 @@ public sealed class ContinuousEffectsTests
 
         // Assert
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureBlockCreature(bool expected)
+    {
+        // Arrange
+        var blocker = Mock.Of<ICreature>();
+        var attackingCreature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IBlockerEffect>();
+        effect.Setup(x => x.CanBlock(
+            blocker, attackingCreature, game)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureBlockCreature(
+            blocker, attackingCreature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureBeBlocked(bool expected)
+    {
+        // Arrange
+        var attackingCreature = Mock.Of<ICreature>();
+        var blocker = Mock.Of<ICreature>();
+        var attackTarget = Mock.Of<IAttackable>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IUnblockableEffect>();
+        effect.Setup(x => x.CannotBeBlocked(
+            attackingCreature, blocker, attackTarget, game)).Returns(!expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureBeBlocked(
+            attackingCreature, blocker, attackTarget);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void DoesCreatureBlockIfAble(bool expected)
+    {
+        // Arrange
+        var blocker = Mock.Of<ICreature>();
+        var attackingCreature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IBlocksIfAbleEffect>();
+        effect.Setup(x => x.BlocksIfAble(
+            blocker, attackingCreature, game)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.DoesCreatureBlockIfAble(
+            blocker, attackingCreature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void DoesBattleHappenAfterCreatureBecomesBlocked(bool expected)
+    {
+        // Arrange
+        var attackingCreature = Mock.Of<ICreature>();
+        var blockingCreature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ISkipBattleAfterBlockEffect>();
+        effect.Setup(x => x.Applies(
+            attackingCreature, blockingCreature, game)).Returns(!expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.DoesBattleHappenAfterCreatureBecomesBlocked(
+            attackingCreature, blockingCreature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    public void GetAmountOfShieldsCreatureBreaksAdditionally(int expected)
+    {
+        // Arrange
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IBreaksAdditionalShieldsEffect>();
+        effect.Setup(x => x.GetAmount(game, creature)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.GetAmountOfShieldsCreatureBreaksAdditionally(
+            creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(1, 2)]
+    [InlineData(1, 3)]
+    [InlineData(2, 3)]
+    [InlineData(1, 2, 3)]
+    public void GetAmountsOfShieldsCreatureCanBreak(params int[] expected)
+    {
+        // Arrange
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var breakers = new List<IBreakerEffect>();
+        foreach (var e in expected)
+        {
+            var effect = new Mock<IBreakerEffect>();
+            effect.Setup(x => x.GetAmount(game, creature)).Returns(e);
+            breakers.Add(effect.Object);
+        }
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), [.. breakers]);
+
+        // Act
+        var actual = effects.GetAmountsOfShieldsCreatureCanBreak(creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(
+        bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IIgnoreCannotAttackPlayersEffects>();
+        effect.Setup(x => x.IgnoreCannotAttackPlayersEffects(
+            creature, game)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(
+            creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void DoesCreatureHaveSpeedAttacker(bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ISpeedAttackerEffect>();
+        effect.Setup(x => x.Applies(creature, game)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.DoesCreatureHaveSpeedAttacker(creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureAttack(bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ICannotAttackEffect>();
+        effect.Setup(x => x.CannotAttack(creature, game)).Returns(!expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureAttack(creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false, false, false)]
+    [InlineData(false, true, false)]
+    [InlineData(true, false, false)]
+    [InlineData(true, true, true)]
+    public void CanCreatureAttackCreature(
+        bool canBeAttacked, bool canAttackCreature, bool expected)
+    {
+        // Arrange
+        var attacker = Mock.Of<ICreature>();
+        var targetOfAttack = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var cannotBeAttackedEffect = new Mock<ICannotBeAttackedEffect>();
+        cannotBeAttackedEffect.Setup(x => x.Applies(
+            attacker, targetOfAttack, game)).Returns(!canBeAttacked);
+        var cannotAttackCreaturesEffect = new Mock<ICannotAttackCreaturesEffect>();
+        cannotAttackCreaturesEffect.Setup(x => x.CannotAttackCreature(
+            attacker, targetOfAttack, game)).Returns(!canAttackCreature);
+        var effects = new ContinuousEffects(game);
+        effects.Add(
+            Mock.Of<IAbility>(),
+            cannotBeAttackedEffect.Object,
+            cannotAttackCreaturesEffect.Object);
+
+        // Act
+        var actual = effects.CanCreatureAttackCreature(
+            attacker, targetOfAttack);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureAttackPlayers(bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ICannotAttackPlayersEffect>();
+        effect.Setup(x => x.CannotAttackPlayers(creature, game)).Returns(
+            !expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureAttackPlayers(creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanPlayerUseCard(bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var card = Mock.Of<ICard>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ICannotUseCardEffect>();
+        effect.Setup(x => x.Applies(card, game)).Returns(!expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanPlayerUseCard(card);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureEvolve(bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IEvolutionEffect>();
+        effect.Setup(x => x.CanEvolve(game, creature)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureEvolve(creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanPlayersUseTapAbilities(bool expected)
+    {
+        // Arrange
+        var effects = new ContinuousEffects(Mock.Of<IGame>());
+        if (expected)
+        {
+            effects.Add(
+                Mock.Of<IAbility>(), Mock.Of<IPlayersCannotUseTapAbilities>());
+        }
+
+        // Act
+        var a = effects.CanPlayersUseTapAbilities();
+
+        // Assert
+        Assert.Equal(expected, a);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureBeAttackedAsThoughItWereTapped(bool expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayer>();
+        var creature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ICanBeAttackedAsThoughTappedEffect>();
+        effect.Setup(x => x.Applies(creature)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureBeAttackedAsThoughItWereTapped(
+            creature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CanCreatureAttackUntappedCreature(bool expected)
+    {
+        // Arrange
+        var attacker = Mock.Of<ICreature>();
+        var untappedCreature = Mock.Of<ICreature>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<ICanAttackUntappedCreaturesEffect>();
+        effect.Setup(x => x.CanAttackUntappedCreature(
+            attacker, untappedCreature, game)).Returns(expected);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.CanCreatureAttackUntappedCreature(
+            attacker, untappedCreature);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void GetApplicableReplacementEffect()
+    {
+        // Arrange
+        var gameEvent = Mock.Of<IGameEvent>();
+        var game = Mock.Of<IGame>();
+        var effect = new Mock<IReplacementEffect>();
+        effect.Setup(x => x.CanBeApplied(gameEvent, game)).Returns(true);
+        var effects = new ContinuousEffects(game);
+        effects.Add(Mock.Of<IAbility>(), effect.Object);
+
+        // Act
+        var actual = effects.GetReplacementEffectsThatCanBeApplied(
+            gameEvent);
+
+        // Assert
+        Assert.Contains(effect.Object, actual);
     }
 }
