@@ -54,7 +54,7 @@ public sealed class GameState : IGameState
         PassableAction = state.PassableAction?.Copy() as IPassableGameEvent;
         EventsThatWouldHappen = state.EventsThatWouldHappen.Copy();
         TurnNumber = state.TurnNumber;
-        BattleZone = state.BattleZone.Copy();
+        BattleZone = state.BattleZone.Copy() as IBattleZone;
         ContinuousEffects = state.ContinuousEffects.Copy();
     }
 
