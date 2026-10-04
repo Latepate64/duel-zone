@@ -15,8 +15,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreatures(Guid controller, Race race1, Race race2);
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization);
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
-    IEnumerable<ICreature> GetCreatures(IPlayer player);
-    IEnumerable<ICreature> GetCreaturesWithSilentSkill(IPlayer player);
     int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization);
     int GetOtherCreatureCount(Guid creature, Race race);
     IEnumerable<ICreature> GetOtherCreatures(Guid controller, Guid creature);
@@ -24,7 +22,5 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetOtherTappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetOtherUntappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetTappedCreatures(Guid controller);
-    void RemoveSummoningSicknesses(IPlayer player);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
-    new IBattleZone Copy();
 }

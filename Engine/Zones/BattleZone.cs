@@ -21,6 +21,11 @@ public sealed class BattleZone : Zone, IBattleZone
     {
     }
 
+    public override IZone Copy()
+    {
+        return new BattleZone(this);
+    }
+
     public IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(
         IGame game, Guid owner)
     {
@@ -35,6 +40,22 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return GetChoosableCreaturesControlledByPlayer(game, owner).Where(
             x => x.IsEvolutionCreature);
+    }
+
+    public IEnumerable<ICreature>
+        GetChoosableUntappedCreaturesControlledByPlayer(
+            IGame game, Guid controller)
+    {
+        return GetChoosableCreaturesControlledByPlayer(game, controller).Where(
+            x => !x.Tapped);
+    }
+
+    public IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(
+        IGame game, Guid owner)
+    {
+        return GetCreatures(owner).Union(
+            GetChoosableCreaturesControlledByPlayer(
+                game, game.GetOpponent(owner)));
     }
 
     public IEnumerable<ICreature> GetCreatures(Guid controller, Race race)
@@ -110,44 +131,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetCreatures(controller).Where(x => x.Tapped);
     }
 
-    public IEnumerable<ICreature>
-        GetChoosableUntappedCreaturesControlledByPlayer(
-            IGame game, Guid controller)
-    {
-        return GetChoosableCreaturesControlledByPlayer(game, controller).Where(
-            x => !x.Tapped);
-    }
-
-    public IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(
-        IGame game, Guid owner)
-    {
-        return GetCreatures(owner).Union(
-            GetChoosableCreaturesControlledByPlayer(
-                game, game.GetOpponent(owner)));
-    }
-
-    public override IZone Copy()
-    {
-        return new BattleZone(this);
-    }
-
-    public void RemoveSummoningSicknesses(IPlayer player)
-    {
-        GetCreatures(player.Id).Where(x => x.SummoningSickness).ToList()
-        .ForEach(x => x.RemoveSummoningSickness());
-    }
-
-    public IEnumerable<ICreature> GetCreaturesWithSilentSkill(IPlayer player)
-    {
-        return GetCreatures(player.Id).Where(
-            x => x.GetSilentSkillAbilities().Any());
-    }
-
-    public IEnumerable<ICreature> GetCreatures(IPlayer player)
-    {
-        return GetCreatures(player.Id);
-    }
-
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
     {
         return Creatures.Where(c => c.OwnerV2 == player);
@@ -162,11 +145,6 @@ public sealed class BattleZone : Zone, IBattleZone
         IPlayer player)
     {
         return  CreaturesThatHaveBlocker.Where(c => c.Owner == player);
-    }
-
-    IBattleZone IBattleZone.Copy()
-    {
-        return new BattleZone(this);
     }
 
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
