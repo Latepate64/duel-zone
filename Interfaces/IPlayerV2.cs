@@ -4,11 +4,11 @@ namespace Interfaces;
 
 public interface IPlayerV2
 {
-    IDeck Deck { get; init; }
-    IShieldZone ShieldZone { get; init; }
-    IHand Hand { get; init; }
-    IManaZone ManaZone { get; init; }
-    IGraveyard Graveyard { get; init; }
+    IDeck Deck { get; }
+    IShieldZone ShieldZone { get; }
+    IHand Hand { get; }
+    IManaZone ManaZone { get; }
+    IGraveyard Graveyard { get; }
 
     IPlayerV2 Copy();
     void SetOwnerForCards();

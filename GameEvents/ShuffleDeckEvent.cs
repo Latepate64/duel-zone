@@ -8,7 +8,7 @@ public sealed class ShuffleDeckEvent : GameEventV2
 
     ShuffleDeckEvent(ShuffleDeckEvent gameEvent) : base(gameEvent)
     {
-        randomizer = gameEvent.randomizer.Copy();
+        randomizer = gameEvent.randomizer;
     }
 
     public ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : base(
