@@ -12,7 +12,7 @@ public sealed class CivilizationChoice : Choice, ICivilizationChoice
         Excluded = choice.Excluded;
     }
 
-    public CivilizationChoice(Player maker, string description, params Civilization[] excluded) : base(maker, description)
+    public CivilizationChoice(IPlayer maker, string description, params Civilization[] excluded) : base(maker, description)
     {
         Excluded = excluded;
     }

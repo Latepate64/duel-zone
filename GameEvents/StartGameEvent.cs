@@ -18,7 +18,7 @@ public sealed class StartGameEvent : GameEventV2, IStartGameEvent
     public StartGameEvent(StartGameEvent gameEvent) : base(gameEvent)
     {
         OtherPlayer = gameEvent.OtherPlayer.Copy();
-        randomizer = gameEvent.randomizer.Copy();
+        randomizer = gameEvent.randomizer;
     }
 
     public override IGameEventV2 Copy()

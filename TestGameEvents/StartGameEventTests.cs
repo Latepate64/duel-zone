@@ -14,10 +14,9 @@ public class StartGameEventTests
         player.Setup(x => x.Copy()).Returns(player.Object);
         var otherPlayer = new Mock<IPlayerV2>();
         otherPlayer.Setup(x => x.Copy()).Returns(player.Object);
-        var random = new Mock<IRandomizer>();
-        random.Setup(x => x.Copy()).Returns(random.Object);
+        var random = Mock.Of<IRandomizer>();
         var e = new StartGameEvent(
-            player.Object, otherPlayer.Object, random.Object);
+            player.Object, otherPlayer.Object, random);
 
         // Act
         var actual = e.Copy();
@@ -30,14 +29,13 @@ public class StartGameEventTests
     public void Happen()
     {
         // Arrange
-        var random = new Mock<IRandomizer>();
-        random.Setup(x => x.Copy()).Returns(random.Object);
+        var random = Mock.Of<IRandomizer>();
         var player = new Mock<IPlayerV2>();
-        player.Setup(x => x.Deck.Shuffle(random.Object));
+        player.Setup(x => x.Deck.Shuffle(random));
         var otherPlayer = new Mock<IPlayerV2>();
-        otherPlayer.Setup(x => x.Deck.Shuffle(random.Object));
+        otherPlayer.Setup(x => x.Deck.Shuffle(random));
         var e = new StartGameEvent(
-            player.Object, otherPlayer.Object, random.Object);
+            player.Object, otherPlayer.Object, random);
         var state = Mock.Of<IGameState>();
 
         // Act

@@ -12,9 +12,8 @@ public class ShuffleDeckEventTests
         // Arrange
         var player = new Mock<IPlayerV2>();
         player.Setup(x => x.Copy()).Returns(player.Object);
-        var random = new Mock<IRandomizer>();
-        random.Setup(x => x.Copy()).Returns(random.Object);
-        var e = new ShuffleDeckEvent(player.Object, random.Object);
+        var random = Mock.Of<IRandomizer>();
+        var e = new ShuffleDeckEvent(player.Object, random);
 
         // Act
         var actual = e.Copy();
