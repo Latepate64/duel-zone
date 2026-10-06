@@ -12,6 +12,7 @@ public abstract class ContinuousEffect : IContinuousEffect
     public IAbility Ability { get; set; }
     public IPlayer Controller => Ability.Controller;
     public ICard Source => Ability.Source;
+    public IPlayerV2 Applier => throw new NotImplementedException();
 
     protected ContinuousEffect()
     {

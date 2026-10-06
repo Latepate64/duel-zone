@@ -235,10 +235,10 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.CannotAttackPlayers(creature, Game));
     }
 
-    public bool CanPlayerUseCard(ICard card)
+    public bool CanPlayerUseCard(ICard card, IGameState state)
     {
         return !GetContinuousEffects<ICannotUseCardEffect>().Any(
-            x => x.Applies(card, Game));
+            x => x.Applies(card, state));
     }
 
     public bool CanCreatureEvolve(ICreature toEvolve)

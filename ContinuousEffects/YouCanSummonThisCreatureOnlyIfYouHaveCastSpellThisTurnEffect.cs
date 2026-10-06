@@ -3,26 +3,28 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect : ContinuousEffect, ICannotUseCardEffect
+public sealed class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect
+    : ContinuousEffect, ICannotUseCardEffect
 {
     public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect()
     {
     }
 
-    public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect effect) : base(effect)
+    public YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(
+        YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect effect)
+        : base(effect)
     {
     }
 
-    public bool Applies(ICard card, IGame game)
+    public bool Applies(ICard card, IGameState state)
     {
-        // If player cast no spells during the turn, the creature cannot be summoned.
         throw new NotImplementedException();
-        // return card == Source && !game.CurrentTurn.GameEvents.OfType<SpellCastEvent>().Any(x => x.Player == Controller);
     }
 
     public override IContinuousEffect Copy()
     {
-        return new YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(this);
+        return new YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(
+            this);
     }
 
     public override string ToString()

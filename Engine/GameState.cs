@@ -102,4 +102,11 @@ public sealed class GameState : IGameState
         hash.Add(ContinuousEffects);
         return hash.ToHashCode();
     }
+
+    public IPlayerV2 GetOpponent(IPlayerV2 player)
+    {
+        if (player.Equals(ActivePlayer)) return NonActivePlayer;
+        if (player.Equals(NonActivePlayer)) return ActivePlayer;
+        throw new InvalidOperationException("Opponent not found");
+    }
 }

@@ -3,9 +3,11 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class BlazeCannonRestrictionEffect : ContinuousEffect, ICannotUseCardEffect
+public sealed class BlazeCannonRestrictionEffect : ContinuousEffect,
+    ICannotUseCardEffect
 {
-    public BlazeCannonRestrictionEffect(BlazeCannonRestrictionEffect effect) : base(effect)
+    public BlazeCannonRestrictionEffect(
+        BlazeCannonRestrictionEffect effect) : base(effect)
     {
     }
 
@@ -23,8 +25,9 @@ public sealed class BlazeCannonRestrictionEffect : ContinuousEffect, ICannotUseC
         return "You can cast this spell only if all the cards in your mana zone are fire cards.";
     }
 
-    public bool Applies(ICard card, IGame game)
+    public bool Applies(ICard card, IGameState state)
     {
-        return IsSourceOfAbility(card) && !Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization.Fire);
+        return IsSourceOfAbility(card) &&
+        !Ability.Controller.ManaZone.AreAllCivilizationCards(Civilization.Fire);
     }
 }
