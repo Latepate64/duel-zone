@@ -27,7 +27,7 @@ public sealed class PutIntoBattleZoneEvent : MoveCardEvent
     {
         if (!base.Equals(obj)) return false;
         if (obj is not PutIntoBattleZoneEvent e) return false;
-        if (Card != e.Card) return false;
+        if (!Card.Equals(e.Card)) return false;
         return true;
     }
 
@@ -38,6 +38,6 @@ public sealed class PutIntoBattleZoneEvent : MoveCardEvent
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(base.GetHashCode(), Card.GetHashCode());
+        return HashCode.Combine(base.GetHashCode(), Card);
     }
 }

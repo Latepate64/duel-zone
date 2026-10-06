@@ -4,13 +4,17 @@ namespace GameEvents;
 
 public class LoseGameEvent : GameEventV2
 {
-    public LoseGameEvent(IPlayerV2 player) : base(player)
+    public LoseGameEvent(IPlayerV2 player)
     {
+        Player = player;
     }
 
-    LoseGameEvent(IGameEventV2 gameEvent) : base(gameEvent)
+    LoseGameEvent(LoseGameEvent gameEvent)
     {
+        Player = gameEvent.Player.Copy();
     }
+
+    public IPlayerV2 Player { get; }
 
     public override IGameEventV2 Copy()
     {
@@ -27,5 +31,17 @@ public class LoseGameEvent : GameEventV2
             state.Winner = remainingPlayers.Single();
         }
         return [];
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not LoseGameEvent passable) return false;
+        if (!Player.Equals(passable.Player)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Player);
     }
 }

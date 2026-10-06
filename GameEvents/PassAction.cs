@@ -4,13 +4,17 @@ namespace GameEvents;
 
 public sealed class PassAction : GameEventV2, IPassAction
 {
-    public PassAction(IPlayerV2 player) : base(player)
+    public PassAction(IPlayerV2 player)
     {
+        Player = player;
     }
 
-    PassAction(IGameEventV2 gameEvent) : base(gameEvent)
+    PassAction(IPassAction passAction)
     {
+        Player = passAction.Player.Copy();
     }
+
+    public IPlayerV2 Player { get; }
 
     public override IGameEventV2 Copy()
     {
@@ -20,5 +24,21 @@ public sealed class PassAction : GameEventV2, IPassAction
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
         return [];
+    }
+
+    public void Validate(IPassableGameEvent gameEvent)
+    {
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not PassAction passable) return false;
+        if (!Player.Equals(passable.Player)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Player);
     }
 }

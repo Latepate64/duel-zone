@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class DrawPhaseEvent : GameEventV2
+public sealed class DrawPhaseEvent : TurnBasedAction
 {
     bool shouldEnd;
 

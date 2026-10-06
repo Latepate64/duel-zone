@@ -38,4 +38,52 @@ public class ShuffleDeckEventTests
         player.Verify(x => x.Deck.Shuffle(random));
         Assert.Empty(events);
     }
+
+    [Fact]
+    public void HashCodesAreEqualForEqualEvents()
+    {
+        // Arrange
+        var player = new Mock<IPlayerV2>();
+        player.Setup(x => x.Copy()).Returns(player.Object);
+        var shuffle = new ShuffleDeckEvent(player.Object,
+            Mock.Of<IRandomizer>());
+        var second = shuffle.Copy();
+        var expected = second.GetHashCode();
+
+        // Act
+        var actual = shuffle.GetHashCode();
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void DoesNotEqualObjectOfDifferentType()
+    {
+        // Arrange
+        var e = new ShuffleDeckEvent(Mock.Of<IPlayerV2>(),
+            Mock.Of<IRandomizer>());
+        var other = new object();
+
+        // Act
+        var equal = e.Equals(other);
+        
+        // Assert
+        Assert.False(equal);
+    }
+
+    [Fact]
+    public void DoesNotEqualEventWithDifferentPlayer()
+    {
+        // Arrange
+        var ramdom = Mock.Of<IRandomizer>();
+        var first = new ShuffleDeckEvent(Mock.Of<IPlayerV2>(), ramdom);
+        var second = new ShuffleDeckEvent(Mock.Of<IPlayerV2>(), ramdom);
+
+        // Act
+        var equal = first.Equals(second);
+        
+        // Assert
+        Assert.False(equal);
+    }
 }

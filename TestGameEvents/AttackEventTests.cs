@@ -81,7 +81,7 @@ public class AttackEventTests
     }
 
     [Fact]
-    public void AttackingACreatureTapsTheAttackingCreatureAndCreatesABattleEvent()
+    public void AttackingAnotherCreatureTapsAttackingCreatureAndCreatesBattleEvent()
     {
         // Arrange
         var creature = new Mock<ICreature>();
@@ -92,8 +92,8 @@ public class AttackEventTests
             AttackingCreature = creature.Object,
             AttackedCreature = Mock.Of<ICreature>(),
         };
-        var expected = new BattleEventV2(
-            player, attack.AttackingCreature, attack.AttackedCreature);
+        var expected = new BattleEventV2(attack.AttackingCreature,
+            attack.AttackedCreature);
 
         // Act
         attack.Validate(attack);

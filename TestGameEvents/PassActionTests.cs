@@ -33,4 +33,59 @@ public class PassActionTests
         // Assert
         Assert.Empty(events);
     }
+
+    [Fact]
+    public void HashCodesAreEqualForEqualEvents()
+    {
+        // Arrange
+        var player = new Mock<IPlayerV2>();
+        player.Setup(x => x.Copy()).Returns(player.Object);
+        var pass = new PassAction(player.Object);
+        var second = pass.Copy();
+        var expected = second.GetHashCode();
+
+        // Act
+        var actual = pass.GetHashCode();
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void DoesNotEqualObjectOfDifferentType()
+    {
+        // Arrange
+        var e = new PassAction(Mock.Of<IPlayerV2>());
+        var other = new object();
+
+        // Act
+        var equal = e.Equals(other);
+        
+        // Assert
+        Assert.False(equal);
+    }
+
+    [Fact]
+    public void DoesNotEqualEventWithDifferentPlayer()
+    {
+        // Arrange
+        var first = new PassAction(Mock.Of<IPlayerV2>());
+        var second = new PassAction(Mock.Of<IPlayerV2>());
+
+        // Act
+        var equal = first.Equals(second);
+        
+        // Assert
+        Assert.False(equal);
+    }
+
+    [Fact]
+    public void Validate()
+    {
+        // Arrange
+        var pass = new PassAction(Mock.Of<IPlayerV2>());
+
+        // Act + Assert
+        pass.Validate(Mock.Of<IPassableGameEvent>());
+    }
 }

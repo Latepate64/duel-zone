@@ -8,14 +8,14 @@ public sealed class BattleEventV2 : GameEventV2
     public ICreature DefendingCreature { get; }
     bool shouldEnd;
 
-    public BattleEventV2(IPlayerV2 player, ICreature attackingCreature,
-    ICreature defendingCreature) : base(player)
+    public BattleEventV2(ICreature attackingCreature, 
+        ICreature defendingCreature)
     {
         AttackingCreature = attackingCreature;
         DefendingCreature = defendingCreature;
     }
 
-    BattleEventV2(BattleEventV2 gameEvent) : base(gameEvent)
+    BattleEventV2(BattleEventV2 gameEvent)
     {
         AttackingCreature = (ICreature)gameEvent.AttackingCreature.Copy();
         DefendingCreature = (ICreature)gameEvent.DefendingCreature.Copy();
@@ -24,7 +24,6 @@ public sealed class BattleEventV2 : GameEventV2
 
     public override bool Equals(object? obj)
     {
-        if (!base.Equals(obj)) return false;
         if (obj is not BattleEventV2 e) return false;
         if (e.AttackingCreature != AttackingCreature) return false;
         if (e.DefendingCreature != DefendingCreature) return false;

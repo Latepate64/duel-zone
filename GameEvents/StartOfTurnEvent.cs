@@ -2,13 +2,13 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class StartOfTurnEvent : GameEventV2
+public sealed class StartOfTurnEvent : TurnBasedAction
 {
     public StartOfTurnEvent(IPlayerV2 player) : base(player)
     {
     }
 
-    StartOfTurnEvent(IGameEventV2 gameEvent) : base(gameEvent)
+    StartOfTurnEvent(StartOfTurnEvent gameEvent) : base(gameEvent)
     {
     }
 
