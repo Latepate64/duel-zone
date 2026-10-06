@@ -5,14 +5,12 @@ namespace Interfaces;
 /// </summary>
 public interface IGameEventV2
 {
-    IPlayerV2 Player { get; }
-
     /// <summary>
     /// Processes the event based on the current state of the game.
     /// </summary>
-    /// <param name="state">Current state of the game.</param>
-    /// <returns>New events which the event produces,
-    /// null if the event has finished happening.</returns>
+    /// <param name="state">The current state of the game.</param>
+    /// <returns>Events that would happen during the event.
+    /// If none, the event has completely happened.</returns>
     IEnumerable<IGameEventV2> Happen(IGameState state);
 
     /// <summary>

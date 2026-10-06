@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class TakeTurnEvent : GameEventV2
+public sealed class TakeTurnEvent : TurnBasedAction
 {
     public bool SkipDrawPhase { get; }
     public PhaseType NextPhase { get; private set; }

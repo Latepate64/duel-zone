@@ -4,19 +4,21 @@ namespace GameEvents;
 
 public sealed class StartGameEvent : GameEventV2, IStartGameEvent
 {
+    public IPlayerV2 StartingPlayer { get; }
     public IPlayerV2 OtherPlayer { get; }
     readonly IRandomizer randomizer;
 
     public StartGameEvent(
         IPlayerV2 startingPlayer, IPlayerV2 otherPlayer, IRandomizer randomizer)
-        : base(startingPlayer)
     {
+        StartingPlayer = startingPlayer;
         OtherPlayer = otherPlayer;
         this.randomizer = randomizer;
     }
 
-    public StartGameEvent(StartGameEvent gameEvent) : base(gameEvent)
+    public StartGameEvent(StartGameEvent gameEvent)
     {
+        StartingPlayer = gameEvent.StartingPlayer.Copy();
         OtherPlayer = gameEvent.OtherPlayer.Copy();
         randomizer = gameEvent.randomizer;
     }
@@ -28,22 +30,35 @@ public sealed class StartGameEvent : GameEventV2, IStartGameEvent
 
     public override IEnumerable<IGameEventV2> Happen(IGameState state)
     {
-        new ShuffleDeckEvent(Player, randomizer).Happen(state);
+        new ShuffleDeckEvent(StartingPlayer, randomizer).Happen(state);
         new ShuffleDeckEvent(OtherPlayer, randomizer).Happen(state);
         for (int i = 0; i < 5; ++i)
         {
             new MoveTopCardOfDeckEvent(
-                Player, ZoneType.ShieldZone).Happen(state);
+                StartingPlayer, ZoneType.ShieldZone).Happen(state);
             new MoveTopCardOfDeckEvent(
                 OtherPlayer, ZoneType.ShieldZone).Happen(state);
         }
         for (int i = 0; i < 5; ++i)
         {
             new MoveTopCardOfDeckEvent(
-                Player, ZoneType.Hand).Happen(state);
+                StartingPlayer, ZoneType.Hand).Happen(state);
             new MoveTopCardOfDeckEvent(
                 OtherPlayer, ZoneType.Hand).Happen(state);
         }
         return [];
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not StartGameEvent passable) return false;
+        if (!StartingPlayer.Equals(passable.StartingPlayer)) return false;
+        if (!OtherPlayer.Equals(passable.OtherPlayer)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(StartingPlayer, OtherPlayer);
     }
 }

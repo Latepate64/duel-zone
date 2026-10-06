@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class ChargeEvent : PassableGameEvent
+public sealed class ChargeEvent : PassableTurnBasedAction
 {
     public ICard? ChosenCard { get; set; }
 

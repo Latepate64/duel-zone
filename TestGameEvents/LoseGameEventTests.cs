@@ -56,4 +56,49 @@ public class LoseGameEventTests
         state.Verify(x => x.Losers.Add(loser));
         state.VerifySet(x => x.Winner = winner);
     }
+
+    [Fact]
+    public void HashCodesAreEqualForEqualEvents()
+    {
+        // Arrange
+        var player = new Mock<IPlayerV2>();
+        player.Setup(x => x.Copy()).Returns(player.Object);
+        var lose = new LoseGameEvent(player.Object);
+        var second = lose.Copy();
+        var expected = second.GetHashCode();
+
+        // Act
+        var actual = lose.GetHashCode();
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void DoesNotEqualObjectOfDifferentType()
+    {
+        // Arrange
+        var e = new LoseGameEvent(Mock.Of<IPlayerV2>());
+        var other = new object();
+
+        // Act
+        var equal = e.Equals(other);
+        
+        // Assert
+        Assert.False(equal);
+    }
+
+    [Fact]
+    public void DoesNotEqualEventWithDifferentPlayer()
+    {
+        // Arrange
+        var first = new LoseGameEvent(Mock.Of<IPlayerV2>());
+        var second = new LoseGameEvent(Mock.Of<IPlayerV2>());
+
+        // Act
+        var equal = first.Equals(second);
+        
+        // Assert
+        Assert.False(equal);
+    }
 }

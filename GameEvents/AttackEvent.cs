@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class AttackEvent : PassableGameEvent
+public sealed class AttackEvent : PassableTurnBasedAction
 {
     public ICreature? AttackingCreature { get; init; }
     public ICreature? AttackedCreature { get; init; }
@@ -67,8 +67,7 @@ public sealed class AttackEvent : PassableGameEvent
             // TODO: Check if blocking happens
             if (AttackedCreature != null)
             {
-                return [new BattleEventV2(
-                    Player, AttackingCreature, AttackedCreature)];
+                return [new BattleEventV2(AttackingCreature, AttackedCreature)];
             }
             if (!AttackedPlayer!.ShieldZone.HasCards)
             {

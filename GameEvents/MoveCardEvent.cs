@@ -4,17 +4,21 @@ namespace GameEvents;
 
 public abstract class MoveCardEvent : GameEventV2
 {
-    public ZoneType Destination { get; }
-
-    public MoveCardEvent(IPlayerV2 player, ZoneType destination) : base(player)
+    public MoveCardEvent(IPlayerV2 player, ZoneType destination)
     {
+        Player = player;
         Destination = destination;
     }
 
-    protected MoveCardEvent(MoveCardEvent gameEvent) : base(gameEvent)
+    protected MoveCardEvent(MoveCardEvent gameEvent)
     {
+        Player = gameEvent.Player.Copy();
         Destination = gameEvent.Destination;
     }
+
+    public IPlayerV2 Player { get; }
+
+    public ZoneType Destination { get; }
 
     internal abstract ICard? RemoveCardFromCurrentZone();
 
@@ -55,7 +59,6 @@ public abstract class MoveCardEvent : GameEventV2
 
     public override bool Equals(object? obj)
     {
-        if (!base.Equals(obj)) return false;
         if (obj is not MoveCardEvent moveCardEvent) return false;
         if (Destination != moveCardEvent.Destination) return false;
         return true;
@@ -63,6 +66,6 @@ public abstract class MoveCardEvent : GameEventV2
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(base.GetHashCode(), Destination.GetHashCode());
+        return HashCode.Combine(Player, Destination);
     }
 }

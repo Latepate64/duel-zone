@@ -21,10 +21,8 @@ public interface ICard
     bool IsMultiColored { get; }
 
     void AddGrantedAbility(IAbility ability);
-    // T Copy<T>() where T : ICard;
     ICard Copy();
     IList<ICard> Deconstruct(IList<ICard> deconstructred);
-    bool Equals(object obj);
     IEnumerable<T> GetAbilities<T>();
     bool HasCivilization(params Civilization[] civilizations);
     void InitializeAbilities();

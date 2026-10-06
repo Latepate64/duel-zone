@@ -2,13 +2,13 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class MainPhaseEvent : GameEventV2
+public sealed class MainPhaseEvent : TurnBasedAction
 {
     public MainPhaseEvent(IPlayerV2 player) : base(player)
     {
     }
 
-    MainPhaseEvent(IGameEventV2 gameEvent) : base(gameEvent)
+    MainPhaseEvent(MainPhaseEvent gameEvent) : base(gameEvent)
     {
     }
 

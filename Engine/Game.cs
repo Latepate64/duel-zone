@@ -29,7 +29,7 @@ public sealed class Game(int maxLoopCount = 5)
             {
                 throw new InvalidOperationException("Game has started already");
             }
-            State = new GameState(start.Player, start.OtherPlayer);
+            State = new GameState(start.StartingPlayer, start.OtherPlayer);
             start.Happen(State);
             Continue();
             return;
@@ -54,9 +54,9 @@ public sealed class Game(int maxLoopCount = 5)
         _originalState = State;
     }
 
-    void Continue(IGameEventV2 action)
+    void Continue(IGameEventV2 gameEvent)
     {
-        if (action is IConcedeEvent concede)
+        if (gameEvent is IConcedeEvent concede)
         {
             concede.Happen(State);
             return;
@@ -65,24 +65,25 @@ public sealed class Game(int maxLoopCount = 5)
         {
             throw new InvalidOperationException("No passable action found");
         }
-        if (action.Player != State.PassableAction.Player)
+        if (gameEvent is not IPassableGameEvent passable)
+        {
+            throw new InvalidOperationException("No passable action given");
+        }
+        if (passable.Player != State.PassableAction.Player)
         {
             throw new InvalidOperationException(
                 "Unexpected player tried to take action");
         }
-        if (action is IPassAction)
+        if (passable is IPassAction)
         {
             // TODO: Throw if there was no action to be passed
             State.PassableAction = null;
             Continue();
             return;
         }
-        if (action is IPassableGameEvent passable)
-        {
-            State.PassableAction.Validate(passable);
-        }
+        State.PassableAction.Validate(passable);
         State.PassableAction = null;
-        State.EventsThatWouldHappen.Add(action);
+        State.EventsThatWouldHappen.Add(gameEvent);
         Continue();
         return;
     }

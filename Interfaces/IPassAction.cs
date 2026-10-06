@@ -1,3 +1,3 @@
 namespace Interfaces;
 
-public interface IPassAction : IGameEventV2 {}
+public interface IPassAction : IPassableGameEvent {}

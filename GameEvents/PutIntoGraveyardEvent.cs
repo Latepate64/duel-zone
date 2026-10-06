@@ -4,25 +4,21 @@ namespace GameEvents;
 
 public sealed class PutIntoGraveyardEvent : GameEventV2
 {
-    public ICard Card { get; }
-
-    public PutIntoGraveyardEvent(IPlayerV2 player, ICard card) : base(player)
+    public PutIntoGraveyardEvent(IPlayerV2 player, ICard card)
     {
+        Player = player;
         Card = card;
     }
 
-    PutIntoGraveyardEvent(PutIntoGraveyardEvent gameEvent) : base(gameEvent)
+    PutIntoGraveyardEvent(PutIntoGraveyardEvent gameEvent)
     {
+        Player = gameEvent.Player.Copy();
         Card = gameEvent.Card.Copy();
     }
 
-    public override bool Equals(object? obj)
-    {
-        if (!base.Equals(obj)) return false;
-        if (obj is not PutIntoGraveyardEvent e) return false;
-        if (Card != e.Card) return false;
-        return true;
-    }
+    public IPlayerV2 Player { get; }
+
+    public ICard Card { get; }
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
@@ -35,8 +31,16 @@ public sealed class PutIntoGraveyardEvent : GameEventV2
         return new PutIntoGraveyardEvent(this);
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (obj is not PutIntoGraveyardEvent e) return false;
+        if (!Player.Equals(e.Player)) return false;
+        if (!Card.Equals(e.Card)) return false;
+        return true;
+    }
+
     public override int GetHashCode()
     {
-        return HashCode.Combine(base.GetHashCode(), Card.GetHashCode());
+        return HashCode.Combine(Player, Card);
     }
 }

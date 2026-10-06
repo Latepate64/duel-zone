@@ -4,18 +4,21 @@ namespace GameEvents;
 
 public sealed class ShuffleDeckEvent : GameEventV2
 {
-    readonly IRandomizer randomizer;
-
-    ShuffleDeckEvent(ShuffleDeckEvent gameEvent) : base(gameEvent)
+    public ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer)
     {
+        Player = player;
+        this.randomizer = randomizer;
+    }
+
+    ShuffleDeckEvent(ShuffleDeckEvent gameEvent)
+    {
+        Player = gameEvent.Player.Copy();
         randomizer = gameEvent.randomizer;
     }
 
-    public ShuffleDeckEvent(IPlayerV2 player, IRandomizer randomizer) : base(
-        player)
-    {
-        this.randomizer = randomizer;
-    }
+    public IPlayerV2 Player { get; }
+
+    readonly IRandomizer randomizer;
 
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
@@ -30,5 +33,17 @@ public sealed class ShuffleDeckEvent : GameEventV2
     public override IGameEventV2 Copy()
     {
         return new ShuffleDeckEvent(this);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not ShuffleDeckEvent passable) return false;
+        if (!Player.Equals(passable.Player)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Player);
     }
 }

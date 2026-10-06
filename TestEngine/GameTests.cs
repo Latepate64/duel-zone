@@ -103,8 +103,6 @@ public sealed class GameTests
         // Arrange
         var state = Mock.Of<IGameState>();
         var game = CreateGame(state);
-        var startingPlayer = Mock.Of<IPlayerV2>();
-        var otherPlayer = Mock.Of<IPlayerV2>();
         var startGame = Mock.Of<IStartGameEvent>();
         
         // Act
@@ -127,7 +125,8 @@ public sealed class GameTests
         var otherPlayer = new Mock<IPlayerV2>();
         otherPlayer.Setup(x => x.Deck.Shuffle(randomizer));
         var startGame = new Mock<IStartGameEvent>();
-        startGame.SetupGet(x => x.Player).Returns(startingPlayer.Object);
+        startGame.SetupGet(x => x.StartingPlayer).Returns(
+            startingPlayer.Object);
         startGame.SetupGet(x => x.OtherPlayer).Returns(otherPlayer.Object);
         
         // Act
@@ -174,8 +173,10 @@ public sealed class GameTests
         concede.Verify(x => x.Happen(state.Object));
     }
 
-    [Fact]
-    public void UnexpectedPlayerTakingAction()
+    [Theory]
+    [InlineData(true, "No passable action given")]
+    [InlineData(false, "Unexpected player tried to take action")]
+    public void InvalidOperation(bool value, string expected)
     {
         // Arrange
         var state = new Mock<IGameState>();
@@ -183,16 +184,15 @@ public sealed class GameTests
         passableAction.SetupGet(x => x.Player).Returns(Mock.Of<IPlayerV2>());
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         var game = CreateGame(state.Object);
-        var gameEvent = new Mock<IGameEventV2>();
-        gameEvent.SetupGet(x => x.Player).Returns(Mock.Of<IPlayerV2>());
+        Action func = value
+            ? () => game.Play(Mock.Of<IGameEventV2>())
+            : () => game.Play(Mock.Of<IPassableGameEvent>());
         
         // Act
-        var illegalActionException = Assert.Throws<InvalidOperationException>(
-            () => game.Play(gameEvent.Object));
+        var ex = Assert.Throws<InvalidOperationException>(func);
 
         // Assert
-        Assert.Equal("Unexpected player tried to take action",
-            illegalActionException.Message);
+        Assert.Equal(expected, ex.Message);
         Assert.Equal(state.Object, game.State);
     }
 
@@ -227,8 +227,6 @@ public sealed class GameTests
         state.SetupSequence(x => x.GameOver)
                 .Returns(false).Returns(false).Returns(true);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
-        var gameEvent = new Mock<IGameEventV2>();
-        gameEvent.SetupGet(x => x.Player).Returns(activePlayer.Object);
         var game = CreateGame(state.Object, maxloopCount: 1);
         var passable = Mock.Of<IPassableGameEvent>();
         if (testMode == TestMode.Passable)
@@ -244,6 +242,8 @@ public sealed class GameTests
                 notPassable
             ]);
         }
+        var gameEvent = new Mock<IPassableGameEvent>();
+        gameEvent.SetupGet(x => x.Player).Returns(activePlayer.Object);
         
         // Act
         game.Play(gameEvent.Object);
@@ -284,8 +284,6 @@ public sealed class GameTests
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
         var game = CreateGame(state.Object, maxloopCount: 1);
-        var e = new Mock<IGameEventV2>();
-        e.SetupGet(x => x.Player).Returns(activePlayer.Object);
 
         // Act
         var ex = Assert.Throws<InvalidOperationException>(

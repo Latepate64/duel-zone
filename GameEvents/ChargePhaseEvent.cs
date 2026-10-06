@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class ChargePhaseEvent : GameEventV2
+public sealed class ChargePhaseEvent : TurnBasedAction
 {
     bool shouldEnd;
 

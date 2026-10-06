@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace GameEvents;
 
-public sealed class UseCardEvent : PassableGameEvent
+public sealed class UseCardEvent : PassableTurnBasedAction
 {
     public ICard? Card { get; init; }
     public IEnumerable<ICard> PaymentCards { get; init; } = [];
