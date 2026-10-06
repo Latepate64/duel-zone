@@ -3,20 +3,31 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class DynoMantisEffect : ContinuousEffect, IBreaksAdditionalShieldsEffect
+/// <summary>
+/// Each of your other creatures in the battle zone that has power 5000 or more
+/// breaks one more shield.
+/// </summary>
+public sealed class DynoMantisEffect : ContinuousEffect, 
+    IBreaksAdditionalShieldsEffect
 {
+    public DynoMantisEffect()
+    {
+    }
+
+    public DynoMantisEffect(DynoMantisEffect effect) : base(effect)
+    {
+    }
+
     public override IContinuousEffect Copy()
     {
-        return new DynoMantisEffect();
+        return new DynoMantisEffect(this);
     }
 
-    public int GetAmount(IGame game, ICreature creature)
+    public int GetAmount(ICreature creature)
     {
-        return creature.Owner == Controller && !IsSourceOfAbility(creature) && creature.Power >= 5000 ? 1 : 0;
-    }
-
-    public override string ToString()
-    {
-        return "Each of your other creatures in the battle zone that has power 5000 or more breaks one more shield.";
+        if (creature.OwnerV2 != Applier) return 0;
+        if (IsSourceOfAbility(creature)) return 0;
+        if (creature.Power < 5000) return 0;
+        return 1;
     }
 }
