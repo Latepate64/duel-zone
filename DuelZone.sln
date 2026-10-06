@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestEngine", "TestEngine\TestEngine.csproj", "{E8605426-B890-4498-861E-8FC61DCC80E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCards", "TestCards\TestCards.csproj", "{F1EF56F9-143C-46E9-A689-339A2CCC81C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestContinuousEffects", "TestContinuousEffects\TestContinuousEffects.csproj", "{F1EF56F9-143C-46E9-A689-339A2CCC81C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneShotEffects", "OneShotEffects\OneShotEffects.csproj", "{61E4CF87-C7EF-422C-85DA-B04CC56B4FBF}"
 EndProject

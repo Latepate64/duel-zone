@@ -3,6 +3,9 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
+/// <summary>
+/// You can cast this spell only if your opponent has more shields than you do.
+/// </summary>
 public sealed class MiraculousMeltdownContinuousEffect : ContinuousEffect,
     ICannotUseCardEffect
 {
@@ -10,24 +13,21 @@ public sealed class MiraculousMeltdownContinuousEffect : ContinuousEffect,
     {
     }
 
-    public MiraculousMeltdownContinuousEffect(MiraculousMeltdownContinuousEffect effect) : base(effect)
+    public MiraculousMeltdownContinuousEffect(
+        MiraculousMeltdownContinuousEffect effect) : base(effect)
     {
     }
 
     public bool Applies(ICard card, IGameState state)
     {
-        return card == Source &&
-            Applier.ShieldZone.Size >= state.GetOpponent(
-                Applier).ShieldZone.Size;
+        if (!IsSourceOfAbility(card)) return false;
+        if (Applier.ShieldZone.Size < state.GetOpponent(
+            Applier).ShieldZone.Size) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
         return new MiraculousMeltdownContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "You can cast this spell only if your opponent has more shields than you do.";
     }
 }

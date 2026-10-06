@@ -2,8 +2,8 @@
 
 public interface IEffect
 {
-    IAbility Ability { get; set; }
-    IPlayer Controller { get; }
+    IAbility? Ability { get; set; }
+    IPlayer? Controller { get; }
     IPlayerV2 Applier { get; }
-    ICard Source { get; }
+    ICard? Source { get; }
 }

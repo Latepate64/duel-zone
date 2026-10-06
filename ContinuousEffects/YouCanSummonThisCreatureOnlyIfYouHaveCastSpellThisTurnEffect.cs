@@ -3,6 +3,9 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
+/// <summary>
+/// You can summon this creature only if you have cast a spell this turn.
+/// </summary>
 public sealed class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect
     : ContinuousEffect, ICannotUseCardEffect
 {
@@ -25,10 +28,5 @@ public sealed class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect
     {
         return new YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect(
             this);
-    }
-
-    public override string ToString()
-    {
-        return "You can summon this creature only if you have cast a spell this turn.";
     }
 }

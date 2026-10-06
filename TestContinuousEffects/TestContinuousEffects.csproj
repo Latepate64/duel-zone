@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cards\Cards.csproj" />
+    <ProjectReference Include="..\ContinuousEffects\ContinuousEffects.csproj" />
   </ItemGroup>
 
 </Project>
