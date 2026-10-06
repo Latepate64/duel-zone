@@ -1,3 +1,4 @@
+using System;
 using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -12,7 +13,7 @@ public sealed class GameStateTests
     {
         Type,
         ActivePlayer,
-        NonActivePlayers,
+        NonActivePlayer,
         OtherWinner,
         Winner,
         Losers,
@@ -21,7 +22,7 @@ public sealed class GameStateTests
     [Theory]
     [InlineData(Different.Type)]
     [InlineData(Different.ActivePlayer)]
-    [InlineData(Different.NonActivePlayers)]
+    [InlineData(Different.NonActivePlayer)]
     [InlineData(Different.OtherWinner)]
     [InlineData(Different.Winner)]
     [InlineData(Different.Losers)]
@@ -43,7 +44,7 @@ public sealed class GameStateTests
             ? new object()
             : new GameState(
                 testMode == Different.ActivePlayer ? null : activePlayer,
-                testMode == Different.NonActivePlayers
+                testMode == Different.NonActivePlayer
                     ? null : nonActivePlayer)
             {
                 Winner = testMode == Different.OtherWinner
@@ -224,7 +225,7 @@ public sealed class GameStateTests
     }
 
     [Fact]
-    public void GameOverWhenActivePlayerAndNonActivePlayersDoNotExist()
+    public void GameOverWhenActivePlayerAndNonActivePlayerDoNotExist()
     {
         // Arrange
         var activePlayer = new Mock<IPlayerV2>();
@@ -232,7 +233,7 @@ public sealed class GameStateTests
         var state = new GameState(activePlayer.Object, nonActivePlayer.Object)
         {
             ActivePlayer = null,
-            NonActivePlayers = []
+            NonActivePlayer = null
         };
 
         // Act
@@ -240,5 +241,37 @@ public sealed class GameStateTests
 
         // Assert
         Assert.True(actual);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void GetOpponent(bool value)
+    {
+        // Arrange
+        var first = Mock.Of<IPlayerV2>();
+        var second = Mock.Of<IPlayerV2>();
+        var state = new GameState(
+            value ? first : second, value ? second : first);
+
+        // Act
+        var actual = state.GetOpponent(first);
+
+        // Assert
+        Assert.Equal(second, actual);
+    }
+
+    [Fact]
+    public void OpponentNotFound()
+    {
+        // Arrange
+        var state = new GameState(null, null);
+
+        // Act
+        var ex = Assert.Throws<InvalidOperationException>(
+            () => state.GetOpponent(Mock.Of<IPlayerV2>()));
+
+        // Assert
+        Assert.Equal("Opponent not found", ex.Message);
     }
 }

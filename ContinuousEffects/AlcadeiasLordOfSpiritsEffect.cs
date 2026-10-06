@@ -3,9 +3,14 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseCardEffect
+/// <summary>
+/// Players can't cast spells other than light spells.
+/// </summary>
+public sealed class AlcadeiasLordOfSpiritsEffect : ContinuousEffect,
+    ICannotUseCardEffect
 {
-    public AlcadeiasLordOfSpiritsEffect(AlcadeiasLordOfSpiritsEffect effect) : base(effect)
+    public AlcadeiasLordOfSpiritsEffect(
+        AlcadeiasLordOfSpiritsEffect effect) : base(effect)
     {
     }
 
@@ -18,13 +23,10 @@ public sealed class AlcadeiasLordOfSpiritsEffect : ContinuousEffect, ICannotUseC
         return new AlcadeiasLordOfSpiritsEffect(this);
     }
 
-    public override string ToString()
+    public bool Applies(ICard card, IGameState state)
     {
-        return "Players can't cast spells other than light spells.";
-    }
-
-    public bool Applies(ICard card, IGame game)
-    {
-        return card is ISpell && !card.HasCivilization(Civilization.Light);
+        if (card is not ISpell spell) return false;
+        if (spell.HasCivilization(Civilization.Light)) return false;
+        return true;
     }
 }

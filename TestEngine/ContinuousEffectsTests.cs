@@ -605,14 +605,14 @@ public sealed class ContinuousEffectsTests
         // Arrange
         var player = Mock.Of<IPlayer>();
         var card = Mock.Of<ICard>();
-        var game = Mock.Of<IGame>();
         var effect = new Mock<ICannotUseCardEffect>();
-        effect.Setup(x => x.Applies(card, game)).Returns(!expected);
-        var effects = new ContinuousEffects(game);
+        var state = Mock.Of<IGameState>();
+        effect.Setup(x => x.Applies(card, state)).Returns(!expected);
+        var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
-        var actual = effects.CanPlayerUseCard(card);
+        var actual = effects.CanPlayerUseCard(card, state);
 
         // Assert
         Assert.Equal(expected, actual);

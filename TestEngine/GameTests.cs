@@ -20,8 +20,7 @@ public sealed class GameTests
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
-        state.SetupGet(x => x.NonActivePlayers).Returns([
-            nonActivePlayer.Object]);
+        state.SetupGet(x => x.NonActivePlayer).Returns(nonActivePlayer.Object);
         state.SetupGet(x => x.PassableAction).Returns(
             Mock.Of<IPassableGameEvent>);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
@@ -63,8 +62,7 @@ public sealed class GameTests
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
-        state.SetupGet(x => x.NonActivePlayers).Returns([
-            nonActivePlayer.Object]);
+        state.SetupGet(x => x.NonActivePlayer).Returns(nonActivePlayer.Object);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);
         var passableAction = new Mock<IPassableGameEvent>();
@@ -216,8 +214,7 @@ public sealed class GameTests
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
-        state.SetupGet(x => x.NonActivePlayers).Returns([
-            nonActivePlayer.Object]);
+        state.SetupGet(x => x.NonActivePlayer).Returns(nonActivePlayer.Object);
         var passableAction = new Mock<IPassableGameEvent>();
         passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
@@ -278,8 +275,7 @@ public sealed class GameTests
         passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
-        state.SetupGet(x => x.NonActivePlayers).Returns([
-            nonActivePlayer.Object]);
+        state.SetupGet(x => x.NonActivePlayer).Returns(nonActivePlayer.Object);
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([]);
         state.SetupGet(x => x.EventsHappening.IsEmpty).Returns(false);

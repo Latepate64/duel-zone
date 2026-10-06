@@ -19,7 +19,7 @@ public interface IContinuousEffects
     bool CanPlayersUseTapAbilities();
     bool CanPlayerTapCreature(IPlayer player, ICreature card);
     bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
-    bool CanPlayerUseCard(ICard card);
+    bool CanPlayerUseCard(ICard card, IGameState state);
     IContinuousEffects Copy();
     bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
     bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner);
