@@ -24,8 +24,10 @@ public class LoseGameEvent : GameEventV2
     public override IEnumerable<GameEventV2> Happen(IGameState state)
     {
         state.Losers.Add(Player);
-        var remainingPlayers = state.NonActivePlayers.Append(
-            state.ActivePlayer).Where(x => x != Player);
+        var players = new List<IPlayerV2> {
+            state.ActivePlayer,
+            state.NonActivePlayer};
+        var remainingPlayers = players.Where(x => x != Player);
         if (remainingPlayers.Count() == 1)
         {
             state.Winner = remainingPlayers.Single();

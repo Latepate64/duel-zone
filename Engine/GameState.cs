@@ -11,7 +11,7 @@ namespace Engine;
 public sealed class GameState : IGameState
 {
     public IPlayerV2 ActivePlayer { get; set; }
-    public IEnumerable<IPlayerV2> NonActivePlayers { get; set; }
+    public IPlayerV2 NonActivePlayer { get; set; }
     public IPlayerV2 Winner { get; set; }
     public IList<IPlayerV2> Losers { get; set; } = [];
     public IEventStack EventsHappening { get; } = new EventStack();
@@ -33,7 +33,7 @@ public sealed class GameState : IGameState
         get
         {
             if (Winner != null) return true;
-            if (ActivePlayer == null && !NonActivePlayers.Any()) return true;
+            if (ActivePlayer == null && NonActivePlayer == null) return true;
             return false;
         }
     }
@@ -41,13 +41,13 @@ public sealed class GameState : IGameState
     public GameState(IPlayerV2 activePlayer, IPlayerV2 nonActivePlayer)
     {
         ActivePlayer = activePlayer;
-        NonActivePlayers = [nonActivePlayer];
+        NonActivePlayer = nonActivePlayer;
     }
 
     GameState(GameState state)
     {
         ActivePlayer = state.ActivePlayer.Copy();
-        NonActivePlayers = [.. state.NonActivePlayers.Select(x => x.Copy())];
+        NonActivePlayer = state.NonActivePlayer.Copy();
         Winner = state.Winner?.Copy();
         Losers = [.. state.Losers.Select(x => x.Copy())];
         EventsHappening = state.EventsHappening.Copy();
@@ -67,8 +67,7 @@ public sealed class GameState : IGameState
     {
         if (obj is not GameState state) return false;
         if (!ActivePlayer.Equals(state.ActivePlayer)) return false;
-        if (!NonActivePlayers.SequenceEqual(
-            state.NonActivePlayers)) return false;
+        if (!NonActivePlayer.Equals(state.NonActivePlayer)) return false;
         if (Winner == null && state.Winner != null) return false;
         if (Winner != null && !Winner.Equals(state.Winner)) return false;
         if (!Losers.SequenceEqual(state.Losers)) return false;
@@ -89,10 +88,7 @@ public sealed class GameState : IGameState
     {
         var hash = new HashCode();
         hash.Add(ActivePlayer);
-        foreach (var x in NonActivePlayers)
-        {
-            hash.Add(x);
-        }
+        hash.Add(NonActivePlayer);
         hash.Add(Winner);
         foreach (var x in Losers)
         {

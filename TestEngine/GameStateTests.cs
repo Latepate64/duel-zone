@@ -12,7 +12,7 @@ public sealed class GameStateTests
     {
         Type,
         ActivePlayer,
-        NonActivePlayers,
+        NonActivePlayer,
         OtherWinner,
         Winner,
         Losers,
@@ -21,7 +21,7 @@ public sealed class GameStateTests
     [Theory]
     [InlineData(Different.Type)]
     [InlineData(Different.ActivePlayer)]
-    [InlineData(Different.NonActivePlayers)]
+    [InlineData(Different.NonActivePlayer)]
     [InlineData(Different.OtherWinner)]
     [InlineData(Different.Winner)]
     [InlineData(Different.Losers)]
@@ -43,7 +43,7 @@ public sealed class GameStateTests
             ? new object()
             : new GameState(
                 testMode == Different.ActivePlayer ? null : activePlayer,
-                testMode == Different.NonActivePlayers
+                testMode == Different.NonActivePlayer
                     ? null : nonActivePlayer)
             {
                 Winner = testMode == Different.OtherWinner
@@ -224,7 +224,7 @@ public sealed class GameStateTests
     }
 
     [Fact]
-    public void GameOverWhenActivePlayerAndNonActivePlayersDoNotExist()
+    public void GameOverWhenActivePlayerAndNonActivePlayerDoNotExist()
     {
         // Arrange
         var activePlayer = new Mock<IPlayerV2>();
@@ -232,7 +232,7 @@ public sealed class GameStateTests
         var state = new GameState(activePlayer.Object, nonActivePlayer.Object)
         {
             ActivePlayer = null,
-            NonActivePlayers = []
+            NonActivePlayer = null
         };
 
         // Act

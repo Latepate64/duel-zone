@@ -14,7 +14,7 @@ public interface IGameState
     IBattleZone BattleZone { get; init; }
     IContinuousEffects ContinuousEffects { get; }
     IPlayerV2 ActivePlayer { get; set; }
-    IEnumerable<IPlayerV2> NonActivePlayers { get; set; }
+    IPlayerV2 NonActivePlayer { get; set; }
     bool GameOver { get; }
     IGameState Copy();
 }
