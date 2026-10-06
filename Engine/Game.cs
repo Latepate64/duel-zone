@@ -34,6 +34,10 @@ public sealed class Game(int maxLoopCount = 5)
             Continue();
             return;
         }
+        if (State == null)
+        {
+            throw new InvalidOperationException("Game has not yet started");
+        }
         if (State.GameOver)
         {
             throw new InvalidOperationException("Game has ended already");

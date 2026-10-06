@@ -299,6 +299,20 @@ public sealed class GameTests
             activePlayer.Object, nonActivePlayer.Object]);
     }
 
+    [Fact]
+    public void GameHasNotYetStarted()
+    {
+        // Arrange
+        var game = CreateGame(state: null, maxloopCount: 1);
+
+        // Act
+        var ex = Assert.Throws<InvalidOperationException>(
+            () => game.Play(Mock.Of<IGameEventV2>()));
+
+        // Assert
+        Assert.Equal("Game has not yet started", ex.Message);
+    }
+
     static Game CreateGame(IGameState state, int maxloopCount = 99) => new(
         state, maxloopCount);
 }
