@@ -153,6 +153,21 @@ public sealed class BattleZone : Zone, IBattleZone
             && x.OwnerV2.Equals(excluded.OwnerV2));
     }
 
+    public int GetNumberOfOtherRaceCreaturesControllerByPlayer(
+        ICreature excluded, Race race)
+    {
+        return Creatures.Count(x => !x.Equals(excluded)
+            && x.OwnerV2.Equals(excluded.OwnerV2)
+            && x.HasRace(race));
+    }
+
+    public int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded)
+    {
+        return Creatures.Count(x => !x.Equals(excluded)
+            && x.OwnerV2.Equals(excluded.OwnerV2)
+            && x.IsDragon);
+    }
+
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
         x => x.IsBlocker);
 

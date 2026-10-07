@@ -1,8 +1,12 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects.Breaker;
 
+/// <summary>
+/// Double breaker (This creature breaks 2 shields.)
+/// </summary>
 public sealed class DoubleBreakerEffect : ContinuousEffect, IBreakerEffect
 {
     public DoubleBreakerEffect() : base()
@@ -18,13 +22,9 @@ public sealed class DoubleBreakerEffect : ContinuousEffect, IBreakerEffect
         return new DoubleBreakerEffect(this);
     }
 
-    public int GetAmount(IGame game, ICreature creature)
+    public int GetAmount(ICreature creature, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(creature) ? 2 : 1;
-    }
-
-    public override string ToString()
-    {
-        return "Double breaker";
+        if (!IsSourceOfAbility(creature)) return 1;
+        return 2;
     }
 }

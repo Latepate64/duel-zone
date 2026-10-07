@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects.Breaker;
 
@@ -14,5 +15,5 @@ public abstract class CrewBreakerEffect : ContinuousEffect, IBreakerEffect
         
     }
 
-    public abstract int GetAmount(IGame game, ICreature creature);
+    public abstract int GetAmount(ICreature creature, IBattleZone battleZone);
 }

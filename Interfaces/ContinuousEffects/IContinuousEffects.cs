@@ -32,7 +32,8 @@ public interface IContinuousEffects
     bool DoesCreatureHaveSpeedAttacker(ICreature creature);
     bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(ICreature creature);
     int GetAmountOfShieldsCreatureBreaksAdditionally(ICreature attackingCreature);
-    IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(ICreature attackingCreature);
+    IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(
+        ICreature attackingCreature, IBattleZone battleZone);
     IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent);
     void Notify(IGameEvent gameEvent);
     void RemoveExpired(IGameEvent gameEvent);

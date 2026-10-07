@@ -1,8 +1,14 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects.Breaker;
 
+/// <summary>
+/// "While this creature has power 6000 or more, it has \"double breaker.\"
+/// While this creature has power 15000 or more, it has \"triple breaker\"
+/// instead of \"double breaker.\"
+/// </summary>
 public sealed class PoweredTripleBreaker : ContinuousEffect, IBreakerEffect
 {
     public PoweredTripleBreaker() : base()
@@ -14,7 +20,7 @@ public sealed class PoweredTripleBreaker : ContinuousEffect, IBreakerEffect
         return new PoweredTripleBreaker();
     }
 
-    public int GetAmount(IGame game, ICreature creature)
+    public int GetAmount(ICreature creature, IBattleZone battleZone)
     {
         if (IsSourceOfAbility(creature))
         {
@@ -29,10 +35,5 @@ public sealed class PoweredTripleBreaker : ContinuousEffect, IBreakerEffect
         {
             return 1;
         }
-    }
-
-    public override string ToString()
-    {
-        return "While this creature has power 6000 or more, it has \"double breaker.\" While this creature has power 15000 or more, it has \"triple breaker\" instead of \"double breaker.\"";
     }
 }

@@ -461,19 +461,21 @@ public sealed class ContinuousEffectsTests
     {
         // Arrange
         var creature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
         var breakers = new List<IBreakerEffect>();
+        var battleZone = Mock.Of<IBattleZone>();
         foreach (var e in expected)
         {
             var effect = new Mock<IBreakerEffect>();
-            effect.Setup(x => x.GetAmount(game, creature)).Returns(e);
+            effect.Setup(x => x.GetAmount(
+                creature, battleZone)).Returns(e);
             breakers.Add(effect.Object);
         }
-        var effects = new ContinuousEffects(game);
+        var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), [.. breakers]);
 
         // Act
-        var actual = effects.GetAmountsOfShieldsCreatureCanBreak(creature);
+        var actual = effects.GetAmountsOfShieldsCreatureCanBreak(creature,
+            battleZone);
 
         // Assert
         Assert.Equal(expected, actual);

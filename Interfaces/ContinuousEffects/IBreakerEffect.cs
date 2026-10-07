@@ -1,7 +1,9 @@
-﻿namespace Interfaces.ContinuousEffects
+﻿using Interfaces.Zones;
+
+namespace Interfaces.ContinuousEffects
 {
     public interface IBreakerEffect : IContinuousEffect
     {
-        int GetAmount(IGame game, ICreature creature);
+        int GetAmount(ICreature creature, IBattleZone battleZone);
     }
 }

@@ -188,10 +188,10 @@ public sealed class ContinuousEffects : IContinuousEffects
     }
 
     public IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(
-        ICreature attackingCreature)
+        ICreature attackingCreature, IBattleZone battleZone)
     {
         return GetContinuousEffects<IBreakerEffect>().Select(x => x.GetAmount(
-            Game, attackingCreature));
+            attackingCreature, battleZone));
     }
 
     public bool 

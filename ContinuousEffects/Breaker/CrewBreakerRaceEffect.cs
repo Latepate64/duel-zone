@@ -1,8 +1,13 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects.Breaker;
 
+/// <summary>
+/// Crew breaker — Race (This creature breaks one more shield for each of your
+/// other Race creatures in the battle zone.)
+/// </summary>
 public sealed class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
 {
     public Race Race { get; }
@@ -22,10 +27,11 @@ public sealed class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
         return $"Crew breaker - {Race}";
     }
 
-    public override int GetAmount(IGame game, ICreature creature)
+    public override int GetAmount(ICreature creature, IBattleZone battleZone)
     {
-        var ability = Ability;
-        return IsSourceOfAbility(creature) ? game.BattleZone.GetCreatures(ability.Controller.Id).Count(x => x != ability.Source && x.HasRace(Race)) : 1;
+        if (!IsSourceOfAbility(creature)) return 1;
+        return 1 + battleZone.GetNumberOfOtherRaceCreaturesControllerByPlayer(
+            creature, Race);
     }
 
     public override IContinuousEffect Copy()
