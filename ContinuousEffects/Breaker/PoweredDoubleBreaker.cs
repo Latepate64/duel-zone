@@ -13,13 +13,19 @@ public sealed class PoweredDoubleBreaker : ContinuousEffect, IBreakerEffect
     {
     }
 
+    public PoweredDoubleBreaker(PoweredDoubleBreaker effect) : base(effect)
+    {
+    }
+
     public override IContinuousEffect Copy()
     {
-        return new PoweredDoubleBreaker();
+        return new PoweredDoubleBreaker(this);
     }
 
     public int GetAmount(ICreature creature, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(creature) && (Source as ICreature).Power >= 6000 ? 2 : 1;
+        if (!IsSourceOfAbility(creature)) return 1;
+        if (creature.Power < 6000) return 1;
+        return 2;
     }
 }

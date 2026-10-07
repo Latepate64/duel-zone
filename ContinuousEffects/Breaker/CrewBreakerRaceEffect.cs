@@ -22,11 +22,6 @@ public sealed class CrewBreakerRaceEffect : CrewBreakerEffect, IRaceable
         Race = race;
     }
 
-    public override string ToString()
-    {
-        return $"Crew breaker - {Race}";
-    }
-
     public override int GetAmount(ICreature creature, IBattleZone battleZone)
     {
         if (!IsSourceOfAbility(creature)) return 1;

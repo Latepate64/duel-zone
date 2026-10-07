@@ -4,6 +4,9 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Breaker;
 
+/// <summary>
+/// Triple breaker (This creature breaks 3 shields.)
+/// </summary>
 public sealed class TripleBreakerEffect : ContinuousEffect, IBreakerEffect
 {
     public TripleBreakerEffect() : base()
@@ -21,7 +24,8 @@ public sealed class TripleBreakerEffect : ContinuousEffect, IBreakerEffect
 
     public int GetAmount(ICreature creature, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(creature) ? 3 : 1;
+        if (!IsSourceOfAbility(creature)) return 1;
+        return 3;
     }
 }
 
