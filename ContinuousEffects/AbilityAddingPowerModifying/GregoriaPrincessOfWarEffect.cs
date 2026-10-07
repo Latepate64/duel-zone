@@ -3,7 +3,7 @@ using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.AbilityAddingPowerModifying;
 
 public sealed class GregoriaPrincessOfWarEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
 {

@@ -1,6 +1,6 @@
 ﻿using Interfaces;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.AbilityAddingPowerModifying;
 
 public abstract class GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect : GetPowerAndDoubleBreakerEffect, IExpirable
 {

@@ -1,7 +1,7 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.SkipBattleAfterBlock;
 
 public sealed class ChekiculEffect : ContinuousEffect, ISkipBattleAfterBlockEffect
 {

@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.CannotUseShieldTrigger;
 
 public sealed class PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEffect : ContinuousEffect, ICannotUseShieldTriggerEffect, ICivilizationable
 {

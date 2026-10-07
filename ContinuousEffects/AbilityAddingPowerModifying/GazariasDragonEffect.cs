@@ -3,7 +3,7 @@ using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.AbilityAddingPowerModifying;
 
 public sealed class GazariasDragonEffect : ContinuousEffect, IPowerModifyingEffect, IAbilityAddingEffect
 {

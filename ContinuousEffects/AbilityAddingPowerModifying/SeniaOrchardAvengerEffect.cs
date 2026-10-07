@@ -1,7 +1,7 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.AbilityAddingPowerModifying;
 
 public sealed class SeniaOrchardAvengerEffect : GetPowerAndDoubleBreakerEffect
 {

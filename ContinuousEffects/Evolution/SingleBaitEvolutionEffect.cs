@@ -1,7 +1,7 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.Evolution;
 
 public abstract class SingleBaitEvolutionEffect : ContinuousEffect, IEvolutionEffect
 {

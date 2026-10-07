@@ -1,7 +1,7 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects;
+namespace ContinuousEffects.CannotAttackPlayers;
 
 public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
 {
