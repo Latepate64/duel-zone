@@ -17,6 +17,7 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
     int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization);
     int GetOtherCreatureCount(Guid creature, Race race);
+    int GetNumberOfOtherCreaturesControllerByPlayer(ICreature attacker);
     IEnumerable<ICreature> GetOtherCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetOtherCreatures(Guid creature, Civilization civilization);
     IEnumerable<ICreature> GetOtherTappedCreatures(Guid controller, Guid creature);

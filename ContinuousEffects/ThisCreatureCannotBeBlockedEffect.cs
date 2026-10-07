@@ -1,11 +1,17 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
+/// <summary>
+/// This creature can't be blocked.
+/// </summary>
+public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect,
+    IUnblockableEffect
 {
-    public ThisCreatureCannotBeBlockedEffect(ThisCreatureCannotBeBlockedEffect effect) : base(effect)
+    public ThisCreatureCannotBeBlockedEffect(
+        ThisCreatureCannotBeBlockedEffect effect) : base(effect)
     {
     }
 
@@ -18,13 +24,10 @@ public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblo
         return new ThisCreatureCannotBeBlockedEffect(this);
     }
 
-    public override string ToString()
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return "This creature can't be blocked.";
-    }
-
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
-    {
-        return IsSourceOfAbility(attacker);
+        if (!IsSourceOfAbility(attacker)) return false;
+        return true;
     }
 }

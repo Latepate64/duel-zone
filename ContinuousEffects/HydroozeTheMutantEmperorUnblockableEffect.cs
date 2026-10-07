@@ -1,27 +1,34 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class HydroozeTheMutantEmperorUnblockableEffect : ContinuousEffect, IUnblockableEffect
+/// <summary>
+/// Your Cyber Lords or Hedrians can't be blocked.
+/// </summary>
+public sealed class HydroozeTheMutantEmperorUnblockableEffect :
+    ContinuousEffect, IUnblockableEffect
 {
     public HydroozeTheMutantEmperorUnblockableEffect() : base()
     {
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public HydroozeTheMutantEmperorUnblockableEffect(
+        HydroozeTheMutantEmperorUnblockableEffect effect) : base(effect)
     {
-        return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker)
-            && (attacker.HasRace(Race.CyberLord) || attacker.HasRace(Race.Hedrian));
+    }
+
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
+    {
+        if (attacker.OwnerV2 != Applier) return false;
+        if (!attacker.HasRace(Race.CyberLord, Race.Hedrian)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new HydroozeTheMutantEmperorUnblockableEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Your Cyber Lords or Hedrians can't be blocked.";
+        return new HydroozeTheMutantEmperorUnblockableEffect(this);
     }
 }

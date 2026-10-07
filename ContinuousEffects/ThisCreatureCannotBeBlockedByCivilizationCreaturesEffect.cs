@@ -1,34 +1,41 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect : ContinuousEffect, IUnblockableEffect, ICivilizationable
+/// <summary>
+/// This creature can't be blocked by civilization creatures.
+/// </summary>
+public sealed class ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect :
+    ContinuousEffect, IUnblockableEffect, ICivilizationable
 {
-    public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect effect) : base(effect)
+    public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(
+        ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect effect) :
+            base(effect)
     {
         Civilization = effect.Civilization;
     }
 
-    public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Civilization civilization) : base()
+    public ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(
+        Civilization civilization) : base()
     {
         Civilization = civilization;
     }
 
     public Civilization Civilization { get; }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(attacker) && blocker.HasCivilization(Civilization);
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (!blocker.HasCivilization(Civilization)) return false;
+        return true;
     }
 
     public override ContinuousEffect Copy()
     {
-        return new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"This creature can't be blocked by {Civilization.ToString().ToLower()} creatures.";
+        return new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(
+            this);
     }
 }

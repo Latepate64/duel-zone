@@ -1,26 +1,33 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class YourCreaturesCannotBeBlockedThisTurnEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
+/// <summary>
+/// Your creatures in the battle zone can't be blocked this turn.
+/// </summary>
+public sealed class YourCreaturesCannotBeBlockedThisTurnEffect :
+    UntilEndOfTurnEffect, IUnblockableEffect
 {
     public YourCreaturesCannotBeBlockedThisTurnEffect() : base()
     {
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public YourCreaturesCannotBeBlockedThisTurnEffect(
+        UntilEndOfTurnEffect effect) : base(effect)
     {
-        return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker);
+    }
+
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
+    {
+        if (!attacker.OwnerV2.Equals(Applier)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new YourCreaturesCannotBeBlockedThisTurnEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Your creatures in the battle zone can't be blocked this turn.";
+        return new YourCreaturesCannotBeBlockedThisTurnEffect(this);
     }
 }

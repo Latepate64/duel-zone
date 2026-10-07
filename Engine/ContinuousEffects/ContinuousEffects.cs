@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -158,11 +159,11 @@ public sealed class ContinuousEffects : IContinuousEffects
     }
 
     public bool CanCreatureBeBlocked(ICreature attackingCreature,
-        ICreature blocker, IAttackable attackTarget)
+        ICreature blocker, IAttackable attackTarget, IBattleZone battleZone)
     {
         return !GetContinuousEffects<IUnblockableEffect>().Any(
             e => e.CannotBeBlocked(
-                attackingCreature, blocker, attackTarget, Game));
+                attackingCreature, blocker, attackTarget, battleZone));
     }
 
     public bool DoesCreatureBlockIfAble(
@@ -235,10 +236,10 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.CannotAttackPlayers(creature, Game));
     }
 
-    public bool CanPlayerUseCard(ICard card, IGameState state)
+    public bool CanPlayerUseCard(ICard card)
     {
         return !GetContinuousEffects<ICannotUseCardEffect>().Any(
-            x => x.Applies(card, state));
+            x => x.Applies(card));
     }
 
     public bool CanCreatureEvolve(ICreature toEvolve)

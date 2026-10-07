@@ -27,7 +27,7 @@ public class BlazeCannonRestrictionEffectTests
         var effect = new BlazeCannonRestrictionEffect();
 
         // Act
-        var actual = effect.Applies(Mock.Of<ICard>(), Mock.Of<IGameState>());
+        var actual = effect.Applies(Mock.Of<ICard>());
 
         // Assert
         Assert.False(actual);
@@ -53,7 +53,7 @@ public class BlazeCannonRestrictionEffectTests
         };
 
         // Act
-        var actual = effect.Applies(spell, Mock.Of<IGameState>());
+        var actual = effect.Applies(spell);
 
         // Assert
         Assert.Equal(!areAllFireCards, actual);

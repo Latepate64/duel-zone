@@ -1,9 +1,15 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class StormWranglerContinuousEffect : UntilEndOfTurnEffect, IBlocksIfAbleEffect, IUnblockableEffect
+/// <summary>
+/// This turn, that creature blocks this creature if able and this creature
+/// can't be blocked by other creatures.
+/// </summary>
+public sealed class StormWranglerContinuousEffect : UntilEndOfTurnEffect,
+    IBlocksIfAbleEffect, IUnblockableEffect
 {
     private readonly ICreature _blocker;
 
@@ -12,28 +18,29 @@ public sealed class StormWranglerContinuousEffect : UntilEndOfTurnEffect, IBlock
         _blocker = blocker;
     }
 
-    public StormWranglerContinuousEffect(StormWranglerContinuousEffect effect) : base(effect)
+    public StormWranglerContinuousEffect(
+        StormWranglerContinuousEffect effect) : base(effect)
     {
         _blocker = effect._blocker;
     }
 
     public bool BlocksIfAble(ICreature blocker, ICreature attacker, IGame game)
     {
-        return blocker == _blocker && IsSourceOfAbility(attacker);
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (!blocker.Equals(_blocker)) return false;
+        return true;
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(attacker) && blocker != _blocker;
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (blocker.Equals(_blocker)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
         return new StormWranglerContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"This turn, {_blocker} blocks this creature if able and this creature can't be blocked by other creatures.";
     }
 }

@@ -144,7 +144,13 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(
         IPlayer player)
     {
-        return  CreaturesThatHaveBlocker.Where(c => c.Owner == player);
+        return CreaturesThatHaveBlocker.Where(c => c.Owner == player);
+    }
+
+    public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
+    {
+        return Creatures.Count(x => !x.Equals(excluded)
+            && x.OwnerV2.Equals(excluded.OwnerV2));
     }
 
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(

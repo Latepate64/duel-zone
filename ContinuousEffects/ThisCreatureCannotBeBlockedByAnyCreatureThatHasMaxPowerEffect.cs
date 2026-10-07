@@ -1,34 +1,41 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public class ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect : ContinuousEffect, IUnblockableEffect, IPowerable
+/// <summary>
+/// This creature can't be blocked by any creature that has power x or less.
+/// </summary>
+public class ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect :
+    ContinuousEffect, IUnblockableEffect, IPowerable
 {
-    public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect effect) : base(effect)
+    public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
+        ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect effect) :
+            base(effect)
     {
         Power = effect.Power;
     }
 
-    public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(int power) : base()
+    public ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
+        int power) : base()
     {
         Power = power;
     }
 
     public int Power { get; }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(attacker) && blocker.Power <= Power;
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (blocker.Power > Power) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"This creature can't be blocked by any creature that has power {Power} or less.";
+        return new
+            ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(this);
     }
 }

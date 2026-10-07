@@ -93,4 +93,23 @@ public sealed class ManaZoneTests
             Assert.Empty(actual);
         }
     }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void HasAnyCivilizationCard(bool value)
+    {
+        // Arrange
+        var zone = new ManaZone();
+        var card = new Mock<ICard>();
+        card.Setup(x => x.HasCivilization(
+            It.IsAny<Civilization>())).Returns(value);
+        zone.Add(card.Object);
+
+        // Act
+        var actual = zone.HasAnyCivilizationCard(Civilization.Light);
+
+        // Assert
+        Assert.Equal(value, actual);
+    }
 }

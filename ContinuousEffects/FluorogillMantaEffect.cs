@@ -1,27 +1,33 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
+/// <summary>
+/// Your light creatures and darkness creatures can't be blocked.
+/// </summary>
 public sealed class FluorogillMantaEffect : ContinuousEffect, IUnblockableEffect
 {
     public FluorogillMantaEffect() : base()
     {
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public FluorogillMantaEffect(FluorogillMantaEffect effect) : base(effect)
     {
-        return game.BattleZone.GetCreatures(Controller.Id).Contains(attacker)
-            && attacker.HasCivilization(Civilization.Light, Civilization.Darkness);
+    }
+
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
+    {
+        if (attacker.OwnerV2 != Applier) return false;
+        if (!attacker.HasCivilization(
+            Civilization.Light, Civilization.Darkness)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new FluorogillMantaEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Your light creatures and darkness creatures can't be blocked.";
+        return new FluorogillMantaEffect(this);
     }
 }

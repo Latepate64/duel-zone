@@ -1,27 +1,33 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
+/// <summary>
+/// This creature can't be blocked while you have at least 2 other creatures in
+/// the battle zone.
+/// </summary>
 public sealed class TropicoEffect : ContinuousEffect, IUnblockableEffect
 {
     public TropicoEffect() : base()
     {
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public TropicoEffect(TropicoEffect effect) : base(effect)
     {
-        return attacker == Ability.Source && game.BattleZone.GetCreatures(Controller.Id).Count(
-            x => x != Ability.Source) >= 2;
+    }
+
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
+    {
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (battleZone.GetNumberOfOtherCreaturesControllerByPlayer(attacker) < 2) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new TropicoEffect();
-    }
-
-    public override string ToString()
-    {
-        return "This creature can't be blocked while you have at least 2 other creatures in the battle zone.";
+        return new TropicoEffect(this);
     }
 }

@@ -23,7 +23,7 @@ public sealed class BlazeCannonRestrictionEffect : ContinuousEffect,
         return new BlazeCannonRestrictionEffect(this);
     }
 
-    public bool Applies(ICard card, IGameState state)
+    public bool Applies(ICard card)
     {
         if (!IsSourceOfAbility(card)) return false;
         if (Applier.ManaZone.AreAllCivilizationCards(

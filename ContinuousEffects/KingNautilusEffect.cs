@@ -1,26 +1,30 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
+/// <summary>
+/// Liquid People can't be blocked.
+/// </summary>
 public sealed class KingNautilusEffect : ContinuousEffect, IUnblockableEffect
 {
     public KingNautilusEffect() : base()
     {
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public KingNautilusEffect(KingNautilusEffect effect) : base(effect)
+    {
+    }
+
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
         return attacker.HasRace(Race.LiquidPeople);
     }
 
     public override IContinuousEffect Copy()
     {
-        return new KingNautilusEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Liquid People can't be blocked.";
+        return new KingNautilusEffect(this);
     }
 }

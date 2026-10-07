@@ -18,11 +18,11 @@ public sealed class MiraculousMeltdownContinuousEffect : ContinuousEffect,
     {
     }
 
-    public bool Applies(ICard card, IGameState state)
+    public bool Applies(ICard card)
     {
         if (!IsSourceOfAbility(card)) return false;
-        if (Applier.ShieldZone.Size < state.GetOpponent(
-            Applier).ShieldZone.Size) return false;
+        if (Applier.ShieldZone.Size < 
+            Applier.Opponent.ShieldZone.Size) return false;
         return true;
     }
 

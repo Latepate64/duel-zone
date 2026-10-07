@@ -23,7 +23,7 @@ public sealed class AlcadeiasLordOfSpiritsEffect : ContinuousEffect,
         return new AlcadeiasLordOfSpiritsEffect(this);
     }
 
-    public bool Applies(ICard card, IGameState state)
+    public bool Applies(ICard card)
     {
         if (card is not ISpell spell) return false;
         if (spell.HasCivilization(Civilization.Light)) return false;

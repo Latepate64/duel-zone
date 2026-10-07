@@ -6,5 +6,7 @@ public interface IManaZone : IZone
     IEnumerable<ICard> UntappedCards { get; }
 
     bool AreAllCivilizationCards(Civilization civ);
-    IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(int maximum);
+    IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(
+        int maximum);
+    bool HasAnyCivilizationCard(Civilization civilization);
 }

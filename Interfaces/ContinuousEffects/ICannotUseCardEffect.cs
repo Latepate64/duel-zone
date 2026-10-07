@@ -2,6 +2,6 @@
 {
     public interface ICannotUseCardEffect : IContinuousEffect
     {
-        bool Applies(ICard card, IGameState state);
+        bool Applies(ICard card);
     }
 }

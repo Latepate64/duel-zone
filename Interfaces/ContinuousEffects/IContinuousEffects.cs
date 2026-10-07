@@ -1,4 +1,6 @@
-﻿namespace Interfaces.ContinuousEffects;
+﻿using Interfaces.Zones;
+
+namespace Interfaces.ContinuousEffects;
 
 public interface IContinuousEffects
 {
@@ -12,14 +14,14 @@ public interface IContinuousEffects
     bool CanCreatureAttackPlayers(ICreature creature);
     bool CanCreatureAttackUntappedCreature(ICreature attacker, ICreature c);
     bool CanCreatureBeAttackedAsThoughItWereTapped(ICreature c);
-    bool CanCreatureBeBlocked(ICreature attackingCreature, ICreature blocker, IAttackable attackTarget);
+    bool CanCreatureBeBlocked(ICreature attackingCreature, ICreature blocker, IAttackable attackTarget, IBattleZone battleZone);
     bool CanCreatureBlockCreature(ICreature blocker, ICreature attackingCreature);
     bool CanCreatureEvolve(ICreature card);
     bool CanPlayerChooseCreature(IPlayer player, ICreature card);
     bool CanPlayersUseTapAbilities();
     bool CanPlayerTapCreature(IPlayer player, ICreature card);
     bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
-    bool CanPlayerUseCard(ICard card, IGameState state);
+    bool CanPlayerUseCard(ICard card);
     IContinuousEffects Copy();
     bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
     bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner);

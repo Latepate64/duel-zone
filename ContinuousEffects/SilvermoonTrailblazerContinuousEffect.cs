@@ -1,13 +1,20 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class SilvermoonTrailblazerContinuousEffect : UntilEndOfTurnEffect, IUnblockableEffect
+/// <summary>
+/// Creatures of that race can't be blocked by creatures that have power 3000 or
+/// less this turn.
+/// </summary>
+public sealed class SilvermoonTrailblazerContinuousEffect :
+    UntilEndOfTurnEffect, IUnblockableEffect
 {
     private readonly Race _race;
 
-    public SilvermoonTrailblazerContinuousEffect(SilvermoonTrailblazerContinuousEffect effect) : base(effect)
+    public SilvermoonTrailblazerContinuousEffect(
+        SilvermoonTrailblazerContinuousEffect effect) : base(effect)
     {
         _race = effect._race;
     }
@@ -17,18 +24,16 @@ public sealed class SilvermoonTrailblazerContinuousEffect : UntilEndOfTurnEffect
         _race = race;
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return attacker.HasRace(_race) && blocker.Power <= 3000;
+        if (!attacker.HasRace(_race)) return false;
+        if (blocker.Power > 3000) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
         return new SilvermoonTrailblazerContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"{_race}s can't be blocked by creatures that have power 3000 or less this turn.";
     }
 }

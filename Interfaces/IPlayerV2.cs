@@ -9,6 +9,8 @@ public interface IPlayerV2
     IHand Hand { get; }
     IManaZone ManaZone { get; }
     IGraveyard Graveyard { get; }
+    IPlayerV2 Opponent { get; }
+
     IPlayerV2 Copy();
     void SetOwnerForCards();
 }

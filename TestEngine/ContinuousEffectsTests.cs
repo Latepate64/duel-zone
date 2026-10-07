@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Engine.ContinuousEffects;
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 using Moq;
 using Xunit;
 
@@ -366,14 +367,16 @@ public sealed class ContinuousEffectsTests
         var attackTarget = Mock.Of<IAttackable>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IUnblockableEffect>();
+        var battleZone = Mock.Of<IBattleZone>();
         effect.Setup(x => x.CannotBeBlocked(
-            attackingCreature, blocker, attackTarget, game)).Returns(!expected);
+            attackingCreature, blocker, attackTarget, battleZone)).Returns(
+                !expected);
         var effects = new ContinuousEffects(game);
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
         var actual = effects.CanCreatureBeBlocked(
-            attackingCreature, blocker, attackTarget);
+            attackingCreature, blocker, attackTarget, battleZone);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -605,13 +608,12 @@ public sealed class ContinuousEffectsTests
         var player = Mock.Of<IPlayer>();
         var card = Mock.Of<ICard>();
         var effect = new Mock<ICannotUseCardEffect>();
-        var state = Mock.Of<IGameState>();
-        effect.Setup(x => x.Applies(card, state)).Returns(!expected);
+        effect.Setup(x => x.Applies(card)).Returns(!expected);
         var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
-        var actual = effects.CanPlayerUseCard(card, state);
+        var actual = effects.CanPlayerUseCard(card);
 
         // Assert
         Assert.Equal(expected, actual);

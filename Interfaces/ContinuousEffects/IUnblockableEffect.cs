@@ -1,7 +1,10 @@
-﻿namespace Interfaces.ContinuousEffects
+﻿using Interfaces.Zones;
+
+namespace Interfaces.ContinuousEffects
 {
     public interface IUnblockableEffect : IContinuousEffect
     {
-        bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game);
+        bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+            IAttackable targetOfAttack, IBattleZone battleZone);
     }
 }

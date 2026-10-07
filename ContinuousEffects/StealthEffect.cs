@@ -1,9 +1,15 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public class StealthEffect : ContinuousEffect, IUnblockableEffect, ICivilizationable
+/// <summary>
+/// Civilization stealth (This creature can't be blocked while your opponent has
+/// any civilization cards in his mana zone.)
+/// </summary>
+public class StealthEffect : ContinuousEffect, IUnblockableEffect,
+    ICivilizationable
 {
     public StealthEffect(Civilization civilization) : base()
     {
@@ -17,18 +23,17 @@ public class StealthEffect : ContinuousEffect, IUnblockableEffect, ICivilization
 
     public Civilization Civilization { get; }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return attacker == Source && GetOpponent(game).ManaZone.Cards.Any(x => x.HasCivilization(Civilization));
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (!Applier.Opponent.ManaZone.HasAnyCivilizationCard(
+            Civilization)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
         return new StealthEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"{Civilization} stealth";
     }
 }

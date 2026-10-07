@@ -15,7 +15,7 @@ public class AlcadeiasLordOfSpiritsEffectTests
         var creature = Mock.Of<ICreature>();
 
         // Act
-        var actual = effect.Applies(creature, Mock.Of<IGameState>());
+        var actual = effect.Applies(creature);
 
         // Assert
         Assert.False(actual);
@@ -31,7 +31,7 @@ public class AlcadeiasLordOfSpiritsEffectTests
             true);
 
         // Act
-        var actual = effect.Applies(spell.Object, Mock.Of<IGameState>());
+        var actual = effect.Applies(spell.Object);
 
         // Assert
         Assert.False(actual);
@@ -47,7 +47,7 @@ public class AlcadeiasLordOfSpiritsEffectTests
             false);
 
         // Act
-        var actual = effect.Applies(spell.Object, Mock.Of<IGameState>());
+        var actual = effect.Applies(spell.Object);
 
         // Assert
         Assert.True(actual);

@@ -1,13 +1,19 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class ImpossibleTunnelContinuousEffect : ContinuousEffects.UntilEndOfTurnEffect, IUnblockableEffect
+/// <summary>
+/// Creatures of that race can't be blocked this turn.
+/// </summary>
+public sealed class ImpossibleTunnelContinuousEffect : UntilEndOfTurnEffect,
+    IUnblockableEffect
 {
     private readonly Race _race;
 
-    public ImpossibleTunnelContinuousEffect(ImpossibleTunnelContinuousEffect effect) : base(effect)
+    public ImpossibleTunnelContinuousEffect(
+        ImpossibleTunnelContinuousEffect effect) : base(effect)
     {
         _race = effect._race;
     }
@@ -17,18 +23,15 @@ public sealed class ImpossibleTunnelContinuousEffect : ContinuousEffects.UntilEn
         _race = race;
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return game.BattleZone.GetCreatures(_race).Contains(attacker);
+        if (!attacker.HasRace(_race)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
         return new ImpossibleTunnelContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"{_race}s can't be blocked this turn.";
     }
 }

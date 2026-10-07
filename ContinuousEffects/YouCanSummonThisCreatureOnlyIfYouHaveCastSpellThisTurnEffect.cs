@@ -19,7 +19,7 @@ public sealed class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect
     {
     }
 
-    public bool Applies(ICard card, IGameState state)
+    public bool Applies(ICard card)
     {
         throw new NotImplementedException();
     }

@@ -1,30 +1,36 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect : ContinuousEffect, IUnblockableEffect
+/// <summary>
+/// While attacking a creature, this creature can't be blocked.
+/// </summary>
+public sealed class ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect :
+    ContinuousEffect, IUnblockableEffect
 {
     public ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect()
     {
     }
 
-    public ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect(ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect effect) : base(effect)
+    public ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect(
+        ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect effect) : base(
+            effect)
     {
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return IsSourceOfAbility(attacker) && targetOfAttack is ICard;
+        if (!IsSourceOfAbility(attacker)) return false;
+        if (targetOfAttack is not ICreature) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "While attacking a creature, this creature can't be blocked.";
+        return new ThisCreatureCannotBeBlockedWhileAttackingCreatureEffect(
+            this);
     }
 }

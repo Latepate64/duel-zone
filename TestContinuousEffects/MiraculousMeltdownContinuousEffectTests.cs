@@ -27,7 +27,7 @@ public class MiraculousMeltdownContinuousEffectTests
         var effect = new MiraculousMeltdownContinuousEffect();
 
         // Act
-        var actual = effect.Applies(Mock.Of<ICard>(), Mock.Of<IGameState>());
+        var actual = effect.Applies(Mock.Of<ICard>());
 
         // Assert
         Assert.False(actual);
@@ -48,9 +48,7 @@ public class MiraculousMeltdownContinuousEffectTests
             applierHasLessShields ? 0 : 2);
         var opponent = new Mock<IPlayerV2>();
         opponent.SetupGet(x => x.ShieldZone.Size).Returns(1);
-        var state = new Mock<IGameState>();
-        state.Setup(x => x.GetOpponent(applier.Object)).Returns(
-            opponent.Object);
+        applier.SetupGet(x => x.Opponent).Returns(opponent.Object);
         var effect = new MiraculousMeltdownContinuousEffect
         {
             Ability = spellAbility.Object,
@@ -58,7 +56,7 @@ public class MiraculousMeltdownContinuousEffectTests
         };
 
         // Act
-        var actual = effect.Applies(spell, state.Object);
+        var actual = effect.Applies(spell);
 
         // Assert
         Assert.Equal(!applierHasLessShields, actual);

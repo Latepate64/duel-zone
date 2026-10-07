@@ -31,6 +31,6 @@ public class YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffectTests
 
         // Act + Assert
         _ = Assert.Throws<NotImplementedException>(() => effect.Applies(
-            Mock.Of<ICard>(), Mock.Of<IGameState>()));
+            Mock.Of<ICard>()));
     }
 }
