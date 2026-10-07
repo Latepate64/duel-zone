@@ -1,4 +1,6 @@
 using Abilities;
+using ContinuousEffects.Blocker;
+using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 

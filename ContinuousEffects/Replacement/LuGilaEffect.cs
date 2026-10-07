@@ -1,0 +1,37 @@
+using GameEvents;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects.Replacement;
+
+public sealed class LuGilaEffect : ReplacementEffect
+{
+    public LuGilaEffect()
+    {
+    }
+
+    public LuGilaEffect(LuGilaEffect effect) : base(effect)
+    {
+    }
+
+    public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
+    {
+        return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone
+            && game.GetCard(e.CardInSourceZone) is ICreature creature && creature.IsEvolutionCreature;
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new LuGilaEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return "Evolution creatures are put into the battle zone tapped.";
+    }
+}

@@ -1,4 +1,5 @@
 using Abilities;
+using ContinuousEffects.SpeedAttacker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 

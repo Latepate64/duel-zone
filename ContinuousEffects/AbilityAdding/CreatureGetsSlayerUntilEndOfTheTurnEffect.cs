@@ -1,4 +1,5 @@
 ﻿using Abilities;
+using ContinuousEffects.Slayer;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 

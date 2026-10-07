@@ -1,3 +1,4 @@
+using ContinuousEffects.CanAttackUntappedCreatures;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
