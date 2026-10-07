@@ -3,24 +3,30 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class ThisCreatureCannotBeAttackedByDragonsEffect : ContinuousEffect, ICannotBeAttackedEffect
+/// <summary>
+/// This creature can't be attacked by any creature that has Dragon in its race.
+/// </summary>
+public sealed class ThisCreatureCannotBeAttackedByDragonsEffect :
+    ContinuousEffect, ICannotBeAttackedEffect
 {
     public ThisCreatureCannotBeAttackedByDragonsEffect() : base()
     {
     }
 
-    public bool Applies(ICreature attacker, ICreature targetOfAttack, IGame game)
+    public ThisCreatureCannotBeAttackedByDragonsEffect(
+        ThisCreatureCannotBeAttackedByDragonsEffect effect) : base(effect)
     {
-        return IsSourceOfAbility(targetOfAttack) && attacker.IsDragon;
+    }
+
+    public bool Applies(ICreature attacker, ICreature targetOfAttack)
+    {
+        if (!IsSourceOfAbility(targetOfAttack)) return false;
+        if (!attacker.IsDragon) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureCannotBeAttackedByDragonsEffect();
-    }
-
-    public override string ToString()
-    {
-        return "This creature can't be attacked by any creature that has Dragon in its race.";
+        return new ThisCreatureCannotBeAttackedByDragonsEffect(this);
     }
 }

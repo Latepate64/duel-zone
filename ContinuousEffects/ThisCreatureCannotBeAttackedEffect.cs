@@ -3,24 +3,29 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class ThisCreatureCannotBeAttackedEffect : ContinuousEffect, ICannotBeAttackedEffect
+/// <summary>
+/// This creature can't be attacked.
+/// </summary>
+public sealed class ThisCreatureCannotBeAttackedEffect : ContinuousEffect,
+    ICannotBeAttackedEffect
 {
     public ThisCreatureCannotBeAttackedEffect() : base()
     {
     }
 
-    public bool Applies(ICreature attacker, ICreature targetOfAttack, IGame game)
+    public ThisCreatureCannotBeAttackedEffect(
+        ThisCreatureCannotBeAttackedEffect effect) : base(effect)
     {
-        return IsSourceOfAbility(targetOfAttack);
+    }
+
+    public bool Applies(ICreature attacker, ICreature targetOfAttack)
+    {
+        if (!IsSourceOfAbility(targetOfAttack)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureCannotBeAttackedEffect();
-    }
-
-    public override string ToString()
-    {
-        return "This creature can't be attacked.";
+        return new ThisCreatureCannotBeAttackedEffect(this);
     }
 }

@@ -183,7 +183,7 @@ public sealed class ContinuousEffects : IContinuousEffects
         ICreature attackingCreature)
     {
         return GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(
-            x => x.GetAmount(Game, attackingCreature));
+            x => x.GetAmount(attackingCreature));
     }
 
     public IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(
@@ -217,7 +217,7 @@ public sealed class ContinuousEffects : IContinuousEffects
         ICreature attacker, ICreature targetOfAttack)
     {
         if (GetContinuousEffects<ICannotBeAttackedEffect>().Any(
-            x => x.Applies(attacker, targetOfAttack, Game)))
+            x => x.Applies(attacker, targetOfAttack)))
         {
             return false;
         }

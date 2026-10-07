@@ -3,32 +3,37 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect : ContinuousEffect, ICannotBeAttackedEffect, IMultiCivilizationable
+/// <summary>
+/// This creature can't be attacked by civilization creatures.
+/// </summary>
+public sealed class ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect
+    : ContinuousEffect, ICannotBeAttackedEffect, IMultiCivilizationable
 {
-    public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect effect) : base(effect)
+    public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(
+        ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect effect)
+            : base(effect)
     {
-        Civilizations = effect.Civilizations;
+        Civilizations = [.. effect.Civilizations];
     }
 
-    public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(params Civilization[] civilizations) : base()
+    public ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(
+        params Civilization[] civilizations) : base()
     {
         Civilizations = civilizations;
     }
 
     public Civilization[] Civilizations { get; }
 
-    public bool Applies(ICreature attacker, ICreature targetOfAttack, IGame game)
+    public bool Applies(ICreature attacker, ICreature targetOfAttack)
     {
-        return IsSourceOfAbility(targetOfAttack) && attacker.Civilizations.Intersect(Civilizations).Any();
+        if (!IsSourceOfAbility(targetOfAttack)) return false;
+        if (!attacker.HasCivilization(Civilizations)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"This creature can't be attacked by {string.Join(" or ", Civilizations.Select(x => x.ToString().ToLower()))} creatures.";
+        return new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(
+            this);
     }
 }

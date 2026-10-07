@@ -433,10 +433,9 @@ public sealed class ContinuousEffectsTests
     {
         // Arrange
         var creature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
         var effect = new Mock<IBreaksAdditionalShieldsEffect>();
-        effect.Setup(x => x.GetAmount(game, creature)).Returns(expected);
-        var effects = new ContinuousEffects(game);
+        effect.Setup(x => x.GetAmount(creature)).Returns(expected);
+        var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
@@ -557,7 +556,7 @@ public sealed class ContinuousEffectsTests
         var game = Mock.Of<IGame>();
         var cannotBeAttackedEffect = new Mock<ICannotBeAttackedEffect>();
         cannotBeAttackedEffect.Setup(x => x.Applies(
-            attacker, targetOfAttack, game)).Returns(!canBeAttacked);
+            attacker, targetOfAttack)).Returns(!canBeAttacked);
         var cannotAttackCreaturesEffect = new Mock<ICannotAttackCreaturesEffect>();
         cannotAttackCreaturesEffect.Setup(x => x.CannotAttackCreature(
             attacker, targetOfAttack, game)).Returns(!canAttackCreature);
