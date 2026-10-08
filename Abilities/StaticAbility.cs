@@ -25,18 +25,22 @@ public class StaticAbility : Ability, IStaticAbility
     /// </summary>
     public ZoneType FunctionZone { get; set; } = ZoneType.BattleZone;
 
+    public StaticAbility() : base()
+    {
+    }
+
     public StaticAbility(IContinuousEffect continuousEffect) : base()
     {
         _continuousEffects.Add(continuousEffect);
     }
 
-    private StaticAbility(StaticAbility ability) : base(ability)
+    protected StaticAbility(StaticAbility ability) : base(ability)
     {
         _continuousEffects = [.. ability._continuousEffects.Select(x => x.Copy())];
         FunctionZone = ability.FunctionZone;
     }
 
-    public sealed override IAbility Copy()
+    public override IAbility Copy()
     {
         return new StaticAbility(this);
     }

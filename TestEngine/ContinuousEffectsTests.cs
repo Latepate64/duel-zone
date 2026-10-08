@@ -341,11 +341,10 @@ public sealed class ContinuousEffectsTests
         // Arrange
         var blocker = Mock.Of<ICreature>();
         var attackingCreature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
         var effect = new Mock<IBlockerEffect>();
         effect.Setup(x => x.CanBlock(
-            blocker, attackingCreature, game)).Returns(expected);
-        var effects = new ContinuousEffects(game);
+            blocker, attackingCreature)).Returns(expected);
+        var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act

@@ -5,7 +5,7 @@ namespace ContinuousEffects.Blocker;
 
 public sealed class SashaBlockerEffect : ContinuousEffect, IBlockerEffect
 {
-    public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
+    public bool CanBlock(ICreature blocker, ICreature attacker)
     {
         return attacker.IsDragon;
     }

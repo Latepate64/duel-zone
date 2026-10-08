@@ -7,7 +7,7 @@ public sealed class SiegBaliculaTheIntenseEffect : ContinuousEffect, IBlockerEff
 {
     public SiegBaliculaTheIntenseEffect() : base() { }
 
-    public bool CanBlock(ICreature blocker, ICreature attacker, IGame game)
+    public bool CanBlock(ICreature blocker, ICreature attacker)
     {
         var ability = Ability;
         return blocker.Owner == ability.Controller && blocker != ability.Source && blocker.HasCivilization(

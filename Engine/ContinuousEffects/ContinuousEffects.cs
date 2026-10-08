@@ -155,7 +155,7 @@ public sealed class ContinuousEffects : IContinuousEffects
         ICreature blocker, ICreature attackingCreature)
     {
         return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(
-            blocker, attackingCreature, Game));
+            blocker, attackingCreature));
     }
 
     public bool CanCreatureBeBlocked(ICreature attackingCreature,
