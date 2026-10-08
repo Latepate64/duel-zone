@@ -1,7 +1,6 @@
 using Abilities;
 using Interfaces.ContinuousEffects;
 using Interfaces;
-using ContinuousEffects.Blocker;
 
 namespace ContinuousEffects.AbilityAdding;
 
@@ -19,7 +18,7 @@ public sealed class SiriEffect : ContinuousEffect, IAbilityAddingEffect
     {
         if (!Controller.ShieldZone.HasCards)
         {
-            game.AddAbility(Source, new StaticAbility(new ThisCreatureHasBlockerEffect()));
+            game.AddAbility(Source, new BlockerAbility());
             throw new NotImplementedException();
             // game.AddAbility(Source, new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
         }

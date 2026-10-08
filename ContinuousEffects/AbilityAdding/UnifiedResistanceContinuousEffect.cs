@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -17,7 +16,7 @@ public sealed class UnifiedResistanceContinuousEffect : AbilityAddingEffect, IEx
     }
 
     public UnifiedResistanceContinuousEffect(Guid player, params ICard[] cards) : base(
-        new StaticAbility(new ThisCreatureHasBlockerEffect()))
+        new BlockerAbility())
     {
         _player = player;
         _cards = cards;

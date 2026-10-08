@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -19,7 +18,7 @@ public sealed class BexEffect : ContinuousEffect, IAbilityAddingEffect
     {
         if (!Controller.ShieldZone.HasCards)
         {
-            game.AddAbility(Source, new StaticAbility(new ThisCreatureHasBlockerEffect()));
+            game.AddAbility(Source, new BlockerAbility());
         }
     }
 

@@ -336,28 +336,6 @@ public sealed class ContinuousEffectsTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void CanCreatureBlockCreature(bool expected)
-    {
-        // Arrange
-        var blocker = Mock.Of<ICreature>();
-        var attackingCreature = Mock.Of<ICreature>();
-        var effect = new Mock<IBlockerEffect>();
-        effect.Setup(x => x.CanBlock(
-            blocker, attackingCreature)).Returns(expected);
-        var effects = new ContinuousEffects(Mock.Of<IGame>());
-        effects.Add(Mock.Of<IAbility>(), effect.Object);
-
-        // Act
-        var actual = effects.CanCreatureBlockCreature(
-            blocker, attackingCreature);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
     public void CanCreatureBeBlocked(bool expected)
     {
         // Arrange

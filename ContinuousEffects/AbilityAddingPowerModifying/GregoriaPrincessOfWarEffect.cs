@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -15,8 +14,8 @@ public sealed class GregoriaPrincessOfWarEffect : ContinuousEffect, IPowerModify
 
     public void AddAbility(IGame game)
     {
-        GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbility(
-            new ThisCreatureHasBlockerEffect())));
+        GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(
+            new BlockerAbility()));
     }
 
     public override IContinuousEffect Copy()

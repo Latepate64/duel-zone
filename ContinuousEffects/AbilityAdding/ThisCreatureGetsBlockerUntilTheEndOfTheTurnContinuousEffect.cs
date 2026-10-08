@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -13,7 +12,7 @@ public sealed class ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect 
     }
 
     public ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(params ICard[] cards) : base(
-        new StaticAbility(new ThisCreatureHasBlockerEffect()), cards)
+        new BlockerAbility(), cards)
     {
     }
 

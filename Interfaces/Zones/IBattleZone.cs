@@ -27,4 +27,6 @@ public interface IBattleZone : IZone
     int GetNumberOfOtherRaceCreaturesControllerByPlayer(ICreature creature,
         Race race);
     int GetNumberOfOtherDragonsControllerByPlayer(ICreature creature);
+    IEnumerable<ICreature> GetOtherCivilizationCreaturesControllerByPlayer(
+        ICard source, Civilization light);
 }

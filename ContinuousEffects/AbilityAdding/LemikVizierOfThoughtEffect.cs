@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace ContinuousEffects.AbilityAdding;
 
 public sealed class LemikVizierOfThoughtEffect : AbilityAddingEffect
 {
-    public LemikVizierOfThoughtEffect() : base(new StaticAbility(new ThisCreatureHasBlockerEffect()))
+    public LemikVizierOfThoughtEffect() : base(new BlockerAbility())
     {
     }
 

@@ -168,6 +168,15 @@ public sealed class BattleZone : Zone, IBattleZone
             && x.IsDragon);
     }
 
+    public IEnumerable<ICreature>
+        GetOtherCivilizationCreaturesControllerByPlayer(
+            ICard source, Civilization civilization)
+    {
+        return Creatures.Where(x => !x.Equals(source) &&
+            x.HasCivilization(civilization) &&
+            x.OwnerV2.Equals(source.OwnerV2));
+    }
+
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
         x => x.IsBlocker);
 

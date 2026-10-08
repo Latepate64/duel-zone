@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Blocker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -15,7 +14,7 @@ public sealed class AsraVizierOfSafetyEffect : ContinuousEffect, IPowerModifying
 
     public void AddAbility(IGame game)
     {
-        Source.AddGrantedAbility(new StaticAbility(new ThisCreatureHasBlockerEffect()));
+        Source.AddGrantedAbility(new BlockerAbility());
     }
 
     public override IContinuousEffect Copy()

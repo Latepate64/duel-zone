@@ -12,8 +12,7 @@ public class BlockerAbility : StaticAbility, IBlockerAbility
     {
     }
 
-    public BlockerAbility(BlockerAbility continuousEffect) : base(
-        continuousEffect)
+    public BlockerAbility(BlockerAbility ability) : base(ability)
     {
     }
 

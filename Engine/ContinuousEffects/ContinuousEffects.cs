@@ -151,13 +151,6 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.Applies(against, target, Game));
     }
 
-    public bool CanCreatureBlockCreature(
-        ICreature blocker, ICreature attackingCreature)
-    {
-        return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(
-            blocker, attackingCreature));
-    }
-
     public bool CanCreatureBeBlocked(ICreature attackingCreature,
         ICreature blocker, IAttackable attackTarget, IBattleZone battleZone)
     {

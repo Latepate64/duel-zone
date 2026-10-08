@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Blocker;
 using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -15,7 +14,7 @@ public sealed class KilstineNebulaElementalEffect : ContinuousEffect, IPowerModi
     public void AddAbility(IGame game)
     {
         GetAffectedCards(game).ForEach(x => { 
-            x.AddGrantedAbility(new StaticAbility(new ThisCreatureHasBlockerEffect()));
+            x.AddGrantedAbility(new BlockerAbility());
             x.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
             });
     }
