@@ -292,28 +292,6 @@ public sealed class ContinuousEffectsTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void DoesAnySlayerEffectApply(bool expected)
-    {
-        // Arrange
-        var loser = Mock.Of<ICreature>();
-        var winner = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
-        var effect = new Mock<ISlayerEffect>();
-        effect.Setup(x => x.Applies(
-            loser, winner, game)).Returns(expected);
-        var effects = new ContinuousEffects(game);
-        effects.Add(Mock.Of<IAbility>(), effect.Object);
-
-        // Act
-        var actual = effects.DoesAnySlayerEffectApply(loser, winner);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
     public void DoesCreatureGetDestroyedInBattle(bool expected)
     {
         // Arrange

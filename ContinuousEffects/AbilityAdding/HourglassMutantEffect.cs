@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Slayer;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace ContinuousEffects.AbilityAdding;
 
 public sealed class HourglassMutantEffect : AbilityAddingEffect
 {
-    public HourglassMutantEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
+    public HourglassMutantEffect() : base(new SlayerAbility())
     {
     }
 

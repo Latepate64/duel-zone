@@ -138,12 +138,6 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.PlayerCannotChooseCreature(card, player.Id, Game));
     }
 
-    public bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner)
-    {
-        return GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(
-            loser, winner, Game));
-    }
-
     public bool DoesCreatureGetDestroyedInBattle(
         ICreature against, ICreature target)
     {

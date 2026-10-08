@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Slayer;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace ContinuousEffects.AbilityAdding;
 
 public sealed class MegariaEmpressOfDreadEffect : AbilityAddingEffect
 {
-    public MegariaEmpressOfDreadEffect() : base(new StaticAbility(new ThisCreatureHasSlayerEffect()))
+    public MegariaEmpressOfDreadEffect() : base(new SlayerAbility())
     {
     }
 

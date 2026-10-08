@@ -23,7 +23,6 @@ public interface IContinuousEffects
     bool CanPlayerUseCard(ICard card);
     IContinuousEffects Copy();
     bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
-    bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner);
     bool DoesBattleHappenAfterCreatureBecomesBlocked(ICreature attackingCreature, ICreature blockingCreature);
     bool DoesCreatureAttackIfAble(ICreature attacker);
     bool DoesCreatureBlockIfAble(ICreature blocker, ICreature attackingCreature);

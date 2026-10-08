@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Slayer;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -15,7 +14,7 @@ public sealed class VenomWormContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
     }
 
     public VenomWormContinuousEffect(Race race, params ICard[] cards) : base(
-        new StaticAbility(new ThisCreatureHasSlayerEffect()), cards)
+        new SlayerAbility(), cards)
     {
         _race = race;
     }

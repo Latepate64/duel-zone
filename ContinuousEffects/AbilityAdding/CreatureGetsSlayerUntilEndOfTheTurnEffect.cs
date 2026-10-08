@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using ContinuousEffects.Slayer;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -12,7 +11,7 @@ public sealed class CreatureGetsSlayerUntilEndOfTheTurnEffect : AddAbilitiesUnti
     }
 
     public CreatureGetsSlayerUntilEndOfTheTurnEffect(ICard card) : base(
-        card, new StaticAbility(new ThisCreatureHasSlayerEffect()))
+        card, new SlayerAbility())
     {
     }
 
