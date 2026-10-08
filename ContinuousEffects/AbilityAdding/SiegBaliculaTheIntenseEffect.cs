@@ -16,7 +16,7 @@ public sealed class SiegBaliculaTheIntenseEffect : ContinuousEffect,
     {
         var creatures =
             game.BattleZone.GetOtherCivilizationCreaturesControllerByPlayer(
-                Source, Civilization.Light);
+                (ICreature)Source!, Civilization.Light);
         foreach (var creature in creatures)
         {
             game.AddAbility(creature, new BlockerAbility());

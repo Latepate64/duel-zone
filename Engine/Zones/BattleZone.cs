@@ -149,32 +149,28 @@ public sealed class BattleZone : Zone, IBattleZone
 
     public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
     {
-        return Creatures.Count(x => !x.Equals(excluded)
-            && x.OwnerV2.Equals(excluded.OwnerV2));
+        return GetOtherCreaturesControllerByPlayer(excluded).Count();
     }
 
     public int GetNumberOfOtherRaceCreaturesControllerByPlayer(
         ICreature excluded, Race race)
     {
-        return Creatures.Count(x => !x.Equals(excluded)
-            && x.OwnerV2.Equals(excluded.OwnerV2)
-            && x.HasRace(race));
+        return GetOtherCreaturesControllerByPlayer(excluded).Count(
+            x => x.HasRace(race));
     }
 
     public int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded)
     {
-        return Creatures.Count(x => !x.Equals(excluded)
-            && x.OwnerV2.Equals(excluded.OwnerV2)
-            && x.IsDragon);
+        return GetOtherCreaturesControllerByPlayer(excluded).Count(
+            x => x.IsDragon);
     }
 
     public IEnumerable<ICreature>
         GetOtherCivilizationCreaturesControllerByPlayer(
-            ICard source, Civilization civilization)
+            ICreature excluded, Civilization civilization)
     {
-        return Creatures.Where(x => !x.Equals(source) &&
-            x.HasCivilization(civilization) &&
-            x.OwnerV2.Equals(source.OwnerV2));
+        return GetOtherCreaturesControllerByPlayer(excluded).Where(
+            x => x.HasCivilization(civilization));
     }
 
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
@@ -182,4 +178,11 @@ public sealed class BattleZone : Zone, IBattleZone
 
     public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
         .Where(x => !x.IsBlocker);
+
+    IEnumerable<ICreature> GetOtherCreaturesControllerByPlayer(
+        ICreature excluded)
+    {
+        return Creatures.Where(x => !x.Equals(excluded)
+            && x.OwnerV2.Equals(excluded.OwnerV2));
+    }
 }
