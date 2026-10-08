@@ -2,5 +2,5 @@ namespace Interfaces;
 
 public interface ICardAffectable
 {
-    ICard Card { get; }
+    ICard Creature { get; }
 }

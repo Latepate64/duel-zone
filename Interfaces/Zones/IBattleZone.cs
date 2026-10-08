@@ -29,4 +29,7 @@ public interface IBattleZone : IZone
     int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded);
     IEnumerable<ICreature> GetOtherCivilizationCreaturesControllerByPlayer(
         ICreature excluded, Civilization light);
+    IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
+        IPlayerV2 player);
+    IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
 }

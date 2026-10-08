@@ -474,8 +474,7 @@ public sealed class BattleZoneTests
     [Theory]
     [InlineData(0)]
     [InlineData(1)]
-    public void GetOtherCivilizationCreaturesControllerByPlayer(
-        int expected)
+    public void GetOtherCivilizationCreaturesControllerByPlayer(int expected)
     {
         // Arrange
         var player = Mock.Of<IPlayerV2>();
@@ -495,6 +494,30 @@ public sealed class BattleZoneTests
         // Act
         var actual = zone.GetOtherCivilizationCreaturesControllerByPlayer(
             excluded.Object, Civilization.Light);
+
+        // Assert
+        Assert.Equal(expected, actual.Count());
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void GetCreaturesWithSilentSkillControllerByPlayer(int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var zone = new BattleZone();
+        for (var i = 0; i < expected; ++i)
+        {
+            var creature = new Mock<ICreature>();
+            creature.SetupGet(x => x.OwnerV2).Returns(player);
+            creature.Setup(
+                x => x.HasAbility<ISilentSkillAbility>()).Returns(true);
+            zone.Add(creature.Object);
+        }
+
+        // Act
+        var actual = zone.GetCreaturesWithSilentSkillControllerByPlayer(player);
 
         // Assert
         Assert.Equal(expected, actual.Count());

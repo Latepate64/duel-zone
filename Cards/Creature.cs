@@ -124,4 +124,9 @@ public class Creature(
     {
         return new Creature(this);
     }
+
+    public bool HasAbility<T>() where T : IAbility
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -463,27 +463,6 @@ public sealed class ContinuousEffectsTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void DoesCreatureHaveSpeedAttacker(bool expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayer>();
-        var creature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
-        var effect = new Mock<ISpeedAttackerEffect>();
-        effect.Setup(x => x.Applies(creature, game)).Returns(expected);
-        var effects = new ContinuousEffects(game);
-        effects.Add(Mock.Of<IAbility>(), effect.Object);
-
-        // Act
-        var actual = effects.DoesCreatureHaveSpeedAttacker(creature);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
     public void CanCreatureAttack(bool expected)
     {
         // Arrange

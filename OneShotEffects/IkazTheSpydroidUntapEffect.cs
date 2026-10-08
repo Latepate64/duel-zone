@@ -6,15 +6,15 @@ public sealed class IkazTheSpydroidUntapEffect : UntapAreaOfEffect, ICardAffecta
 {
     public IkazTheSpydroidUntapEffect(ICard card) : base()
     {
-        Card = card;
+        Creature = card;
     }
 
     public IkazTheSpydroidUntapEffect(IkazTheSpydroidUntapEffect effect) : base(effect)
     {
-        Card = effect.Card;
+        Creature = effect.Creature;
     }
 
-    public ICard Card { get; }
+    public ICard Creature { get; }
 
     public override IOneShotEffect Copy()
     {
@@ -23,11 +23,11 @@ public sealed class IkazTheSpydroidUntapEffect : UntapAreaOfEffect, ICardAffecta
 
     public override string ToString()
     {
-        return $"Untap {Card} after the battle.";
+        return $"Untap {Creature} after the battle.";
     }
 
     protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
     {
-        return [Card];
+        return [Creature];
     }
 }

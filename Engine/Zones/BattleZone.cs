@@ -179,10 +179,23 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
         .Where(x => !x.IsBlocker);
 
+    public IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
+        IPlayerV2 player)
+    {
+        return GetCreaturesControllerByPlayer(player).Where(
+            x => x.HasAbility<ISilentSkillAbility>());
+    }
+
+    public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+        IPlayerV2 player)
+    {
+        return Creatures.Where(x => x.OwnerV2.Equals(player));
+    }
+
     IEnumerable<ICreature> GetOtherCreaturesControllerByPlayer(
         ICreature excluded)
     {
-        return Creatures.Where(x => !x.Equals(excluded)
-            && x.OwnerV2.Equals(excluded.OwnerV2));
+        return GetCreaturesControllerByPlayer(excluded.OwnerV2).Where(
+            x => !x.Equals(excluded));
     }
 }

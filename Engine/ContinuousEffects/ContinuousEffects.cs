@@ -189,12 +189,6 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.IgnoreCannotAttackPlayersEffects(creature, Game));
     }
 
-    public bool DoesCreatureHaveSpeedAttacker(ICreature creature)
-    {
-        return GetContinuousEffects<ISpeedAttackerEffect>().Any(
-            x => x.Applies(creature, Game));
-    }
-
     public bool CanCreatureAttack(ICreature creature)
     {
         return !GetContinuousEffects<ICannotAttackEffect>().Any(

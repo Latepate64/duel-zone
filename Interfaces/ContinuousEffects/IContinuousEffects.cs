@@ -27,7 +27,6 @@ public interface IContinuousEffects
     bool DoesCreatureAttackIfAble(ICreature attacker);
     bool DoesCreatureBlockIfAble(ICreature blocker, ICreature attackingCreature);
     bool DoesCreatureGetDestroyedInBattle(ICreature against, ICreature target);
-    bool DoesCreatureHaveSpeedAttacker(ICreature creature);
     bool DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(ICreature creature);
     int GetAmountOfShieldsCreatureBreaksAdditionally(ICreature attackingCreature);
     IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(

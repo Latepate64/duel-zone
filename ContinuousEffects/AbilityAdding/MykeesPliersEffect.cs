@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.SpeedAttacker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace ContinuousEffects.AbilityAdding;
 
 public sealed class MykeesPliersEffect : AbilityAddingEffect
 {
-    public MykeesPliersEffect() : base(new StaticAbility(new ThisCreatureHasSpeedAttackerEffect()))
+    public MykeesPliersEffect() : base(new SpeedAttackerAbility())
     {
     }
 
