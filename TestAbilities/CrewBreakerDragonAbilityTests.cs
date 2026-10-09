@@ -5,13 +5,13 @@ using Moq;
 
 namespace TestAbilities;
 
-public class UltimateDragonBreakerAbilityTests
+public class CrewBreakerDragonAbilityTests
 {
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var ability = new UltimateDragonBreakerAbility();
+        var ability = new CrewBreakerDragonAbility();
 
         // Act
         var copy = ability.Copy();
@@ -24,7 +24,7 @@ public class UltimateDragonBreakerAbilityTests
     public void CreatureWithoutCrewBreakerBreaksOneShield()
     {
         // Arrange
-        var ability = new UltimateDragonBreakerAbility();
+        var ability = new CrewBreakerDragonAbility();
         var creature = Mock.Of<ICreature>();
         var battleZone = Mock.Of<IBattleZone>();
 
@@ -46,7 +46,7 @@ public class UltimateDragonBreakerAbilityTests
         var player = Mock.Of<IPlayerV2>();
         var source = new Mock<ICreature>();
         source.SetupGet(x => x.OwnerV2).Returns(player);
-        var ability = new UltimateDragonBreakerAbility
+        var ability = new CrewBreakerDragonAbility
         {
             Source = source.Object
         };
