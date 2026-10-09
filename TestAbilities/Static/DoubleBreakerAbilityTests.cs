@@ -3,7 +3,7 @@ using Interfaces;
 using Interfaces.Zones;
 using Moq;
 
-namespace TestAbilities;
+namespace TestAbilities.Static;
 
 public class DoubleBreakerAbilityTests
 {

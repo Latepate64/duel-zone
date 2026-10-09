@@ -40,8 +40,6 @@ public abstract class Ability : IAbility
 
     public abstract IAbility Copy();
 
-    public override abstract string ToString();
-
     protected static string UpperCaseFirstCharacter(string text)
     {
         return char.ToUpper(text[0]) + text[1..];

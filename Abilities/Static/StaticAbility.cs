@@ -28,7 +28,7 @@ public class StaticAbility : Ability, IStaticAbility
     /// </summary>
     public ZoneType FunctionZone { get; set; } = ZoneType.BattleZone;
 
-    public StaticAbility() : base()
+    protected StaticAbility() : base()
     {
     }
 
@@ -47,12 +47,6 @@ public class StaticAbility : Ability, IStaticAbility
     public override IAbility Copy()
     {
         return new StaticAbility(this);
-    }
-
-    public sealed override string ToString()
-    {
-        return string.Join(" ", _continuousEffects.Select(
-            x => UpperCaseFirstCharacter(x.ToString())));
     }
 
     public override bool Equals(object? obj)

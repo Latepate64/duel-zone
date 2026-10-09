@@ -16,7 +16,7 @@ public class SlayerAbility : StaticAbility, ISlayerAbility
     {
     }
 
-    public bool Applies(ICreature creature, ICard against, IGame game)
+    public bool Applies(ICreature creature, ICreature against)
     {
         if (creature.Equals(Source)) return true;
         return false;

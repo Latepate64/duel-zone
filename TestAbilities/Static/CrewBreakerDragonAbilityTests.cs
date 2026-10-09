@@ -3,15 +3,15 @@ using Interfaces;
 using Interfaces.Zones;
 using Moq;
 
-namespace TestAbilities;
+namespace TestAbilities.Static;
 
-public class CrewBreakerRaceAbilityTests
+public class CrewBreakerDragonAbilityTests
 {
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var ability = new CrewBreakerRaceAbility(Race.AngelCommand);
+        var ability = new CrewBreakerDragonAbility();
 
         // Act
         var copy = ability.Copy();
@@ -24,7 +24,7 @@ public class CrewBreakerRaceAbilityTests
     public void CreatureWithoutCrewBreakerBreaksOneShield()
     {
         // Arrange
-        var ability = new CrewBreakerRaceAbility(Race.AngelCommand);
+        var ability = new CrewBreakerDragonAbility();
         var creature = Mock.Of<ICreature>();
         var battleZone = Mock.Of<IBattleZone>();
 
@@ -46,12 +46,13 @@ public class CrewBreakerRaceAbilityTests
         var player = Mock.Of<IPlayerV2>();
         var source = new Mock<ICreature>();
         source.SetupGet(x => x.OwnerV2).Returns(player);
-        var ability = new CrewBreakerRaceAbility(Race.AngelCommand) {
+        var ability = new CrewBreakerDragonAbility
+        {
             Source = source.Object
         };
         var battleZone = new Mock<IBattleZone>();
-        battleZone.Setup(x => x.GetNumberOfOtherRaceCreaturesControllerByPlayer(
-            source.Object, Race.AngelCommand)).Returns(numberOfOtherCreatures);
+        battleZone.Setup(x => x.GetNumberOfOtherDragonsControllerByPlayer(
+            source.Object)).Returns(numberOfOtherCreatures);
 
         // Act
         var actual = ability.GetAmount(source.Object, battleZone.Object);

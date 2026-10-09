@@ -21,7 +21,7 @@ public class CivilizationSlayerAbility : StaticAbility, ISlayerAbility
         civilizations = [..ability.civilizations];
     }
 
-    public bool Applies(ICreature creature, ICard against, IGame game)
+    public bool Applies(ICreature creature, ICreature against)
     {
         if (!creature.Equals(Source)) return false;
         if (!against.HasCivilization(civilizations)) return false;
