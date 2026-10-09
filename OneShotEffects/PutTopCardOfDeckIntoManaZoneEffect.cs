@@ -2,13 +2,15 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public sealed class PutTopCardOfDeckIntoManaZoneEffect : PutTopCardsOfDeckIntoManaZoneEffect
+public sealed class PutTopCardOfDeckIntoManaZoneEffect
+    : PutTopCardsOfDeckIntoManaZoneEffect
 {
     public PutTopCardOfDeckIntoManaZoneEffect() : base(1)
     {
     }
 
-    public PutTopCardOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect) : base(effect)
+    public PutTopCardOfDeckIntoManaZoneEffect(
+        PutTopCardsOfDeckIntoManaZoneEffect effect) : base(effect)
     {
     }
 

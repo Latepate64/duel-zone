@@ -2,6 +2,9 @@
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Put the top x cards of your deck into your mana zone.
+/// </summary>
 public abstract class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
 {
     public int Amount { get; }
@@ -21,8 +24,16 @@ public abstract class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
         Controller.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
     }
 
-    public override string ToString()
+    public override bool Equals(object? obj)
     {
-        return $"Put the top {((Amount == 1) ? "card" : $"{Amount} cards")} of your deck into your mana zone.";
+        if (!base.Equals(obj)) return false;
+        if (obj is not PutTopCardsOfDeckIntoManaZoneEffect effect) return false;
+        if (Amount != effect.Amount) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), Amount);
     }
 }
