@@ -1,3 +1,4 @@
+using CardFilters;
 using Interfaces;
 
 namespace Abilities.Static;
@@ -8,18 +9,27 @@ namespace Abilities.Static;
 /// </summary>
 public class BlockerAbility : StaticAbility, IBlockerAbility
 {
-    public BlockerAbility()
+    private readonly ICardFilter attackerFilter;
+
+    public BlockerAbility() : this(new AnyCardFilter())
     {
+    }
+
+    public BlockerAbility(ICardFilter attackerFilter)
+    {
+        this.attackerFilter = attackerFilter;
     }
 
     public BlockerAbility(BlockerAbility ability) : base(ability)
     {
+        attackerFilter = ability.attackerFilter.Copy();
     }
 
     public bool CanBlock(ICreature blocker, ICreature attacker)
     {
-        if (blocker.Equals(Source)) return true;
-        return false;
+        if (!blocker.Equals(Source)) return false;
+        if (!attackerFilter.Match(attacker)) return false;
+        return true;
     }
 
     public override IAbility Copy()

@@ -34,18 +34,22 @@ public class BlockerAbilityTests
         Assert.False(actual);
     }
 
-    [Fact]
-    public void CreatureWithBlockerCanBlock()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CreatureWithBlockerCanBlock(bool attackerMatches)
     {
         // Arrange
         var blocker = Mock.Of<ICreature>();
-        var ability = new BlockerAbility { Source = blocker };
         var attacker = Mock.Of<ICreature>();
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(attacker)).Returns(attackerMatches);
+        var ability = new BlockerAbility(filter.Object) { Source = blocker };
 
         // Act
         var actual = ability.CanBlock(blocker, attacker);
 
         // Assert
-        Assert.True(actual);
+        Assert.Equal(attackerMatches, actual);
     }
 }

@@ -1,14 +1,16 @@
 ﻿using Abilities.Static;
+using CardFilters;
 using ContinuousEffects;
+using Interfaces;
 
 namespace Cards.Promo
 {
     sealed class AmnisHolyElemental : Creature
     {
-        public AmnisHolyElemental() : base("Amnis, Holy Elemental", 7, 5000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
+        public AmnisHolyElemental() : base("Amnis, Holy Elemental", 7, 5000, Race.AngelCommand, Civilization.Light)
         {
-            AddAbilities(new CivilizationBlockerAbility(Interfaces.Civilization.Darkness));
-            AddStaticAbilities(new NotDestroyedInBattleEffect(Interfaces.Civilization.Darkness));
+            AddAbilities(new BlockerAbility(new CivilizationCreatureFilter(Civilization.Darkness)));
+            AddStaticAbilities(new NotDestroyedInBattleEffect(Civilization.Darkness));
         }
     }
 }

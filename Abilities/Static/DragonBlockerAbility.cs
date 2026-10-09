@@ -26,6 +26,6 @@ public class DragonBlockerAbility : StaticAbility, IBlockerAbility
 
     public override IAbility Copy()
     {
-        return new DragonBlockerAbility (this);
+        return new DragonBlockerAbility(this);
     }
 }
