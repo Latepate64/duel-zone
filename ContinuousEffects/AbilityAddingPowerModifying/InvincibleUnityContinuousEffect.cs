@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -21,7 +20,7 @@ public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbi
 
     public void AddAbility(IGame game)
     {
-        _cards.ForEach(x => x.AddGrantedAbility(new StaticAbility(new TripleBreakerEffect())));
+        _cards.ForEach(x => x.AddGrantedAbility(new TripleBreakerAbility()));
     }
 
     public override IContinuousEffect Copy()

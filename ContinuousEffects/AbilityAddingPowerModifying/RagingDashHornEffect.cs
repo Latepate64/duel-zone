@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -15,7 +14,7 @@ public sealed class RagingDashHornEffect : ContinuousEffect, IPowerModifyingEffe
     {
         if (Applies(game))
         {
-            Source.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
+            Source.AddGrantedAbility(new DoubleBreakerAbility());
         }
     }
 

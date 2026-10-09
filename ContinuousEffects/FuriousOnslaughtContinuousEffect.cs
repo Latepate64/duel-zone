@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -22,7 +21,7 @@ public sealed class FuriousOnslaughtContinuousEffect : UntilEndOfTurnEffect, IRa
 
     public void AddAbility(IGame game)
     {
-        _cards.ForEach(x => x.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect())));
+        _cards.ForEach(x => x.AddGrantedAbility(new DoubleBreakerAbility()));
     }
 
     public void AddRace(IGame game)

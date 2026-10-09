@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -12,8 +11,8 @@ public sealed class ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect : Ad
     {
     }
 
-    public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(new StaticAbility(
-        new DoubleBreakerEffect()), cards)
+    public ThisCreatureGetsDoubleBreakerUntilTheEndOfTheTurnEffect(
+        params ICard[] cards) : base(new DoubleBreakerAbility(), cards)
     {
     }
 

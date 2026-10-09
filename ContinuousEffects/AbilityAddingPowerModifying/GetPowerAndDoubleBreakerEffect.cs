@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -21,7 +20,7 @@ public abstract class GetPowerAndDoubleBreakerEffect : ContinuousEffect, IPowerM
 
     public void AddAbility(IGame game)
     {
-        GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect())));
+        GetAffectedCards(game).ForEach(x => x.AddGrantedAbility(new DoubleBreakerAbility()));
     }
 
     public void ModifyPower(IGame game)

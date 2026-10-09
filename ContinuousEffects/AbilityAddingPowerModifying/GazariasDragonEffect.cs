@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -19,7 +18,7 @@ public sealed class GazariasDragonEffect : ContinuousEffect, IPowerModifyingEffe
     {
         if (!Controller.ShieldZone.HasCards)
         {
-            Source.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
+            Source.AddGrantedAbility(new DoubleBreakerAbility());
         }
     }
 

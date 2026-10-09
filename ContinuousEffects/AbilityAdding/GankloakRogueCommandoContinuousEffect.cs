@@ -1,12 +1,11 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
 public sealed class GankloakRogueCommandoContinuousEffect(params ICard[] cards) : AddAbilitiesUntilEndOfTurnEffect(
-    new StaticAbility(new DoubleBreakerEffect()), cards)
+    new DoubleBreakerAbility(), cards)
 {
     public override IContinuousEffect Copy()
     {

@@ -1,36 +1,35 @@
-using ContinuousEffects.Breaker;
+using Abilities;
 using Interfaces;
 using Interfaces.Zones;
 using Moq;
-using Xunit;
 
-namespace TestContinuousEffects.Breaker;
+namespace TestAbilities;
 
-public class UltimateDragonBreakerEffectTests
+public class UltimateDragonBreakerAbilityTests
 {
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var effect = new UltimateDragonBreakerEffect();
+        var ability = new UltimateDragonBreakerAbility();
 
         // Act
-        var copy = effect.Copy();
+        var copy = ability.Copy();
 
         // Assert
-        Assert.Equal(effect, copy);
+        Assert.Equal(ability, copy);
     }
 
     [Fact]
     public void CreatureWithoutCrewBreakerBreaksOneShield()
     {
         // Arrange
-        var effect = new UltimateDragonBreakerEffect();
+        var ability = new UltimateDragonBreakerAbility();
         var creature = Mock.Of<ICreature>();
         var battleZone = Mock.Of<IBattleZone>();
 
         // Act
-        var actual = effect.GetAmount(creature, battleZone);
+        var actual = ability.GetAmount(creature, battleZone);
 
         // Assert
         Assert.Equal(1, actual);
@@ -47,18 +46,16 @@ public class UltimateDragonBreakerEffectTests
         var player = Mock.Of<IPlayerV2>();
         var source = new Mock<ICreature>();
         source.SetupGet(x => x.OwnerV2).Returns(player);
-        var ability = new Mock<IAbility>();
-        ability.SetupGet(x => x.Source).Returns(source.Object);
-        var effect = new UltimateDragonBreakerEffect()
+        var ability = new UltimateDragonBreakerAbility
         {
-            Ability = ability.Object
+            Source = source.Object
         };
         var battleZone = new Mock<IBattleZone>();
         battleZone.Setup(x => x.GetNumberOfOtherDragonsControllerByPlayer(
             source.Object)).Returns(numberOfOtherCreatures);
 
         // Act
-        var actual = effect.GetAmount(source.Object, battleZone.Object);
+        var actual = ability.GetAmount(source.Object, battleZone.Object);
 
         // Assert
         Assert.Equal(1 + numberOfOtherCreatures, actual);

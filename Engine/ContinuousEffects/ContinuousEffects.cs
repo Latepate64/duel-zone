@@ -174,13 +174,6 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.GetAmount(attackingCreature));
     }
 
-    public IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(
-        ICreature attackingCreature, IBattleZone battleZone)
-    {
-        return GetContinuousEffects<IBreakerEffect>().Select(x => x.GetAmount(
-            attackingCreature, battleZone));
-    }
-
     public bool 
         DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(
             ICreature creature)

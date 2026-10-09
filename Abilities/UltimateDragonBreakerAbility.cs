@@ -1,23 +1,31 @@
 using Interfaces;
-using Interfaces.ContinuousEffects;
 using Interfaces.Zones;
 
-namespace ContinuousEffects.Breaker;
+namespace Abilities;
 
 /// <summary>
 /// Crew breaker — Dragon (This creature breaks one more shield for each of your
 /// other creatures in the battle zone that has Dragon in its race.)
 /// </summary>
-public sealed class UltimateDragonBreakerEffect : CrewBreakerEffect
+public sealed class UltimateDragonBreakerAbility : CrewBreakerAbility
 {
-    public override IContinuousEffect Copy()
+    public UltimateDragonBreakerAbility()
     {
-        return new UltimateDragonBreakerEffect();
+    }
+
+    public UltimateDragonBreakerAbility(
+        UltimateDragonBreakerAbility ability) : base(ability)
+    {
+    }
+
+    public override IAbility Copy()
+    {
+        return new UltimateDragonBreakerAbility(this);
     }
 
     public override int GetAmount(ICreature creature, IBattleZone battleZone)
     {
-        if (!IsSourceOfAbility(creature)) return 1;
+        if (!creature.Equals(Source)) return 1;
         return 1 + battleZone.GetNumberOfOtherDragonsControllerByPlayer(
             creature);
     }

@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -22,7 +21,7 @@ public sealed class ArmoredScoutGestucharEffect : ContinuousEffect, IAbilityAddi
         if (game.BattleZone.GetOtherCreatureCount(Controller.Id, creature.Id, Civilization.Fire) == 0)
         {
             creature.AddGrantedAbility(new StaticAbility(new PowerAttackerEffect(3000)));
-            creature.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
+            creature.AddGrantedAbility(new DoubleBreakerAbility());
         }
     }
 

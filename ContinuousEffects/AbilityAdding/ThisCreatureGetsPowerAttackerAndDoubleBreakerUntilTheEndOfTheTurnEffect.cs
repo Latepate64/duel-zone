@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using ContinuousEffects.Breaker;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -13,7 +12,7 @@ public sealed class ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTh
     }
 
     public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(
-        new StaticAbility(new PowerAttackerEffect(4000)), new StaticAbility(new DoubleBreakerEffect()), cards)
+        new StaticAbility(new PowerAttackerEffect(4000)), new DoubleBreakerAbility(), cards)
     {
     }
 

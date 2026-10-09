@@ -405,38 +405,6 @@ public sealed class ContinuousEffectsTests
     }
 
     [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    [InlineData(1, 2)]
-    [InlineData(1, 3)]
-    [InlineData(2, 3)]
-    [InlineData(1, 2, 3)]
-    public void GetAmountsOfShieldsCreatureCanBreak(params int[] expected)
-    {
-        // Arrange
-        var creature = Mock.Of<ICreature>();
-        var breakers = new List<IBreakerEffect>();
-        var battleZone = Mock.Of<IBattleZone>();
-        foreach (var e in expected)
-        {
-            var effect = new Mock<IBreakerEffect>();
-            effect.Setup(x => x.GetAmount(
-                creature, battleZone)).Returns(e);
-            breakers.Add(effect.Object);
-        }
-        var effects = new ContinuousEffects(Mock.Of<IGame>());
-        effects.Add(Mock.Of<IAbility>(), [.. breakers]);
-
-        // Act
-        var actual = effects.GetAmountsOfShieldsCreatureCanBreak(creature,
-            battleZone);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
     [InlineData(false)]
     [InlineData(true)]
     public void DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(

@@ -1,36 +1,35 @@
-using ContinuousEffects.Breaker;
+using Abilities;
 using Interfaces;
 using Interfaces.Zones;
 using Moq;
-using Xunit;
 
-namespace TestContinuousEffects.Breaker;
+namespace TestAbilities;
 
-public class CrewBreakerRaceEffectTests
+public class CrewBreakerRaceAbilityTests
 {
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var effect = new CrewBreakerRaceEffect(Race.AngelCommand);
+        var ability = new CrewBreakerRaceAbility(Race.AngelCommand);
 
         // Act
-        var copy = effect.Copy();
+        var copy = ability.Copy();
 
         // Assert
-        Assert.Equal(effect, copy);
+        Assert.Equal(ability, copy);
     }
 
     [Fact]
     public void CreatureWithoutCrewBreakerBreaksOneShield()
     {
         // Arrange
-        var effect = new CrewBreakerRaceEffect(Race.AngelCommand);
+        var ability = new CrewBreakerRaceAbility(Race.AngelCommand);
         var creature = Mock.Of<ICreature>();
         var battleZone = Mock.Of<IBattleZone>();
 
         // Act
-        var actual = effect.GetAmount(creature, battleZone);
+        var actual = ability.GetAmount(creature, battleZone);
 
         // Assert
         Assert.Equal(1, actual);
@@ -47,18 +46,15 @@ public class CrewBreakerRaceEffectTests
         var player = Mock.Of<IPlayerV2>();
         var source = new Mock<ICreature>();
         source.SetupGet(x => x.OwnerV2).Returns(player);
-        var ability = new Mock<IAbility>();
-        ability.SetupGet(x => x.Source).Returns(source.Object);
-        var effect = new CrewBreakerRaceEffect(Race.AngelCommand)
-        {
-            Ability = ability.Object
+        var ability = new CrewBreakerRaceAbility(Race.AngelCommand) {
+            Source = source.Object
         };
         var battleZone = new Mock<IBattleZone>();
         battleZone.Setup(x => x.GetNumberOfOtherRaceCreaturesControllerByPlayer(
             source.Object, Race.AngelCommand)).Returns(numberOfOtherCreatures);
 
         // Act
-        var actual = effect.GetAmount(source.Object, battleZone.Object);
+        var actual = ability.GetAmount(source.Object, battleZone.Object);
 
         // Assert
         Assert.Equal(1 + numberOfOtherCreatures, actual);

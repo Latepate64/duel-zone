@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -7,7 +6,7 @@ namespace ContinuousEffects.AbilityAdding;
 
 public sealed class PhantomachDoubleBreakerEffect : AbilityAddingEffect
 {
-    public PhantomachDoubleBreakerEffect() : base(new StaticAbility(new DoubleBreakerEffect()))
+    public PhantomachDoubleBreakerEffect() : base(new DoubleBreakerAbility())
     {
     }
 

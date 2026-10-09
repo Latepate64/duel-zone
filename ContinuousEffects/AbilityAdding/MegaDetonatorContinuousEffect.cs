@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -12,7 +11,7 @@ public sealed class MegaDetonatorContinuousEffect : AddAbilitiesUntilEndOfTurnEf
     }
 
     public MegaDetonatorContinuousEffect(params ICard[] cards) : base(
-        new StaticAbility(new DoubleBreakerEffect()), cards)
+        new DoubleBreakerAbility(), cards)
     {
     }
 

@@ -1,5 +1,4 @@
 ﻿using Abilities;
-using ContinuousEffects.Breaker;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -18,7 +17,7 @@ public sealed class GalsaurEffect : ContinuousEffect, IAbilityAddingEffect
         if (!game.BattleZone.GetCreatures(ability.Controller.Id).Any(x => x != ability.Source))
         {
             Source.AddGrantedAbility(new StaticAbility(new PowerAttackerEffect(4000)));
-            Source.AddGrantedAbility(new StaticAbility(new DoubleBreakerEffect()));
+            Source.AddGrantedAbility(new DoubleBreakerAbility());
         }
     }
 

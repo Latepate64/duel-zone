@@ -1,5 +1,4 @@
 using Abilities;
-using ContinuousEffects.Breaker;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -13,7 +12,7 @@ public sealed class FlametropusContinuousEffect : AddAbilitiesUntilEndOfTurnEffe
     }
 
     public FlametropusContinuousEffect(ICard card) : base(card, new StaticAbility(new PowerAttackerEffect(3000)),
-        new StaticAbility(new DoubleBreakerEffect()))
+        new DoubleBreakerAbility())
     {
     }
 
