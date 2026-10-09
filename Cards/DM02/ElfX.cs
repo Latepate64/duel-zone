@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM02;
+﻿namespace Cards.DM02;
 
 public sealed class ElfX : Creature
 {

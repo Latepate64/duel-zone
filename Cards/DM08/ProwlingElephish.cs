@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM08
+﻿namespace Cards.DM08
 {
     sealed class ProwlingElephish : Creature
     {

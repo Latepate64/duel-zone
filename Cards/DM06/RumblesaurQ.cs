@@ -1,7 +1,4 @@
-﻿using ContinuousEffects;
-using Abilities;
-
-namespace Cards.DM06
+﻿namespace Cards.DM06
 {
     sealed class RumblesaurQ : Creature
     {

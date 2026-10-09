@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM03
+﻿namespace Cards.DM03
 {
     sealed class GarkagoDragon : Creature
     {

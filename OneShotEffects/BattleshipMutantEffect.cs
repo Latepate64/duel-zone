@@ -1,6 +1,5 @@
 using TriggeredAbilities;
 using Interfaces;
-using ContinuousEffects;
 
 namespace OneShotEffects;
 

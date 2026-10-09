@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM10
+﻿namespace Cards.DM10
 {
     sealed class GaulezalDragon : Creature
     {

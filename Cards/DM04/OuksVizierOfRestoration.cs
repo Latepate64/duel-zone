@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM04
+﻿namespace Cards.DM04
 {
     sealed class OuksVizierOfRestoration : Creature
     {

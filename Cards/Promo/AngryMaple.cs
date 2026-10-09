@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.Promo
+﻿namespace Cards.Promo
 {
     sealed class AngryMaple : Creature
     {

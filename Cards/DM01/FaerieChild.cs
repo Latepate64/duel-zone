@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM01
+﻿namespace Cards.DM01
 {
     sealed class FaerieChild : Creature
     {

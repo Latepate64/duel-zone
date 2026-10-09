@@ -1,5 +1,4 @@
-﻿using GameEvents;
-using Interfaces;
+﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.Replacement;

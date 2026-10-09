@@ -1,5 +1,4 @@
-﻿using ContinuousEffects;
-using TriggeredAbilities;
+﻿using TriggeredAbilities;
 using Interfaces;
 
 namespace Cards.DM12

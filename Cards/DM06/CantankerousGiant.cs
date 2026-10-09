@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM06
+﻿namespace Cards.DM06
 {
     sealed class CantankerousGiant : Creature
     {

@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM11
+﻿namespace Cards.DM11
 {
     sealed class EngbeltTheSpydroid : Creature
     {

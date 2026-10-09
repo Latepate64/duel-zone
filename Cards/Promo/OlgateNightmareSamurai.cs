@@ -1,6 +1,5 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
-using ContinuousEffects;
 using Interfaces;
 
 namespace Cards.Promo;

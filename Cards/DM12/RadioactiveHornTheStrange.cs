@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM12
+﻿namespace Cards.DM12
 {
     sealed class RadioactiveHornTheStrange : Creature
     {

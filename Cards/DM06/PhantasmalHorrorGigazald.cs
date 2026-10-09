@@ -1,5 +1,4 @@
-﻿using ContinuousEffects;
-using OneShotEffects;
+﻿using OneShotEffects;
 
 namespace Cards.DM06
 {

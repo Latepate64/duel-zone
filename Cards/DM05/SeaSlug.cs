@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM05
+﻿namespace Cards.DM05
 {
     sealed class SeaSlug : Creature
     {

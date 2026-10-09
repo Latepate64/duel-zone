@@ -1,6 +1,4 @@
-﻿using ContinuousEffects;
-
-namespace Cards.DM09
+﻿namespace Cards.DM09
 {
     sealed class AcidRefluxTheFleshboiler : Creature
     {

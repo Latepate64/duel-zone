@@ -1,4 +1,3 @@
-using ContinuousEffects;
 using Interfaces;
 
 namespace OneShotEffects;

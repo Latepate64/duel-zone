@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Engine.ContinuousEffects;
 using Interfaces;
 using Interfaces.ContinuousEffects;

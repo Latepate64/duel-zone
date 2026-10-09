@@ -1,4 +1,3 @@
-using System;
 using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
