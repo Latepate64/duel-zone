@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using ContinuousEffects.AbilityAdding;
+using Interfaces;
 
 namespace OneShotEffects;
 
@@ -24,7 +25,7 @@ public abstract class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : 
 
     protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
-        game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+        game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
             _ability, cards));
     }
 

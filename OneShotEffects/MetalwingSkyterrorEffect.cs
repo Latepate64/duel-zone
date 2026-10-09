@@ -1,3 +1,4 @@
+using Abilities.Static;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -21,7 +22,6 @@ public sealed class MetalwingSkyterrorEffect : DestroyEffect
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
-            card => card.GetAbilities<StaticAbility>().SelectMany(
-            x => x.ContinuousEffects).OfType<IBlockerEffect>().Any());
+            card => card.IsBlocker);
     }
 }

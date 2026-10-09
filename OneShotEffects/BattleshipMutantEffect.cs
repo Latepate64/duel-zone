@@ -1,5 +1,6 @@
 using TriggeredAbilities;
 using Interfaces;
+using ContinuousEffects.AbilityAddingPowerModifying;
 
 namespace OneShotEffects;
 

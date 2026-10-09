@@ -1,3 +1,6 @@
+using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using ContinuousEffects.CanAttackUntappedCreatures;
 using Interfaces;
 
 namespace OneShotEffects;

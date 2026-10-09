@@ -1,3 +1,4 @@
+using ContinuousEffects.CannotAttackPlayers;
 using Interfaces;
 
 namespace OneShotEffects;

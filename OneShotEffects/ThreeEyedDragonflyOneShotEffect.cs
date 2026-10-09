@@ -1,3 +1,4 @@
+using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 
 namespace OneShotEffects;

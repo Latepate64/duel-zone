@@ -1,3 +1,4 @@
+using ContinuousEffects.Unblockable;
 using Interfaces;
 
 namespace OneShotEffects;

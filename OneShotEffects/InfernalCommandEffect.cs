@@ -1,3 +1,4 @@
+using ContinuousEffects.AttacksIfAble;
 using Interfaces;
 
 namespace OneShotEffects;

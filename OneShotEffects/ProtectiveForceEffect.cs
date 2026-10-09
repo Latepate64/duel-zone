@@ -20,8 +20,9 @@ public sealed class ProtectiveForceEffect : CreatureSelectionEffect
 
     protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
-        game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-            4000, cards));
+        throw new NotImplementedException();
+        // game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
+        //     4000, cards));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
