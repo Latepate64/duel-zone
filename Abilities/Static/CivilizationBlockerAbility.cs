@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities;
+namespace Abilities.Static;
 
 /// <summary>
 /// Civilization blocker (Whenever an opponent's civilization creature attacks,

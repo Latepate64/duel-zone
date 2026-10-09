@@ -1,4 +1,4 @@
-﻿using Abilities;
+﻿using Abilities.Static;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 using Interfaces.ContinuousEffects;

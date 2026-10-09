@@ -1,7 +1,7 @@
 using Interfaces;
 using Interfaces.Zones;
 
-namespace Abilities;
+namespace Abilities.Static;
 
 /// <summary>
 /// Crew breaker — Dragon (This creature breaks one more shield for each of your

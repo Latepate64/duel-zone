@@ -1,4 +1,4 @@
-using Abilities;
+using Abilities.Static;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using Moq;

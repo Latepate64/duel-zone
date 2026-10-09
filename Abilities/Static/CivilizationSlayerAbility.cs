@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities;
+namespace Abilities.Static;
 
 /// <summary>
 /// Civilization slayer (Whenever this creature battles a civilization creature,

@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities;
+namespace Abilities.Static;
 
 /// <summary>
 /// Dragon blocker (Whenever an opponent's creature that has Dragon in its race

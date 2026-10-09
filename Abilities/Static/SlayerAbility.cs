@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities;
+namespace Abilities.Static;
 
 /// <summary>
 /// Slayer (Whenever this creature battles, destroy the other creature after the

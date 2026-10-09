@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace Abilities;
+namespace Abilities.Static;
 
 /// <summary>
 /// 604.1.
