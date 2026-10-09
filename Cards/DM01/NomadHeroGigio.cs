@@ -1,4 +1,6 @@
-﻿namespace Cards.DM01
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
+
+namespace Cards.DM01
 {
     sealed class NomadHeroGigio : Creature
     {

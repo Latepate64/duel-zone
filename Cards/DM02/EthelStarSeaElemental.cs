@@ -1,4 +1,6 @@
-﻿namespace Cards.DM02
+﻿using ContinuousEffects.Unblockable;
+
+namespace Cards.DM02
 {
     sealed class EthelStarSeaElemental : Creature
     {

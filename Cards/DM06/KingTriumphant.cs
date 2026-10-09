@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM06
 {
@@ -7,7 +8,7 @@ namespace Cards.DM06
         public KingTriumphant() : base("King Triumphant", 8, 7000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {
             AddTriggeredAbility(new OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM01
+﻿using ContinuousEffects.CannotAttackPlayers;
+
+namespace Cards.DM01
 {
     sealed class PoisonousDahlia : Creature
     {

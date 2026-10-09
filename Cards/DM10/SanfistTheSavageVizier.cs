@@ -1,4 +1,6 @@
-﻿using Interfaces;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
+using Interfaces;
 
 namespace Cards.DM10
 {
@@ -6,7 +8,7 @@ namespace Cards.DM10
     {
         public SanfistTheSavageVizier() : base("Sanfist, the Savage Vizier", 3, 3000, [Race.BeastFolk, Race.Initiate], Civilization.Light, Civilization.Nature)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new OptionalMadnessEffect());
         }
     }

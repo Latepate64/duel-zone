@@ -1,4 +1,6 @@
-﻿namespace Cards.DM11
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM11
 {
     sealed class MachoMelon : WaveStrikerCreature
     {

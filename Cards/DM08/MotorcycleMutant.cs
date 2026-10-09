@@ -1,4 +1,6 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
+using TriggeredAbilities;
 
 namespace Cards.DM08
 {
@@ -6,7 +8,7 @@ namespace Cards.DM08
     {
         public MotorcycleMutant() : base("Motorcycle Mutant", 4, 6000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
             AddTriggeredAbility(new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyThisCreatureEffect()));
         }

@@ -1,4 +1,7 @@
-﻿namespace Cards.DM02
+﻿using ContinuousEffects.AttacksIfAble;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM02
 {
     sealed class MiniTitanGett : Creature
     {

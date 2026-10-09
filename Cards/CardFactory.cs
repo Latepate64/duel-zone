@@ -1,4 +1,6 @@
 ﻿using ContinuousEffects;
+using ContinuousEffects.AbilityAdding;
+using ContinuousEffects.Evolution;
 using Interfaces;
 using System;
 using System.Collections.Generic;

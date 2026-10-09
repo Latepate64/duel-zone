@@ -1,4 +1,7 @@
-﻿using Interfaces;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
 namespace Cards.DM01;
 
@@ -6,7 +9,7 @@ public sealed class IocantTheOracle : Creature
 {
     public IocantTheOracle() : base("Iocant, the Oracle", 2, 2000, Race.LightBringer, Civilization.Light)
     {
-        AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+        AddAbilities(new BlockerAbility());
         AddStaticAbilities(new IocantTheOracleEffect());
         AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }

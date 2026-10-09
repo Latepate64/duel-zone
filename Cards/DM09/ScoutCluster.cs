@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM09
 {
@@ -6,7 +7,7 @@ namespace Cards.DM09
     {
         public ScoutCluster() : base("Scout Cluster", 3, 4000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WhenYouPutAnotherCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect()));
         }
     }

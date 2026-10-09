@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public UrthPurifyingElemental() : base("Urth, Purifying Elemental", 6, 6000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new OneShotEffects.YouMayUntapThisCreatureEffect()));
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM10
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM10
 {
     sealed class AdventureBoar : Creature
     {

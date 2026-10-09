@@ -1,4 +1,8 @@
-﻿namespace Cards.DM06
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Unblockable;
+
+namespace Cards.DM06
 {
     sealed class ClobberTotem : Creature
     {
@@ -6,7 +10,7 @@
         {
             AddStaticAbilities(new PowerAttackerEffect(2000));
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(5000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

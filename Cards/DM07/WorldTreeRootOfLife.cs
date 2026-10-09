@@ -1,4 +1,8 @@
-﻿namespace Cards.DM07
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Unblockable;
+
+namespace Cards.DM07
 {
     sealed class WorldTreeRootOfLife : EvolutionCreature
     {
@@ -6,7 +10,7 @@
         {
             AddStaticAbilities(new PowerAttackerEffect(2000));
             AddStaticAbilities(new StealthEffect(Interfaces.Civilization.Darkness));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

@@ -1,10 +1,13 @@
-﻿namespace Cards.DM06
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
+
+namespace Cards.DM06
 {
     sealed class MadrillonFish : Creature
     {
         public MadrillonFish() : base("Madrillon Fish", 2, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

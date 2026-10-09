@@ -1,10 +1,12 @@
-﻿namespace Cards.DM01
+﻿using Abilities.Static;
+
+namespace Cards.DM01
 {
     sealed class BoneAssassinTheRipper : Creature
     {
         public BoneAssassinTheRipper() : base("Bone Assassin, the Ripper", 4, 2000, Interfaces.Race.LivingDead, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

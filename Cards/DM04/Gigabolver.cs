@@ -1,4 +1,6 @@
-﻿namespace Cards.DM04
+﻿using ContinuousEffects.CannotUseShieldTrigger;
+
+namespace Cards.DM04
 {
     sealed class Gigabolver : Creature
     {

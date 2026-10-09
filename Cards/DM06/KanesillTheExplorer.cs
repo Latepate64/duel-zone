@@ -1,10 +1,13 @@
-﻿namespace Cards.DM06
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+
+namespace Cards.DM06
 {
     sealed class KanesillTheExplorer : Creature
     {
         public KanesillTheExplorer() : base("Kanesill, the Explorer", 3, 4000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

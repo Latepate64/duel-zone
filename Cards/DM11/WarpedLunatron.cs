@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects;
 using Interfaces;
 using TriggeredAbilities;
 
@@ -10,6 +11,6 @@ public sealed class WarpedLunatron : Creature
     {
         AddStaticAbilities(new WarpedLunatronEffect());
         AddTriggeredAbility(new WarpedLunatronAbility());
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

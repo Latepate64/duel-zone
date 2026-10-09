@@ -1,4 +1,6 @@
-﻿namespace Cards.DM03
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM03
 {
     sealed class UrPaleSeekerOfSunlight : Creature
     {

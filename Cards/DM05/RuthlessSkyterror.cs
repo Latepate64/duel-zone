@@ -1,4 +1,7 @@
-﻿namespace Cards.DM05
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
+using ContinuousEffects.CannotAttackPlayers;
+
+namespace Cards.DM05
 {
     sealed class RuthlessSkyterror : Creature
     {

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM02
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM02
 {
     sealed class SilverFist : Creature
     {

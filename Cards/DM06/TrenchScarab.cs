@@ -1,4 +1,7 @@
-﻿namespace Cards.DM06
+﻿using ContinuousEffects.CannotAttackPlayers;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM06
 {
     sealed class TrenchScarab : Creature
     {

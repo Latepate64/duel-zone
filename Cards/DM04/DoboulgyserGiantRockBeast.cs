@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM04
 {
@@ -7,7 +8,7 @@ namespace Cards.DM04
         public DoboulgyserGiantRockBeast() : base("Doboulgyser, Giant Rock Beast", 6, 8000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(3000)));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using ContinuousEffects.PowerModifying;
+using Interfaces;
 
 namespace Cards.DM02;
 

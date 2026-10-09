@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM10
 {
@@ -6,7 +8,7 @@ namespace Cards.DM10
     {
         public ArdentLunatron() : base("Ardent Lunatron", 3, 5000, Interfaces.Race.CyberMoon, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureBlocksIfAble());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }

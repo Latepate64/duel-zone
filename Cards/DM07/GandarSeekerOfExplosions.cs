@@ -1,4 +1,5 @@
 ﻿using Abilities;
+using Abilities.Static;
 using Interfaces;
 using OneShotEffects;
 
@@ -9,7 +10,7 @@ public sealed class GandarSeekerOfExplosions : Creature
     public GandarSeekerOfExplosions() : base(
         "Gandar, Seeker of Explosions", 7, 6500, Race.MechaThunder, Civilization.Light)
     {
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
         AddAbilities(new TapAbility(new GandarSeekerOfExplosionsEffect()));
     }
 }

@@ -1,4 +1,6 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+using TriggeredAbilities;
 
 namespace Cards.DM08
 {
@@ -6,7 +8,7 @@ namespace Cards.DM08
     {
         public KuukaiFinderOfKarma() : base("Kuukai, Finder of Karma", 5, 10500, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM09
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM09
 {
     sealed class WhipScorpion : Creature
     {

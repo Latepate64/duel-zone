@@ -1,4 +1,6 @@
-﻿namespace Cards.DM06
+﻿using ContinuousEffects.AbilityAdding;
+
+namespace Cards.DM06
 {
     sealed class FortMegacluster : EvolutionCreature
     {

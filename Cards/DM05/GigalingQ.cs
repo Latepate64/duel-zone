@@ -1,10 +1,13 @@
-﻿namespace Cards.DM05
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+
+namespace Cards.DM05
 {
     sealed class GigalingQ : Creature
     {
         public GigalingQ() : base("Gigaling Q", 5, 2000, [Interfaces.Race.Survivor, Interfaces.Race.Chimera], Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureHasSlayerEffect())));
+            AddStaticAbilities(new SurvivorEffect(new SlayerAbility()));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM07
+﻿using ContinuousEffects.Unblockable;
+
+namespace Cards.DM07
 {
     sealed class GezaryUndercoverDoll : Creature
     {

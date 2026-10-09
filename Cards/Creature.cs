@@ -102,8 +102,7 @@ public class Creature(
         AddAbilities(ability);
     }
 
-    public bool IsBlocker => GetAbilities<IStaticAbility>().SelectMany(
-        x => x.ContinuousEffects).OfType<IBlockerEffect>().Any();
+    public bool IsBlocker => GetAbilities<IBlockerAbility>().Any();
 
     public IEnumerable<ITapAbility> GetTapAbilities()
     {

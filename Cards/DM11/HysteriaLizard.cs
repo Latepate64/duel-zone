@@ -1,4 +1,7 @@
-﻿namespace Cards.DM11
+﻿using ContinuousEffects.AttacksIfAble;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM11
 {
     sealed class HysteriaLizard : Creature
     {

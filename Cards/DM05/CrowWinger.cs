@@ -1,4 +1,6 @@
-﻿namespace Cards.DM05
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM05
 {
     sealed class CrowWinger : Creature
     {

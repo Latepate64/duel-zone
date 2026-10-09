@@ -1,4 +1,6 @@
-﻿namespace Cards.DM02;
+﻿using ContinuousEffects.CostModifying;
+
+namespace Cards.DM02;
 
 public sealed class EssenceElf : Creature
 {

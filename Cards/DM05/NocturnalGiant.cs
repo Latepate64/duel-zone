@@ -1,4 +1,8 @@
-﻿namespace Cards.DM05
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackCreatures;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM05
 {
     sealed class NocturnalGiant : Creature
     {
@@ -6,7 +10,7 @@
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
             AddStaticAbilities(new PowerAttackerEffect(7000));
-            AddStaticAbilities(new TripleBreakerEffect());
+            AddAbilities(new TripleBreakerAbility());
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Cards.DM04
+﻿using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects.Unblockable;
+
+namespace Cards.DM04
 {
     sealed class GulanRiasSpeedGuardian : Creature
     {

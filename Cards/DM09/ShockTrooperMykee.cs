@@ -1,4 +1,5 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM09
 {
@@ -6,7 +7,7 @@ namespace Cards.DM09
     {
         public ShockTrooperMykee() : base("Shock Trooper Mykee", 6, 1000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
+            AddAbilities(new SpeedAttackerAbility());
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(3000)));
         }
     }

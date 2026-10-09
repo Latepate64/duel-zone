@@ -1,4 +1,6 @@
-﻿namespace Cards.DM07
+﻿using ContinuousEffects.AbilityAdding;
+
+namespace Cards.DM07
 {
     sealed class AstronautSkyterror : Creature
     {

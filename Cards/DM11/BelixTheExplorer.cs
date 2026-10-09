@@ -1,4 +1,6 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+using TriggeredAbilities;
 
 namespace Cards.DM11
 {
@@ -6,7 +8,7 @@ namespace Cards.DM11
     {
         public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect()));
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }

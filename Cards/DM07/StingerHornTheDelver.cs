@@ -1,4 +1,7 @@
-﻿namespace Cards.DM07
+﻿using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Unblockable;
+
+namespace Cards.DM07
 {
     sealed class StingerHornTheDelver : Creature
     {

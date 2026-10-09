@@ -1,4 +1,6 @@
-﻿namespace Cards.DM01
+﻿using ContinuousEffects.Replacement;
+
+namespace Cards.DM01
 {
     sealed class MightyShouter : Creature
     {

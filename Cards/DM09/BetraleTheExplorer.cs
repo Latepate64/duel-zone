@@ -1,4 +1,6 @@
-﻿using OneShotEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+using OneShotEffects;
 using TriggeredAbilities;
 
 namespace Cards.DM09
@@ -7,7 +9,7 @@ namespace Cards.DM09
     {
         public BetraleTheExplorer() : base("Betrale, the Explorer", 5, 5000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
         }

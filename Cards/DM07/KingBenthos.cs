@@ -1,4 +1,5 @@
 ﻿using Abilities;
+using Abilities.Static;
 using Interfaces;
 using OneShotEffects;
 
@@ -8,7 +9,7 @@ public sealed class KingBenthos : Creature
 {
     public KingBenthos() : base("King Benthos", 8, 6000, Race.Leviathan, Civilization.Water)
     {
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
         AddAbilities(new TapAbility(new KingBenthosEffect()));
     }
 }

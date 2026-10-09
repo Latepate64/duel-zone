@@ -1,11 +1,14 @@
-﻿namespace Cards.DM01
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM01
 {
     sealed class RoaringGreatHorn : Creature
     {
         public RoaringGreatHorn() : base("Roaring Great-Horn", 7, 8000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new PowerAttackerEffect(2000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

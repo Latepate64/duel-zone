@@ -1,4 +1,6 @@
-﻿namespace Cards.DM12
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
+
+namespace Cards.DM12
 {
     sealed class MuramasasKnife : Creature
     {

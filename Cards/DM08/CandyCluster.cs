@@ -1,4 +1,6 @@
-﻿namespace Cards.DM08
+﻿using ContinuousEffects.Unblockable;
+
+namespace Cards.DM08
 {
     sealed class CandyCluster : Creature
     {

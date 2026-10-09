@@ -1,4 +1,6 @@
-﻿namespace Cards.DM04
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM04
 {
     sealed class CannonShell : Creature
     {

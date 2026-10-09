@@ -1,6 +1,9 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
+using ContinuousEffects.CannotAttack;
+using ContinuousEffects.Unblockable;
+using Abilities.Static;
 
 namespace Cards.DM07;
 
@@ -11,6 +14,6 @@ sealed class HeadlongGiant : Creature
         AddStaticAbilities(new HeadlongGiantEffect(), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
             4000));
         AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new DiscardCardFromYourHandEffect()));
-        AddStaticAbilities(new TripleBreakerEffect());
+        AddAbilities(new TripleBreakerAbility());
     }
 }

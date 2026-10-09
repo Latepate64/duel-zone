@@ -1,4 +1,6 @@
-﻿namespace Cards.DM04
+﻿using ContinuousEffects.Replacement;
+
+namespace Cards.DM04
 {
     sealed class OuksVizierOfRestoration : Creature
     {

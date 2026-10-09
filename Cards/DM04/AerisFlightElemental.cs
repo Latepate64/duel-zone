@@ -1,4 +1,7 @@
-﻿namespace Cards.DM04
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
+using ContinuousEffects.CannotAttackPlayers;
+
+namespace Cards.DM04
 {
     sealed class AerisFlightElemental : Creature
     {

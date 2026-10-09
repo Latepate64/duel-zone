@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects;
+using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM11
 {
@@ -6,7 +8,7 @@ namespace Cards.DM11
     {
         public YulianaChannelerOfSuns() : base("Yuliana, Channeler of Suns", 3, 3000, Interfaces.Race.MechaDelSol, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddStaticAbilities(new OpponentCannotChooseThisCreatureEffect());
         }

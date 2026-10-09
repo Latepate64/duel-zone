@@ -1,4 +1,6 @@
-﻿namespace Cards.DM12
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM12
 {
     sealed class PeppiPepper : Creature
     {

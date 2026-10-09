@@ -1,4 +1,6 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
+using TriggeredAbilities;
 
 namespace Cards.DM07
 {
@@ -6,7 +8,7 @@ namespace Cards.DM07
     {
         public Gigabuster() : base("Gigabuster", 5, 5000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCannotUseShieldTriggerEffect()));
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }

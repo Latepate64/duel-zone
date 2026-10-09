@@ -1,4 +1,6 @@
-﻿namespace Cards.DM07
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM07
 {
     sealed class LaunchLocust : Creature
     {

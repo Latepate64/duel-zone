@@ -1,4 +1,8 @@
-﻿namespace Cards.DM05
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM05
 {
     sealed class BlazosaurQ : Creature
     {

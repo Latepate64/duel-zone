@@ -1,11 +1,14 @@
-﻿namespace Cards.DM10
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+
+namespace Cards.DM10
 {
     sealed class PoltalesterTheSpydroid : Creature
     {
         public PoltalesterTheSpydroid() : base("Poltalester, the Spydroid", 5, 2000, Interfaces.Race.Soltrooper, Interfaces.Civilization.Light)
         {
             AddShieldTrigger();
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

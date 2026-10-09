@@ -1,4 +1,6 @@
-﻿using OneShotEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
+using OneShotEffects;
 using TriggeredAbilities;
 
 namespace Cards.DM11
@@ -7,7 +9,7 @@ namespace Cards.DM11
     {
         public BairaTheHiddenLunatic() : base("Baira, the Hidden Lunatic", 3, 5000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
             AddTriggeredAbility(new WhenThisCreatureBattlesAbility(new DestroyAfterBattleEffect()));
         }

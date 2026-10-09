@@ -1,4 +1,6 @@
-﻿namespace Cards.DM05
+﻿using ContinuousEffects.CannotAttackPlayers;
+
+namespace Cards.DM05
 {
     sealed class CannoneerBargon : Creature
     {

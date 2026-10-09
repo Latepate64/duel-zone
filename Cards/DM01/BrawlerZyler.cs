@@ -1,4 +1,6 @@
-﻿namespace Cards.DM01
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM01
 {
     sealed class BrawlerZyler : Creature
     {

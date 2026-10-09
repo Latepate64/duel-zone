@@ -1,6 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
+using Abilities.Static;
 
 namespace Cards.DM04;
 
@@ -10,6 +11,6 @@ public sealed class RimuelCloudbreakElemental : Creature
         "Rimuel, Cloudbreak Elemental", 8, 6000, Race.AngelCommand, Civilization.Light)
     {
         AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new RimuelCloudbreakElementalEffect()));
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

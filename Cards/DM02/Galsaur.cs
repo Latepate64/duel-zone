@@ -1,4 +1,6 @@
-﻿namespace Cards.DM02
+﻿using ContinuousEffects.AbilityAdding;
+
+namespace Cards.DM02
 {
     sealed class Galsaur : Creature
     {

@@ -1,5 +1,6 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
+using Abilities.Static;
 
 namespace Cards.DM08
 {
@@ -7,7 +8,7 @@ namespace Cards.DM08
     {
         public EmperorQuazla() : base("Emperor Quazla", 6, 5000, Race.CyberLord, Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WheneverYourOpponentUsesTheShieldTriggerAbilityOfOneOfHisShieldsAbility(new OneShotEffects.YouMayDrawUpToTwoCardsEffect()));
         }
     }

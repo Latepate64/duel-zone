@@ -1,4 +1,6 @@
-﻿namespace Cards.DM02
+﻿using ContinuousEffects.Replacement;
+
+namespace Cards.DM02
 {
     sealed class Gigastand : Creature
     {

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM05
+﻿using ContinuousEffects.CannotAttack;
+
+namespace Cards.DM05
 {
     sealed class Gigazoul : Creature
     {

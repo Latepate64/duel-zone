@@ -1,4 +1,6 @@
-﻿namespace Cards.DM01
+﻿using ContinuousEffects.Unblockable;
+
+namespace Cards.DM01
 {
     sealed class StampedingLonghorn : Creature
     {

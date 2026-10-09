@@ -1,4 +1,7 @@
-﻿namespace Cards.DM08
+﻿using ContinuousEffects.Replacement;
+using ContinuousEffects.Unblockable;
+
+namespace Cards.DM08
 {
     sealed class AquaRanger : Creature
     {

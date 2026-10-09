@@ -1,4 +1,6 @@
-﻿namespace Cards.DM06
+﻿using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM06
 {
     sealed class ParadiseHorn : Creature
     {

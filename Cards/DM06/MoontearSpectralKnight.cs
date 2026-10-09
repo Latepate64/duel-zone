@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using ContinuousEffects.CannotUseCard;
+using Interfaces;
 
 namespace Cards.DM06
 {

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM07
+﻿using ContinuousEffects.Replacement;
+
+namespace Cards.DM07
 {
     sealed class DreamPirateShadowOfTheft : Creature
     {

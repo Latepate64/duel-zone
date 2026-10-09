@@ -1,4 +1,6 @@
-﻿namespace Cards.DM02
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
+
+namespace Cards.DM02
 {
     sealed class CavalryGeneralCuratops : Creature
     {

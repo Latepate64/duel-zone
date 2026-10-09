@@ -1,4 +1,6 @@
-﻿using OneShotEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
+using OneShotEffects;
 using TriggeredAbilities;
 
 namespace Cards.DM01
@@ -7,7 +9,7 @@ namespace Cards.DM01
     {
         public RubyGrass() : base("Ruby Grass", 3, 3000, Interfaces.Race.StarlightTree, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new YouMayUntapThisCreatureEffect()));
         }

@@ -1,4 +1,6 @@
-﻿namespace Cards.DM07
+﻿using ContinuousEffects.CannotBeAttacked;
+
+namespace Cards.DM07
 {
     sealed class KoocPollon : Creature
     {

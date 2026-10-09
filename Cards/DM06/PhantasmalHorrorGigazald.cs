@@ -1,4 +1,5 @@
-﻿using OneShotEffects;
+﻿using ContinuousEffects.AbilityAdding;
+using OneShotEffects;
 
 namespace Cards.DM06
 {

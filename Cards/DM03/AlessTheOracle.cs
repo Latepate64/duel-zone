@@ -1,4 +1,6 @@
-﻿namespace Cards.DM03
+﻿using ContinuousEffects.Replacement;
+
+namespace Cards.DM03
 {
     sealed class AlessTheOracle : Creature
     {

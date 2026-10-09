@@ -1,4 +1,7 @@
-﻿namespace Cards.DM03
+﻿using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Unblockable;
+
+namespace Cards.DM03
 {
     sealed class MaskedPomegranate : Creature
     {

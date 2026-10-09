@@ -1,4 +1,6 @@
-﻿namespace Cards.DM05
+﻿using ContinuousEffects.CannotBeAttacked;
+
+namespace Cards.DM05
 {
     sealed class SteelTurretCluster : Creature
     {

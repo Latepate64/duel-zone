@@ -1,4 +1,8 @@
-﻿namespace Cards.DM08
+﻿using ContinuousEffects.CannotAttackPlayers;
+using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects.PowerModifying;
+
+namespace Cards.DM08
 {
     sealed class RocketdiveSkyterror : Creature
     {
