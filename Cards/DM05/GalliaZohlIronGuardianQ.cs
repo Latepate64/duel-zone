@@ -1,5 +1,5 @@
-﻿using ContinuousEffects;
-using Abilities;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM05
 {
@@ -7,7 +7,7 @@ namespace Cards.DM05
     {
         public GalliaZohlIronGuardianQ() : base("Gallia Zohl, Iron Guardian Q", 5, 2000, [Interfaces.Race.Survivor, Interfaces.Race.Guardian], Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureHasBlockerEffect())));
+            AddStaticAbilities(new SurvivorEffect(new BlockerAbility()));
         }
     }
 }

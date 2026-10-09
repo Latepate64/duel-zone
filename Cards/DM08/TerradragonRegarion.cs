@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM08
 {
@@ -7,7 +8,7 @@ namespace Cards.DM08
         public TerradragonRegarion() : base("Terradragon Regarion", 5, 4000, Interfaces.Race.EarthDragon, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new PowerAttackerEffect(3000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

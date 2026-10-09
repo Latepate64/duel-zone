@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.DM04
     {
         public AquaGuard() : base("Aqua Guard", 1, 2000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

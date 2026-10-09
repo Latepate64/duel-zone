@@ -1,4 +1,4 @@
-using ContinuousEffects;
+using ContinuousEffects.CanAttackUntappedCreatures;
 using Interfaces;
 
 namespace OneShotEffects;

@@ -1,5 +1,5 @@
-﻿using ContinuousEffects;
-using Abilities;
+﻿using Abilities;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 

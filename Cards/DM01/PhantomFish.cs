@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public PhantomFish() : base("Phantom Fish", 3, 4000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

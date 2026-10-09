@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM06
 {
@@ -6,7 +6,7 @@ namespace Cards.DM06
     {
         public GrinningAxeTheMonstrosity() : base("Grinning Axe, the Monstrosity", 3, 1000, Interfaces.Race.DevilMask, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

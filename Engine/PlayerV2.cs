@@ -18,6 +18,7 @@ public sealed class PlayerV2 : IPlayerV2
         Hand = other.Hand.Copy() as IHand;
         ManaZone = other.ManaZone.Copy() as IManaZone;
         Graveyard = other.Graveyard.Copy() as IGraveyard;
+        Opponent = other.Opponent; // Do not copy opponent as it creates a loop
     }
 
     public IDeck Deck { get; } = new Deck();
@@ -25,6 +26,7 @@ public sealed class PlayerV2 : IPlayerV2
     public IHand Hand { get; } = new Hand();
     public IManaZone ManaZone { get; } = new ManaZone();
     public IGraveyard Graveyard { get; } = new Graveyard();
+    public IPlayerV2 Opponent { get; set; }
 
     public IPlayerV2 Copy()
     {
@@ -39,6 +41,7 @@ public sealed class PlayerV2 : IPlayerV2
         if (!Hand.Equals(player.Hand)) return false;
         if (!ManaZone.Equals(player.ManaZone)) return false;
         if (!Graveyard.Equals(player.Graveyard)) return false;
+        // Do not check opponent as it creates a loop
         return true;
     }
 
@@ -50,6 +53,7 @@ public sealed class PlayerV2 : IPlayerV2
         hash.Add(Hand);
         hash.Add(ManaZone);
         hash.Add(Graveyard);
+        // Do not add opponent as it creates a loop
         return hash.ToHashCode();
     }
 

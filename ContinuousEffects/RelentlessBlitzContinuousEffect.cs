@@ -1,10 +1,15 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect, ICanAttackUntappedCreaturesEffect,
-    IUnblockableEffect
+/// <summary>
+/// This turn, each creature of that race can attack untapped creatures and
+/// can't be blocked while attacking a creature.
+/// </summary>
+public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect,
+    ICanAttackUntappedCreaturesEffect, IUnblockableEffect
 {
     private readonly Race _race;
 
@@ -13,17 +18,20 @@ public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect, ICan
         _race = race;
     }
 
-    public RelentlessBlitzContinuousEffect(RelentlessBlitzContinuousEffect effect) : base(effect)
+    public RelentlessBlitzContinuousEffect(
+        RelentlessBlitzContinuousEffect effect) : base(effect)
     {
         _race = effect._race;
     }
 
-    public bool CanAttackUntappedCreature(ICreature attacker, ICreature targetOfAttack, IGame game)
+    public bool CanAttackUntappedCreature(ICreature attacker,
+        ICreature targetOfAttack, IGame game)
     {
         return attacker.HasRace(_race);
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
         return attacker.HasRace(_race) && targetOfAttack is ICreature;
     }
@@ -31,10 +39,5 @@ public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect, ICan
     public override IContinuousEffect Copy()
     {
         return new RelentlessBlitzContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"This turn, {_race}s can attack untapped creatures and can't be blocked while attacking a creature.";
     }
 }

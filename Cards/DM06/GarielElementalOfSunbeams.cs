@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotUseCard;
 using Interfaces;
 
 namespace Cards.DM06
@@ -8,7 +9,7 @@ namespace Cards.DM06
         public GarielElementalOfSunbeams() : base("Gariel, Elemental of Sunbeams", 5, 7500, Race.AngelCommand, Civilization.Light)
         {
             AddStaticAbilities(new YouCanSummonThisCreatureOnlyIfYouHaveCastSpellThisTurnEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

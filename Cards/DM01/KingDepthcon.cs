@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public KingDepthcon() : base("King Depthcon", 7, 6000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
         }
     }

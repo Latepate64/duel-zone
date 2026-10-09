@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
@@ -11,6 +11,6 @@ public sealed class SuperDragonMachineDolzark : Creature
         [Race.ArmoredDragon, Race.EarthDragon], Civilization.Fire, Civilization.Nature)
     {
         AddTriggeredAbility(new DolzarkAbility(new DolzarkEffect()));
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

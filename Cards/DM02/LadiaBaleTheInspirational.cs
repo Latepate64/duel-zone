@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM02
 {
@@ -6,8 +6,8 @@ namespace Cards.DM02
     {
         public LadiaBaleTheInspirational() : base("Ladia Bale, the Inspirational", 6, 9500, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

@@ -17,10 +17,19 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
     int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization);
     int GetOtherCreatureCount(Guid creature, Race race);
+    int GetNumberOfOtherCreaturesControllerByPlayer(ICreature attacker);
     IEnumerable<ICreature> GetOtherCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetOtherCreatures(Guid creature, Civilization civilization);
     IEnumerable<ICreature> GetOtherTappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetOtherUntappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetTappedCreatures(Guid controller);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
+    int GetNumberOfOtherRaceCreaturesControllerByPlayer(ICreature excluded,
+        Race race);
+    int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded);
+    IEnumerable<ICreature> GetOtherCivilizationCreaturesControllerByPlayer(
+        ICreature excluded, Civilization light);
+    IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
+        IPlayerV2 player);
+    IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
 }

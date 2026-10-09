@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CannotAttackCreatures;
+using ContinuousEffects.CannotAttackPlayers;
 using Interfaces;
 
 namespace Cards.DM06;

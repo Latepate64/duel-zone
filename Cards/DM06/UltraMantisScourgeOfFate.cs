@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM06
 {
@@ -7,7 +8,7 @@ namespace Cards.DM06
         public UltraMantisScourgeOfFate() : base("Ultra Mantis, Scourge of Fate", 6, 9000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(8000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

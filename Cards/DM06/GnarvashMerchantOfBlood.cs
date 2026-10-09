@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM06
 {
@@ -7,7 +7,7 @@ namespace Cards.DM06
     {
         public GnarvashMerchantOfBlood() : base("Gnarvash, Merchant of Blood", 6, 8000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddTriggeredAbility(new AtTheEndOfYourTurnIfThisIsYourOnlyCreatureInTheBattleZoneDestroyItAbility(
                 new OneShotEffects.DestroyThisCreatureEffect()));
         }

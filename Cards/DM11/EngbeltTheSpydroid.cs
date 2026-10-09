@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM11
 {
@@ -6,7 +7,7 @@ namespace Cards.DM11
     {
         public EngbeltTheSpydroid() : base("Engbelt, the Spydroid", 4, 5500, Interfaces.Race.Soltrooper, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

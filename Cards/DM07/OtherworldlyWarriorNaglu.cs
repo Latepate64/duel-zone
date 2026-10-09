@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM07
 {
@@ -8,7 +10,7 @@ namespace Cards.DM07
         {
             AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
             AddStaticAbilities(new PowerAttackerEffect(3000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

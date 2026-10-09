@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM05
 {
@@ -7,7 +8,7 @@ namespace Cards.DM05
         public MoonHorn() : base("Moon Horn", 6, 6000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Interfaces.Civilization.Water, Interfaces.Civilization.Darkness));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

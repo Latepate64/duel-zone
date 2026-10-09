@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM07
 {
@@ -7,7 +8,7 @@ namespace Cards.DM07
         public PhantasmalHorrorGigazabal() : base("Phantasmal Horror Gigazabal", 5, 9000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new StealthEffect(Interfaces.Civilization.Light));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

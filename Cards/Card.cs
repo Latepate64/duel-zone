@@ -1,4 +1,4 @@
-﻿using Abilities;
+﻿using Abilities.Static;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 using System;
@@ -51,7 +51,7 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations,
         ShieldTrigger = card.ShieldTrigger;
         Timestamp = timeStamp; // 613.7d An object receives a timestamp at the time it enters a zone.
         Underneath = card.Underneath;
-        InitializeAbilities();
+        // InitializeAbilities();
     }
 
     protected Card(string name, int manaCost, int? power, params Civilization[] civilizations) :
@@ -65,23 +65,60 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations,
 
     public override bool Equals(object obj)
     {
-        return obj is Card c
-            && c.AddedAbilities.SequenceEqual(AddedAbilities)
-            && c.Civilizations.SequenceEqual(Civilizations)
-            && c.FaceDown == FaceDown
-            && c.Id == Id
-            && c.ManaCost == ManaCost
-            && c.Name == Name
-            && c.OnTopOf == OnTopOf
-            && c.Owner == Owner
-            && c.OwnerV2 == OwnerV2
-            && c.PhysicalCardId == PhysicalCardId
-            && c.PrintedAbilities.SequenceEqual(PrintedAbilities)
-            && c.RulesText == RulesText
-            && c.ShieldTrigger == ShieldTrigger
-            && c.Tapped == Tapped
-            && c.Timestamp == Timestamp
-            && c.Underneath == Underneath;
+        if (obj is not Card c) return false;
+        if (!c.AddedAbilities.SequenceEqual(AddedAbilities)) return false;
+        if (!c.Civilizations.SequenceEqual(Civilizations)) return false;
+        if (!c.FaceDown.Equals(FaceDown)) return false;
+        // Do not check Id as it will be removed
+        if (!c.ManaCost.Equals(ManaCost)) return false;
+        if (!c.Name.Equals(Name)) return false;
+        if (c.OnTopOf == null && OnTopOf != null) return false;
+        if (c.OnTopOf != null && !c.OnTopOf.Equals(OnTopOf)) return false;
+        if (c.Owner == null && Owner != null) return false;
+        if (c.Owner != null && !c.Owner.Equals(Owner)) return false;
+        if (c.OwnerV2 == null && OwnerV2 != null) return false;
+        if (c.OwnerV2 != null && !c.OwnerV2.Equals(OwnerV2)) return false;
+        if (!c.PhysicalCardId.Equals(PhysicalCardId)) return false;
+        if (!c.PrintedAbilities.SequenceEqual(PrintedAbilities)) return false;
+        if (c.RulesText == null && RulesText != null) return false;
+        if (c.RulesText != null && !c.RulesText.Equals(RulesText)) return false;
+        if (!c.ShieldTrigger.Equals(ShieldTrigger)) return false;
+        if (!c.Tapped.Equals(Tapped)) return false;
+        if (!c.Timestamp.Equals(Timestamp)) return false;
+        if (c.Underneath == null && Underneath != null) return false;
+        if (c.Underneath != null && !c.Underneath.Equals(
+            Underneath)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        foreach (var x in AddedAbilities)
+        {
+            hash.Add(x);
+        }
+        foreach (var x in Civilizations)
+        {
+            hash.Add(x);
+        }
+        hash.Add(FaceDown);
+        hash.Add(ManaCost);
+        hash.Add(Name);
+        hash.Add(OnTopOf);
+        hash.Add(Owner);
+        hash.Add(OwnerV2);
+        hash.Add(PhysicalCardId);
+        foreach (var x in PrintedAbilities)
+        {
+            hash.Add(x);
+        }
+        hash.Add(RulesText);
+        hash.Add(ShieldTrigger);
+        hash.Add(Tapped);
+        hash.Add(Timestamp);
+        hash.Add(Underneath);
+        return hash.ToHashCode();
     }
 
     public bool IsMultiColored => Civilizations.Count > 1;

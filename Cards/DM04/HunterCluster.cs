@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM04
 {
@@ -7,7 +7,7 @@ namespace Cards.DM04
         public HunterCluster() : base("Hunter Cluster", 4, 1000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

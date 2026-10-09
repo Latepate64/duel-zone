@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM04
 {

@@ -1,5 +1,5 @@
 using Interfaces;
-using ContinuousEffects;
+using ContinuousEffects.AbilityAdding;
 
 namespace TriggeredAbilities;
 

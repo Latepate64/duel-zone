@@ -29,8 +29,9 @@ public sealed class LavaWalkerExecutoEffect : CreatureSelectionEffect, IPowerabl
 
     protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
-        game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-            Power, cards));
+        throw new NotImplementedException();
+        // game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
+        //     Power, cards));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)

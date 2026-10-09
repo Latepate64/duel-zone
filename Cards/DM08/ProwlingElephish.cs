@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM08
 {
@@ -6,7 +6,7 @@ namespace Cards.DM08
     {
         public ProwlingElephish() : base("Prowling Elephish", 4, 2000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

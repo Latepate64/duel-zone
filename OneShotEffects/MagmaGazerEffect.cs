@@ -1,5 +1,5 @@
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
-using ContinuousEffects;
 
 namespace OneShotEffects;
 

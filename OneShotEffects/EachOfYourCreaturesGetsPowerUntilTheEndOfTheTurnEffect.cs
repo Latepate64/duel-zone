@@ -20,8 +20,9 @@ public sealed class EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : One
 
     public override void Apply(IGame game)
     {
-        game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-            Power, [.. game.BattleZone.GetCreatures(Ability.Controller.Id)]));
+        throw new NotImplementedException();
+        // game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
+        //     Power, [.. game.BattleZone.GetCreatures(Ability.Controller.Id)]));
     }
 
     public override IOneShotEffect Copy()

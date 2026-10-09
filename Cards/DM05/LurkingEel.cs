@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM05
 {
@@ -6,7 +6,7 @@ namespace Cards.DM05
     {
         public LurkingEel() : base("Lurking Eel", 6, 4000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new CivilizationBlockerEffect(Interfaces.Civilization.Fire, Interfaces.Civilization.Nature));
+            AddAbilities(new CivilizationBlockerAbility(Interfaces.Civilization.Fire, Interfaces.Civilization.Nature));
         }
     }
 }

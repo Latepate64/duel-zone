@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM03
 {
@@ -6,7 +7,7 @@ namespace Cards.DM03
     {
         public AlekSolidityEnforcer() : base("Alek, Solidity Enforcer", 7, 4000, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Interfaces.Civilization.Light));
         }
     }

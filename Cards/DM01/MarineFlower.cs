@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public MarineFlower() : base("Marine Flower", 1, 2000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

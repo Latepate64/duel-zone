@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM06
 {
@@ -6,7 +6,7 @@ namespace Cards.DM06
     {
         public CantankerousGiant() : base("Cantankerous Giant", 7, 8000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

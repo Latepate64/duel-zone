@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM10
 {
@@ -6,7 +6,7 @@ namespace Cards.DM10
     {
         public CrystalSpinslicer() : base("Crystal Spinslicer", 2, 5000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

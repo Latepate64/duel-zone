@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM12
 {
@@ -6,7 +7,7 @@ namespace Cards.DM12
     {
         public ValkyerStarstormElemental() : base("Valkyer, Starstorm Elemental", 5, 7000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

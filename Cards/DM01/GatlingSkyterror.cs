@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM01
 {
@@ -7,7 +8,7 @@ namespace Cards.DM01
         public GatlingSkyterror() : base("Gatling Skyterror", 7, 7000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

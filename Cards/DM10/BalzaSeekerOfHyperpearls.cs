@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM10
 {
@@ -6,7 +7,7 @@ namespace Cards.DM10
     {
         public BalzaSeekerOfHyperpearls() : base("Balza, Seeker of Hyperpearls", 8, 4000, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

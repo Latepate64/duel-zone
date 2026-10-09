@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 using Interfaces;
 
 namespace Cards.DM08;
@@ -9,6 +10,6 @@ public sealed class SuperNecrodragonAbzoDolba : DragonEvolutionCreature
         "Super Necrodragon Abzo Dolba", 6, 11000, Race.ZombieDragon, Civilization.Darkness)
     {
         AddStaticAbilities(new SuperNecrodragonAbzoDolbaEffect());
-        AddStaticAbilities(new TripleBreakerEffect());
+        AddAbilities(new TripleBreakerAbility());
     }
 }

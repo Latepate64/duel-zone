@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM05
 {
@@ -6,7 +6,7 @@ namespace Cards.DM05
     {
         public Gigakail() : base("Gigakail", 5, 4000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new CivilizationSlayerEffect(Interfaces.Civilization.Nature, Interfaces.Civilization.Light));
+            AddAbilities(new CivilizationSlayerAbility(Interfaces.Civilization.Nature, Interfaces.Civilization.Light));
         }
     }
 }

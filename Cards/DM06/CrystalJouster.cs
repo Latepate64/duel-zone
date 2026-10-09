@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
 
 namespace Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.DM06
     {
         public CrystalJouster() : base("Crystal Jouster", 7, 7000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());
         }
     }

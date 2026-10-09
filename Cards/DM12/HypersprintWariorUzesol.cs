@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM12
 {
@@ -6,7 +7,7 @@ namespace Cards.DM12
     {
         public HypersprintWariorUzesol() : base("Hypersprint Warior Uzesol", 4, 1000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
+            AddAbilities(new SpeedAttackerAbility());
             AddStaticAbilities(new PowerAttackerEffect(4000));
         }
     }

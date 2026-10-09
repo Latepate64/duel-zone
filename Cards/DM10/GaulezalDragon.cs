@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM10
 {
@@ -6,7 +6,7 @@ namespace Cards.DM10
     {
         public GaulezalDragon() : base("Gaulezal Dragon", 9, 11000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.Replacement;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 
 namespace Cards.DM07;

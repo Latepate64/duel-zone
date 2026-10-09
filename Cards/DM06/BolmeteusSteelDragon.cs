@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
 using Interfaces;
 
 namespace Cards.DM06
@@ -7,7 +8,7 @@ namespace Cards.DM06
     {
         public BolmeteusSteelDragon() : base("Bolmeteus Steel Dragon", 7, 7000, Race.ArmoredDragon, Civilization.Fire)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddStaticAbilities(new BolmeteusEffect());
         }
     }

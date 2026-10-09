@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM09
 {
@@ -6,9 +7,9 @@ namespace Cards.DM09
     {
         public AcidRefluxTheFleshboiler() : base("Acid Reflux, the Fleshboiler", 5, 3000, Interfaces.Race.DevilMask, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

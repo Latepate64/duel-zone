@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
 
 namespace Cards.DM10
 {
@@ -7,7 +8,7 @@ namespace Cards.DM10
         public AquaSkydiver() : base("Aqua Skydiver", 4, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Light, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());
         }
     }

@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM08
 {
@@ -7,7 +7,7 @@ namespace Cards.DM08
     {
         public NecrodragonGiland() : base("Necrodragon Giland", 4, 6000, Interfaces.Race.ZombieDragon, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddTriggeredAbility(new WhenThisCreatureBattlesAbility(new OneShotEffects.DestroyAfterBattleEffect()));
         }
     }

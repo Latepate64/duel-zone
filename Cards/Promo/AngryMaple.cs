@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.PowerModifying;
 
 namespace Cards.Promo
 {

@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
-using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
+using ContinuousEffects.AbilityAdding;
 
 namespace Cards.Promo;
 

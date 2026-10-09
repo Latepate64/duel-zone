@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.DM01
     {
         public DarkRavenShadowOfGrief() : base("Dark Raven, Shadow of Grief", 4, 1000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

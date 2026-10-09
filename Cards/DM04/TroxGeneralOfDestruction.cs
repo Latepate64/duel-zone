@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
-using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
+using Abilities.Static;
 
 namespace Cards.DM04;
 
@@ -11,6 +11,6 @@ public sealed class TroxGeneralOfDestruction : Creature
         "Trox, General of Destruction", 7, 6000, Race.DemonCommand, Civilization.Darkness)
     {
         AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TroxGeneralOfDestructionEffect()));
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

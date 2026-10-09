@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM02
 {

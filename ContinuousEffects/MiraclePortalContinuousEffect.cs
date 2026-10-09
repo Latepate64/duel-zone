@@ -1,9 +1,15 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 
 namespace ContinuousEffects;
 
-public sealed class MiraclePortalContinuousEffect : UntilEndOfTurnEffect, IUnblockableEffect, IIgnoreCannotAttackPlayersEffects
+/// <summary>
+/// This turn, it can't be blocked and you ignore any effects that would prevent
+/// that creature from attacking your opponent.
+/// </summary>
+public sealed class MiraclePortalContinuousEffect : UntilEndOfTurnEffect,
+    IUnblockableEffect, IIgnoreCannotAttackPlayersEffects
 {
     private readonly ICreature _creature;
 
@@ -12,28 +18,25 @@ public sealed class MiraclePortalContinuousEffect : UntilEndOfTurnEffect, IUnblo
         _creature = creature;
     }
 
-    public MiraclePortalContinuousEffect(MiraclePortalContinuousEffect effect) : base(effect)
+    public MiraclePortalContinuousEffect(
+        MiraclePortalContinuousEffect effect) : base(effect)
     {
-        _creature = effect._creature;
+        _creature = (ICreature)effect._creature.Copy();
     }
 
     public bool IgnoreCannotAttackPlayersEffects(ICreature attacker, IGame game)
     {
-        return attacker == _creature;
+        return attacker.Equals(_creature);
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker, IAttackable targetOfAttack, IGame game)
+    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+        IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return attacker == _creature;
+        return attacker.Equals(_creature);
     }
 
     public override IContinuousEffect Copy()
     {
         return new MiraclePortalContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"{_creature} can't be blocked and ignore any effects that would prevent {_creature} from attacking your opponent.";
     }
 }

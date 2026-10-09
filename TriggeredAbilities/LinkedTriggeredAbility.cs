@@ -25,6 +25,11 @@ public abstract class LinkedTriggeredAbility : Ability, ITriggeredAbility
         throw new NotImplementedException();
     }
 
+    public IPlayer GetOpponent(IGame game)
+    {
+        throw new NotImplementedException();
+    }
+
     public abstract void Resolve(IGame game);
 
     public abstract ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent);

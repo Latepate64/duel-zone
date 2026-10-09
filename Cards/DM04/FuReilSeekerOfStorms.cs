@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CannotUseShieldTrigger;
 
 namespace Cards.DM04
 {

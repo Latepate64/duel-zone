@@ -1,5 +1,6 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackCreatures;
+using TriggeredAbilities;
 
 namespace Cards.DM05
 {
@@ -9,7 +10,7 @@ namespace Cards.DM05
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
             AddTriggeredAbility(new WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

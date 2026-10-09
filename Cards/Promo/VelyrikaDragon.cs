@@ -1,6 +1,6 @@
 ﻿using TriggeredAbilities;
-using ContinuousEffects;
 using OneShotEffects;
+using Abilities.Static;
 
 namespace Cards.Promo
 {
@@ -10,7 +10,7 @@ namespace Cards.Promo
         {
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchRaceCreatureEffect(
                 Interfaces.Race.ArmoredDragon)));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

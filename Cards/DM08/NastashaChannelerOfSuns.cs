@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
 using Interfaces;
 
 namespace Cards.DM08
@@ -7,7 +8,7 @@ namespace Cards.DM08
     {
         public NastashaChannelerOfSuns() : base("Nastasha, Channeler of Suns", 7, 6000, Race.MechaDelSol, Civilization.Light)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddStaticAbilities(new WhenOneOfYourShieldsWouldBeBrokenYouMayDestroyThisCreatureInsteadEffect());
         }
     }

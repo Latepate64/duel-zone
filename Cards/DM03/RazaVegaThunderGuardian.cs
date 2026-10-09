@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
 
 namespace Cards.DM03
 {
@@ -6,7 +7,7 @@ namespace Cards.DM03
     {
         public RazaVegaThunderGuardian() : base("Raza Vega, Thunder Guardian", 10, 3000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedAddItToYourShieldsFaceDownInsteadEffect());
         }
     }

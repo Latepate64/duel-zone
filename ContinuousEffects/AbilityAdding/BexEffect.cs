@@ -1,0 +1,34 @@
+using Abilities.Static;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects.AbilityAdding;
+
+public sealed class BexEffect : ContinuousEffect, IAbilityAddingEffect
+{
+    public BexEffect() : base()
+    {
+    }
+
+    public BexEffect(BexEffect effect) : base(effect)
+    {
+    }
+
+    public void AddAbility(IGame game)
+    {
+        if (!Controller.ShieldZone.HasCards)
+        {
+            game.AddAbility(Source, new BlockerAbility());
+        }
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new BexEffect(this);
+    }
+
+    public override string ToString()
+    {
+        return "While you have no shields, this creature has \"Blocker.\"";
+    }
+}

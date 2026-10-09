@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM02
 {
@@ -6,7 +6,7 @@ namespace Cards.DM02
     {
         public AquaShooter() : base("Aqua Shooter", 4, 2000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

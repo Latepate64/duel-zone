@@ -1,0 +1,27 @@
+using Abilities.Static;
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects.AbilityAdding;
+
+public sealed class PhantomachDoubleBreakerEffect : AbilityAddingEffect
+{
+    public PhantomachDoubleBreakerEffect() : base(new DoubleBreakerAbility())
+    {
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new PhantomachDoubleBreakerEffect();
+    }
+
+    public override string ToString()
+    {
+        return "Each of your Chimeras and Armorloids in the battle zone has \"double breaker.\"";
+    }
+
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game)
+    {
+        return game.BattleZone.GetCreatures(Controller.Id, Race.Chimera, Race.Armorloid);
+    }
+}

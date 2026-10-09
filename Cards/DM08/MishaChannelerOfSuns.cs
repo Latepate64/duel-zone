@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CannotBeAttacked;
 using Interfaces;
 
 namespace Cards.DM08;

@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using ContinuousEffects.Unblockable;
+using TriggeredAbilities;
 
 namespace Cards.DM07
 {

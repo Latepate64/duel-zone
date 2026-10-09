@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using ContinuousEffects.AbilityAdding;
+using Interfaces;
 
 namespace OneShotEffects;
 
@@ -26,6 +27,6 @@ public sealed class ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect : O
     public override void Apply(IGame game)
     {
         game.AddContinuousEffects(
-            Ability, new ContinuousEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(Ability.Source));
+            Ability, new ThisCreatureGetsBlockerUntilTheEndOfTheTurnContinuousEffect(Ability.Source));
     }
 }

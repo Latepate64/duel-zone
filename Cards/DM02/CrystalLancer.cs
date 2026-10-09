@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM02
 {
@@ -7,7 +8,7 @@ namespace Cards.DM02
         public CrystalLancer() : base("Crystal Lancer", 6, 8000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
             AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

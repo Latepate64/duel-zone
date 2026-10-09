@@ -1,5 +1,6 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -137,12 +138,6 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.PlayerCannotChooseCreature(card, player.Id, Game));
     }
 
-    public bool DoesAnySlayerEffectApply(ICreature loser, ICreature winner)
-    {
-        return GetContinuousEffects<ISlayerEffect>().Any(x => x.Applies(
-            loser, winner, Game));
-    }
-
     public bool DoesCreatureGetDestroyedInBattle(
         ICreature against, ICreature target)
     {
@@ -150,19 +145,12 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.Applies(against, target, Game));
     }
 
-    public bool CanCreatureBlockCreature(
-        ICreature blocker, ICreature attackingCreature)
-    {
-        return GetContinuousEffects<IBlockerEffect>().Any(e => e.CanBlock(
-            blocker, attackingCreature, Game));
-    }
-
     public bool CanCreatureBeBlocked(ICreature attackingCreature,
-        ICreature blocker, IAttackable attackTarget)
+        ICreature blocker, IAttackable attackTarget, IBattleZone battleZone)
     {
         return !GetContinuousEffects<IUnblockableEffect>().Any(
             e => e.CannotBeBlocked(
-                attackingCreature, blocker, attackTarget, Game));
+                attackingCreature, blocker, attackTarget, battleZone));
     }
 
     public bool DoesCreatureBlockIfAble(
@@ -183,14 +171,7 @@ public sealed class ContinuousEffects : IContinuousEffects
         ICreature attackingCreature)
     {
         return GetContinuousEffects<IBreaksAdditionalShieldsEffect>().Sum(
-            x => x.GetAmount(Game, attackingCreature));
-    }
-
-    public IEnumerable<int> GetAmountsOfShieldsCreatureCanBreak(
-        ICreature attackingCreature)
-    {
-        return GetContinuousEffects<IBreakerEffect>().Select(x => x.GetAmount(
-            Game, attackingCreature));
+            x => x.GetAmount(attackingCreature));
     }
 
     public bool 
@@ -199,12 +180,6 @@ public sealed class ContinuousEffects : IContinuousEffects
     {
         return GetContinuousEffects<IIgnoreCannotAttackPlayersEffects>().Any(
             x => x.IgnoreCannotAttackPlayersEffects(creature, Game));
-    }
-
-    public bool DoesCreatureHaveSpeedAttacker(ICreature creature)
-    {
-        return GetContinuousEffects<ISpeedAttackerEffect>().Any(
-            x => x.Applies(creature, Game));
     }
 
     public bool CanCreatureAttack(ICreature creature)
@@ -217,7 +192,7 @@ public sealed class ContinuousEffects : IContinuousEffects
         ICreature attacker, ICreature targetOfAttack)
     {
         if (GetContinuousEffects<ICannotBeAttackedEffect>().Any(
-            x => x.Applies(attacker, targetOfAttack, Game)))
+            x => x.Applies(attacker, targetOfAttack)))
         {
             return false;
         }
@@ -235,10 +210,10 @@ public sealed class ContinuousEffects : IContinuousEffects
             x => x.CannotAttackPlayers(creature, Game));
     }
 
-    public bool CanPlayerUseCard(ICard card, IGameState state)
+    public bool CanPlayerUseCard(ICard card)
     {
         return !GetContinuousEffects<ICannotUseCardEffect>().Any(
-            x => x.Applies(card, state));
+            x => x.Applies(card));
     }
 
     public bool CanCreatureEvolve(ICreature toEvolve)

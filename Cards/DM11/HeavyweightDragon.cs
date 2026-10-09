@@ -1,5 +1,5 @@
-﻿using ContinuousEffects;
-using Abilities;
+﻿using Abilities;
+using Abilities.Static;
 using Interfaces;
 using OneShotEffects;
 
@@ -9,7 +9,7 @@ public sealed class HeavyweightDragon : Creature
 {
     public HeavyweightDragon() : base("Heavyweight Dragon", 7, 9000, Race.ArmoredDragon, Civilization.Fire)
     {
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
         AddAbilities(new TapAbility(new HeavyweightDragonEffect()));
     }
 }

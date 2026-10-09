@@ -1,5 +1,5 @@
-﻿using ContinuousEffects;
-using Abilities;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM05
 {
@@ -7,7 +7,7 @@ namespace Cards.DM05
     {
         public GigalingQ() : base("Gigaling Q", 5, 2000, [Interfaces.Race.Survivor, Interfaces.Race.Chimera], Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureHasSlayerEffect())));
+            AddStaticAbilities(new SurvivorEffect(new SlayerAbility()));
         }
     }
 }

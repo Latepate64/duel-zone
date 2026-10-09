@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM12
 {
@@ -6,7 +6,7 @@ namespace Cards.DM12
     {
         public RadioactiveHornTheStrange() : base("Radioactive Horn, the Strange", 3, 1000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

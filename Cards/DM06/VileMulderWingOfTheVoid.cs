@@ -1,5 +1,6 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackCreatures;
+using TriggeredAbilities;
 
 namespace Cards.DM06
 {
@@ -8,7 +9,7 @@ namespace Cards.DM06
         public VileMulderWingOfTheVoid() : base("Vile Mulder, Wing of the Void", 4, 7000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddTriggeredAbility(new WhenThisCreatureBattlesAbility(new OneShotEffects.DestroyAfterBattleEffect()));
         }
     }

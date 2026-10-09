@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM06
 {
@@ -6,7 +7,7 @@ namespace Cards.DM06
     {
         public VessTheOracle() : base("Vess, the Oracle", 1, 2000, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

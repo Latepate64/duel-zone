@@ -1,6 +1,6 @@
 ﻿using TriggeredAbilities;
-using ContinuousEffects;
 using OneShotEffects;
+using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM06
 {

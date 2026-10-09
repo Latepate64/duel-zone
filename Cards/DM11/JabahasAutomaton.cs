@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM11
 {
@@ -7,7 +8,7 @@ namespace Cards.DM11
         public JabahasAutomaton() : base("Jabaha's Automaton", 5, 6000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new PowerAttackerEffect(4000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

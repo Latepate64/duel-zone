@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackCreatures;
 
 namespace Cards.DM03
 {
@@ -7,7 +8,7 @@ namespace Cards.DM03
         public DawnGiant() : base("Dawn Giant", 7, 11000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

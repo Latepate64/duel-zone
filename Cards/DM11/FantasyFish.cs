@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM11
 {
@@ -7,7 +7,7 @@ namespace Cards.DM11
         public FantasyFish() : base("Fantasy Fish", 7, 2000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
             AddShieldTrigger();
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

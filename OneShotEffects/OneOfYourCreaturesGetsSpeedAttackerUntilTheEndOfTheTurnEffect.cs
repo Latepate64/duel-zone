@@ -1,5 +1,4 @@
-using ContinuousEffects;
-using Abilities;
+using Abilities.Static;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -7,8 +6,8 @@ namespace OneShotEffects;
 public sealed class OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect :
     OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
 {
-    public OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect() : base(new StaticAbility(
-        new ThisCreatureHasSpeedAttackerEffect()))
+    public OneOfYourCreaturesGetsSpeedAttackerUntilTheEndOfTheTurnEffect()
+        : base(new SpeedAttackerAbility())
     {
     }
 

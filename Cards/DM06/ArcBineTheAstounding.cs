@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM06
 {

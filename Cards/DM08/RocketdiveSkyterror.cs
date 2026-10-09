@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CannotAttackPlayers;
+using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM08
 {

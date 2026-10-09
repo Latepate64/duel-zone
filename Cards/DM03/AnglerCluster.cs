@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM03
 {
@@ -6,7 +8,7 @@ namespace Cards.DM03
     {
         public AnglerCluster() : base("Angler Cluster", 3, 3000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
             AddStaticAbilities(new WhileAllTheCardsInYourManaZoneAreCivilizationCardsThisCreatureGetsPowerEffect(3000, Interfaces.Civilization.Water));
         }

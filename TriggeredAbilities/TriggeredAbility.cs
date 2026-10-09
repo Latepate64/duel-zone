@@ -60,6 +60,18 @@ public abstract class TriggeredAbility : ResolvableAbility, ITriggeredAbility
 
     protected string GetEffectText()
     {
-        return LowerCaseFirstCharacter(OneShotEffect.ToString());
+        return OneShotEffect.ToString();
+    }
+
+    /// <summary>
+    /// Returns the opponent of the player who controls the ability.
+    /// Note that it should be checked that the player actually
+    /// exists as it is possible they have left the game.
+    /// </summary>
+    /// <param name="game"></param>
+    /// <returns></returns>
+    public IPlayer GetOpponent(IGame game)
+    {
+        return game.GetOpponent(Controller);
     }
 }

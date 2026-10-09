@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM03
 {
@@ -6,7 +6,7 @@ namespace Cards.DM03
     {
         public BoltailDragon() : base("Boltail Dragon", 7, 9000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

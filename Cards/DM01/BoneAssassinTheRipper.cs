@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.DM01
     {
         public BoneAssassinTheRipper() : base("Bone Assassin, the Ripper", 4, 2000, Interfaces.Race.LivingDead, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

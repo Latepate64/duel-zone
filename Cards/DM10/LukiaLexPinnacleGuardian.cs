@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using ContinuousEffects.PowerModifying;
+using TriggeredAbilities;
 
 namespace Cards.DM10
 {

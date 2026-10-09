@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM05
 {
@@ -7,7 +8,7 @@ namespace Cards.DM05
         public BolgashDragon() : base("Bolgash Dragon", 8, 4000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new PowerAttackerEffect(8000));
-            AddStaticAbilities(new TripleBreakerEffect());
+            AddAbilities(new TripleBreakerAbility());
         }
     }
 }

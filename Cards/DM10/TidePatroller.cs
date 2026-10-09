@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM10
 {
@@ -6,7 +6,7 @@ namespace Cards.DM10
     {
         public TidePatroller() : base("Tide Patroller", 4, 2000, Interfaces.Race.Merfolk, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

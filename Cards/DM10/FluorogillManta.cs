@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.Unblockable;
 using Interfaces;
 
 namespace Cards.DM10;

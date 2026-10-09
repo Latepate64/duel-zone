@@ -1,6 +1,6 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
-using ContinuousEffects;
+using Abilities.Static;
 
 namespace Cards.DM02
 {
@@ -8,7 +8,7 @@ namespace Cards.DM02
     {
         public AquaBouncer() : base("Aqua Bouncer", 6, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseCreatureInTheBattleZoneAndReturnItToItsOwnersHandEffect()));
         }
     }

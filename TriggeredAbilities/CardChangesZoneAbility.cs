@@ -8,7 +8,8 @@ public abstract class CardChangesZoneAbility : CardTriggeredAbility
     {
     }
 
-    protected CardChangesZoneAbility(CardChangesZoneAbility ability) : base(ability)
+    protected CardChangesZoneAbility(CardChangesZoneAbility ability) : base(
+        ability)
     {
     }
 }

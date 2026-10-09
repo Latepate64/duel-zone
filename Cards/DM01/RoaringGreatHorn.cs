@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM01
 {
@@ -7,7 +8,7 @@ namespace Cards.DM01
         public RoaringGreatHorn() : base("Roaring Great-Horn", 7, 8000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
         {
             AddStaticAbilities(new PowerAttackerEffect(2000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

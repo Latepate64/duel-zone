@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM10
 {
@@ -6,10 +8,10 @@ namespace Cards.DM10
     {
         public PierrPsychoDoll() : base("Pierr, Psycho Doll", 2, 1000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureBlocksIfAble());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

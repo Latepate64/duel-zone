@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM07
 {
@@ -7,7 +8,7 @@ namespace Cards.DM07
         public ValkrowzerUltraRockBeast() : base("Valkrowzer, Ultra Rock Beast", 6, 9000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new StealthEffect(Interfaces.Civilization.Water));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

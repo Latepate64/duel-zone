@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.PowerModifying;
 using Interfaces;
 
 namespace Cards.DM04;

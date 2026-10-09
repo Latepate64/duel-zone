@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
 using TriggeredAbilities;
 
 namespace Cards.DM06
@@ -7,7 +8,7 @@ namespace Cards.DM06
     {
         public CutthroatSkyterror() : base("Cutthroat Skyterror", 3, 5000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
+            AddAbilities(new SpeedAttackerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect()));
         }

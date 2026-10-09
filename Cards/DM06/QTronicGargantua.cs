@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM06
 {
@@ -6,7 +6,7 @@ namespace Cards.DM06
     {
         public QTronicGargantua() : base("Q-tronic Gargantua", 6, 9000, Interfaces.Race.Survivor, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new CrewBreakerRaceEffect(Interfaces.Race.Survivor));
+            AddAbilities(new CrewBreakerRaceAbility(Interfaces.Race.Survivor));
         }
     }
 }

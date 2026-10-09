@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using ContinuousEffects;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM04;
 

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 
 namespace Cards.DM09

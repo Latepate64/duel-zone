@@ -144,7 +144,33 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(
         IPlayer player)
     {
-        return  CreaturesThatHaveBlocker.Where(c => c.Owner == player);
+        return CreaturesThatHaveBlocker.Where(c => c.Owner == player);
+    }
+
+    public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
+    {
+        return GetOtherCreaturesControllerByPlayer(excluded).Count();
+    }
+
+    public int GetNumberOfOtherRaceCreaturesControllerByPlayer(
+        ICreature excluded, Race race)
+    {
+        return GetOtherCreaturesControllerByPlayer(excluded).Count(
+            x => x.HasRace(race));
+    }
+
+    public int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded)
+    {
+        return GetOtherCreaturesControllerByPlayer(excluded).Count(
+            x => x.IsDragon);
+    }
+
+    public IEnumerable<ICreature>
+        GetOtherCivilizationCreaturesControllerByPlayer(
+            ICreature excluded, Civilization civilization)
+    {
+        return GetOtherCreaturesControllerByPlayer(excluded).Where(
+            x => x.HasCivilization(civilization));
     }
 
     public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
@@ -152,4 +178,24 @@ public sealed class BattleZone : Zone, IBattleZone
 
     public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
         .Where(x => !x.IsBlocker);
+
+    public IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
+        IPlayerV2 player)
+    {
+        return GetCreaturesControllerByPlayer(player).Where(
+            x => x.HasAbility<ISilentSkillAbility>());
+    }
+
+    public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+        IPlayerV2 player)
+    {
+        return Creatures.Where(x => x.OwnerV2.Equals(player));
+    }
+
+    IEnumerable<ICreature> GetOtherCreaturesControllerByPlayer(
+        ICreature excluded)
+    {
+        return GetCreaturesControllerByPlayer(excluded.OwnerV2).Where(
+            x => !x.Equals(excluded));
+    }
 }

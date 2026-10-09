@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.Replacement;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM08
 {

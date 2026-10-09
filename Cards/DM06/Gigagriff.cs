@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM06
 {
@@ -6,8 +7,8 @@ namespace Cards.DM06
     {
         public Gigagriff() : base("Gigagriff", 6, 4000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new SlayerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

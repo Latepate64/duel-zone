@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM05
 {
@@ -6,7 +6,7 @@ namespace Cards.DM05
     {
         public BillionDegreeDragon() : base("Billion-Degree Dragon", 10, 15000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new TripleBreakerEffect());
+            AddAbilities(new TripleBreakerAbility());
         }
     }
 }

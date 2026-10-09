@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public WanderingBraineater() : base("Wandering Braineater", 2, 2000, Interfaces.Race.LivingDead, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

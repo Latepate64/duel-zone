@@ -17,5 +17,4 @@ public interface IGameState
     IPlayerV2 NonActivePlayer { get; set; }
     bool GameOver { get; }
     IGameState Copy();
-    IPlayerV2 GetOpponent(IPlayerV2 player);
 }

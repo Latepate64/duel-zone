@@ -1,6 +1,6 @@
-﻿using OneShotEffects;
+﻿using Abilities.Static;
+using OneShotEffects;
 using TriggeredAbilities;
-using ContinuousEffects;
 
 namespace Cards.DM02
 {
@@ -8,7 +8,7 @@ namespace Cards.DM02
     {
         public SpiralGrass() : base("Spiral Grass", 4, 2500, Interfaces.Race.StarlightTree, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new UntapItAfterItBattlesEffect()));
         }
     }

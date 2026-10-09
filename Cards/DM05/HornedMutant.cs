@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CostModifying;
 using Interfaces;
 
 namespace Cards.DM05;

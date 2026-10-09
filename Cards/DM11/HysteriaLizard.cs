@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.AttacksIfAble;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM11
 {

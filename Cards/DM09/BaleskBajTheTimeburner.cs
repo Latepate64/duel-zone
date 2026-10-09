@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM09
 {
@@ -8,7 +8,7 @@ namespace Cards.DM09
         public BaleskBajTheTimeburner() : base("Balesk Baj, the Timeburner", 9, 8000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {
             AddTriggeredAbility(new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.TakeExtraTurnAfterThisOneEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddTriggeredAbility(new AtTheEndOfYourTurnAbility(new OneShotEffects.ReturnThisCreatureToYourHandEffect()));
         }
     }

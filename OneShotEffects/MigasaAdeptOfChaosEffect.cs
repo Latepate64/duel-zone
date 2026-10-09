@@ -1,5 +1,5 @@
-using Abilities;
-using ContinuousEffects;
+using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -23,7 +23,7 @@ public sealed class MigasaAdeptOfChaosEffect : CreatureSelectionEffect
     protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
         game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-            new StaticAbility(new DoubleBreakerEffect()), cards));
+            new DoubleBreakerAbility(), cards));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)

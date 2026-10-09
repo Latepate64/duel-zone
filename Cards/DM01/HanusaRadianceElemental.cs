@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.DM01
     {
         public HanusaRadianceElemental() : base("Hanusa, Radiance Elemental", 7, 9500, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

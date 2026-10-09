@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM05
 {
@@ -6,7 +6,7 @@ namespace Cards.DM05
     {
         public RikabuTheDismantler() : base("Rikabu, the Dismantler", 3, 1000, Interfaces.Race.MachineEater, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
+            AddAbilities(new SpeedAttackerAbility());
         }
     }
 }

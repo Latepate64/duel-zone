@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM05
 {
@@ -6,8 +6,8 @@ namespace Cards.DM05
     {
         public SyriusFirmamentElemental() : base("Syrius, Firmament Elemental", 11, 12000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
-            AddStaticAbilities(new TripleBreakerEffect());
+            AddAbilities(new BlockerAbility());
+            AddAbilities(new TripleBreakerAbility());
         }
     }
 }

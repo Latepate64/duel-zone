@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttack;
 
 namespace Cards.DM10
 {
@@ -6,7 +7,7 @@ namespace Cards.DM10
     {
         public MikayRattlingDoll() : base("Mikay, Rattling Doll", 2, 2000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM02
 {
@@ -8,7 +8,7 @@ namespace Cards.DM02
         public GeneralDarkFiend() : base("General Dark Fiend", 5, 6000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

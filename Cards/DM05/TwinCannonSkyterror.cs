@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM05
 {
@@ -6,8 +6,8 @@ namespace Cards.DM05
     {
         public TwinCannonSkyterror() : base("Twin-Cannon Skyterror", 7, 7000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureHasSpeedAttackerEffect());
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new SpeedAttackerAbility());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

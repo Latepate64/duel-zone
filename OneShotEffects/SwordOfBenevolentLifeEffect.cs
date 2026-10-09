@@ -14,10 +14,11 @@ public sealed class SwordOfBenevolentLifeEffect : OneShotEffect
 
     public override void Apply(IGame game)
     {
-        var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
-        var power = creatures.Count(x => x.HasCivilization(Civilization.Light)) * 1000;
-        game.AddContinuousEffects(Ability, new ContinuousEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-            power, [.. creatures]));
+        throw new NotImplementedException();
+        // var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
+        // var power = creatures.Count(x => x.HasCivilization(Civilization.Light)) * 1000;
+        // game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
+        //     power, [.. creatures]));
     }
 
     public override IOneShotEffect Copy()

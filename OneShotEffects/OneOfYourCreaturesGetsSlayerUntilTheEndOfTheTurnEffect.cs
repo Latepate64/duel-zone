@@ -1,5 +1,4 @@
-using ContinuousEffects;
-using Abilities;
+using Abilities.Static;
 using Interfaces;
 
 namespace OneShotEffects;
@@ -7,8 +6,8 @@ namespace OneShotEffects;
 public sealed class OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect :
     OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
 {
-    public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect() : base(new StaticAbility(
-        new ThisCreatureHasSlayerEffect()))
+    public OneOfYourCreaturesGetsSlayerUntilTheEndOfTheTurnEffect() : base(
+        new SlayerAbility())
     {
     }
 

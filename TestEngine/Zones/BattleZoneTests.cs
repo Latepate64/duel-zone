@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Engine.Zones;
 using Interfaces;
 using Moq;
@@ -387,5 +388,138 @@ public sealed class BattleZoneTests
         // Assert
         Assert.Contains(creature.Object, creatures);
         Assert.Single(creatures);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void GetNumberOfOtherCreaturesControllerByPlayer(int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var excluded = new Mock<ICreature>();
+        excluded.SetupGet(x => x.OwnerV2).Returns(player);
+        var zone = new BattleZone();
+        zone.Add(excluded.Object);
+        for (var i = 0; i < expected; ++i)
+        {
+            var otherCreature = new Mock<ICreature>();
+            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
+            zone.Add(otherCreature.Object);
+        }
+
+        // Act
+        var actual = zone.GetNumberOfOtherCreaturesControllerByPlayer(
+            excluded.Object);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void GetNumberOfOtherRaceCreaturesControllerByPlayer(int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var excluded = new Mock<ICreature>();
+        excluded.SetupGet(x => x.OwnerV2).Returns(player);
+        var zone = new BattleZone();
+        zone.Add(excluded.Object);
+        for (var i = 0; i < expected; ++i)
+        {
+            var otherCreature = new Mock<ICreature>();
+            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
+            otherCreature.Setup(x => x.HasRace(Race.AngelCommand)).Returns(
+                true);
+            zone.Add(otherCreature.Object);
+        }
+
+        // Act
+        var actual = zone.GetNumberOfOtherRaceCreaturesControllerByPlayer(
+            excluded.Object, Race.AngelCommand);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void GetNumberOfOtherDragonsControllerByPlayer(int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var excluded = new Mock<ICreature>();
+        excluded.SetupGet(x => x.OwnerV2).Returns(player);
+        var zone = new BattleZone();
+        zone.Add(excluded.Object);
+        for (var i = 0; i < expected; ++i)
+        {
+            var otherCreature = new Mock<ICreature>();
+            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
+            otherCreature.SetupGet(x => x.IsDragon).Returns(true);
+            zone.Add(otherCreature.Object);
+        }
+
+        // Act
+        var actual = zone.GetNumberOfOtherDragonsControllerByPlayer(
+            excluded.Object);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void GetOtherCivilizationCreaturesControllerByPlayer(int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var excluded = new Mock<ICreature>();
+        excluded.SetupGet(x => x.OwnerV2).Returns(player);
+        var zone = new BattleZone();
+        zone.Add(excluded.Object);
+        for (var i = 0; i < expected; ++i)
+        {
+            var otherCreature = new Mock<ICreature>();
+            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
+            otherCreature.Setup(x => x.HasCivilization(
+                Civilization.Light)).Returns(true);
+            zone.Add(otherCreature.Object);
+        }
+
+        // Act
+        var actual = zone.GetOtherCivilizationCreaturesControllerByPlayer(
+            excluded.Object, Civilization.Light);
+
+        // Assert
+        Assert.Equal(expected, actual.Count());
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void GetCreaturesWithSilentSkillControllerByPlayer(int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var zone = new BattleZone();
+        for (var i = 0; i < expected; ++i)
+        {
+            var creature = new Mock<ICreature>();
+            creature.SetupGet(x => x.OwnerV2).Returns(player);
+            creature.Setup(
+                x => x.HasAbility<ISilentSkillAbility>()).Returns(true);
+            zone.Add(creature.Object);
+        }
+
+        // Act
+        var actual = zone.GetCreaturesWithSilentSkillControllerByPlayer(player);
+
+        // Assert
+        Assert.Equal(expected, actual.Count());
     }
 }

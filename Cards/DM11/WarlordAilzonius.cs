@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects;
 
 namespace Cards.DM11
 {
@@ -6,7 +7,7 @@ namespace Cards.DM11
     {
         public WarlordAilzonius() : base("Warlord Ailzonius", 5, 8000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddStaticAbilities(new OpponentCannotChooseThisCreatureEffect());
         }
     }

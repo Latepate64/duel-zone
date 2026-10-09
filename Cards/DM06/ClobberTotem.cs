@@ -1,4 +1,6 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM06
 {
@@ -8,7 +10,7 @@ namespace Cards.DM06
         {
             AddStaticAbilities(new PowerAttackerEffect(2000));
             AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(5000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

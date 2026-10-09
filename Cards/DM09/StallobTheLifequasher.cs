@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM09
 {
@@ -7,7 +7,7 @@ namespace Cards.DM09
     {
         public StallobTheLifequasher() : base("Stallob, the Lifequasher", 8, 6000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.DestroyAllCreaturesEffect()));
         }
     }

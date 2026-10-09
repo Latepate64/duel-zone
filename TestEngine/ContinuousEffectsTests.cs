@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Engine.ContinuousEffects;
 using Interfaces;
 using Interfaces.ContinuousEffects;
+using Interfaces.Zones;
 using Moq;
 using Xunit;
 
@@ -291,28 +291,6 @@ public sealed class ContinuousEffectsTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void DoesAnySlayerEffectApply(bool expected)
-    {
-        // Arrange
-        var loser = Mock.Of<ICreature>();
-        var winner = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
-        var effect = new Mock<ISlayerEffect>();
-        effect.Setup(x => x.Applies(
-            loser, winner, game)).Returns(expected);
-        var effects = new ContinuousEffects(game);
-        effects.Add(Mock.Of<IAbility>(), effect.Object);
-
-        // Act
-        var actual = effects.DoesAnySlayerEffectApply(loser, winner);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
     public void DoesCreatureGetDestroyedInBattle(bool expected)
     {
         // Arrange
@@ -335,29 +313,6 @@ public sealed class ContinuousEffectsTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void CanCreatureBlockCreature(bool expected)
-    {
-        // Arrange
-        var blocker = Mock.Of<ICreature>();
-        var attackingCreature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
-        var effect = new Mock<IBlockerEffect>();
-        effect.Setup(x => x.CanBlock(
-            blocker, attackingCreature, game)).Returns(expected);
-        var effects = new ContinuousEffects(game);
-        effects.Add(Mock.Of<IAbility>(), effect.Object);
-
-        // Act
-        var actual = effects.CanCreatureBlockCreature(
-            blocker, attackingCreature);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
     public void CanCreatureBeBlocked(bool expected)
     {
         // Arrange
@@ -366,14 +321,16 @@ public sealed class ContinuousEffectsTests
         var attackTarget = Mock.Of<IAttackable>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IUnblockableEffect>();
+        var battleZone = Mock.Of<IBattleZone>();
         effect.Setup(x => x.CannotBeBlocked(
-            attackingCreature, blocker, attackTarget, game)).Returns(!expected);
+            attackingCreature, blocker, attackTarget, battleZone)).Returns(
+                !expected);
         var effects = new ContinuousEffects(game);
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
         var actual = effects.CanCreatureBeBlocked(
-            attackingCreature, blocker, attackTarget);
+            attackingCreature, blocker, attackTarget, battleZone);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -433,45 +390,14 @@ public sealed class ContinuousEffectsTests
     {
         // Arrange
         var creature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
         var effect = new Mock<IBreaksAdditionalShieldsEffect>();
-        effect.Setup(x => x.GetAmount(game, creature)).Returns(expected);
-        var effects = new ContinuousEffects(game);
+        effect.Setup(x => x.GetAmount(creature)).Returns(expected);
+        var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
         var actual = effects.GetAmountOfShieldsCreatureBreaksAdditionally(
             creature);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    [InlineData(3)]
-    [InlineData(1, 2)]
-    [InlineData(1, 3)]
-    [InlineData(2, 3)]
-    [InlineData(1, 2, 3)]
-    public void GetAmountsOfShieldsCreatureCanBreak(params int[] expected)
-    {
-        // Arrange
-        var creature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
-        var breakers = new List<IBreakerEffect>();
-        foreach (var e in expected)
-        {
-            var effect = new Mock<IBreakerEffect>();
-            effect.Setup(x => x.GetAmount(game, creature)).Returns(e);
-            breakers.Add(effect.Object);
-        }
-        var effects = new ContinuousEffects(game);
-        effects.Add(Mock.Of<IAbility>(), [.. breakers]);
-
-        // Act
-        var actual = effects.GetAmountsOfShieldsCreatureCanBreak(creature);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -496,27 +422,6 @@ public sealed class ContinuousEffectsTests
         // Act
         var actual = effects.DoesPlayerIgnoreAnyEffectsThatWouldPreventCreatureFromAttackingTheirOpponent(
             creature);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public void DoesCreatureHaveSpeedAttacker(bool expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayer>();
-        var creature = Mock.Of<ICreature>();
-        var game = Mock.Of<IGame>();
-        var effect = new Mock<ISpeedAttackerEffect>();
-        effect.Setup(x => x.Applies(creature, game)).Returns(expected);
-        var effects = new ContinuousEffects(game);
-        effects.Add(Mock.Of<IAbility>(), effect.Object);
-
-        // Act
-        var actual = effects.DoesCreatureHaveSpeedAttacker(creature);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -557,7 +462,7 @@ public sealed class ContinuousEffectsTests
         var game = Mock.Of<IGame>();
         var cannotBeAttackedEffect = new Mock<ICannotBeAttackedEffect>();
         cannotBeAttackedEffect.Setup(x => x.Applies(
-            attacker, targetOfAttack, game)).Returns(!canBeAttacked);
+            attacker, targetOfAttack)).Returns(!canBeAttacked);
         var cannotAttackCreaturesEffect = new Mock<ICannotAttackCreaturesEffect>();
         cannotAttackCreaturesEffect.Setup(x => x.CannotAttackCreature(
             attacker, targetOfAttack, game)).Returns(!canAttackCreature);
@@ -606,13 +511,12 @@ public sealed class ContinuousEffectsTests
         var player = Mock.Of<IPlayer>();
         var card = Mock.Of<ICard>();
         var effect = new Mock<ICannotUseCardEffect>();
-        var state = Mock.Of<IGameState>();
-        effect.Setup(x => x.Applies(card, state)).Returns(!expected);
+        effect.Setup(x => x.Applies(card)).Returns(!expected);
         var effects = new ContinuousEffects(Mock.Of<IGame>());
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 
         // Act
-        var actual = effects.CanPlayerUseCard(card, state);
+        var actual = effects.CanPlayerUseCard(card);
 
         // Assert
         Assert.Equal(expected, actual);

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM10
 {
@@ -7,7 +8,7 @@ namespace Cards.DM10
         public ArmoredRaiderGandaval() : base("Armored Raider Gandaval", 5, 6000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {
             AddStaticAbilities(new DogarnTheMarauderEffect(2000));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

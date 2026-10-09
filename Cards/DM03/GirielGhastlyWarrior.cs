@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM03
 {
@@ -6,7 +6,7 @@ namespace Cards.DM03
     {
         public GirielGhastlyWarrior() : base("Giriel, Ghastly Warrior", 8, 11000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

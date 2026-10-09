@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM02
 {
@@ -6,7 +6,7 @@ namespace Cards.DM02
     {
         public UltracideWorm() : base("Ultracide Worm", 6, 11000, Interfaces.Race.ParasiteWorm, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

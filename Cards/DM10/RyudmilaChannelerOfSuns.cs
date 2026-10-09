@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.PowerModifying;
+using ContinuousEffects.Replacement;
 using Interfaces;
 
 namespace Cards.DM10;

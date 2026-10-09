@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.Replacement;
 using Interfaces;
 
 namespace Cards.DM12
@@ -7,7 +8,7 @@ namespace Cards.DM12
     {
         public TerradragonArqueDelacerna() : base("Terradragon Arque Delacerna", 8, 6000, Race.EarthDragon, Civilization.Nature)
         {
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
             AddStaticAbilities(new OptionalMadnessEffect());
         }
     }

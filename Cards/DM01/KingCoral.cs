@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.DM01
     {
         public KingCoral() : base("King Coral", 3, 1000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
         }
     }
 }

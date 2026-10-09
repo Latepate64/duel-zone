@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM08
 {
@@ -8,7 +8,7 @@ namespace Cards.DM08
         public NecrodragonGalbazeek() : base("Necrodragon Galbazeek", 6, 9000, Interfaces.Race.ZombieDragon, Interfaces.Civilization.Darkness)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
-using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
+using Abilities.Static;
 
 namespace Cards.DM12;
 
@@ -11,6 +11,6 @@ public sealed class AuraPegasusAvatarOfLife : VortexEvolutionCreature
         Civilization.Nature, Race.Pegasus, Race.HornedBeast, Race.AngelCommand)
     {
         AddTriggeredAbility(new WheneverThisCreatureAttacksOrLeavesTheBattleZoneAbility(new AuraPegasusEffect()));
-        AddStaticAbilities(new TripleBreakerEffect());
+        AddAbilities(new TripleBreakerAbility());
     }
 }

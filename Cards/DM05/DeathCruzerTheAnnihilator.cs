@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
-using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
+using Abilities.Static;
 
 namespace Cards.DM05;
 
@@ -11,6 +11,6 @@ public sealed class DeathCruzerTheAnnihilator : Creature
         "Death Cruzer, the Annihilator", 7, 13000, Race.DemonCommand, Civilization.Darkness)
     {
         AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DeathCruzerTheAnnihilatorEffect()));
-        AddStaticAbilities(new TripleBreakerEffect());
+        AddAbilities(new TripleBreakerAbility());
     }
 }

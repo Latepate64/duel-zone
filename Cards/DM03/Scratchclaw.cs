@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM03
 {
@@ -6,7 +7,7 @@ namespace Cards.DM03
     {
         public Scratchclaw() : base("Scratchclaw", 4, 1000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
             AddStaticAbilities(new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(1000, Interfaces.Civilization.Darkness));
         }
     }

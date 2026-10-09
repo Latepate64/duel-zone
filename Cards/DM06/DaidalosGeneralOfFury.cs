@@ -1,5 +1,5 @@
-﻿using TriggeredAbilities;
-using ContinuousEffects;
+﻿using Abilities.Static;
+using TriggeredAbilities;
 
 namespace Cards.DM06
 {
@@ -8,7 +8,7 @@ namespace Cards.DM06
         public DaidalosGeneralOfFury() : base("Daidalos, General of Fury", 4, 11000, Interfaces.Race.DemonCommand, Interfaces.Civilization.Darkness)
         {
             AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.SacrificeEffect()));
-            AddStaticAbilities(new DoubleBreakerEffect());
+            AddAbilities(new DoubleBreakerAbility());
         }
     }
 }

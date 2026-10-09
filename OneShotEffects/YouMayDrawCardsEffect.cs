@@ -11,7 +11,7 @@ public abstract class YouMayDrawCardsEffect : OneShotEffect
         Maximum = maximum;
     }
 
-    protected YouMayDrawCardsEffect(YouMayDrawCardsEffect effect)
+    protected YouMayDrawCardsEffect(YouMayDrawCardsEffect effect) : base(effect)
     {
         Maximum = effect.Maximum;
     }

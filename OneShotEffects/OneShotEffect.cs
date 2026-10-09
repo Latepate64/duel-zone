@@ -18,7 +18,7 @@ public abstract class OneShotEffect : IOneShotEffect
 
     protected OneShotEffect(IOneShotEffect effect)
     {
-        Ability = effect.Ability.Copy();
+        Ability = effect.Ability?.Copy();
     }
 
     /// <summary>
@@ -33,10 +33,21 @@ public abstract class OneShotEffect : IOneShotEffect
 
     public abstract IOneShotEffect Copy();
 
-    public override abstract string ToString();
-
     protected IPlayer GetOpponent(IGame game)
     {
         return game.GetOpponent(Controller);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not OneShotEffect effect) return false;
+        if (Ability == null && effect.Ability != null) return false;
+        if (Ability != null && !Ability.Equals(effect.Ability)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Ability);
     }
 }

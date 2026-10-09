@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 
 namespace Cards.DM01
 {
@@ -6,7 +6,7 @@ namespace Cards.DM01
     {
         public Gigagiele() : base("Gigagiele", 5, 3000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureHasSlayerEffect());
+            AddAbilities(new SlayerAbility());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.CanAttackUntappedCreatures;
+using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM06
 {

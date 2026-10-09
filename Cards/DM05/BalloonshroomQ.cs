@@ -1,5 +1,6 @@
-﻿using ContinuousEffects;
-using Abilities;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using ContinuousEffects.Replacement;
 
 namespace Cards.DM05
 {

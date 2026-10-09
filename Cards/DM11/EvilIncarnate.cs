@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
 using Interfaces;
 using TriggeredAbilities;
 
@@ -9,6 +9,6 @@ public sealed class EvilIncarnate : EvolutionCreature
     public EvilIncarnate() : base("Evil Incarnate", 6, 11000, Race.DevilMask, Civilization.Darkness)
     {
         AddTriggeredAbility(new EvilIncarnateAbility());
-        AddStaticAbilities(new DoubleBreakerEffect());
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

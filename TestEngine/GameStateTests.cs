@@ -1,4 +1,3 @@
-using System;
 using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -241,37 +240,5 @@ public sealed class GameStateTests
 
         // Assert
         Assert.True(actual);
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public void GetOpponent(bool value)
-    {
-        // Arrange
-        var first = Mock.Of<IPlayerV2>();
-        var second = Mock.Of<IPlayerV2>();
-        var state = new GameState(
-            value ? first : second, value ? second : first);
-
-        // Act
-        var actual = state.GetOpponent(first);
-
-        // Assert
-        Assert.Equal(second, actual);
-    }
-
-    [Fact]
-    public void OpponentNotFound()
-    {
-        // Arrange
-        var state = new GameState(null, null);
-
-        // Act
-        var ex = Assert.Throws<InvalidOperationException>(
-            () => state.GetOpponent(Mock.Of<IPlayerV2>()));
-
-        // Assert
-        Assert.Equal("Opponent not found", ex.Message);
     }
 }

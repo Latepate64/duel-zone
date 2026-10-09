@@ -1,4 +1,4 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.Replacement;
 using Interfaces;
 
 namespace Cards.DM03;

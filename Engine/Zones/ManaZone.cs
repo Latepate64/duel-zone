@@ -37,4 +37,9 @@ public sealed class ManaZone : Zone, IManaZone
         return Creatures.Where(
             c => c.IsNonEvolutionCreature && c.ManaCost <= maximum);
     }
+
+    public bool HasAnyCivilizationCard(Civilization civilization)
+    {
+        return Cards.Any(x => x.HasCivilization(civilization));
+    }
 }

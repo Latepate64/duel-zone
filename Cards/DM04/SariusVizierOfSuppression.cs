@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM04
 {
@@ -6,7 +7,7 @@ namespace Cards.DM04
     {
         public SariusVizierOfSuppression() : base("Sarius, Vizier of Suppression", 2, 3000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureHasBlockerEffect());
+            AddAbilities(new BlockerAbility());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

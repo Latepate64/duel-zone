@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using ContinuousEffects.PowerModifying;
+using ContinuousEffects.SkipBattleAfterBlock;
 using Interfaces;
 
 namespace Cards.DM06
