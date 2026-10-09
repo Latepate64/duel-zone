@@ -40,35 +40,13 @@ public abstract class Ability : IAbility
 
     public abstract IAbility Copy();
 
-    protected static string UpperCaseFirstCharacter(string text)
-    {
-        return char.ToUpper(text[0]) + text[1..];
-    }
-
-    protected static string LowerCaseFirstCharacter(string text)
-    {
-        return char.ToLower(text[0]) + text[1..];
-    }
-
-    /// <summary>
-    /// Returns the opponent of the player who controls the ability.
-    /// Note that it should be checked that the player actually
-    /// exists as it is possible they have left the game.
-    /// </summary>
-    /// <param name="game"></param>
-    /// <returns></returns>
-    public IPlayer GetOpponent(IGame game)
-    {
-        return game.GetOpponent(Controller);
-    }
-
     public override bool Equals(object? obj)
     {
         if (obj is not Ability ability) return false;
         // Do not check Id as it should be removed anyway
         if (Source == null && ability.Source != null) return false;
         if (Source != null && !Source.Equals(ability.Source)) return false;
-        if (Controller == null && ability.Controller != null)
+        if (Controller == null && ability.Controller != null) return false;
         if (Controller != null && !Controller.Equals(
             ability.Controller)) return false;
         return true;

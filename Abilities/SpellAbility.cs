@@ -14,9 +14,4 @@ public sealed class SpellAbility : ResolvableAbility, ISpellAbility
     {
         return new SpellAbility(this);
     }
-
-    public override string ToString()
-    {
-        return UpperCaseFirstCharacter(OneShotEffect.ToString());
-    }
 }

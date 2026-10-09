@@ -16,14 +16,4 @@ public interface IAbility
     IPlayer Controller { get; set; }
 
     IAbility Copy();
-
-    /// <summary>
-    /// Opponent of the player who controls the ability.
-    /// </summary>
-    /// <param name="game"></param>
-    /// <exception cref="PlayerNotInGameException"></exception>
-    /// <returns>Opponent of the player who controls the ability.</returns>
-    IPlayer GetOpponent(IGame game);
-
-    string ToString();
 }
