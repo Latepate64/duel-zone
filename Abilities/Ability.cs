@@ -35,7 +35,7 @@ public abstract class Ability : IAbility
     {
         Id = Guid.NewGuid();
         Controller = ability.Controller;
-        Source = ability.Source;
+        Source = ability.Source?.Copy();
     }
 
     public abstract IAbility Copy();

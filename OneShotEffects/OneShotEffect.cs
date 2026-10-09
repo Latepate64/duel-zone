@@ -18,7 +18,7 @@ public abstract class OneShotEffect : IOneShotEffect
 
     protected OneShotEffect(IOneShotEffect effect)
     {
-        Ability = effect.Ability.Copy();
+        Ability = effect.Ability?.Copy();
     }
 
     /// <summary>

@@ -15,7 +15,7 @@ public class Spell : Card, ISpell
     {
     }
 
-    public Spell(Spell spell) : base(spell)
+    protected Spell(Spell spell) : base(spell)
     {
     }
 

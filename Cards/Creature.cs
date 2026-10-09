@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
@@ -5,27 +6,35 @@ using Interfaces.ContinuousEffects;
 
 namespace Cards;
 
-public class Creature(
-    bool tapped,
-    IList<Civilization> civilizations,
-    int manaCost,
-    bool summoningSickness,
-    int power,
-    string name,
-    IList<Race> races)
-    : Card(
-        tapped,
-        civilizations,
-        manaCost,
-        name), ICreature
+public class Creature : Card, ICreature
 {
     readonly IList<Race> addedRaces = [];
-    public int Power { get; private set; } = power;
-    public int PrintedPower { get; } = power;
-    readonly IList<Race> printedRaces = [.. races];
-    public IList<Race> Races { get; private set; } = [.. races];
-    public bool SummoningSickness { get; private set; } = summoningSickness;
+    public int Power { get; private set; }
+    public int PrintedPower { get; }
+    readonly IList<Race> printedRaces = [];
+    public IList<Race> Races { get; private set; } = [];
+    public bool SummoningSickness { get; private set; }
     public IList<Supertype> Supertypes { get; } = [];
+
+    public Creature(
+        bool tapped,
+        IList<Civilization> civilizations,
+        int manaCost,
+        bool summoningSickness,
+        int power,
+        string name,
+        IList<Race> races) : base(
+            tapped,
+            civilizations,
+            manaCost,
+            name)
+    {
+        Power = power;
+        PrintedPower = power;
+        printedRaces = [.. races];
+        Races = [.. races];
+        SummoningSickness = summoningSickness;
+    }
 
     protected Creature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : this(
         tapped: false, [.. civilizations], manaCost, summoningSickness: true, power, name, [race])
@@ -37,26 +46,55 @@ public class Creature(
     {
     }
 
-    protected Creature(Creature creature) : this(creature.Tapped, creature.Civilizations, creature.ManaCost,
-        creature.SummoningSickness, creature.Power, creature.Name, creature.Races)
+    protected Creature(Creature creature) : base(creature)
     {
         addedRaces = [.. creature.addedRaces];
+        Power = creature.Power;
+        PrintedPower = creature.PrintedPower;
         printedRaces = [.. creature.printedRaces];
         Races = [.. creature.Races];
+        SummoningSickness = creature.SummoningSickness;
         Supertypes = [.. creature.Supertypes];
+        
     }
 
     public override bool Equals(object obj)
     {
-        return base.Equals(obj)
-            && obj is Creature c
-            && c.addedRaces.SequenceEqual(addedRaces)
-            && c.Power == Power
-            && c.PrintedPower == PrintedPower
-            && c.printedRaces.SequenceEqual(printedRaces)
-            && c.Races.SequenceEqual(Races)
-            && c.SummoningSickness == SummoningSickness
-            && c.Supertypes.SequenceEqual(Supertypes);
+        if (!base.Equals(obj)) return false;
+        if (obj is not Creature c) return false;
+        if (!c.addedRaces.SequenceEqual(addedRaces)) return false;
+        if (!c.Power.Equals(Power)) return false;
+        if (!c.PrintedPower.Equals(PrintedPower)) return false;
+        if (!c.printedRaces.SequenceEqual(printedRaces)) return false;
+        if (!c.Races.SequenceEqual(Races)) return false;
+        if (!c.SummoningSickness.Equals(SummoningSickness)) return false;
+        if (!c.Supertypes.SequenceEqual(Supertypes)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        foreach (var x in addedRaces)
+        {
+            hash.Add(x);
+        }
+        hash.Add(Power);
+        hash.Add(PrintedPower);
+        foreach (var x in printedRaces)
+        {
+            hash.Add(x);
+        }
+        foreach (var x in Races)
+        {
+            hash.Add(x);
+        }
+        hash.Add(SummoningSickness);
+        foreach (var x in Supertypes)
+        {
+            hash.Add(x);
+        }
+        return hash.ToHashCode();
     }
 
     public bool IsNonEvolutionCreature => !Supertypes.Contains(Supertype.Evolution);
