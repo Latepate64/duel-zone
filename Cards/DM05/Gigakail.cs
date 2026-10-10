@@ -1,12 +1,15 @@
 ﻿using Abilities.Static;
+using CardFilters;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class Gigakail : Creature
 {
-    sealed class Gigakail : Creature
+    public Gigakail() : base("Gigakail", 5, 4000, Race.Chimera,
+        Civilization.Darkness)
     {
-        public Gigakail() : base("Gigakail", 5, 4000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
-        {
-            AddAbilities(new CivilizationSlayerAbility(Interfaces.Civilization.Nature, Interfaces.Civilization.Light));
-        }
+        AddAbilities(new SlayerAbility(new CivilizationCreatureFilter(
+            Civilization.Nature, Civilization.Light)));
     }
 }

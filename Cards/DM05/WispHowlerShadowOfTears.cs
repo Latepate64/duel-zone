@@ -1,12 +1,15 @@
 ﻿using Abilities.Static;
+using CardFilters;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class WispHowlerShadowOfTears : Creature
 {
-    sealed class WispHowlerShadowOfTears : Creature
+    public WispHowlerShadowOfTears() : base("Wisp Howler, Shadow of Tears", 3,
+        2000, Race.Ghost, Civilization.Darkness)
     {
-        public WispHowlerShadowOfTears() : base("Wisp Howler, Shadow of Tears", 3, 2000, Interfaces.Race.Ghost, Interfaces.Civilization.Darkness)
-        {
-            AddAbilities(new CivilizationSlayerAbility(Interfaces.Civilization.Nature, Interfaces.Civilization.Light));
-        }
+        AddAbilities(new SlayerAbility(new CivilizationCreatureFilter(
+            Civilization.Nature, Civilization.Light)));
     }
 }

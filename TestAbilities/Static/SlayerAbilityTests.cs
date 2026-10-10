@@ -34,18 +34,23 @@ public class SlayerAbilityTests
         Assert.False(actual);
     }
 
-    [Fact]
-    public void AppliesToCreatureWithSlayer()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void AppliesToCreatureWithSlayer(bool defendingCreatureMatches)
     {
         // Arrange
         var slayer = Mock.Of<ICreature>();
-        var ability = new SlayerAbility { Source = slayer };
-        var against = Mock.Of<ICreature>();
+        var defendingCreature = Mock.Of<ICreature>();
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(defendingCreature)).Returns(
+            defendingCreatureMatches);
+        var ability = new SlayerAbility(filter.Object) { Source = slayer };
 
         // Act
-        var actual = ability.Applies(slayer, against);
+        var actual = ability.Applies(slayer, defendingCreature);
 
         // Assert
-        Assert.True(actual);
+        Assert.Equal(defendingCreatureMatches, actual);
     }
 }
