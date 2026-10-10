@@ -26,7 +26,7 @@ public sealed class FuriousOnslaughtOneShotEffect : OneShotEffect
     public override void Apply(IGame game)
     {
         game.AddContinuousEffects(Ability, new FuriousOnslaughtContinuousEffect(
-            [.. game.BattleZone.GetCreaturesControllerByPlayer(
+            [.. game.BattleZone.GetCreaturesControlledByPlayer(
                 Applier, filter)]));
     }
 

@@ -58,16 +58,6 @@ public sealed class BattleZone : Zone, IBattleZone
                 game, game.GetOpponent(owner)));
     }
 
-    IEnumerable<ICreature> GetCreatures(Guid controller, Race race)
-    {
-        return GetCreatures(controller).Where(x => x.HasRace(race));
-    }
-
-    public int GetCreatureCount(Guid controller, Race race)
-    {
-        return GetCreatures(controller, race).Count();
-    }
-
     public IEnumerable<ICreature> GetOtherCreatures(
         Guid controller, Guid creature)
     {
@@ -122,7 +112,7 @@ public sealed class BattleZone : Zone, IBattleZone
             filter.Match);
     }
 
-    public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+    public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter)
     {
         return GetCreaturesControllerByPlayer(player).Where(filter.Match);
@@ -131,7 +121,7 @@ public sealed class BattleZone : Zone, IBattleZone
     public int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter)
     {
-        return GetCreaturesControllerByPlayer(player, filter).Count();
+        return GetCreaturesControlledByPlayer(player, filter).Count();
     }
 
     public bool HasOtherCreaturesControllerByPlayer(
@@ -154,5 +144,11 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> GetCreatures(ICardFilter filter)
     {
         return Creatures.Where(filter.Match);
+    }
+
+    public bool HasCreaturesControllerByPlayer(
+        IPlayerV2 applier, ICardFilter filter)
+    {
+        return GetCreaturesControlledByPlayer(applier, filter).Any();
     }
 }

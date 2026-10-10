@@ -32,7 +32,7 @@ public sealed class BattleshipMutantEffect : OneShotEffect
         game.AddDelayedTriggeredAbility(
             new WheneverSomethingHappensThisTurnAbility(
             new BattleshipMutantAbility(
-                game.BattleZone.GetCreaturesControllerByPlayer(
+                game.BattleZone.GetCreaturesControlledByPlayer(
                     Applier, filter)),
             Ability));
     }

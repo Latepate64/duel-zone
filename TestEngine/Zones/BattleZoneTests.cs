@@ -101,24 +101,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetCreatureCountOfSpecificRace()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.Setup(x => x.HasRace(It.IsAny<Race>())).Returns(true);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var count = zone.GetCreatureCount(controller, It.IsAny<Race>());
-
-        // Assert
-        Assert.Equal(1, count);
-    }
-
-    [Fact]
     public void GetOtherCreatureOfCivilizationCount()
     {
         // Arrange
@@ -235,9 +217,12 @@ public sealed class BattleZoneTests
         // Act
         var amount = zone.GetNumberOfCreaturesControllerByPlayer(
             player, filter.Object);
+        var hasCards = zone.HasCreaturesControllerByPlayer(
+            player, filter.Object);
 
         // Assert
         Assert.Equal(expected, amount);
+        Assert.Equal(filterMatches, hasCards);
     }
 
     [Theory]

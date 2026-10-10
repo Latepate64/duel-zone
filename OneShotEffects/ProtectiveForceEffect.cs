@@ -37,6 +37,6 @@ public sealed class ProtectiveForceEffect : CreatureSelectionEffect
     protected override IEnumerable<ICreature> GetSelectableCards(
         IGame game, IAbility source)
     {
-        return game.BattleZone.GetCreaturesControllerByPlayer(Applier, filter);
+        return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
     }
 }

@@ -11,15 +11,15 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
-    IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+    IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter);
-    int GetCreatureCount(Guid controller, Race race);
     int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization);
     int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);
     int GetNumberOfOtherCreaturesControllerByPlayer(ICreature creature);
     int GetNumberOfOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
+    bool HasCreaturesControllerByPlayer(IPlayerV2 applier, ICardFilter filter);
     bool HasOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
     int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);

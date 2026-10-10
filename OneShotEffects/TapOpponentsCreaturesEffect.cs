@@ -28,7 +28,7 @@ public sealed class TapOpponentsCreaturesEffect : TapAreaOfEffect
     protected override IEnumerable<ICard> GetAffectedCards(
         IGame game, IAbility source)
     {
-        return game.BattleZone.GetCreaturesControllerByPlayer(
+        return game.BattleZone.GetCreaturesControlledByPlayer(
             Applier.Opponent, filter);
     }
 }

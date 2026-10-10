@@ -30,6 +30,6 @@ public sealed class TapAbilityAddingEffect : AbilityAddingEffect
 
     protected override IEnumerable<ICard> GetAffectedCards(IGame game)
     {
-        return game.BattleZone.GetCreaturesControllerByPlayer(Applier, filter);
+        return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
     }
 }

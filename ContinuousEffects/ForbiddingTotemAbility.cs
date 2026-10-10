@@ -53,7 +53,7 @@ public sealed class ForbiddingTotemAbility : ContinuousEffect, ICannotAttackCrea
 
     private bool AttackableCreaturesExists(ICreature attacker, IGame game)
     {
-        return game.BattleZone.GetCreaturesControllerByPlayer(
+        return game.BattleZone.GetCreaturesControlledByPlayer(
             Applier, defendingCreatureFilter).Any(
                 x => game.CanAttackCreature(attacker, x));
     }

@@ -31,7 +31,7 @@ public sealed class BattleshipMutantContinuousEffect
 
     protected override List<ICreature> GetAffectedCards(IGame game)
     {
-        return [.. game.BattleZone.GetCreaturesControllerByPlayer(
+        return [.. game.BattleZone.GetCreaturesControlledByPlayer(
             Applier, filter)];
     }
 }

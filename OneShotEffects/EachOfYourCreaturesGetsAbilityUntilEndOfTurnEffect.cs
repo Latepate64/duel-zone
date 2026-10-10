@@ -44,6 +44,6 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
     protected override IEnumerable<ICard> GetAffectedCards(
         IGame game, IAbility source)
     {
-        return game.BattleZone.GetCreaturesControllerByPlayer(Applier, filter);
+        return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
     }
 }
