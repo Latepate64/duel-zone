@@ -1,12 +1,18 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 
 namespace Cards.DM10;
 
 public sealed class HourglassMutant : Creature
 {
-    public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Race.Hedrian, Civilization.Darkness)
+    public HourglassMutant() : base("Hourglass Mutant", 3, 2000, Race.Hedrian,
+        Civilization.Darkness)
     {
-        AddStaticAbilities(new HourglassMutantEffect());
+        AddStaticAbilities(new EachOfYourCreaturesHasAbilityEffect(
+            new SlayerAbility(),
+            new CivilizationCreatureFilter(
+                Civilization.Water, Civilization.Fire)));
     }
 }

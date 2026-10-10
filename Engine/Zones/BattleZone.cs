@@ -75,13 +75,6 @@ public sealed class BattleZone : Zone, IBattleZone
             x => x.HasCivilization(civilization));
     }
 
-    public IEnumerable<ICreature> GetCreatures(
-        Guid controller, Civilization civilization1, Civilization civilization2)
-    {
-        return GetCreatures(controller).Where(
-            x => x.HasCivilization(civilization1, civilization2));
-    }
-
     public IEnumerable<ICreature> GetOtherCreatures(
         Guid controller, Guid creature)
     {

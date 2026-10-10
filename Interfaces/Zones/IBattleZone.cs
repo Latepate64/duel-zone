@@ -7,7 +7,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICreature> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller);
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization);
-    IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
     IEnumerable<ICreature> GetOtherCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
