@@ -1,12 +1,18 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using CardFilters;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class ArcBineTheAstounding : EvolutionCreature
 {
-    sealed class ArcBineTheAstounding : EvolutionCreature
+    public ArcBineTheAstounding() : base("Arc Bine, the Astounding", 5, 5000,
+        Race.Guardian, Civilization.Light)
     {
-        public ArcBineTheAstounding() : base("Arc Bine, the Astounding", 5, 5000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
-        {
-            AddStaticAbilities(new TapAbilityAddingEffect(Interfaces.Civilization.Light, new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
-        }
+        AddStaticAbilities(
+            new TapAbilityAddingEffect(
+                new ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect(),
+                new CivilizationCreatureFilter(Civilization.Light)));
     }
 }

@@ -3,19 +3,29 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public sealed class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : CreatureSelectionEffect, IPowerable
+/// <summary>
+/// One of your creatures in the battle zone gets +x power until the end of the
+/// turn.
+/// </summary>
+public sealed class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect
+    : CreatureSelectionEffect, IPowerable
 {
+    private readonly ICardFilter filter;
     public int Power { get; }
 
     public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(
-        OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect effect) : base(effect)
-    {
-        Power = effect.Power;
-    }
-
-    public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(int power) : base(1, 1, true)
+        int power, ICardFilter filter) : base(1, 1, true)
     {
         Power = power;
+        this.filter = filter;
+    }
+
+    public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(
+        OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect effect) : base(
+        effect)
+    {
+        Power = effect.Power;
+        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -23,20 +33,17 @@ public sealed class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect : Crea
         return new OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(this);
     }
 
-    public override string ToString()
-    {
-        return $"One of your creatures gets +{Power} power until the end of the turn.";
-    }
-
-    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
+    protected override void Apply(
+        IGame game, IAbility source, params ICreature[] cards)
     {
         throw new NotImplementedException();
         // game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
         //     Power, cards));
     }
 
-    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(
+        IGame game, IAbility source)
     {
-        return game.BattleZone.GetCreatures(Ability.Controller.Id);
+        return game.BattleZone.GetCreaturesControllerByPlayer(Applier, filter);
     }
 }

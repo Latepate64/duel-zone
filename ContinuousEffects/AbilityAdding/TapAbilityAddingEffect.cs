@@ -4,18 +4,23 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
+/// <summary>
+/// Each of your creatures may tap instead of attacking to use this creature's
+/// ability.
+/// </summary>
 public sealed class TapAbilityAddingEffect : AbilityAddingEffect
 {
-    private readonly Civilization _civilization;
+    private readonly ICardFilter filter;
+
+    public TapAbilityAddingEffect(IOneShotEffect effect, ICardFilter filter)
+        : base(new TapAbility(effect))
+    {
+        this.filter = filter;
+    }
 
     public TapAbilityAddingEffect(TapAbilityAddingEffect effect) : base(effect)
     {
-        _civilization = effect._civilization;
-    }
-
-    public TapAbilityAddingEffect(Civilization civilization, IOneShotEffect effect) : base(new TapAbility(effect))
-    {
-        _civilization = civilization;
+        filter = effect.filter.Copy();
     }
 
     public override IContinuousEffect Copy()
@@ -23,13 +28,8 @@ public sealed class TapAbilityAddingEffect : AbilityAddingEffect
         return new TapAbilityAddingEffect(this);
     }
 
-    public override string ToString()
-    {
-        return $"Each of your {_civilization} creatures may tap instead of attacking to use this creature's ability. : {AbilitiesAsText}";
-    }
-
     protected override IEnumerable<ICard> GetAffectedCards(IGame game)
     {
-        return game.BattleZone.GetCreatures(Controller.Id, _civilization);
+        return game.BattleZone.GetCreaturesControllerByPlayer(Applier, filter);
     }
 }

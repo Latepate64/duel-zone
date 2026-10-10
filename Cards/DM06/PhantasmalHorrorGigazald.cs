@@ -1,13 +1,18 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using CardFilters;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
 using OneShotEffects;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class PhantasmalHorrorGigazald : EvolutionCreature
 {
-    sealed class PhantasmalHorrorGigazald : EvolutionCreature
+    public PhantasmalHorrorGigazald() : base("Phantasmal Horror Gigazald", 5,
+        5000, Race.Chimera, Civilization.Darkness)
     {
-        public PhantasmalHorrorGigazald() : base("Phantasmal Horror Gigazald", 5, 5000, Interfaces.Race.Chimera, Interfaces.Civilization.Darkness)
-        {
-            AddStaticAbilities(new TapAbilityAddingEffect(Interfaces.Civilization.Darkness, new OpponentRandomDiscardEffect()));
-        }
+        AddStaticAbilities(
+            new TapAbilityAddingEffect(
+                new OpponentRandomDiscardEffect(),
+                new CivilizationCreatureFilter(Civilization.Darkness)));
     }
 }

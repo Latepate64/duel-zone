@@ -1,10 +1,15 @@
-﻿namespace Cards.DM10
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM10;
+
+sealed class ColossusBoost : Spell
 {
-    sealed class ColossusBoost : Spell
+    public ColossusBoost() : base("Colossus Boost", 1, Civilization.Fire)
     {
-        public ColossusBoost() : base("Colossus Boost", 1, Interfaces.Civilization.Fire)
-        {
-            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(4000));
-        }
+        AddSpellAbilities(
+            new OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(
+                4000, new CreatureFilter()));
     }
 }

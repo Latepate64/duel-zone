@@ -3,28 +3,35 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public sealed class BattleshipMutantContinuousEffect : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
+/// <summary>
+/// Until the end of the turn, each of your darkness creatures in the battle
+/// zone gets +x power and "double breaker."
+/// </summary>
+public sealed class BattleshipMutantContinuousEffect
+    : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect
 {
-    public BattleshipMutantContinuousEffect(BattleshipMutantContinuousEffect effect) : base(effect)
+    private readonly ICardFilter filter;
+
+    public BattleshipMutantContinuousEffect(
+        int power, ICardFilter filter) : base(power)
     {
+        this.filter = filter;
     }
 
-    public BattleshipMutantContinuousEffect() : base(4000)
+    public BattleshipMutantContinuousEffect(
+        BattleshipMutantContinuousEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
     }
 
     public override IContinuousEffect Copy()
     {
-        return new BattleshipMutantContinuousEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Until the end of the turn, each of your darkness creatures in the battle zone gets +4000 power and \"double breaker.\"";
+        return new BattleshipMutantContinuousEffect(this);
     }
 
     protected override List<ICreature> GetAffectedCards(IGame game)
     {
-        return [.. game.BattleZone.GetCreatures(Controller.Id, Civilization.Darkness)];
+        return [.. game.BattleZone.GetCreaturesControllerByPlayer(
+            Applier, filter)];
     }
 }
