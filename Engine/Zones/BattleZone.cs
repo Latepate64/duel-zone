@@ -110,9 +110,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreaturesControlledByPlayer(excluded).Count();
     }
 
-    public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
-        .Where(x => !x.HasBlocker);
-
     public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
         IPlayerV2 player)
     {

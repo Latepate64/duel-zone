@@ -203,23 +203,6 @@ public sealed class BattleZoneTests
         Assert.Single(creatures);
     }
 
-    [Fact]
-    public void CreaturesThatDoNotHaveBlocker()
-    {
-        // Arrange
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.HasBlocker).Returns(false);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.CreaturesThatDoNotHaveBlocker;
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
     [Theory]
     [InlineData(0)]
     [InlineData(1)]
