@@ -24,10 +24,10 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetOtherUntappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetTappedCreatures(Guid controller);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
-    IEnumerable<ICreature> GetOtherCivilizationCreaturesControllerByPlayer(
-        ICreature excluded, Civilization light);
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
     int GetNumberOfOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter);
+    IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);

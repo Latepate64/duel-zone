@@ -1,4 +1,5 @@
 using Abilities.Static;
+using CardFilters;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -10,28 +11,29 @@ namespace ContinuousEffects.AbilityAdding;
 public sealed class SiegBaliculaTheIntenseEffect : ContinuousEffect,
     IAbilityAddingEffect
 {
+    private readonly ICardFilter filter = new CivilizationCreatureFilter(
+        Civilization.Light);
+
     public SiegBaliculaTheIntenseEffect() : base() { }
+
+    public SiegBaliculaTheIntenseEffect(
+        SiegBaliculaTheIntenseEffect effect) : base(effect)
+    {
+        filter = effect.filter.Copy();
+    }
 
     public void AddAbility(IGame game)
     {
-        var creatures =
-            game.BattleZone.GetOtherCivilizationCreaturesControllerByPlayer(
-                (ICreature)Source!, Civilization.Light);
+        var creatures = game.BattleZone.GetOtherCreaturesControlledByPlayer(
+            (ICreature)Source!, filter);
         foreach (var creature in creatures)
         {
             game.AddAbility(creature, new BlockerAbility());
         }
     }
 
-    public bool CanBlock(ICreature blocker, ICreature attacker)
-    {
-        var ability = Ability;
-        return blocker.Owner == ability.Controller && blocker != ability.Source && blocker.HasCivilization(
-            Civilization.Light);
-    }
-
     public override IContinuousEffect Copy()
     {
-        return new SiegBaliculaTheIntenseEffect();
+        return new SiegBaliculaTheIntenseEffect(this);
     }
 }

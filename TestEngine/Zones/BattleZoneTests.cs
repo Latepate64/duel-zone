@@ -417,34 +417,6 @@ public sealed class BattleZoneTests
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    public void GetOtherCivilizationCreaturesControllerByPlayer(int expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var excluded = new Mock<ICreature>();
-        excluded.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(excluded.Object);
-        for (var i = 0; i < expected; ++i)
-        {
-            var otherCreature = new Mock<ICreature>();
-            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
-            otherCreature.Setup(x => x.HasCivilization(
-                Civilization.Light)).Returns(true);
-            zone.Add(otherCreature.Object);
-        }
-
-        // Act
-        var actual = zone.GetOtherCivilizationCreaturesControllerByPlayer(
-            excluded.Object, Civilization.Light);
-
-        // Assert
-        Assert.Equal(expected, actual.Count());
-    }
-
-    [Theory]
     [InlineData(false, 0)]
     [InlineData(true, 1)]
     public void GetNumberOfOtherCreaturesControllerByPlayerWithFilter(
