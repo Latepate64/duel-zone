@@ -1,30 +1,25 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-public sealed class SurvivorEffect : AbilityAddingEffect
+/// <summary>
+/// Survivor (Each of your Survivors has this creature's Survivor ability.)
+/// </summary>
+public sealed class SurvivorEffect : EachOfYourCreaturesHasAbility
 {
-    public SurvivorEffect(SurvivorEffect effect) : base(effect)
+    public SurvivorEffect(IAbility ability) : base(
+        ability, new RaceCreatureFilter(Race.Survivor))
     {
     }
 
-    public SurvivorEffect(IAbility ability) : base(ability)
+    public SurvivorEffect(SurvivorEffect effect) : base(effect)
     {
     }
 
     public override IContinuousEffect Copy()
     {
         return new SurvivorEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"Survivor : {AbilitiesAsText}";
-    }
-
-    protected override IEnumerable<ICard> GetAffectedCards(IGame game)
-    {
-        return game.BattleZone.GetCreatures(Controller.Id, Race.Survivor);
     }
 }

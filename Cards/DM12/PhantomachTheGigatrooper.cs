@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities.Static;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
@@ -14,7 +15,8 @@ public sealed class PhantomachTheGigatrooper : EvolutionCreature
         AddStaticAbilities(
             new EachOfYourOtherRacesGetsPowerEffect(
                 Race.Chimera, Race.Armorloid),
-            new EachOfYourCreaturesHasDoubleBreaker(new RaceCreatureFilter(
-                Race.Chimera, Race.Armorloid)));
+            new EachOfYourCreaturesHasAbility(
+                new DoubleBreakerAbility(),
+                new RaceCreatureFilter(Race.Chimera, Race.Armorloid)));
     }
 }

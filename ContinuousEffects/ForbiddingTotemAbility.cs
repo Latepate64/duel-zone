@@ -3,14 +3,21 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
+/// <summary>
+/// Your opponent's attacking creatures attack creatures if able.
+/// </summary>
 public sealed class ForbiddingTotemAbility : ContinuousEffect, ICannotAttackCreaturesEffect, ICannotAttackPlayersEffect
 {
-    public ForbiddingTotemAbility()
+    private readonly ICardFilter defendingCreatureFilter;
+
+    public ForbiddingTotemAbility(ICardFilter defendingCreatureFilter)
     {
+        this.defendingCreatureFilter = defendingCreatureFilter;
     }
 
     public ForbiddingTotemAbility(ForbiddingTotemAbility effect) : base(effect)
     {
+        defendingCreatureFilter = effect.defendingCreatureFilter.Copy();
     }
 
     public bool CannotAttackCreature(ICreature attacker, ICreature target, IGame game)
@@ -21,7 +28,7 @@ public sealed class ForbiddingTotemAbility : ContinuousEffect, ICannotAttackCrea
         {
             if (!target.HasRace(Race.MysteryTotem))
             {
-                return AttackableMysteryTotemExists(attacker, game);
+                return AttackableCreaturesExists(attacker, game);
             }
             else
             {
@@ -36,7 +43,7 @@ public sealed class ForbiddingTotemAbility : ContinuousEffect, ICannotAttackCrea
 
     public bool CannotAttackPlayers(ICreature attacker, IGame game)
     {
-        return attacker.Id == game.GetOpponent(Controller).Id && AttackableMysteryTotemExists(attacker, game);
+        return attacker.Id == game.GetOpponent(Controller).Id && AttackableCreaturesExists(attacker, game);
     }
 
     public override IContinuousEffect Copy()
@@ -44,14 +51,10 @@ public sealed class ForbiddingTotemAbility : ContinuousEffect, ICannotAttackCrea
         return new ForbiddingTotemAbility(this);
     }
 
-    public override string ToString()
+    private bool AttackableCreaturesExists(ICreature attacker, IGame game)
     {
-        return "Your opponent's attacking creatures attack Mystery Totems if able.";
-    }
-
-    private bool AttackableMysteryTotemExists(ICreature attacker, IGame game)
-    {
-        return game.BattleZone.GetCreatures(Controller.Id, Race.MysteryTotem).Any(
-            x => game.CanAttackCreature(attacker, x));
+        return game.BattleZone.GetCreaturesControllerByPlayer(
+            Applier, defendingCreatureFilter).Any(
+                x => game.CanAttackCreature(attacker, x));
     }
 }

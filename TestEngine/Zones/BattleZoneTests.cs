@@ -186,29 +186,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetOtherCreatureCountOfSpecificRace()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creatureGuid = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.SetupGet(x => x.Id).Returns(creatureGuid);
-        var otherCreature = new Mock<ICreature>();
-        otherCreature.SetupGet(x => x.Owner.Id).Returns(controller);
-        otherCreature.Setup(x => x.HasRace(It.IsAny<Race>())).Returns(true);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-        zone.Add(otherCreature.Object);
-
-        // Act
-        var count = zone.GetOtherCreatureCount(controller, It.IsAny<Race>());
-
-        // Assert
-        Assert.Equal(1, count);
-    }
-
-    [Fact]
     public void GetUntappedCreatures()
     {
         // Arrange

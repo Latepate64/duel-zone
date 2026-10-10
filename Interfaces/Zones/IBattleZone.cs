@@ -10,7 +10,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICreature> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICreature> GetChoosableUntappedCreaturesControlledByPlayer(IGame game, Guid controller);
-    IEnumerable<ICreature> GetCreatures(Guid controller, Race race);
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization);
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
     IEnumerable<ICreature> GetOtherCreatures(Guid controller, Guid creature);
@@ -22,7 +21,6 @@ public interface IBattleZone : IZone
         IPlayerV2 player, ICardFilter filter);
     int GetCreatureCount(Guid controller, Race race);
     int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization);
-    int GetOtherCreatureCount(Guid creature, Race race);
     int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);
     int GetNumberOfOtherCreaturesControllerByPlayer(ICreature creature);

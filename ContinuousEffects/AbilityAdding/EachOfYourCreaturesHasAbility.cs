@@ -1,31 +1,30 @@
-using Abilities.Static;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
 /// <summary>
-/// Each of your creatures in the battle zone has "double breaker."
+/// Each of your creatures in the battle zone has ability.
 /// </summary>
-public sealed class EachOfYourCreaturesHasDoubleBreaker : AbilityAddingEffect
+public class EachOfYourCreaturesHasAbility : AbilityAddingEffect
 {
     private readonly ICardFilter filter;
 
-    public EachOfYourCreaturesHasDoubleBreaker(ICardFilter filter) : base(
-        new DoubleBreakerAbility())
+    public EachOfYourCreaturesHasAbility(
+        IAbility ability, ICardFilter filter) : base(ability)
     {
         this.filter = filter;
     }
 
-    public EachOfYourCreaturesHasDoubleBreaker(
-        EachOfYourCreaturesHasDoubleBreaker effect) : base(effect)
+    public EachOfYourCreaturesHasAbility(
+        EachOfYourCreaturesHasAbility effect) : base(effect)
     {
         filter = effect.filter.Copy();
     }
 
     public override IContinuousEffect Copy()
     {
-        return new EachOfYourCreaturesHasDoubleBreaker(this);
+        return new EachOfYourCreaturesHasAbility(this);
     }
 
     protected override IEnumerable<ICard> GetAffectedCards(IGame game)

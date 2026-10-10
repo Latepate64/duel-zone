@@ -58,7 +58,7 @@ public sealed class BattleZone : Zone, IBattleZone
                 game, game.GetOpponent(owner)));
     }
 
-    public IEnumerable<ICreature> GetCreatures(Guid controller, Race race)
+    IEnumerable<ICreature> GetCreatures(Guid controller, Race race)
     {
         return GetCreatures(controller).Where(x => x.HasRace(race));
     }
@@ -93,11 +93,6 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return GetOtherCreatures(controller, creature).Count(
             x => x.HasCivilization(civilization));
-    }
-
-    public int GetOtherCreatureCount(Guid creature, Race race)
-    {
-        return GetOtherCreatures(creature).Count(x => x.HasRace(race));
     }
 
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
