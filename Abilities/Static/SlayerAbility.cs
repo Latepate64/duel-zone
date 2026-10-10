@@ -1,4 +1,3 @@
-using CardFilters;
 using Interfaces;
 
 namespace Abilities.Static;
@@ -9,9 +8,9 @@ namespace Abilities.Static;
 /// </summary>
 public class SlayerAbility : StaticAbility, ISlayerAbility
 {
-    private readonly ICardFilter defendingCreatureFilter;
+    private readonly ICardFilter? defendingCreatureFilter;
 
-    public SlayerAbility() : this(new AnyCardFilter())
+    public SlayerAbility()
     {
     }
 
@@ -22,12 +21,13 @@ public class SlayerAbility : StaticAbility, ISlayerAbility
 
     public SlayerAbility(SlayerAbility ability) : base(ability)
     {
-        defendingCreatureFilter = ability.defendingCreatureFilter.Copy();
+        defendingCreatureFilter = ability.defendingCreatureFilter?.Copy();
     }
 
     public bool Applies(ICreature creature, ICreature defendingCreature)
     {
         if (!creature.Equals(Source)) return false;
+        if (defendingCreatureFilter == null) return true;
         if (!defendingCreatureFilter.Match(defendingCreature)) return false;
         return true;
     }
@@ -41,8 +41,11 @@ public class SlayerAbility : StaticAbility, ISlayerAbility
     {
         if (!base.Equals(obj)) return false;
         if (obj is not SlayerAbility ability) return false;
-        if (!defendingCreatureFilter.Equals(
-            ability.defendingCreatureFilter)) return false;
+        if (defendingCreatureFilter == null &&
+            ability.defendingCreatureFilter != null) return false;
+        if (defendingCreatureFilter != null &&
+            !defendingCreatureFilter.Equals(
+                ability.defendingCreatureFilter)) return false;
         return true;
         
     }

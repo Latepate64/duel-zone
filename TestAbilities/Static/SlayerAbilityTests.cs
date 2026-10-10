@@ -1,6 +1,5 @@
 using Abilities.Static;
 using Interfaces;
-using Interfaces.ContinuousEffects;
 using Moq;
 
 namespace TestAbilities.Static;

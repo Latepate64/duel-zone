@@ -1,5 +1,4 @@
 ﻿using Abilities.Static;
-using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.Unblockable;
 
 namespace Cards.DM05

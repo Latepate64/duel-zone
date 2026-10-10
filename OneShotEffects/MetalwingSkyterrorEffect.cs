@@ -1,4 +1,3 @@
-using Abilities.Static;
 using Interfaces;
 
 namespace OneShotEffects;

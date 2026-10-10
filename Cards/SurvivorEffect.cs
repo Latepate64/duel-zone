@@ -1,8 +1,9 @@
 ﻿using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects.AbilityAdding;
+namespace Cards;
 
 /// <summary>
 /// Survivor (Each of your Survivors has this creature's Survivor ability.)
