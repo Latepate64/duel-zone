@@ -1,12 +1,15 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class ClearloGraceEnforcer : Creature
 {
-    sealed class ClearloGraceEnforcer : Creature
+    public ClearloGraceEnforcer() : base("Clearlo, Grace Enforcer", 3, 1000,
+        Race.Berserker, Civilization.Light)
     {
-        public ClearloGraceEnforcer() : base("Clearlo, Grace Enforcer", 3, 1000, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
-        {
-            AddStaticAbilities(new ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(1000));
-        }
+        AddStaticAbilities(new ThisCreatureGetsPowerForEachOfYourOtherCreatures(
+            1000, new UntappedCreatureFilter()));
     }
 }

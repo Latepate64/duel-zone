@@ -4,8 +4,8 @@ using Interfaces.ContinuousEffects;
 namespace ContinuousEffects.PowerModifying;
 
 /// <summary>
-/// This creature gets +x power for each tapped creature your opponent has in
-/// the battle zone.
+/// This creature gets +x power for each creature your opponent has in the
+/// battle zone.
 /// </summary>
 public sealed class ThisCreatureGetPowerForEachCreatureYourOpponentControls :
     PowerModifyingMultiplierEffect
