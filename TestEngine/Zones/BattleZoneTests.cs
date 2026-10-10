@@ -119,26 +119,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetCreaturesOfCivilization()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.Setup(x => x.HasCivilization(
-            It.IsAny<Civilization>())).Returns(true);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetCreatures(controller, It.IsAny<Civilization>());
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void GetOtherCreatureOfCivilizationCount()
     {
         // Arrange

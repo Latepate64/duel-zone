@@ -3,34 +3,49 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public abstract class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureSelectionEffect
+/// <summary>
+/// One of your creatures in the battle zone gets ability until the end of the
+/// turn.
+/// </summary>
+public class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
+    : CreatureSelectionEffect
 {
-    private readonly IAbility _ability;
+    private readonly IAbility ability;
+    private readonly ICardFilter filter;
 
-    public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(IAbility ability) : base(1, 1, true)
+    public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
+        IAbility ability, ICardFilter filter) : base(1, 1, true)
     {
-        _ability = ability;
+        this.ability = ability;
+        this.filter = filter;
     }
 
     public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
-        OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect effect) : base(effect)
+        OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect effect) : base(
+            effect)
     {
-        _ability = effect._ability;
+        ability = effect.ability.Copy();
+        filter = effect.filter.Copy();
     }
 
-    public override string ToString()
+    protected override void Apply(
+        IGame game, IAbility source, params ICreature[] cards)
     {
-        return $"One of your creatures in the battle zone gets \"{_ability.ToString().ToLower()}\" until the end of the turn.";
+        game.AddContinuousEffects(
+            Ability,
+            new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+                ability, cards));
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
+    protected override IEnumerable<ICreature> GetSelectableCards(
+        IGame game, IAbility source)
     {
-        game.AddContinuousEffects(Ability, new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-            _ability, cards));
+        return game.BattleZone.GetCreaturesControllerByPlayer(Applier, filter);
     }
 
-    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
+    public override IOneShotEffect Copy()
     {
-        return game.BattleZone.GetCreatures(Ability.Controller.Id);
+        return new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
+            this);
     }
 }

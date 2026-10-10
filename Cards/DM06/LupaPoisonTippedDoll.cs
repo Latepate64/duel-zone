@@ -6,15 +6,15 @@ using OneShotEffects;
 
 namespace Cards.DM06;
 
-sealed class LegionnaireLizard : Creature
+sealed class LupaPoisonTippedDoll : Creature
 {
-    public LegionnaireLizard() : base("Legionnaire Lizard", 6, 4000,
-        Race.DuneGecko, Civilization.Fire)
+    public LupaPoisonTippedDoll() : base("Lupa, Poison-Tipped Doll", 2, 1000,
+        Race.DeathPuppet, Civilization.Darkness)
     {
         AddAbilities(
             new TapAbility(
                 new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
-                    new SpeedAttackerAbility(),
+                    new SlayerAbility(),
                     new CreatureFilter()
                 )));
     }
