@@ -10,7 +10,11 @@ public sealed class UltimateDragon : Creature
     public UltimateDragon() : base("Ultimate Dragon", 6, 5000,
         Race.ArmoredDragon, Civilization.Fire)
     {
-        AddStaticAbilities(new UltimateDragonPowerEffect());
+        AddStaticAbilities(
+            new ThisCreatureGetsPowerForEachOfYourOtherCreatures(
+                5000,
+                new DragonFilter()
+            ));
         AddAbilities(new CrewBreakerAbility(new DragonFilter()));
     }
 }

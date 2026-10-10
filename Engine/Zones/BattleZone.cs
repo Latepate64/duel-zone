@@ -58,12 +58,6 @@ public sealed class BattleZone : Zone, IBattleZone
                 game, game.GetOpponent(owner)));
     }
 
-    public IEnumerable<ICreature> GetOtherCreatures(
-        Guid controller, Guid creature)
-    {
-        return GetCreatures(controller).Where(x => x.Id != creature);
-    }
-
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
     {
         return Creatures.Where(c => c.OwnerV2 == player);

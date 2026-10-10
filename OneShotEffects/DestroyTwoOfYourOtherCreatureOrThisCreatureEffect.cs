@@ -2,8 +2,25 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-public sealed class GigaberosEffect : OneShotEffect
+/// <summary>
+/// Destroy 2 of your other creatures or destroy this creature.
+/// </summary>
+public sealed class DestroyTwoOfYourOtherCreatureOrThisCreatureEffect
+    : OneShotEffect
 {
+    private readonly ICardFilter filter;
+
+    public DestroyTwoOfYourOtherCreatureOrThisCreatureEffect(ICardFilter filter)
+    {
+        this.filter = filter;
+    }
+
+    public DestroyTwoOfYourOtherCreatureOrThisCreatureEffect(
+        DestroyTwoOfYourOtherCreatureOrThisCreatureEffect effect) : base(effect)
+    {
+        filter = effect.filter.Copy();
+    }
+
     public override void Apply(IGame game)
     {
         // Destroy 2 of your other creatures or destroy this creature.
@@ -11,9 +28,12 @@ public sealed class GigaberosEffect : OneShotEffect
         var thisCreature = creatures.SingleOrDefault(x => x == Ability.Source);
         if (thisCreature == null)
         {
-            game.Destroy(Ability, [.. game.BattleZone.GetOtherCreatures(Ability.Controller.Id, Ability.Source.Id)]);
+            game.Destroy(
+                Ability,
+                [.. game.BattleZone.GetOtherCreaturesControlledByPlayer(
+                    (ICreature)Source!, filter)]);
         }
-        else if (creatures.Where(x => x != Ability.Source).Count() < 2)
+        else if (creatures.Count(x => x != Ability.Source) < 2)
         {
             game.Move(Ability, ZoneType.BattleZone, ZoneType.Graveyard, thisCreature);
         }
@@ -35,11 +55,6 @@ public sealed class GigaberosEffect : OneShotEffect
 
     public override IOneShotEffect Copy()
     {
-        return new GigaberosEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Destroy 2 of your other creatures or destroy this creature.";
+        return new DestroyTwoOfYourOtherCreatureOrThisCreatureEffect(this);
     }
 }
