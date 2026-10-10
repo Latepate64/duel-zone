@@ -36,4 +36,19 @@ public class SlayerAbility : StaticAbility, ISlayerAbility
     {
         return new SlayerAbility(this);
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not SlayerAbility ability) return false;
+        if (!defendingCreatureFilter.Equals(
+            ability.defendingCreatureFilter)) return false;
+        return true;
+        
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(defendingCreatureFilter);
+    }
 }

@@ -36,4 +36,18 @@ public class BlockerAbility : StaticAbility, IBlockerAbility
     {
         return new BlockerAbility(this);
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not BlockerAbility ability) return false;
+        if (!attackerFilter.Equals(ability.attackerFilter)) return false;
+        return true;
+        
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(attackerFilter);
+    }
 }

@@ -32,4 +32,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
         IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
+    int GetNumberOfOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter);
 }

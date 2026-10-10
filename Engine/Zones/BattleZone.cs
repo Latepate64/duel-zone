@@ -192,6 +192,13 @@ public sealed class BattleZone : Zone, IBattleZone
         return Creatures.Where(x => x.OwnerV2.Equals(player));
     }
 
+    public int GetNumberOfOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter)
+    {
+        return GetOtherCreaturesControllerByPlayer(creature).Count(
+            filter.Match);
+    }
+
     IEnumerable<ICreature> GetOtherCreaturesControllerByPlayer(
         ICreature excluded)
     {

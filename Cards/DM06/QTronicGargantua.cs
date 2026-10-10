@@ -1,12 +1,15 @@
 ﻿using Abilities.Static;
+using CardFilters;
+using Interfaces;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class QTronicGargantua : EvolutionCreature
 {
-    sealed class QTronicGargantua : EvolutionCreature
+    public QTronicGargantua() : base("Q-tronic Gargantua", 6, 9000,
+        Race.Survivor, Civilization.Fire)
     {
-        public QTronicGargantua() : base("Q-tronic Gargantua", 6, 9000, Interfaces.Race.Survivor, Interfaces.Civilization.Fire)
-        {
-            AddAbilities(new CrewBreakerRaceAbility(Interfaces.Race.Survivor));
-        }
+        AddAbilities(new CrewBreakerAbility(new RaceCreatureFilter(
+            Race.Survivor)));
     }
 }

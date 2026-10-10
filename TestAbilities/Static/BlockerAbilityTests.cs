@@ -52,4 +52,60 @@ public class BlockerAbilityTests
         // Assert
         Assert.Equal(attackerMatches, actual);
     }
+
+        [Fact]
+    public void DoesNotEqualObjectOfAnotherType()
+    {
+        // Arrange
+        var ability = new BlockerAbility();
+
+        // Act
+        var actual = ability.Equals(new object());
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void DoesNotEqualAbilityOfAnotherType()
+    {
+        // Arrange
+        var ability = new BlockerAbility();
+        var other = new SlayerAbility();
+
+        // Act
+        var actual = ability.Equals(other);
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void DoesNotEqualAbilityWithDifferentFilter()
+    {
+        // Arrange
+        var ability = new BlockerAbility();
+        var other = new BlockerAbility(Mock.Of<ICardFilter>());
+
+        // Act
+        var actual = ability.Equals(other);
+
+        // Assert
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void HashCodesAreEqualForEqualObjects()
+    {
+        // Arrange
+        var ability = new BlockerAbility();
+        var another = ability.Copy();
+
+        // Act
+        var first = ability.GetHashCode();
+        var second = another.GetHashCode();
+
+        // Assert
+        Assert.Equal(first, second);
+    }
 }
