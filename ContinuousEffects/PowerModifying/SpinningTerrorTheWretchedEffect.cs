@@ -1,22 +1,36 @@
+using CardFilters;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-public sealed class SpinningTerrorTheWretchedEffect(int power = 2000) : PowerModifyingMultiplierEffect(power)
+/// <summary>
+/// This creature gets +x power for each tapped creature your opponent has in
+/// the battle zone.
+/// </summary>
+public sealed class SpinningTerrorTheWretchedEffect :
+    PowerModifyingMultiplierEffect
 {
-    public override IContinuousEffect Copy()
+    private readonly ICardFilter filter = new TappedCreatureFilter();
+
+    public SpinningTerrorTheWretchedEffect(int power) : base(power)
     {
-        return new SpinningTerrorTheWretchedEffect();
     }
 
-    public override string ToString()
+    public SpinningTerrorTheWretchedEffect(
+        SpinningTerrorTheWretchedEffect effect) : base(effect)
     {
-        return $"This creature gets +{Power} power for each tapped creature your opponent has in the battle zone.";
+        filter = effect.filter.Copy();
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new SpinningTerrorTheWretchedEffect(this);
     }
 
     protected override int GetMultiplier(IGame game)
     {
-        return game.BattleZone.GetTappedCreatures(game.GetOpponent(Controller.Id)).Count();
+        return game.BattleZone.GetNumberOfCreaturesControllerByPlayer(
+            Applier.Opponent, filter);
     }
 }

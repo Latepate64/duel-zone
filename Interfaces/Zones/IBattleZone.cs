@@ -22,13 +22,14 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetOtherCreatures(Guid creature, Civilization civilization);
     IEnumerable<ICreature> GetOtherTappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetOtherUntappedCreatures(Guid controller, Guid creature);
-    IEnumerable<ICreature> GetTappedCreatures(Guid controller);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
-    IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
-    int GetNumberOfOtherCreaturesControllerByPlayer(
-        ICreature creature, ICardFilter filter);
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
+    int GetNumberOfOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter);
+    IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+        IPlayerV2 player, ICardFilter filter);
+    int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);
 }

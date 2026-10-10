@@ -317,25 +317,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetTappedCreatures()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.SetupGet(x => x.Tapped).Returns(true);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetTappedCreatures(controller);
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void GetUntappedCreatures()
     {
         // Arrange
@@ -458,9 +439,10 @@ public sealed class BattleZoneTests
         filter.Setup(x => x.Match(creature.Object)).Returns(filterMatches);
 
         // Act
-        var actual = zone.GetCreaturesControllerByPlayer(player, filter.Object);
+        var actual = zone.GetNumberOfCreaturesControllerByPlayer(
+            player, filter.Object);
 
         // Assert
-        Assert.Equal(expected, actual.Count());
+        Assert.Equal(expected, actual);
     }
 }

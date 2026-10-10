@@ -126,11 +126,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreatures(creature).Count(x => x.HasRace(race));
     }
 
-    public IEnumerable<ICreature> GetTappedCreatures(Guid controller)
-    {
-        return GetCreatures(controller).Where(x => x.Tapped);
-    }
-
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
     {
         return Creatures.Where(c => c.OwnerV2 == player);
@@ -188,5 +183,11 @@ public sealed class BattleZone : Zone, IBattleZone
         IPlayerV2 player, ICardFilter filter)
     {
         return GetCreaturesControllerByPlayer(player).Where(filter.Match);
+    }
+
+    public int GetNumberOfCreaturesControllerByPlayer(
+        IPlayerV2 player, ICardFilter filter)
+    {
+        return GetCreaturesControllerByPlayer(player, filter).Count();
     }
 }
