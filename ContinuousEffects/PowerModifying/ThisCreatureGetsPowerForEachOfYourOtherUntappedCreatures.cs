@@ -1,30 +1,39 @@
+using CardFilters;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-public sealed class ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures : PowerModifyingMultiplierEffect
+/// <summary>
+/// This creature gets +x power for each of your other untapped creatures in the
+/// battle zone.
+/// </summary>
+public sealed class ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures :
+    PowerModifyingMultiplierEffect
 {
-    public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures effect) : base(effect)
+    private readonly ICardFilter filter = new UntappedCreatureFilter();
+
+    public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(
+        int power) : base(power)
     {
     }
 
-    public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(int power) : base(power)
+    public ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(
+        ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures effect) : base(
+            effect)
     {
+        filter = effect.filter.Copy();
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(this);
-    }
-
-    public override string ToString()
-    {
-        return $"This creature gets +{Power} power for each of your other untapped creatures in the battle zone.";
+        return new ThisCreatureGetsPowerForEachOfYourOtherUntappedCreatures(
+            this);
     }
 
     protected override int GetMultiplier(IGame game)
     {
-        return game.BattleZone.GetOtherUntappedCreatures(Controller.Id, Source.Id).Count();
+        return game.BattleZone.GetNumberOfOtherCreaturesControllerByPlayer(
+            (ICreature)Source!, filter);
     }
 }

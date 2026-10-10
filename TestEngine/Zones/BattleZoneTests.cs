@@ -219,31 +219,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetOtherUntappedCreatures()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creatureGuid = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.SetupGet(x => x.Id).Returns(creatureGuid);
-        var otherCreature = new Mock<ICreature>();
-        otherCreature.SetupGet(x => x.Owner.Id).Returns(controller);
-        otherCreature.SetupGet(x => x.Tapped).Returns(false);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-        zone.Add(otherCreature.Object);
-
-        // Act
-        var creatures = zone.GetOtherUntappedCreatures(
-            controller, creatureGuid);
-
-        // Assert
-        Assert.Contains(otherCreature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void GetOtherCreaturesOfCivilization()
     {
         // Arrange
@@ -392,11 +367,14 @@ public sealed class BattleZoneTests
         filter.Setup(x => x.Match(otherCreature.Object)).Returns(filterMatches);
 
         // Act
-        var actual = zone.GetNumberOfOtherCreaturesControllerByPlayer(
+        var amount = zone.GetNumberOfOtherCreaturesControllerByPlayer(
+            excluded.Object, filter.Object);
+        var hasCards = zone.HasOtherCreaturesControllerByPlayer(
             excluded.Object, filter.Object);
 
         // Assert
-        Assert.Equal(expected, actual);
+        Assert.Equal(expected, amount);
+        Assert.Equal(filterMatches, hasCards);
     }
 
     [Theory]
@@ -415,10 +393,10 @@ public sealed class BattleZoneTests
         filter.Setup(x => x.Match(creature.Object)).Returns(filterMatches);
 
         // Act
-        var actual = zone.GetNumberOfCreaturesControllerByPlayer(
+        var amount = zone.GetNumberOfCreaturesControllerByPlayer(
             player, filter.Object);
 
         // Assert
-        Assert.Equal(expected, actual);
+        Assert.Equal(expected, amount);
     }
 }

@@ -102,12 +102,6 @@ public sealed class BattleZone : Zone, IBattleZone
             x => x.HasCivilization(civilization));
     }
 
-    public IEnumerable<ICreature> GetOtherUntappedCreatures(
-        Guid controller, Guid creature)
-    {
-        return GetOtherCreatures(controller, creature).Where(x => !x.Tapped);
-    }
-
     public IEnumerable<ICreature> GetOtherCreatures(
         Guid creature, Civilization civilization)
     {
@@ -183,5 +177,11 @@ public sealed class BattleZone : Zone, IBattleZone
         IPlayerV2 player, ICardFilter filter)
     {
         return GetCreaturesControllerByPlayer(player, filter).Count();
+    }
+
+    public bool HasOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter)
+    {
+        return GetOtherCreaturesControlledByPlayer(creature, filter).Any();
     }
 }
