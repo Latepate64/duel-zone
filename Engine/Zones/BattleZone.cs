@@ -105,22 +105,13 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetCreatures(player).Where(x => !x.Tapped);
     }
 
-    public IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(
-        IPlayer player)
-    {
-        return CreaturesThatHaveBlocker.Where(c => c.Owner == player);
-    }
-
     public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
     {
         return GetOtherCreaturesControlledByPlayer(excluded).Count();
     }
 
-    public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
-        x => x.IsBlocker);
-
     public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
-        .Where(x => !x.IsBlocker);
+        .Where(x => !x.HasBlocker);
 
     public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
         IPlayerV2 player)
@@ -174,6 +165,11 @@ public sealed class BattleZone : Zone, IBattleZone
     IEnumerable<ICreature> GetOtherCreatures(
         ICreature excluded, ICardFilter filter)
     {
-        return Creatures.Where(x => !x.Equals(excluded) && filter.Match(x));
+        return GetCreatures(filter).Where(x => !x.Equals(excluded));
+    }
+
+    public IEnumerable<ICreature> GetCreatures(ICardFilter filter)
+    {
+        return Creatures.Where(filter.Match);
     }
 }

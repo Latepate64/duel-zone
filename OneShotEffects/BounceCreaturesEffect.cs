@@ -1,25 +1,27 @@
-﻿using Interfaces;
+using Interfaces;
 
 namespace OneShotEffects;
 
-public sealed class DestroyAllCreaturesEffect : DestroyAreaOfEffect
+/// <summary>
+/// Return all creatures in the battle zone to their owners' hands.
+/// </summary>
+public sealed class BounceCreaturesEffect : BounceAreaOfEffect
 {
     private readonly ICardFilter filter;
 
-    public DestroyAllCreaturesEffect(ICardFilter filter) : base()
+    public BounceCreaturesEffect(ICardFilter filter) : base()
     {
         this.filter = filter;
     }
 
-    public DestroyAllCreaturesEffect(DestroyAllCreaturesEffect effect) : base(
-        effect)
+    public BounceCreaturesEffect(BounceCreaturesEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
     {
-        return new DestroyAllCreaturesEffect(this);
+        return new BounceCreaturesEffect(this);
     }
 
     protected override IEnumerable<ICard> GetAffectedCards(

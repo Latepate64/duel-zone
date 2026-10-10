@@ -8,7 +8,7 @@ public sealed class StormWranglerEffect : OneShotEffect
     public override void Apply(IGame game)
     {
         var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(
-            game, GetOpponent(game).Id).Where(x => x.IsBlocker);
+            game, GetOpponent(game).Id).Where(x => x.HasBlocker);
         var creature = Controller.ChooseCardOptionally(creatures, ToString()) as ICreature;
         if (creature != null)
         {

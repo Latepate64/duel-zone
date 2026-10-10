@@ -204,30 +204,11 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void CreaturesThatHaveBlockerOwnedBy()
-    {
-        // Arrange
-        var player = Mock.Of<IPlayer>();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.IsBlocker).Returns(true);
-        creature.SetupGet(x => x.Owner).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.CreaturesThatHaveBlockerOwnedBy(player);
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void CreaturesThatDoNotHaveBlocker()
     {
         // Arrange
         var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.IsBlocker).Returns(false);
+        creature.SetupGet(x => x.HasBlocker).Returns(false);
         var zone = new BattleZone();
         zone.Add(creature.Object);
 

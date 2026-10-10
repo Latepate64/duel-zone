@@ -21,6 +21,6 @@ public sealed class BonfireLizardEffect : OneShotEffects.DestroyEffect
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
-            x => x.IsBlocker);
+            x => x.HasBlocker);
     }
 }

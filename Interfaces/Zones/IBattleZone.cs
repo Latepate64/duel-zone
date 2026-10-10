@@ -2,10 +2,7 @@ namespace Interfaces.Zones;
 
 public interface IBattleZone : IZone
 {
-    IEnumerable<ICreature> CreaturesThatHaveBlocker { get; }
     IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker { get; }
-
-    IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(IPlayer player);
     IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(IGame game, Guid owner);
     IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICreature> GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner);
@@ -29,4 +26,5 @@ public interface IBattleZone : IZone
     bool HasOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
     int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);
+    IEnumerable<ICreature> GetCreatures(ICardFilter filter);
 }

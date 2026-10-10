@@ -140,7 +140,7 @@ public class Creature : Card, ICreature
         AddAbilities(ability);
     }
 
-    public bool IsBlocker => GetAbilities<IBlockerAbility>().Any();
+    public bool HasBlocker => GetAbilities<IBlockerAbility>().Any();
 
     public bool HasSilentSkill => GetAbilities<ISilentSkillAbility>().Any();
 
