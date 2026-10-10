@@ -119,39 +119,6 @@ public sealed class BattleZoneTests
         Assert.Equal(1, count);
     }
 
-    [Theory]
-    [InlineData(false, false, false)]
-    [InlineData(false, true, true)]
-    [InlineData(true, false, true)]
-    [InlineData(true, true, true)]
-    public void GetCreaturesThatHasAtLeastOneOfTheRaces(
-        bool hasRace1, bool hasRace2, bool returnCreature)
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.Setup(x => x.HasRace(Race.AngelCommand)).Returns(hasRace1);
-        creature.Setup(x => x.HasRace(Race.ArmoredDragon)).Returns(hasRace2);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetCreatures(controller, Race.AngelCommand,
-            Race.ArmoredDragon);
-
-        // Assert
-        if (returnCreature)
-        {
-            Assert.Contains(creature.Object, creatures);
-            Assert.Single(creatures);
-        }
-        else
-        {
-            Assert.Empty(creatures);
-        }
-    }
-
     [Fact]
     public void GetCreaturesOfCivilization()
     {

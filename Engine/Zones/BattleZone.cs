@@ -69,13 +69,6 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     public IEnumerable<ICreature> GetCreatures(
-        Guid controller, Race race1, Race race2)
-    {
-        return GetCreatures(controller).Where(
-            x => x.HasRace(race1) || x.HasRace(race2));
-    }
-
-    public IEnumerable<ICreature> GetCreatures(
         Guid controller, Civilization civilization)
     {
         return GetCreatures(controller).Where(
