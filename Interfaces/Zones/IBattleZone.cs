@@ -24,9 +24,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetOtherUntappedCreatures(Guid controller, Guid creature);
     IEnumerable<ICreature> GetTappedCreatures(Guid controller);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
-    int GetNumberOfOtherRaceCreaturesControllerByPlayer(ICreature excluded,
-        Race race);
-    int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded);
     IEnumerable<ICreature> GetOtherCivilizationCreaturesControllerByPlayer(
         ICreature excluded, Civilization light);
     IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(

@@ -152,19 +152,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreaturesControllerByPlayer(excluded).Count();
     }
 
-    public int GetNumberOfOtherRaceCreaturesControllerByPlayer(
-        ICreature excluded, Race race)
-    {
-        return GetOtherCreaturesControllerByPlayer(excluded).Count(
-            x => x.HasRace(race));
-    }
-
-    public int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded)
-    {
-        return GetOtherCreaturesControllerByPlayer(excluded).Count(
-            x => x.IsDragon);
-    }
-
     public IEnumerable<ICreature>
         GetOtherCivilizationCreaturesControllerByPlayer(
             ICreature excluded, Civilization civilization)

@@ -419,61 +419,6 @@ public sealed class BattleZoneTests
     [Theory]
     [InlineData(0)]
     [InlineData(1)]
-    public void GetNumberOfOtherRaceCreaturesControllerByPlayer(int expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var excluded = new Mock<ICreature>();
-        excluded.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(excluded.Object);
-        for (var i = 0; i < expected; ++i)
-        {
-            var otherCreature = new Mock<ICreature>();
-            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
-            otherCreature.Setup(x => x.HasRace(Race.AngelCommand)).Returns(
-                true);
-            zone.Add(otherCreature.Object);
-        }
-
-        // Act
-        var actual = zone.GetNumberOfOtherRaceCreaturesControllerByPlayer(
-            excluded.Object, Race.AngelCommand);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    public void GetNumberOfOtherDragonsControllerByPlayer(int expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var excluded = new Mock<ICreature>();
-        excluded.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(excluded.Object);
-        for (var i = 0; i < expected; ++i)
-        {
-            var otherCreature = new Mock<ICreature>();
-            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
-            otherCreature.SetupGet(x => x.IsDragon).Returns(true);
-            zone.Add(otherCreature.Object);
-        }
-
-        // Act
-        var actual = zone.GetNumberOfOtherDragonsControllerByPlayer(
-            excluded.Object);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
     public void GetOtherCivilizationCreaturesControllerByPlayer(int expected)
     {
         // Arrange
