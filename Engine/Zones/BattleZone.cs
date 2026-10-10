@@ -102,13 +102,6 @@ public sealed class BattleZone : Zone, IBattleZone
             x => x.HasCivilization(civilization));
     }
 
-    public IEnumerable<ICreature> GetOtherCreatures(
-        Guid creature, Civilization civilization)
-    {
-        return GetOtherCreatures(creature).Where(
-            x => x.HasCivilization(civilization));
-    }
-
     public int GetOtherCreatureCount(Guid creature, Race race)
     {
         return GetOtherCreatures(creature).Count(x => x.HasRace(race));
@@ -183,5 +176,16 @@ public sealed class BattleZone : Zone, IBattleZone
         ICreature creature, ICardFilter filter)
     {
         return GetOtherCreaturesControlledByPlayer(creature, filter).Any();
+    }
+
+    public int GetNumberOfOtherCreatures(ICreature excluded, ICardFilter filter)
+    {
+        return GetOtherCreatures(excluded, filter).Count();
+    }
+
+    IEnumerable<ICreature> GetOtherCreatures(
+        ICreature excluded, ICardFilter filter)
+    {
+        return Creatures.Where(x => !x.Equals(excluded) && filter.Match(x));
     }
 }

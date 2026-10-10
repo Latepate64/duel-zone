@@ -219,32 +219,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetOtherCreaturesOfCivilization()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creatureGuid = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.SetupGet(x => x.Id).Returns(creatureGuid);
-        var otherCreature = new Mock<ICreature>();
-        otherCreature.SetupGet(x => x.Owner.Id).Returns(controller);
-        otherCreature.Setup(x => x.HasCivilization(
-            It.IsAny<Civilization>())).Returns(true);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-        zone.Add(otherCreature.Object);
-
-        // Act
-        var creatures = zone.GetOtherCreatures(
-            creatureGuid, It.IsAny<Civilization>());
-
-        // Assert
-        Assert.Contains(otherCreature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void GetOtherCreatureCountOfSpecificRace()
     {
         // Arrange
@@ -395,6 +369,29 @@ public sealed class BattleZoneTests
         // Act
         var amount = zone.GetNumberOfCreaturesControllerByPlayer(
             player, filter.Object);
+
+        // Assert
+        Assert.Equal(expected, amount);
+    }
+
+    [Theory]
+    [InlineData(false, 0)]
+    [InlineData(true, 1)]
+    public void GetExpectedNumberOfOtherCreatures(
+        bool filterMatches, int expected)
+    {
+        // Arrange
+        var excluded = Mock.Of<ICreature>();
+        var otherCreature = Mock.Of<ICreature>();
+        var zone = new BattleZone();
+        zone.Add(excluded);
+        zone.Add(otherCreature);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(otherCreature)).Returns(filterMatches);
+
+        // Act
+        var amount = zone.GetNumberOfOtherCreatures(
+            excluded, filter.Object);
 
         // Assert
         Assert.Equal(expected, amount);

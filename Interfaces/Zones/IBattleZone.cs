@@ -15,7 +15,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization);
     IEnumerable<ICreature> GetCreatures(Guid controller, Civilization civilization1, Civilization civilization2);
     IEnumerable<ICreature> GetOtherCreatures(Guid controller, Guid creature);
-    IEnumerable<ICreature> GetOtherCreatures(Guid creature, Civilization civilization);
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
@@ -32,4 +31,5 @@ public interface IBattleZone : IZone
         ICreature creature, ICardFilter filter);
     bool HasOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
+    int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);
 }
