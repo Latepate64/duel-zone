@@ -1,22 +1,23 @@
-using CardFilters;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.Replacement;
 
 /// <summary>
-/// Your creatures that have \"silent skill\" are put into the battle zone
-/// tapped.
+/// Your creatures are put into the battle zone tapped.
 /// </summary>
-public sealed class MysticMagicianTappedEffect : ReplacementEffect
+public sealed class YourCreaturesArePutIntoTheBattleZoneTappedEffect
+    : ReplacementEffect
 {
-    private readonly ICardFilter filter = new SilentSkillFilter();
+    private readonly ICardFilter filter;
 
-    public MysticMagicianTappedEffect()
+    public YourCreaturesArePutIntoTheBattleZoneTappedEffect(ICardFilter filter)
     {
+        this.filter = filter;
     }
 
-    public MysticMagicianTappedEffect(MysticMagicianTappedEffect effect) : base(
+    public YourCreaturesArePutIntoTheBattleZoneTappedEffect(
+        YourCreaturesArePutIntoTheBattleZoneTappedEffect effect) : base(
         effect)
     {
         filter = effect.filter.Copy();
@@ -39,6 +40,6 @@ public sealed class MysticMagicianTappedEffect : ReplacementEffect
 
     public override IContinuousEffect Copy()
     {
-        return new MysticMagicianTappedEffect(this);
+        return new YourCreaturesArePutIntoTheBattleZoneTappedEffect(this);
     }
 }
