@@ -15,7 +15,7 @@ public sealed class PhantomachTheGigatrooper : EvolutionCreature
         AddStaticAbilities(
             new EachOfYourOtherRacesGetsPowerEffect(
                 Race.Chimera, Race.Armorloid),
-            new EachOfYourCreaturesHasAbility(
+            new EachOfYourCreaturesHasAbilityEffect(
                 new DoubleBreakerAbility(),
                 new RaceCreatureFilter(Race.Chimera, Race.Armorloid)));
     }

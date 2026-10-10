@@ -10,7 +10,7 @@ public sealed class BurnwispLizard : Creature
     public BurnwispLizard() : base("Burnwisp Lizard", 5, 4000, Race.MeltWarrior,
         Civilization.Fire)
     {
-        AddStaticAbilities(new EachOfYourCreaturesHasAbility(
+        AddStaticAbilities(new EachOfYourCreaturesHasAbilityEffect(
             new SpeedAttackerAbility(), new SilentSkillFilter()));
     }
 }

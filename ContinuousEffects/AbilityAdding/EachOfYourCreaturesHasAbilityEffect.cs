@@ -6,25 +6,25 @@ namespace ContinuousEffects.AbilityAdding;
 /// <summary>
 /// Each of your creatures in the battle zone has ability.
 /// </summary>
-public class EachOfYourCreaturesHasAbility : AbilityAddingEffect
+public class EachOfYourCreaturesHasAbilityEffect : AbilityAddingEffect
 {
     private readonly ICardFilter filter;
 
-    public EachOfYourCreaturesHasAbility(
+    public EachOfYourCreaturesHasAbilityEffect(
         IAbility ability, ICardFilter filter) : base(ability)
     {
         this.filter = filter;
     }
 
-    public EachOfYourCreaturesHasAbility(
-        EachOfYourCreaturesHasAbility effect) : base(effect)
+    public EachOfYourCreaturesHasAbilityEffect(
+        EachOfYourCreaturesHasAbilityEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
     }
 
     public override IContinuousEffect Copy()
     {
-        return new EachOfYourCreaturesHasAbility(this);
+        return new EachOfYourCreaturesHasAbilityEffect(this);
     }
 
     protected override IEnumerable<ICard> GetAffectedCards(IGame game)

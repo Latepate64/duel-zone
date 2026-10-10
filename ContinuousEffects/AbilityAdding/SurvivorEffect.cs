@@ -7,7 +7,7 @@ namespace ContinuousEffects.AbilityAdding;
 /// <summary>
 /// Survivor (Each of your Survivors has this creature's Survivor ability.)
 /// </summary>
-public sealed class SurvivorEffect : EachOfYourCreaturesHasAbility
+public sealed class SurvivorEffect : EachOfYourCreaturesHasAbilityEffect
 {
     public SurvivorEffect(IAbility ability) : base(
         ability, new RaceCreatureFilter(Race.Survivor))

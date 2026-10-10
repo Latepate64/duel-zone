@@ -10,7 +10,7 @@ public sealed class FrostSpecterShadowOfAge : EvolutionCreature
     public FrostSpecterShadowOfAge() : base("Frost Specter, Shadow of Age", 3,
         5000, Race.Ghost, Civilization.Darkness)
     {
-        AddStaticAbilities(new EachOfYourCreaturesHasAbility(
+        AddStaticAbilities(new EachOfYourCreaturesHasAbilityEffect(
             new SlayerAbility(),
             new RaceCreatureFilter(Race.Ghost)));
     }
