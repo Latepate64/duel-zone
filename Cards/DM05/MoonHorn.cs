@@ -1,14 +1,19 @@
 ﻿using Abilities.Static;
+using CardFilters;
 using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class MoonHorn : Creature
 {
-    sealed class MoonHorn : Creature
+    public MoonHorn() : base("Moon Horn", 6, 6000, Race.HornedBeast,
+        Civilization.Nature)
     {
-        public MoonHorn() : base("Moon Horn", 6, 6000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Interfaces.Civilization.Water, Interfaces.Civilization.Darkness));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddStaticAbilities(
+        new ThisCreatureGetPowerForEachCreatureYourOpponentControls(
+            1000, new CivilizationCreatureFilter(
+                Civilization.Water, Civilization.Darkness)));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

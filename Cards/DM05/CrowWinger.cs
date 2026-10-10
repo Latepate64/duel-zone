@@ -1,12 +1,17 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class CrowWinger : Creature
 {
-    sealed class CrowWinger : Creature
+    public CrowWinger() : base("Crow Winger", 2, 1000, Race.BeastFolk,
+        Civilization.Nature)
     {
-        public CrowWinger() : base("Crow Winger", 2, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new ThisCreatureGetsPowerForEachCivilizationCreatureYourOpponentControlsEffect(1000, Interfaces.Civilization.Water, Interfaces.Civilization.Darkness));
-        }
+        AddStaticAbilities(
+            new ThisCreatureGetPowerForEachCreatureYourOpponentControls(
+                1000, new CivilizationCreatureFilter(
+                    Civilization.Water, Civilization.Darkness)));
     }
 }

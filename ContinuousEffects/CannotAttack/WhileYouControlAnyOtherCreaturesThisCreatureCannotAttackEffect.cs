@@ -1,0 +1,41 @@
+using Interfaces;
+using Interfaces.ContinuousEffects;
+
+namespace ContinuousEffects.CannotAttack;
+
+/// <summary>
+/// While you have any other creatures in the battle zone, this creature can't
+/// attack.
+/// </summary>
+public sealed class WhileYouControlAnyOtherCreaturesThisCreatureCannotAttackEffect
+    : ContinuousEffect, ICannotAttackEffect
+{
+    private readonly ICardFilter filter;
+
+    public WhileYouControlAnyOtherCreaturesThisCreatureCannotAttackEffect(
+        ICardFilter filter)
+    {
+        this.filter = filter;
+    }
+
+    public WhileYouControlAnyOtherCreaturesThisCreatureCannotAttackEffect(
+        WhileYouControlAnyOtherCreaturesThisCreatureCannotAttackEffect effect)
+        : base(effect)
+    {
+        filter = effect.filter.Copy();
+    }
+
+    public bool CannotAttack(ICreature creature, IGame game)
+    {
+        if (!IsSourceOfAbility(creature)) return false;
+        if (!game.BattleZone.HasOtherCreaturesControllerByPlayer(
+            creature, filter)) return false;
+        return true;
+    }
+
+    public override IContinuousEffect Copy()
+    {
+        return new WhileYouControlAnyOtherCreaturesThisCreatureCannotAttackEffect(
+            this);
+    }
+}

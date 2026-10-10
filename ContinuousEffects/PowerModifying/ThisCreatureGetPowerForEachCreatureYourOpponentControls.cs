@@ -1,4 +1,3 @@
-using CardFilters;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -8,24 +7,29 @@ namespace ContinuousEffects.PowerModifying;
 /// This creature gets +x power for each tapped creature your opponent has in
 /// the battle zone.
 /// </summary>
-public sealed class SpinningTerrorTheWretchedEffect :
+public sealed class ThisCreatureGetPowerForEachCreatureYourOpponentControls :
     PowerModifyingMultiplierEffect
 {
-    private readonly ICardFilter filter = new TappedCreatureFilter();
+    private readonly ICardFilter filter;
 
-    public SpinningTerrorTheWretchedEffect(int power) : base(power)
+    public ThisCreatureGetPowerForEachCreatureYourOpponentControls(
+        int power, ICardFilter filter)
+        : base(power)
     {
+        this.filter = filter;
     }
 
-    public SpinningTerrorTheWretchedEffect(
-        SpinningTerrorTheWretchedEffect effect) : base(effect)
+    public ThisCreatureGetPowerForEachCreatureYourOpponentControls(
+        ThisCreatureGetPowerForEachCreatureYourOpponentControls effect) : base(
+            effect)
     {
         filter = effect.filter.Copy();
     }
 
     public override IContinuousEffect Copy()
     {
-        return new SpinningTerrorTheWretchedEffect(this);
+        return new ThisCreatureGetPowerForEachCreatureYourOpponentControls(
+            this);
     }
 
     protected override int GetMultiplier(IGame game)
