@@ -1,16 +1,25 @@
+using CardFilters;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.Replacement;
 
+/// <summary>
+/// Your creatures that have \"silent skill\" are put into the battle zone
+/// tapped.
+/// </summary>
 public sealed class MysticMagicianTappedEffect : ReplacementEffect
 {
+    private readonly ICardFilter filter = new SilentSkillFilter();
+
     public MysticMagicianTappedEffect()
     {
     }
 
-    public MysticMagicianTappedEffect(MysticMagicianTappedEffect effect) : base(effect)
+    public MysticMagicianTappedEffect(MysticMagicianTappedEffect effect) : base(
+        effect)
     {
+        filter = effect.filter.Copy();
     }
 
     public override IGameEvent Apply(IGameEvent gameEvent, IGame game)
@@ -20,18 +29,16 @@ public sealed class MysticMagicianTappedEffect : ReplacementEffect
 
     public override bool CanBeApplied(IGameEvent gameEvent, IGame game)
     {
-        return gameEvent is ICardMovedEvent e && e.Destination == ZoneType.BattleZone
-            && game.GetCard(e.CardInSourceZone).Owner == Controller
-            && game.GetCard(e.CardInSourceZone).GetAbilities<Abilities.SilentSkillAbility>().Any();
+        if (gameEvent is not ICardMovedEvent e) return false;
+        if (e.Destination != ZoneType.BattleZone) return false;
+        var card = game.GetCard(e.CardInSourceZone);
+        if (!card.Owner.Equals(Controller)) return false;
+        if (!filter.Match(card)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
         return new MysticMagicianTappedEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Your creatures that have \"silent skill\" are put into the battle zone tapped.";
     }
 }

@@ -26,9 +26,9 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
     IEnumerable<ICreature> GetOtherCivilizationCreaturesControllerByPlayer(
         ICreature excluded, Civilization light);
-    IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
-        IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
     int GetNumberOfOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
+    IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+        IPlayerV2 player, ICardFilter filter);
 }

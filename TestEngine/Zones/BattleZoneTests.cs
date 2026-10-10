@@ -445,30 +445,6 @@ public sealed class BattleZoneTests
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    public void GetCreaturesWithSilentSkillControllerByPlayer(int expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var zone = new BattleZone();
-        for (var i = 0; i < expected; ++i)
-        {
-            var creature = new Mock<ICreature>();
-            creature.SetupGet(x => x.OwnerV2).Returns(player);
-            creature.Setup(
-                x => x.HasAbility<ISilentSkillAbility>()).Returns(true);
-            zone.Add(creature.Object);
-        }
-
-        // Act
-        var actual = zone.GetCreaturesWithSilentSkillControllerByPlayer(player);
-
-        // Assert
-        Assert.Equal(expected, actual.Count());
-    }
-
-    [Theory]
     [InlineData(false, 0)]
     [InlineData(true, 1)]
     public void GetNumberOfOtherCreaturesControllerByPlayerWithFilter(
@@ -492,5 +468,27 @@ public sealed class BattleZoneTests
 
         // Assert
         Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false, 0)]
+    [InlineData(true, 1)]
+    public void GetCreaturesControllerByPlayerWithFilter(
+        bool filterMatches, int expected)
+    {
+        // Arrange
+        var player = Mock.Of<IPlayerV2>();
+        var creature = new Mock<ICreature>();
+        creature.SetupGet(x => x.OwnerV2).Returns(player);
+        var zone = new BattleZone();
+        zone.Add(creature.Object);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(creature.Object)).Returns(filterMatches);
+
+        // Act
+        var actual = zone.GetCreaturesControllerByPlayer(player, filter.Object);
+
+        // Assert
+        Assert.Equal(expected, actual.Count());
     }
 }

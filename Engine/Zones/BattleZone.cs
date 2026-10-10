@@ -166,13 +166,6 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
         .Where(x => !x.IsBlocker);
 
-    public IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
-        IPlayerV2 player)
-    {
-        return GetCreaturesControllerByPlayer(player).Where(
-            x => x.HasAbility<ISilentSkillAbility>());
-    }
-
     public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
         IPlayerV2 player)
     {
@@ -191,5 +184,11 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return GetCreaturesControllerByPlayer(excluded.OwnerV2).Where(
             x => !x.Equals(excluded));
+    }
+
+    public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+        IPlayerV2 player, ICardFilter filter)
+    {
+        return GetCreaturesControllerByPlayer(player).Where(filter.Match);
     }
 }
