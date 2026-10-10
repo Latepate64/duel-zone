@@ -101,12 +101,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreatures(controller, creature).Count(
             x => x.HasCivilization(civilization));
     }
-        
-    public IEnumerable<ICreature> GetOtherTappedCreatures(
-        Guid controller, Guid creature)
-    {
-        return GetOtherCreatures(controller, creature).Where(x => x.Tapped);
-    }
 
     public IEnumerable<ICreature> GetOtherUntappedCreatures(
         Guid controller, Guid creature)

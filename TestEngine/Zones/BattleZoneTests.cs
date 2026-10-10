@@ -219,30 +219,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetOtherTappedCreatures()
-    {
-        // Arrange
-        var controller = Guid.NewGuid();
-        var creatureGuid = Guid.NewGuid();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(controller);
-        creature.SetupGet(x => x.Id).Returns(creatureGuid);
-        var otherCreature = new Mock<ICreature>();
-        otherCreature.SetupGet(x => x.Owner.Id).Returns(controller);
-        otherCreature.SetupGet(x => x.Tapped).Returns(true);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-        zone.Add(otherCreature.Object);
-
-        // Act
-        var creatures = zone.GetOtherTappedCreatures(controller, creatureGuid);
-
-        // Assert
-        Assert.Contains(otherCreature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void GetOtherUntappedCreatures()
     {
         // Arrange

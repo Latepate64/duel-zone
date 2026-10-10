@@ -1,12 +1,16 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class LaunchLocust : Creature
 {
-    sealed class LaunchLocust : Creature
+    public LaunchLocust() : base("Launch Locust", 3, 2000, Race.HornedBeast,
+        Civilization.Nature)
     {
-        public LaunchLocust() : base("Launch Locust", 3, 2000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new LeapingTornadoHornEffect());
-        }
+        AddStaticAbilities(
+            new WhileAttackingGetPowerForEachOfYourOtherCreaturesEffect(
+                1000, new CreatureFilter()));
     }
 }

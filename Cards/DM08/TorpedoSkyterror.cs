@@ -1,12 +1,15 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class TorpedoSkyterror : Creature
 {
-    sealed class TorpedoSkyterror : Creature
+    public TorpedoSkyterror() : base("Torpedo Skyterror", 5, 4000, Race.ArmoredWyvern, Civilization.Fire)
     {
-        public TorpedoSkyterror() : base("Torpedo Skyterror", 5, 4000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
-        {
-            AddStaticAbilities(new DogarnTheMarauderEffect(2000));
-        }
+        AddStaticAbilities(
+            new WhileAttackingGetPowerForEachOfYourOtherCreaturesEffect(
+                2000, new TappedCreatureFilter()));
     }
 }

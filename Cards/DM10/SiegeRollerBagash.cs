@@ -1,12 +1,16 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class SiegeRollerBagash : Creature
 {
-    sealed class SiegeRollerBagash : Creature
+    public SiegeRollerBagash() : base("Siege Roller Bagash", 4, 3000,
+        Race.Armorloid, Civilization.Fire)
     {
-        public SiegeRollerBagash() : base("Siege Roller Bagash", 4, 3000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
-        {
-            AddStaticAbilities(new DogarnTheMarauderEffect(1000));
-        }
+        AddStaticAbilities(
+            new WhileAttackingGetPowerForEachOfYourOtherCreaturesEffect(
+                1000, new TappedCreatureFilter()));
     }
 }
