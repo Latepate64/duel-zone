@@ -13,7 +13,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter);
-    int GetOtherCreatureCount(Guid controller, Guid creature, Civilization civilization);
     int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);
     int GetNumberOfOtherCreaturesControllerByPlayer(ICreature creature);

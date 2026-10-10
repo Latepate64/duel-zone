@@ -12,8 +12,9 @@ public sealed class ChaosFish : Creature
         Civilization.Water)
     {
         AddStaticAbilities(
-            new GetsPowerForEachOtherCivilizationCreatureYouControlEffect(
-                1000, Civilization.Water));
+            new ThisCreatureGetsPowerForEachOfYourOtherCreatures(
+                1000, new CivilizationCreatureFilter(Civilization.Water)
+            ));
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
                 new YouMayDrawCardForEachOtherCreatureYouControlEffect(

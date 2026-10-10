@@ -64,13 +64,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetCreatures(controller).Where(x => x.Id != creature);
     }
 
-    public int GetOtherCreatureCount(
-        Guid controller, Guid creature, Civilization civilization)
-    {
-        return GetOtherCreatures(controller, creature).Count(
-            x => x.HasCivilization(civilization));
-    }
-
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
     {
         return Creatures.Where(c => c.OwnerV2 == player);

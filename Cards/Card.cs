@@ -126,9 +126,12 @@ public abstract class Card(bool tapped, IList<Civilization> civilizations,
     internal bool CountsAsIfExists => Underneath != null;
     IEnumerable<IAbility> Abilities => PrintedAbilities.Union(AddedAbilities);
 
-    public void AddGrantedAbility(IAbility ability)
+    public void AddGrantedAbility(params IAbility[] abilities)
     {
-        AddedAbilities.Add(ability);
+        foreach (var ability in abilities)
+        {
+            AddedAbilities.Add(ability);
+        }
     }
 
     public IList<ICard> Deconstruct(IList<ICard> deconstructred)
