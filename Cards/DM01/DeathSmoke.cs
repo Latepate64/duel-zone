@@ -8,8 +8,13 @@ public sealed class DeathSmoke : Spell
 {
     public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
     {
-        AddSpellAbilities(new ChooseAndDestroyOpponentsCreaturesEffect(
-            1, 1, new UntappedCreatureFilter()
-        ));
+        AddSpellAbilities(
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new UntappedCreatureFilter(),
+                selectionRange: SelectionRange.OpponentsCreatures
+            ));
     }
 }

@@ -10,11 +10,15 @@ public sealed class CometMissile : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new ChooseAndDestroyOpponentsCreaturesEffect(
-                1, 1, new MultiFilter(
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MultiFilter(
                     new BlockerFilter(),
                     new MaxPowerFilter(6000)
-                )
+                ),
+                selectionRange: SelectionRange.OpponentsCreatures
             ));
     }
 }

@@ -1,11 +1,21 @@
-﻿namespace Cards.DM01
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM01;
+
+sealed class TornadoFlame : Spell
 {
-    sealed class TornadoFlame : Spell
+    public TornadoFlame() : base("Tornado Flame", 5, Civilization.Fire)
     {
-        public TornadoFlame() : base("Tornado Flame", 5, Interfaces.Civilization.Fire)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(4000));
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MaxPowerFilter(4000),
+                selectionRange: SelectionRange.OpponentsCreatures
+            ));
     }
 }

@@ -12,7 +12,12 @@ sealed class GachackMechanicalDoll : TurboRushCreature
     {
         AddTurboRushAbility(
             new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(
-                new ChooseAndDestroyCreaturesEffect(
-                    1, 1, new CreatureFilter())));
+                new DestroyEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCreatures
+                )));
     }
 }

@@ -1,10 +1,20 @@
-﻿namespace Cards.DM08
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM08;
+
+sealed class VolcanoCharger : Charger
 {
-    sealed class VolcanoCharger : Charger
+    public VolcanoCharger() : base("Volcano Charger", 4, Civilization.Fire)
     {
-        public VolcanoCharger() : base("Volcano Charger", 4, Interfaces.Civilization.Fire)
-        {
-            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
-        }
+        AddSpellAbilities(
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MaxPowerFilter(2000),
+                selectionRange: SelectionRange.OpponentsCreatures
+            ));
     }
 }

@@ -1,11 +1,22 @@
-﻿namespace Cards.DM06
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM06;
+
+sealed class ProclamationOfDeath : Spell
 {
-    sealed class ProclamationOfDeath : Spell
+    public ProclamationOfDeath() : base("Proclamation of Death", 4,
+        Civilization.Darkness)
     {
-        public ProclamationOfDeath() : base("Proclamation of Death", 4, Interfaces.Civilization.Darkness)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.OpponentSacrificeEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: false,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.OwnCreatures
+            ));
     }
 }

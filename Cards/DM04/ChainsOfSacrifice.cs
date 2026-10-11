@@ -10,9 +10,19 @@ public sealed class ChainsOfSacrifice : Spell
         Civilization.Darkness)
     {
         AddSpellAbilities(
-            new ChooseAndDestroyOpponentsCreaturesEffect(
-                0, 2, new CreatureFilter()
+            new DestroyEffect(
+                minimum: 0,
+                maximum: 2,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.OpponentsCreatures
             ),
-            new SacrificeEffect());
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.OwnCreatures
+            ));
     }
 }

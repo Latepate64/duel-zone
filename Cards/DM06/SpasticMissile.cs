@@ -1,10 +1,20 @@
-﻿namespace Cards.DM06
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM06;
+
+sealed class SpasticMissile : Spell
 {
-    sealed class SpasticMissile : Spell
+    public SpasticMissile() : base("Spastic Missile", 3, Civilization.Fire)
     {
-        public SpasticMissile() : base("Spastic Missile", 3, Interfaces.Civilization.Fire)
-        {
-            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(3000));
-        }
+        AddSpellAbilities(
+            new DestroyEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MaxPowerFilter(3000),
+                selectionRange: SelectionRange.OpponentsCreatures
+            ));
     }
 }

@@ -14,8 +14,12 @@ public sealed class AzaghastTyrantOfShadows : EvolutionCreature
         AddTriggeredAbility(
             new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(
                 Race.Ghost,
-                new ChooseAndDestroyOpponentsCreaturesEffect(
-                    0, 1, new UntappedCreatureFilter()
+                new DestroyEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new UntappedCreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }
