@@ -3,26 +3,40 @@ using ContinuousEffects;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// You may choose one of your opponent's creatures. This turn, that creature
+/// blocks this creature if able and this creature can't be blocked by other
+/// creatures.
+/// </summary>
 public sealed class StormWranglerEffect : OneShotEffect
 {
+    private readonly ICardFilter filter;
+
+    public StormWranglerEffect(ICardFilter filter)
+    {
+        this.filter = filter;
+    }
+
+    public StormWranglerEffect(StormWranglerEffect effect) : base(effect)
+    {
+        filter = effect.filter.Copy();
+    }
+
     public override void Apply(IGame game)
     {
-        var creatures = game.BattleZone.GetChoosableUntappedCreaturesControlledByPlayer(
-            game, GetOpponent(game).Id).Where(x => x.HasBlocker);
-        var creature = Controller.ChooseCardOptionally(creatures, ToString()) as ICreature;
+        var creatures = game.BattleZone.GetOpponentsChoosableCreatures(
+            Applier, filter, game);
+        var creature = Controller.ChooseCardOptionally(
+            creatures, ToString()) as ICreature;
         if (creature != null)
         {
-            game.AddContinuousEffects(Ability, new StormWranglerContinuousEffect(creature));
+            game.AddContinuousEffects(
+                Ability, new StormWranglerContinuousEffect(creature));
         }
     }
 
     public override IOneShotEffect Copy()
     {
-        return new StormWranglerEffect();
-    }
-
-    public override string ToString()
-    {
-        return "You may choose one of your opponent's untapped creatures that has \"blocker.\" This turn, that creature blocks this creature if able and this creature can't be blocked by other creatures.";
+        return new StormWranglerEffect(this);
     }
 }

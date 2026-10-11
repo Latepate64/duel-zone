@@ -13,8 +13,8 @@ public sealed class MetalwingSkyterror : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new DestroyUpToOpponentsCreaturesEffect(
-                    1, new BlockerFilter()
+                new ChooseAndDestroyOpponentsCreaturesEffect(
+                    0, 1, new BlockerFilter()
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

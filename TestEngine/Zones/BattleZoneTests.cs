@@ -25,14 +25,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetChoosableUntappedCreaturesControlledByPlayer()
-    {
-        Assert.Throws<NotImplementedException>(
-            () => new BattleZone().GetChoosableUntappedCreaturesControlledByPlayer(
-                Mock.Of<IGame>(), Guid.NewGuid()));
-    }
-
-    [Fact]
     public void GetChoosableCreaturesControlledByAnyone()
     {
         Assert.Throws<NotImplementedException>(

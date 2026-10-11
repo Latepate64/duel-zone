@@ -12,8 +12,8 @@ public sealed class BonfireLizard : WaveStrikerCreature
     {
         AddWaveStrikerAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyUpToOpponentsCreaturesEffect(
-                    2, new BlockerFilter()
+                new ChooseAndDestroyOpponentsCreaturesEffect(
+                    0, 2, new BlockerFilter()
                 )));
     }
 }

@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM01;
@@ -7,6 +8,8 @@ public sealed class DeathSmoke : Spell
 {
     public DeathSmoke() : base("Death Smoke", 4, Civilization.Darkness)
     {
-        AddSpellAbilities(new DeathSmokeEffect());
+        AddSpellAbilities(new ChooseAndDestroyOpponentsCreaturesEffect(
+            1, 1, new UntappedCreatureFilter()
+        ));
     }
 }
