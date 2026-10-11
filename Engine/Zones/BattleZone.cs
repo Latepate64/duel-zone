@@ -33,12 +33,6 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     public IEnumerable<ICreature>
-        GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
-    {
-        throw new NotImplementedException("TODO REMOVE!");
-    }
-
-    public IEnumerable<ICreature>
         GetChoosableUntappedCreaturesControlledByPlayer(
             IGame game, Guid controller)
     {
