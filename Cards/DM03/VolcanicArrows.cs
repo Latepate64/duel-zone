@@ -10,7 +10,7 @@ sealed class VolcanicArrows : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new ChooseAndDestroyCreatureEffect(new MaxPowerFilter(6000)),
+            new ChooseAndDestroyCreaturesEffect(1, 1, new MaxPowerFilter(6000)),
             new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
     }
 }

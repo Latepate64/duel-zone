@@ -2,27 +2,25 @@
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Destroy a creature.
-/// </summary>
-public sealed class ChooseAndDestroyCreatureEffect : DestroyEffect
+public sealed class ChooseAndDestroyCreaturesEffect : DestroyEffect
 {
     private readonly ICardFilter filter;
 
-    public ChooseAndDestroyCreatureEffect(ICardFilter filter) : base(1, 1, true)
+    public ChooseAndDestroyCreaturesEffect(
+        int min, int max, ICardFilter filter) : base(min, max, true)
     {
         this.filter = filter;
     }
 
-    public ChooseAndDestroyCreatureEffect(
-        ChooseAndDestroyCreatureEffect effect) : base(effect)
+    public ChooseAndDestroyCreaturesEffect(
+        ChooseAndDestroyCreaturesEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
     {
-        return new ChooseAndDestroyCreatureEffect(this);
+        return new ChooseAndDestroyCreaturesEffect(this);
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(

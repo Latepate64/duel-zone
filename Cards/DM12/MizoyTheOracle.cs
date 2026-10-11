@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+sealed class MizoyTheOracle : Creature
 {
-    sealed class MizoyTheOracle : Creature
+    public MizoyTheOracle() : base("Mizoy, the Oracle", 3, 2500,
+        Race.LightBringer, Civilization.Light)
     {
-        public MizoyTheOracle() : base("Mizoy, the Oracle", 3, 2500, Interfaces.Race.LightBringer, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseDarknessOrFireCreatureInTheBattleZoneAndTapItEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ChooseAndTapCreaturesEffect(
+                    0, 1, new CivilizationCreatureFilter(
+                        Civilization.Darkness, Civilization.Fire)
+                )));
     }
 }
