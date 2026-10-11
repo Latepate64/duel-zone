@@ -2,14 +2,20 @@
 using Interfaces;
 using OneShotEffects;
 using Abilities.Static;
+using CardFilters;
 
 namespace Cards.DM02;
 
 public sealed class MetalwingSkyterror : Creature
 {
-    public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000, Race.ArmoredWyvern, Civilization.Fire)
+    public MetalwingSkyterror() : base("Metalwing Skyterror", 7, 6000,
+        Race.ArmoredWyvern, Civilization.Fire)
     {
-        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new MetalwingSkyterrorEffect()));
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new DestroyUpToOpponentsCreaturesEffect(
+                    1, new BlockerFilter()
+                )));
         AddAbilities(new DoubleBreakerAbility());
     }
 }
