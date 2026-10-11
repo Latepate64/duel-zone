@@ -126,4 +126,11 @@ public sealed class BattleZone : Zone, IBattleZone
             creature => game.ContinuousEffects.CanPlayerChooseCreature(
                 player, creature));
     }
+
+    public IEnumerable<ICreature> GetChoosableCreatures(
+        IPlayerV2 player, ICardFilter filter, IGame game)
+    {
+        return GetOpponentsChoosableCreatures(player, filter, game).Union(
+            GetCreaturesControlledByPlayer(player, filter));
+    }
 }

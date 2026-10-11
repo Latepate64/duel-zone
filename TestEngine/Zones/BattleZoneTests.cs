@@ -209,4 +209,41 @@ public sealed class BattleZoneTests
         // Assert
         Assert.Equal(expected, creatures);
     }
+
+    [Theory]
+    [InlineData(false, false, 0)]
+    [InlineData(true, false, 1)]
+    [InlineData(false, true, 1)]
+    [InlineData(true, true, 2)]
+    public void GetChoosableCreatures(
+        bool filterMatchesOwnCreature,
+        bool canBeChosen,
+        int expectedCount)
+    {
+        // Arrange
+        var opponent = Mock.Of<IPlayerV2>();
+        var player = new Mock<IPlayerV2>();
+        player.SetupGet(x => x.Opponent).Returns(opponent);
+        var ownCreature = new Mock<ICreature>();
+        ownCreature.SetupGet(x => x.OwnerV2).Returns(player.Object);
+        var opponentsCreature = new Mock<ICreature>();
+        opponentsCreature.SetupGet(x => x.OwnerV2).Returns(opponent);
+        var zone = new BattleZone();
+        zone.Add(ownCreature.Object);
+        zone.Add(opponentsCreature.Object);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(ownCreature.Object)).Returns(
+            filterMatchesOwnCreature);
+        filter.Setup(x => x.Match(opponentsCreature.Object)).Returns(true);
+        var game = new Mock<IGame>();
+        game.Setup(x => x.ContinuousEffects.CanPlayerChooseCreature(
+            player.Object, opponentsCreature.Object)).Returns(canBeChosen);
+
+        // Act
+        var creatures = zone.GetChoosableCreatures(
+            player.Object, filter.Object, game.Object);
+
+        // Assert
+        Assert.Equal(expectedCount, creatures.Count());
+    }
 }
