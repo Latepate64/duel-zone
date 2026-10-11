@@ -1,12 +1,16 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class Teleportation : Spell
 {
-    sealed class Teleportation : Spell
+    public Teleportation() : base("Teleportation", 5, Civilization.Water)
     {
-        public Teleportation() : base("Teleportation", 5, Interfaces.Civilization.Water)
-        {
-            AddSpellAbilities(new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect());
-        }
+        AddSpellAbilities(
+            new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
+                0, 2, new CreatureFilter()
+        ));
     }
 }

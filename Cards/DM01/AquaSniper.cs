@@ -1,12 +1,19 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class AquaSniper : Creature
 {
-    sealed class AquaSniper : Creature
+    public AquaSniper() : base("Aqua Sniper", 8, 5000, Race.LiquidPeople,
+        Civilization.Water)
     {
-        public AquaSniper() : base("Aqua Sniper", 8, 5000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
+                    0, 2, new CreatureFilter()
+                )));
     }
 }

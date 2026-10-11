@@ -1,13 +1,17 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class SpiralGate : Spell
 {
-    sealed class SpiralGate : Spell
+    public SpiralGate() : base("Spiral Gate", 2, Civilization.Water)
     {
-        public SpiralGate() : base("Spiral Gate", 2, Interfaces.Civilization.Water)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
+                1, 1, new CreatureFilter()
+            ));
     }
 }
