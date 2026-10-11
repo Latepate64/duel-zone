@@ -1,12 +1,17 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM11;
 
 public sealed class MiraculousSnare : Spell
 {
-    public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light, Civilization.Water)
+    public MiraculousSnare() : base("Miraculous Snare", 3, Civilization.Light,
+        Civilization.Water)
     {
-        AddSpellAbilities(new MiraculousSnareEffect());
+        AddSpellAbilities(
+            new ChooseAndShieldifyCreatureEffect(
+                new NonEvolutionCreatureFilter()
+            ));
     }
 }
