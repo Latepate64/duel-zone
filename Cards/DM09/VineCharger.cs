@@ -1,10 +1,20 @@
-﻿namespace Cards.DM09
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM09;
+
+sealed class VineCharger : Charger
 {
-    sealed class VineCharger : Charger
+    public VineCharger() : base("Vine Charger", 4, Civilization.Nature)
     {
-        public VineCharger() : base("Vine Charger", 4, Interfaces.Civilization.Nature)
-        {
-            AddSpellAbilities(new OneShotEffects.YourOpponentChoosesOneOfHisCreaturesInTheBattleZoneAndPutsItIntoHisManaZoneEffect());
-        }
+        AddSpellAbilities(
+            new ManaFeedEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: false,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.OwnCreatures
+        ));
     }
 }
