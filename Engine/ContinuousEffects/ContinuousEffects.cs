@@ -132,10 +132,10 @@ public sealed class ContinuousEffects : IContinuousEffects
             e => e.PlayerCannotTapCreature(player, card, Game));
     }
 
-    public bool CanPlayerChooseCreature(IPlayer player, ICreature card)
+    public bool CanPlayerChooseCreature(IPlayerV2 player, ICreature card)
     {
         return !GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(
-            x => x.PlayerCannotChooseCreature(card, player.Id, Game));
+            x => x.PlayerCannotChooseCreature(card, player, Game));
     }
 
     public bool DoesCreatureGetDestroyedInBattle(

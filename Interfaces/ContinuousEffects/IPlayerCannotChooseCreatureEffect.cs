@@ -1,7 +1,7 @@
-﻿namespace Interfaces.ContinuousEffects
+﻿namespace Interfaces.ContinuousEffects;
+
+public interface IPlayerCannotChooseCreatureEffect : IContinuousEffect
 {
-    public interface IPlayerCannotChooseCreatureEffect : IContinuousEffect
-    {
-        bool PlayerCannotChooseCreature(ICreature creature, System.Guid player, IGame game);
-    }
+    bool PlayerCannotChooseCreature(
+        ICreature creature, IPlayerV2 player, IGame game);
 }

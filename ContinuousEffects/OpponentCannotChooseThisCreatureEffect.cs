@@ -3,15 +3,15 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, IPlayerCannotChooseCreatureEffect
+/// <summary>
+/// Whenever your opponent would choose a creature in the battle zone, he can't
+/// choose this one.
+/// </summary>
+public sealed class OpponentCannotChooseThisCreatureEffect : ContinuousEffect,
+    IPlayerCannotChooseCreatureEffect
 {
     public OpponentCannotChooseThisCreatureEffect() : base()
     {
-    }
-
-    public bool PlayerCannotChooseCreature(ICreature creature, System.Guid player, IGame game)
-    {
-        return IsSourceOfAbility(creature) && player == game.GetOpponent(Controller).Id;
     }
 
     public override IContinuousEffect Copy()
@@ -19,8 +19,11 @@ public sealed class OpponentCannotChooseThisCreatureEffect : ContinuousEffect, I
         return new OpponentCannotChooseThisCreatureEffect();
     }
 
-    public override string ToString()
+    public bool PlayerCannotChooseCreature(
+        ICreature creature, IPlayerV2 player, IGame game)
     {
-        return "Whenever your opponent would choose a creature in the battle zone, he can't choose this one.";
+        if (!IsSourceOfAbility(creature)) return false;
+        if (!player.Equals(Applier.Opponent)) return false;
+        return true;
     }
 }

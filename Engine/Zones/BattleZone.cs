@@ -29,33 +29,26 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(
         IGame game, Guid owner)
     {
-        var opponent = game.GetPlayer(game.GetOpponent(owner));
-        return GetCreatures(owner).Where(
-            creature => game.ContinuousEffects.CanPlayerChooseCreature(
-                opponent, creature));
+        throw new NotImplementedException("TODO REMOVE!");
     }
 
     public IEnumerable<ICreature>
         GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
     {
-        return GetChoosableCreaturesControlledByPlayer(game, owner).Where(
-            x => x.IsEvolutionCreature);
+        throw new NotImplementedException("TODO REMOVE!");
     }
 
     public IEnumerable<ICreature>
         GetChoosableUntappedCreaturesControlledByPlayer(
             IGame game, Guid controller)
     {
-        return GetChoosableCreaturesControlledByPlayer(game, controller).Where(
-            x => !x.Tapped);
+        throw new NotImplementedException("TODO REMOVE!");
     }
 
     public IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(
         IGame game, Guid owner)
     {
-        return GetCreatures(owner).Union(
-            GetChoosableCreaturesControlledByPlayer(
-                game, game.GetOpponent(owner)));
+        throw new NotImplementedException("TODO REMOVE!");
     }
 
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
@@ -137,5 +130,13 @@ public sealed class BattleZone : Zone, IBattleZone
         IPlayerV2 applier, ICardFilter filter)
     {
         return GetCreaturesControlledByPlayer(applier, filter).Any();
+    }
+
+    public IEnumerable<ICreature> GetOpponentsChoosableCreatures(
+        IPlayerV2 player, ICardFilter filter, IGame game)
+    {
+        return GetCreaturesControlledByPlayer(player.Opponent, filter).Where(
+            creature => game.ContinuousEffects.CanPlayerChooseCreature(
+                player, creature));
     }
 }
