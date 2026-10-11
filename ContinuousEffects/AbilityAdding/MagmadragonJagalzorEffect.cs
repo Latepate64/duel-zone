@@ -21,7 +21,7 @@ public sealed class MagmadragonJagalzorEffect : ContinuousEffect,
 
     public void AddAbility(IGame game)
     {
-        var creatures = game.BattleZone.GetCreaturesControllerByPlayer(
+        var creatures = game.BattleZone.GetCreaturesControlledByPlayer(
             Source!.OwnerV2);
         foreach (var creature in creatures)
         {

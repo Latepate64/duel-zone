@@ -19,7 +19,14 @@ public sealed class TechnoTotem : Creature
                 new StaticAbility(new PowerAttackerEffect(1500))
             )
         );
-        AddAbilities(new TapAbility(
-            new ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
+        AddAbilities(
+            new TapAbility(
+                new TapChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    ownerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
+                )));
     }
 }

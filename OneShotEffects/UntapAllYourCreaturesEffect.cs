@@ -28,6 +28,6 @@ public sealed class UntapAllYourCreaturesEffect : UntapAreaOfEffect
     protected override IEnumerable<ICard> GetAffectedCards(
         IGame game, IAbility source)
     {
-        return game.BattleZone.GetCreaturesControllerByPlayer(Applier);
+        return game.BattleZone.GetCreaturesControlledByPlayer(Applier);
     }
 }

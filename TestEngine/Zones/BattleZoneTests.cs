@@ -203,13 +203,22 @@ public sealed class BattleZoneTests
     }
 
     [Theory]
-    [InlineData(false, false, 0)]
-    [InlineData(true, false, 1)]
-    [InlineData(false, true, 1)]
-    [InlineData(true, true, 2)]
+    [InlineData(false, false, SelectionRange.AllCreatures, 0)]
+    [InlineData(true, false, SelectionRange.AllCreatures, 1)]
+    [InlineData(false, true, SelectionRange.AllCreatures, 1)]
+    [InlineData(true, true, SelectionRange.AllCreatures, 2)]
+    [InlineData(false, false, SelectionRange.OpponentsCreatures, 0)]
+    [InlineData(true, false, SelectionRange.OpponentsCreatures, 0)]
+    [InlineData(false, true, SelectionRange.OpponentsCreatures, 1)]
+    [InlineData(true, true, SelectionRange.OpponentsCreatures, 1)]
+    [InlineData(false, false, SelectionRange.OwnCreatures, 0)]
+    [InlineData(true, false, SelectionRange.OwnCreatures, 1)]
+    [InlineData(false, true, SelectionRange.OwnCreatures, 0)]
+    [InlineData(true, true, SelectionRange.OwnCreatures, 1)]
     public void GetChoosableCreatures(
         bool filterMatchesOwnCreature,
         bool canBeChosen,
+        SelectionRange selectionRange,
         int expectedCount)
     {
         // Arrange
@@ -233,7 +242,7 @@ public sealed class BattleZoneTests
 
         // Act
         var creatures = zone.GetChoosableCreatures(
-            player.Object, filter.Object, game.Object);
+            player.Object, filter.Object, game.Object, selectionRange);
 
         // Assert
         Assert.Equal(expectedCount, creatures.Count());

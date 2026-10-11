@@ -10,7 +10,7 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
-    IEnumerable<ICreature> GetCreaturesControllerByPlayer(IPlayerV2 player);
+    IEnumerable<ICreature> GetCreaturesControlledByPlayer(IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter);
     int GetNumberOfCreaturesControllerByPlayer(
@@ -23,4 +23,6 @@ public interface IBattleZone : IZone
         ICreature creature, ICardFilter filter);
     int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);
     IEnumerable<ICreature> GetCreatures(ICardFilter filter);
+    IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 applier,
+        ICardFilter filter, IGame game, SelectionRange selectionRange);
 }

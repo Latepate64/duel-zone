@@ -12,9 +12,13 @@ sealed class LeQuistTheOracle : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ChooseAndTapCreaturesEffect(
-                    0, 1, new CivilizationCreatureFilter(
-                        Civilization.Darkness, Civilization.Fire)
+                new TapChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    ownerChooses: true,
+                    filter: new CivilizationCreatureFilter(
+                        Civilization.Darkness, Civilization.Fire),
+                    selectionRange: SelectionRange.AllCreatures
                 )));
     }
 }

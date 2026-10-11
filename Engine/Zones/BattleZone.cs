@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Interfaces;
 using Interfaces.Zones;
@@ -47,7 +48,7 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreaturesControlledByPlayer(excluded).Count();
     }
 
-    public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+    public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player)
     {
         return Creatures.Where(x => x.OwnerV2.Equals(player));
@@ -62,7 +63,7 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature excluded)
     {
-        return GetCreaturesControllerByPlayer(excluded.OwnerV2).Where(
+        return GetCreaturesControlledByPlayer(excluded.OwnerV2).Where(
             x => !x.Equals(excluded));
     }
 
@@ -76,7 +77,7 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter)
     {
-        return GetCreaturesControllerByPlayer(player).Where(filter.Match);
+        return GetCreaturesControlledByPlayer(player).Where(filter.Match);
     }
 
     public int GetNumberOfCreaturesControllerByPlayer(
@@ -126,5 +127,20 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return GetOpponentsChoosableCreatures(player, filter, game).Union(
             GetCreaturesControlledByPlayer(player, filter));
+    }
+
+    public IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 player,
+        ICardFilter filter, IGame game, SelectionRange selectionRange)
+    {
+        return selectionRange switch
+        {
+            SelectionRange.OpponentsCreatures => GetOpponentsChoosableCreatures(
+                player, filter, game),
+            SelectionRange.AllCreatures => GetChoosableCreatures(
+                player, filter, game),
+            SelectionRange.OwnCreatures => GetCreaturesControlledByPlayer(
+                player, filter),
+            _ => throw new InvalidEnumArgumentException()
+        };
     }
 }

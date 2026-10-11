@@ -12,7 +12,13 @@ sealed class ArcBineTheAstounding : EvolutionCreature
     {
         AddStaticAbilities(
             new TapAbilityAddingEffect(
-                new ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect(),
+                new TapChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    ownerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
+                ),
                 new CivilizationCreatureFilter(Civilization.Light)));
     }
 }
