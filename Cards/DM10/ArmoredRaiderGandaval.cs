@@ -1,14 +1,18 @@
 ﻿using Abilities.Static;
+using CardFilters;
 using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class ArmoredRaiderGandaval : EvolutionCreature
 {
-    sealed class ArmoredRaiderGandaval : EvolutionCreature
+    public ArmoredRaiderGandaval() : base("Armored Raider Gandaval", 5, 6000,
+        Race.Human, Civilization.Fire)
     {
-        public ArmoredRaiderGandaval() : base("Armored Raider Gandaval", 5, 6000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
-        {
-            AddStaticAbilities(new DogarnTheMarauderEffect(2000));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddStaticAbilities(
+            new WhileAttackingGetPowerForEachOfYourOtherCreaturesEffect(
+                2000, new TappedCreatureFilter()));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

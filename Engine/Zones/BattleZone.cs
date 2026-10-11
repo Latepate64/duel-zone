@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Interfaces;
 using Interfaces.Zones;
@@ -29,106 +30,7 @@ public sealed class BattleZone : Zone, IBattleZone
     public IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(
         IGame game, Guid owner)
     {
-        var opponent = game.GetPlayer(game.GetOpponent(owner));
-        return GetCreatures(owner).Where(
-            creature => game.ContinuousEffects.CanPlayerChooseCreature(
-                opponent, creature));
-    }
-
-    public IEnumerable<ICreature>
-        GetChoosableEvolutionCreaturesControlledByPlayer(IGame game, Guid owner)
-    {
-        return GetChoosableCreaturesControlledByPlayer(game, owner).Where(
-            x => x.IsEvolutionCreature);
-    }
-
-    public IEnumerable<ICreature>
-        GetChoosableUntappedCreaturesControlledByPlayer(
-            IGame game, Guid controller)
-    {
-        return GetChoosableCreaturesControlledByPlayer(game, controller).Where(
-            x => !x.Tapped);
-    }
-
-    public IEnumerable<ICreature> GetChoosableCreaturesControlledByAnyone(
-        IGame game, Guid owner)
-    {
-        return GetCreatures(owner).Union(
-            GetChoosableCreaturesControlledByPlayer(
-                game, game.GetOpponent(owner)));
-    }
-
-    public IEnumerable<ICreature> GetCreatures(Guid controller, Race race)
-    {
-        return GetCreatures(controller).Where(x => x.HasRace(race));
-    }
-
-    public int GetCreatureCount(Guid controller, Race race)
-    {
-        return GetCreatures(controller, race).Count();
-    }
-
-    public IEnumerable<ICreature> GetCreatures(
-        Guid controller, Race race1, Race race2)
-    {
-        return GetCreatures(controller).Where(
-            x => x.HasRace(race1) || x.HasRace(race2));
-    }
-
-    public IEnumerable<ICreature> GetCreatures(
-        Guid controller, Civilization civilization)
-    {
-        return GetCreatures(controller).Where(
-            x => x.HasCivilization(civilization));
-    }
-
-    public IEnumerable<ICreature> GetCreatures(
-        Guid controller, Civilization civilization1, Civilization civilization2)
-    {
-        return GetCreatures(controller).Where(
-            x => x.HasCivilization(civilization1, civilization2));
-    }
-
-    public IEnumerable<ICreature> GetOtherCreatures(
-        Guid controller, Guid creature)
-    {
-        return GetCreatures(controller).Where(x => x.Id != creature);
-    }
-
-    public int GetOtherCreatureCount(
-        Guid controller, Guid creature, Civilization civilization)
-    {
-        return GetOtherCreatures(controller, creature).Count(
-            x => x.HasCivilization(civilization));
-    }
-        
-    public IEnumerable<ICreature> GetOtherTappedCreatures(
-        Guid controller, Guid creature)
-    {
-        return GetOtherCreatures(controller, creature).Where(x => x.Tapped);
-    }
-
-    public IEnumerable<ICreature> GetOtherUntappedCreatures(
-        Guid controller, Guid creature)
-    {
-        return GetOtherCreatures(controller, creature).Where(x => !x.Tapped);
-    }
-
-    public IEnumerable<ICreature> GetOtherCreatures(
-        Guid creature, Civilization civilization)
-    {
-        return GetOtherCreatures(creature).Where(
-            x => x.HasCivilization(civilization));
-    }
-
-    public int GetOtherCreatureCount(Guid creature, Race race)
-    {
-        return GetOtherCreatures(creature).Count(x => x.HasRace(race));
-    }
-
-    public IEnumerable<ICreature> GetTappedCreatures(Guid controller)
-    {
-        return GetCreatures(controller).Where(x => x.Tapped);
+        throw new NotImplementedException("TODO REMOVE!");
     }
 
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
@@ -141,61 +43,104 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetCreatures(player).Where(x => !x.Tapped);
     }
 
-    public IEnumerable<ICreature> CreaturesThatHaveBlockerOwnedBy(
-        IPlayer player)
-    {
-        return CreaturesThatHaveBlocker.Where(c => c.Owner == player);
-    }
-
     public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
     {
-        return GetOtherCreaturesControllerByPlayer(excluded).Count();
+        return GetOtherCreaturesControlledByPlayer(excluded).Count();
     }
 
-    public int GetNumberOfOtherRaceCreaturesControllerByPlayer(
-        ICreature excluded, Race race)
-    {
-        return GetOtherCreaturesControllerByPlayer(excluded).Count(
-            x => x.HasRace(race));
-    }
-
-    public int GetNumberOfOtherDragonsControllerByPlayer(ICreature excluded)
-    {
-        return GetOtherCreaturesControllerByPlayer(excluded).Count(
-            x => x.IsDragon);
-    }
-
-    public IEnumerable<ICreature>
-        GetOtherCivilizationCreaturesControllerByPlayer(
-            ICreature excluded, Civilization civilization)
-    {
-        return GetOtherCreaturesControllerByPlayer(excluded).Where(
-            x => x.HasCivilization(civilization));
-    }
-
-    public IEnumerable<ICreature> CreaturesThatHaveBlocker => Creatures.Where(
-        x => x.IsBlocker);
-
-    public IEnumerable<ICreature> CreaturesThatDoNotHaveBlocker => Creatures
-        .Where(x => !x.IsBlocker);
-
-    public IEnumerable<ICreature> GetCreaturesWithSilentSkillControllerByPlayer(
-        IPlayerV2 player)
-    {
-        return GetCreaturesControllerByPlayer(player).Where(
-            x => x.HasAbility<ISilentSkillAbility>());
-    }
-
-    public IEnumerable<ICreature> GetCreaturesControllerByPlayer(
+    public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player)
     {
         return Creatures.Where(x => x.OwnerV2.Equals(player));
     }
 
-    IEnumerable<ICreature> GetOtherCreaturesControllerByPlayer(
+    public int GetNumberOfOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter)
+    {
+        return GetOtherCreaturesControlledByPlayer(creature, filter).Count();
+    }
+
+    public IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature excluded)
     {
-        return GetCreaturesControllerByPlayer(excluded.OwnerV2).Where(
+        return GetCreaturesControlledByPlayer(excluded.OwnerV2).Where(
             x => !x.Equals(excluded));
+    }
+
+    public IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
+        ICreature excluded, ICardFilter filter)
+    {
+        return GetOtherCreaturesControlledByPlayer(excluded).Where(
+            filter.Match);
+    }
+
+    public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
+        IPlayerV2 player, ICardFilter filter)
+    {
+        return GetCreaturesControlledByPlayer(player).Where(filter.Match);
+    }
+
+    public int GetNumberOfCreaturesControllerByPlayer(
+        IPlayerV2 player, ICardFilter filter)
+    {
+        return GetCreaturesControlledByPlayer(player, filter).Count();
+    }
+
+    public bool HasOtherCreaturesControllerByPlayer(
+        ICreature creature, ICardFilter filter)
+    {
+        return GetOtherCreaturesControlledByPlayer(creature, filter).Any();
+    }
+
+    public int GetNumberOfOtherCreatures(ICreature excluded, ICardFilter filter)
+    {
+        return GetOtherCreatures(excluded, filter).Count();
+    }
+
+    IEnumerable<ICreature> GetOtherCreatures(
+        ICreature excluded, ICardFilter filter)
+    {
+        return GetCreatures(filter).Where(x => !x.Equals(excluded));
+    }
+
+    public IEnumerable<ICreature> GetCreatures(ICardFilter filter)
+    {
+        return Creatures.Where(filter.Match);
+    }
+
+    public bool HasCreaturesControllerByPlayer(
+        IPlayerV2 applier, ICardFilter filter)
+    {
+        return GetCreaturesControlledByPlayer(applier, filter).Any();
+    }
+
+    public IEnumerable<ICreature> GetOpponentsChoosableCreatures(
+        IPlayerV2 player, ICardFilter filter, IGame game)
+    {
+        return GetCreaturesControlledByPlayer(player.Opponent, filter).Where(
+            creature => game.ContinuousEffects.CanPlayerChooseCreature(
+                player, creature));
+    }
+
+    public IEnumerable<ICreature> GetChoosableCreatures(
+        IPlayerV2 player, ICardFilter filter, IGame game)
+    {
+        return GetOpponentsChoosableCreatures(player, filter, game).Union(
+            GetCreaturesControlledByPlayer(player, filter));
+    }
+
+    public IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 player,
+        ICardFilter filter, IGame game, SelectionRange selectionRange)
+    {
+        return selectionRange switch
+        {
+            SelectionRange.OpponentsCreatures => GetOpponentsChoosableCreatures(
+                player, filter, game),
+            SelectionRange.AllCreatures => GetChoosableCreatures(
+                player, filter, game),
+            SelectionRange.OwnCreatures => GetCreaturesControlledByPlayer(
+                player, filter),
+            _ => throw new InvalidEnumArgumentException()
+        };
     }
 }

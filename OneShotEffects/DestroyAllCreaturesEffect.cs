@@ -4,12 +4,17 @@ namespace OneShotEffects;
 
 public sealed class DestroyAllCreaturesEffect : DestroyAreaOfEffect
 {
-    public DestroyAllCreaturesEffect() : base()
+    private readonly ICardFilter filter;
+
+    public DestroyAllCreaturesEffect(ICardFilter filter) : base()
     {
+        this.filter = filter;
     }
 
-    public DestroyAllCreaturesEffect(DestroyAreaOfEffect effect) : base(effect)
+    public DestroyAllCreaturesEffect(DestroyAllCreaturesEffect effect) : base(
+        effect)
     {
+        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -17,13 +22,9 @@ public sealed class DestroyAllCreaturesEffect : DestroyAreaOfEffect
         return new DestroyAllCreaturesEffect(this);
     }
 
-    public override string ToString()
+    protected override IEnumerable<ICard> GetAffectedCards(
+        IGame game, IAbility source)
     {
-        return "Destroy all creatures.";
-    }
-
-    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-    {
-        return game.BattleZone.Creatures;
+        return game.BattleZone.GetCreatures(filter);
     }
 }

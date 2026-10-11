@@ -1,12 +1,23 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class RomVizierOfTendrils : Creature
 {
-    sealed class RomVizierOfTendrils : Creature
+    public RomVizierOfTendrils() : base("Rom, Vizier of Tendrils", 4, 2000,
+        Race.Initiate, Civilization.Light)
     {
-        public RomVizierOfTendrils() : base("Rom, Vizier of Tendrils", 4, 2000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new TapChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    ownerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
+                )));
     }
 }

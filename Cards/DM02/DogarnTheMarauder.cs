@@ -1,12 +1,16 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class DogarnTheMarauder : Creature
 {
-    sealed class DogarnTheMarauder : Creature
+    public DogarnTheMarauder() : base("Dogarn, the Marauder", 3, 2000,
+        Race.Armorloid, Civilization.Fire)
     {
-        public DogarnTheMarauder() : base("Dogarn, the Marauder", 3, 2000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
-        {
-            AddStaticAbilities(new DogarnTheMarauderEffect(2000));
-        }
+        AddStaticAbilities(
+            new WhileAttackingGetPowerForEachOfYourOtherCreaturesEffect(
+                2000, new TappedCreatureFilter()));
     }
 }

@@ -272,12 +272,12 @@ public sealed class ContinuousEffectsTests
     public void CanPlayerChooseCreature(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IPlayerCannotChooseCreatureEffect>();
         effect.Setup(x => x.PlayerCannotChooseCreature(
-            creature, player.Id, game)).Returns(!expected);
+            creature, player, game)).Returns(!expected);
         var effects = new ContinuousEffects(game);
         effects.Add(Mock.Of<IAbility>(), effect.Object);
 

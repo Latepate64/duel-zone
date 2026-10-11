@@ -1,10 +1,20 @@
-﻿namespace Cards.DM11
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM11;
+
+sealed class SolarTrap : Spell
 {
-    sealed class SolarTrap : Spell
+    public SolarTrap() : base("Solar Trap", 1, Civilization.Light)
     {
-        public SolarTrap() : base("Solar Trap", 1, Interfaces.Civilization.Light)
-        {
-            AddSpellAbilities(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
-        }
+        AddSpellAbilities(
+            new TapChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                ownerChooses: true,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.OpponentsCreatures
+            ));
     }
 }

@@ -1,12 +1,19 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 
 namespace Cards.DM10;
 
 public sealed class MykeesPliers : Creature
 {
-    public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Race.Xenoparts, Civilization.Fire)
+    public MykeesPliers() : base("Mykee's Pliers", 4, 2000, Race.Xenoparts,
+        Civilization.Fire)
     {
-        AddStaticAbilities(new MykeesPliersEffect());
+        AddStaticAbilities(new EachOfYourCreaturesHasAbilityEffect(
+            new SpeedAttackerAbility(),
+            new CivilizationCreatureFilter(
+                Civilization.Water, Civilization.Nature)
+        ));
     }
 }

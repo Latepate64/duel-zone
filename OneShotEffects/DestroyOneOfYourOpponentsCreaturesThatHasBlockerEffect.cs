@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using Interfaces;
+﻿using Interfaces;
 
 namespace OneShotEffects;
 
@@ -27,6 +26,6 @@ public sealed class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : Des
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetChoosableCreaturesControlledByPlayer(
-            game, GetOpponent(game).Id).Where(x => x.IsBlocker);
+            game, GetOpponent(game).Id).Where(x => x.HasBlocker);
     }
 }

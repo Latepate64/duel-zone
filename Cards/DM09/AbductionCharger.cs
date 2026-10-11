@@ -1,12 +1,16 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+sealed class AbductionCharger : Charger
 {
-    sealed class AbductionCharger : Charger
+    public AbductionCharger() : base("Abduction Charger", 7, Civilization.Water)
     {
-        public AbductionCharger() : base("Abduction Charger", 7, Interfaces.Civilization.Water)
-        {
-            AddSpellAbilities(new ChooseUpTo2CreaturesInTheBattleZoneAndReturnThemToTheirOwnersHandsEffect());
-        }
+        AddSpellAbilities(
+            new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
+                0, 2, new CreatureFilter()
+            ));
     }
 }

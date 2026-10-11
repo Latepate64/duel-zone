@@ -1,12 +1,20 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class VirtualTripwire : Spell
 {
-    sealed class VirtualTripwire : Spell
+    public VirtualTripwire() : base("Virtual Tripwire", 3, Civilization.Water)
     {
-        public VirtualTripwire() : base("Virtual Tripwire", 3, Interfaces.Civilization.Water)
-        {
-            AddSpellAbilities(new ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect());
-        }
+        AddSpellAbilities(
+            new TapChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                ownerChooses: true,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.OpponentsCreatures
+            ));
     }
 }

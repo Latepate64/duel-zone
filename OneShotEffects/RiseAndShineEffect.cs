@@ -15,7 +15,7 @@ public sealed class RiseAndShineEffect : OneShotEffect
     public override void Apply(IGame game)
     {
         var cards = Controller.RevealTopCardsOfDeck(4, game);
-        var blockers = cards.OfType<ICreature>().Where(x => x.IsBlocker);
+        var blockers = cards.OfType<ICreature>().Where(x => x.HasBlocker);
         var chosen = Controller.ChooseCard(blockers, ToString());
         game.Move(Ability, ZoneType.Deck, ZoneType.Hand, chosen);
         Controller.PutOnTheBottomOfDeckInAnyOrder([.. cards.Where(x => x != chosen)]);

@@ -1,13 +1,19 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
+using CardFilters;
 
 namespace Cards.DM11;
 
 public sealed class BonfireLizard : WaveStrikerCreature
 {
-    public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Race.MeltWarrior, Civilization.Fire)
+    public BonfireLizard() : base("Bonfire Lizard", 6, 4000, Race.MeltWarrior,
+        Civilization.Fire)
     {
-        AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BonfireLizardEffect()));
+        AddWaveStrikerAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ChooseAndDestroyOpponentsCreaturesEffect(
+                    0, 2, new BlockerFilter()
+                )));
     }
 }

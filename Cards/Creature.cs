@@ -140,7 +140,9 @@ public class Creature : Card, ICreature
         AddAbilities(ability);
     }
 
-    public bool IsBlocker => GetAbilities<IBlockerAbility>().Any();
+    public bool HasBlocker => GetAbilities<IBlockerAbility>().Any();
+
+    public bool HasSilentSkill => GetAbilities<ISilentSkillAbility>().Any();
 
     public IEnumerable<ITapAbility> GetTapAbilities()
     {
@@ -164,6 +166,6 @@ public class Creature : Card, ICreature
 
     public bool HasAbility<T>() where T : IAbility
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 }

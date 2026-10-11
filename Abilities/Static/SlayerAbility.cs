@@ -8,22 +8,50 @@ namespace Abilities.Static;
 /// </summary>
 public class SlayerAbility : StaticAbility, ISlayerAbility
 {
+    private readonly ICardFilter? defendingCreatureFilter;
+
     public SlayerAbility()
     {
     }
 
-    public SlayerAbility(SlayerAbility ability) : base(ability)
+    public SlayerAbility(ICardFilter defendingCreatureFilter)
     {
+        this.defendingCreatureFilter = defendingCreatureFilter;
     }
 
-    public bool Applies(ICreature creature, ICreature against)
+    public SlayerAbility(SlayerAbility ability) : base(ability)
     {
-        if (creature.Equals(Source)) return true;
-        return false;
+        defendingCreatureFilter = ability.defendingCreatureFilter?.Copy();
+    }
+
+    public bool Applies(ICreature creature, ICreature defendingCreature)
+    {
+        if (!creature.Equals(Source)) return false;
+        if (defendingCreatureFilter == null) return true;
+        if (!defendingCreatureFilter.Match(defendingCreature)) return false;
+        return true;
     }
 
     public override IAbility Copy()
     {
         return new SlayerAbility(this);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not SlayerAbility ability) return false;
+        if (defendingCreatureFilter == null &&
+            ability.defendingCreatureFilter != null) return false;
+        if (defendingCreatureFilter != null &&
+            !defendingCreatureFilter.Equals(
+                ability.defendingCreatureFilter)) return false;
+        return true;
+        
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(defendingCreatureFilter);
     }
 }

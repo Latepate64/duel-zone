@@ -1,13 +1,23 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class MieleVizierOfLightning : Creature
 {
-    sealed class MieleVizierOfLightning : Creature
+    public MieleVizierOfLightning() : base("Miele, Vizier of Lightning", 3,
+        1000, Race.Initiate, Civilization.Light)
     {
-        public MieleVizierOfLightning() : base("Miele, Vizier of Lightning", 3, 1000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayChooseOneOfYourOpponentsCreaturesAndTapItEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new TapChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    ownerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
+                )));
     }
 }

@@ -1,12 +1,15 @@
 ﻿using Abilities.Static;
+using CardFilters;
+using Interfaces;
 
-namespace Cards.Promo
+namespace Cards.Promo;
+
+sealed class ÜberdragonZaschack : EvolutionCreature
 {
-    sealed class ÜberdragonZaschack : EvolutionCreature
+    public ÜberdragonZaschack() : base("Überdragon Zaschack", 9, 11000,
+        Race.ArmoredDragon, Civilization.Fire)
     {
-        public ÜberdragonZaschack() : base("Überdragon Zaschack", 9, 11000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
-        {
-            AddAbilities(new CrewBreakerRaceAbility(Interfaces.Race.ArmoredDragon));
-        }
+        AddAbilities(new CrewBreakerAbility(new RaceCreatureFilter(
+            Race.ArmoredDragon)));
     }
 }

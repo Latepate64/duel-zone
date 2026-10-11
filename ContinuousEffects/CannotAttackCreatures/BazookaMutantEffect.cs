@@ -15,7 +15,7 @@ public sealed class BazookaMutantEffect : ContinuousEffect, ICannotAttackCreatur
 
     public bool CannotAttackCreature(ICreature attacker, ICreature target, IGame game)
     {
-        return IsSourceOfAbility(attacker) && !target.IsBlocker;
+        return IsSourceOfAbility(attacker) && !target.HasBlocker;
     }
 
     public override IContinuousEffect Copy()

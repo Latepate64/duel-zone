@@ -20,7 +20,7 @@ public interface ICard
     ICard Underneath { get; set; }
     bool IsMultiColored { get; }
 
-    void AddGrantedAbility(IAbility ability);
+    void AddGrantedAbility(params IAbility[] ability);
     ICard Copy();
     IList<ICard> Deconstruct(IList<ICard> deconstructred);
     IEnumerable<T> GetAbilities<T>();

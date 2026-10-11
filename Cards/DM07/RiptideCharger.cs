@@ -1,10 +1,16 @@
-﻿namespace Cards.DM07
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM07;
+
+sealed class RiptideCharger : Charger
 {
-    sealed class RiptideCharger : Charger
+    public RiptideCharger() : base("Riptide Charger", 5, Civilization.Water)
     {
-        public RiptideCharger() : base("Riptide Charger", 5, Interfaces.Civilization.Water)
-        {
-            AddSpellAbilities(new OneShotEffects.ChooseCreaturesInTheBattleZoneAndReturnItToItsOwnersHandEffect());
-        }
+        AddSpellAbilities(
+            new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
+                1, 1, new CreatureFilter()
+            ));
     }
 }

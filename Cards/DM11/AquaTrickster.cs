@@ -1,12 +1,23 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+sealed class AquaTrickster : WaveStrikerCreature
 {
-    sealed class AquaTrickster : WaveStrikerCreature
+    public AquaTrickster() : base("Aqua Trickster", 2, 1000, Race.LiquidPeople,
+        Civilization.Water)
     {
-        public AquaTrickster() : base("Aqua Trickster", 2, 1000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
-        {
-            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseOneOfYourOpponentsCreaturesInTheBattleZoneAndTapItEffect()));
-        }
+        AddWaveStrikerAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new TapChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    ownerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
+                )));
     }
 }

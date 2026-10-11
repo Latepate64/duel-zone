@@ -1,5 +1,4 @@
 ﻿using Abilities.Static;
-using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM06
 {

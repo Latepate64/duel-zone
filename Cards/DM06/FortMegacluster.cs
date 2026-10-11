@@ -1,12 +1,18 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using CardFilters;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class FortMegacluster : EvolutionCreature
 {
-    sealed class FortMegacluster : EvolutionCreature
+    public FortMegacluster() : base("Fort Megacluster", 5, 5000,
+        Race.CyberCluster, Civilization.Water)
     {
-        public FortMegacluster() : base("Fort Megacluster", 5, 5000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
-        {
-            AddStaticAbilities(new TapAbilityAddingEffect(Interfaces.Civilization.Water, new OneShotEffects.DrawCardEffect()));
-        }
+        AddStaticAbilities(
+            new TapAbilityAddingEffect(
+                new DrawCardEffect(),
+                new CivilizationCreatureFilter(Civilization.Water)));
     }
 }

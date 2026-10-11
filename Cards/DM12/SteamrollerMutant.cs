@@ -1,12 +1,17 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+sealed class SteamrollerMutant : WaveStrikerCreature
 {
-    sealed class SteamrollerMutant : WaveStrikerCreature
+    public SteamrollerMutant() : base("Steamroller Mutant", 4, 3000,
+        Race.Hedrian, Civilization.Darkness)
     {
-        public SteamrollerMutant() : base("Steamroller Mutant", 4, 3000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
-        {
-            AddWaveStrikerAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.DestroyAllCreaturesEffect()));
-        }
+        AddWaveStrikerAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new DestroyAllCreaturesEffect(new CreatureFilter())));
     }
 }

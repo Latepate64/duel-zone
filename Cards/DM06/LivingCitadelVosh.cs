@@ -1,12 +1,18 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using CardFilters;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class LivingCitadelVosh : EvolutionCreature
 {
-    sealed class LivingCitadelVosh : EvolutionCreature
+    public LivingCitadelVosh() : base("Living Citadel Vosh", 5, 5000,
+        Race.ColonyBeetle, Civilization.Nature)
     {
-        public LivingCitadelVosh() : base("Living Citadel Vosh", 5, 5000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new TapAbilityAddingEffect(Interfaces.Civilization.Nature, new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect()));
-        }
+        AddStaticAbilities(
+            new TapAbilityAddingEffect(
+                new PutTopCardOfDeckIntoManaZoneEffect(),
+                new CivilizationCreatureFilter(Civilization.Nature)));
     }
 }

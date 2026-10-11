@@ -1,10 +1,15 @@
-﻿namespace Cards.DM07
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM07;
+
+sealed class EnergyCharger : Charger
 {
-    sealed class EnergyCharger : Charger
+    public EnergyCharger() : base("Energy Charger", 3, Civilization.Fire)
     {
-        public EnergyCharger() : base("Energy Charger", 3, Interfaces.Civilization.Fire)
-        {
-            AddSpellAbilities(new OneShotEffects.OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(2000));
-        }
+        AddSpellAbilities(
+            new OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(
+                2000, new CreatureFilter()));
     }
 }

@@ -12,7 +12,8 @@ public interface ICreature : ICard
     bool IsNonEvolutionCreature { get; }
     bool IsEvolutionCreature { get; }
     bool IsDragon { get; }
-    bool IsBlocker { get; }
+    bool HasBlocker { get; }
+    bool HasSilentSkill { get; }
 
     void AddGrantedRace(Race race);
     bool HasRace(params Race[] races);

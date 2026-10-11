@@ -1,13 +1,16 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+sealed class VolcanicArrows : Spell
 {
-    sealed class VolcanicArrows : Spell
+    public VolcanicArrows() : base("Volcanic Arrows", 2, Civilization.Fire)
     {
-        public VolcanicArrows() : base("Volcanic Arrows", 2, Interfaces.Civilization.Fire)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new DestroyMaxPowerCreature(6000), new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new ChooseAndDestroyCreaturesEffect(1, 1, new MaxPowerFilter(6000)),
+            new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
     }
 }
