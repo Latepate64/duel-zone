@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+sealed class SteamRumblerKain : Creature
 {
-    sealed class SteamRumblerKain : Creature
+    public SteamRumblerKain() : base("Steam Rumbler Kain", 4, 5000,
+        Race.Armorloid, Civilization.Fire)
     {
-        public SteamRumblerKain() : base("Steam Rumbler Kain", 4, 5000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new ShieldBurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    ownShields: true
+        )));
     }
 }

@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class BruiserDragon : Creature
 {
-    sealed class BruiserDragon : Creature
+    public BruiserDragon() : base("Bruiser Dragon", 5, 5000, Race.ArmoredDragon,
+        Civilization.Fire)
     {
-        public BruiserDragon() : base("Bruiser Dragon", 5, 5000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenThisCreatureIsDestroyedAbility(
+                new ShieldBurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    ownShields: true
+        )));
     }
 }

@@ -17,6 +17,10 @@ sealed class VolcanicArrows : Spell
                 filter: new MaxPowerFilter(6000),
                 selectionRange: SelectionRange.AllCreatures
             ),
-            new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
+            new ShieldBurnEffect(
+                minimum: 1,
+                maximum: 1,
+                ownShields: true
+        ));
     }
 }

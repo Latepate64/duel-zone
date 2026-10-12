@@ -7,6 +7,12 @@ public sealed class SearingWave : Spell
 {
     public SearingWave() : base("Searing Wave", 5, Civilization.Fire)
     {
-        AddSpellAbilities(new SearingWaveEffect(), new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
+        AddSpellAbilities(
+            new SearingWaveEffect(),
+            new ShieldBurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    ownShields: true
+        ));
     }
 }
