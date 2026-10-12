@@ -9,8 +9,12 @@ sealed class RiptideCharger : Charger
     public RiptideCharger() : base("Riptide Charger", 5, Civilization.Water)
     {
         AddSpellAbilities(
-            new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
-                1, 1, new CreatureFilter()
-            ));
+            new BounceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.AllCreatures
+        ));
     }
 }

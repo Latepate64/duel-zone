@@ -2,7 +2,6 @@ namespace Interfaces.Zones;
 
 public interface IBattleZone : IZone
 {
-    IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(IGame game, Guid owner);
     IEnumerable<ICreature> GetChoosableCreatures(
         IPlayerV2 player, ICardFilter filter, IGame game);
     IEnumerable<ICreature> GetOpponentsChoosableCreatures(

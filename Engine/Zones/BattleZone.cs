@@ -27,12 +27,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return new BattleZone(this);
     }
 
-    public IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(
-        IGame game, Guid owner)
-    {
-        throw new NotImplementedException("TODO REMOVE!");
-    }
-
     IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
     {
         return Creatures.Where(c => c.OwnerV2 == player);

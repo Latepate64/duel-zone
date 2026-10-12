@@ -9,8 +9,12 @@ sealed class AbductionCharger : Charger
     public AbductionCharger() : base("Abduction Charger", 7, Civilization.Water)
     {
         AddSpellAbilities(
-            new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
-                0, 2, new CreatureFilter()
-            ));
+            new BounceEffect(
+                minimum: 0,
+                maximum: 2,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                selectionRange: SelectionRange.AllCreatures
+        ));
     }
 }

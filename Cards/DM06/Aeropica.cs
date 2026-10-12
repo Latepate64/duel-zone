@@ -12,8 +12,12 @@ sealed class Aeropica : Creature
     {
         AddAbilities(
             new TapAbility(
-                new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
-                    1, 1, new CreatureFilter()
-                )));
+                new BounceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCreatures
+        )));
     }
 }

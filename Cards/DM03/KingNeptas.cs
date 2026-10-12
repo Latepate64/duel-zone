@@ -12,8 +12,12 @@ public sealed class KingNeptas : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
-                    0, 1, new MaxPowerFilter(2000)
-                )));
+                new BounceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new MaxPowerFilter(2000),
+                    selectionRange: SelectionRange.AllCreatures
+        )));
     }
 }

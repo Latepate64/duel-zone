@@ -13,9 +13,13 @@ sealed class KingMazelan : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ChooseAndReturnCreaturesToTheirOwnersHandsEffect(
-                    0, 1, new CreatureFilter()
-                )));
+                new BounceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCreatures
+        )));
         AddAbilities(new DoubleBreakerAbility());
     }
 }
