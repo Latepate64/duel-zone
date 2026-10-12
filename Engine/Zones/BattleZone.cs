@@ -27,20 +27,9 @@ public sealed class BattleZone : Zone, IBattleZone
         return new BattleZone(this);
     }
 
-    IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
-    {
-        return Creatures.Where(c => c.OwnerV2 == player);
-    }
-
     public IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player) 
     {
-        return GetCreatures(player).Where(x => !x.Tapped);
-    }
-
-    public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
-        IPlayerV2 player)
-    {
-        return Creatures.Where(x => x.OwnerV2.Equals(player));
+        return GetCreaturesControlledByPlayer(player).Where(x => !x.Tapped);
     }
 
     public int GetNumberOfOtherCreaturesControllerByPlayer(
@@ -86,12 +75,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreatures(excluded, filter).Count();
     }
 
-    IEnumerable<ICreature> GetOtherCreatures(
-        ICreature excluded, ICardFilter filter)
-    {
-        return GetCreatures(filter).Where(x => !x.Equals(excluded));
-    }
-
     public IEnumerable<ICreature> GetCreatures(ICardFilter filter)
     {
         return Creatures.Where(filter.Match);
@@ -131,5 +114,17 @@ public sealed class BattleZone : Zone, IBattleZone
                 player, filter),
             _ => throw new InvalidEnumArgumentException()
         };
+    }
+
+    private IEnumerable<ICreature> GetCreaturesControlledByPlayer(
+        IPlayerV2 player)
+    {
+        return Creatures.Where(x => x.OwnerV2.Equals(player));
+    }
+
+    private IEnumerable<ICreature> GetOtherCreatures(
+        ICreature excluded, ICardFilter filter)
+    {
+        return GetCreatures(filter).Where(x => !x.Equals(excluded));
     }
 }

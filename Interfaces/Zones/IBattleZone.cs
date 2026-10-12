@@ -9,7 +9,6 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
-    IEnumerable<ICreature> GetCreaturesControlledByPlayer(IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter);
     IEnumerable<ICreature> GetCreatures(ICardFilter filter);
