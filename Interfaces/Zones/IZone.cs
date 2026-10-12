@@ -10,7 +10,6 @@ public interface IZone
     IEnumerable<ICard> Cards { get; }
 
     void Add(ICard newObject);
-    IEnumerable<ICard> CardsWithManaCost(int manaCost);
     IEnumerable<ICard> CardsWithName(string name);
     void Dispose();
     int GetCardCount(Civilization civilization);
