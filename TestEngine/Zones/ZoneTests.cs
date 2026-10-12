@@ -209,23 +209,6 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void GetCreaturesWithMaxPower()
-    {
-        // Arrange
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.Setup(x => x.Power).Returns(2000);
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetCreaturesWithMaxPower(2000);
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void Contains()
     {
         // Arrange

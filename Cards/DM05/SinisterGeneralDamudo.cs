@@ -1,12 +1,18 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class SinisterGeneralDamudo : Creature
 {
-    sealed class SinisterGeneralDamudo : Creature
+    public SinisterGeneralDamudo() : base("Sinister General Damudo", 6, 5000,
+        Race.DarkLord, Civilization.Darkness)
     {
-        public SinisterGeneralDamudo() : base("Sinister General Damudo", 6, 5000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.DestroyMaxPowerAreaOfEffect(3000)));
-        }
+        AddTriggeredAbility(
+            new WhenThisCreatureIsDestroyedAbility(
+                new DestroyAllCreaturesEffect(
+                    new MaxPowerFilter(3000))));
     }
 }

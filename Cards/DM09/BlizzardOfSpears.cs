@@ -1,13 +1,15 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+sealed class BlizzardOfSpears : Spell
 {
-    sealed class BlizzardOfSpears : Spell
+    public BlizzardOfSpears() : base("Blizzard of Spears", 6, Civilization.Fire)
     {
-        public BlizzardOfSpears() : base("Blizzard of Spears", 6, Interfaces.Civilization.Fire)
-        {
-            // Destroy all creatures that have power 4000 or less.
-            AddSpellAbilities(new DestroyMaxPowerAreaOfEffect(4000));
-        }
+        AddSpellAbilities(
+            new DestroyAllCreaturesEffect(
+                    new MaxPowerFilter(4000)));
     }
 }

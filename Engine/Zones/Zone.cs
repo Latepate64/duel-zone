@@ -116,11 +116,6 @@ public abstract class Zone : IDisposable, IZone
         return Creatures.Where(x => x.Id != creature);
     }
 
-    public IEnumerable<ICreature> GetCreaturesWithMaxPower(int maxPower)
-    {
-        return Creatures.Where(x => x.Power <= maxPower);
-    }
-
     public bool Contains(ICard card)
     {
         return cards.Contains(card);

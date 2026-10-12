@@ -21,7 +21,6 @@ public interface IZone
     IEnumerable<ICreature> GetCreatures(Guid owner);
     IEnumerable<ICreature> GetCreatures(params Race[] races);
     IEnumerable<ICreature> GetCreatures(Civilization civilization);
-    IEnumerable<ICreature> GetCreaturesWithMaxPower(int maxPower);
     IEnumerable<ICreature> GetOtherCreatures(Guid creature);
     IEnumerable<ICard> NonCivilizationCards(Civilization civ);
     IEnumerable<ICard> Remove(ICard card);
