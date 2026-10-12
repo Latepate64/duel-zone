@@ -10,8 +10,9 @@ public sealed class PutCardFromYourManaZoneIntoBattleZoneEffect
 {
     private readonly ICardFilter filter;
 
-    public PutCardFromYourManaZoneIntoBattleZoneEffect(ICardFilter filter)
-        : base(1, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+    public PutCardFromYourManaZoneIntoBattleZoneEffect(
+        int minimum, ICardFilter filter)
+        : base(minimum, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
     {
         this.filter = filter;
     }

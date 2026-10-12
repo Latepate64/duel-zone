@@ -11,7 +11,8 @@ public sealed class RollickingTotem : SilentSkillCreature
     {
         AddSilentSkillAbility(
             new PutCardFromYourManaZoneIntoBattleZoneEffect(
-                new DragonFilter()
+                minimum: 1,
+                filter: new DragonFilter()
             ));
     }
 }
