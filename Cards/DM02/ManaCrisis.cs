@@ -1,11 +1,21 @@
-﻿namespace Cards.DM02
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM02;
+
+sealed class ManaCrisis : Spell
 {
-    sealed class ManaCrisis : Spell
+    public ManaCrisis() : base("Mana Crisis", 4, Civilization.Nature)
     {
-        public ManaCrisis() : base("Mana Crisis", 4, Interfaces.Civilization.Nature)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new ManaBurnEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                ownMana: false
+        ));
     }
 }

@@ -1,12 +1,23 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class ArtisanPicora : Creature
 {
-    sealed class ArtisanPicora : Creature
+    public ArtisanPicora() : base("Artisan Picora", 1, 2000, Race.MachineEater,
+        Civilization.Fire)
     {
-        public ArtisanPicora() : base("Artisan Picora", 1, 2000, Interfaces.Race.MachineEater, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.PutCardsFromYourManaZoneIntoYourGraveyard(1)));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ManaBurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    ownMana: true
+        )));
     }
 }

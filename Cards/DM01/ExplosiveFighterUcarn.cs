@@ -1,15 +1,25 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
 using Abilities.Static;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class ExplosiveFighterUcarn : Creature
 {
-    sealed class ExplosiveFighterUcarn : Creature
+    public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, 9000,
+        Race.Dragonoid, Civilization.Fire)
     {
-        public ExplosiveFighterUcarn() : base("Explosive Fighter Ucarn", 5, 9000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutCardsFromYourManaZoneIntoYourGraveyard(2)));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ManaBurnEffect(
+                    minimum: 2,
+                    maximum: 2,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    ownMana: true
+        )));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

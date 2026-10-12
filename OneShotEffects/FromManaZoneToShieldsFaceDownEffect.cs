@@ -2,14 +2,24 @@
 
 namespace OneShotEffects;
 
-public sealed class FromManaZoneToShieldsFaceDownEffect : CardMovingChoiceEffect<ICard>
+/// <summary>
+/// Add a card from your mana zone to your shields face down.
+/// </summary>
+public sealed class FromManaZoneToShieldsFaceDownEffect
+    : CardMovingChoiceEffect<ICard>
 {
-    public FromManaZoneToShieldsFaceDownEffect(FromManaZoneToShieldsFaceDownEffect effect) : base(effect)
+    private readonly ICardFilter filter;
+
+    public FromManaZoneToShieldsFaceDownEffect(ICardFilter filter) : base(
+        1, 1, true, ZoneType.ManaZone, ZoneType.ShieldZone)
     {
+        this.filter = filter;
     }
 
-    public FromManaZoneToShieldsFaceDownEffect() : base(1, 1, true, ZoneType.ManaZone, ZoneType.ShieldZone)
+    public FromManaZoneToShieldsFaceDownEffect(
+        FromManaZoneToShieldsFaceDownEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -17,13 +27,9 @@ public sealed class FromManaZoneToShieldsFaceDownEffect : CardMovingChoiceEffect
         return new FromManaZoneToShieldsFaceDownEffect(this);
     }
 
-    public override string ToString()
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
     {
-        return "Add a card from your mana zone to your shields face down.";
-    }
-
-    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
-    {
-        return Controller.ManaZone.Cards;
+        return Controller.ManaZone.GetCards(filter);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
 using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
@@ -7,11 +8,21 @@ namespace Cards.DM12;
 
 public sealed class NemonexBajulasRobomantis : EvolutionCreature
 {
-    public NemonexBajulasRobomantis() : base("Nemonex, Bajula's Robomantis", 6, 5000, Race.Xenoparts, Race.GiantInsect,
-        Civilization.Fire, Civilization.Nature)
+    public NemonexBajulasRobomantis() : base("Nemonex, Bajula's Robomantis", 6,
+        5000, Race.Xenoparts, Race.GiantInsect, Civilization.Fire,
+        Civilization.Nature)
     {
-        AddStaticAbilities(new EachOfYourOtherRacesGetsPowerEffect(Race.Xenoparts, Race.GiantInsect));
-        AddTriggeredAbility(new NemonexAbility(
-            new YourOpponentChoosesCardInHisManaZoneAndPutsItIntoHisGraveyardEffect()));
+        AddStaticAbilities(
+            new EachOfYourOtherRacesGetsPowerEffect(
+                Race.Xenoparts, Race.GiantInsect));
+        AddTriggeredAbility(
+            new NemonexAbility(
+                new ManaBurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: false,
+                    filter: new AnyCardFilter(),
+                    ownMana: false
+        )));
     }
 }
