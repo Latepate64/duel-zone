@@ -9,11 +9,21 @@ namespace Cards.DM07;
 
 sealed class HeadlongGiant : Creature
 {
-    public HeadlongGiant() : base("Headlong Giant", 9, 14000, Race.Giant, Civilization.Nature)
+    public HeadlongGiant() : base("Headlong Giant", 9, 14000, Race.Giant,
+        Civilization.Nature)
     {
-        AddStaticAbilities(new HeadlongGiantEffect(), new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
-            4000));
-        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new DiscardCardFromYourHandEffect()));
+        AddStaticAbilities(
+            new HeadlongGiantEffect(),
+            new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
+                4000));
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new DiscardEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    ownHand: true
+        )));
         AddAbilities(new TripleBreakerAbility());
     }
 }

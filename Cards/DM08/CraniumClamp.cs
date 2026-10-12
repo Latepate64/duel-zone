@@ -7,6 +7,12 @@ public sealed class CraniumClamp : Spell
 {
     public CraniumClamp() : base("Cranium Clamp", 4, Civilization.Darkness)
     {
-        AddSpellAbilities(new YourOpponentChoosesAndDiscardsCardsFromHisHandEffect(2));
+        AddSpellAbilities(
+            new DiscardEffect(
+                minimum: 2,
+                maximum: 2,
+                controllerChooses: false,
+                ownHand: false
+        ));
     }
 }

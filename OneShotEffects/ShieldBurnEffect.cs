@@ -34,11 +34,11 @@ public sealed class ShieldBurnEffect : CardMovingChoiceEffect<ICard>
     {
         if (ownShields)
         {
-            return Controller.ShieldZone.Cards;
+            return Applier.ShieldZone.Cards;
         }
         else
         {
-            return Controller.ShieldZone.Cards;
+            return Applier.Opponent.ShieldZone.Cards;
         }
     }
 }

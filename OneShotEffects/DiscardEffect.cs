@@ -2,14 +2,44 @@
 
 namespace OneShotEffects;
 
-public abstract class DiscardEffect : CardMovingChoiceEffect<ICard>
+public sealed class DiscardEffect : CardMovingChoiceEffect<ICard>
 {
-    protected DiscardEffect(DiscardEffect effect) : base(effect)
+    private readonly bool ownHand; 
+
+    public DiscardEffect(
+        int minimum,
+        int maximum,
+        bool controllerChooses,
+        bool ownHand) : base(
+            minimum,
+            maximum,
+            controllerChooses,
+            ZoneType.Hand,
+            ZoneType.Graveyard)
     {
+        this.ownHand = ownHand;
     }
 
-    protected DiscardEffect(int minimum, int maximum, bool controllerChooses) : base(
-        minimum, maximum, controllerChooses, ZoneType.Hand, ZoneType.Graveyard)
+    private DiscardEffect(DiscardEffect effect) : base(effect)
     {
+        ownHand = effect.ownHand;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new DiscardEffect(this);
+    }
+
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
+    {
+        if (ownHand)
+        {
+            return Applier.Hand.Cards;
+        }
+        else
+        {
+            return Applier.Opponent.Hand.Cards;
+        }
     }
 }
