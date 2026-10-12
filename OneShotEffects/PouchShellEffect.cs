@@ -2,30 +2,40 @@ using Interfaces;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// You may choose one of your opponent's creatures in the battle zone and put
+/// the top card of that creature into your opponent's graveyard.
+/// </summary>
 public sealed class PouchShellEffect : CreatureSelectionEffect
 {
-    public PouchShellEffect() : base(0, 1, true)
+    private readonly ICardFilter filter;
+
+    public PouchShellEffect(ICardFilter filter) : base(0, 1, true)
     {
+        this.filter = filter;
+    }
+
+    public PouchShellEffect(PouchShellEffect effect) : base(effect)
+    {
+        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
     {
-        return new PouchShellEffect();
+        return new PouchShellEffect(this);
     }
 
-    public override string ToString()
+    protected override void Apply(
+        IGame game, IAbility source, params ICreature[] cards)
     {
-        return "You may choose one of your opponent's evolution creatures in the battle zone and put the top card of that creature into your opponent's graveyard.";
+        cards.ToList().ForEach(x => game.MoveTopCard(
+            x, ZoneType.Graveyard, source));
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
+    protected override IEnumerable<ICreature> GetSelectableCards(
+        IGame game, IAbility source)
     {
-        cards.ToList().ForEach(x => game.MoveTopCard(x, ZoneType.Graveyard, source));
-    }
-
-    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-    {
-        return game.BattleZone.GetChoosableCreaturesControlledByPlayer(game, GetOpponent(game).Id).Where(
-            x => x.IsEvolutionCreature);
+        return game.BattleZone.GetOpponentsChoosableCreatures(
+            Applier, filter, game);
     }
 }

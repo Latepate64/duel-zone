@@ -2,30 +2,36 @@ using Interfaces;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Choose an opponent's creature in the battle zone. Then, for each card name
+/// in each graveyard, you may choose another opponent's creature in the battle
+/// zone. Destroy all those creatures.
+/// </summary>
 public sealed class ClonedBladeEffect : ClonedEffect
 {
-    public ClonedBladeEffect(string name) : base(name)
+    private readonly ICardFilter filter;
+
+    public ClonedBladeEffect(string name, ICardFilter filter) : base(name)
     {
+        this.filter = filter;
     }
 
     public ClonedBladeEffect(ClonedBladeEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
     }
 
     public override void Apply(IGame game)
     {
-        var creatures = Controller.ChooseCards(game.BattleZone.GetChoosableCreaturesControlledByPlayer(
-            game, GetOpponent(game).Id).Where(x => x.Power <= 3000), 1, GetAmount(game), ToString());
+        var enumerable = game.BattleZone.GetOpponentsChoosableCreatures(
+            Applier, filter, game);
+        var creatures = Controller.ChooseCards(
+            enumerable, 1, GetAmount(game), ToString());
         game.Destroy(Ability, [.. creatures]);
     }
 
     public override IOneShotEffect Copy()
     {
         return new ClonedBladeEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"Choose an opponent's creature in the battle zone that has power 3000 or less. Then, for each {_name} in each graveyard, you may choose another opponent's creature in the battle zone that has power 3000 or less. Destroy all those creatures.";
     }
 }
