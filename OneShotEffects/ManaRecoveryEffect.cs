@@ -2,14 +2,52 @@
 
 namespace OneShotEffects;
 
-public abstract class ManaRecoveryEffect : CardMovingChoiceEffect<ICard>
+/// <summary>
+/// Mana Recovery is a term given to cards that return cards in your mana zone
+/// to your hand.
+/// </summary>
+public sealed class ManaRecoveryEffect : CardMovingChoiceEffect<ICard>
 {
-    protected ManaRecoveryEffect(ManaRecoveryEffect effect) : base(effect)
+    private readonly ICardFilter filter;
+    private readonly bool ownMana;
+
+    public ManaRecoveryEffect(
+        int minimum,
+        int maximum,
+        bool controllerChooses,
+        ICardFilter filter,
+        bool ownMana) : base(
+            minimum,
+            maximum,
+            controllerChooses,
+            ZoneType.ManaZone,
+            ZoneType.Hand)
     {
+        this.filter = filter;
+        this.ownMana = ownMana;
     }
 
-    protected ManaRecoveryEffect(int minimum, int maximum, bool controllerChooses) : base(
-        minimum, maximum, controllerChooses, ZoneType.ManaZone, ZoneType.Hand)
+    private ManaRecoveryEffect(ManaRecoveryEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
+        ownMana = effect.ownMana;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new ManaRecoveryEffect(this);
+    }
+
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
+    {
+        if (ownMana)
+        {
+            return Applier.ManaZone.GetCards(filter);
+        }
+        else
+        {
+            return Applier.Opponent.ManaZone.GetCards(filter);
+        }
     }
 }

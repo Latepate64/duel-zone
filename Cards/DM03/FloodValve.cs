@@ -1,11 +1,21 @@
-﻿namespace Cards.DM03
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM03;
+
+sealed class FloodValve : Spell
 {
-    sealed class FloodValve : Spell
+    public FloodValve() : base("Flood Valve", 2, Civilization.Water)
     {
-        public FloodValve() : base("Flood Valve", 2, Interfaces.Civilization.Water)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new ManaRecoveryEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                ownMana: true
+        ));
     }
 }

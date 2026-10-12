@@ -1,15 +1,26 @@
 ﻿using Abilities.Static;
+using CardFilters;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class SyforceAuroraElemental : Creature
 {
-    sealed class SyforceAuroraElemental : Creature
+    public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000,
+        Race.AngelCommand, Civilization.Light)
     {
-        public SyforceAuroraElemental() : base("Syforce, Aurora Elemental", 7, 7000, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
-        {
-            AddAbilities(new BlockerAbility());
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect()));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddAbilities(new BlockerAbility());
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ManaRecoveryEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new SpellFilter(),
+                    ownMana: true
+        )));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

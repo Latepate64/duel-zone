@@ -1,11 +1,21 @@
-﻿namespace Cards.DM06
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM06;
+
+sealed class MysticDreamscape : Spell
 {
-    sealed class MysticDreamscape : Spell
+    public MysticDreamscape() : base("Mystic Dreamscape", 4, Civilization.Water)
     {
-        public MysticDreamscape() : base("Mystic Dreamscape", 4, Interfaces.Civilization.Water)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.ReturnUpToThreeCardsFromYourManaZoneToYourHandEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new ManaRecoveryEffect(
+                minimum: 0,
+                maximum: 3,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                ownMana: true
+        ));
     }
 }
