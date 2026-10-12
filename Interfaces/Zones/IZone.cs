@@ -28,4 +28,5 @@ public interface IZone
     IZone Copy();
     bool Contains(ICard card);
     void Shuffle(IRandomizer randomizer);
+    IEnumerable<ICard> GetCards(ICardFilter filter);
 }

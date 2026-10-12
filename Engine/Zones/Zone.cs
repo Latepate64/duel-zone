@@ -149,4 +149,9 @@ public abstract class Zone : IDisposable, IZone
     }
 
     public abstract IZone Copy();
+
+    public IEnumerable<ICard> GetCards(ICardFilter filter)
+    {
+        return Cards.Where(filter.Match);
+    }
 }

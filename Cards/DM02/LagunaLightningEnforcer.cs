@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class LagunaLightningEnforcer : Creature
 {
-    sealed class LagunaLightningEnforcer : Creature
+    public LagunaLightningEnforcer() : base("Laguna, Lightning Enforcer", 5,
+        2500, Race.Berserker, Civilization.Light)
     {
-        public LagunaLightningEnforcer() : base("Laguna, Lightning Enforcer", 5, 2500, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.SearchSpellEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new SpellFilter()
+        )));
     }
 }

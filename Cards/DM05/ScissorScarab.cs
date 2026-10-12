@@ -1,13 +1,20 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class ScissorScarab : Creature
 {
-    sealed class ScissorScarab : Creature
+    public ScissorScarab() : base("Scissor Scarab", 7, 5000, Race.GiantInsect,
+        Civilization.Nature)
     {
-        public ScissorScarab() : base("Scissor Scarab", 7, 5000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchRaceCreatureEffect(Interfaces.Race.GiantInsect)));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new RaceCreatureFilter(Race.GiantInsect)
+        )));
     }
 }

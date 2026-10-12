@@ -1,11 +1,18 @@
-﻿namespace Cards.DM02
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM02;
+
+sealed class LogicCube : Spell
 {
-    sealed class LogicCube : Spell
+    public LogicCube() : base("Logic Cube", 3, Civilization.Light)
     {
-        public LogicCube() : base("Logic Cube", 3, Interfaces.Civilization.Light)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.SearchSpellEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new SearchEffect(
+                reveal: true,
+                filter: new SpellFilter()
+        ));
     }
 }

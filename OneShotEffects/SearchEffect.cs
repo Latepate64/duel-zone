@@ -2,21 +2,26 @@
 
 namespace OneShotEffects;
 
-public abstract class SearchEffect : SearchAnyDeckEffect
+public sealed class SearchEffect : SearchAnyDeckEffect
 {
     public bool Reveal { get; }
+    private readonly ICardFilter filter;
 
-    protected SearchEffect(bool reveal, int maximum = 1) : base(maximum)
+    public SearchEffect(
+        bool reveal, ICardFilter filter, int maximum = 1) : base(maximum)
     {
         Reveal = reveal;
+        this.filter = filter;
     }
 
-    protected SearchEffect(SearchEffect effect) : base(effect)
+    SearchEffect(SearchEffect effect) : base(effect)
     {
         Reveal = effect.Reveal;
+        filter = effect.filter.Copy();
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+    protected override void Apply(
+        IGame game, IAbility source, params ICard[] cards)
     {
         if (Reveal)
         {
@@ -27,5 +32,16 @@ public abstract class SearchEffect : SearchAnyDeckEffect
         {
             Controller?.Unreveal(cards);
         }
+    }
+
+    protected override IEnumerable<ICard> GetAffectedCards(
+        IGame game, IAbility source)
+    {
+        return Controller.Deck.GetCards(filter);
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new SearchEffect(this);
     }
 }

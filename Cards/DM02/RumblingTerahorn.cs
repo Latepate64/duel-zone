@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class RumblingTerahorn : Creature
 {
-    sealed class RumblingTerahorn : Creature
+    public RumblingTerahorn() : base("Rumbling Terahorn", 5, 3000,
+        Race.HornedBeast, Civilization.Nature)
     {
-        public RumblingTerahorn() : base("Rumbling Terahorn", 5, 3000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchCreatureEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new CreatureFilter()
+        )));
     }
 }

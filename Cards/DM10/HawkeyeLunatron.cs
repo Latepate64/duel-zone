@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class HawkeyeLunatron : Creature
 {
-    sealed class HawkeyeLunatron : Creature
+    public HawkeyeLunatron() : base("Hawkeye Lunatron", 8, 6000, Race.CyberMoon,
+        Civilization.Water)
     {
-        public HawkeyeLunatron() : base("Hawkeye Lunatron", 8, 6000, Interfaces.Race.CyberMoon, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.SearchCardNoRevealEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new SearchEffect(
+                    reveal: false,
+                    filter: new AnyCardFilter()
+        )));
     }
 }

@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+sealed class CyclolinkSpectralKnight : Creature
 {
-    sealed class CyclolinkSpectralKnight : Creature
+    public CyclolinkSpectralKnight() : base("Cyclolink, Spectral Knight", 4,
+        3000, Race.RainbowPhantom, Civilization.Light)
     {
-        public CyclolinkSpectralKnight() : base("Cyclolink, Spectral Knight", 4, 3000, Interfaces.Race.RainbowPhantom, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.SearchSpellEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new SpellFilter()
+        )));
     }
 }

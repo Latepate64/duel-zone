@@ -336,4 +336,23 @@ public sealed class ZoneTests
         Assert.Contains(spell, spells);
         Assert.Single(spells);
     }
+
+    [Theory]
+    [InlineData(false, 0)]
+    [InlineData(true, 1)]
+    public void GetCards(bool filterMatches, int expectedCount)
+    {
+        // Arrange
+        var card = Mock.Of<ICard>();
+        var zone = new Hand();
+        zone.Add(card);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(card)).Returns(filterMatches);
+
+        // Act
+        var cards = zone.GetCards(filter.Object);
+
+        // Assert
+        Assert.Equal(expectedCount, cards.Count());
+    }
 }

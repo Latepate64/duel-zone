@@ -1,13 +1,18 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class DimensionGate : Spell
 {
-    sealed class DimensionGate : Spell
+    public DimensionGate() : base("Dimension Gate", 3, Civilization.Nature)
     {
-        public DimensionGate() : base("Dimension Gate", 3, Interfaces.Civilization.Nature)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new SearchCreatureEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new SearchEffect(
+                reveal: true,
+                filter: new CreatureFilter()
+        ));
     }
 }

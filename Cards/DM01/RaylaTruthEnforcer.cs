@@ -1,13 +1,20 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class RaylaTruthEnforcer : Creature
 {
-    sealed class RaylaTruthEnforcer : Creature
+    public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, 3000,
+        Race.Berserker, Civilization.Light)
     {
-        public RaylaTruthEnforcer() : base("Rayla, Truth Enforcer", 6, 3000, Interfaces.Race.Berserker, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchSpellEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new SpellFilter()
+        )));
     }
 }

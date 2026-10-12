@@ -1,16 +1,22 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
 using Abilities.Static;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.Promo
+namespace Cards.Promo;
+
+sealed class VelyrikaDragon : Creature
 {
-    sealed class VelyrikaDragon : Creature
+    public VelyrikaDragon() : base("Velyrika Dragon", 7, 7000,
+        Race.ArmoredDragon, Civilization.Fire)
     {
-        public VelyrikaDragon() : base("Velyrika Dragon", 7, 7000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new SearchRaceCreatureEffect(
-                Interfaces.Race.ArmoredDragon)));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new RaceCreatureFilter(Race.ArmoredDragon)
+        )));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }
