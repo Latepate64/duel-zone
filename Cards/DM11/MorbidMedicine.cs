@@ -1,10 +1,19 @@
-﻿namespace Cards.DM11
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM11;
+
+sealed class MorbidMedicine : Spell
 {
-    sealed class MorbidMedicine : Spell
+    public MorbidMedicine() : base("Morbid Medicine", 4, Civilization.Darkness)
     {
-        public MorbidMedicine() : base("Morbid Medicine", 4, Interfaces.Civilization.Darkness)
-        {
-            AddSpellAbilities(new OneShotEffects.ReturnUpToTwoCreaturesFromYourGraveyardToYourHandEffect());
-        }
+        AddSpellAbilities(
+            new SalvageEffect(
+                minimum: 0,
+                maximum: 2,
+                filter: new CreatureFilter(),
+                excludeSource: false
+        ));
     }
 }
