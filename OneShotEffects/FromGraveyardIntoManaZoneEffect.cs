@@ -2,13 +2,39 @@
 
 namespace OneShotEffects;
 
-public abstract class FromGraveyardIntoManaZoneEffect : CardMovingChoiceEffect<ICard>
+public sealed class FromGraveyardIntoManaZoneEffect
+    : CardMovingChoiceEffect<ICard>
 {
-    protected FromGraveyardIntoManaZoneEffect(FromGraveyardIntoManaZoneEffect effect) : base(effect)
+    private readonly ICardFilter filter;
+
+    public FromGraveyardIntoManaZoneEffect(
+        int minimum,
+        int maximum,
+        bool controllerChooses,
+        ICardFilter filter) : base(
+            minimum,
+            maximum,
+            controllerChooses,
+            ZoneType.Graveyard,
+            ZoneType.ManaZone)
     {
+        this.filter = filter;
     }
 
-    protected FromGraveyardIntoManaZoneEffect(int minimum, int maximum, bool controllerChooses) : base(minimum, maximum, controllerChooses, ZoneType.Graveyard, ZoneType.ManaZone)
+    private FromGraveyardIntoManaZoneEffect(
+        FromGraveyardIntoManaZoneEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new FromGraveyardIntoManaZoneEffect(this);
+    }
+
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
+    {
+        return Controller.Graveyard.GetCards(filter);
     }
 }
