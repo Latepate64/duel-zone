@@ -37,11 +37,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetCreatures(player).Where(x => !x.Tapped);
     }
 
-    public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
-    {
-        return GetOtherCreaturesControlledByPlayer(excluded).Count();
-    }
-
     public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player)
     {

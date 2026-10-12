@@ -12,16 +12,15 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreaturesControlledByPlayer(IPlayerV2 player);
     IEnumerable<ICreature> GetCreaturesControlledByPlayer(
         IPlayerV2 player, ICardFilter filter);
+    IEnumerable<ICreature> GetCreatures(ICardFilter filter);
+    IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 applier,
+        ICardFilter filter, IGame game, SelectionRange selectionRange);
     int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);
-    int GetNumberOfOtherCreaturesControllerByPlayer(ICreature creature);
+    int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);
     int GetNumberOfOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
     bool HasCreaturesControllerByPlayer(IPlayerV2 applier, ICardFilter filter);
     bool HasOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter);
-    int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);
-    IEnumerable<ICreature> GetCreatures(ICardFilter filter);
-    IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 applier,
-        ICardFilter filter, IGame game, SelectionRange selectionRange);
 }

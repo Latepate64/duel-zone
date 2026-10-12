@@ -44,32 +44,6 @@ public sealed class BattleZoneTests
     }
 
     [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    public void GetNumberOfOtherCreaturesControllerByPlayer(int expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var excluded = new Mock<ICreature>();
-        excluded.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(excluded.Object);
-        for (var i = 0; i < expected; ++i)
-        {
-            var otherCreature = new Mock<ICreature>();
-            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
-            zone.Add(otherCreature.Object);
-        }
-
-        // Act
-        var actual = zone.GetNumberOfOtherCreaturesControllerByPlayer(
-            excluded.Object);
-
-        // Assert
-        Assert.Equal(expected, actual);
-    }
-
-    [Theory]
     [InlineData(false, 0)]
     [InlineData(true, 1)]
     public void GetNumberOfOtherCreaturesControllerByPlayerWithFilter(
