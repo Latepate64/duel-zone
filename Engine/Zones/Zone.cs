@@ -101,11 +101,6 @@ public abstract class Zone : IDisposable, IZone
         return GetCards(civilization).Count();
     }
 
-    public int GetCreatureCount(Civilization civilization)
-    {
-        return GetCreatures(civilization).Count();
-    }
-
     public IEnumerable<ICreature> GetCreatures(Civilization civilization)
     {
         return Creatures.Where(x => x.HasCivilization(civilization));
@@ -151,5 +146,10 @@ public abstract class Zone : IDisposable, IZone
     public IEnumerable<ICard> GetCards(ICardFilter filter)
     {
         return Cards.Where(filter.Match);
+    }
+
+    public int GetNumberOfCards(ICardFilter filter)
+    {
+        return GetCards(filter).Count();
     }
 }

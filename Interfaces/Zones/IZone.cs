@@ -15,7 +15,6 @@ public interface IZone
     int GetCardCount(Civilization civilization);
     IEnumerable<ICard> GetCards(Civilization civilization);
     int GetCreatureCount(Guid owner);
-    int GetCreatureCount(Civilization civilization);
     IEnumerable<ICreature> GetCreatures(Guid owner);
     IEnumerable<ICreature> GetCreatures(params Race[] races);
     IEnumerable<ICreature> GetCreatures(Civilization civilization);
@@ -27,4 +26,5 @@ public interface IZone
     bool Contains(ICard card);
     void Shuffle(IRandomizer randomizer);
     IEnumerable<ICard> GetCards(ICardFilter filter);
+    int GetNumberOfCards(ICardFilter filter);
 }

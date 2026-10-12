@@ -175,7 +175,7 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void GetCreaturesOfCivilizationCount()
+    public void GetCreaturesOfCivilization()
     {
         // Arrange
         var zone = new Hand();
@@ -185,10 +185,10 @@ public sealed class ZoneTests
         zone.Add(creature.Object);
 
         // Act
-        var count = zone.GetCreatureCount(It.IsAny<Civilization>());
+        var creatures = zone.GetCreatures(It.IsAny<Civilization>());
 
         // Assert
-        Assert.Equal(1, count);
+        Assert.Single(creatures);
     }
 
     [Fact]
@@ -316,9 +316,9 @@ public sealed class ZoneTests
         filter.Setup(x => x.Match(card)).Returns(filterMatches);
 
         // Act
-        var cards = zone.GetCards(filter.Object);
+        var actual = zone.GetNumberOfCards(filter.Object);
 
         // Assert
-        Assert.Equal(expectedCount, cards.Count());
+        Assert.Equal(expectedCount, actual);
     }
 }

@@ -2,14 +2,23 @@
 using Interfaces;
 using OneShotEffects;
 using Abilities.Static;
+using CardFilters;
 
 namespace Cards.DM04;
 
 public sealed class GalklifeDragon : Creature
 {
-    public GalklifeDragon() : base("Galklife Dragon", 7, 6000, Race.ArmoredDragon, Civilization.Fire)
+    public GalklifeDragon() : base("Galklife Dragon", 7, 6000,
+        Race.ArmoredDragon, Civilization.Fire)
     {
-        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new GalklifeDragonEffect()));
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new DestroyAllCreaturesEffect(
+                    new MultiFilter(
+                        new CivilizationCreatureFilter(Civilization.Light),
+                        new MaxPowerFilter(4000)
+                    )
+                )));
         AddAbilities(new DoubleBreakerAbility());
     }
 }
