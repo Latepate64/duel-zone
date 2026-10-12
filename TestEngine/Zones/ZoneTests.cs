@@ -238,23 +238,6 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void Dragons()
-    {
-        // Arrange
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.Setup(x => x.IsDragon).Returns(true);
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.Dragons;
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void CardsWithName()
     {
         // Arrange

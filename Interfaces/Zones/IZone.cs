@@ -8,7 +8,6 @@ public interface IZone
     int Size { get; }
     bool HasCards { get; }
     IEnumerable<ICard> Cards { get; }
-    IEnumerable<ICreature> Dragons { get; }
 
     void Add(ICard newObject);
     IEnumerable<ICard> CardsWithManaCost(int manaCost);

@@ -126,8 +126,6 @@ public abstract class Zone : IDisposable, IZone
         randomizer.Shuffle(cards);
     }
 
-    public IEnumerable<ICreature> Dragons => Creatures.Where(x => x.IsDragon);
-
     public IEnumerable<ICard> CardsWithName(string name)
     {
         return cards.Where(x => x.Name == name);
