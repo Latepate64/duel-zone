@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public sealed class ShieldBurnEffect : CardMovingChoiceEffect<ICard>
+public sealed class ShieldBurnEffect : CardMovingChoiceEffect
 {
     private readonly bool ownShields; 
 

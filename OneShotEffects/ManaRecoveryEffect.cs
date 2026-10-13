@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Mana Recovery is a term given to cards that return cards in your mana zone
 /// to your hand.
 /// </summary>
-public sealed class ManaRecoveryEffect : CardMovingChoiceEffect<ICard>
+public sealed class ManaRecoveryEffect : CardMovingChoiceEffect
 {
     private readonly bool ownMana;
 

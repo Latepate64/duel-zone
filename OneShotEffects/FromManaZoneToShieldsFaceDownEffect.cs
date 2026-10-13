@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Add a card from your mana zone to your shields face down.
 /// </summary>
 public sealed class FromManaZoneToShieldsFaceDownEffect
-    : CardMovingChoiceEffect<ICard>
+    : CardMovingChoiceEffect
 {
     public FromManaZoneToShieldsFaceDownEffect(ICardFilter filter) : base(
         1, 1, true, filter, ZoneType.ManaZone, ZoneType.ShieldZone)

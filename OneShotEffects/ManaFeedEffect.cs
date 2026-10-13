@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Mana Feed is a slang term given to the abilities that put creatures or other
 /// cards in the battle zone into its owner's mana zone.
 /// </summary>
-public sealed class ManaFeedEffect : CardMovingChoiceEffect<ICreature>
+public sealed class ManaFeedEffect : CardMovingChoiceEffect
 {
     private readonly SelectionRange selectionRange;
 

@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public sealed class DiscardEffect : CardMovingChoiceEffect<ICard>
+public sealed class DiscardEffect : CardMovingChoiceEffect
 {
     private readonly bool ownHand; 
 

@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Choose one of your opponent's creatures in the battle zone and put it on top
 /// of his deck.
 /// </summary>
-public sealed class CorileEffect : CardMovingChoiceEffect<ICreature>
+public sealed class CorileEffect : CardMovingChoiceEffect
 {
     public CorileEffect(ICardFilter filter) : base(
         1, 1, true, filter, ZoneType.BattleZone, ZoneType.Deck)

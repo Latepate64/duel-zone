@@ -7,7 +7,7 @@ namespace OneShotEffects;
 /// down.
 /// </summary>
 public sealed class ChooseAndShieldifyCreatureEffect
-    : CardMovingChoiceEffect<ICreature>
+    : CardMovingChoiceEffect
 {
 
     public ChooseAndShieldifyCreatureEffect(ICardFilter filter) : base(

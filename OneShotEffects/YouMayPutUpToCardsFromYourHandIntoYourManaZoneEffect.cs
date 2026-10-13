@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Put up to maximum cards from your hand into your mana zone.
 /// </summary>
 public sealed class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
-    : CardMovingChoiceEffect<ICard>
+    : CardMovingChoiceEffect
 {
     public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
         int minimum,

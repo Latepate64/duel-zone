@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Add one of your creatures from the battle zone to your shields face down.
 /// </summary>
 public sealed class ShieldifyOwnCreatureEffect
-    : CardMovingChoiceEffect<ICreature>
+    : CardMovingChoiceEffect
 {
     public ShieldifyOwnCreatureEffect(ICardFilter filter) : base(
         1, 1, true, filter, ZoneType.BattleZone, ZoneType.ShieldZone)

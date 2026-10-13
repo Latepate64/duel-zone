@@ -3,7 +3,7 @@
 namespace OneShotEffects;
 
 public sealed class FromGraveyardIntoManaZoneEffect
-    : CardMovingChoiceEffect<ICard>
+    : CardMovingChoiceEffect
 {
     public FromGraveyardIntoManaZoneEffect(
         int minimum,

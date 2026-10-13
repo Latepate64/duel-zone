@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// You may put a card from your hand into the battle zone.
 /// </summary>
 public sealed class YouMayPutCardFromYourHandIntoBattleZoneEffect
-    : CardMovingChoiceEffect<ICard>
+    : CardMovingChoiceEffect
 {
     public YouMayPutCardFromYourHandIntoBattleZoneEffect(
         ICardFilter filter) : base(

@@ -5,7 +5,7 @@ namespace OneShotEffects;
 /// <summary>
 /// Salvage is a term for returning a card from your graveyard to your hand.
 /// </summary>
-public sealed class SalvageEffect : CardMovingChoiceEffect<ICard>
+public sealed class SalvageEffect : CardMovingChoiceEffect
 {
     private readonly bool excludeSource; 
 

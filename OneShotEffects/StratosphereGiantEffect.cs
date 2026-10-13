@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Your opponent chooses up to x creatures in his hand and puts them into the
 /// battle zone.
 /// </summary>
-public sealed class StratosphereGiantEffect : CardMovingChoiceEffect<ICreature>
+public sealed class StratosphereGiantEffect : CardMovingChoiceEffect
 {
     public StratosphereGiantEffect(
         int minimum, int maximum, ICardFilter filter) : base(

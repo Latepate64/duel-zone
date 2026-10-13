@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public sealed class BounceEffect : CardMovingChoiceEffect<ICreature>
+public sealed class BounceEffect : CardMovingChoiceEffect
 {
     private readonly SelectionRange selectionRange;
 

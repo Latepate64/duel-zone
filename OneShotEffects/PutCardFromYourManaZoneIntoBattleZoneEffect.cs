@@ -6,7 +6,7 @@ namespace OneShotEffects;
 /// Put a card from your mana zone into the battle zone.
 /// </summary>
 public sealed class PutCardFromYourManaZoneIntoBattleZoneEffect
-    : CardMovingChoiceEffect<ICard>
+    : CardMovingChoiceEffect
 {
     public PutCardFromYourManaZoneIntoBattleZoneEffect(
         int minimum, ICardFilter filter)

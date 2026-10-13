@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public sealed class ManaBurnEffect : CardMovingChoiceEffect<ICard>
+public sealed class ManaBurnEffect : CardMovingChoiceEffect
 {
     private readonly bool ownMana;
 
