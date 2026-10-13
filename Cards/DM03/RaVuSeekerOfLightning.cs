@@ -12,14 +12,16 @@ public sealed class RaVuSeekerOfLightning : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new SalvageEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
+                    controllerChooses: true,
                     filter: new MultiFilter(
                         new CivilizationCardFilter(Civilization.Light),
                         new SpellFilter()
                     ),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

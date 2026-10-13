@@ -13,11 +13,13 @@ sealed class GraveWormQ : Creature
         AddStaticAbilities(
             new SurvivorEffect(
                 new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                    new SalvageEffect(
+                    new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
+                    controllerChooses: true,
                     filter: new RaceCreatureFilter(Race.Survivor),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         ))));
     }

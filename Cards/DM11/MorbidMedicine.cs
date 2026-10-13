@@ -9,11 +9,13 @@ sealed class MorbidMedicine : Spell
     public MorbidMedicine() : base("Morbid Medicine", 4, Civilization.Darkness)
     {
         AddSpellAbilities(
-            new SalvageEffect(
+            new CardMovingChoiceEffect(
                 minimum: 0,
                 maximum: 2,
+                controllerChooses: true,
                 filter: new CreatureFilter(),
-                excludeSource: false,
+                source: ZoneType.Graveyard,
+                destination: ZoneType.Hand,
                 selectionRange: SelectionRange.OwnCreatures
         ));
     }

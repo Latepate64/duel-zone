@@ -10,11 +10,13 @@ sealed class Gigamente : SilentSkillCreature
         Civilization.Darkness)
     {
         AddSilentSkillAbility(
-            new SalvageEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
+                controllerChooses: true,
                 filter: new CreatureFilter(),
-                excludeSource: false,
+                source: ZoneType.Graveyard,
+                destination: ZoneType.Hand,
                 selectionRange: SelectionRange.OwnCreatures
         ));
     }

@@ -12,12 +12,14 @@ public sealed class GrimSoulShadowOfReversal : Creature
     {
         AddAbilities(
             new TapAbility(
-                new SalvageEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
+                    controllerChooses: true,
                     filter: new CivilizationCreatureFilter(
                         Civilization.Darkness),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

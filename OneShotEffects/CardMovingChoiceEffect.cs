@@ -4,12 +4,13 @@ using Interfaces.Zones;
 
 namespace OneShotEffects;
 
-public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
+public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
 {
     public ZoneType SourceZone { get; }
     public ZoneType DestinationZone { get; }
-    protected readonly ICardFilter filter;
-    protected readonly SelectionRange selectionRange;
+    private readonly ICardFilter filter;
+    private readonly SelectionRange selectionRange;
+    private readonly bool excludeSource; 
 
     public CardMovingChoiceEffect(
         int minimum,
@@ -18,19 +19,22 @@ public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
         ICardFilter filter,
         ZoneType source,
         ZoneType destination,
-        SelectionRange selectionRange) : base(
+        SelectionRange selectionRange,
+        bool excludeSource = false) : base(
             minimum, maximum, controllerChooses)
     {
         this.filter = filter;
         this.selectionRange = selectionRange;
+        this.excludeSource = excludeSource;
         SourceZone = source;
         DestinationZone = destination;
     }
 
-    public CardMovingChoiceEffect(CardMovingChoiceEffect effect) : base(effect)
+    private CardMovingChoiceEffect(CardMovingChoiceEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
         selectionRange = effect.selectionRange;
+        excludeSource = effect.excludeSource;
         SourceZone = effect.SourceZone;
         DestinationZone = effect.DestinationZone;
     }
@@ -67,6 +71,7 @@ public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
                     Applier,
                 _ => throw new InvalidEnumArgumentException()
             };
+            //TODO: Consider excludeSource
             return GetZone(player).GetCards(filter);
         }
     }

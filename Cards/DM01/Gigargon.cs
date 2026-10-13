@@ -12,11 +12,13 @@ sealed class Gigargon : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new SalvageEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 2,
+                    controllerChooses: true,
                     filter: new CreatureFilter(),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

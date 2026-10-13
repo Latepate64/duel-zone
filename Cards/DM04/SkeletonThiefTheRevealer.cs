@@ -12,11 +12,13 @@ sealed class SkeletonThiefTheRevealer : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new SalvageEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
+                    controllerChooses: true,
                     filter: new RaceCreatureFilter(Race.LivingDead),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

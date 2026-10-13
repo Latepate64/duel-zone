@@ -12,11 +12,13 @@ sealed class PharziTheOracle : Creature
     {
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new SalvageEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
+                    controllerChooses: true,
                     filter: new SpellFilter(),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

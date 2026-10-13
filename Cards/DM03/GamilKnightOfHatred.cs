@@ -12,12 +12,14 @@ public sealed class GamilKnightOfHatred : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new SalvageEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
+                    controllerChooses: true,
                     filter: new CivilizationCreatureFilter(
                         Civilization.Darkness),
-                    excludeSource: false,
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }
