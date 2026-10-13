@@ -10,7 +10,6 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
     public ZoneType DestinationZone { get; }
     private readonly ICardFilter filter;
     private readonly SelectionRange selectionRange;
-    private readonly bool excludeSource; 
 
     public CardMovingChoiceEffect(
         int minimum,
@@ -19,13 +18,11 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
         ICardFilter filter,
         ZoneType source,
         ZoneType destination,
-        SelectionRange selectionRange,
-        bool excludeSource = false) : base(
+        SelectionRange selectionRange) : base(
             minimum, maximum, controllerChooses)
     {
         this.filter = filter;
         this.selectionRange = selectionRange;
-        this.excludeSource = excludeSource;
         SourceZone = source;
         DestinationZone = destination;
     }
@@ -34,7 +31,6 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
     {
         filter = effect.filter.Copy();
         selectionRange = effect.selectionRange;
-        excludeSource = effect.excludeSource;
         SourceZone = effect.SourceZone;
         DestinationZone = effect.DestinationZone;
     }
@@ -71,7 +67,6 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
                     Applier,
                 _ => throw new InvalidEnumArgumentException()
             };
-            //TODO: Consider excludeSource
             return GetZone(player).GetCards(filter);
         }
     }
@@ -102,7 +97,6 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
         if (!DestinationZone.Equals(effect.DestinationZone)) return false;
         if (!filter.Equals(effect.filter)) return false;
         if (!selectionRange.Equals(effect.selectionRange)) return false;
-        if (!excludeSource.Equals(effect.excludeSource)) return false;
         return true;
     }
 
@@ -113,7 +107,6 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
             SourceZone,
             DestinationZone,
             filter,
-            selectionRange,
-            excludeSource);
+            selectionRange);
     }
 }
