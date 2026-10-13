@@ -12,11 +12,13 @@ sealed class RikabusScrewdriver : Creature
     {
         AddAbilities(
             new TapAbility(
-                new DestroyEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new BlockerFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OpponentsCreatures
                 )));
     }

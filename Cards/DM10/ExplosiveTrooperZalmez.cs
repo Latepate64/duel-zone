@@ -13,11 +13,13 @@ sealed class ExplosiveTrooperZalmez : Creature
         AddTriggeredAbility(
             new DedreenTheHiddenCorrupterAbility(
                 shieldsMaximum: 2, 
-                new DestroyEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new MaxPowerFilter(3000),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OpponentsCreatures
                 )));
     }

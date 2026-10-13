@@ -13,11 +13,13 @@ sealed class DoboulgyserGiantRockBeast : EvolutionCreature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new MaxPowerFilter(3000),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OpponentsCreatures
                 )));
         AddAbilities(new DoubleBreakerAbility());

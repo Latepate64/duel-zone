@@ -12,11 +12,13 @@ public sealed class PoisonWorm : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new MaxPowerFilter(3000),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OwnCreatures
                 )));
     }

@@ -10,7 +10,7 @@ public sealed class CometMissile : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new DestroyEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: true,
@@ -18,6 +18,8 @@ public sealed class CometMissile : Spell
                     new BlockerFilter(),
                     new MaxPowerFilter(6000)
                 ),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OpponentsCreatures
             ));
     }

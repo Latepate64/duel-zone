@@ -12,11 +12,13 @@ sealed class TankMutant : Creature
     {
         AddAbilities(
             new TapAbility(
-                new DestroyEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: false,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OwnCreatures
                 )));
     }

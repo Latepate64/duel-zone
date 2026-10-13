@@ -10,11 +10,13 @@ sealed class TornadoFlame : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new DestroyEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: true,
                 filter: new MaxPowerFilter(4000),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OpponentsCreatures
             ));
     }

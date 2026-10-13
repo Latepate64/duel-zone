@@ -10,11 +10,13 @@ sealed class SoderlightTheColdBlade : SilentSkillCreature
         4000, Race.SpiritQuartz, Civilization.Water, Civilization.Darkness)
     {
         AddSilentSkillAbility(
-            new DestroyEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: false,
                 filter: new CreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OwnCreatures
             ));
     }

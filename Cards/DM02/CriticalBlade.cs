@@ -10,11 +10,13 @@ sealed class CriticalBlade : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new DestroyEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: true,
                 filter: new BlockerFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OpponentsCreatures
             ));
     }

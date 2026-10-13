@@ -10,18 +10,22 @@ public sealed class ChainsOfSacrifice : Spell
         Civilization.Darkness)
     {
         AddSpellAbilities(
-            new DestroyEffect(
+            new CardMovingChoiceEffect(
                 minimum: 0,
                 maximum: 2,
                 controllerChooses: true,
                 filter: new CreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OpponentsCreatures
             ),
-            new DestroyEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: true,
                 filter: new CreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OwnCreatures
             ));
     }
