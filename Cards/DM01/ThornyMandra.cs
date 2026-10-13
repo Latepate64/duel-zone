@@ -12,11 +12,13 @@ public sealed class ThornyMandra : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new FromGraveyardIntoManaZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
-                    filter: new CreatureFilter()
+                    filter: new CreatureFilter(),
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.ManaZone
         )));
     }
 }

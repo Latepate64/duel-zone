@@ -12,10 +12,13 @@ public sealed class PoisonousMushroom : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
-                    filter: new AnyCardFilter()
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.Hand,
+                    destination: ZoneType.ManaZone
         )));
     }
 }

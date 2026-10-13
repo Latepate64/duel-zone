@@ -15,9 +15,13 @@ public sealed class AmbushScorpion : Creature
         AddStaticAbilities(new PowerAttackerEffect(3000));
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new PutCardFromYourManaZoneIntoBattleZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
-                    filter: new NameFilter(AmbushScorpionName)
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new NameFilter(AmbushScorpionName),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.BattleZone
         )));
     }
 }

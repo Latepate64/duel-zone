@@ -13,8 +13,13 @@ public sealed class BlissTotemAvatarOfLuck : Creature
     {
         AddAbilities(
             new TapAbility(
-                new FromGraveyardIntoManaZoneEffect(
-                    0, 3, true, new AnyCardFilter()
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 3,
+                    controllerChooses: true,
+                    filter: new CreatureFilter(),
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.ManaZone
         )));
     }
 }

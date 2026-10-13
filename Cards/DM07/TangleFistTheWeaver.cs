@@ -12,10 +12,13 @@ sealed class TangleFistTheWeaver : Creature
     {
         AddAbilities(
             new TapAbility(
-                new YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 3,
-                    filter: new AnyCardFilter()
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.Hand,
+                    destination: ZoneType.ManaZone
         )));
     }
 }

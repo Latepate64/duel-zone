@@ -9,8 +9,13 @@ public sealed class EnchantedSoil : Spell
     public EnchantedSoil() : base("Enchanted Soil", 4, Civilization.Nature)
     {
         AddSpellAbilities(
-            new FromGraveyardIntoManaZoneEffect(
-                0, 2, true, new CreatureFilter()
+            new CardMovingChoiceEffect(
+                minimum: 0,
+                maximum: 2,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                source: ZoneType.Graveyard,
+                destination: ZoneType.ManaZone
         ));
     }
 }

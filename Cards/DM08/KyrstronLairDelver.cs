@@ -12,8 +12,13 @@ sealed class KyrstronLairDelver : Creature
     {
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new YouMayPutCardFromYourHandIntoBattleZoneEffect(
-                    new DragonFilter()
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 0,
+                    controllerChooses: true,
+                    filter: new DragonFilter(),
+                    source: ZoneType.Hand,
+                    destination: ZoneType.BattleZone
                 )));
     }
 }

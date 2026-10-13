@@ -12,11 +12,13 @@ public sealed class Psyshroom : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new FromGraveyardIntoManaZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
-                    filter: new CivilizationCardFilter(Civilization.Nature)
+                    filter: new CivilizationCardFilter(Civilization.Nature),
+                    source: ZoneType.Graveyard,
+                    destination: ZoneType.ManaZone
         )));
     }
 }

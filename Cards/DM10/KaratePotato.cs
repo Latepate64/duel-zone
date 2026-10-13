@@ -13,10 +13,13 @@ sealed class KaratePotato : Creature
         AddShieldTrigger();
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 2,
-                    filter: new AnyCardFilter()
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.Hand,
+                    destination: ZoneType.ManaZone
         )));
     }
 }

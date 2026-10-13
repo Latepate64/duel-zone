@@ -10,8 +10,13 @@ sealed class ManaNexus : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new FromManaZoneToShieldsFaceDownEffect(
-                new AnyCardFilter()
+            new CardMovingChoiceEffect(
+                minimum: 1, 
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.ShieldZone
             ));
     }
 }

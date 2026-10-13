@@ -17,9 +17,13 @@ public sealed class ObsidianScarab : Creature
         AddAbilities(new DoubleBreakerAbility());
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new PutCardFromYourManaZoneIntoBattleZoneEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
-                    filter: new NameFilter(ObsidianScarabName)
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new NameFilter(ObsidianScarabName),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.BattleZone
         )));
     }
 }

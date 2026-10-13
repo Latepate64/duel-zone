@@ -6,13 +6,19 @@ namespace Cards.DM11;
 
 public sealed class RollickingTotem : SilentSkillCreature
 {
-    public RollickingTotem() : base("Rollicking Totem", 5, 4000,
+    private const string RollickingTotemName = "Rollicking Totem";
+
+    public RollickingTotem() : base(RollickingTotemName, 5, 4000,
         Race.MysteryTotem, Civilization.Nature)
     {
         AddSilentSkillAbility(
-            new PutCardFromYourManaZoneIntoBattleZoneEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
-                filter: new DragonFilter()
-            ));
+                maximum: 1,
+                controllerChooses: true,
+                filter: new NameFilter(RollickingTotemName),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.BattleZone
+        ));
     }
 }
