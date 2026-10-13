@@ -19,7 +19,8 @@ public sealed class TerradragonGamiratar : Creature
                     controllerChooses: false,
                     filter: new CreatureFilter(),
                     ZoneType.Hand,
-                    ZoneType.BattleZone
+                    ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OpponentsCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

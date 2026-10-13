@@ -8,8 +8,8 @@ namespace OneShotEffects;
 public sealed class ShieldifyOwnCreatureEffect
     : CardMovingChoiceEffect
 {
-    public ShieldifyOwnCreatureEffect(ICardFilter filter) : base(
-        1, 1, true, filter, ZoneType.BattleZone, ZoneType.ShieldZone)
+    public ShieldifyOwnCreatureEffect(ICardFilter filter, SelectionRange selectionRange) : base(
+        1, 1, true, filter, ZoneType.BattleZone, ZoneType.ShieldZone, selectionRange)
     {
     }
 

@@ -13,13 +13,15 @@ public sealed class SalvageEffect : CardMovingChoiceEffect
         int minimum,
         int maximum,
         ICardFilter filter,
-        bool excludeSource) : base(
+        bool excludeSource,
+        SelectionRange selectionRange) : base(
             minimum,
             maximum,
             controllerChooses: true,
             filter,
             ZoneType.Graveyard,
-            ZoneType.Hand)
+            ZoneType.Hand,
+            selectionRange)
     {
         this.excludeSource = excludeSource;
     }

@@ -9,6 +9,7 @@ public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
     public ZoneType SourceZone { get; }
     public ZoneType DestinationZone { get; }
     protected readonly ICardFilter filter;
+    protected readonly SelectionRange selectionRange;
 
     public CardMovingChoiceEffect(
         int minimum,
@@ -16,9 +17,12 @@ public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
         bool controllerChooses,
         ICardFilter filter,
         ZoneType source,
-        ZoneType destination) : base(minimum, maximum, controllerChooses)
+        ZoneType destination,
+        SelectionRange selectionRange) : base(
+            minimum, maximum, controllerChooses)
     {
         this.filter = filter;
+        this.selectionRange = selectionRange;
         SourceZone = source;
         DestinationZone = destination;
     }
@@ -26,6 +30,7 @@ public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
     public CardMovingChoiceEffect(CardMovingChoiceEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
+        selectionRange = effect.selectionRange;
         SourceZone = effect.SourceZone;
         DestinationZone = effect.DestinationZone;
     }
@@ -41,11 +46,27 @@ public class CardMovingChoiceEffect : CardSelectionEffect<ICard>
     {
         if (SourceZone == ZoneType.BattleZone)
         {
-            throw new NotImplementedException();
+            var player = ControllerChooses ? Applier : Applier.Opponent;
+            return game.BattleZone.GetChoosableCreatures(
+                player, 
+                filter, 
+                game, 
+                selectionRange);
         }
         else
         {
-            var player = ControllerChooses ? Applier : Applier.Opponent;
+            var player = selectionRange switch
+            {
+                SelectionRange.OwnCreatures when ControllerChooses =>
+                    Applier,
+                SelectionRange.OwnCreatures when !ControllerChooses =>
+                    Applier.Opponent,
+                SelectionRange.OpponentsCreatures when ControllerChooses =>
+                    Applier.Opponent,
+                SelectionRange.OpponentsCreatures when !ControllerChooses =>
+                    Applier,
+                _ => throw new InvalidEnumArgumentException()
+            };
             return GetZone(player).GetCards(filter);
         }
     }

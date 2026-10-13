@@ -4,26 +4,23 @@ namespace OneShotEffects;
 
 public sealed class ShieldBurnEffect : CardMovingChoiceEffect
 {
-    private readonly bool ownShields; 
-
     public ShieldBurnEffect(
         int minimum,
         int maximum,
         ICardFilter filter,
-        bool ownShields) : base(
+        SelectionRange selectionRange) : base(
             minimum,
             maximum,
             controllerChooses: true,
             filter,
             ZoneType.ShieldZone,
-            ZoneType.Graveyard)
+            ZoneType.Graveyard,
+            selectionRange)
     {
-        this.ownShields = ownShields;
     }
 
     private ShieldBurnEffect(ShieldBurnEffect effect) : base(effect)
     {
-        ownShields = effect.ownShields;
     }
 
     public override IOneShotEffect Copy()
@@ -34,7 +31,7 @@ public sealed class ShieldBurnEffect : CardMovingChoiceEffect
     protected override IEnumerable<ICard> GetSelectableCards(
         IGame game, IAbility source)
     {
-        if (ownShields)
+        if (selectionRange == SelectionRange.OwnCreatures)
         {
             return Applier.ShieldZone.Cards;
         }

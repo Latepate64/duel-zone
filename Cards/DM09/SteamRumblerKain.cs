@@ -16,7 +16,7 @@ sealed class SteamRumblerKain : Creature
                     minimum: 1,
                     maximum: 1,
                     filter: new AnyCardFilter(),
-                    ownShields: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

@@ -15,7 +15,7 @@ sealed class SquawkingLunatron : SilentSkillCreature
                 maximum: 3,
                 controllerChooses: true,
                 filter: new AnyCardFilter(),
-                ownMana: true
+                selectionRange: SelectionRange.OwnCreatures
         ));
     }
 }

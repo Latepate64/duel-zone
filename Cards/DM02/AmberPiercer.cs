@@ -16,7 +16,8 @@ sealed class AmberPiercer : Creature
                     minimum: 0,
                     maximum: 1,
                     filter: new CreatureFilter(),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

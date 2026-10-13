@@ -13,7 +13,8 @@ sealed class RondobilTheExplorer : Creature
         AddAbilities(
             new TapAbility(
                 new ShieldifyOwnCreatureEffect(
-                    new CreatureFilter()
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OwnCreatures
                 )));
     }
 }

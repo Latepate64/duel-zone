@@ -17,7 +17,8 @@ public sealed class GamilKnightOfHatred : Creature
                     maximum: 1,
                     filter: new CivilizationCreatureFilter(
                         Civilization.Darkness),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

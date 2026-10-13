@@ -17,7 +17,7 @@ public sealed class BonePiercer : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
-                    ownMana: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

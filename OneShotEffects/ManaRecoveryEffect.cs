@@ -8,27 +8,24 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class ManaRecoveryEffect : CardMovingChoiceEffect
 {
-    private readonly bool ownMana;
-
     public ManaRecoveryEffect(
         int minimum,
         int maximum,
         bool controllerChooses,
         ICardFilter filter,
-        bool ownMana) : base(
+        SelectionRange selectionRange) : base(
             minimum,
             maximum,
             controllerChooses,
             filter,
             ZoneType.ManaZone,
-            ZoneType.Hand)
+            ZoneType.Hand,
+            selectionRange)
     {
-        this.ownMana = ownMana;
     }
 
     private ManaRecoveryEffect(ManaRecoveryEffect effect) : base(effect)
     {
-        ownMana = effect.ownMana;
     }
 
     public override IOneShotEffect Copy()
@@ -39,7 +36,7 @@ public sealed class ManaRecoveryEffect : CardMovingChoiceEffect
     protected override IEnumerable<ICard> GetSelectableCards(
         IGame game, IAbility source)
     {
-        if (ownMana)
+        if (selectionRange == SelectionRange.OwnCreatures)
         {
             return Applier.ManaZone.GetCards(filter);
         }

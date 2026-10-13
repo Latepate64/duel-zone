@@ -18,7 +18,7 @@ sealed class MidnightCrawler : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
-                    ownMana: false
+                    selectionRange: SelectionRange.OpponentsCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

@@ -19,7 +19,8 @@ sealed class KaratePotato : Creature
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
                     source: ZoneType.Hand,
-                    destination: ZoneType.ManaZone
+                    destination: ZoneType.ManaZone,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

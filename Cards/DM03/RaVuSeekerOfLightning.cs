@@ -19,7 +19,8 @@ public sealed class RaVuSeekerOfLightning : Creature
                         new CivilizationCardFilter(Civilization.Light),
                         new SpellFilter()
                     ),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

@@ -17,7 +17,8 @@ public sealed class BatDoctorShadowOfUndeath : Creature
                     minimum: 0,
                     maximum: 1,
                     filter: new CreatureFilter(),
-                    excludeSource: true
+                    excludeSource: true,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

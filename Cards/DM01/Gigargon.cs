@@ -16,7 +16,8 @@ sealed class Gigargon : Creature
                     minimum: 0,
                     maximum: 2,
                     filter: new CreatureFilter(),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

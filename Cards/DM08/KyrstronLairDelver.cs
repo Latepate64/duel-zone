@@ -18,7 +18,8 @@ sealed class KyrstronLairDelver : Creature
                     controllerChooses: true,
                     filter: new DragonFilter(),
                     source: ZoneType.Hand,
-                    destination: ZoneType.BattleZone
+                    destination: ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OwnCreatures
                 )));
     }
 }

@@ -20,7 +20,7 @@ sealed class BelixTheExplorer : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new SpellFilter(),
-                    ownMana: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
         AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }

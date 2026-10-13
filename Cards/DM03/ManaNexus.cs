@@ -16,7 +16,8 @@ sealed class ManaNexus : Spell
                 controllerChooses: true,
                 filter: new AnyCardFilter(),
                 source: ZoneType.ManaZone,
-                destination: ZoneType.ShieldZone
+                destination: ZoneType.ShieldZone,
+                selectionRange: SelectionRange.OwnCreatures
             ));
     }
 }

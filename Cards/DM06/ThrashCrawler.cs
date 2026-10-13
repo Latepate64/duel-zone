@@ -19,7 +19,7 @@ sealed class ThrashCrawler : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
-                    ownMana: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
         AddStaticAbilities(new ThisCreatureCannotAttackEffect());
     }

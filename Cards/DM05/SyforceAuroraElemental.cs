@@ -19,7 +19,7 @@ sealed class SyforceAuroraElemental : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new SpellFilter(),
-                    ownMana: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

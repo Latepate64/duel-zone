@@ -4,8 +4,6 @@ namespace OneShotEffects;
 
 public sealed class DestroyEffect : CardMovingChoiceEffect
 {
-    private readonly SelectionRange selectionRange;
-
     public DestroyEffect(
         int minimum,
         int maximum,
@@ -17,14 +15,13 @@ public sealed class DestroyEffect : CardMovingChoiceEffect
             controllerChooses,
             filter,
             ZoneType.BattleZone,
-            ZoneType.Graveyard)
+            ZoneType.Graveyard,
+            selectionRange)
     {
-        this.selectionRange = selectionRange;
     }
 
     DestroyEffect(DestroyEffect effect) : base(effect)
     {
-        selectionRange = effect.selectionRange;
     }
 
     public override IOneShotEffect Copy()

@@ -17,7 +17,8 @@ sealed class GraveWormQ : Creature
                     minimum: 0,
                     maximum: 1,
                     filter: new RaceCreatureFilter(Race.Survivor),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         ))));
     }
 }

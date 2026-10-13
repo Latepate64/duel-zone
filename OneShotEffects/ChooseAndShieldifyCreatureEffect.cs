@@ -10,8 +10,8 @@ public sealed class ChooseAndShieldifyCreatureEffect
     : CardMovingChoiceEffect
 {
 
-    public ChooseAndShieldifyCreatureEffect(ICardFilter filter) : base(
-        1, 1, true, filter, ZoneType.BattleZone, ZoneType.ShieldZone)
+    public ChooseAndShieldifyCreatureEffect(ICardFilter filter, SelectionRange selectionRange) : base(
+        1, 1, true, filter, ZoneType.BattleZone, ZoneType.ShieldZone, selectionRange)
     {
     }
 

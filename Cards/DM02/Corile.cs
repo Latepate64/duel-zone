@@ -12,7 +12,8 @@ public sealed class Corile : Creature
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
                 new CorileEffect(
-                    new CreatureFilter()
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OpponentsCreatures
                 )));
     }
 }

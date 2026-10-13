@@ -17,7 +17,7 @@ sealed class ÜberdragonBajula : DragonEvolutionCreature
                     maximum: 2,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
-                    ownMana: false
+                    selectionRange: SelectionRange.OpponentsCreatures
         )));
     }
 }

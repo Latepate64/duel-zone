@@ -17,7 +17,7 @@ sealed class Quakesaur : Creature
                     maximum: 1,
                     controllerChooses: false,
                     filter: new AnyCardFilter(),
-                    ownMana: false
+                    selectionRange: SelectionRange.OpponentsCreatures
         )));
     }
 }

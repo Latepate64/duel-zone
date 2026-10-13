@@ -15,7 +15,7 @@ public sealed class RoarOfTheEarth : Spell
                 maximum: 1,
                 controllerChooses: true,
                 filter: new MinCostCreatureFilter(6),
-                ownMana: true
+                selectionRange: SelectionRange.OwnCreatures
         ));
     }
 }

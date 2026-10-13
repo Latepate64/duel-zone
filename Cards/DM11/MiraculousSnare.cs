@@ -11,7 +11,8 @@ public sealed class MiraculousSnare : Spell
     {
         AddSpellAbilities(
             new ChooseAndShieldifyCreatureEffect(
-                new NonEvolutionCreatureFilter()
+                filter: new NonEvolutionCreatureFilter(),
+                selectionRange: SelectionRange.AllCreatures
             ));
     }
 }

@@ -21,7 +21,8 @@ public sealed class AmbushScorpion : Creature
                     controllerChooses: true,
                     filter: new NameFilter(AmbushScorpionName),
                     source: ZoneType.ManaZone,
-                    destination: ZoneType.BattleZone
+                    destination: ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

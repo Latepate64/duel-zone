@@ -18,7 +18,7 @@ public sealed class SkullsweeperQ : Creature
                         maximum: 1,
                         controllerChooses: false,
                         filter: new AnyCardFilter(),
-                        ownHand: false
+                        selectionRange: SelectionRange.OpponentsCreatures
         ))));
     }
 }

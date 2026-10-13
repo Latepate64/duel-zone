@@ -8,8 +8,6 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class ManaFeedEffect : CardMovingChoiceEffect
 {
-    private readonly SelectionRange selectionRange;
-
     public ManaFeedEffect(
         int minimum,
         int maximum,
@@ -21,14 +19,13 @@ public sealed class ManaFeedEffect : CardMovingChoiceEffect
             controllerChooses,
             filter,
             ZoneType.BattleZone,
-            ZoneType.ManaZone)
+            ZoneType.ManaZone,
+            selectionRange)
     {
-        this.selectionRange = selectionRange;
     }
 
     ManaFeedEffect(ManaFeedEffect effect) : base(effect)
     {
-        selectionRange = effect.selectionRange;
     }
 
     public override IOneShotEffect Copy()

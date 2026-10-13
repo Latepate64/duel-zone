@@ -24,7 +24,7 @@ sealed class HeadlongGiant : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
-                    ownHand: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
         AddAbilities(new TripleBreakerAbility());
     }

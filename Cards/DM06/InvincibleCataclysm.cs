@@ -14,7 +14,7 @@ public sealed class InvincibleCataclysm : Spell
                 minimum: 0,
                 maximum: 3,
                 filter: new AnyCardFilter(),
-                ownShields: false
+                selectionRange: SelectionRange.OpponentsCreatures
         ));
     }
 }

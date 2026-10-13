@@ -15,7 +15,7 @@ sealed class MysticDreamscape : Spell
                 maximum: 3,
                 controllerChooses: true,
                 filter: new AnyCardFilter(),
-                ownMana: true
+                selectionRange: SelectionRange.OwnCreatures
         ));
     }
 }

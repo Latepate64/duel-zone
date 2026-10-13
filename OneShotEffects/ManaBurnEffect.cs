@@ -4,27 +4,24 @@ namespace OneShotEffects;
 
 public sealed class ManaBurnEffect : CardMovingChoiceEffect
 {
-    private readonly bool ownMana;
-
     public ManaBurnEffect(
         int minimum,
         int maximum,
         bool controllerChooses,
         ICardFilter filter,
-        bool ownMana) : base(
+        SelectionRange selectionRange) : base(
             minimum,
             maximum,
             controllerChooses,
             filter,
             ZoneType.ManaZone,
-            ZoneType.Graveyard)
+            ZoneType.Graveyard,
+            selectionRange)
     {
-        this.ownMana = ownMana;
     }
 
     private ManaBurnEffect(ManaBurnEffect effect) : base(effect)
     {
-        ownMana = effect.ownMana;
     }
 
     public override IOneShotEffect Copy()
@@ -35,7 +32,7 @@ public sealed class ManaBurnEffect : CardMovingChoiceEffect
     protected override IEnumerable<ICard> GetSelectableCards(
         IGame game, IAbility source)
     {
-        if (ownMana)
+        if (selectionRange == SelectionRange.OwnCreatures)
         {
             return Applier.ManaZone.GetCards(filter);
         }

@@ -17,7 +17,7 @@ sealed class OnslaughterTriceps : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
-                    ownMana: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

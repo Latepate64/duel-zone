@@ -15,7 +15,8 @@ public sealed class EnchantedSoil : Spell
                 controllerChooses: true,
                 filter: new CreatureFilter(),
                 source: ZoneType.Graveyard,
-                destination: ZoneType.ManaZone
+                destination: ZoneType.ManaZone,
+                selectionRange: SelectionRange.OwnCreatures
         ));
     }
 }

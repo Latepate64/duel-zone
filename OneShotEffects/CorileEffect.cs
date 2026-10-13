@@ -8,8 +8,8 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class CorileEffect : CardMovingChoiceEffect
 {
-    public CorileEffect(ICardFilter filter) : base(
-        1, 1, true, filter, ZoneType.BattleZone, ZoneType.Deck)
+    public CorileEffect(ICardFilter filter, SelectionRange selectionRange) : base(
+        1, 1, true, filter, ZoneType.BattleZone, ZoneType.Deck, selectionRange)
     {
     }
 

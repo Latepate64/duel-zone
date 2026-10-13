@@ -14,7 +14,8 @@ sealed class DarkReversal : Spell
                 minimum: 1,
                 maximum: 1,
                 filter: new CreatureFilter(),
-                excludeSource: false
+                excludeSource: false,
+                selectionRange: SelectionRange.OwnCreatures
         ));
     }
 }

@@ -23,7 +23,8 @@ public sealed class ObsidianScarab : Creature
                     controllerChooses: true,
                     filter: new NameFilter(ObsidianScarabName),
                     source: ZoneType.ManaZone,
-                    destination: ZoneType.BattleZone
+                    destination: ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

@@ -16,7 +16,8 @@ sealed class PharziTheOracle : Creature
                     minimum: 0,
                     maximum: 1,
                     filter: new SpellFilter(),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

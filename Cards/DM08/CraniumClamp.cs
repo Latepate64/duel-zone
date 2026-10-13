@@ -14,7 +14,7 @@ public sealed class CraniumClamp : Spell
                 maximum: 2,
                 controllerChooses: false,
                 filter: new AnyCardFilter(),
-                ownHand: false
+                selectionRange: SelectionRange.OpponentsCreatures
         ));
     }
 }

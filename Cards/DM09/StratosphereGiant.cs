@@ -19,7 +19,8 @@ public sealed class StratosphereGiant : Creature
                     controllerChooses: false,
                     filter: new CreatureFilter(),
                     source: ZoneType.Hand,
-                    destination: ZoneType.BattleZone
+                    destination: ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OpponentsCreatures
         )));
         AddAbilities(new TripleBreakerAbility());
     }

@@ -18,7 +18,7 @@ public sealed class BloodwingMantis : Creature
                     maximum: 2,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
-                    ownMana: true
+                    selectionRange: SelectionRange.OwnCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

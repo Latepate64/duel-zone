@@ -17,7 +17,7 @@ public sealed class SmileAngler : Creature
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
-                    ownMana: false
+                    selectionRange: SelectionRange.OpponentsCreatures
         )));
     }
 }

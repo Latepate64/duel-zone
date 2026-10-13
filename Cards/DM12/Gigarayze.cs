@@ -18,7 +18,8 @@ public sealed class Gigarayze : Creature
                     filter: new CivilizationCreatureFilter(
                         Civilization.Water,
                         Civilization.Fire),
-                    excludeSource: false
+                    excludeSource: false,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

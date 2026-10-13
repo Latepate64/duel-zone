@@ -15,7 +15,7 @@ sealed class ManaCrisis : Spell
                 maximum: 1,
                 controllerChooses: true,
                 filter: new AnyCardFilter(),
-                ownMana: false
+                selectionRange: SelectionRange.OpponentsCreatures
         ));
     }
 }
