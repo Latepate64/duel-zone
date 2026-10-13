@@ -8,18 +8,14 @@ namespace OneShotEffects;
 public sealed class FromManaZoneToShieldsFaceDownEffect
     : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
-
     public FromManaZoneToShieldsFaceDownEffect(ICardFilter filter) : base(
-        1, 1, true, ZoneType.ManaZone, ZoneType.ShieldZone)
+        1, 1, true, filter, ZoneType.ManaZone, ZoneType.ShieldZone)
     {
-        this.filter = filter;
     }
 
     public FromManaZoneToShieldsFaceDownEffect(
         FromManaZoneToShieldsFaceDownEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()

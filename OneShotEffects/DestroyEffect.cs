@@ -4,7 +4,6 @@ namespace OneShotEffects;
 
 public sealed class DestroyEffect : CardMovingChoiceEffect<ICreature>
 {
-    private readonly ICardFilter filter;
     private readonly SelectionRange selectionRange;
 
     public DestroyEffect(
@@ -16,16 +15,15 @@ public sealed class DestroyEffect : CardMovingChoiceEffect<ICreature>
             minimum,
             maximum,
             controllerChooses,
+            filter,
             ZoneType.BattleZone,
             ZoneType.Graveyard)
     {
-        this.filter = filter;
         this.selectionRange = selectionRange;
     }
 
     DestroyEffect(DestroyEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
         selectionRange = effect.selectionRange;
     }
 

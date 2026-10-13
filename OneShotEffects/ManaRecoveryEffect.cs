@@ -8,7 +8,6 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class ManaRecoveryEffect : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
     private readonly bool ownMana;
 
     public ManaRecoveryEffect(
@@ -20,16 +19,15 @@ public sealed class ManaRecoveryEffect : CardMovingChoiceEffect<ICard>
             minimum,
             maximum,
             controllerChooses,
+            filter,
             ZoneType.ManaZone,
             ZoneType.Hand)
     {
-        this.filter = filter;
         this.ownMana = ownMana;
     }
 
     private ManaRecoveryEffect(ManaRecoveryEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
         ownMana = effect.ownMana;
     }
 

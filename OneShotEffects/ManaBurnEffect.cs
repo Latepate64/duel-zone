@@ -4,7 +4,6 @@ namespace OneShotEffects;
 
 public sealed class ManaBurnEffect : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
     private readonly bool ownMana;
 
     public ManaBurnEffect(
@@ -16,16 +15,15 @@ public sealed class ManaBurnEffect : CardMovingChoiceEffect<ICard>
             minimum,
             maximum,
             controllerChooses,
+            filter,
             ZoneType.ManaZone,
             ZoneType.Graveyard)
     {
-        this.filter = filter;
         this.ownMana = ownMana;
     }
 
     private ManaBurnEffect(ManaBurnEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
         ownMana = effect.ownMana;
     }
 

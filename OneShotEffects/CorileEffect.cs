@@ -8,17 +8,13 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class CorileEffect : CardMovingChoiceEffect<ICreature>
 {
-    private readonly ICardFilter filter;
-
     public CorileEffect(ICardFilter filter) : base(
-        1, 1, true, ZoneType.BattleZone, ZoneType.Deck)
+        1, 1, true, filter, ZoneType.BattleZone, ZoneType.Deck)
     {
-        this.filter = filter;
     }
 
     CorileEffect(CorileEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()

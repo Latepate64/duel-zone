@@ -8,19 +8,15 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class StratosphereGiantEffect : CardMovingChoiceEffect<ICreature>
 {
-    private readonly ICardFilter filter;
-
     public StratosphereGiantEffect(
         int minimum, int maximum, ICardFilter filter) : base(
-            minimum, maximum, false, ZoneType.Hand, ZoneType.BattleZone)
+            minimum, maximum, false, filter, ZoneType.Hand, ZoneType.BattleZone)
     {
-        this.filter = filter;
     }
 
     public StratosphereGiantEffect(
         StratosphereGiantEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()

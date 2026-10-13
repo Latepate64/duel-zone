@@ -9,18 +9,15 @@ namespace OneShotEffects;
 public sealed class ChooseAndShieldifyCreatureEffect
     : CardMovingChoiceEffect<ICreature>
 {
-    private readonly ICardFilter filter;
 
     public ChooseAndShieldifyCreatureEffect(ICardFilter filter) : base(
-        1, 1, true, ZoneType.BattleZone, ZoneType.ShieldZone)
+        1, 1, true, filter, ZoneType.BattleZone, ZoneType.ShieldZone)
     {
-        this.filter = filter;
     }
 
     public ChooseAndShieldifyCreatureEffect(
         ChooseAndShieldifyCreatureEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()

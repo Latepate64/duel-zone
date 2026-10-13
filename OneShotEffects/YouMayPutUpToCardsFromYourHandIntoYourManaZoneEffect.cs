@@ -8,22 +8,18 @@ namespace OneShotEffects;
 public sealed class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
     : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
-
     public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
         int minimum,
         int maximum,
         ICardFilter filter) : base(
-            minimum, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
+            minimum, maximum, true, filter, ZoneType.Hand, ZoneType.ManaZone)
     {
-        this.filter = filter;
     }
 
     private YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
         YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(
             effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()

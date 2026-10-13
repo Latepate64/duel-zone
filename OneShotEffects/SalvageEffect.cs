@@ -7,7 +7,6 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class SalvageEffect : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
     private readonly bool excludeSource; 
 
     public SalvageEffect(
@@ -18,16 +17,15 @@ public sealed class SalvageEffect : CardMovingChoiceEffect<ICard>
             minimum,
             maximum,
             controllerChooses: true,
+            filter,
             ZoneType.Graveyard,
             ZoneType.Hand)
     {
-        this.filter = filter;
         this.excludeSource = excludeSource;
     }
 
     private SalvageEffect(SalvageEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
         excludeSource = effect.excludeSource;
     }
 

@@ -4,7 +4,6 @@ namespace OneShotEffects;
 
 public sealed class BounceEffect : CardMovingChoiceEffect<ICreature>
 {
-    private readonly ICardFilter filter;
     private readonly SelectionRange selectionRange;
 
     public BounceEffect(
@@ -16,16 +15,15 @@ public sealed class BounceEffect : CardMovingChoiceEffect<ICreature>
             minimum,
             maximum,
             controllerChooses,
+            filter,
             ZoneType.BattleZone,
             ZoneType.Hand)
     {
-        this.filter = filter;
         this.selectionRange = selectionRange;
     }
 
     BounceEffect(BounceEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
         selectionRange = effect.selectionRange;
     }
 

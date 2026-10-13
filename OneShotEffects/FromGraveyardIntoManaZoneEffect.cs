@@ -5,8 +5,6 @@ namespace OneShotEffects;
 public sealed class FromGraveyardIntoManaZoneEffect
     : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
-
     public FromGraveyardIntoManaZoneEffect(
         int minimum,
         int maximum,
@@ -15,16 +13,15 @@ public sealed class FromGraveyardIntoManaZoneEffect
             minimum,
             maximum,
             controllerChooses,
+            filter,
             ZoneType.Graveyard,
             ZoneType.ManaZone)
     {
-        this.filter = filter;
     }
 
     private FromGraveyardIntoManaZoneEffect(
         FromGraveyardIntoManaZoneEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()

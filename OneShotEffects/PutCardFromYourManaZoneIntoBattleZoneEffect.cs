@@ -8,19 +8,15 @@ namespace OneShotEffects;
 public sealed class PutCardFromYourManaZoneIntoBattleZoneEffect
     : CardMovingChoiceEffect<ICard>
 {
-    private readonly ICardFilter filter;
-
     public PutCardFromYourManaZoneIntoBattleZoneEffect(
         int minimum, ICardFilter filter)
-        : base(minimum, 1, true, ZoneType.ManaZone, ZoneType.BattleZone)
+        : base(minimum, 1, true, filter, ZoneType.ManaZone, ZoneType.BattleZone)
     {
-        this.filter = filter;
     }
 
     public PutCardFromYourManaZoneIntoBattleZoneEffect(
         PutCardFromYourManaZoneIntoBattleZoneEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
