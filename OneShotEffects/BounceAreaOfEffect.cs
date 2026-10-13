@@ -2,13 +2,33 @@
 
 namespace OneShotEffects;
 
-public abstract class BounceAreaOfEffect : CardMovingAreaOfEffect
+public sealed class BounceAreaOfEffect : CardMovingAreaOfEffect
 {
-    protected BounceAreaOfEffect(BounceAreaOfEffect effect) : base(effect)
+    private readonly ICardFilter filter;
+    private readonly SelectionRange selectionRange;
+    private readonly bool excludeSource;
+
+    public BounceAreaOfEffect(ICardFilter filter, SelectionRange selectionRange, bool excludeSource) : base(ZoneType.BattleZone, ZoneType.Hand)
     {
+        this.filter = filter;
+        this.selectionRange = selectionRange;
+        this.excludeSource = excludeSource;
     }
 
-    protected BounceAreaOfEffect() : base(ZoneType.BattleZone, ZoneType.Hand)
+    private BounceAreaOfEffect(BounceAreaOfEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
+        selectionRange = effect.selectionRange;
+        excludeSource = effect.excludeSource;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new BounceAreaOfEffect(this);
+    }
+
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+    {
+        throw new NotImplementedException();
     }
 }

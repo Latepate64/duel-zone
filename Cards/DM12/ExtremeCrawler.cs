@@ -13,8 +13,10 @@ public sealed class ExtremeCrawler : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceAllYourOtherCreaturesEffect(
-                    new CreatureFilter()
+                new BounceAreaOfEffect(
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OwnCards,
+                    excludeSource: true
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }
