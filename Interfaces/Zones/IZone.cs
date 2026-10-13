@@ -4,7 +4,6 @@ public interface IZone
 {
     ZoneType Type { get; }
     IEnumerable<ICreature> Creatures { get; }
-    IEnumerable<ISpell> Spells { get; }
     int Size { get; }
     bool HasCards { get; }
     IEnumerable<ICard> Cards { get; }
@@ -13,7 +12,6 @@ public interface IZone
     IEnumerable<ICard> CardsWithName(string name);
     void Dispose();
     int GetCardCount(Civilization civilization);
-    IEnumerable<ICard> GetCards(Civilization civilization);
     int GetCreatureCount(Guid owner);
     IEnumerable<ICreature> GetCreatures(Guid owner);
     IEnumerable<ICreature> GetCreatures(params Race[] races);

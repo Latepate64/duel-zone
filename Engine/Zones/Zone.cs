@@ -18,7 +18,6 @@ public abstract class Zone : IDisposable, IZone
     public ZoneType Type { get; }
 
     public IEnumerable<ICreature> Creatures => cards.OfType<ICreature>();
-    public IEnumerable<ISpell> Spells => cards.OfType<ISpell>();
 
     public int Size => cards.Count;
     public bool HasCards => Size != 0;
@@ -91,11 +90,6 @@ public abstract class Zone : IDisposable, IZone
             race => races.Contains(race)));
     }
 
-    public IEnumerable<ICard> GetCards(Civilization civilization)
-    {
-        return cards.Where(x => x.HasCivilization(civilization));
-    }
-
     public int GetCardCount(Civilization civilization)
     {
         return GetCards(civilization).Count();
@@ -151,5 +145,10 @@ public abstract class Zone : IDisposable, IZone
     public int GetNumberOfCards(ICardFilter filter)
     {
         return GetCards(filter).Count();
+    }
+
+    IEnumerable<ICard> GetCards(Civilization civilization)
+    {
+        return cards.Where(x => x.HasCivilization(civilization));
     }
 }

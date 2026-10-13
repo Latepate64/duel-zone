@@ -287,22 +287,6 @@ public sealed class ZoneTests
         card.VerifySet(x => x.OwnerV2 = player);
     }
 
-    [Fact]
-    public void Spells()
-    {
-        // Arrange
-        var zone = new Hand();
-        var spell = Mock.Of<ISpell>();
-        zone.Add(spell);
-
-        // Act
-        var spells = zone.Spells;
-
-        // Assert
-        Assert.Contains(spell, spells);
-        Assert.Single(spells);
-    }
-
     [Theory]
     [InlineData(false, 0)]
     [InlineData(true, 1)]
