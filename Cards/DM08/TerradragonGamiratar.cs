@@ -13,10 +13,13 @@ public sealed class TerradragonGamiratar : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new StratosphereGiantEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
-                    new CreatureFilter()
+                    controllerChooses: false,
+                    filter: new CreatureFilter(),
+                    ZoneType.Hand,
+                    ZoneType.BattleZone
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

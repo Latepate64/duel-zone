@@ -13,10 +13,13 @@ public sealed class StratosphereGiant : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new StratosphereGiantEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 2,
-                    new CreatureFilter()
+                    controllerChooses: false,
+                    filter: new CreatureFilter(),
+                    source: ZoneType.Hand,
+                    destination: ZoneType.BattleZone
         )));
         AddAbilities(new TripleBreakerAbility());
     }
