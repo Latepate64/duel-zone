@@ -12,11 +12,13 @@ sealed class Aeropica : Creature
     {
         AddAbilities(
             new TapAbility(
-                new BounceEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.AllCreatures
         )));
     }

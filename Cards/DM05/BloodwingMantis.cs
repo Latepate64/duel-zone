@@ -13,11 +13,13 @@ public sealed class BloodwingMantis : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 2,
                     maximum: 2,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());

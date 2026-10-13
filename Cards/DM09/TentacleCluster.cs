@@ -12,11 +12,13 @@ sealed class TentacleCluster : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(
-                new BounceEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.AllCreatures
         )));
     }

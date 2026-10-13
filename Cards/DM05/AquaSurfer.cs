@@ -13,11 +13,13 @@ sealed class AquaSurfer : Creature
         AddShieldTrigger();
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.AllCreatures
         )));
     }

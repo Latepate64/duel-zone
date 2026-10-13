@@ -15,11 +15,13 @@ public sealed class TropicCrawler : Creature
         AddAbilities(new BlockerAbility());
         AddTriggeredAbility(
             new WheneverThisCreatureBlocksAbility(
-                new BounceEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: false,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
                 )));
         AddStaticAbilities(new ThisCreatureCannotAttackEffect());

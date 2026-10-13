@@ -12,11 +12,13 @@ sealed class LenaVizierOfBrilliance : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new SpellFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

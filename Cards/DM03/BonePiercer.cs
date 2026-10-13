@@ -12,11 +12,13 @@ public sealed class BonePiercer : Creature
     {
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

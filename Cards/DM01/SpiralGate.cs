@@ -10,12 +10,14 @@ sealed class SpiralGate : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new BounceEffect(
-                    minimum: 1,
-                    maximum: 1,
-                    controllerChooses: true,
-                    filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.AllCreatures
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Hand,
+                selectionRange: SelectionRange.AllCreatures
         ));
     }
 }

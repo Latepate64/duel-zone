@@ -12,11 +12,13 @@ sealed class CosmogoldSpectralKnight : Creature
     {
         AddAbilities(
             new TapAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new SpellFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

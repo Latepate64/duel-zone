@@ -12,11 +12,13 @@ public sealed class FranticChieftain : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new MaxCostCreatureFilter(4),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
     }

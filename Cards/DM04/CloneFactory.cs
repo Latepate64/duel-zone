@@ -9,11 +9,13 @@ sealed class CloneFactory : Spell
     public CloneFactory() : base("Clone Factory", 3, Civilization.Water)
     {
         AddSpellAbilities(
-            new ManaRecoveryEffect(
+            new CardMovingChoiceEffect(
                 minimum: 0,
                 maximum: 2,
                 controllerChooses: true,
                 filter: new AnyCardFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.Hand,
                 selectionRange: SelectionRange.OwnCreatures
         ));
     }

@@ -12,11 +12,13 @@ public sealed class SmileAngler : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OpponentsCreatures
         )));
     }

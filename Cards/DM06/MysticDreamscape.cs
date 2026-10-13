@@ -10,11 +10,13 @@ sealed class MysticDreamscape : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new ManaRecoveryEffect(
+            new CardMovingChoiceEffect(
                 minimum: 0,
                 maximum: 3,
                 controllerChooses: true,
                 filter: new AnyCardFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.Hand,
                 selectionRange: SelectionRange.OwnCreatures
         ));
     }

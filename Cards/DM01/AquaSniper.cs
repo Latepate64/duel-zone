@@ -12,11 +12,13 @@ sealed class AquaSniper : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 2,
                     controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.AllCreatures
         )));
     }

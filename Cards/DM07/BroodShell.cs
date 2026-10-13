@@ -12,11 +12,13 @@ sealed class BroodShell : Creature
     {
         AddAbilities(
             new TapAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: true,
                 filter: new CreatureFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.Hand,
                 selectionRange: SelectionRange.OwnCreatures
         )));
     }

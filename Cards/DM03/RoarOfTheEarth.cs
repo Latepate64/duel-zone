@@ -10,11 +10,13 @@ public sealed class RoarOfTheEarth : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new ManaRecoveryEffect(
+            new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: true,
                 filter: new MinCostCreatureFilter(6),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.Hand,
                 selectionRange: SelectionRange.OwnCreatures
         ));
     }

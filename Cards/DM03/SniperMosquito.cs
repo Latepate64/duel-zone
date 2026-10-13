@@ -12,12 +12,14 @@ sealed class SniperMosquito : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ManaRecoveryEffect(
-                minimum: 1,
-                maximum: 1,
-                controllerChooses: true,
-                filter: new AnyCardFilter(),
-                selectionRange: SelectionRange.OwnCreatures
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

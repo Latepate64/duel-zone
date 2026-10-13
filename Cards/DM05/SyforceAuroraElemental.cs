@@ -14,11 +14,13 @@ sealed class SyforceAuroraElemental : Creature
         AddAbilities(new BlockerAbility());
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new SpellFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());

@@ -14,11 +14,13 @@ sealed class ThrashCrawler : Creature
         AddAbilities(new BlockerAbility());
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaRecoveryEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCreatures
         )));
         AddStaticAbilities(new ThisCreatureCannotAttackEffect());
