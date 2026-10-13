@@ -17,7 +17,7 @@ public sealed class MiraculousSnare : Spell
                 filter: new NonEvolutionCreatureFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.ShieldZone,
-                selectionRange: SelectionRange.AllCreatures
+                selectionRange: SelectionRange.AllCards
             ));
     }
 }

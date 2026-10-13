@@ -19,7 +19,7 @@ public sealed class PoisonWorm : Creature
                     filter: new MaxPowerFilter(3000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
                 )));
     }
 }

@@ -19,7 +19,7 @@ sealed class FlameTrooperGoliac : WaveStrikerCreature
                     filter: new MaxPowerFilter(5000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

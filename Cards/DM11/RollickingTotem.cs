@@ -19,7 +19,7 @@ public sealed class RollickingTotem : SilentSkillCreature
                 filter: new NameFilter(RollickingTotemName),
                 source: ZoneType.ManaZone,
                 destination: ZoneType.BattleZone,
-                selectionRange: SelectionRange.OwnCreatures
+                selectionRange: SelectionRange.OwnCards
         ));
     }
 }

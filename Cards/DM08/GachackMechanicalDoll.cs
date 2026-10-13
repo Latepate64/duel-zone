@@ -19,7 +19,7 @@ sealed class GachackMechanicalDoll : TurboRushCreature
                     filter: new CreatureFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.AllCreatures
+                    selectionRange: SelectionRange.AllCards
                 )));
     }
 }

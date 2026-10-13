@@ -24,7 +24,7 @@ public sealed class ObsidianScarab : Creature
                     filter: new NameFilter(ObsidianScarabName),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.BattleZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

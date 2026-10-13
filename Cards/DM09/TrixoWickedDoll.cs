@@ -19,7 +19,7 @@ sealed class TrixoWickedDoll : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
                 )));
     }
 }

@@ -16,7 +16,7 @@ sealed class AbductionCharger : Charger
                 filter: new CreatureFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Hand,
-                selectionRange: SelectionRange.AllCreatures
+                selectionRange: SelectionRange.AllCards
         ));
     }
 }

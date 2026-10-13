@@ -19,7 +19,7 @@ sealed class SkyscraperShell : WaveStrikerCreature
                 filter: new CreatureFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.ManaZone,
-                selectionRange: SelectionRange.OwnCreatures
+                selectionRange: SelectionRange.OwnCards
         )));
     }
 }

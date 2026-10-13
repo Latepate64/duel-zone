@@ -21,7 +21,7 @@ public sealed class Gigarayze : Creature
                         Civilization.Fire),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

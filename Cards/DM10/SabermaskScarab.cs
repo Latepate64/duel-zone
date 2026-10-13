@@ -19,7 +19,7 @@ sealed class SabermaskScarab : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

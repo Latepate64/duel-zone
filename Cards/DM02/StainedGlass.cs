@@ -20,7 +20,7 @@ public sealed class StainedGlass : Creature
                         Civilization.Fire, Civilization.Nature),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
         )));
     }
 }

@@ -106,11 +106,11 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return selectionRange switch
         {
-            SelectionRange.OpponentsCreatures => GetOpponentsChoosableCreatures(
+            SelectionRange.OpponentsCards => GetOpponentsChoosableCreatures(
                 player, filter, game),
-            SelectionRange.AllCreatures => GetChoosableCreatures(
+            SelectionRange.AllCards => GetChoosableCreatures(
                 player, filter, game),
-            SelectionRange.OwnCreatures => GetCreaturesControlledByPlayer(
+            SelectionRange.OwnCards => GetCreaturesControlledByPlayer(
                 player, filter),
             _ => throw new InvalidEnumArgumentException()
         };

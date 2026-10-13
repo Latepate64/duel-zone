@@ -23,7 +23,7 @@ public class CardMovingChoiceEffectTests
             filter.Object,
             source: ZoneType.Hand,
             destination: ZoneType.ManaZone,
-            selectionRange: SelectionRange.OwnCreatures);
+            selectionRange: SelectionRange.OwnCards);
 
         // Act
         var copy = effect.Copy();
@@ -45,7 +45,7 @@ public class CardMovingChoiceEffectTests
             filter.Object,
             source: ZoneType.Hand,
             destination: ZoneType.ManaZone,
-            selectionRange: SelectionRange.OwnCreatures);
+            selectionRange: SelectionRange.OwnCards);
         var copy = effect.Copy();
         var expected = copy.GetHashCode();
 
@@ -57,10 +57,10 @@ public class CardMovingChoiceEffectTests
     }
 
     [Theory]
-    [InlineData(false, SelectionRange.OpponentsCreatures)]
-    [InlineData(false, SelectionRange.OwnCreatures)]
-    [InlineData(true, SelectionRange.OpponentsCreatures)]
-    [InlineData(true, SelectionRange.OwnCreatures)]
+    [InlineData(false, SelectionRange.OpponentsCards)]
+    [InlineData(false, SelectionRange.OwnCards)]
+    [InlineData(true, SelectionRange.OpponentsCards)]
+    [InlineData(true, SelectionRange.OwnCards)]
     public void MoveCardsFromHandIntoManaZone(
         bool controllerChooses, SelectionRange selectionRange)
     {
@@ -111,7 +111,7 @@ public class CardMovingChoiceEffectTests
     public void MoveCardsFromBattleZoneIntoGraveyard(bool controllerChooses)
     {
         // Arrange
-        const SelectionRange selectionRange = SelectionRange.OwnCreatures;
+        const SelectionRange selectionRange = SelectionRange.OwnCards;
         var filter = Mock.Of<ICardFilter>();
         ICreature[] creatures = [Mock.Of<ICreature>(), Mock.Of<ICreature>()];
         var battleZone = new Mock<IBattleZone>();

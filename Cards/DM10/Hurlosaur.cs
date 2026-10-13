@@ -20,7 +20,7 @@ sealed class Hurlosaur : Creature
                     filter: new MaxPowerFilter(1000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

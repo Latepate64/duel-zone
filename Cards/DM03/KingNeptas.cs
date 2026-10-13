@@ -19,7 +19,7 @@ public sealed class KingNeptas : Creature
                     filter: new MaxPowerFilter(2000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.AllCreatures
+                    selectionRange: SelectionRange.AllCards
         )));
     }
 }

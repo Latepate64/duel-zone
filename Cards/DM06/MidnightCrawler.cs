@@ -20,7 +20,7 @@ sealed class MidnightCrawler : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

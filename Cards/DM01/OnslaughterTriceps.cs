@@ -19,7 +19,7 @@ sealed class OnslaughterTriceps : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

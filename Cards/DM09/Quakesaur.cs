@@ -19,7 +19,7 @@ sealed class Quakesaur : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
         )));
     }
 }

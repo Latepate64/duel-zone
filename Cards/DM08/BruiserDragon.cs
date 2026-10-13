@@ -19,7 +19,7 @@ sealed class BruiserDragon : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ShieldZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

@@ -17,7 +17,7 @@ sealed class ArcBineTheAstounding : EvolutionCreature
                     maximum: 1,
                     ownerChooses: true,
                     filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 ),
                 new CivilizationCreatureFilter(Civilization.Light)));
     }

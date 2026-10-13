@@ -19,7 +19,7 @@ sealed class AmberPiercer : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

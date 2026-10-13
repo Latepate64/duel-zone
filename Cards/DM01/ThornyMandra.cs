@@ -19,7 +19,7 @@ public sealed class ThornyMandra : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.ManaZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

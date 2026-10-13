@@ -20,7 +20,7 @@ public sealed class SkullsweeperQ : Creature
                         filter: new AnyCardFilter(),
                         source: ZoneType.Hand,
                         destination: ZoneType.Graveyard,
-                        selectionRange: SelectionRange.OpponentsCreatures
+                        selectionRange: SelectionRange.OpponentsCards
         ))));
     }
 }

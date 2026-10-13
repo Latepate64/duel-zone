@@ -17,7 +17,7 @@ sealed class VolcanicArrows : Spell
                 filter: new MaxPowerFilter(6000),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.AllCreatures
+                selectionRange: SelectionRange.AllCards
             ),
             new CardMovingChoiceEffect(
                 minimum: 1,
@@ -26,7 +26,7 @@ sealed class VolcanicArrows : Spell
                 filter: new AnyCardFilter(),
                 source: ZoneType.ShieldZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OwnCreatures
+                selectionRange: SelectionRange.OwnCards
         ));
     }
 }

@@ -19,7 +19,7 @@ public sealed class PoisonousMushroom : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.Hand,
                     destination: ZoneType.ManaZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

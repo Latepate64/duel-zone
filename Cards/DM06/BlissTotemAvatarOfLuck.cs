@@ -20,7 +20,7 @@ public sealed class BlissTotemAvatarOfLuck : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.ManaZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

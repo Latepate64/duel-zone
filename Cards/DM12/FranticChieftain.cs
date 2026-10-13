@@ -19,7 +19,7 @@ public sealed class FranticChieftain : Creature
                     filter: new MaxCostCreatureFilter(4),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

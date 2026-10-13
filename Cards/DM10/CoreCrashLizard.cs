@@ -19,7 +19,7 @@ sealed class CoreCrashLizard : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ShieldZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

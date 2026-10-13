@@ -19,7 +19,7 @@ sealed class RondobilTheExplorer : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.ShieldZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
                 )));
     }
 }

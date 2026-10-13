@@ -17,7 +17,7 @@ sealed class TerrorPit : Spell
                 filter: new CreatureFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

@@ -24,7 +24,7 @@ public sealed class NemonexBajulasRobomantis : EvolutionCreature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
         )));
     }
 }

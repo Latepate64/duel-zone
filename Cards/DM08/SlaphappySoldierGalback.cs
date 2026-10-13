@@ -19,7 +19,7 @@ sealed class SlaphappySoldierGalback : TurboRushCreature
                     filter: new MaxPowerFilter(4000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

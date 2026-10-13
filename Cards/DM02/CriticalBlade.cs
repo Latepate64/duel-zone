@@ -17,7 +17,7 @@ sealed class CriticalBlade : Spell
                 filter: new BlockerFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

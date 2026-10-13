@@ -16,7 +16,7 @@ public sealed class DeathSmoke : Spell
                 filter: new UntappedCreatureFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

@@ -22,7 +22,7 @@ public sealed class TropicCrawler : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
                 )));
         AddStaticAbilities(new ThisCreatureCannotAttackEffect());
     }

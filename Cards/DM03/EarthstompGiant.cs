@@ -16,7 +16,7 @@ public sealed class EarthstompGiant : Creature
             new WheneverThisCreatureAttacksAbility(
                 new ManaRecoveryAreaOfEffect(
                     filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

@@ -11,7 +11,7 @@ public sealed class DivineRiptide : Spell
         AddSpellAbilities(
             new ManaRecoveryAreaOfEffect(
                 filter: new AnyCardFilter(),
-                selectionRange: SelectionRange.AllCreatures
+                selectionRange: SelectionRange.AllCards
             ));
     }
 }

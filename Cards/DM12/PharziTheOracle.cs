@@ -19,7 +19,7 @@ sealed class PharziTheOracle : Creature
                     filter: new SpellFilter(),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

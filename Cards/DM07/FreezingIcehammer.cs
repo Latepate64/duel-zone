@@ -18,7 +18,7 @@ sealed class FreezingIcehammer : Spell
                     Civilization.Water, Civilization.Darkness),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.ManaZone,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
         ));
     }
 }

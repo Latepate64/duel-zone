@@ -17,7 +17,7 @@ sealed class TenTonCrunch : Spell
                 filter: new MaxPowerFilter(3000),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

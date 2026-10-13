@@ -57,13 +57,13 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
         {
             var player = selectionRange switch
             {
-                SelectionRange.OwnCreatures when ControllerChooses =>
+                SelectionRange.OwnCards when ControllerChooses =>
                     Applier,
-                SelectionRange.OwnCreatures when !ControllerChooses =>
+                SelectionRange.OwnCards when !ControllerChooses =>
                     Applier.Opponent,
-                SelectionRange.OpponentsCreatures when ControllerChooses =>
+                SelectionRange.OpponentsCards when ControllerChooses =>
                     Applier.Opponent,
-                SelectionRange.OpponentsCreatures when !ControllerChooses =>
+                SelectionRange.OpponentsCards when !ControllerChooses =>
                     Applier,
                 _ => throw new InvalidEnumArgumentException()
             };

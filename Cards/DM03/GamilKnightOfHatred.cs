@@ -20,7 +20,7 @@ public sealed class GamilKnightOfHatred : Creature
                         Civilization.Darkness),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

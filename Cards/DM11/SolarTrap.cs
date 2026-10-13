@@ -14,7 +14,7 @@ sealed class SolarTrap : Spell
                 maximum: 1,
                 ownerChooses: true,
                 filter: new CreatureFilter(),
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

@@ -16,7 +16,7 @@ public sealed class CraniumClamp : Spell
                 filter: new AnyCardFilter(),
                 source: ZoneType.Hand,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
         ));
     }
 }

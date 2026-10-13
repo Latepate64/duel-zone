@@ -20,7 +20,7 @@ public sealed class BloodwingMantis : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

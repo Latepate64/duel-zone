@@ -19,7 +19,7 @@ sealed class ArmoredDecimatorValkaizer : EvolutionCreature
                     filter: new MaxPowerFilter(4000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

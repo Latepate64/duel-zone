@@ -169,18 +169,18 @@ public sealed class BattleZoneTests
     }
 
     [Theory]
-    [InlineData(false, false, SelectionRange.AllCreatures, 0)]
-    [InlineData(true, false, SelectionRange.AllCreatures, 1)]
-    [InlineData(false, true, SelectionRange.AllCreatures, 1)]
-    [InlineData(true, true, SelectionRange.AllCreatures, 2)]
-    [InlineData(false, false, SelectionRange.OpponentsCreatures, 0)]
-    [InlineData(true, false, SelectionRange.OpponentsCreatures, 0)]
-    [InlineData(false, true, SelectionRange.OpponentsCreatures, 1)]
-    [InlineData(true, true, SelectionRange.OpponentsCreatures, 1)]
-    [InlineData(false, false, SelectionRange.OwnCreatures, 0)]
-    [InlineData(true, false, SelectionRange.OwnCreatures, 1)]
-    [InlineData(false, true, SelectionRange.OwnCreatures, 0)]
-    [InlineData(true, true, SelectionRange.OwnCreatures, 1)]
+    [InlineData(false, false, SelectionRange.AllCards, 0)]
+    [InlineData(true, false, SelectionRange.AllCards, 1)]
+    [InlineData(false, true, SelectionRange.AllCards, 1)]
+    [InlineData(true, true, SelectionRange.AllCards, 2)]
+    [InlineData(false, false, SelectionRange.OpponentsCards, 0)]
+    [InlineData(true, false, SelectionRange.OpponentsCards, 0)]
+    [InlineData(false, true, SelectionRange.OpponentsCards, 1)]
+    [InlineData(true, true, SelectionRange.OpponentsCards, 1)]
+    [InlineData(false, false, SelectionRange.OwnCards, 0)]
+    [InlineData(true, false, SelectionRange.OwnCards, 1)]
+    [InlineData(false, true, SelectionRange.OwnCards, 0)]
+    [InlineData(true, true, SelectionRange.OwnCards, 1)]
     public void GetChoosableCreatures(
         bool filterMatchesOwnCreature,
         bool canBeChosen,

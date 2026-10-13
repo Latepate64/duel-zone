@@ -20,7 +20,7 @@ sealed class GraveWormQ : Creature
                     filter: new RaceCreatureFilter(Race.Survivor),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         ))));
     }
 }

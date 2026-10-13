@@ -17,7 +17,7 @@ public sealed class NaturalSnare : Spell
                 filter: new CreatureFilter(),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.ManaZone,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

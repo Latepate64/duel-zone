@@ -18,7 +18,7 @@ public sealed class Corile : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Deck,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

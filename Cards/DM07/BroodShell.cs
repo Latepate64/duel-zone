@@ -19,7 +19,7 @@ sealed class BroodShell : Creature
                 filter: new CreatureFilter(),
                 source: ZoneType.ManaZone,
                 destination: ZoneType.Hand,
-                selectionRange: SelectionRange.OwnCreatures
+                selectionRange: SelectionRange.OwnCards
         )));
     }
 }

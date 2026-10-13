@@ -17,7 +17,7 @@ public sealed class InvincibleCataclysm : Spell
                 filter: new AnyCardFilter(),
                 source: ZoneType.ShieldZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
         ));
     }
 }

@@ -19,7 +19,7 @@ sealed class TentacleCluster : Creature
                     filter: new CreatureFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.AllCreatures
+                    selectionRange: SelectionRange.AllCards
         )));
     }
 }

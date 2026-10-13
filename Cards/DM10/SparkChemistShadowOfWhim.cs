@@ -14,7 +14,7 @@ public sealed class SparkChemistShadowOfWhim : Creature
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
                 new ManaRecoveryAreaOfEffect(
                     filter: new AnyCardFilter(),
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

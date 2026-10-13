@@ -18,7 +18,7 @@ sealed class PhantomDragonsFlame : Spell
                 filter: new MaxPowerFilter(2000),
                 source: ZoneType.BattleZone,
                 destination: ZoneType.Graveyard,
-                selectionRange: SelectionRange.OpponentsCreatures
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

@@ -20,7 +20,7 @@ public sealed class MetalwingSkyterror : Creature
                     filter: new BlockerFilter(),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

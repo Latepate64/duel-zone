@@ -17,7 +17,7 @@ public sealed class RoarOfTheEarth : Spell
                 filter: new MinCostCreatureFilter(6),
                 source: ZoneType.ManaZone,
                 destination: ZoneType.Hand,
-                selectionRange: SelectionRange.OwnCreatures
+                selectionRange: SelectionRange.OwnCards
         ));
     }
 }

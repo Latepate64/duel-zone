@@ -16,7 +16,7 @@ sealed class CloneFactory : Spell
                 filter: new AnyCardFilter(),
                 source: ZoneType.ManaZone,
                 destination: ZoneType.Hand,
-                selectionRange: SelectionRange.OwnCreatures
+                selectionRange: SelectionRange.OwnCards
         ));
     }
 }

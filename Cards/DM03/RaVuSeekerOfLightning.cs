@@ -22,7 +22,7 @@ public sealed class RaVuSeekerOfLightning : Creature
                     ),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

@@ -22,7 +22,7 @@ sealed class BelixTheExplorer : Creature
                     filter: new SpellFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
         AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }

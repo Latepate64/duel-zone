@@ -20,7 +20,7 @@ sealed class ExplosiveFighterUcarn : Creature
                     filter: new AnyCardFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Graveyard,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

@@ -2,7 +2,7 @@ namespace Interfaces;
 
 public enum SelectionRange
 {
-    OpponentsCreatures,
-    AllCreatures,
-    OwnCreatures,
+    OpponentsCards,
+    AllCards,
+    OwnCards,
 }

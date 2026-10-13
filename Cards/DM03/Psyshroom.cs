@@ -19,7 +19,7 @@ public sealed class Psyshroom : Creature
                     filter: new CivilizationCardFilter(Civilization.Nature),
                     source: ZoneType.Graveyard,
                     destination: ZoneType.ManaZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

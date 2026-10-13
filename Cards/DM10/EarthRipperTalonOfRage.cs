@@ -15,7 +15,7 @@ public sealed class EarthRipperTalonOfRage : EvolutionCreature
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
                 new ManaRecoveryAreaOfEffect(
                     filter: new TappedCardFilter(),
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

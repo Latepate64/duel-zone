@@ -21,7 +21,7 @@ public sealed class SuperDragonMachineDolzark : Creature
                     filter: new MaxPowerFilter(5000),
                     source: ZoneType.BattleZone,
                     destination: ZoneType.ManaZone,
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

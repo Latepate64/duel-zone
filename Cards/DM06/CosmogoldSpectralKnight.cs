@@ -19,7 +19,7 @@ sealed class CosmogoldSpectralKnight : Creature
                     filter: new SpellFilter(),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.Hand,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }

@@ -22,7 +22,7 @@ public sealed class AmbushScorpion : Creature
                     filter: new NameFilter(AmbushScorpionName),
                     source: ZoneType.ManaZone,
                     destination: ZoneType.BattleZone,
-                    selectionRange: SelectionRange.OwnCreatures
+                    selectionRange: SelectionRange.OwnCards
         )));
     }
 }
