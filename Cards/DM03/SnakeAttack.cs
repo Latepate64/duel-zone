@@ -1,5 +1,6 @@
 ﻿using OneShotEffects;
 using Interfaces;
+using CardFilters;
 
 namespace Cards.DM03;
 
@@ -12,6 +13,7 @@ public sealed class SnakeAttack : Spell
             new ShieldBurnEffect(
                 minimum: 1,
                 maximum: 1,
+                filter: new AnyCardFilter(),
                 ownShields: true
         ));
     }

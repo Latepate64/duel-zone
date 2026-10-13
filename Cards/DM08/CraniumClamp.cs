@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM08;
@@ -12,6 +13,7 @@ public sealed class CraniumClamp : Spell
                 minimum: 2,
                 maximum: 2,
                 controllerChooses: false,
+                filter: new AnyCardFilter(),
                 ownHand: false
         ));
     }

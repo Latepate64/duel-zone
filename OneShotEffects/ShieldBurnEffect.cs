@@ -4,11 +4,13 @@ namespace OneShotEffects;
 
 public sealed class ShieldBurnEffect : CardMovingChoiceEffect<ICard>
 {
+    private readonly ICardFilter filter;
     private readonly bool ownShields; 
 
     public ShieldBurnEffect(
         int minimum,
         int maximum,
+        ICardFilter filter,
         bool ownShields) : base(
             minimum,
             maximum,
@@ -16,11 +18,13 @@ public sealed class ShieldBurnEffect : CardMovingChoiceEffect<ICard>
             ZoneType.ShieldZone,
             ZoneType.Graveyard)
     {
+        this.filter = filter;
         this.ownShields = ownShields;
     }
 
     private ShieldBurnEffect(ShieldBurnEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
         ownShields = effect.ownShields;
     }
 

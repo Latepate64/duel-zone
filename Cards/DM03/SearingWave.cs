@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM03;
@@ -12,6 +13,7 @@ public sealed class SearingWave : Spell
             new ShieldBurnEffect(
                     minimum: 1,
                     maximum: 1,
+                    filter: new AnyCardFilter(),
                     ownShields: true
         ));
     }

@@ -4,6 +4,7 @@ using OneShotEffects;
 using ContinuousEffects.CannotAttack;
 using ContinuousEffects.Unblockable;
 using Abilities.Static;
+using CardFilters;
 
 namespace Cards.DM07;
 
@@ -22,6 +23,7 @@ sealed class HeadlongGiant : Creature
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
+                    filter: new AnyCardFilter(),
                     ownHand: true
         )));
         AddAbilities(new TripleBreakerAbility());

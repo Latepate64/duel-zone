@@ -1,4 +1,5 @@
 ﻿using Abilities.Static;
+using CardFilters;
 using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
@@ -15,6 +16,7 @@ namespace Cards.DM08
                     new ShieldBurnEffect(
                         minimum: 1,
                         maximum: 1,
+                        filter: new AnyCardFilter(),
                         ownShields: true
             )));
             AddAbilities(new DoubleBreakerAbility());

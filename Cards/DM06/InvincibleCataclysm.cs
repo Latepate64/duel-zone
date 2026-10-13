@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM06;
@@ -12,6 +13,7 @@ public sealed class InvincibleCataclysm : Spell
             new ShieldBurnEffect(
                 minimum: 0,
                 maximum: 3,
+                filter: new AnyCardFilter(),
                 ownShields: false
         ));
     }

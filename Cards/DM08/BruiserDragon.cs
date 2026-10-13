@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
 
@@ -14,6 +15,7 @@ sealed class BruiserDragon : Creature
                 new ShieldBurnEffect(
                     minimum: 1,
                     maximum: 1,
+                    filter: new AnyCardFilter(),
                     ownShields: true
         )));
     }

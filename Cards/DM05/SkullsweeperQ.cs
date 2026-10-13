@@ -1,6 +1,7 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
 using Interfaces;
+using CardFilters;
 
 namespace Cards.DM05;
 
@@ -16,6 +17,7 @@ public sealed class SkullsweeperQ : Creature
                         minimum: 1,
                         maximum: 1,
                         controllerChooses: false,
+                        filter: new AnyCardFilter(),
                         ownHand: false
         ))));
     }

@@ -4,12 +4,14 @@ namespace OneShotEffects;
 
 public sealed class DiscardEffect : CardMovingChoiceEffect<ICard>
 {
+    private readonly ICardFilter filter;
     private readonly bool ownHand; 
 
     public DiscardEffect(
         int minimum,
         int maximum,
         bool controllerChooses,
+        ICardFilter filter,
         bool ownHand) : base(
             minimum,
             maximum,
@@ -17,11 +19,13 @@ public sealed class DiscardEffect : CardMovingChoiceEffect<ICard>
             ZoneType.Hand,
             ZoneType.Graveyard)
     {
+        this.filter = filter;
         this.ownHand = ownHand;
     }
 
     private DiscardEffect(DiscardEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
         ownHand = effect.ownHand;
     }
 
