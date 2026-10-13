@@ -7,16 +7,16 @@ public abstract class CardMovingAreaOfEffect : OneShotAreaOfEffect
     public ZoneType SourceZone { get; }
     public ZoneType DestinationZone { get; }
 
-    public CardMovingAreaOfEffect(CardMovingAreaOfEffect effect) : base(effect)
-    {
-        SourceZone = effect.SourceZone;
-        DestinationZone = effect.DestinationZone;
-    }
-
-    public CardMovingAreaOfEffect(ZoneType source, ZoneType destination) : base()
+    protected CardMovingAreaOfEffect(ZoneType source, ZoneType destination) : base()
     {
         SourceZone = source;
         DestinationZone = destination;
+    }
+
+    protected CardMovingAreaOfEffect(CardMovingAreaOfEffect effect) : base(effect)
+    {
+        SourceZone = effect.SourceZone;
+        DestinationZone = effect.DestinationZone;
     }
 
     public override void Apply(IGame game)

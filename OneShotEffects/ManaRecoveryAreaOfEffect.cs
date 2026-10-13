@@ -2,13 +2,30 @@
 
 namespace OneShotEffects;
 
-public abstract class ManaRecoveryAreaOfEffect : CardMovingAreaOfEffect
+public sealed class ManaRecoveryAreaOfEffect : CardMovingAreaOfEffect
 {
-    protected ManaRecoveryAreaOfEffect(ManaRecoveryAreaOfEffect effect) : base(effect)
+    private readonly ICardFilter filter;
+    private readonly SelectionRange selectionRange;
+
+    public ManaRecoveryAreaOfEffect(ICardFilter filter, SelectionRange selectionRange) : base(ZoneType.ManaZone, ZoneType.Hand)
     {
+        this.filter = filter;
+        this.selectionRange = selectionRange;
     }
 
-    protected ManaRecoveryAreaOfEffect() : base(ZoneType.ManaZone, ZoneType.Hand)
+    private ManaRecoveryAreaOfEffect(ManaRecoveryAreaOfEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
+        selectionRange = effect.selectionRange;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new ManaRecoveryAreaOfEffect(this);
+    }
+
+    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+    {
+        throw new NotImplementedException();
     }
 }
