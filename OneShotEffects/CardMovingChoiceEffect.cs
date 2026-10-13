@@ -52,9 +52,9 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
         {
             var player = ControllerChooses ? Applier : Applier.Opponent;
             return game.BattleZone.GetChoosableCreatures(
-                player, 
-                filter, 
-                game, 
+                player,
+                filter,
+                game,
                 selectionRange);
         }
         else
@@ -92,5 +92,28 @@ public sealed class CardMovingChoiceEffect : CardSelectionEffect<ICard>
             ZoneType.ShieldZone => player.ShieldZone,
             _ => throw new InvalidEnumArgumentException()
         };
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not CardMovingChoiceEffect effect) return false;
+        if (!SourceZone.Equals(effect.SourceZone)) return false;
+        if (!DestinationZone.Equals(effect.DestinationZone)) return false;
+        if (!filter.Equals(effect.filter)) return false;
+        if (!selectionRange.Equals(effect.selectionRange)) return false;
+        if (!excludeSource.Equals(effect.excludeSource)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(
+            base.GetHashCode(),
+            SourceZone,
+            DestinationZone,
+            filter,
+            selectionRange,
+            excludeSource);
     }
 }

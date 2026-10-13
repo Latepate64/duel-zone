@@ -12,7 +12,7 @@ public abstract class OneShotEffect : IOneShotEffect
     public IPlayer Controller => Ability.Controller;
     public ICard Source => Ability.Source;
 
-    public IPlayerV2 Applier => throw new NotImplementedException();
+    public IPlayerV2 Applier { get; init; }
 
     protected OneShotEffect() { }
 
