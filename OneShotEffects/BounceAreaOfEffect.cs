@@ -4,22 +4,12 @@ namespace OneShotEffects;
 
 public sealed class BounceAreaOfEffect : CardMovingAreaOfEffect
 {
-    private readonly ICardFilter filter;
-    private readonly SelectionRange selectionRange;
-    private readonly bool excludeSource;
-
-    public BounceAreaOfEffect(ICardFilter filter, SelectionRange selectionRange, bool excludeSource) : base(ZoneType.BattleZone, ZoneType.Hand)
+    public BounceAreaOfEffect(ICardFilter filter, SelectionRange selectionRange, bool excludeSource) : base(ZoneType.BattleZone, ZoneType.Hand, filter, selectionRange, excludeSource)
     {
-        this.filter = filter;
-        this.selectionRange = selectionRange;
-        this.excludeSource = excludeSource;
     }
 
     private BounceAreaOfEffect(BounceAreaOfEffect effect) : base(effect)
     {
-        filter = effect.filter.Copy();
-        selectionRange = effect.selectionRange;
-        excludeSource = effect.excludeSource;
     }
 
     public override IOneShotEffect Copy()

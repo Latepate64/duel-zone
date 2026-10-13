@@ -1,10 +1,20 @@
-﻿namespace Cards.DM02
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM02;
+
+sealed class LostSoul : Spell
 {
-    sealed class LostSoul : Spell
+    public LostSoul() : base("Lost Soul", 7, Civilization.Darkness)
     {
-        public LostSoul() : base("Lost Soul", 7, Interfaces.Civilization.Darkness)
-        {
-            AddSpellAbilities(new OneShotEffects.YourOpponentDiscardsHisHandEffect());
-        }
+        AddSpellAbilities(
+            new CardMovingAreaOfEffect(
+                source: ZoneType.Hand,
+                destination: ZoneType.Graveyard,
+                filter: new AnyCardFilter(),
+                selectionRange: SelectionRange.OpponentsCards,
+                excludeSource: false
+        ));
     }
 }

@@ -7,7 +7,7 @@ public sealed class ManaRecoveryAreaOfEffect : CardMovingAreaOfEffect
     private readonly ICardFilter filter;
     private readonly SelectionRange selectionRange;
 
-    public ManaRecoveryAreaOfEffect(ICardFilter filter, SelectionRange selectionRange) : base(ZoneType.ManaZone, ZoneType.Hand)
+    public ManaRecoveryAreaOfEffect(ICardFilter filter, SelectionRange selectionRange) : base(ZoneType.ManaZone, ZoneType.Hand, filter, selectionRange, excludeSource: false)
     {
         this.filter = filter;
         this.selectionRange = selectionRange;
