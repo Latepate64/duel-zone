@@ -15,7 +15,11 @@ sealed class CruelNagaAvatarOfFate : VortexEvolutionCreature
     {
         AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
         AddAbilities(new DoubleBreakerAbility());
-        AddTriggeredAbility(new WhenThisCreatureLeavesBattleZoneAbility(
-            new DestroyAllCreaturesEffect(new CreatureFilter())));
+        AddTriggeredAbility(
+            new WhenThisCreatureLeavesBattleZoneAbility(
+                new DestroyAreaOfEffect(
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false)));
     }
 }

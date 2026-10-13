@@ -13,9 +13,11 @@ public sealed class DeathCruzerTheAnnihilator : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllYourOtherCreaturesEffect(
-                    new CreatureFilter()
-                )));
+                new DestroyAreaOfEffect(
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OwnCards,
+                    excludeSource: true
+        )));
         AddAbilities(new TripleBreakerAbility());
     }
 }

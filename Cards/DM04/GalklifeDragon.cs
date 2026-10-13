@@ -13,11 +13,13 @@ public sealed class GalklifeDragon : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllCreaturesEffect(
-                    new MultiFilter(
+                new DestroyAreaOfEffect(
+                    filter: new MultiFilter(
                         new CivilizationCreatureFilter(Civilization.Light),
                         new MaxPowerFilter(4000)
-                    )
+                    ),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

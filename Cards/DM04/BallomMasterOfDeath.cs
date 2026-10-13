@@ -13,8 +13,11 @@ public sealed class BallomMasterOfDeath : EvolutionCreature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllCreaturesEffect(
-                    new NonCivilizationCreatureFilter(Civilization.Darkness)
+                new DestroyAreaOfEffect(
+                    filter: new NonCivilizationCreatureFilter(
+                        Civilization.Darkness),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

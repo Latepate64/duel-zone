@@ -1,16 +1,19 @@
 ﻿using CardFilters;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM02
 {
     sealed class BurstShot : Spell
     {
-        public BurstShot() : base("Burst Shot", 6, Interfaces.Civilization.Fire)
+        public BurstShot() : base("Burst Shot", 6, Civilization.Fire)
         {
             AddShieldTrigger();
             AddSpellAbilities(
-                new DestroyAllCreaturesEffect(
-                    new MaxPowerFilter(2000)));
+                new DestroyAreaOfEffect(
+                    filter: new MaxPowerFilter(2000),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false));
         }
     }
 }

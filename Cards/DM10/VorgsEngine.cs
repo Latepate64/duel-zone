@@ -10,7 +10,9 @@ sealed class VorgsEngine : SilentSkillCreature
         Civilization.Fire)
     {
         AddSilentSkillAbility(
-            new DestroyAllCreaturesEffect(
-                new MaxPowerFilter(2000)));
+            new DestroyAreaOfEffect(
+                filter: new MaxPowerFilter(2000),
+                selectionRange: SelectionRange.AllCards,
+                excludeSource: false));
     }
 }

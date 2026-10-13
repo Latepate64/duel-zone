@@ -12,7 +12,10 @@ sealed class VampireSilphy : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllCreaturesEffect(
-                    new MaxPowerFilter(3000))));
+                new DestroyAreaOfEffect(
+                    filter: new MaxPowerFilter(3000),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false
+        )));
     }
 }

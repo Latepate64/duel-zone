@@ -12,7 +12,9 @@ sealed class SinisterGeneralDamudo : Creature
     {
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new DestroyAllCreaturesEffect(
-                    new MaxPowerFilter(3000))));
+                new DestroyAreaOfEffect(
+                    filter: new MaxPowerFilter(3000),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false)));
     }
 }

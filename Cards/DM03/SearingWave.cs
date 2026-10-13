@@ -9,7 +9,11 @@ public sealed class SearingWave : Spell
     public SearingWave() : base("Searing Wave", 5, Civilization.Fire)
     {
         AddSpellAbilities(
-            new SearingWaveEffect(),
+            new DestroyAreaOfEffect(
+                filter: new MaxPowerFilter(3000),
+                selectionRange: SelectionRange.OpponentsCards,
+                excludeSource: false
+            ),
             new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,

@@ -13,8 +13,10 @@ sealed class Magmarex : Creature
         AddShieldTrigger();
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllCreaturesEffect(
-                    new PowerFilter(1000)
+                new DestroyAreaOfEffect(
+                    filter: new PowerFilter(1000),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false
                 )));
     }
 }

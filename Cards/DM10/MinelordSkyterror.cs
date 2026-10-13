@@ -10,7 +10,9 @@ sealed class MinelordSkyterror : SilentSkillCreature
         Race.ArmoredWyvern, Civilization.Fire)
     {
         AddSilentSkillAbility(
-            new DestroyAllCreaturesEffect(
-                    new MaxPowerFilter(3000)));
+            new DestroyAreaOfEffect(
+                filter: new MaxPowerFilter(3000),
+                selectionRange: SelectionRange.AllCards,
+                excludeSource: false));
     }
 }
