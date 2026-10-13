@@ -17,11 +17,13 @@ public sealed class NemonexBajulasRobomantis : EvolutionCreature
                 Race.Xenoparts, Race.GiantInsect));
         AddTriggeredAbility(
             new NemonexAbility(
-                new ManaBurnEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: false,
                     filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OpponentsCreatures
         )));
     }

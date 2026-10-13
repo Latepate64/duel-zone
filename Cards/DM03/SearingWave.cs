@@ -10,11 +10,14 @@ public sealed class SearingWave : Spell
     {
         AddSpellAbilities(
             new SearingWaveEffect(),
-            new ShieldBurnEffect(
-                    minimum: 1,
-                    maximum: 1,
-                    filter: new AnyCardFilter(),
-                    selectionRange: SelectionRange.OwnCreatures
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                source: ZoneType.ShieldZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.OwnCreatures
         ));
     }
 }

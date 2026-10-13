@@ -10,10 +10,13 @@ public sealed class InvincibleCataclysm : Spell
         Civilization.Fire)
     {
         AddSpellAbilities(
-            new ShieldBurnEffect(
+            new CardMovingChoiceEffect(
                 minimum: 0,
                 maximum: 3,
+                controllerChooses: true,
                 filter: new AnyCardFilter(),
+                source: ZoneType.ShieldZone,
+                destination: ZoneType.Graveyard,
                 selectionRange: SelectionRange.OpponentsCreatures
         ));
     }

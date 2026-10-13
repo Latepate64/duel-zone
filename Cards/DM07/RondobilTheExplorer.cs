@@ -12,8 +12,13 @@ sealed class RondobilTheExplorer : Creature
     {
         AddAbilities(
             new TapAbility(
-                new ShieldifyOwnCreatureEffect(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
                     filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.ShieldZone,
                     selectionRange: SelectionRange.OwnCreatures
                 )));
     }

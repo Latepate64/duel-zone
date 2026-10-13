@@ -12,11 +12,13 @@ sealed class SkyscraperShell : WaveStrikerCreature
     {
         AddWaveStrikerAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaFeedEffect(
+                new CardMovingChoiceEffect(
                 minimum: 1,
                 maximum: 1,
                 controllerChooses: false,
                 filter: new CreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.ManaZone,
                 selectionRange: SelectionRange.OwnCreatures
         )));
     }

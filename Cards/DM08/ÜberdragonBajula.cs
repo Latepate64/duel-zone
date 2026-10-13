@@ -12,11 +12,13 @@ sealed class ÜberdragonBajula : DragonEvolutionCreature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ManaBurnEffect(
+                new CardMovingChoiceEffect(
                     minimum: 0,
                     maximum: 2,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OpponentsCreatures
         )));
     }

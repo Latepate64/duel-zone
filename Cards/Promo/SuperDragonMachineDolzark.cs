@@ -14,12 +14,14 @@ public sealed class SuperDragonMachineDolzark : Creature
     {
         AddTriggeredAbility(
             new DolzarkAbility(
-                new ManaFeedEffect(
-                    0,
-                    1,
-                    true,
-                    new MaxPowerFilter(5000),
-                    SelectionRange.OpponentsCreatures
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new MaxPowerFilter(5000),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.ManaZone,
+                    selectionRange: SelectionRange.OpponentsCreatures
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

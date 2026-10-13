@@ -13,11 +13,13 @@ public sealed class SkullsweeperQ : Creature
         AddStaticAbilities(
             new SurvivorEffect(
                 new WheneverThisCreatureAttacksAbility(
-                    new DiscardEffect(
+                    new CardMovingChoiceEffect(
                         minimum: 1,
                         maximum: 1,
                         controllerChooses: false,
                         filter: new AnyCardFilter(),
+                        source: ZoneType.Hand,
+                        destination: ZoneType.Graveyard,
                         selectionRange: SelectionRange.OpponentsCreatures
         ))));
     }

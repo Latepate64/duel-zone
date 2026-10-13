@@ -13,10 +13,13 @@ namespace Cards.DM08
         {
             AddTriggeredAbility(
                 new WheneverThisCreatureAttacksAbility(
-                    new ShieldBurnEffect(
+                    new CardMovingChoiceEffect(
                         minimum: 1,
                         maximum: 1,
+                        controllerChooses: true,
                         filter: new AnyCardFilter(),
+                        source: ZoneType.ShieldZone,
+                        destination: ZoneType.Graveyard,
                         selectionRange: SelectionRange.OwnCreatures
             )));
             AddAbilities(new DoubleBreakerAbility());

@@ -12,12 +12,14 @@ sealed class StormShell : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaFeedEffect(
-                minimum: 1,
-                maximum: 1,
-                controllerChooses: false,
-                filter: new CreatureFilter(),
-                selectionRange: SelectionRange.OwnCreatures
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: false,
+                    filter: new CreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.ManaZone,
+                    selectionRange: SelectionRange.OwnCreatures
         )));
     }
 }

@@ -11,11 +11,13 @@ sealed class BolzardDragon : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ManaBurnEffect(
+                new CardMovingChoiceEffect(
                     minimum: 1,
                     maximum: 1,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OpponentsCreatures
         )));
     }

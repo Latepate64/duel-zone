@@ -13,11 +13,13 @@ sealed class ExplosiveFighterUcarn : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaBurnEffect(
+                new CardMovingChoiceEffect(
                     minimum: 2,
                     maximum: 2,
                     controllerChooses: true,
                     filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Graveyard,
                     selectionRange: SelectionRange.OwnCreatures
         )));
         AddAbilities(new DoubleBreakerAbility());
