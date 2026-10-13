@@ -2,20 +2,28 @@
 
 namespace OneShotEffects;
 
-public sealed class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardMovingChoiceEffect<ICard>
+/// <summary>
+/// Put up to maximum cards from your hand into your mana zone.
+/// </summary>
+public sealed class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect
+    : CardMovingChoiceEffect<ICard>
 {
-    readonly int _maximum;
+    private readonly ICardFilter filter;
 
-    public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(int maximum) : base(
-        0, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
+    public YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+        int minimum,
+        int maximum,
+        ICardFilter filter) : base(
+            minimum, maximum, true, ZoneType.Hand, ZoneType.ManaZone)
     {
-        _maximum = maximum;
+        this.filter = filter;
     }
 
-    YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
-        YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(effect)
+    private YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(
+        YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect effect) : base(
+            effect)
     {
-        _maximum = effect._maximum;
+        filter = effect.filter.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -23,12 +31,8 @@ public sealed class YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect : CardM
         return new YouMayPutUpToCardsFromYourHandIntoYourManaZoneEffect(this);
     }
 
-    public override string ToString()
-    {
-        return $"{(_maximum == 1 ? "You may put a card" : $"Put up to {_maximum}")} from your hand into your mana zone.";
-    }
-
-    protected override IEnumerable<ICard> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
     {
         return Controller.Hand.Cards;
     }
