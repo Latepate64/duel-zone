@@ -1,8 +1,10 @@
-﻿using Interfaces;
+﻿using System.ComponentModel;
+using Interfaces;
+using Interfaces.Zones;
 
 namespace OneShotEffects;
 
-public sealed class CardMovingAreaOfEffect : OneShotAreaOfEffect
+public sealed class CardMovingAreaOfEffect : OneShotEffect
 {
     public ZoneType SourceZone { get; }
     public ZoneType DestinationZone { get; }
@@ -35,18 +37,56 @@ public sealed class CardMovingAreaOfEffect : OneShotAreaOfEffect
 
     public override void Apply(IGame game)
     {
-        var cards = GetAffectedCards(game, Ability).ToArray();
+        var cards = GetAffectedCards(game).ToArray();
         _ = game.Move(Ability, SourceZone, DestinationZone, cards);
     }
 
-    protected override IEnumerable<ICard> GetAffectedCards(
-        IGame game, IAbility source)
+    private List<ICard> GetAffectedCards(IGame game)
     {
-        throw new NotImplementedException();
+        List<ICard> cards = [];
+        cards.AddRange(
+            GetCards(game, Applier, SelectionRange.OwnCards));
+        cards.AddRange(
+            GetCards(game, Applier.Opponent, SelectionRange.OpponentsCards));
+        return cards;
+    }
+
+    private List<ICard> GetCards(
+        IGame game, IPlayerV2 player, SelectionRange range)
+    {
+        List<ICard> cards = [];
+        if (selectionRange == range ||
+            selectionRange == SelectionRange.AllCards)
+        {
+            if (SourceZone == ZoneType.BattleZone)
+            {
+                cards.AddRange(
+                    game.BattleZone.GetCreaturesControlledByPlayer(
+                        player, filter));
+            }
+            else
+            {
+                cards.AddRange(GetZone(player).GetCards(filter));
+            }
+        }
+        return cards;
     }
 
     public override IOneShotEffect Copy()
     {
         return new CardMovingAreaOfEffect(this);
+    }
+
+    private IZone GetZone(IPlayerV2 player)
+    {
+        return SourceZone switch
+        {
+            ZoneType.Deck => player.Deck,
+            ZoneType.Graveyard => player.Graveyard,
+            ZoneType.Hand => player.Hand,
+            ZoneType.ManaZone => player.ManaZone,
+            ZoneType.ShieldZone => player.ShieldZone,
+            _ => throw new InvalidEnumArgumentException()
+        };
     }
 }

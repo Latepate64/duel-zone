@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public abstract class UntapAreaOfEffect : OneShotAreaOfEffect
+public abstract class UntapAreaOfEffect : OneShotEffect
 {
     protected UntapAreaOfEffect() : base()
     {
@@ -16,4 +16,7 @@ public abstract class UntapAreaOfEffect : OneShotAreaOfEffect
     {
         Controller.Untap(game, [.. GetAffectedCards(game, Ability)]);
     }
+
+    protected abstract IEnumerable<ICard> GetAffectedCards(
+        IGame game, IAbility source);
 }

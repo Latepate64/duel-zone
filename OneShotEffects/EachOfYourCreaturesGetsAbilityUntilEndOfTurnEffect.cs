@@ -7,7 +7,7 @@ namespace OneShotEffects;
 /// Each of your creatures gets ability until the end of the turn.
 /// </summary>
 public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
-    : OneShotAreaOfEffect
+    : OneShotEffect
 {
     private readonly IAbility ability;
     private readonly ICardFilter filter;
@@ -41,7 +41,7 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
         return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(this);
     }
 
-    protected override IEnumerable<ICard> GetAffectedCards(
+    private IEnumerable<ICard> GetAffectedCards(
         IGame game, IAbility source)
     {
         return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
