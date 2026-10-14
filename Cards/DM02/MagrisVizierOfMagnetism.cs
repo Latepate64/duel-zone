@@ -1,13 +1,16 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class MagrisVizierOfMagnetism : Creature
 {
-    sealed class MagrisVizierOfMagnetism : Creature
+    public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4,
+        3000, Race.Initiate, Civilization.Light)
     {
-        public MagrisVizierOfMagnetism() : base("Magris, Vizier of Magnetism", 4, 3000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawCardEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new YouMayDrawCardsEffect(1)));
     }
 }

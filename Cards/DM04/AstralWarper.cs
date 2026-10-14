@@ -1,12 +1,16 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class AstralWarper : EvolutionCreature
 {
-    sealed class AstralWarper : EvolutionCreature
+    public AstralWarper() : base("Astral Warper", 6, 5000, Race.CyberVirus,
+        Civilization.Water)
     {
-        public AstralWarper() : base("Astral Warper", 6, 5000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayDrawUpToThreeCardsEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new YouMayDrawCardsEffect(3)));
     }
 }
