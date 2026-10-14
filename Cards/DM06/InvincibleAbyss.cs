@@ -10,7 +10,9 @@ public sealed class InvincibleAbyss : Spell
         Civilization.Darkness)
     {
         AddSpellAbilities(
-            new DestroyAreaOfEffect(
+            new CardMovingAreaOfEffect(
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
                 filter: new CreatureFilter(),
                 selectionRange: SelectionRange.OpponentsCards,
                 excludeSource: false

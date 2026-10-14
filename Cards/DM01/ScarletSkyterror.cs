@@ -12,7 +12,9 @@ public sealed class ScarletSkyterror : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new BlockerFilter(),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: false

@@ -10,7 +10,9 @@ namespace Cards.DM02
         {
             AddShieldTrigger();
             AddSpellAbilities(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new MaxPowerFilter(2000),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: false));

@@ -14,7 +14,9 @@ public sealed class EarthstompGiant : Creature
         AddAbilities(new DoubleBreakerAbility());
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new ManaRecoveryAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     filter: new CreatureFilter(),
                     selectionRange: SelectionRange.OwnCards
         )));

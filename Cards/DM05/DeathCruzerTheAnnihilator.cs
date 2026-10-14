@@ -13,7 +13,9 @@ public sealed class DeathCruzerTheAnnihilator : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new CreatureFilter(),
                     selectionRange: SelectionRange.OwnCards,
                     excludeSource: true

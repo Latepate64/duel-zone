@@ -12,7 +12,9 @@ sealed class EvisceratingWarriorLumez : WaveStrikerCreature
     {
         AddWaveStrikerAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new MaxPowerFilter(2000),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: false)));

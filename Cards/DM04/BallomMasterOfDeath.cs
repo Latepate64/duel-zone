@@ -13,7 +13,9 @@ public sealed class BallomMasterOfDeath : EvolutionCreature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new NonCivilizationCreatureFilter(
                         Civilization.Darkness),
                     selectionRange: SelectionRange.AllCards,

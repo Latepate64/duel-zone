@@ -12,7 +12,9 @@ public sealed class SparkChemistShadowOfWhim : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new ManaRecoveryAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
                     filter: new AnyCardFilter(),
                     selectionRange: SelectionRange.OwnCards
         )));

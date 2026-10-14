@@ -14,7 +14,9 @@ sealed class StallobTheLifequasher : Creature
         AddAbilities(new DoubleBreakerAbility());
         AddTriggeredAbility(
             new WhenThisCreatureIsDestroyedAbility(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new CreatureFilter(),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: false)));

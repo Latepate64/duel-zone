@@ -13,7 +13,9 @@ public sealed class GalklifeDragon : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
                     filter: new MultiFilter(
                         new CivilizationCreatureFilter(Civilization.Light),
                         new MaxPowerFilter(4000)

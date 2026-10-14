@@ -2,7 +2,7 @@
 
 namespace OneShotEffects;
 
-public class CardMovingAreaOfEffect : OneShotAreaOfEffect
+public sealed class CardMovingAreaOfEffect : OneShotAreaOfEffect
 {
     public ZoneType SourceZone { get; }
     public ZoneType DestinationZone { get; }
@@ -15,7 +15,7 @@ public class CardMovingAreaOfEffect : OneShotAreaOfEffect
         ZoneType destination,
         ICardFilter filter,
         SelectionRange selectionRange,
-        bool excludeSource) : base()
+        bool excludeSource = false) : base()
     {
         SourceZone = source;
         DestinationZone = destination;
@@ -24,7 +24,7 @@ public class CardMovingAreaOfEffect : OneShotAreaOfEffect
         this.excludeSource = excludeSource;
     }
 
-    protected CardMovingAreaOfEffect(CardMovingAreaOfEffect effect) : base(effect)
+    private CardMovingAreaOfEffect(CardMovingAreaOfEffect effect) : base(effect)
     {
         SourceZone = effect.SourceZone;
         DestinationZone = effect.DestinationZone;
@@ -39,7 +39,8 @@ public class CardMovingAreaOfEffect : OneShotAreaOfEffect
         _ = game.Move(Ability, SourceZone, DestinationZone, cards);
     }
 
-    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
+    protected override IEnumerable<ICard> GetAffectedCards(
+        IGame game, IAbility source)
     {
         throw new NotImplementedException();
     }

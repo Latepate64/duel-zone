@@ -12,8 +12,10 @@ public sealed class SaucerHeadShark : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceAreaOfEffect(
-                    new MaxPowerFilter(2000),
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
+                    filter: new MaxPowerFilter(2000),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: false
                 )));

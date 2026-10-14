@@ -13,7 +13,9 @@ public sealed class KingTsunami : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     filter: new CreatureFilter(),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: true

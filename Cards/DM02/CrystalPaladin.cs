@@ -12,7 +12,9 @@ public sealed class CrystalPaladin : EvolutionCreature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceAreaOfEffect(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
                     filter: new BlockerFilter(),
                     selectionRange: SelectionRange.AllCards,
                     excludeSource: false
