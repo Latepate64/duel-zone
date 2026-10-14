@@ -1,12 +1,16 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class EngineerKipo : Creature
 {
-    sealed class EngineerKipo : Creature
+    public EngineerKipo() : base("Engineer Kipo", 2, 2000, Race.Xenoparts,
+        Civilization.Fire)
     {
-        public EngineerKipo() : base("Engineer Kipo", 2, 2000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.MutualSingleManaSacrificeEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenThisCreatureIsDestroyedAbility(
+                new MutualManaSacrificeEffect(1)));
     }
 }

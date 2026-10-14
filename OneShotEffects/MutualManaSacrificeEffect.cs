@@ -2,28 +2,43 @@
 
 namespace OneShotEffects;
 
-public abstract class MutualManaSacrificeEffect : OneShotEffect
+public sealed class MutualManaSacrificeEffect : OneShotEffect
 {
-    public int Amount { get; }
+    private readonly int amount;
 
-    protected MutualManaSacrificeEffect(int amount)
+    public MutualManaSacrificeEffect(int amount)
     {
-        Amount = amount;
+        this.amount = amount;
     }
 
-    protected MutualManaSacrificeEffect(MutualManaSacrificeEffect effect) : base(effect)
+    private MutualManaSacrificeEffect(
+        MutualManaSacrificeEffect effect) : base(effect)
     {
-        Amount = effect.Amount;
+        amount = effect.amount;
     }
 
     public override void Apply(IGame game)
     {
-        var cards = game.Players.SelectMany(x => x.ChooseCards(x.ManaZone.Cards, Amount, Amount, ToString()));
+        var cards = game.Players.SelectMany(
+            x => x.ChooseCards(x.ManaZone.Cards, amount, amount, ToString()));
         game.Move(Ability, ZoneType.ManaZone, ZoneType.Graveyard, [.. cards]);
     }
 
-    public override string ToString()
+    public override IOneShotEffect Copy()
     {
-        return $"Each player chooses {(Amount > 1 ? $"{Amount} cards" : "a card")} in his mana zone and puts {(Amount > 1 ? "them" : "it")} into his graveyard.";
+        return new MutualManaSacrificeEffect(this);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(this)) return false;
+        if (obj is not MutualManaSacrificeEffect effect) return false;
+        if (amount != effect.amount) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), amount);
     }
 }
