@@ -31,7 +31,7 @@ public class ThisCreatureBreaksOpponentsShieldsEffectTests
         var actual = effect.GetHashCode();
 
         // Assert
-        Assert.Equal(effect, copy);
+        Assert.Equal(expected, actual);
     }
 
     [Theory]

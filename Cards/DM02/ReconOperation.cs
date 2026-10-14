@@ -7,6 +7,6 @@ public sealed class ReconOperation : Spell
 {
     public ReconOperation() : base("Recon Operation", 2, Civilization.Water)
     {
-        AddSpellAbilities(new ReconOperationEffect());
+        AddSpellAbilities(new LookEffect(0, 3));
     }
 }

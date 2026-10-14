@@ -6,8 +6,11 @@ namespace Cards.DM08;
 
 sealed class MigaloVizierOfSpycraft : TurboRushCreature
 {
-    public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2, 1500, Race.Initiate, Civilization.Light)
+    public MigaloVizierOfSpycraft() : base("Migalo, Vizier of Spycraft", 2,
+        1500, Race.Initiate, Civilization.Light)
     {
-        AddTurboRushAbility(new WheneverThisCreatureAttacksAbility(new MigaloVizierOfSpycraftEffect()));
+        AddTurboRushAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new LookEffect(0, 2)));
     }
 }

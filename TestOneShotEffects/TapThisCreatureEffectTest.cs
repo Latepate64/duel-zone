@@ -31,7 +31,7 @@ public class TapThisCreatureEffectTests
         var actual = effect.GetHashCode();
 
         // Assert
-        Assert.Equal(effect, copy);
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
