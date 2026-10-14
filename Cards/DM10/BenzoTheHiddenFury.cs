@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class BenzoTheHiddenFury : Creature
 {
-    sealed class BenzoTheHiddenFury : Creature
+    public BenzoTheHiddenFury() : base("Benzo, the Hidden Fury", 4, 2000,
+        Race.PandorasBox, Civilization.Darkness)
     {
-        public BenzoTheHiddenFury() : base("Benzo, the Hidden Fury", 4, 2000, Interfaces.Race.PandorasBox, Interfaces.Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCanUseShieldTriggerEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ShieldRecoveryEffect(
+                    minimum: 1,
+                    maximum: 1, 
+                    controllerChooses: true, 
+                    canUseShieldTrigger: true)));
     }
 }
