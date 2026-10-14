@@ -2,13 +2,13 @@
 
 namespace OneShotEffects;
 
-public sealed class TapThisCreatureEffect : TapAreaOfEffect
+public sealed class TapThisCreatureEffect : OneShotEffect
 {
     public TapThisCreatureEffect() : base()
     {
     }
 
-    public TapThisCreatureEffect(IOneShotEffect effect) : base(effect)
+    public TapThisCreatureEffect(TapThisCreatureEffect effect) : base(effect)
     {
     }
 
@@ -17,13 +17,8 @@ public sealed class TapThisCreatureEffect : TapAreaOfEffect
         return new TapThisCreatureEffect(this);
     }
 
-    public override string ToString()
+    public override void Apply(IGame game)
     {
-        return "Tap this creature.";
-    }
-
-    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-    {
-        return new List<ICard> { Ability.Source }.Where(x => x != null);
+        Controller.Tap(game, Source);
     }
 }

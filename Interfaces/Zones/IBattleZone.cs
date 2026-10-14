@@ -14,6 +14,8 @@ public interface IBattleZone : IZone
     IEnumerable<ICreature> GetCreatures(ICardFilter filter);
     IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 applier,
         ICardFilter filter, IGame game, SelectionRange selectionRange);
+    IEnumerable<ICreature> GetCreatures(IPlayerV2 applier, ICardFilter filter,
+        SelectionRange selectionRange);
     int GetNumberOfCreaturesControllerByPlayer(
         IPlayerV2 player, ICardFilter filter);
     int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);

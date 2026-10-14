@@ -213,4 +213,40 @@ public sealed class BattleZoneTests
         // Assert
         Assert.Equal(expectedCount, creatures.Count());
     }
+
+    [Theory]
+    [InlineData(false, SelectionRange.AllCards, 1)]
+    [InlineData(true, SelectionRange.AllCards, 2)]
+    [InlineData(false, SelectionRange.OpponentsCards, 1)]
+    [InlineData(true, SelectionRange.OpponentsCards, 1)]
+    [InlineData(false, SelectionRange.OwnCards, 0)]
+    [InlineData(true, SelectionRange.OwnCards, 1)]
+    public void GetCreaturesWithSelectionRange(
+        bool filterMatchesOwnCreature,
+        SelectionRange selectionRange,
+        int expectedCount)
+    {
+        // Arrange
+        var opponent = Mock.Of<IPlayerV2>();
+        var player = new Mock<IPlayerV2>();
+        player.SetupGet(x => x.Opponent).Returns(opponent);
+        var ownCreature = new Mock<ICreature>();
+        ownCreature.SetupGet(x => x.OwnerV2).Returns(player.Object);
+        var opponentsCreature = new Mock<ICreature>();
+        opponentsCreature.SetupGet(x => x.OwnerV2).Returns(opponent);
+        var zone = new BattleZone();
+        zone.Add(ownCreature.Object);
+        zone.Add(opponentsCreature.Object);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(ownCreature.Object)).Returns(
+            filterMatchesOwnCreature);
+        filter.Setup(x => x.Match(opponentsCreature.Object)).Returns(true);
+
+        // Act
+        var creatures = zone.GetCreatures(
+            player.Object, filter.Object, selectionRange);
+
+        // Assert
+        Assert.Equal(expectedCount, creatures.Count());
+    }
 }

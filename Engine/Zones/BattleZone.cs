@@ -127,4 +127,18 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return GetCreatures(filter).Where(x => !x.Equals(excluded));
     }
+
+    public IEnumerable<ICreature> GetCreatures(
+        IPlayerV2 player, ICardFilter filter, SelectionRange selectionRange)
+    {
+        return selectionRange switch
+        {
+            SelectionRange.OpponentsCards => GetCreaturesControlledByPlayer(
+                player.Opponent, filter),
+            SelectionRange.AllCards => GetCreatures(filter),
+            SelectionRange.OwnCards => GetCreaturesControlledByPlayer(
+                player, filter),
+            _ => throw new InvalidEnumArgumentException()
+        };
+    }
 }
