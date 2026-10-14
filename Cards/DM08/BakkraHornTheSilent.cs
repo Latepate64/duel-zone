@@ -1,12 +1,16 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class BakkraHornTheSilent : Creature
 {
-    sealed class BakkraHornTheSilent : Creature
+    public BakkraHornTheSilent() : base("Bakkra Horn, the Silent", 4, 2000,
+        Race.HornedBeast, Civilization.Nature)
     {
-        public BakkraHornTheSilent() : base("Bakkra Horn, the Silent", 4, 2000, Interfaces.Race.HornedBeast, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverYouPutDragonoidOrDragonIntoTheBattleZoneAbility(
+                new PutTopCardsOfDeckIntoManaZoneEffect(1)));
     }
 }

@@ -1,12 +1,13 @@
-﻿using OneShotEffects;
+﻿using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class UltimateForce : Spell
 {
-    sealed class UltimateForce : Spell
+    public UltimateForce() : base("Ultimate Force", 5, Civilization.Nature)
     {
-        public UltimateForce() : base("Ultimate Force", 5, Interfaces.Civilization.Nature)
-        {
-            AddSpellAbilities(new PutTopTwoCardOfDeckIntoManaZoneEffect());
-        }
+        AddSpellAbilities(
+            new PutTopCardsOfDeckIntoManaZoneEffect(2));
     }
 }

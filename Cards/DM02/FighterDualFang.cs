@@ -1,14 +1,18 @@
 ﻿using Abilities.Static;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class FighterDualFang : EvolutionCreature
 {
-    sealed class FighterDualFang : EvolutionCreature
+    public FighterDualFang() : base("Fighter Dual Fang", 6, 8000,
+        Race.BeastFolk, Civilization.Nature)
     {
-        public FighterDualFang() : base("Fighter Dual Fang", 6, 8000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.PutTopTwoCardOfDeckIntoManaZoneEffect()));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new PutTopCardsOfDeckIntoManaZoneEffect(2)));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

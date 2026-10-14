@@ -1,11 +1,14 @@
-﻿namespace Cards.DM06
+﻿using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM06;
+
+sealed class FaerieLife : Spell
 {
-    sealed class FaerieLife : Spell
+    public FaerieLife() : base("Faerie Life", 2, Civilization.Nature)
     {
-        public FaerieLife() : base("Faerie Life", 2, Interfaces.Civilization.Nature)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.PutTopCardOfDeckIntoManaZoneEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new PutTopCardsOfDeckIntoManaZoneEffect(1));
     }
 }

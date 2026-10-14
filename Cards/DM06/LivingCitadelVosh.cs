@@ -12,7 +12,7 @@ sealed class LivingCitadelVosh : EvolutionCreature
     {
         AddStaticAbilities(
             new TapAbilityAddingEffect(
-                new PutTopCardOfDeckIntoManaZoneEffect(),
+                new PutTopCardsOfDeckIntoManaZoneEffect(1),
                 new CivilizationCreatureFilter(Civilization.Nature)));
     }
 }
