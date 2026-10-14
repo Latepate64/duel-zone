@@ -1,12 +1,16 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class CarboniteScarab : TurboRushCreature
 {
-    sealed class CarboniteScarab : TurboRushCreature
+    public CarboniteScarab() : base("Carbonite Scarab", 4, 3000,
+        Race.GiantInsect, Civilization.Nature)
     {
-        public CarboniteScarab() : base("Carbonite Scarab", 4, 3000, Interfaces.Race.GiantInsect, Interfaces.Civilization.Nature)
-        {
-            AddTurboRushAbility(new WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
-        }
+        AddTurboRushAbility(
+            new WheneverThisCreatureBecomesBlockedAbility(
+                new ThisCreatureBreaksOpponentsShieldsEffect(1)));
     }
 }

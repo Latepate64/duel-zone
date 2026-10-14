@@ -1,10 +1,14 @@
-﻿namespace Cards.DM10
+﻿using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM10;
+
+sealed class VenomCapsule : SilentSkillCreature
 {
-    sealed class VenomCapsule : SilentSkillCreature
+    public VenomCapsule() : base("Venom Capsule", 2, 1000, Race.BrainJacker,
+        Civilization.Darkness)
     {
-        public VenomCapsule() : base("Venom Capsule", 2, 1000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
-        {
-            AddSilentSkillAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect());
-        }
+        AddSilentSkillAbility(
+            new ThisCreatureBreaksOpponentsShieldsEffect(1));
     }
 }
