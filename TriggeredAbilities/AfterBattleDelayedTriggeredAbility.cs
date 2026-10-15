@@ -17,5 +17,11 @@ public sealed class AfterBattleDelayedTriggeredAbility : DelayedTriggeredAbility
     {
         return new AfterBattleDelayedTriggeredAbility(this);
     }
+
+    public override IDelayedTriggeredAbility CreateNew(
+        IAbility ability, Guid turn, IOneShotEffect effect)
+    {
+        throw new NotImplementedException();
+    }
 }
 

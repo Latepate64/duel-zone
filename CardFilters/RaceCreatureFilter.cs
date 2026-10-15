@@ -16,7 +16,7 @@ public class RaceCreatureFilter : ICardFilter
         this.races = races;
     }
 
-    public ICardFilter Copy()
+    public virtual ICardFilter Copy()
     {
         return new RaceCreatureFilter(this);
     }

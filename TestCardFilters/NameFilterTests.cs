@@ -20,7 +20,7 @@ public class NameFilterTests
     }
 
     [Fact]
-    public void DoesNotEqualFilterWithDifferentRaces()
+    public void DoesNotEqualFilterWithDifferentNames()
     {
         // Arrange
         var first = new NameFilter("Emeral");

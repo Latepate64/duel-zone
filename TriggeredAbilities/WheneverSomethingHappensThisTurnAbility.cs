@@ -20,6 +20,12 @@ public sealed class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAb
         return new WheneverSomethingHappensThisTurnAbility(this);
     }
 
+    public override IDelayedTriggeredAbility CreateNew(
+        IAbility ability, Guid turn, IOneShotEffect effect)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
     {
         throw new NotImplementedException();

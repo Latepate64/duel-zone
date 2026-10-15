@@ -22,7 +22,7 @@ public sealed class IkazTheSpydroidEffect : CreatureSelectionEffect
     protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
     {
         game.AddDelayedTriggeredAbility(new AfterBattleDelayedTriggeredAbility(
-            new IkazTheSpydroidUntapEffect(cards.Single()), Ability));
+            new UntapReferencedCreatureEffect(cards.Single()), Ability));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
