@@ -9,21 +9,21 @@ namespace OneShotEffects;
 public sealed class TraRionPenumbraGuardianEffect : OneShotEffect
 {
     private readonly IRaceCreatureFilterFactory factory;
-    private readonly IDelayedTriggeredAbility delayedTrigger;
+    private readonly IAtTheEndOfTheTurnDelayedTriggeredAbilityFactory delayedTriggerFactory;
 
     public TraRionPenumbraGuardianEffect(
         IRaceCreatureFilterFactory factory,
-        IDelayedTriggeredAbility delayedTrigger)
+        IAtTheEndOfTheTurnDelayedTriggeredAbilityFactory delayedTriggerFactory)
     {
         this.factory = factory;
-        this.delayedTrigger = delayedTrigger;
+        this.delayedTriggerFactory = delayedTriggerFactory;
     }
 
     public TraRionPenumbraGuardianEffect(
         TraRionPenumbraGuardianEffect effect) : base(effect)
     {
         factory = effect.factory;
-        delayedTrigger = effect.delayedTrigger.Copy();
+        delayedTriggerFactory = effect.delayedTriggerFactory;
     }
 
     public override void Apply(IGame game)
@@ -31,7 +31,7 @@ public sealed class TraRionPenumbraGuardianEffect : OneShotEffect
         var race = Controller.ChooseRace(ToString());
         var raceFilter = factory.Create(race);
         var effect = new UntapAreaOfEffect(raceFilter, SelectionRange.AllCards);
-        var newDelayedTrigger = delayedTrigger.CreateNew(
+        var newDelayedTrigger = delayedTriggerFactory.CreateNew(
             Ability,
             turn: Guid.NewGuid(),
             effect);

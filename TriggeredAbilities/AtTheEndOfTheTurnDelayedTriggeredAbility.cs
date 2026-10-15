@@ -5,7 +5,7 @@ namespace TriggeredAbilities;
 public sealed class AtTheEndOfTheTurnDelayedTriggeredAbility
     : DelayedTriggeredAbility
 {
-    AtTheEndOfTheTurnDelayedTriggeredAbility(
+    public AtTheEndOfTheTurnDelayedTriggeredAbility(
         IAbility ability, Guid turn, IOneShotEffect effect) : base(
             new AtTheEndOfTurnAbility(turn, effect),
             ability.Source,
@@ -17,11 +17,6 @@ public sealed class AtTheEndOfTheTurnDelayedTriggeredAbility
     public AtTheEndOfTheTurnDelayedTriggeredAbility(
         AtTheEndOfTheTurnDelayedTriggeredAbility ability) : base(ability)
     {
-    }
-
-    public AtTheEndOfTheTurnDelayedTriggeredAbility() : base()
-    {
-        
     }
 
     public override DelayedTriggeredAbility Copy()

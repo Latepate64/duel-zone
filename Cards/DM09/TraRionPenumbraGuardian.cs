@@ -2,7 +2,6 @@
 using Abilities;
 using Interfaces;
 using CardFilters;
-using TriggeredAbilities;
 
 namespace Cards.DM09;
 
@@ -14,8 +13,8 @@ public sealed class TraRionPenumbraGuardian : Creature
         AddAbilities(
             new TapAbility(
                 new TraRionPenumbraGuardianEffect(
-                    factory: new RaceCreatureFilterFactory(),
-                    delayedTrigger: new AtTheEndOfTheTurnDelayedTriggeredAbility()
+                    new RaceCreatureFilterFactory(),
+                    new AtTheEndOfTheTurnDelayedTriggeredAbilityFactory()
                 )));
     }
 }
