@@ -1,31 +1,41 @@
-using TriggeredAbilities;
 using Interfaces;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Choose one of your creatures in the battle zone. Untap it after the battle.
+/// </summary>
 public sealed class IkazTheSpydroidEffect : CreatureSelectionEffect
 {
-    public IkazTheSpydroidEffect() : base(1, 1, true)
+    private readonly IAfterBattleDelayedTriggeredAbilityFactory factory;
+
+    public IkazTheSpydroidEffect(
+        IAfterBattleDelayedTriggeredAbilityFactory factory) : base(1, 1, true)
     {
+        this.factory = factory;
+    }
+
+    public IkazTheSpydroidEffect(IkazTheSpydroidEffect effect) : base(effect)
+    {
+        factory = effect.factory;
     }
 
     public override IOneShotEffect Copy()
     {
-        return new IkazTheSpydroidEffect();
+        return new IkazTheSpydroidEffect(this);
     }
 
-    public override string ToString()
+    protected override void Apply(
+        IGame game, IAbility source, params ICreature[] cards)
     {
-        return "Choose one of your creatures in the battle zone. Untap it after the battle.";
+        game.AddDelayedTriggeredAbility(
+            factory.Create(new UntapReferencedCreatureEffect(cards.Single()),
+            Ability)
+        );
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
-    {
-        game.AddDelayedTriggeredAbility(new AfterBattleDelayedTriggeredAbility(
-            new UntapReferencedCreatureEffect(cards.Single()), Ability));
-    }
-
-    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(
+        IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }

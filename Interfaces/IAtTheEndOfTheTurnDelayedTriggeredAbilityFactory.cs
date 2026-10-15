@@ -2,6 +2,6 @@ namespace Interfaces;
 
 public interface IAtTheEndOfTheTurnDelayedTriggeredAbilityFactory
 {
-    IDelayedTriggeredAbility CreateNew(
+    IDelayedTriggeredAbility Create(
         IAbility ability, Guid turn, IOneShotEffect effect);
 }

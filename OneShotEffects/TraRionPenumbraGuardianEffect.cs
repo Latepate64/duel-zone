@@ -31,7 +31,7 @@ public sealed class TraRionPenumbraGuardianEffect : OneShotEffect
         var race = Controller.ChooseRace(ToString());
         var raceFilter = factory.Create(race);
         var effect = new UntapAreaOfEffect(raceFilter, SelectionRange.AllCards);
-        var newDelayedTrigger = delayedTriggerFactory.CreateNew(
+        var newDelayedTrigger = delayedTriggerFactory.Create(
             Ability,
             turn: Guid.NewGuid(),
             effect);

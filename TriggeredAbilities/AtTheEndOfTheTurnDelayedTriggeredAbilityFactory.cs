@@ -1,12 +1,10 @@
 using Interfaces;
-using TriggeredAbilities;
-using System;
 
-namespace Cards.DM09;
+namespace TriggeredAbilities;
 
 public class AtTheEndOfTheTurnDelayedTriggeredAbilityFactory : IAtTheEndOfTheTurnDelayedTriggeredAbilityFactory
 {
-    public IDelayedTriggeredAbility CreateNew(IAbility ability, Guid turn, IOneShotEffect effect)
+    public IDelayedTriggeredAbility Create(IAbility ability, Guid turn, IOneShotEffect effect)
     {
         return new AtTheEndOfTheTurnDelayedTriggeredAbility(
             ability, turn, effect);
