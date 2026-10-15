@@ -24,9 +24,4 @@ public sealed class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : Ad
     {
         return new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(this);
     }
-
-    public override string ToString()
-    {
-        return $"This creature has \"power attacker +{_power}\" until the end of the turn.";
-    }
 }
