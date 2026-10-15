@@ -1,4 +1,5 @@
 ﻿using CardFilters;
+using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 using OneShotEffects;
 
@@ -8,7 +9,10 @@ public sealed class FuriousOnslaught : Spell
 {
     public FuriousOnslaught() : base("Furious Onslaught", 4, Civilization.Fire)
     {
-        AddSpellAbilities(new FuriousOnslaughtOneShotEffect(
-            new RaceCreatureFilter(Race.Dragonoid)));
+        AddSpellAbilities(
+            new InvincibleUnityOneShotEffect(
+                new FuriousOnslaughtContinuousEffectFactory(),
+                new RaceCreatureFilter(Race.Dragonoid)
+            ));
     }
 }
