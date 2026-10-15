@@ -1,6 +1,7 @@
 ﻿using Abilities;
 using Abilities.Static;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.CanAttackUntappedCreatures;
 using Interfaces;
 using OneShotEffects;
@@ -17,7 +18,8 @@ public sealed class ArmoredTransportGaliacruse : Creature
                 new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
                     new StaticAbility(
                         new ThisCreatureCanAttackUntappedCreaturesEffect()),
-                    new CivilizationCreatureFilter(Civilization.Fire)
+                    new CivilizationCreatureFilter(Civilization.Fire),
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
                 )));
     }
 }

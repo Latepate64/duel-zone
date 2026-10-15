@@ -1,6 +1,7 @@
 ﻿using Abilities;
 using Abilities.Static;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.Unblockable;
 using Interfaces;
 using OneShotEffects;
@@ -17,7 +18,8 @@ public sealed class KingBenthos : Creature
             new TapAbility(
                 new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
                     new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
-                    new CivilizationCreatureFilter(Civilization.Water)
+                    new CivilizationCreatureFilter(Civilization.Water),
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
                 )));
     }
 }

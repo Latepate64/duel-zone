@@ -1,22 +1,22 @@
-using ContinuousEffects.AbilityAdding;
 using Interfaces;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Each of your creatures gets ability until the end of the turn.
-/// </summary>
 public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
     : OneShotEffect
 {
     private readonly IAbility ability;
     private readonly ICardFilter filter;
+    private readonly IContinuousEffectFactory factory;
 
     public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-        IAbility ability, ICardFilter filter) : base()
+        IAbility ability,
+        ICardFilter filter,
+        IContinuousEffectFactory factory) : base()
     {
         this.ability = ability;
         this.filter = filter;
+        this.factory = factory;
     }
 
     public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
@@ -25,25 +25,21 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
     {
         ability = effect.ability.Copy();
         filter = effect.filter.Copy();
+        factory = effect.factory;
     }
 
     public override void Apply(IGame game)
     {
+        var creatures = game.BattleZone.GetCreaturesControlledByPlayer(
+            Applier,
+            filter);
         game.AddContinuousEffects(
             Ability,
-            new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-                ability,
-                [.. GetAffectedCards(game, Ability)]));
+            factory.Create(ability, creatures));
     }
 
     public override IOneShotEffect Copy()
     {
         return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(this);
-    }
-
-    private IEnumerable<ICard> GetAffectedCards(
-        IGame game, IAbility source)
-    {
-        return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
     }
 }
