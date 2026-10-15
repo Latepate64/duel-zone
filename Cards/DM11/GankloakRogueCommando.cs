@@ -1,12 +1,19 @@
-﻿using Interfaces;
+﻿using CardFilters;
+using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM11;
 
 public sealed class GankloakRogueCommando : SilentSkillCreature
 {
-    public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000, Race.Human, Civilization.Fire)
+    public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000,
+        Race.Human, Civilization.Fire)
     {
-        AddSilentSkillAbility(new GankloakRogueCommandoOneShotEffect());
+        AddSilentSkillAbility(
+            new InvincibleUnityOneShotEffect(
+                new GankloakRogueCommandoContinuousEffectFactory(),
+                new CivilizationCreatureFilter(Civilization.Fire)
+            ));
     }
 }
