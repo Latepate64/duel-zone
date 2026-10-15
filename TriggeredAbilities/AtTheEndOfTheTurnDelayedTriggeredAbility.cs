@@ -23,11 +23,4 @@ public sealed class AtTheEndOfTheTurnDelayedTriggeredAbility
     {
         return new AtTheEndOfTheTurnDelayedTriggeredAbility(this);
     }
-
-    public override IDelayedTriggeredAbility CreateNew(
-        IAbility ability, Guid turn, IOneShotEffect effect)
-    {
-        return new AtTheEndOfTheTurnDelayedTriggeredAbility(
-            ability, turn, effect);
-    }
 }

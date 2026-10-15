@@ -1,6 +1,6 @@
 namespace Interfaces;
 
-public interface IAfterBattleDelayedTriggeredAbilityFactory
+public interface IDelayedTriggeredAbilityWithEffectAndSourceFactory
 {
     IDelayedTriggeredAbility Create(IOneShotEffect effect, IAbility source);
 }

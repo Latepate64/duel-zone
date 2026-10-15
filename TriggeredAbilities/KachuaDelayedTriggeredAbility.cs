@@ -17,10 +17,4 @@ public sealed class KachuaDelayedTriggeredAbility : DelayedTriggeredAbility
     {
         return new KachuaDelayedTriggeredAbility(this);
     }
-
-    public override IDelayedTriggeredAbility CreateNew(
-        IAbility ability, Guid turn, IOneShotEffect effect)
-    {
-        throw new NotImplementedException();
-    }
 }

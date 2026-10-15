@@ -3,7 +3,7 @@ using Interfaces;
 namespace TriggeredAbilities;
 
 public class AfterBattleDelayedTriggeredAbilityFactory
-    : IAfterBattleDelayedTriggeredAbilityFactory
+    : IDelayedTriggeredAbilityWithEffectAndSourceFactory
 {
     public IDelayedTriggeredAbility Create(
         IOneShotEffect effect, IAbility source)

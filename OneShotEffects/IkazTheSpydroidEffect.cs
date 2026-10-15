@@ -7,10 +7,10 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class IkazTheSpydroidEffect : CreatureSelectionEffect
 {
-    private readonly IAfterBattleDelayedTriggeredAbilityFactory factory;
+    private readonly IDelayedTriggeredAbilityWithEffectAndSourceFactory factory;
 
     public IkazTheSpydroidEffect(
-        IAfterBattleDelayedTriggeredAbilityFactory factory) : base(1, 1, true)
+        IDelayedTriggeredAbilityWithEffectAndSourceFactory factory) : base(1, 1, true)
     {
         this.factory = factory;
     }

@@ -48,6 +48,4 @@ public abstract class DelayedTriggeredAbility : IDisposable, IDelayedTriggeredAb
     }
 
     public abstract IDelayedTriggeredAbility Copy();
-    public abstract IDelayedTriggeredAbility CreateNew(
-        IAbility ability, Guid turn, IOneShotEffect effect);
 }

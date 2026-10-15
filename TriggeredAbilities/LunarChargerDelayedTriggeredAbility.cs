@@ -17,10 +17,4 @@ public sealed class LunarChargerDelayedTriggeredAbility : DelayedTriggeredAbilit
     {
         return new LunarChargerDelayedTriggeredAbility(this);
     }
-
-    public override IDelayedTriggeredAbility CreateNew(
-        IAbility ability, Guid turn, IOneShotEffect effect)
-    {
-        throw new NotImplementedException();
-    }
 }
