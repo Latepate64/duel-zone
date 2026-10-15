@@ -4,8 +4,8 @@ using Interfaces.ContinuousEffects;
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
 /// <summary>
-/// Until the end of the turn, each of your darkness creatures in the battle
-/// zone gets +x power and "double breaker."
+/// Until the end of the turn, each of your creatures in the battle zone gets +x
+/// power and "double breaker."
 /// </summary>
 public sealed class BattleshipMutantContinuousEffect
     : GetPowerAndDoubleBreakerUntilTheEndOfTheTurnEffect

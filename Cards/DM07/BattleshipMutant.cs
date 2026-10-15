@@ -1,5 +1,6 @@
 ﻿using Abilities;
 using CardFilters;
+using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
@@ -11,14 +12,14 @@ public sealed class BattleshipMutant : Creature
     public BattleshipMutant() : base("Battleship Mutant", 6, 5000, Race.Hedrian,
         Civilization.Darkness)
     {
+        var filter = new CivilizationCreatureFilter(Civilization.Darkness);
         AddAbilities(
             new TapAbility(
                 new BattleshipMutantEffect(
-                    power: 4000,
-                    filter: new CivilizationCreatureFilter(
-                        Civilization.Darkness),
+                    new BattleshipMutantContinuousEffect(4000, filter),
+                    filter,
                     new WheneverSomethingHappensThisTurnAbilityFactory(),
-                    new BattleshipMutantAbilityFactory()
-        )));
+                    new BattleshipMutantAbilityFactory())
+        ));
     }
 }

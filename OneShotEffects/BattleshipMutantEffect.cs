@@ -1,5 +1,5 @@
 using Interfaces;
-using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
@@ -10,18 +10,19 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class BattleshipMutantEffect : OneShotEffect
 {
-    private readonly int power;
     private readonly ICardFilter filter;
     private readonly IDelayedTriggeredAbilityFactory delayedTriggerFactory;
     private readonly ITriggeredAbilityFactory triggeredAbilityFactory;
+    private readonly IContinuousEffect continuousEffect;
 
     public BattleshipMutantEffect(
-        int power,
+        IContinuousEffect continuousEffect,
         ICardFilter filter,
         IDelayedTriggeredAbilityFactory delayedTriggerFactory,
-        ITriggeredAbilityFactory triggeredAbilityFactory)
+        ITriggeredAbilityFactory triggeredAbilityFactory
+        )
     {
-        this.power = power;
+        this.continuousEffect = continuousEffect;
         this.filter = filter;
         this.delayedTriggerFactory = delayedTriggerFactory;
         this.triggeredAbilityFactory = triggeredAbilityFactory;
@@ -29,6 +30,7 @@ public sealed class BattleshipMutantEffect : OneShotEffect
 
     public BattleshipMutantEffect(BattleshipMutantEffect effect) : base(effect)
     {
+        continuousEffect = effect.continuousEffect.Copy();
         filter = effect.filter.Copy();
         delayedTriggerFactory = effect.delayedTriggerFactory;
         triggeredAbilityFactory = effect.triggeredAbilityFactory;
@@ -38,7 +40,7 @@ public sealed class BattleshipMutantEffect : OneShotEffect
     {
         game.AddContinuousEffects(
             Ability,
-            new BattleshipMutantContinuousEffect(power, filter));
+            continuousEffect);
         game.AddDelayedTriggeredAbility(
             delayedTriggerFactory.Create(
                 triggeredAbilityFactory.Create(
