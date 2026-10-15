@@ -2,21 +2,18 @@ using Interfaces;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Choose a race. Each creature of that race attacks this turn if able and gets
-/// "power attacker +4000" until the end of the turn.
-/// </summary>
-public sealed class GigiosHammerOneShotEffect : OneShotEffect
+public sealed class RaceAffectingContinuousEffectAddingEffect : OneShotEffect
 {
     private readonly IContinuousEffectWithRaceFactory factory;
 
-    public GigiosHammerOneShotEffect(IContinuousEffectWithRaceFactory factory)
+    public RaceAffectingContinuousEffectAddingEffect(
+        IContinuousEffectWithRaceFactory factory)
     {
         this.factory = factory;
     }
 
-    public GigiosHammerOneShotEffect(
-        GigiosHammerOneShotEffect effect) : base(effect)
+    public RaceAffectingContinuousEffectAddingEffect(
+        RaceAffectingContinuousEffectAddingEffect effect) : base(effect)
     {
         factory = effect.factory;
     }
@@ -31,6 +28,6 @@ public sealed class GigiosHammerOneShotEffect : OneShotEffect
 
     public override IOneShotEffect Copy()
     {
-        return new GigiosHammerOneShotEffect(this);
+        return new RaceAffectingContinuousEffectAddingEffect(this);
     }
 }

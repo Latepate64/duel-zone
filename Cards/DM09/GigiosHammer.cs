@@ -12,7 +12,7 @@ public sealed class GigiosHammer : Creature
     {
         AddAbilities(
             new TapAbility(
-                new GigiosHammerOneShotEffect(
+                new RaceAffectingContinuousEffectAddingEffect(
                     new GigiosHammerContinuousEffectFactory()
                 )));
     }

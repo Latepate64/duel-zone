@@ -12,7 +12,7 @@ public sealed class Hokira : Creature
     {
         AddAbilities(
             new TapAbility(
-                new GigiosHammerOneShotEffect(
+                new RaceAffectingContinuousEffectAddingEffect(
                     new HokiraContinuousEffectFactory()
                 )));
     }
