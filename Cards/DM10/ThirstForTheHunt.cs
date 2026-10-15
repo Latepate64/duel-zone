@@ -1,10 +1,17 @@
-﻿namespace Cards.DM10
+﻿using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM10;
+
+sealed class ThirstForTheHunt : Spell
 {
-    sealed class ThirstForTheHunt : Spell
+    public ThirstForTheHunt() : base("Thirst for the Hunt", 1,
+        Civilization.Nature)
     {
-        public ThirstForTheHunt() : base("Thirst for the Hunt", 1, Interfaces.Civilization.Nature)
-        {
-            AddSpellAbilities(new OneShotEffects.AuraBlastEffect(1000));
-        }
+        AddSpellAbilities(
+            new YourCreaturesGetPowerAttackerUntilEndOfTurnEffect(
+                1000,
+                new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffectFactory()));
     }
 }
