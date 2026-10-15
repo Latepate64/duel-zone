@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 namespace ContinuousEffects.AbilityAdding;
 
 public class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory
-    : IContinuousEffectFactory
+    : IAbilityAddingContinuousEffectFactory
 {
     public IContinuousEffect Create(
         IAbility ability, IEnumerable<ICreature> creatures)

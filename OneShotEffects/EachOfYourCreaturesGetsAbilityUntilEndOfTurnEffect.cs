@@ -7,12 +7,12 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
 {
     private readonly IAbility ability;
     private readonly ICardFilter filter;
-    private readonly IContinuousEffectFactory factory;
+    private readonly IAbilityAddingContinuousEffectFactory factory;
 
     public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
         IAbility ability,
         ICardFilter filter,
-        IContinuousEffectFactory factory) : base()
+        IAbilityAddingContinuousEffectFactory factory) : base()
     {
         this.ability = ability;
         this.filter = filter;
