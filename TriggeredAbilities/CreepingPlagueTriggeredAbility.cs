@@ -3,6 +3,10 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
+/// <summary>
+/// Whenever any of your creatures becomes blocked, it gets "slayer" until the
+/// end of the turn.
+/// </summary>
 public sealed class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
 {
     private ICreature _creature;
@@ -29,11 +33,6 @@ public sealed class CreepingPlagueTriggeredAbility : LinkedTriggeredAbility
     public override void Resolve(IGame game)
     {
         game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(_creature));
-    }
-
-    public override string ToString()
-    {
-        return "Whenever any of your creatures becomes blocked, it gets \"slayer\" until the end of the turn.";
     }
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)

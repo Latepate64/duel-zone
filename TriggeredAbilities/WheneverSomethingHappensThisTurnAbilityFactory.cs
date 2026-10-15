@@ -1,7 +1,6 @@
 using Interfaces;
-using TriggeredAbilities;
 
-namespace Cards.DM07;
+namespace TriggeredAbilities;
 
 public class WheneverSomethingHappensThisTurnAbilityFactory : IDelayedTriggeredAbilityFactory
 {

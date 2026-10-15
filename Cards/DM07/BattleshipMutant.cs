@@ -1,7 +1,6 @@
 ﻿using Abilities;
 using CardFilters;
 using Interfaces;
-using Interfaces.Zones;
 using OneShotEffects;
 using TriggeredAbilities;
 
@@ -21,17 +20,5 @@ public sealed class BattleshipMutant : Creature
                     new WheneverSomethingHappensThisTurnAbilityFactory(),
                     new BattleshipMutantAbilityFactory()
         )));
-    }
-}
-
-public class BattleshipMutantAbilityFactory : ITriggeredAbilityFactory
-{
-    public ITriggeredAbility Create(
-        IBattleZone battleZone, IPlayerV2 player, ICardFilter filter)
-    {
-        return new BattleshipMutantAbility(
-            battleZone.GetCreaturesControlledByPlayer(
-                player,
-                filter));
     }
 }
