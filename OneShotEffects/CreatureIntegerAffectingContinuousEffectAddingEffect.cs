@@ -2,24 +2,25 @@
 
 namespace OneShotEffects;
 
-public sealed class YourCreaturesGetPowerAttackerUntilEndOfTurnEffect
+public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect
     : OneShotEffect
 {
-    private readonly int power;
+    private readonly int number;
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
 
-    public YourCreaturesGetPowerAttackerUntilEndOfTurnEffect(
-        int power,
+    public CreatureIntegerAffectingContinuousEffectAddingEffect(
+        int number,
         IContinuousEffectWithCreaturesAndIntegerFactory factory) : base()
     {
-        this.power = power;
+        this.number = number;
         this.factory = factory;
     }
 
-    public YourCreaturesGetPowerAttackerUntilEndOfTurnEffect(
-        YourCreaturesGetPowerAttackerUntilEndOfTurnEffect effect) : base(effect)
+    public CreatureIntegerAffectingContinuousEffectAddingEffect(
+        CreatureIntegerAffectingContinuousEffectAddingEffect effect) : base(
+            effect)
     {
-        power = effect.power;
+        number = effect.number;
         factory = effect.factory;
     }
 
@@ -28,11 +29,11 @@ public sealed class YourCreaturesGetPowerAttackerUntilEndOfTurnEffect
         var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
         game.AddContinuousEffects(
             Ability,
-            factory.Create(creatures, power));
+            factory.Create(creatures, number));
     }
 
     public override IOneShotEffect Copy()
     {
-        return new YourCreaturesGetPowerAttackerUntilEndOfTurnEffect(this);
+        return new CreatureIntegerAffectingContinuousEffectAddingEffect(this);
     }
 }

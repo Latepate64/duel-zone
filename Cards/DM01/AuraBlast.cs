@@ -9,7 +9,7 @@ sealed class AuraBlast : Spell
     public AuraBlast() : base("Aura Blast", 4, Civilization.Nature)
     {
         AddSpellAbilities(
-            new YourCreaturesGetPowerAttackerUntilEndOfTurnEffect(
+            new CreatureIntegerAffectingContinuousEffectAddingEffect(
                 2000,
                 new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffectFactory()));
     }

@@ -5,24 +5,24 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-public sealed class ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect : AddAbilitiesUntilEndOfTurnEffect
+public sealed class ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect
+    : AddAbilitiesUntilEndOfTurnEffect
 {
-    public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
+    public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(
+        int power, params ICard[] cards) : base(
+            new StaticAbility(new PowerAttackerEffect(power)),
+            new DoubleBreakerAbility(),
+            cards)
     {
     }
 
-    public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(params ICard[] cards) : base(
-        new StaticAbility(new PowerAttackerEffect(4000)), new DoubleBreakerAbility(), cards)
+    public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(
+        ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect effect) : base(effect)
     {
     }
 
     public override IContinuousEffect Copy()
     {
         return new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "This creature has \"power attacker +4000\" and \"double breaker\" until the end of the turn.";
     }
 }

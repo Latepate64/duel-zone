@@ -10,7 +10,7 @@ sealed class ThirstForTheHunt : Spell
         Civilization.Nature)
     {
         AddSpellAbilities(
-            new YourCreaturesGetPowerAttackerUntilEndOfTurnEffect(
+            new CreatureIntegerAffectingContinuousEffectAddingEffect(
                 1000,
                 new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffectFactory()));
     }
