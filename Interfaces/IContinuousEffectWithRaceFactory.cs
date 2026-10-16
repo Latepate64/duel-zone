@@ -4,5 +4,5 @@ namespace Interfaces;
 
 public interface IContinuousEffectWithRaceFactory
 {
-    IContinuousEffect Create(Race race );
+    IContinuousEffect Create(Race race);
 }

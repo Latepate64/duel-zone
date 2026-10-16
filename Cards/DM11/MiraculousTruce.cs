@@ -1,13 +1,18 @@
-﻿using Interfaces;
+﻿using ContinuousEffects.CannotAttackPlayers;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM11;
 
 public sealed class MiraculousTruce : Spell
 {
-    public MiraculousTruce() : base("Miraculous Truce", 5, Civilization.Light, Civilization.Nature)
+    public MiraculousTruce() : base("Miraculous Truce", 5, Civilization.Light,
+        Civilization.Nature)
     {
         AddShieldTrigger();
-        AddSpellAbilities(new MiraculousTruceEffect());
+        AddSpellAbilities(
+            new MiraculousTruceEffect(
+                new MiraculousTruceContinuousEffectFactory()
+            ));
     }
 }
