@@ -3,11 +3,12 @@ using Interfaces;
 namespace TriggeredAbilities;
 
 public class KachuaDelayedTriggeredAbilityFactory
-    : IKachuaDelayedTriggeredAbilityFactory
+    : IDelayedTriggeredAbilityWithTurnAndCreaturesFactory
 {
     public IDelayedTriggeredAbility Create(
-        IAbility ability, Guid turn, ICreature creature)
+        IAbility ability, Guid turn, params ICreature[] creatures)
     {
-        return new KachuaDelayedTriggeredAbility(ability, creature, turn);
+        return new KachuaDelayedTriggeredAbility(
+            ability, creatures.Single(), turn);
     }
 }

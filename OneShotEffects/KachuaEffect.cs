@@ -10,11 +10,11 @@ namespace OneShotEffects;
 public sealed class KachuaEffect : OneShotEffect
 {
     private readonly IContinuousEffectFactory effectFactory;
-    private readonly IKachuaDelayedTriggeredAbilityFactory abilityFactory;
+    private readonly IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory;
 
     public KachuaEffect(
         IContinuousEffectFactory effectFactory,
-        IKachuaDelayedTriggeredAbilityFactory abilityFactory)
+        IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory)
     {
         this.effectFactory = effectFactory;
         this.abilityFactory = abilityFactory;
