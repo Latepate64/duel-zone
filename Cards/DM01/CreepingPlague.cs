@@ -1,4 +1,6 @@
-﻿using Interfaces;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
 
@@ -11,7 +13,10 @@ public sealed class CreepingPlague : Spell
         AddSpellAbilities(
             new WheneverSomethingHappensThisTurnEffect(
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
-                new CreepingPlagueTriggeredAbility()
+                new WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new SlayerAbility()
+                )
             ));
     }
 }
