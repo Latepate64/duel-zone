@@ -29,7 +29,7 @@ public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect
         var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
         game.AddContinuousEffects(
             Ability,
-            factory.Create(creatures, number));
+            factory.Create(number, [.. creatures]));
     }
 
     public override IOneShotEffect Copy()

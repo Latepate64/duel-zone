@@ -4,5 +4,5 @@ namespace Interfaces;
 
 public interface IContinuousEffectWithCreaturesAndIntegerFactory
 {
-    IContinuousEffect Create(IEnumerable<ICreature> creatures, int integer);
+    IContinuousEffect Create(int integer, params ICreature[] creatures);
 }

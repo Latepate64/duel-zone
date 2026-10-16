@@ -31,11 +31,11 @@ public sealed class CreatureSelectionIntegerAffectingContinuousEffectAddingEffec
     }
 
     protected override void Apply(
-        IGame game, IAbility source, params ICreature[] cards)
+        IGame game, IAbility source, params ICreature[] creatures)
     {
         game.AddContinuousEffects(
             Ability,
-            factory.Create(cards, number));
+            factory.Create(number, creatures));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(

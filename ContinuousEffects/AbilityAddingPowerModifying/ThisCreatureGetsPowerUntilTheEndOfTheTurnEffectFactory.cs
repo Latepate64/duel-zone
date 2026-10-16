@@ -1,4 +1,3 @@
-using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -8,9 +7,9 @@ namespace ContinuousEffects.AbilityAddingPowerModifying;
 public class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory
     : IContinuousEffectWithCreaturesAndIntegerFactory
 {
-    public IContinuousEffect Create(IEnumerable<ICreature> creatures, int power)
+    public IContinuousEffect Create(int power, params ICreature[] creatures)
     {
         return new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-            power, [.. creatures]);
+            power, creatures);
     }
 }

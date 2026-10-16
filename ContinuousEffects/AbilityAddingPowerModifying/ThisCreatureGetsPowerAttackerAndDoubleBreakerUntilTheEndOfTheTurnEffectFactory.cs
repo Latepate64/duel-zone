@@ -7,9 +7,9 @@ namespace ContinuousEffects.AbilityAddingPowerModifying;
 public class ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffectFactory
     : IContinuousEffectWithCreaturesAndIntegerFactory
 {
-    public IContinuousEffect Create(IEnumerable<ICreature> creatures, int power)
+    public IContinuousEffect Create(int power, params ICreature[] creatures)
     {
         return new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(
-            power, [.. creatures]);
+            power, creatures);
     }
 }

@@ -14,8 +14,8 @@ public sealed class ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect : Ad
         _power = effect._power;
     }
 
-    public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params ICard[] cards) : base(
-        new StaticAbility(new PowerAttackerEffect(power)), cards)
+    public ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffect(int power, params ICreature[] creatures) : base(
+        new StaticAbility(new PowerAttackerEffect(power)), creatures)
     {
         _power = power;
     }

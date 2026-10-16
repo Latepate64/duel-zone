@@ -9,10 +9,10 @@ public sealed class ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTh
     : AddAbilitiesUntilEndOfTurnEffect
 {
     public ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffect(
-        int power, params ICard[] cards) : base(
+        int power, params ICreature[] creatures) : base(
             new StaticAbility(new PowerAttackerEffect(power)),
             new DoubleBreakerAbility(),
-            cards)
+            creatures)
     {
     }
 

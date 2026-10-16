@@ -1,13 +1,19 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
+using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM03;
 
 public sealed class Flametropus : Creature
 {
-    public Flametropus() : base("Flametropus", 4, 3000, Race.RockBeast, Civilization.Fire)
+    public Flametropus() : base("Flametropus", 4, 3000, Race.RockBeast,
+        Civilization.Fire)
     {
-        AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new FlametropusOneShotEffect()));
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new FlametropusOneShotEffect(
+                    new FlametropusContinuousEffectFactory()
+                )));
     }
 }
