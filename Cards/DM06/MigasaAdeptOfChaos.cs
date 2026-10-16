@@ -1,6 +1,7 @@
 ﻿using Abilities;
 using Abilities.Static;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -15,7 +16,8 @@ public sealed class MigasaAdeptOfChaos : Creature
             new TapAbility(
                 new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                     new DoubleBreakerAbility(),
-                    new CivilizationCreatureFilter(Civilization.Fire)
+                    new CivilizationCreatureFilter(Civilization.Fire),
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
                 )));
     }
 }

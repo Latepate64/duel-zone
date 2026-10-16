@@ -1,5 +1,6 @@
 ﻿using Abilities.Static;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -13,7 +14,8 @@ sealed class SupersonicJetPack : Spell
         AddSpellAbilities(
             new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                 new SpeedAttackerAbility(),
-                new CreatureFilter()
+                new CreatureFilter(),
+                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
             ));
     }
 }

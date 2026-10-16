@@ -1,5 +1,6 @@
 ﻿using Abilities.Static;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -12,7 +13,8 @@ sealed class VenomCharger : Charger
         AddSpellAbilities(
             new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                 new SlayerAbility(),
-                new CreatureFilter()
+                new CreatureFilter(),
+                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
             ));
     }
 }

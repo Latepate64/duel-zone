@@ -1,6 +1,7 @@
 ﻿using Abilities;
 using Abilities.Static;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -15,7 +16,8 @@ sealed class LegionnaireLizard : Creature
             new TapAbility(
                 new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                     new SpeedAttackerAbility(),
-                    new CreatureFilter()
+                    new CreatureFilter(),
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
                 )));
     }
 }
