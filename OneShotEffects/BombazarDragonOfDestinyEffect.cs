@@ -2,33 +2,44 @@ using Interfaces;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Destroy all other creatures that have power 6000, then take an extra turn
+/// after this one. You lose the game at the end of the extra turn.
+/// </summary>
 public sealed class BombazarDragonOfDestinyEffect : OneShotEffect
 {
-    public BombazarDragonOfDestinyEffect()
+    private readonly IAtTheEndOfTheTurnDelayedTriggeredAbilityFactory factory;
+
+    public BombazarDragonOfDestinyEffect(
+        IAtTheEndOfTheTurnDelayedTriggeredAbilityFactory factory)
     {
+        this.factory = factory;
     }
 
-    public BombazarDragonOfDestinyEffect(IOneShotEffect effect) : base(effect)
+    public BombazarDragonOfDestinyEffect(
+        BombazarDragonOfDestinyEffect effect) : base(effect)
     {
+        factory = effect.factory;
     }
 
     public override void Apply(IGame game)
     {
-        throw new System.NotImplementedException();
-        // game.Destroy(Ability, [.. game.BattleZone.Creatures.Where(p => p != Ability.Source && p.Power.Value == 6000)]);
+        game.Destroy(
+            Ability,
+            [.. game.BattleZone.Creatures.Where(
+                p => p != Ability.Source && p.Power == 6000)]);
         // Turn turn = new() { ActivePlayer = Controller, NonActivePlayer = GetOpponent(game) };
         // game.ExtraTurns.Push(turn);
-        // game.AddDelayedTriggeredAbility(new AtTheEndOfTheTurnDelayedTriggeredAbility(
-        //     Ability, turn.Id, new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()));
+        game.AddDelayedTriggeredAbility(
+            factory.Create(
+                Ability,
+                Guid.NewGuid(),
+                new YouLoseTheGameAtTheEndOfTheExtraTurnEffect()));
+        throw new NotImplementedException("Extra turn");
     }
 
     public override IOneShotEffect Copy()
     {
         return new BombazarDragonOfDestinyEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Destroy all other creatures that have power 6000, then take an extra turn after this one. You lose the game at the end of the extra turn.";
     }
 }
