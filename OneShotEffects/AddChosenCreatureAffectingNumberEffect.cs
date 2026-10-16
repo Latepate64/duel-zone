@@ -1,5 +1,4 @@
-﻿using ContinuousEffects;
-using Interfaces;
+﻿using Interfaces;
 
 namespace OneShotEffects;
 
@@ -7,38 +6,44 @@ namespace OneShotEffects;
 /// One of your creatures in the battle zone gets +x power until the end of the
 /// turn.
 /// </summary>
-public sealed class OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect
-    : CreatureSelectionEffect, IPowerable
+public sealed class AddChosenCreatureAffectingNumberEffect
+    : CreatureSelectionEffect
 {
     private readonly ICardFilter filter;
     public int Power { get; }
+    private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
 
-    public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(
-        int power, ICardFilter filter) : base(1, 1, true)
+    public AddChosenCreatureAffectingNumberEffect(
+        int power,
+        ICardFilter filter,
+        IContinuousEffectWithCreaturesAndIntegerFactory factory) : base(
+            1, 1, true)
     {
         Power = power;
         this.filter = filter;
+        this.factory = factory;
     }
 
-    public OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(
-        OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect effect) : base(
+    public AddChosenCreatureAffectingNumberEffect(
+        AddChosenCreatureAffectingNumberEffect effect) : base(
         effect)
     {
         Power = effect.Power;
         filter = effect.filter.Copy();
+        factory = effect.factory;
     }
 
     public override IOneShotEffect Copy()
     {
-        return new OneOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(this);
+        return new AddChosenCreatureAffectingNumberEffect(this);
     }
 
     protected override void Apply(
         IGame game, IAbility source, params ICreature[] cards)
     {
-        throw new NotImplementedException();
-        // game.AddContinuousEffects(Ability, new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(
-        //     Power, cards));
+        game.AddContinuousEffects(
+            Ability,
+            factory.Create(Power, cards));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(

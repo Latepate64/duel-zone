@@ -2,6 +2,7 @@
 using Interfaces;
 using OneShotEffects;
 using CardFilters;
+using ContinuousEffects.AbilityAddingPowerModifying;
 
 namespace Cards.DM09;
 
@@ -20,6 +21,8 @@ public sealed class StormWranglerTheFurious : EvolutionCreature
                 )));
         AddTriggeredAbility(
             new WheneverThisCreatureBecomesBlockedAbility(
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
+                new AddCreatureAffectingNumberEffect(
+                    3000,
+                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
     }
 }
