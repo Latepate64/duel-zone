@@ -1,28 +1,38 @@
-using Abilities.Static;
-using ContinuousEffects.AbilityAdding;
 using Interfaces;
 
 namespace OneShotEffects;
 
-public sealed class KlujadrasEffect : OneShotEffect
+public sealed class EachPlayersDrawsCardForEachCreatureTheyControlEffect
+    : OneShotEffect
 {
+    private readonly ICardFilter filter;
+
+    public EachPlayersDrawsCardForEachCreatureTheyControlEffect(
+        ICardFilter filter)
+    {
+        this.filter = filter;
+    }
+
+    public EachPlayersDrawsCardForEachCreatureTheyControlEffect(
+        EachPlayersDrawsCardForEachCreatureTheyControlEffect effect) : base(
+            effect)
+    {
+        filter = effect.filter.Copy();
+    }
+
     public override void Apply(IGame game)
     {
-        foreach (var player in game.Players)
+        var players = new List<IPlayerV2>(); //TODO from state
+        foreach (var player in players)
         {
-            player.DrawCards(game.BattleZone.GetCreatures(player.Id).Count(
-                x => x.GetAbilities<StaticAbility>().SelectMany(
-                    x => x.ContinuousEffects).OfType<WaveStrikerEffect>().Any()), game, Ability);
+            var count = game.BattleZone.GetNumberOfCreaturesControllerByPlayer(
+                player, filter);
+            throw new NotImplementedException("Draw cards");
         }
     }
 
     public override IOneShotEffect Copy()
     {
-        return new KlujadrasEffect();
-    }
-
-    public override string ToString()
-    {
-        return "Each player draws a card for each of his creatures in the battle zone that has \"wave striker.\"";
+        return new EachPlayersDrawsCardForEachCreatureTheyControlEffect(this);
     }
 }

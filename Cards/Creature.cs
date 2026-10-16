@@ -144,6 +144,8 @@ public class Creature : Card, ICreature
 
     public bool HasSilentSkill => GetAbilities<ISilentSkillAbility>().Any();
 
+    public bool HasWaveStriker => GetAbilities<IWaveStrikerAbility>().Any();
+
     public IEnumerable<ITapAbility> GetTapAbilities()
     {
         return GetAbilities<ITapAbility>();
