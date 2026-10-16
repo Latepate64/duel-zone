@@ -5,7 +5,7 @@ namespace ContinuousEffects.AbilityAddingPowerModifying;
 
 public class InvincibleUnityContinuousEffectFactory : IContinuousEffectFactory
 {
-    public IContinuousEffect Create(IEnumerable<ICreature> creatures)
+    public IContinuousEffect Create(params ICreature[] creatures)
     {
         return new InvincibleUnityContinuousEffect(creatures);
     }

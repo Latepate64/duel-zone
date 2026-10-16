@@ -5,8 +5,8 @@ namespace ContinuousEffects;
 
 public class ChaosStrikeContinuousEffectFactory : IContinuousEffectFactory
 {
-    public IContinuousEffect Create(IEnumerable<ICreature> creatures)
+    public IContinuousEffect Create(params ICreature[] creatures)
     {
-        return new ChaosStrikeContinuousEffect(creatures.First());
+        return new ChaosStrikeContinuousEffect(creatures.Single());
     }
 }

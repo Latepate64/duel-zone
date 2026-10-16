@@ -7,8 +7,8 @@ namespace ContinuousEffects.AbilityAddingPowerModifying;
 public class GankloakRogueCommandoContinuousEffectFactory
     : IContinuousEffectFactory
 {
-    public IContinuousEffect Create(IEnumerable<ICreature> creatures)
+    public IContinuousEffect Create(params ICreature[] creatures)
     {
-        return new GankloakRogueCommandoContinuousEffect([.. creatures]);
+        return new GankloakRogueCommandoContinuousEffect(creatures);
     }
 }

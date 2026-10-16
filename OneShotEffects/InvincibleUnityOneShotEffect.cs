@@ -30,9 +30,9 @@ public sealed class InvincibleUnityOneShotEffect : OneShotEffect
         game.AddContinuousEffects(
             Ability,
             factory.Create(
-                game.BattleZone.GetCreaturesControlledByPlayer(
+                [.. game.BattleZone.GetCreaturesControlledByPlayer(
                     Applier,
-                    filter)));
+                    filter)]));
     }
 
     public override IOneShotEffect Copy()

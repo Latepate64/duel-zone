@@ -4,21 +4,22 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
+/// <summary>
+/// Until the start of your next turn, each of your creatures in the battle zone
+/// has "Blocker".
+/// </summary>
 public sealed class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirable
 {
-    private readonly Guid _player;
     private readonly ICard[] _cards;
 
     public FullDefensorContinuousEffect(FullDefensorContinuousEffect effect) : base(effect)
     {
-        _player = effect._player;
         _cards = effect._cards;
     }
 
-    public FullDefensorContinuousEffect(Guid player, params ICard[] cards) : base(
+    public FullDefensorContinuousEffect(params ICard[] cards) : base(
         new BlockerAbility())
     {
-        _player = player;
         _cards = cards;
     }
 
@@ -32,11 +33,6 @@ public sealed class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirab
         throw new NotImplementedException();
         // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
         //     && phase.Turn.ActivePlayer.Id == _player;
-    }
-
-    public override string ToString()
-    {
-        return "Until the start of your next turn, each of your creatures in the battle zone has \"Blocker\".";
     }
 
     protected override IEnumerable<ICard> GetAffectedCards(IGame game)
