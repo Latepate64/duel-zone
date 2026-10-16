@@ -1,10 +1,9 @@
-﻿using ContinuousEffects;
-using Interfaces;
+﻿using Interfaces;
 
 namespace OneShotEffects;
 
 public sealed class AddCreatureAffectingNumberEffect :
-    OneShotEffect, IPowerable
+    OneShotEffect
 {
     public int Power { get; }
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;

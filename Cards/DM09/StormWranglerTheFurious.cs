@@ -3,6 +3,7 @@ using Interfaces;
 using OneShotEffects;
 using CardFilters;
 using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects;
 
 namespace Cards.DM09;
 
@@ -17,7 +18,8 @@ public sealed class StormWranglerTheFurious : EvolutionCreature
                     new MultiFilter(
                         new UntappedCreatureFilter(),
                         new BlockerFilter()
-                    )
+                    ),
+                    new StormWranglerContinuousEffectFactory()
                 )));
         AddTriggeredAbility(
             new WheneverThisCreatureBecomesBlockedAbility(
