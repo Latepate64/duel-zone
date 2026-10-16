@@ -1,6 +1,7 @@
 ﻿using CardFilters;
 using Interfaces;
 using OneShotEffects;
+using TriggeredAbilities;
 
 namespace Cards.DM04;
 
@@ -10,9 +11,13 @@ public sealed class WhiskingWhirlwind : Spell
         Civilization.Light)
     {
         AddSpellAbilities(
-            new WhiskingWhirlwindEffect(
-                new CreatureFilter(),
-                SelectionRange.OwnCards
-            ));
+            new AtTheEndOfTurnEffect(
+                new AtTheEndOfTheTurnDelayedTriggeredAbilityFactory(),
+                new UntapAreaOfEffect(
+                    new CreatureFilter(),
+                    SelectionRange.OwnCards
+                )
+            )
+        );
     }
 }
