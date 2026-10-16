@@ -1,12 +1,21 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class AquaRider : Creature
 {
-    sealed class AquaRider : Creature
+    public AquaRider() : base("Aqua Rider", 4, 2000, Race.LiquidPeople,
+        Civilization.Water)
     {
-        public AquaRider() : base("Aqua Rider", 4, 2000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
-        }
+        AddTriggeredAbility(
+            new OpponentSummonOrCastAbility(
+                new ThisCreatureGetsAbilityEffect(
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new BlockerAbility()
+                )));
     }
 }

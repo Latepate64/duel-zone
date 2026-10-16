@@ -35,7 +35,7 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
             filter);
         game.AddContinuousEffects(
             Ability,
-            factory.Create(ability, creatures));
+            factory.Create(ability, [.. creatures]));
     }
 
     public override IOneShotEffect Copy()

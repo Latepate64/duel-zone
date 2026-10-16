@@ -5,5 +5,5 @@ namespace Interfaces;
 public interface IAbilityAddingContinuousEffectFactory
 {
     IContinuousEffect Create(
-        IAbility ability, IEnumerable<ICreature> creatures);
+        IAbility ability, params ICreature[] creatures);
 }

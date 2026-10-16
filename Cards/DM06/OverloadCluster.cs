@@ -1,12 +1,21 @@
-﻿using TriggeredAbilities;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class OverloadCluster : Creature
 {
-    sealed class OverloadCluster : Creature
+    public OverloadCluster() : base("Overload Cluster", 5, 4000,
+        Race.CyberCluster, Civilization.Water)
     {
-        public OverloadCluster() : base("Overload Cluster", 5, 4000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
-        }
+        AddTriggeredAbility(
+            new OpponentSummonOrCastAbility(
+                new ThisCreatureGetsAbilityEffect(
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new BlockerAbility()
+        )));
     }
 }

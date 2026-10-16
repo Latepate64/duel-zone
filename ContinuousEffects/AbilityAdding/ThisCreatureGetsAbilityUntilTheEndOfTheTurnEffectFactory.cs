@@ -7,10 +7,10 @@ public class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory
     : IAbilityAddingContinuousEffectFactory
 {
     public IContinuousEffect Create(
-        IAbility ability, IEnumerable<ICreature> creatures)
+        IAbility ability, params ICreature[] creatures)
     {
         return new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
             ability,
-            [.. creatures]);
+            creatures);
     }
 }
