@@ -1,6 +1,7 @@
 ﻿using OneShotEffects;
 using Interfaces;
 using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM02;
 
@@ -12,6 +13,8 @@ public sealed class RumbleGate : Spell
             new CreatureIntegerAffectingContinuousEffectAddingEffect(
                 1000,
                 new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()),
-            new RumbleGateOneShotEffect());
+            new ContinuousEffectAddingEffect(
+                new RumbleGateContinuousEffect()
+            ));
     }
 }
