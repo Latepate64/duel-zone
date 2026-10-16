@@ -13,9 +13,11 @@ sealed class Sopian : Creature
     {
         AddAbilities(
             new TapAbility(
-                new ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect(
-                    new CreatureFilter(),
-                    new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+                new YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    filter: new CreatureFilter(),
+                    factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
                 )));
     }
 }
