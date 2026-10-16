@@ -2,6 +2,7 @@
 using Interfaces;
 using OneShotEffects;
 using CardFilters;
+using ContinuousEffects.AbilityAddingPowerModifying;
 
 namespace Cards.DM04;
 
@@ -12,8 +13,9 @@ public sealed class ThreeEyedDragonfly : Creature
     {
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
-                new YouMaySacrificeAnotherCreatureIfYouDoThisCreatureGetsPowerAndDoubleBreakerUntilEndOfTurnEffect(
+                new YouMaySacrificeAnotherCreatureIfYouDoAddContinuousEffectWithCreaturesAndIntegerEffect(
                     2000,
-                    new CreatureFilter())));
+                    new CreatureFilter(),
+                    new ThreeEyedDragonflyContinuousEffectFactory())));
     }
 }
