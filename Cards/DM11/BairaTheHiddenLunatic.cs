@@ -15,8 +15,9 @@ sealed class BairaTheHiddenLunatic : Creature
         AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         AddTriggeredAbility(
             new WhenThisCreatureBattlesAbility(
-                new DestroyAfterBattleEffect(
-                    new AfterBattleDelayedTriggeredAbilityFactory()
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new DestroyThisCreatureEffect()
                 )));
     }
 }

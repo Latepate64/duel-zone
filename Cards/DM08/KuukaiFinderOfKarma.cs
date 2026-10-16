@@ -1,16 +1,23 @@
 ﻿using Abilities.Static;
 using ContinuousEffects.CannotAttackPlayers;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class KuukaiFinderOfKarma : EvolutionCreature
 {
-    sealed class KuukaiFinderOfKarma : EvolutionCreature
+    public KuukaiFinderOfKarma() : base("Kuukai, Finder of Karma", 5, 10500,
+        Race.MechaThunder, Civilization.Light)
     {
-        public KuukaiFinderOfKarma() : base("Kuukai, Finder of Karma", 5, 10500, Interfaces.Race.MechaThunder, Interfaces.Civilization.Light)
-        {
-            AddAbilities(new BlockerAbility());
-            AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new OneShotEffects.UntapItAfterItBattlesEffect()));
-            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-        }
+        AddAbilities(new BlockerAbility());
+        AddTriggeredAbility(
+            new WheneverThisCreatureBlocksAbility(
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new UntapThisCreatureEffect()
+                )));
+        AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }
 }

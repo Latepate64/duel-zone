@@ -15,8 +15,9 @@ sealed class VileMulderWingOfTheVoid : Creature
         AddAbilities(new DoubleBreakerAbility());
         AddTriggeredAbility(
             new WhenThisCreatureBattlesAbility(
-                new DestroyAfterBattleEffect(
-                    new AfterBattleDelayedTriggeredAbilityFactory()
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new DestroyThisCreatureEffect()
                 )));
     }
 }

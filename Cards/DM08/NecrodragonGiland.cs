@@ -13,8 +13,9 @@ sealed class NecrodragonGiland : Creature
         AddAbilities(new DoubleBreakerAbility());
         AddTriggeredAbility(
             new WhenThisCreatureBattlesAbility(
-                new DestroyAfterBattleEffect(
-                    new AfterBattleDelayedTriggeredAbilityFactory()
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new DestroyThisCreatureEffect()
                 )));
     }
 }

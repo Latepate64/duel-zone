@@ -2,36 +2,37 @@
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Destroy it after the battle.
-/// </summary>
-public sealed class DestroyAfterBattleEffect : OneShotEffect
+public sealed class AfterBattleEffect : OneShotEffect
 {
     private readonly IDelayedTriggeredAbilityWithEffectAndSourceFactory factory;
+    private readonly IOneShotEffect effect;
 
-    public DestroyAfterBattleEffect(
-        IDelayedTriggeredAbilityWithEffectAndSourceFactory factory)
+    public AfterBattleEffect(
+        IDelayedTriggeredAbilityWithEffectAndSourceFactory factory,
+        IOneShotEffect effect)
     {
         this.factory = factory;
+        this.effect = effect;
     }
 
-    public DestroyAfterBattleEffect(
-        DestroyAfterBattleEffect effect) : base(effect)
+    public AfterBattleEffect(
+        AfterBattleEffect effect) : base(effect)
     {
         factory = effect.factory;
+        this.effect = effect.effect;
     }
 
     public override void Apply(IGame game)
     {
         game.AddDelayedTriggeredAbility(
             factory.Create(
-                new DestroyThisCreatureEffect(),
+                effect,
                 Ability));
             
     }
 
     public override IOneShotEffect Copy()
     {
-        return new DestroyAfterBattleEffect(this);
+        return new AfterBattleEffect(this);
     }
 }

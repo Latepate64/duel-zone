@@ -13,9 +13,10 @@ sealed class NecrodragonJagraveen : Creature
         AddAbilities(new BlockerAbility());
         AddTriggeredAbility(
             new WheneverThisCreatureBlocksAbility(
-                new DestroyAfterBattleEffect(
-                    new AfterBattleDelayedTriggeredAbilityFactory()
-                )));
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new DestroyThisCreatureEffect()
+        )));
         AddAbilities(new DoubleBreakerAbility());
     }
 }
