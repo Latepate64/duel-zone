@@ -33,12 +33,9 @@ public sealed class ChaosStrikeOneShotEffect : CreatureSelectionEffect
     protected override void Apply(
         IGame game, IAbility source, params ICreature[] cards)
     {
-        if (cards.Length == 1)
-        {
-            game.AddContinuousEffects(
-                Ability,
-                factory.Create(cards));
-        }
+        game.AddContinuousEffects(
+            Ability,
+            factory.Create(cards));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(

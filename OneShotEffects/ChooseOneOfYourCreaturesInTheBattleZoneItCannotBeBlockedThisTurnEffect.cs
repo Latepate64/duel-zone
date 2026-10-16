@@ -1,17 +1,29 @@
-﻿using ContinuousEffects.Unblockable;
-using Interfaces;
+﻿using Interfaces;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Choose one of your creatures in the battle zone. It can't be blocked this
+/// turn.
+/// </summary>
 public sealed class ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect : CreatureSelectionEffect
 {
-    public ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect() : base(1, 1, true)
+    private readonly ICardFilter filter;
+    private readonly IContinuousEffectFactory factory;
+
+    public ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect(
+        ICardFilter filter, IContinuousEffectFactory factory) : base(1, 1, true)
     {
+        this.filter = filter;
+        this.factory = factory;
     }
 
     public ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect(
-        ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect effect) : base(effect)
+        ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect effect)
+        : base(effect)
     {
+        filter = effect.filter.Copy();
+        factory = effect.factory;
     }
 
     public override ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect Copy()
@@ -19,18 +31,17 @@ public sealed class ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThis
         return new ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect(this);
     }
 
-    public override string ToString()
+    protected override void Apply(
+        IGame game, IAbility source, params ICreature[] creatures)
     {
-        return "Choose one of your creatures in the battle zone. It can't be blocked this turn.";
+        game.AddContinuousEffects(
+            Ability,
+            factory.Create(creatures));
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICreature[] cards)
+    protected override IEnumerable<ICreature> GetSelectableCards(
+        IGame game, IAbility source)
     {
-        game.AddContinuousEffects(Ability, new ChosenCreaturesCannotBeBlockedThisTurnEffect(cards));
-    }
-
-    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
-    {
-        return game.BattleZone.GetCreatures(Ability.Controller.Id);
+        return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
     }
 }
