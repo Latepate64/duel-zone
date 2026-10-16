@@ -1,16 +1,26 @@
 using Interfaces;
-using ContinuousEffects.AbilityAdding;
 
 namespace TriggeredAbilities;
 
+/// <summary>
+/// Whenever this creature is attacked, it gets ability.
 public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
 {
-    public ScalpelSpiderAbility() : base()
+    private readonly IAbility ability;
+    private readonly IAbilityAddingContinuousEffectFactory factory;
+
+    public ScalpelSpiderAbility(
+        IAbility ability,
+        IAbilityAddingContinuousEffectFactory factory) : base()
     {
+        this.ability = ability;
+        this.factory = factory;
     }
 
     public ScalpelSpiderAbility(ScalpelSpiderAbility ability) : base(ability)
     {
+        this.ability = ability.ability;
+        factory = ability.factory;
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -23,17 +33,15 @@ public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
         return new ScalpelSpiderAbility(this);
     }
 
-    public override string ToString()
-    {
-        return "Whenever this creature is attacked, it gets \"slayer\" until the end of the turn.";
-    }
-
     public override void Resolve(IGame game)
     {
-        game.AddContinuousEffects(this, new CreatureGetsSlayerUntilEndOfTheTurnEffect(Source));
+        game.AddContinuousEffects(
+            this,
+            factory.Create(ability, (ICreature)Source));
     }
 
-    public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
+    public override ITriggeredAbility Trigger(
+        Guid source, Guid owner, IGameEvent gameEvent)
     {
         return new ScalpelSpiderAbility(this);
     }
