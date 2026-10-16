@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using ContinuousEffects;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM07;
@@ -7,6 +8,9 @@ public sealed class MiraclePortal : Spell
 {
     public MiraclePortal() : base("Miracle Portal", 4, Civilization.Light)
     {
-        AddSpellAbilities(new MiraclePortalOneShotEffect());
+        AddSpellAbilities(
+            new MiraclePortalOneShotEffect(
+                new MiraclePortalContinuousEffectFactory()
+            ));
     }
 }
