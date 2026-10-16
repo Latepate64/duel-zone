@@ -1,12 +1,17 @@
-﻿using Interfaces;
+﻿using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces;
 using TriggeredAbilities;
 
 namespace Cards.DM10;
 
 public sealed class BubbleScarab : Creature
 {
-    public BubbleScarab() : base("Bubble Scarab", 5, 4000, Race.GiantInsect, Civilization.Nature)
+    public BubbleScarab() : base("Bubble Scarab", 5, 4000, Race.GiantInsect,
+        Civilization.Nature)
     {
-        AddTriggeredAbility(new BubbleScarabAbility());
+        AddTriggeredAbility(
+            new BubbleScarabAbility(
+                3000,
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
     }
 }
