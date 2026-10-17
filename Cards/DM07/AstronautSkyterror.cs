@@ -1,12 +1,21 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class AstronautSkyterror : Creature
 {
-    sealed class AstronautSkyterror : Creature
+    public AstronautSkyterror(
+        ThisCreatureHasAbilitiesWhileYouControlNoOtherCreaturesEffectFactory factory,
+        PowerAttackerAbilityFactory powerAttackerFactory,
+        DoubleBreakerAbilityFactory doubleBreakerFactory)
+        : base("Astronaut Skyterror", 5, 4000, Race.ArmoredWyvern, Civilization.Fire)
     {
-        public AstronautSkyterror() : base("Astronaut Skyterror", 5, 4000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
-        {
-            AddStaticAbilities(new GalsaurEffect());
-        }
+        AddStaticAbilities(
+            factory.Create(
+                powerAttackerFactory,
+                doubleBreakerFactory,
+                4000));
     }
 }

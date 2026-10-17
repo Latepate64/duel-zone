@@ -1,12 +1,21 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class Galsaur : Creature
 {
-    sealed class Galsaur : Creature
+    public Galsaur(
+        ThisCreatureHasAbilitiesWhileYouControlNoOtherCreaturesEffectFactory factory,
+        PowerAttackerAbilityFactory powerAttackerFactory,
+        DoubleBreakerAbilityFactory doubleBreakerFactory)
+        : base("Galsaur", 5, 4000, Race.RockBeast, Civilization.Fire)
     {
-        public Galsaur() : base("Galsaur", 5, 4000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
-        {
-            AddStaticAbilities(new GalsaurEffect());
-        }
+        AddStaticAbilities(
+            factory.Create(
+                powerAttackerFactory,
+                doubleBreakerFactory,
+                4000));
     }
 }
