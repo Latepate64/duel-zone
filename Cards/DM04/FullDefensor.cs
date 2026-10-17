@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities.Static;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
@@ -7,13 +8,17 @@ namespace Cards.DM04;
 
 public sealed class FullDefensor : Spell
 {
-    public FullDefensor() : base("Full Defensor", 2, Civilization.Light)
+    public FullDefensor(
+        CreatureFilterFactory filterFactory,
+        BlockerAbilityFactory abilityFactory
+        ) : base("Full Defensor", 2, Civilization.Light)
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new InvincibleUnityOneShotEffect(
-                new FullDefensorContinuousEffectFactory(),
-                new CreatureFilter()
+            new AddAbilityAddingEffect(
+                new ContinuousEffectWithAbilityFactory(),
+                filterFactory.Create(),
+                abilityFactory
             ));
     }
 }

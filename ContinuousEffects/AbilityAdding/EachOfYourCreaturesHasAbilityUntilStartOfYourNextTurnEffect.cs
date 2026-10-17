@@ -1,31 +1,28 @@
-using Abilities.Static;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-/// <summary>
-/// Until the start of your next turn, each of your creatures in the battle zone
-/// has "Blocker".
-/// </summary>
-public sealed class FullDefensorContinuousEffect : AbilityAddingEffect, IExpirable
+public sealed class EachOfYourCreaturesHasAbilityUntilStartOfYourNextTurnEffect
+    : AbilityAddingEffect, IExpirable
 {
     private readonly ICard[] _cards;
 
-    public FullDefensorContinuousEffect(FullDefensorContinuousEffect effect) : base(effect)
-    {
-        _cards = effect._cards;
-    }
-
-    public FullDefensorContinuousEffect(params ICard[] cards) : base(
-        new BlockerAbility())
+    public EachOfYourCreaturesHasAbilityUntilStartOfYourNextTurnEffect(
+        IStaticAbilityFactory factory, params ICard[] cards) : base(factory.Create())
     {
         _cards = cards;
     }
 
+    private EachOfYourCreaturesHasAbilityUntilStartOfYourNextTurnEffect(
+        EachOfYourCreaturesHasAbilityUntilStartOfYourNextTurnEffect effect) : base(effect)
+    {
+        _cards = effect._cards;
+    }
+
     public override IContinuousEffect Copy()
     {
-        return new FullDefensorContinuousEffect(this);
+        return new EachOfYourCreaturesHasAbilityUntilStartOfYourNextTurnEffect(this);
     }
 
     public bool ShouldExpire(IGameEvent gameEvent, IGame game)
