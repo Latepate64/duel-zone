@@ -1,6 +1,4 @@
-using Interfaces.ContinuousEffects;
-
-namespace Interfaces;
+namespace Interfaces.ContinuousEffects;
 
 public interface IContinuousEffectFactory
 {

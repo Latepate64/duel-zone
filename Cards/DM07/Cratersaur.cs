@@ -1,12 +1,21 @@
-﻿using ContinuousEffects;
+﻿using Abilities.Static;
+using ContinuousEffects;
+using ContinuousEffects.PowerModifying;
 using Interfaces;
 
 namespace Cards.DM07;
 
-public sealed class Cratersaur : Creature
+internal sealed class Cratersaur : Creature
 {
-    public Cratersaur() : base("Cratersaur", 3, 2000, Race.RockBeast, Civilization.Fire)
+    internal Cratersaur(
+        StaticAbilityFactory abilityFactory,
+        PowerAttackerEffectFactory effectFactory)
+        : base("Cratersaur", 3, 2000, Race.RockBeast, Civilization.Fire)
     {
-        AddStaticAbilities(new CratersaurEffect());
+        AddStaticAbilities(
+            new CratersaurEffect(
+                3000,
+                abilityFactory,
+                effectFactory));
     }
 }
