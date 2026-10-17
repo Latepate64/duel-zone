@@ -3,10 +3,6 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Each of your creatures in the battle zone gets +8000 power and "triple
-/// breaker" until the end of the turn.
-/// </summary>
 public sealed class InvincibleUnityOneShotEffect : OneShotEffect
 {
     private readonly IContinuousEffectFactory factory;

@@ -11,12 +11,12 @@ public sealed class CratersaurEffect : ContinuousEffect, ICanAttackUntappedCreat
     IAbilityAddingEffect
 {
     private readonly int power;
-    private readonly IStaticAbilityFactory abilityFactory;
+    private readonly IStaticAbilityWithEffectFactory abilityFactory;
     private readonly IContinuousEffectWithIntegerFactory effectFactory;
 
     public CratersaurEffect(
         int power,
-        IStaticAbilityFactory abilityFactory,
+        IStaticAbilityWithEffectFactory abilityFactory,
         IContinuousEffectWithIntegerFactory effectFactory) : base()
     {
         this.power = power;
