@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 
@@ -6,8 +7,19 @@ namespace Cards.DM09;
 
 public sealed class MagmadragonOgristVhal : Creature
 {
-    public MagmadragonOgristVhal() : base("Magmadragon Ogrist Vhal", 7, 3000, Race.VolcanoDragon, Civilization.Fire)
+    public MagmadragonOgristVhal(
+        ThisCreatureHasEitherAbilityWhilePowerAtLeastEitherEffectFactory factory,
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
+        TripleBreakerAbilityFactory tripleBreakerAbilityFactory
+    ) : base("Magmadragon Ogrist Vhal", 7, 3000, Race.VolcanoDragon,
+        Civilization.Fire)
     {
-        AddStaticAbilities(new MagmadragonOgristVhalEffect(), new PoweredTripleBreaker());
+        AddStaticAbilities(
+            new MagmadragonOgristVhalEffect(),
+            factory.Create(
+                6000,
+                doubleBreakerAbilityFactory.Create(),
+                15000,
+                tripleBreakerAbilityFactory.Create()));
     }
 }
