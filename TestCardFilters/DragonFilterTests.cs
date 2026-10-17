@@ -6,11 +6,16 @@ namespace TestCardFilters;
 
 public class DragonFilterTests
 {
+    private static ICardFilter CreateFilter()
+    {
+        return new DragonFilterFactory().Create();
+    }
+
     [Fact]
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var filter = new DragonFilter();
+        var filter = CreateFilter();
 
         // Act
         var actual = filter.Equals(new object());
@@ -23,7 +28,7 @@ public class DragonFilterTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new DragonFilter();
+        var filter = CreateFilter();
 
         // Act
         var copy = filter.Copy();
@@ -36,7 +41,7 @@ public class DragonFilterTests
     public void HashCodesAreEqualForEqualFilters()
     {
         // Arrange
-        var first = new DragonFilter();
+        var first = CreateFilter();
         var second = first.Copy();
         var expected = second.GetHashCode();
 
@@ -51,7 +56,7 @@ public class DragonFilterTests
     public void DoesNotMatchCard()
     {
         // Arrange
-        var filter = new DragonFilter();
+        var filter = CreateFilter();
 
         // Act
         var actual = filter.Match(Mock.Of<ICard>());
@@ -66,7 +71,7 @@ public class DragonFilterTests
     public void MatchesCreatureThatIsDragon(bool isDragon)
     {
         // Arrange
-        var filter = new DragonFilter();
+        var filter = CreateFilter();
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.IsDragon).Returns(isDragon);
 

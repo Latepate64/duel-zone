@@ -7,14 +7,14 @@ namespace Cards.DM10;
 
 public sealed class UltimateDragon : Creature
 {
-    public UltimateDragon() : base("Ultimate Dragon", 6, 5000,
-        Race.ArmoredDragon, Civilization.Fire)
+    public UltimateDragon(DragonFilterFactory dragonFilterFactory) : base(
+        "Ultimate Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
     {
         AddStaticAbilities(
             new ThisCreatureGetsPowerForEachOfYourOtherCreatures(
                 5000,
-                new DragonFilter()
+                dragonFilterFactory.Create()
             ));
-        AddAbilities(new CrewBreakerAbility(new DragonFilter()));
+        AddAbilities(new CrewBreakerAbility(dragonFilterFactory.Create()));
     }
 }
