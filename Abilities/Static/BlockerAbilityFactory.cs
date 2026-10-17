@@ -8,4 +8,9 @@ public class BlockerAbilityFactory : IStaticAbilityFactory
     {
         return new BlockerAbility();
     }
+
+    public IStaticAbility Create(ICardFilter attackerFilter)
+    {
+        return new BlockerAbility(attackerFilter);
+    }
 }

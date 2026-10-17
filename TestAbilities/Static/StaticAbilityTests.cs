@@ -8,13 +8,18 @@ namespace TestAbilities.Static;
 
 public class StaticAbilityTests
 {
+    private static IStaticAbility CreateAbility(IContinuousEffect effect)
+    {
+        return new StaticAbilityFactory().Create(effect);
+    }
+    
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
         var effect = new Mock<IContinuousEffect>();
         effect.Setup(x => x.Copy()).Returns(effect.Object);
-        var ability = new StaticAbility(effect.Object);
+        var ability = CreateAbility(effect.Object);
 
         // Act
         var copy = ability.Copy();
@@ -28,7 +33,7 @@ public class StaticAbilityTests
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var ability = new StaticAbility(Mock.Of<IContinuousEffect>());
+        var ability = CreateAbility(Mock.Of<IContinuousEffect>());
 
         // Act
         var actual = ability.Equals(new object());
@@ -41,7 +46,7 @@ public class StaticAbilityTests
     public void DoesNotEqualNonStaticAbility()
     {
         // Arrange
-        var ability = new StaticAbility(Mock.Of<IContinuousEffect>());
+        var ability = CreateAbility(Mock.Of<IContinuousEffect>());
 
         // Act
         var actual = ability.Equals(new SpellAbility(
@@ -55,8 +60,8 @@ public class StaticAbilityTests
     public void DoesNotEqualStaticAbilityWithDifferentContinuousEffects()
     {
         // Arrange
-        var ability = new StaticAbility(Mock.Of<IContinuousEffect>());
-        var other = new StaticAbility(Mock.Of<IContinuousEffect>());
+        var ability = CreateAbility(Mock.Of<IContinuousEffect>());
+        var other = CreateAbility(Mock.Of<IContinuousEffect>());
 
         // Act
         var actual = ability.Equals(other);
@@ -71,7 +76,7 @@ public class StaticAbilityTests
         // Arrange
         var effect = new Mock<IContinuousEffect>();
         effect.Setup(x => x.Copy()).Returns(effect.Object);
-        var ability = new StaticAbility(effect.Object);
+        var ability = CreateAbility(effect.Object);
         var copy = ability.Copy();
         var expected = copy.GetHashCode();
 

@@ -6,11 +6,16 @@ namespace TestCardFilters;
 
 public class CreatureFilterTests
 {
+    private static ICardFilter CreateFilter()
+    {
+        return new CreatureFilterFactory().Create();
+    }
+
     [Fact]
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var filter = new CreatureFilter();
+        var filter = CreateFilter();
 
         // Act
         var actual = filter.Equals(new object());
@@ -23,7 +28,7 @@ public class CreatureFilterTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new CreatureFilter();
+        var filter = CreateFilter();
 
         // Act
         var copy = filter.Copy();
@@ -36,7 +41,7 @@ public class CreatureFilterTests
     public void HashCodesAreEqualForEqualFilters()
     {
         // Arrange
-        var first = new CreatureFilter();
+        var first = CreateFilter();
         var second = first.Copy();
         var expected = second.GetHashCode();
 
@@ -51,7 +56,7 @@ public class CreatureFilterTests
     public void DoesNotMatchCard()
     {
         // Arrange
-        var filter = new CreatureFilter();
+        var filter = CreateFilter();
 
         // Act
         var actual = filter.Match(Mock.Of<ICard>());
@@ -64,7 +69,7 @@ public class CreatureFilterTests
     public void MatchesCreature()
     {
         // Arrange
-        var filter = new CreatureFilter();
+        var filter = CreateFilter();
         var creature = Mock.Of<ICreature>();
 
         // Act

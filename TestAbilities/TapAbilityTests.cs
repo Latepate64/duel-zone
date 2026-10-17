@@ -6,13 +6,18 @@ namespace TestAbilities;
 
 public class TapAbilityTests
 {
+    private static ITapAbility CreateAbility(IOneShotEffect effect)
+    {
+        return (ITapAbility)new TapAbilityFactory().Create(effect);
+    }
+
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
         var effect = new Mock<IOneShotEffect>();
         effect.Setup(x => x.Copy()).Returns(effect.Object);
-        var ability = new TapAbility(effect.Object);
+        var ability = CreateAbility(effect.Object);
 
         // Act
         var copy = ability.Copy();

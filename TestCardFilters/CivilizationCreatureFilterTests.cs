@@ -6,11 +6,16 @@ namespace TestCardFilters;
 
 public class CivilizationCreatureFilterTests
 {
+    private static ICardFilter CreateFilter(Civilization civilization)
+    {
+        return new CivilizationCreatureFilterFactory().Create(civilization);
+    }
+
     [Fact]
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var filter = new CivilizationCreatureFilter();
+        var filter = CreateFilter(Civilization.Light);
 
         // Act
         var actual = filter.Equals(new object());
@@ -23,8 +28,8 @@ public class CivilizationCreatureFilterTests
     public void DoesNotEqualFilterWithDifferentCivilizations()
     {
         // Arrange
-        var first = new CivilizationCreatureFilter(Civilization.Light);
-        var second = new CivilizationCreatureFilter(Civilization.Water);
+        var first = CreateFilter(Civilization.Light);
+        var second = CreateFilter(Civilization.Water);
 
         // Act
         var actual = first.Equals(second);
@@ -37,7 +42,7 @@ public class CivilizationCreatureFilterTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new CivilizationCreatureFilter();
+        var filter = CreateFilter(Civilization.Light);
 
         // Act
         var copy = filter.Copy();
@@ -50,7 +55,7 @@ public class CivilizationCreatureFilterTests
     public void HashCodesAreEqualForEqualFilters()
     {
         // Arrange
-        var first = new CivilizationCreatureFilter(Civilization.Light);
+        var first = CreateFilter(Civilization.Light);
         var second = first.Copy();
         var expected = second.GetHashCode();
 
@@ -65,7 +70,7 @@ public class CivilizationCreatureFilterTests
     public void DoesNotMatchCard()
     {
         // Arrange
-        var filter = new CivilizationCreatureFilter(Civilization.Light);
+        var filter = CreateFilter(Civilization.Light);
 
         // Act
         var actual = filter.Match(Mock.Of<ICard>());
@@ -81,7 +86,7 @@ public class CivilizationCreatureFilterTests
         bool creatureHasMatchingCivilization)
     {
         // Arrange
-        var filter = new CivilizationCreatureFilter(Civilization.Light);
+        var filter = CreateFilter(Civilization.Light);
         var creature = new Mock<ICreature>();
         creature.Setup(x => x.HasCivilization(Civilization.Light)).Returns(
             creatureHasMatchingCivilization);

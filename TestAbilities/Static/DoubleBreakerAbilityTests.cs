@@ -7,11 +7,16 @@ namespace TestAbilities.Static;
 
 public class DoubleBreakerAbilityTests
 {
+    private static IBreakerAbility CreateAbility()
+    {
+        return (IBreakerAbility)new DoubleBreakerAbilityFactory().Create();
+    }
+
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var ability = new DoubleBreakerAbility();
+        var ability = CreateAbility();
 
         // Act
         var copy = ability.Copy();
@@ -24,7 +29,7 @@ public class DoubleBreakerAbilityTests
     public void CreatureWithoutDoubleBreakerBreaksOneShield()
     {
         // Arrange
-        var ability = new DoubleBreakerAbility();
+        var ability = CreateAbility();
         var creature = Mock.Of<ICreature>();
         var battleZone = Mock.Of<IBattleZone>();
 
@@ -40,7 +45,8 @@ public class DoubleBreakerAbilityTests
     {
         // Arrange
         var creature = Mock.Of<ICreature>();
-        var ability = new DoubleBreakerAbility { Source = creature };
+        var ability = CreateAbility();
+        ability.Source = creature;
         var battleZone = Mock.Of<IBattleZone>();
 
         // Act

@@ -6,11 +6,21 @@ namespace TestAbilities.Static;
 
 public class BlockerAbilityTests
 {
+    private static IBlockerAbility CreateAbility()
+    {
+        return (IBlockerAbility)new BlockerAbilityFactory().Create();
+    }
+
+    private static IBlockerAbility CreateAbility(ICardFilter filter)
+    {
+        return (IBlockerAbility)new BlockerAbilityFactory().Create(filter);
+    }
+
     [Fact]
     public void CopyEqualsOriginalWithoutFilter()
     {
         // Arrange
-        var ability = new BlockerAbility();
+        var ability = CreateAbility();
 
         // Act
         var copy = ability.Copy();
@@ -25,7 +35,8 @@ public class BlockerAbilityTests
         // Arrange
         var filter = new Mock<ICardFilter>();
         filter.Setup(x => x.Copy()).Returns(filter.Object);
-        var ability = new BlockerAbility(filter.Object);
+        var ability = CreateAbility(filter.Object);
+
         // Act
         var copy = ability.Copy();
 
@@ -37,7 +48,7 @@ public class BlockerAbilityTests
     public void CreatureWithoutBlockerCannotBlock()
     {
         // Arrange
-        var ability = new BlockerAbility();
+        var ability = CreateAbility();
         var creatureWithoutBlocker = Mock.Of<ICreature>();
         var attacker = Mock.Of<ICreature>();
 
@@ -54,7 +65,8 @@ public class BlockerAbilityTests
         // Arrange
         var blocker = Mock.Of<ICreature>();
         var attacker = Mock.Of<ICreature>();
-        var ability = new BlockerAbility { Source = blocker };
+        var ability = CreateAbility();
+        ability.Source = blocker;
 
         // Act
         var actual = ability.CanBlock(blocker, attacker);
@@ -73,7 +85,8 @@ public class BlockerAbilityTests
         var attacker = Mock.Of<ICreature>();
         var filter = new Mock<ICardFilter>();
         filter.Setup(x => x.Match(attacker)).Returns(attackerMatches);
-        var ability = new BlockerAbility(filter.Object) { Source = blocker };
+        var ability = CreateAbility(filter.Object);
+        ability.Source = blocker;
 
         // Act
         var actual = ability.CanBlock(blocker, attacker);
@@ -86,7 +99,7 @@ public class BlockerAbilityTests
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var ability = new BlockerAbility();
+        var ability = CreateAbility();
 
         // Act
         var actual = ability.Equals(new object());
@@ -99,7 +112,7 @@ public class BlockerAbilityTests
     public void DoesNotEqualAbilityOfAnotherType()
     {
         // Arrange
-        var ability = new BlockerAbility();
+        var ability = CreateAbility();
         var other = new SlayerAbility();
 
         // Act
@@ -113,8 +126,8 @@ public class BlockerAbilityTests
     public void DoesNotEqualAbilityWithoutFilter()
     {
         // Arrange
-        var ability = new BlockerAbility(Mock.Of<ICardFilter>());
-        var other = new BlockerAbility();
+        var ability = CreateAbility(Mock.Of<ICardFilter>());
+        var other = CreateAbility();
 
         // Act
         var actual = ability.Equals(other);
@@ -127,8 +140,8 @@ public class BlockerAbilityTests
     public void DoesNotEqualAbilityWithDifferentFilter()
     {
         // Arrange
-        var ability = new BlockerAbility();
-        var other = new BlockerAbility(Mock.Of<ICardFilter>());
+        var ability = CreateAbility();
+        var other = CreateAbility(Mock.Of<ICardFilter>());
 
         // Act
         var actual = ability.Equals(other);
@@ -141,7 +154,7 @@ public class BlockerAbilityTests
     public void HashCodesAreEqualForEqualObjects()
     {
         // Arrange
-        var ability = new BlockerAbility();
+        var ability = CreateAbility();
         var another = ability.Copy();
 
         // Act
