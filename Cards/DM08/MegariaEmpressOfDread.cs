@@ -1,12 +1,24 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 
 namespace Cards.DM08;
 
 sealed class MegariaEmpressOfDread : Creature
 {
-    public MegariaEmpressOfDread() : base("Megaria, Empress of Dread", 5, 5000, Race.DarkLord, Civilization.Darkness)
+    public MegariaEmpressOfDread(
+        EachCreatureHasAbilityEffectFactory eachCreatureHasAbilityEffectFactory,
+        CreatureFilter creatureFilter,
+        SlayerAbilityFactory slayerAbilityFactory
+    ) : base("Megaria, Empress of Dread", 5, 5000, Race.DarkLord,
+        Civilization.Darkness)
     {
-        AddStaticAbilities(new MegariaEmpressOfDreadEffect());
+        AddStaticAbilities(
+            eachCreatureHasAbilityEffectFactory.Create(
+                creatureFilter,
+                slayerAbilityFactory.Create()
+            )
+        );
     }
 }

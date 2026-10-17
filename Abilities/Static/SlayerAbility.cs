@@ -19,7 +19,7 @@ public class SlayerAbility : StaticAbility, ISlayerAbility
         this.defendingCreatureFilter = defendingCreatureFilter;
     }
 
-    public SlayerAbility(SlayerAbility ability) : base(ability)
+    private SlayerAbility(SlayerAbility ability) : base(ability)
     {
         defendingCreatureFilter = ability.defendingCreatureFilter?.Copy();
     }
