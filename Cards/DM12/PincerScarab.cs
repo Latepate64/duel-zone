@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.PowerModifying;
 using Interfaces;
 
@@ -6,8 +7,13 @@ namespace Cards.DM12;
 
 public sealed class PincerScarab : Creature
 {
-    public PincerScarab() : base("Pincer Scarab", 4, 1000, Race.GiantInsect, Civilization.Nature)
+    public PincerScarab(
+        ThisCreatureHasAbilityWhilePowerAtLeastEffectFactory factory,
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory) : base(
+            "Pincer Scarab", 4, 1000, Race.GiantInsect, Civilization.Nature)
     {
-        AddStaticAbilities(new PincerScarabEffect(), new PoweredDoubleBreaker());
+        AddStaticAbilities(
+            new PincerScarabEffect(),
+            factory.Create(6000, doubleBreakerAbilityFactory.Create()));
     }
 }

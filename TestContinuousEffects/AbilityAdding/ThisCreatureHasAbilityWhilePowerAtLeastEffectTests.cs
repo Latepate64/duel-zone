@@ -1,4 +1,3 @@
-using Abilities.Static;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using Moq;
@@ -6,13 +5,19 @@ using Xunit;
 
 namespace TestContinuousEffects.AbilityAdding;
 
-public class PoweredDoubleBreakerEffectTests
+public class ThisCreatureHasAbilityWhilePowerAtLeastEffectTests
 {
+    private static ThisCreatureHasAbilityWhilePowerAtLeastEffect CreateEffect(
+        IAbility ability, int power)
+    {
+        return new ThisCreatureHasAbilityWhilePowerAtLeastEffectFactory().Create(power, ability);
+    }
+
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var effect = new PoweredDoubleBreaker();
+        var effect = CreateEffect(Mock.Of<IAbility>(), 6000);
 
         // Act
         var copy = effect.Copy();
@@ -22,41 +27,37 @@ public class PoweredDoubleBreakerEffectTests
     }
 
     [Fact]
-    public void CreatureWithPowerLessThan6000DoesNotGetDoubleBreaker()
+    public void CreatureWithPowerLessThanRequiredDoesNotGetAbility()
     {
         // Arrange
         var source = CreateCreature(5999);
-        var effect = new PoweredDoubleBreaker
-        {
-            Ability = CreateAbilityWithSource(source).Object
-        };
+        var ability = Mock.Of<IAbility>();
+        var effect = CreateEffect(ability, 6000);
+        effect.Ability = CreateAbilityWithSource(source).Object;
         var game = new Mock<IGame>();
 
         // Act
         effect.AddAbility(game.Object);
 
         // Assert
-        game.Verify(x => x.AddAbility(
-            source.Object, It.IsAny<DoubleBreakerAbility>()), Times.Never);
+        game.Verify(x => x.AddAbility(source.Object, ability), Times.Never);
     }
 
     [Fact]
-    public void CreatureWithPowerAtLeast6000GetsDoubleBreaker()
+    public void CreatureWithPowerAtLeastRequiredGetsAbility()
     {
         // Arrange
         var source = CreateCreature(6000);
-        var effect = new PoweredDoubleBreaker
-        {
-            Ability = CreateAbilityWithSource(source).Object
-        };
+        var ability = Mock.Of<IAbility>();
+        var effect = CreateEffect(ability, 6000);
+        effect.Ability = CreateAbilityWithSource(source).Object;
         var game = new Mock<IGame>();
 
         // Act
         effect.AddAbility(game.Object);
 
         // Assert
-        game.Verify(x => x.AddAbility(
-            source.Object, It.IsAny<DoubleBreakerAbility>()), Times.Once);
+        game.Verify(x => x.AddAbility(source.Object, ability), Times.Once);
     }
 
     static Mock<ICreature> CreateCreature(int power)
