@@ -10,21 +10,25 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class KachuaEffect : OneShotEffect
 {
-    private readonly IContinuousEffectFactory effectFactory;
+    private readonly IContinuousEffectWithAbilityFactory effectFactory;
     private readonly IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory;
+    private readonly IAbility ability;
 
-    public KachuaEffect(
-        IContinuousEffectFactory effectFactory,
-        IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory)
+    internal KachuaEffect(
+        IContinuousEffectWithAbilityFactory effectFactory,
+        IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory,
+        IAbility ability)
     {
         this.effectFactory = effectFactory;
         this.abilityFactory = abilityFactory;
+        this.ability = ability;
     }
 
-    public KachuaEffect(KachuaEffect effect) : base(effect)
+    private KachuaEffect(KachuaEffect effect) : base(effect)
     {
         effectFactory = effect.effectFactory;
         abilityFactory = effect.abilityFactory;
+        ability = effect.ability;
     }
 
     public override void Apply(IGame game)
@@ -40,7 +44,7 @@ public sealed class KachuaEffect : OneShotEffect
         {
             game.AddContinuousEffects(
                 Ability,
-                effectFactory.Create(dragon));
+                effectFactory.Create(ability, dragon));
             game.AddDelayedTriggeredAbility(
                 abilityFactory.Create(Ability, Guid.NewGuid(), dragon));
         }

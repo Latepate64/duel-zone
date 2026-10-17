@@ -11,7 +11,7 @@ public class SpeedAttackerAbility : StaticAbility, ISpeedAttackerAbility
     {
     }
 
-    public SpeedAttackerAbility(SpeedAttackerAbility ability) : base(ability)
+    private SpeedAttackerAbility(SpeedAttackerAbility ability) : base(ability)
     {
     }
 

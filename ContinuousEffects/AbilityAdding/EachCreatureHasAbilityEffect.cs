@@ -3,23 +3,19 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-/// <summary>
-/// Each creature in the battle zone has ability.
-/// </summary>
-public sealed class EachCreatureHasAbilityEffect : ContinuousEffect,
-    IAbilityAddingEffect
+public sealed class EachCreatureHasAbilityEffect : ContinuousEffect, IAbilityAddingEffect
 {
     private readonly ICardFilter filter;
     private readonly IAbility ability;
 
-    public EachCreatureHasAbilityEffect(
+    internal EachCreatureHasAbilityEffect(
         ICardFilter filter, IAbility ability) : base()
     {
         this.filter = filter;
         this.ability = ability;
     }
 
-    public EachCreatureHasAbilityEffect(
+    private EachCreatureHasAbilityEffect(
         EachCreatureHasAbilityEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
@@ -37,5 +33,19 @@ public sealed class EachCreatureHasAbilityEffect : ContinuousEffect,
     public override IContinuousEffect Copy()
     {
         return new EachCreatureHasAbilityEffect(this);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not EachCreatureHasAbilityEffect effect) return false;
+        if (!filter.Equals(effect.filter)) return false;
+        if (!ability.Equals(effect.ability)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(filter, ability);
     }
 }

@@ -5,12 +5,12 @@ namespace OneShotEffects;
 
 public sealed class AddAbilityAddingEffect : OneShotEffect
 {
-    private readonly IContinuousEffectWithAbilityFactory effectFactory;
+    private readonly IContinuousEffectWithStaticAbilityFactoryFactory effectFactory;
     private readonly ICardFilter filter;
     private readonly IStaticAbilityFactory abilityFactory;
 
     public AddAbilityAddingEffect(
-        IContinuousEffectWithAbilityFactory effectFactory, 
+        IContinuousEffectWithStaticAbilityFactoryFactory effectFactory, 
         ICardFilter filter,
         IStaticAbilityFactory abilityFactory)
     {
