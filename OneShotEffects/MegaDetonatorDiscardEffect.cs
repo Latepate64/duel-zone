@@ -10,17 +10,20 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class MegaDetonatorDiscardEffect : OneShotEffect
 {
-    private readonly IContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilityFactory factory;
+    private readonly IAbility ability;
 
-    public MegaDetonatorDiscardEffect(IContinuousEffectFactory factory)
+    internal MegaDetonatorDiscardEffect(
+        IContinuousEffectWithAbilityFactory factory, IAbility ability)
     {
         this.factory = factory;
+        this.ability = ability;
     }
 
-    public MegaDetonatorDiscardEffect(
-        MegaDetonatorDiscardEffect effect) : base(effect)
+    private MegaDetonatorDiscardEffect(MegaDetonatorDiscardEffect effect) : base(effect)
     {
         factory = effect.factory;
+        ability = effect.ability;
     }
 
     public override void Apply(IGame game)
@@ -30,7 +33,7 @@ public sealed class MegaDetonatorDiscardEffect : OneShotEffect
             game, ToString(), amount);
         game.AddContinuousEffects(
             Ability,
-            factory.Create([.. creatures]));
+            factory.Create(ability, [.. creatures]));
     }
 
     public override IOneShotEffect Copy()

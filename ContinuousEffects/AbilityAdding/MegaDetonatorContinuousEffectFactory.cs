@@ -3,10 +3,10 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-public class MegaDetonatorContinuousEffectFactory : IContinuousEffectFactory
+public class MegaDetonatorContinuousEffectFactory : IContinuousEffectWithAbilityFactory
 {
-    public IContinuousEffect Create(params ICreature[] creatures)
+    public IContinuousEffect Create(IAbility ability, params ICreature[] creatures)
     {
-        return new MegaDetonatorContinuousEffect(creatures);
+        return new MegaDetonatorContinuousEffect(ability, creatures);
     }
 }

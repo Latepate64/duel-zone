@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -6,11 +7,16 @@ namespace Cards.DM04;
 
 public sealed class MegaDetonator : Spell
 {
-    public MegaDetonator() : base("Mega Detonator", 2, Civilization.Fire)
+    public MegaDetonator(
+        MegaDetonatorDiscardEffectFactory megaDetonatorDiscardEffectFactory,
+        MegaDetonatorContinuousEffectFactory megaDetonatorContinuousEffectFactory,
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
+    ) : base("Mega Detonator", 2, Civilization.Fire)
     {
         AddSpellAbilities(
-            new MegaDetonatorDiscardEffect(
-                new MegaDetonatorContinuousEffectFactory()
+            megaDetonatorDiscardEffectFactory.Create(
+                megaDetonatorContinuousEffectFactory,
+                doubleBreakerAbilityFactory.Create()
             ));
     }
 }
