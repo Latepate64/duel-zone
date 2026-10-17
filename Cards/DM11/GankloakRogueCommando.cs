@@ -1,5 +1,6 @@
-﻿using CardFilters;
-using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using Abilities.Static;
+using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -7,13 +8,20 @@ namespace Cards.DM11;
 
 public sealed class GankloakRogueCommando : SilentSkillCreature
 {
-    public GankloakRogueCommando() : base("Gankloak, Rogue Commando", 3, 2000,
-        Race.Human, Civilization.Fire)
+    public GankloakRogueCommando(
+        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
+        CivilizationCreatureFilterFactory creatureFilterFactory,
+        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+    ) : base("Gankloak, Rogue Commando", 3, 2000, Race.Human,
+        Civilization.Fire)
     {
         AddSilentSkillAbility(
-            new InvincibleUnityOneShotEffect(
-                new GankloakRogueCommandoContinuousEffectFactory(),
-                new CivilizationCreatureFilter(Civilization.Fire)
-            ));
+            oneShotEffectFactory.Create(
+                doubleBreakerAbilityFactory.Create(),
+                creatureFilterFactory.Create(Civilization.Fire),
+                continuousEffectFactory
+            )
+        );
     }
 }

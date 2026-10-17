@@ -10,16 +10,21 @@ namespace Cards.DM07;
 
 public sealed class ArmoredTransportGaliacruse : Creature
 {
-    public ArmoredTransportGaliacruse() : base("Armored Transport Galiacruse",
-        6, 5000, Race.Armorloid, Civilization.Fire)
+    public ArmoredTransportGaliacruse(
+        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        StaticAbilityFactory abilityFactory,
+        CivilizationCreatureFilterFactory creatureFilterFactory,
+        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        TapAbilityFactory tapAbilityFactory,
+        ThisCreatureCanAttackUntappedCreaturesEffectFactory untappedFactory
+    ) : base("Armored Transport Galiacruse", 6, 5000, Race.Armorloid, Civilization.Fire)
     {
         AddAbilities(
-            new TapAbility(
-                new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-                    new StaticAbility(
-                        new ThisCreatureCanAttackUntappedCreaturesEffect()),
-                    new CivilizationCreatureFilter(Civilization.Fire),
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+            tapAbilityFactory.Create(
+                oneShotEffectFactory.Create(
+                    abilityFactory.Create(untappedFactory.Create()),
+                    creatureFilterFactory.Create(Civilization.Fire),
+                    continuousEffectFactory
                 )));
     }
 }
