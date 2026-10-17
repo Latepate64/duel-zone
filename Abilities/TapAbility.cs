@@ -8,7 +8,7 @@ public sealed class TapAbility : ActivatedAbility, ITapAbility
     {
     }
 
-    public TapAbility(TapAbility ability) : base(ability)
+    private TapAbility(TapAbility ability) : base(ability)
     {
     }
 

@@ -5,18 +5,17 @@ namespace OneShotEffects;
 
 public sealed class RaceAffectingContinuousEffectAddingEffect : OneShotEffect
 {
-    private readonly IContinuousEffectWithRaceFactory factory;
+    private readonly IContinuousEffectWithRaceFactory effectFactory;
 
-    public RaceAffectingContinuousEffectAddingEffect(
-        IContinuousEffectWithRaceFactory factory)
+    public RaceAffectingContinuousEffectAddingEffect(IContinuousEffectWithRaceFactory factory)
     {
-        this.factory = factory;
+        this.effectFactory = factory;
     }
 
     public RaceAffectingContinuousEffectAddingEffect(
         RaceAffectingContinuousEffectAddingEffect effect) : base(effect)
     {
-        factory = effect.factory;
+        effectFactory = effect.effectFactory;
     }
 
     public override void Apply(IGame game)
@@ -24,7 +23,7 @@ public sealed class RaceAffectingContinuousEffectAddingEffect : OneShotEffect
         var race = Controller.ChooseRace(ToString());
         game.AddContinuousEffects(
             Ability,
-            factory.Create(race));
+            effectFactory.Create(race));
     }
 
     public override IOneShotEffect Copy()
