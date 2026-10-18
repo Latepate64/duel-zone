@@ -3,9 +3,6 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-/// <summary>
-/// Each of your other creatures in the battle zone has ability.
-/// </summary>
 public sealed class EachOfYourOtherCreaturesHasAbilityEffect : ContinuousEffect,
     IAbilityAddingEffect
 {
