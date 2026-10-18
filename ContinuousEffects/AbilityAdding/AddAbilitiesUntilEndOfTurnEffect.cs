@@ -1,3 +1,4 @@
+using Abilities;
 using Interfaces;
 
 namespace ContinuousEffects.AbilityAdding;
@@ -19,6 +20,11 @@ public abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IE
     protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability1, IAbility ability2, params ICard[] cards) : base([ability1, ability2])
     {
         _cards = cards;
+    }
+
+    protected AddAbilitiesUntilEndOfTurnEffect(IAbility[] abilities, params ICreature[] creatures) : base(abilities)
+    {
+        _cards = creatures;
     }
 
     protected AddAbilitiesUntilEndOfTurnEffect(ICard card, params IAbility[] abilities) : base(abilities)

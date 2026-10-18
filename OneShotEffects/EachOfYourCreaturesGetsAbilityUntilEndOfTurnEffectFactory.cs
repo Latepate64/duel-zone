@@ -1,15 +1,16 @@
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
 public class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory
 {
     public IOneShotEffect Create(
-        IAbility ability,
         ICardFilter filter,
-        IAbilityAddingContinuousEffectFactory effectFactory)
+        IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
+        params IAbility[] abilities)
     {
         return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-            ability, filter, effectFactory);
+            filter, effectFactory, abilities);
     }
 }

@@ -6,41 +6,39 @@ namespace OneShotEffects;
 public sealed class CreatureSelectionIntegerAffectingContinuousEffectAddingEffect
     : CreatureSelectionEffect
 {
-    private readonly int number;
-    private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
+    private readonly IAbility[] abilities;
 
     public CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
-        int number, IContinuousEffectWithCreaturesAndIntegerFactory factory)
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
+        params IAbility[] abilities)
         : base(1, 1, true)
     {
-        this.number = number;
         this.factory = factory;
+        this.abilities = abilities;
     }
 
     public CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
         CreatureSelectionIntegerAffectingContinuousEffectAddingEffect effect)
         : base(effect)
     {
-        number = effect.number;
         factory = effect.factory;
+        abilities = [.. effect.abilities.Select(x => x.Copy())];
     }
 
     public override IOneShotEffect Copy()
     {
-        return new CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
-            this);
+        return new CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(this);
     }
 
-    protected override void Apply(
-        IGame game, IAbility source, params ICreature[] creatures)
+    protected override void Apply(IGame game, IAbility source, params ICreature[] creatures)
     {
         game.AddContinuousEffects(
             Ability,
-            factory.Create(number, creatures));
+            factory.Create(abilities, creatures));
     }
 
-    protected override IEnumerable<ICreature> GetSelectableCards(
-        IGame game, IAbility source)
+    protected override IEnumerable<ICreature> GetSelectableCards(IGame game, IAbility source)
     {
         return game.BattleZone.GetCreatures(Ability.Controller.Id);
     }

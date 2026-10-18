@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using Abilities.Static;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -10,8 +11,9 @@ public sealed class MagmaGazer : Spell
     {
         AddSpellAbilities(
             new CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
-                4000,
-                new ThisCreatureGetsPowerAttackerAndDoubleBreakerUntilTheEndOfTheTurnEffectFactory()
+                new ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory(),
+                new PowerAttackerAbility(4000),
+                new DoubleBreakerAbility()
             ));
     }
 }

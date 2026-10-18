@@ -14,7 +14,7 @@ public sealed class ArmoredTransportGaliacruse : Creature
         EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
         TapAbilityFactory tapAbilityFactory,
         ThisCreatureCanAttackUntappedCreaturesEffectFactory untappedFactory
     ) : base("Armored Transport Galiacruse", 6, 5000, Race.Armorloid, Civilization.Fire)
@@ -22,9 +22,9 @@ public sealed class ArmoredTransportGaliacruse : Creature
         AddAbilities(
             tapAbilityFactory.Create(
                 oneShotEffectFactory.Create(
-                    abilityFactory.Create(untappedFactory.Create()),
                     creatureFilterFactory.Create(Civilization.Fire),
-                    continuousEffectFactory
+                    continuousEffectFactory,
+                    abilityFactory.Create(untappedFactory.Create())
                 )));
     }
 }

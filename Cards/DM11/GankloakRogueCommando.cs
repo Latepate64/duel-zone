@@ -12,15 +12,15 @@ public sealed class GankloakRogueCommando : SilentSkillCreature
         EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
     ) : base("Gankloak, Rogue Commando", 3, 2000, Race.Human,
         Civilization.Fire)
     {
         AddSilentSkillAbility(
             oneShotEffectFactory.Create(
-                doubleBreakerAbilityFactory.Create(),
                 creatureFilterFactory.Create(Civilization.Fire),
-                continuousEffectFactory
+                continuousEffectFactory,
+                doubleBreakerAbilityFactory.Create()
             )
         );
     }

@@ -11,14 +11,14 @@ sealed class AuraBlast : Spell
     public AuraBlast(
         PowerAttackerAbilityFactory powerAttackerAbilityFactory,
         EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory effectFactory,
-        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
     ) : base("Aura Blast", 4, Civilization.Nature)
     {
         AddSpellAbilities(
             effectFactory.Create(
-                powerAttackerAbilityFactory.Create(2000),
                 new CreatureFilter(),
-                continuousEffectFactory
+                continuousEffectFactory,
+                powerAttackerAbilityFactory.Create(2000)
         ));
     }
 }

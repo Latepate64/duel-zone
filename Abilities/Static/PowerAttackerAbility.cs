@@ -9,7 +9,7 @@ public class PowerAttackerAbility : StaticAbility, IPowerAttackerAbility
 {
     public int Power { get; }
 
-    internal PowerAttackerAbility(int power)
+    public PowerAttackerAbility(int power)
     {
         Power = power;
     }

@@ -3,8 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect
-    : OneShotEffect
+public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect : OneShotEffect
 {
     private readonly int number;
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;

@@ -12,14 +12,14 @@ public sealed class SnakeAttack : Spell
         EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory)
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory)
         : base("Snake Attack", 4, Civilization.Darkness)
     {
         AddSpellAbilities(
             oneShotEffectFactory.Create(
-                doubleBreakerAbilityFactory.Create(),
                 creatureFilterFactory.Create(),
-                continuousEffectFactory
+                continuousEffectFactory,
+                doubleBreakerAbilityFactory.Create()
             ),
             new CardMovingChoiceEffect(
                 minimum: 1,

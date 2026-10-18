@@ -14,7 +14,7 @@ public sealed class KingBenthos : Creature
         EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
         TapAbilityFactory tapAbilityFactory,
         ThisCreatureCannotBeBlockedEffectFactory cannotBeBlockedEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
@@ -24,9 +24,9 @@ public sealed class KingBenthos : Creature
         AddAbilities(
             tapAbilityFactory.Create(
                 oneShotEffectFactory.Create(
-                    abilityFactory.Create(cannotBeBlockedEffectFactory.Create()),
                     creatureFilterFactory.Create(Civilization.Water),
-                    continuousEffectFactory
+                    continuousEffectFactory,
+                    abilityFactory.Create(cannotBeBlockedEffectFactory.Create())
         )));
     }
 }
