@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Interfaces.Zones;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 /// <summary>
 /// Double breaker (This creature breaks 2 shields.)

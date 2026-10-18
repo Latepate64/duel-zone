@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 /// <summary>
 /// Power attacker +x (While attacking, this creature gets +x power.)

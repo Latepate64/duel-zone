@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Abilities\Abilities.csproj" />
     <ProjectReference Include="..\CardFilters\CardFilters.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
+    <ProjectReference Include="..\StaticAbilities\StaticAbilities.csproj" />
     <ProjectReference Include="..\TriggeredAbilities\TriggeredAbilities.csproj" />
     <ProjectReference Include="..\ContinuousEffects\ContinuousEffects.csproj" />
     <ProjectReference Include="..\OneShotEffects\OneShotEffects.csproj" />

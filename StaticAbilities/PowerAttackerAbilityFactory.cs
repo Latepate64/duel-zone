@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 public class PowerAttackerAbilityFactory : IStaticAbilityWithIntegerFactory
 {

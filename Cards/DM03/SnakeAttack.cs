@@ -1,7 +1,7 @@
 ﻿using OneShotEffects;
 using Interfaces;
 using CardFilters;
-using Abilities.Static;
+using StaticAbilities;
 using ContinuousEffects.AbilityAdding;
 
 namespace Cards.DM03;

@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Interfaces.Zones;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 /// <summary>
 /// Triple breaker (This creature breaks 3 shields.)

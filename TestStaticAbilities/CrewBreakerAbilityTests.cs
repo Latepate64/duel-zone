@@ -1,9 +1,9 @@
-using Abilities.Static;
+using StaticAbilities;
 using Interfaces;
 using Interfaces.Zones;
 using Moq;
 
-namespace TestAbilities.Static;
+namespace TestStaticAbilities;
 
 public class CrewBreakerAbilityTests
 {

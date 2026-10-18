@@ -2,7 +2,7 @@
 using OneShotEffects;
 using Interfaces;
 using ContinuousEffects.PowerModifying;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 
 namespace Cards.DM05;

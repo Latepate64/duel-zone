@@ -1,8 +1,8 @@
-using Abilities.Static;
+using StaticAbilities;
 using Interfaces;
 using Moq;
 
-namespace TestAbilities.Static;
+namespace TestStaticAbilities;
 
 public class BlockerAbilityTests
 {

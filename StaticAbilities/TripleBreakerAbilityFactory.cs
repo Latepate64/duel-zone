@@ -1,4 +1,4 @@
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 public class TripleBreakerAbilityFactory
 {

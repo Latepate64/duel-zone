@@ -3,7 +3,7 @@ using Interfaces;
 using OneShotEffects;
 using ContinuousEffects.CannotAttack;
 using ContinuousEffects.Unblockable;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 
 namespace Cards.DM07;

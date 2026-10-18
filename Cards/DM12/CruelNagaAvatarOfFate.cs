@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using ContinuousEffects.Unblockable;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 using OneShotEffects;
 

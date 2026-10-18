@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.CannotUseCard;

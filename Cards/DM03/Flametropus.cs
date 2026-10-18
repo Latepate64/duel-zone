@@ -2,7 +2,7 @@
 using Interfaces;
 using OneShotEffects;
 using ContinuousEffects.AbilityAdding;
-using Abilities.Static;
+using StaticAbilities;
 
 namespace Cards.DM03;
 

@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;

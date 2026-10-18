@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 public class StaticAbility : IStaticAbility
 {

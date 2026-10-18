@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using Interfaces.Zones;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 public class CrewBreakerAbility : StaticAbility, IBreakerAbility
 {

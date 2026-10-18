@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 /// <summary>
 /// Speed attacker (This creature doesn't get summoning sickness.)

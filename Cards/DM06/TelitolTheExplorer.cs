@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
 using ContinuousEffects.CannotAttackPlayers;
 
 namespace Cards.DM06;

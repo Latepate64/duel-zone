@@ -1,7 +1,7 @@
-using Abilities.Static;
+using StaticAbilities;
 using Interfaces;
 
-namespace TestAbilities.Static;
+namespace TestStaticAbilities;
 
 public class PowerAttackerAbilityTests
 {

@@ -1,6 +1,6 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
-using Abilities.Static;
+using StaticAbilities;
 using ContinuousEffects.Replacement;
 using OneShotEffects;
 using CardFilters;

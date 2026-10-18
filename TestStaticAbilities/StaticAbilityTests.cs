@@ -1,10 +1,9 @@
-using Abilities;
-using Abilities.Static;
+using StaticAbilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 using Moq;
 
-namespace TestAbilities.Static;
+namespace TestStaticAbilities;
 
 public class StaticAbilityTests
 {
@@ -37,20 +36,6 @@ public class StaticAbilityTests
 
         // Act
         var actual = ability.Equals(new object());
-
-        // Assert
-        Assert.False(actual);
-    }
-
-    [Fact]
-    public void DoesNotEqualNonStaticAbility()
-    {
-        // Arrange
-        var ability = CreateAbility(Mock.Of<IContinuousEffect>());
-
-        // Act
-        var actual = ability.Equals(new SpellAbility(
-            Mock.Of<IOneShotEffect>()));
 
         // Assert
         Assert.False(actual);

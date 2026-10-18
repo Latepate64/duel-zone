@@ -3,7 +3,7 @@ using Interfaces;
 using OneShotEffects;
 using CardFilters;
 using ContinuousEffects.AbilityAddingPowerModifying;
-using Abilities.Static;
+using StaticAbilities;
 
 namespace Cards.DM04;
 

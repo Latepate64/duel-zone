@@ -1,5 +1,5 @@
 ﻿using Abilities;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 using Interfaces;
 using OneShotEffects;

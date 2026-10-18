@@ -1,5 +1,5 @@
 ﻿using Abilities;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;

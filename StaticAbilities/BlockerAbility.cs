@@ -1,6 +1,6 @@
 using Interfaces;
 
-namespace Abilities.Static;
+namespace StaticAbilities;
 
 /// <summary>
 /// Blocker (Whenever an opponent's creature attacks, you may tap this creature
