@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
@@ -11,8 +12,9 @@ sealed class FortMegacluster : EvolutionCreature
         Race.CyberCluster, Civilization.Water)
     {
         AddStaticAbilities(
-            new TapAbilityAddingEffect(
-                new DrawCardEffect(),
+            new EachOfYourCreaturesHasAbilityEffect(
+                new TapAbility(
+                    new DrawCardEffect()),
                 new CivilizationCreatureFilter(Civilization.Water)));
     }
 }

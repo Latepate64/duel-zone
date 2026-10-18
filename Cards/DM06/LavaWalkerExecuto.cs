@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
@@ -12,11 +13,12 @@ public sealed class LavaWalkerExecuto : EvolutionCreature
         Race.Dragonoid, Civilization.Fire)
     {
         AddStaticAbilities(
-            new TapAbilityAddingEffect(
-                new AddChosenCreatureAffectingNumberEffect(
-                    3000,
-                    new CivilizationCreatureFilter(Civilization.Fire),
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()),
+            new EachOfYourCreaturesHasAbilityEffect(
+                new TapAbility(
+                    new AddChosenCreatureAffectingNumberEffect(
+                        3000,
+                        new CivilizationCreatureFilter(Civilization.Fire),
+                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())),
                 new CivilizationCreatureFilter(Civilization.Fire)));
     }
 }

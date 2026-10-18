@@ -55,7 +55,7 @@ namespace Cards
         static private IEffect CreateEffect(Type type)
         {
             var interfaces = type.GetInterfaces();
-            if (type.IsAbstract || interfaces.Contains(typeof(IExpirable)) || interfaces.Contains(typeof(ICardAffectable)) || type.BaseType == typeof(AddAbilitiesUntilEndOfTurnEffect) || type.BaseType == typeof(UntilEndOfTurnEffect) || type == typeof(SurvivorEffect) || type == typeof(TapAbilityAddingEffect) || type == typeof(TurboRushEffect) || type == typeof(WaveStrikerEffect) || type == typeof(VortexEvolutionEffect))
+            if (type.IsAbstract || interfaces.Contains(typeof(IExpirable)) || interfaces.Contains(typeof(ICardAffectable)) || type.BaseType == typeof(AddAbilitiesUntilEndOfTurnEffect) || type.BaseType == typeof(UntilEndOfTurnEffect) || type == typeof(SurvivorEffect) || type == typeof(TurboRushEffect) || type == typeof(WaveStrikerEffect) || type == typeof(VortexEvolutionEffect))
             {
                 return null;
             }

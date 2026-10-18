@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
@@ -11,8 +12,9 @@ sealed class LivingCitadelVosh : EvolutionCreature
         Race.ColonyBeetle, Civilization.Nature)
     {
         AddStaticAbilities(
-            new TapAbilityAddingEffect(
-                new PutTopCardsOfDeckIntoManaZoneEffect(1),
+            new EachOfYourCreaturesHasAbilityEffect(
+                new TapAbility(
+                    new PutTopCardsOfDeckIntoManaZoneEffect(1)),
                 new CivilizationCreatureFilter(Civilization.Nature)));
     }
 }
