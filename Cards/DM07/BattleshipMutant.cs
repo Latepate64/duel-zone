@@ -1,4 +1,5 @@
 ﻿using Abilities;
+using Abilities.Static;
 using CardFilters;
 using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
@@ -16,7 +17,11 @@ public sealed class BattleshipMutant : Creature
         AddAbilities(
             new TapAbility(
                 new BattleshipMutantEffect(
-                    new BattleshipMutantContinuousEffect(4000, filter),
+                    new EachOfYourCreaturesGetsPowerAndAbilitiesEffect(
+                        filter,
+                        4000,
+                        new DoubleBreakerAbility()
+                    ),
                     filter,
                     new WheneverSomethingHappensThisTurnAbilityFactory(),
                     new BattleshipMutantAbilityFactory())
