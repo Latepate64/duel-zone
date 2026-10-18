@@ -1,4 +1,6 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using Abilities.Static;
+using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -6,12 +8,17 @@ namespace Cards.DM10;
 
 sealed class ThirstForTheHunt : Spell
 {
-    public ThirstForTheHunt() : base("Thirst for the Hunt", 1,
-        Civilization.Nature)
+    public ThirstForTheHunt(
+        PowerAttackerAbilityFactory powerAttackerAbilityFactory,
+        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory effectFactory,
+        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory) : base(
+        "Thirst for the Hunt", 1, Civilization.Nature)
     {
         AddSpellAbilities(
-            new CreatureIntegerAffectingContinuousEffectAddingEffect(
-                1000,
-                new ThisCreatureGetsPowerAttackerUntilTheEndOfTheTurnEffectFactory()));
+            effectFactory.Create(
+                powerAttackerAbilityFactory.Create(1000),
+                new CreatureFilter(),
+                continuousEffectFactory
+        ));
     }
 }

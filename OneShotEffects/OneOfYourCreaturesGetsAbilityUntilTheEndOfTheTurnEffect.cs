@@ -2,12 +2,7 @@
 
 namespace OneShotEffects;
 
-/// <summary>
-/// One of your creatures in the battle zone gets ability until the end of the
-/// turn.
-/// </summary>
-public class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect
-    : CreatureSelectionEffect
+public class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureSelectionEffect
 {
     private readonly IAbility ability;
     private readonly ICardFilter filter;
