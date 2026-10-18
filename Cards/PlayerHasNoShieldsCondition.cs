@@ -8,4 +8,9 @@ public class PlayerHasNoShieldsCondition : ICondition
     {
         return !player.ShieldZone.HasCards;
     }
+
+    public ICondition Copy()
+    {
+        return new PlayerHasNoShieldsCondition();
+    }
 }
