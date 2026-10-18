@@ -8,11 +8,15 @@ public sealed class WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffec
 {
     private readonly IAbility[] abilities;
     private readonly ICardFilter filter;
+    private readonly IConditionWithBattleZoneCreatureAndFilter condition;
 
     public WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffect(
-        ICardFilter filter, params IAbility[] abilities)
+        ICardFilter filter,
+        IConditionWithBattleZoneCreatureAndFilter condition,
+        params IAbility[] abilities)
     {
         this.filter = filter;
+        this.condition = condition;
         this.abilities = abilities;
     }
 
@@ -21,14 +25,14 @@ public sealed class WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffec
         : base(effect)
     {
         filter = effect.filter.Copy();
+        condition = effect.condition;
         abilities = [..effect.abilities.Select(x => x.Copy())];
     }
 
     public void AddAbility(IGame game)
     {
         var creature = (ICreature)Source!;
-        if (!game.BattleZone.HasOtherCreaturesControllerByPlayer(
-            creature, filter))
+        if (condition.IsMet(game.BattleZone, creature, filter))
         {
             creature.AddGrantedAbility(abilities);
         }

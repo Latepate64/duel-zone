@@ -15,6 +15,7 @@ public sealed class ArmoredScoutGestuchar : Creature
         AddStaticAbilities(
             new WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffect(
                 new CivilizationCreatureFilter(Civilization.Fire),
+                new PlayerControlsNoOtherCreaturesCondition(),
                 powerAttackerAbilityFactory.Create(3000),
                 new DoubleBreakerAbility()
             ));
