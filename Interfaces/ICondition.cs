@@ -2,6 +2,6 @@ namespace Interfaces;
 
 public interface ICondition
 {
-    bool IsMet(IPlayerV2 player);
+    bool IsMet(ICreature creature);
     ICondition Copy();
 }

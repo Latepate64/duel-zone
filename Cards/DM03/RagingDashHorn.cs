@@ -15,7 +15,7 @@ public sealed class RagingDashHorn : Creature
             new ThisCreatureGetsPowerAndAbilityEffect(
                 3000,
                 doubleBreakerAbilityFactory.Create(),
-                new AllManaPlayerHasHaveCivilizationCondition(Civilization.Nature)
+                new AllManaControllerHasHaveCivilizationCondition(Civilization.Nature)
         ));
     }
 }

@@ -14,7 +14,7 @@ sealed class GazariasDragon : Creature
             new ThisCreatureGetsPowerAndAbilityEffect(
                 4000,
                 doubleBreakerAbilityFactory.Create(),
-                new PlayerHasNoShieldsCondition()
+                new ControllerHasNoShieldsCondition()
         ));
     }
 }

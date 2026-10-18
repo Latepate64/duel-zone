@@ -28,9 +28,10 @@ public sealed class ThisCreatureGetsPowerAndAbilityEffect : ContinuousEffect,
 
     public void AddAbility(IGame game)
     {
-        if (condition == null || condition.IsMet(Applier))
+        var creature = (ICreature)Source!;
+        if (condition == null || condition.IsMet(creature))
         {
-            Source.AddGrantedAbility(ability);
+            creature.AddGrantedAbility(ability);
         }
     }
 
@@ -41,9 +42,10 @@ public sealed class ThisCreatureGetsPowerAndAbilityEffect : ContinuousEffect,
 
     public void ModifyPower(IGame game)
     {
-        if (condition == null || condition.IsMet(Applier))
+        var creature = (ICreature)Source!;
+        if (condition == null || condition.IsMet(creature))
         {
-            ((ICreature)Source!).IncreasePower(power);
+            creature.IncreasePower(power);
         }
     }
 }
