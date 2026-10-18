@@ -11,9 +11,10 @@ sealed class GazariasDragon : Creature
     ) : base("Gazarias Dragon", 5, 4000, Race.ArmoredDragon, Civilization.Fire)
     {
         AddStaticAbilities(
-            new ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect(
+            new ThisCreatureGetsPowerAndAbilityEffect(
                 4000,
-                doubleBreakerAbilityFactory.Create()
-            ));
+                doubleBreakerAbilityFactory.Create(),
+                new PlayerHasNoShieldsCondition()
+        ));
     }
 }

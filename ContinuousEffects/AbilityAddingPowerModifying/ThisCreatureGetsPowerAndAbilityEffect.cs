@@ -3,28 +3,32 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public sealed class ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect : ContinuousEffect,
+public sealed class ThisCreatureGetsPowerAndAbilityEffect : ContinuousEffect,
     IPowerModifyingEffect, IAbilityAddingEffect
 {
     private readonly int power;
     private readonly IAbility ability;
+    private readonly ICondition? condition;
 
-    public ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect(int power, IAbility ability)
+    public ThisCreatureGetsPowerAndAbilityEffect(
+        int power, IAbility ability, ICondition? condition = null)
     {
         this.power = power;
         this.ability = ability;
+        this.condition = condition;
     }
 
-    private ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect(
-        ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect effect) : base(effect)
+    private ThisCreatureGetsPowerAndAbilityEffect(
+        ThisCreatureGetsPowerAndAbilityEffect effect) : base(effect)
     {
         power = effect.power;
         ability = effect.ability.Copy();
+        condition = effect.condition;
     }
 
     public void AddAbility(IGame game)
     {
-        if (!Controller.ShieldZone.HasCards)
+        if (condition == null || condition.IsMet(Applier))
         {
             Source.AddGrantedAbility(ability);
         }
@@ -32,12 +36,12 @@ public sealed class ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect :
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureGetsPowerAndAbilityWhileYouHaveNoShieldsEffect(this);
+        return new ThisCreatureGetsPowerAndAbilityEffect(this);
     }
 
     public void ModifyPower(IGame game)
     {
-        if (!Controller.ShieldZone.HasCards)
+        if (condition == null || condition.IsMet(Applier))
         {
             ((ICreature)Source!).IncreasePower(power);
         }
