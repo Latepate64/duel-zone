@@ -3,9 +3,6 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-/// <summary>
-/// This creature gets +x power for each card in your graveyard.
-/// </summary>
 public sealed class ThisCreatureGetsPowerForEachCardInYourGraveyardEffect
     : PowerModifyingMultiplierEffect
 {
