@@ -2,7 +2,6 @@
 using Abilities.Static;
 using CardFilters;
 using ContinuousEffects.AbilityAdding;
-using ContinuousEffects.PowerModifying;
 using Interfaces;
 using OneShotEffects;
 
@@ -14,9 +13,10 @@ public sealed class TechnoTotem : Creature
         Civilization.Light, Civilization.Nature)
     {
         AddStaticAbilities(
-            new WhileThisCreatureIsTappedEachOfYourOtherCreaturesHasAbilitiesEffect(
+            new EachOfYourOtherCreaturesHasAbilityEffect(
                 new CreatureFilter(),
-                new StaticAbility(new PowerAttackerEffect(1500))
+                new PowerAttackerAbility(1500),
+                new CreatureIsTappedCondition()
             )
         );
         AddAbilities(
