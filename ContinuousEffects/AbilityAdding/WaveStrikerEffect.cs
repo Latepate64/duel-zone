@@ -1,5 +1,4 @@
-﻿using Abilities.Static;
-using Interfaces;
+﻿using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
@@ -20,8 +19,7 @@ public sealed class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
 
     public void AddAbility(IGame game)
     {
-        if (game.BattleZone.Creatures.Count(x => x.GetAbilities<StaticAbility>().Select(
-            x => x.ContinuousEffects).OfType<WaveStrikerEffect>().Any()) >= 3)
+        if (game.BattleZone.Creatures.Count(x => x.HasWaveStriker) >= 3)
         {
             _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
         }
@@ -30,10 +28,5 @@ public sealed class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
     public override IContinuousEffect Copy()
     {
         return new WaveStrikerEffect();
-    }
-
-    public override string ToString()
-    {
-        return $"Wave striker: {string.Join(", ", _abilities.Select(x => x.ToString()))}";
     }
 }
