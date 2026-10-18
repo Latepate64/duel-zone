@@ -18,7 +18,7 @@ public sealed class KulusSoulshineEnforcerAbility : WhenYouPutThisCreatureIntoTh
 
     public override bool CheckInterveningIfClause(IGame game)
     {
-        return GetOpponent(game).ManaZone.Size > Controller.ManaZone.Size;
+        return game.GetOpponent(Controller).ManaZone.Size > Controller.ManaZone.Size;
     }
 
     public override IAbility Copy()

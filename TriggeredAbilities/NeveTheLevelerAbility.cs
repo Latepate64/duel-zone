@@ -14,7 +14,7 @@ public sealed class NeveTheLevelerAbility : WhenYouPutThisCreatureIntoTheBattleZ
 
     public override bool CheckInterveningIfClause(IGame game)
     {
-        return game.GetBattleZoneCreatures(GetOpponent(game)).Count() > game.GetBattleZoneCreatures(Controller).Count();
+        return game.GetBattleZoneCreatures(game.GetOpponent(Controller)).Count() > game.GetBattleZoneCreatures(Controller).Count();
     }
 
     public override IAbility Copy()

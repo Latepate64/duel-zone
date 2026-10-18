@@ -30,7 +30,7 @@ public abstract class TriggeredAbility : ITriggeredAbility
         return true;
     }
 
-    public void Resolve(IGame game)
+    public virtual void Resolve(IGame game)
     {
         // 608.2a
         // If a triggered ability has an intervening “if” clause,
@@ -47,18 +47,6 @@ public abstract class TriggeredAbility : ITriggeredAbility
     protected string GetEffectText()
     {
         return oneShotEffect.ToString();
-    }
-
-    /// <summary>
-    /// Returns the opponent of the player who controls the ability.
-    /// Note that it should be checked that the player actually
-    /// exists as it is possible they have left the game.
-    /// </summary>
-    /// <param name="game"></param>
-    /// <returns></returns>
-    public IPlayer GetOpponent(IGame game)
-    {
-        return game.GetOpponent(Controller);
     }
 
     public abstract IAbility Copy();
