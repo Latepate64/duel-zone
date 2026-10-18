@@ -6,11 +6,16 @@ namespace TestAbilities.Static;
 
 public class SpeedAttackerAbilityTests
 {
+    private static ISpeedAttackerAbility CreateAbility()
+    {
+        return new SpeedAttackerAbilityFactory().Create();
+    }
+
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var ability = new SpeedAttackerAbility();
+        var ability = CreateAbility();
 
         // Act
         var copy = ability.Copy();
@@ -23,7 +28,7 @@ public class SpeedAttackerAbilityTests
     public void CreatureWithoutSpeedAttackerCannotBlock()
     {
         // Arrange
-        var ability = new SpeedAttackerAbility();
+        var ability = CreateAbility();
         var creatureWithoutSpeedAttacker = Mock.Of<ICreature>();
 
         // Act
@@ -39,7 +44,8 @@ public class SpeedAttackerAbilityTests
     {
         // Arrange
         var speedAttacker = Mock.Of<ICreature>();
-        var ability = new SpeedAttackerAbility { Source = speedAttacker };
+        var ability = CreateAbility();
+        ability.Source = speedAttacker;
 
         // Act
         var actual = ability.Applies(speedAttacker, Mock.Of<IGame>());

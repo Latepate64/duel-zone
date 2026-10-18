@@ -6,11 +6,22 @@ namespace TestAbilities.Static;
 
 public class SlayerAbilityTests
 {
+    private static SlayerAbility CreateAbility()
+    {
+        return new SlayerAbilityFactory().Create();
+    }
+
+
+    private static SlayerAbility CreateAbility(ICardFilter filter)
+    {
+        return new SlayerAbilityFactory().Create(filter);
+    }
+
     [Fact]
     public void CopyEqualsOriginalWithoutFilter()
     {
         // Arrange
-        var ability = new SlayerAbility();
+        var ability = CreateAbility();
 
         // Act
         var copy = ability.Copy();
@@ -25,7 +36,8 @@ public class SlayerAbilityTests
         // Arrange
         var filter = new Mock<ICardFilter>();
         filter.Setup(x => x.Copy()).Returns(filter.Object);
-        var ability = new SlayerAbility(filter.Object);
+        var ability = CreateAbility(filter.Object);
+
         // Act
         var copy = ability.Copy();
 
@@ -37,7 +49,7 @@ public class SlayerAbilityTests
     public void CreatureWithoutSlayerCannotBlock()
     {
         // Arrange
-        var ability = new SlayerAbility();
+        var ability = CreateAbility();
         var creatureWithoutSlayer = Mock.Of<ICreature>();
         var defendingCreature = Mock.Of<ICreature>();
 
@@ -54,7 +66,8 @@ public class SlayerAbilityTests
         // Arrange
         var slayer = Mock.Of<ICreature>();
         var defendingCreature = Mock.Of<ICreature>();
-        var ability = new SlayerAbility { Source = slayer };
+        var ability = CreateAbility();
+        ability.Source = slayer;
 
         // Act
         var actual = ability.Applies(slayer, defendingCreature);
@@ -73,7 +86,8 @@ public class SlayerAbilityTests
         var defendingCreature = Mock.Of<ICreature>();
         var filter = new Mock<ICardFilter>();
         filter.Setup(x => x.Match(defendingCreature)).Returns(attackerMatches);
-        var ability = new SlayerAbility(filter.Object) { Source = slayer };
+        var ability = CreateAbility(filter.Object);
+        ability.Source = slayer;
 
         // Act
         var actual = ability.Applies(slayer, defendingCreature);
@@ -86,7 +100,7 @@ public class SlayerAbilityTests
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var ability = new SlayerAbility();
+        var ability = CreateAbility();
 
         // Act
         var actual = ability.Equals(new object());
@@ -99,7 +113,7 @@ public class SlayerAbilityTests
     public void DoesNotEqualAbilityOfAnotherType()
     {
         // Arrange
-        var ability = new SlayerAbility();
+        var ability = CreateAbility();
         var other = new BlockerAbility();
 
         // Act
@@ -113,8 +127,8 @@ public class SlayerAbilityTests
     public void DoesNotEqualAbilityWithoutFilter()
     {
         // Arrange
-        var ability = new SlayerAbility(Mock.Of<ICardFilter>());
-        var other = new SlayerAbility();
+        var ability = CreateAbility(Mock.Of<ICardFilter>());
+        var other = CreateAbility();
 
         // Act
         var actual = ability.Equals(other);
@@ -127,8 +141,8 @@ public class SlayerAbilityTests
     public void DoesNotEqualAbilityWithDifferentFilter()
     {
         // Arrange
-        var ability = new SlayerAbility();
-        var other = new SlayerAbility(Mock.Of<ICardFilter>());
+        var ability = CreateAbility();
+        var other = CreateAbility(Mock.Of<ICardFilter>());
 
         // Act
         var actual = ability.Equals(other);
@@ -141,7 +155,7 @@ public class SlayerAbilityTests
     public void HashCodesAreEqualForEqualObjects()
     {
         // Arrange
-        var ability = new SlayerAbility();
+        var ability = CreateAbility();
         var another = ability.Copy();
 
         // Act
