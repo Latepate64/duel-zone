@@ -1,5 +1,4 @@
-﻿using Abilities;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -18,14 +17,9 @@ public sealed class WheneverThisCreatureBlocksAbility : CardTriggeredAbility
         throw new NotImplementedException();
     }
 
-    public override Ability Copy()
+    public override IAbility Copy()
     {
         return new WheneverThisCreatureBlocksAbility(this);
-    }
-
-    public override string ToString()
-    {
-        return $"Whenever this creature blocks, {OneShotEffect}.";
     }
 
     protected override bool TriggersFrom(ICreature card, IGame game)

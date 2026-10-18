@@ -1,5 +1,4 @@
-﻿using Abilities;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -23,7 +22,7 @@ public sealed class AfterAttackAbility : TriggeredAbility
         // return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
     }
 
-    public override Ability Copy()
+    public override IAbility Copy()
     {
         return new AfterAttackAbility(this);
     }

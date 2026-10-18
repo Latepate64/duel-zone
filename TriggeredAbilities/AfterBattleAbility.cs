@@ -1,5 +1,4 @@
-﻿using Abilities;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -18,7 +17,7 @@ public sealed class AfterBattleAbility : TriggeredAbility
         throw new NotImplementedException();
     }
 
-    public override Ability Copy()
+    public override IAbility Copy()
     {
         return new AfterBattleAbility(this);
     }
