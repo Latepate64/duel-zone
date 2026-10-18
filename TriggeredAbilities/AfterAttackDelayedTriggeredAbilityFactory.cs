@@ -8,7 +8,6 @@ public class AfterAttackDelayedTriggeredAbilityFactory
     public IDelayedTriggeredAbility Create(
         IOneShotEffect effect, IAbility source)
     {
-        return new AfterAttackDelayedTriggeredAbility(
-            effect, source, source.Id);
+        return new AfterAttackDelayedTriggeredAbility(effect, source);
     }
 }
