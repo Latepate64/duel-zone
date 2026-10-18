@@ -2,8 +2,6 @@
 
 public interface IAbility
 {
-    Guid Id { get; }
-
     ICard Source { get; set; }
 
     /// <summary>

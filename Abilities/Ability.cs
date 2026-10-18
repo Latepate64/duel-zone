@@ -10,8 +10,6 @@ namespace Abilities;
 /// </summary>
 public abstract class Ability : IAbility
 {
-    public Guid Id { get; }
-
     public ICard Source { get; set; }
 
     /// <summary>
@@ -28,12 +26,10 @@ public abstract class Ability : IAbility
 
     protected Ability()
     {
-        Id = Guid.NewGuid();
     }
 
     protected Ability(IAbility ability)
     {
-        Id = Guid.NewGuid();
         Controller = ability.Controller;
         Source = ability.Source?.Copy();
     }
@@ -54,6 +50,6 @@ public abstract class Ability : IAbility
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Source, Controller);
+        return HashCode.Combine(Source, Controller);
     }
 }
