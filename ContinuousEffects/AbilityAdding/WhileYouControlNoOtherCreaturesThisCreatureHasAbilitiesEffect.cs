@@ -1,13 +1,8 @@
-using Abilities;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-/// <summary>
-/// While you have no other creatures in the battle zone, this creature has
-/// abilities.
-/// </summary>
 public sealed class WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffect
     : ContinuousEffect, IAbilityAddingEffect
 {
@@ -15,7 +10,7 @@ public sealed class WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffec
     private readonly ICardFilter filter;
 
     public WhileYouControlNoOtherCreaturesThisCreatureHasAbilitiesEffect(
-        ICardFilter filter, params Ability[] abilities)
+        ICardFilter filter, params IAbility[] abilities)
     {
         this.filter = filter;
         this.abilities = abilities;
