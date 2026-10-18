@@ -3,10 +3,10 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public class InvincibleUnityContinuousEffectFactory : IContinuousEffectFactory
+public class InvincibleUnityContinuousEffectFactory : IContinuousEffectWithAbilityFactory
 {
-    public IContinuousEffect Create(params ICreature[] creatures)
+    public IContinuousEffect Create(IAbility ability, params ICreature[] creatures)
     {
-        return new InvincibleUnityContinuousEffect(creatures);
+        return new InvincibleUnityContinuousEffect(8000, ability, creatures);
     }
 }

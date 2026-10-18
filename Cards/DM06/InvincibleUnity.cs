@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities.Static;
+using CardFilters;
 using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 using OneShotEffects;
@@ -12,7 +13,8 @@ public sealed class InvincibleUnity : Spell
         AddSpellAbilities(
             new InvincibleUnityOneShotEffect(
                 new InvincibleUnityContinuousEffectFactory(),
-                new CreatureFilter()
+                new CreatureFilter(),
+                new TripleBreakerAbility()
             ));
     }
 }
