@@ -25,7 +25,5 @@ public abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffe
         }
     }
 
-    protected string AbilitiesAsText => string.Join(", ", Abilities.Select(x => x.ToString()));
-
     protected abstract IEnumerable<ICard> GetAffectedCards(IGame game);
 }

@@ -8,7 +8,7 @@ namespace Cards.DM04;
 public sealed class SupportingTulip : Creature
 {
     public SupportingTulip(
-        EachCreatureHasAbilityEffectFactory eachCreatureHasAbilityEffectFactory,
+        EachCreatureHasAbilitiesEffectFactory eachCreatureHasAbilityEffectFactory,
         RaceCreatureFilterFactory raceCreatureFilterFactory,
         PowerAttackerAbilityFactory powerAttackerAbilityFactory
     ) : base("Supporting Tulip", 5, 4000, Race.TreeFolk, Civilization.Nature)

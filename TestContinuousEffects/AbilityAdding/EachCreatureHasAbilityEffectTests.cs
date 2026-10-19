@@ -7,9 +7,9 @@ namespace TestContinuousEffects.AbilityAdding;
 
 public class EachCreatureHasAbilityEffectTests
 {
-    private static EachCreatureHasAbilityEffect CreateEffect(ICardFilter filter, IAbility ability)
+    private static EachCreatureHasAbilitiesEffect CreateEffect(ICardFilter filter, IAbility ability)
     {
-        return new EachCreatureHasAbilityEffectFactory().Create(filter, ability);
+        return new EachCreatureHasAbilitiesEffectFactory().Create(filter, ability);
     }
 
     [Fact]
