@@ -13,7 +13,7 @@ sealed class CruelNagaAvatarOfFate : VortexEvolutionCreature
         9000, Civilization.Water, Civilization.Darkness, Race.Naga,
         Race.Merfolk, Race.Chimera)
     {
-        AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+        AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         AddAbilities(new DoubleBreakerAbility());
         AddTriggeredAbility(
             new WhenThisCreatureLeavesBattleZoneAbility(

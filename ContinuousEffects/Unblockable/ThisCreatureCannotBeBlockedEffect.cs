@@ -4,15 +4,19 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Unblockable;
 
-public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
+public class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
 {
-    public ThisCreatureCannotBeBlockedEffect() : base()
+    private readonly ICardFilter blockerFilter;
+
+    public ThisCreatureCannotBeBlockedEffect(ICardFilter blockerFilter) : base()
     {
+        this.blockerFilter = blockerFilter;
     }
 
-    private ThisCreatureCannotBeBlockedEffect(
+    protected ThisCreatureCannotBeBlockedEffect(
         ThisCreatureCannotBeBlockedEffect effect) : base(effect)
     {
+        blockerFilter = effect.blockerFilter.Copy();
     }
 
     public override IContinuousEffect Copy()
@@ -24,6 +28,7 @@ public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblo
         IAttackable targetOfAttack, IBattleZone battleZone)
     {
         if (!IsSourceOfAbility(attacker)) return false;
+        if (!blockerFilter.Match(blocker)) return false;
         return true;
     }
 }

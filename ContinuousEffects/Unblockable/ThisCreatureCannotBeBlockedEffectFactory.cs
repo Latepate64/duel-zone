@@ -1,11 +1,12 @@
+using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.Unblockable;
 
 public class ThisCreatureCannotBeBlockedEffectFactory
 {
-    public IContinuousEffect Create()
+    public IContinuousEffect Create(ICardFilter blockerFilter)
     {
-        return new ThisCreatureCannotBeBlockedEffect();
+        return new ThisCreatureCannotBeBlockedEffect(blockerFilter);
     }
 }

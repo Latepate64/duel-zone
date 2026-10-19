@@ -1,5 +1,6 @@
 ﻿using StaticAbilities;
 using ContinuousEffects.Unblockable;
+using CardFilters;
 
 namespace Cards.DM05
 {
@@ -7,7 +8,7 @@ namespace Cards.DM05
     {
         public SpikestrikeIchthysQ() : base("Spikestrike Ichthys Q", 6, 3000, [Interfaces.Race.Survivor, Interfaces.Race.Fish], Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureCannotBeBlockedEffect())));
+            AddStaticAbilities(new SurvivorEffect(new StaticAbility(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()))));
         }
     }
 }

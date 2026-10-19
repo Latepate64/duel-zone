@@ -1,5 +1,6 @@
 ﻿using StaticAbilities;
 using ContinuousEffects.Unblockable;
+using CardFilters;
 
 namespace Cards.DM05
 {
@@ -8,7 +9,7 @@ namespace Cards.DM05
         public SeaSlug() : base("Sea Slug", 8, 6000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
             AddAbilities(new BlockerAbility());
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         }
     }
 }

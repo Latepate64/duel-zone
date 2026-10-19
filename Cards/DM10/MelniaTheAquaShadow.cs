@@ -1,5 +1,6 @@
 ﻿using StaticAbilities;
 using ContinuousEffects.Unblockable;
+using CardFilters;
 
 namespace Cards.DM10
 {
@@ -7,7 +8,7 @@ namespace Cards.DM10
     {
         public MelniaTheAquaShadow() : base("Melnia, the Aqua Shadow", 2, 1000, [Interfaces.Race.LiquidPeople, Interfaces.Race.Ghost], Interfaces.Civilization.Water, Interfaces.Civilization.Darkness)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
             AddAbilities(new SlayerAbility());
         }
     }

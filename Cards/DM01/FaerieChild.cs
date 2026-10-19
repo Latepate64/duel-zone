@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public FaerieChild() : base("Faerie Child", 4, 2000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         }
     }
 }

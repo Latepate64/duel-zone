@@ -22,6 +22,6 @@ sealed class SplashZebrafish : Creature
                     destination: ZoneType.Hand,
                     selectionRange: SelectionRange.OwnCards
         )));
-        AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+        AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
     }
 }

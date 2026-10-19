@@ -15,8 +15,7 @@ sealed class HeadlongGiant : Creature
     {
         AddStaticAbilities(
             new HeadlongGiantEffect(),
-            new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
-                4000));
+            new ThisCreatureCannotBeBlockedEffect(new MaxPowerFilter(4000)));
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(
                 new CardMovingChoiceEffect(
