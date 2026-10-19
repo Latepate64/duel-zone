@@ -3,29 +3,34 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public sealed class InvincibleUnityOneShotEffect : OneShotEffect
+public sealed class AddContinuousEffectWithAbilityIntegerAndCreaturesEffect : OneShotEffect
 {
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilityIntegerAndCreaturesFactory factory;
     private readonly ICardFilter filter;
+    private readonly int power;
     private readonly IAbility ability;
     private readonly IDuration duration;
 
-    public InvincibleUnityOneShotEffect(
-        IAbilityAddingContinuousEffectFactory factory,
+    public AddContinuousEffectWithAbilityIntegerAndCreaturesEffect(
+        IContinuousEffectWithAbilityIntegerAndCreaturesFactory factory,
         ICardFilter filter,
+        int power,
         IAbility ability,
         IDuration duration)
     {
         this.factory = factory;
         this.filter = filter;
+        this.power = power;
         this.ability = ability;
         this.duration = duration;
     }
 
-    private InvincibleUnityOneShotEffect(InvincibleUnityOneShotEffect effect) : base(effect)
+    private AddContinuousEffectWithAbilityIntegerAndCreaturesEffect(
+        AddContinuousEffectWithAbilityIntegerAndCreaturesEffect effect) : base(effect)
     {
         factory = effect.factory;
         filter = effect.filter.Copy();
+        power = effect.power;
         ability = effect.ability.Copy();
         duration = effect.duration.Copy();
     }
@@ -36,11 +41,11 @@ public sealed class InvincibleUnityOneShotEffect : OneShotEffect
         game.AddContinuousEffects(
             Ability,
             duration,
-            factory.Create(ability, [.. creatures]));
+            factory.Create(ability, power, [.. creatures]));
     }
 
     public override IOneShotEffect Copy()
     {
-        return new InvincibleUnityOneShotEffect(this);
+        return new AddContinuousEffectWithAbilityIntegerAndCreaturesEffect(this);
     }
 }

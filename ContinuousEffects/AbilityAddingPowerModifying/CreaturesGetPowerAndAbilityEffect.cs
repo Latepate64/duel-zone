@@ -3,14 +3,14 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect,
+public sealed class CreaturesGetPowerAndAbilityEffect : UntilEndOfTurnEffect, IAbilityAddingEffect,
     IPowerModifyingEffect
 {
     private readonly ICreature[] creatures;
     private readonly int power;
     private readonly IAbility ability;
 
-    public InvincibleUnityContinuousEffect(
+    public CreaturesGetPowerAndAbilityEffect(
         int power, IAbility ability, params ICreature[] creatures)
     {
         this.power = power;
@@ -18,7 +18,8 @@ public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbi
         this.creatures = creatures;
     }
 
-    private InvincibleUnityContinuousEffect(InvincibleUnityContinuousEffect effect) : base(effect)
+    private CreaturesGetPowerAndAbilityEffect(
+        CreaturesGetPowerAndAbilityEffect effect) : base(effect)
     {
         power = effect.power;
         ability = effect.ability.Copy();
@@ -35,7 +36,7 @@ public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbi
 
     public override IContinuousEffect Copy()
     {
-        return new InvincibleUnityContinuousEffect(this);
+        return new CreaturesGetPowerAndAbilityEffect(this);
     }
 
     public void ModifyPower(IGame game)

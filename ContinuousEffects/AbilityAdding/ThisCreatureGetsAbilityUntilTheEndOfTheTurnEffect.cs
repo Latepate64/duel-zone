@@ -6,7 +6,7 @@ namespace ContinuousEffects.AbilityAdding;
 public sealed class ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect
     : AddAbilitiesUntilEndOfTurnEffect
 {
-    public ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
+    internal ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
         IAbility ability, params ICard[] cards) : base(ability, cards)
     {
     }
