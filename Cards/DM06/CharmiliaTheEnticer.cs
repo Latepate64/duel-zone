@@ -1,12 +1,20 @@
 ﻿using Abilities;
+using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class CharmiliaTheEnticer : Creature
 {
-    sealed class CharmiliaTheEnticer : Creature
+    public CharmiliaTheEnticer() : base("Charmilia, the Enticer", 4, 3000,
+        Race.SnowFaerie, Civilization.Nature)
     {
-        public CharmiliaTheEnticer() : base("Charmilia, the Enticer", 4, 3000, Interfaces.Race.SnowFaerie, Interfaces.Civilization.Nature)
-        {
-            AddAbilities(new TapAbility(new OneShotEffects.SearchCreatureEffect()));
-        }
+        AddAbilities(
+            new TapAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new CreatureFilter()
+        )));
     }
 }

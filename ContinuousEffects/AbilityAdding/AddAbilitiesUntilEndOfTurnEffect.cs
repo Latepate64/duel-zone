@@ -16,9 +16,9 @@ public abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IE
         _cards = cards;
     }
 
-    protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability1, IAbility ability2, params ICard[] cards) : base([ability1, ability2])
+    protected AddAbilitiesUntilEndOfTurnEffect(IAbility[] abilities, params ICreature[] creatures) : base(abilities)
     {
-        _cards = cards;
+        _cards = creatures;
     }
 
     protected AddAbilitiesUntilEndOfTurnEffect(ICard card, params IAbility[] abilities) : base(abilities)

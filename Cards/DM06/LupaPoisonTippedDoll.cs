@@ -1,6 +1,7 @@
 ﻿using Abilities;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
 
@@ -15,7 +16,8 @@ sealed class LupaPoisonTippedDoll : Creature
             new TapAbility(
                 new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                     new SlayerAbility(),
-                    new CreatureFilter()
+                    new CreatureFilter(),
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
                 )));
     }
 }

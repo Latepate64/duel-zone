@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class Vikorakys : TurboRushCreature
 {
-    sealed class Vikorakys : TurboRushCreature
+    public Vikorakys() : base("Vikorakys", 3, 1000, Race.SeaHacker,
+        Civilization.Water)
     {
-        public Vikorakys() : base("Vikorakys", 3, 1000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
-        {
-            AddTurboRushAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.SearchCardNoRevealEffect()));
-        }
+        AddTurboRushAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new SearchEffect(
+                    reveal: false,
+                    filter: new AnyCardFilter()
+            )));
     }
 }

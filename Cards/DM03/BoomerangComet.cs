@@ -1,11 +1,23 @@
-﻿namespace Cards.DM03
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM03;
+
+sealed class BoomerangComet : Charger
 {
-    sealed class BoomerangComet : Charger
+    public BoomerangComet() : base("Boomerang Comet", 6, Civilization.Light)
     {
-        public BoomerangComet() : base("Boomerang Comet", 6, Interfaces.Civilization.Light)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.Hand,
+                selectionRange: SelectionRange.OwnCards
+        ));
     }
 }

@@ -3,10 +3,6 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-/// <summary>
-/// While you have at least one creature in the battle zone, this creature gets
-/// +x power.
-/// </summary>
 public sealed class WhileYouControlAtLeastOneCreatureThisCreatureGetsPowerEffect
     : ContinuousEffect, IPowerModifyingEffect
 {
@@ -30,8 +26,7 @@ public sealed class WhileYouControlAtLeastOneCreatureThisCreatureGetsPowerEffect
 
     public override IContinuousEffect Copy()
     {
-        return new WhileYouControlAtLeastOneCreatureThisCreatureGetsPowerEffect(
-            this);
+        return new WhileYouControlAtLeastOneCreatureThisCreatureGetsPowerEffect(this);
     }
 
     public void ModifyPower(IGame game)

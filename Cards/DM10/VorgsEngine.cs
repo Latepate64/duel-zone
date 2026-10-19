@@ -1,10 +1,20 @@
-﻿namespace Cards.DM10
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM10;
+
+sealed class VorgsEngine : SilentSkillCreature
 {
-    sealed class VorgsEngine : SilentSkillCreature
+    public VorgsEngine() : base("Vorg's Engine", 2, 2000, Race.Xenoparts,
+        Civilization.Fire)
     {
-        public VorgsEngine() : base("Vorg's Engine", 2, 2000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
-        {
-            AddSilentSkillAbility(new OneShotEffects.DestroyMaxPowerAreaOfEffect(2000));
-        }
+        AddSilentSkillAbility(
+            new CardMovingAreaOfEffect(
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                filter: new MaxPowerFilter(2000),
+                selectionRange: SelectionRange.AllCards,
+                excludeSource: false));
     }
 }

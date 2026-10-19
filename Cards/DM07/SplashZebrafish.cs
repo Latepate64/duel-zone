@@ -1,14 +1,27 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class SplashZebrafish : Creature
 {
-    sealed class SplashZebrafish : Creature
+    public SplashZebrafish() : base("Splash Zebrafish", 4, 3000, Race.GelFish,
+        Civilization.Water)
     {
-        public SplashZebrafish() : base("Splash Zebrafish", 4, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnCardFromYourManaZoneToYourHandEffect()));
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
+                    selectionRange: SelectionRange.OwnCards
+        )));
+        AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
     }
 }

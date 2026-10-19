@@ -1,13 +1,16 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class KingRippedHide : Creature
 {
-    sealed class KingRippedHide : Creature
+    public KingRippedHide() : base("King Ripped-Hide", 7, 5000, Race.Leviathan,
+        Civilization.Water)
     {
-        public KingRippedHide() : base("King Ripped-Hide", 7, 5000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new YouMayDrawUpToTwoCardsEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new YouMayDrawCardsEffect(2)));
     }
 }

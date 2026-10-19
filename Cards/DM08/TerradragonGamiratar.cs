@@ -1,15 +1,27 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
+using CardFilters;
 
 namespace Cards.DM08;
 
 public sealed class TerradragonGamiratar : Creature
 {
-    public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000, Race.EarthDragon, Civilization.Nature)
+    public TerradragonGamiratar() : base("Terradragon Gamiratar", 4, 6000,
+        Race.EarthDragon, Civilization.Nature)
     {
-        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new TerradragonGamiratarEffect()));
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: false,
+                    filter: new CreatureFilter(),
+                    ZoneType.Hand,
+                    ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OpponentsCards
+        )));
         AddAbilities(new DoubleBreakerAbility());
     }
 }

@@ -12,6 +12,11 @@ sealed class SteamrollerMutant : WaveStrikerCreature
     {
         AddWaveStrikerAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllCreaturesEffect(new CreatureFilter())));
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false)));
     }
 }

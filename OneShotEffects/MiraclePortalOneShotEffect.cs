@@ -1,16 +1,26 @@
-using ContinuousEffects;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Choose one of your creatures in the battle zone. This turn, it can't be
+/// blocked and you ignore any effects that would prevent that creature from
+/// attacking your opponent.
+/// </summary>
 public sealed class MiraclePortalOneShotEffect : OneShotEffect
 {
-    public MiraclePortalOneShotEffect()
+    private readonly IContinuousEffectFactory factory;
+
+    public MiraclePortalOneShotEffect(IContinuousEffectFactory factory)
     {
+        this.factory = factory;
     }
 
-    public MiraclePortalOneShotEffect(IOneShotEffect effect) : base(effect)
+    public MiraclePortalOneShotEffect(
+        MiraclePortalOneShotEffect effect) : base(effect)
     {
+        factory = effect.factory;
     }
 
     public override void Apply(IGame game)
@@ -18,17 +28,14 @@ public sealed class MiraclePortalOneShotEffect : OneShotEffect
         var creature = Controller.ChooseControlledCreature(game, ToString());
         if (creature != null)
         {
-            game.AddContinuousEffects(Ability, new MiraclePortalContinuousEffect(creature));
+            game.AddContinuousEffects(
+                Ability,
+                factory.Create(creature));
         }
     }
 
     public override IOneShotEffect Copy()
     {
         return new MiraclePortalOneShotEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Choose one of your creatures in the battle zone. This turn, it can't be blocked and you ignore any effects that would prevent that creature from attacking your opponent.";
     }
 }

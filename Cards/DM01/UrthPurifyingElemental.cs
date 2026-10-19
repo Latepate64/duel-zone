@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using TriggeredAbilities;
 
 namespace Cards.DM01

@@ -26,7 +26,7 @@ public sealed class YouMayUntapAnyNumberOfYourCreaturesInTheBattleZoneEffect
     public override void Apply(IGame game)
     {
         var creatures = Controller.ChooseAnyNumberOfCards(
-            game.BattleZone.GetCreaturesControlledByPlayer(Applier),
+            game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter),
             ToString());
         Controller.Untap(game, [.. creatures]);
     }

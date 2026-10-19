@@ -2,18 +2,33 @@
 
 namespace OneShotEffects;
 
-public abstract class UntapAreaOfEffect : OneShotAreaOfEffect
+public sealed class UntapAreaOfEffect : OneShotEffect
 {
-    protected UntapAreaOfEffect() : base()
+    private readonly ICardFilter filter;
+    private readonly SelectionRange selectionRange;
+
+    public UntapAreaOfEffect(
+        ICardFilter filter, SelectionRange selectionRange) : base()
     {
+        this.filter = filter;
+        this.selectionRange = selectionRange;
     }
 
-    protected UntapAreaOfEffect(UntapAreaOfEffect effect) : base(effect)
+    private UntapAreaOfEffect(UntapAreaOfEffect effect) : base(effect)
     {
+        filter = effect.filter.Copy();
+        selectionRange = effect.selectionRange;
     }
 
     public override void Apply(IGame game)
     {
-        Controller.Untap(game, [.. GetAffectedCards(game, Ability)]);
+        var creatures = game.BattleZone.GetCreatures(
+            Applier, filter, selectionRange);
+        Controller.Untap(game, [.. creatures]);
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new UntapAreaOfEffect(this);
     }
 }

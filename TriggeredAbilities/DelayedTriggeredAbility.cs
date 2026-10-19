@@ -14,7 +14,9 @@ public abstract class DelayedTriggeredAbility : IDisposable, IDelayedTriggeredAb
     /// </summary>
     internal bool TriggersOnlyOnce { get; private set; }
 
-    public DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, ICard source, IPlayer owner,
+    protected DelayedTriggeredAbility() {}
+
+    protected DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, ICard source, IPlayer owner,
         bool triggersOnlyOnce)
     {
         TriggeredAbility = triggeredAbility;
@@ -23,7 +25,7 @@ public abstract class DelayedTriggeredAbility : IDisposable, IDelayedTriggeredAb
         TriggersOnlyOnce = triggersOnlyOnce;
     }
 
-    public DelayedTriggeredAbility(DelayedTriggeredAbility ability)
+    protected DelayedTriggeredAbility(DelayedTriggeredAbility ability)
     {
         TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
         TriggersOnlyOnce = ability.TriggersOnlyOnce;

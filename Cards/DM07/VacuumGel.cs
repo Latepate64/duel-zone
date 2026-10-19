@@ -9,12 +9,18 @@ sealed class VacuumGel : Spell
     public VacuumGel() : base("Vacuum Gel", 4, Civilization.Darkness)
     {
         AddSpellAbilities(
-            new ChooseAndDestroyOpponentsCreaturesEffect(
-                1, 1, new MultiFilter(
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MultiFilter(
                     new UntappedCreatureFilter(),
                     new CivilizationCreatureFilter(
                         Civilization.Light, Civilization.Nature)
-                )
+                ),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.OpponentsCards
             ));
     }
 }

@@ -4,18 +4,14 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Unblockable;
 
-/// <summary>
-/// This creature can't be blocked.
-/// </summary>
-public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect,
-    IUnblockableEffect
+public sealed class ThisCreatureCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
 {
-    public ThisCreatureCannotBeBlockedEffect(
-        ThisCreatureCannotBeBlockedEffect effect) : base(effect)
+    public ThisCreatureCannotBeBlockedEffect() : base()
     {
     }
 
-    public ThisCreatureCannotBeBlockedEffect() : base()
+    private ThisCreatureCannotBeBlockedEffect(
+        ThisCreatureCannotBeBlockedEffect effect) : base(effect)
     {
     }
 

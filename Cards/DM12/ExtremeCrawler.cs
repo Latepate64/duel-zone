@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 
 namespace Cards.DM12;
@@ -13,8 +13,12 @@ public sealed class ExtremeCrawler : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new BounceAllYourOtherCreaturesEffect(
-                    new CreatureFilter()
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Hand,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OwnCards,
+                    excludeSource: true
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

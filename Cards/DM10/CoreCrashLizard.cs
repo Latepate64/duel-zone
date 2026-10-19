@@ -1,12 +1,25 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class CoreCrashLizard : Creature
 {
-    sealed class CoreCrashLizard : Creature
+    public CoreCrashLizard() : base("Core-Crash Lizard", 7, 6000,
+        Race.MeltWarrior, Civilization.Fire)
     {
-        public CoreCrashLizard() : base("Core-Crash Lizard", 7, 6000, Interfaces.Race.MeltWarrior, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseOneOfYourOpponentsShieldsAndPutItIntoHisGraveyardEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.ShieldZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OpponentsCards
+                )));
     }
 }

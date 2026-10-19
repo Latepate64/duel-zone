@@ -1,4 +1,3 @@
-using Abilities;
 using Interfaces;
 
 namespace TriggeredAbilities;
@@ -6,31 +5,25 @@ namespace TriggeredAbilities;
 /// <summary>
 /// Triggered ability whose effect is tightly coupled with the trigger condition.
 /// </summary>
-public abstract class LinkedTriggeredAbility : Ability, ITriggeredAbility
+public abstract class LinkedTriggeredAbility : ITriggeredAbility
 {
     protected LinkedTriggeredAbility()
     {
     }
 
-    protected LinkedTriggeredAbility(LinkedTriggeredAbility ability) : base(ability)
+    protected LinkedTriggeredAbility(LinkedTriggeredAbility ability)
     {
     }
 
-    public IOneShotEffect OneShotEffect { get; set; }
+    public ICard Source { get; set; }
+    public IPlayer Controller { get; set; }
 
     public abstract bool CanTrigger(IGameEvent gameEvent, IGame game);
-
-    public bool CheckInterveningIfClause(IGame game)
+    public virtual bool CheckInterveningIfClause(IGame game)
     {
-        throw new NotImplementedException();
+        return true;
     }
-
-    public IPlayer GetOpponent(IGame game)
-    {
-        throw new NotImplementedException();
-    }
-
+    public abstract IAbility Copy();
     public abstract void Resolve(IGame game);
-
     public abstract ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent);
 }

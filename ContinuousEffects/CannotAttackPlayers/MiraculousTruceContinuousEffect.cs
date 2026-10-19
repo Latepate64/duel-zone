@@ -6,22 +6,19 @@ namespace ContinuousEffects.CannotAttackPlayers;
 public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
 {
     private readonly Civilization _civilization;
-    private readonly IPlayer _player;
 
     public MiraculousTruceContinuousEffect()
     {
     }
 
-    public MiraculousTruceContinuousEffect(Civilization civilization, IPlayer player)
+    public MiraculousTruceContinuousEffect(Civilization civilization)
     {
         _civilization = civilization;
-        _player = player;
     }
 
     public MiraculousTruceContinuousEffect(MiraculousTruceContinuousEffect effect) : base(effect)
     {
         _civilization = effect._civilization;
-        _player = effect._player;
     }
 
     public bool CannotAttackPlayers(ICreature attacker, IGame game)

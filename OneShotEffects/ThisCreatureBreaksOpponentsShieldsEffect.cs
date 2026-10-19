@@ -2,23 +2,28 @@
 
 namespace OneShotEffects;
 
-public abstract class ThisCreatureBreaksOpponentsShieldsEffect : BreaksOpponentsShieldsEffect
+public sealed class ThisCreatureBreaksOpponentsShieldsEffect : OneShotEffect
 {
-    protected ThisCreatureBreaksOpponentsShieldsEffect(ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
+    private readonly int amount;
+
+    public ThisCreatureBreaksOpponentsShieldsEffect(int amount) : base()
     {
+         this.amount = amount;
     }
 
-    protected ThisCreatureBreaksOpponentsShieldsEffect(int amount) : base(amount)
+    private ThisCreatureBreaksOpponentsShieldsEffect(
+        ThisCreatureBreaksOpponentsShieldsEffect effect) : base(effect)
     {
+        amount = effect.amount;
     }
 
-    public override string ToString()
+    public override IOneShotEffect Copy()
     {
-        return $"This creature breaks {_amount} of your opponent's shields.";
+        return new ThisCreatureBreaksOpponentsShieldsEffect(this);
     }
 
-    protected override ICreature GetBreaker(IGame game, IAbility source)
+    public override void Apply(IGame game)
     {
-        return Ability.Source as ICreature;
+        game.Break((ICreature)Ability.Source, amount);
     }
 }

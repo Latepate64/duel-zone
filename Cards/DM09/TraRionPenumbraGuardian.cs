@@ -1,13 +1,21 @@
 ﻿using OneShotEffects;
 using Abilities;
 using Interfaces;
+using CardFilters;
+using TriggeredAbilities;
 
 namespace Cards.DM09;
 
 public sealed class TraRionPenumbraGuardian : Creature
 {
-    public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6, 5500, Race.Guardian, Civilization.Light)
+    public TraRionPenumbraGuardian() : base("Tra Rion, Penumbra Guardian", 6,
+        5500, Race.Guardian, Civilization.Light)
     {
-        AddAbilities(new TapAbility(new TraRionPenumbraGuardianEffect()));
+        AddAbilities(
+            new TapAbility(
+                new TraRionPenumbraGuardianEffect(
+                    new RaceCreatureFilterFactory(),
+                    new AtTheEndOfTheTurnDelayedTriggeredAbilityFactory()
+                )));
     }
 }

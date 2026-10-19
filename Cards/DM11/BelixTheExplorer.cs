@@ -1,16 +1,29 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
+using CardFilters;
 using ContinuousEffects.CannotAttackPlayers;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM11
+namespace Cards.DM11;
+
+sealed class BelixTheExplorer : Creature
 {
-    sealed class BelixTheExplorer : Creature
+    public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000,
+        Race.Gladiator, Civilization.Light)
     {
-        public BelixTheExplorer() : base("Belix, the Explorer", 2, 3000, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
-        {
-            AddAbilities(new BlockerAbility());
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ReturnSpellFromYourManaZoneToYourHandEffect()));
-            AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
-        }
+        AddAbilities(new BlockerAbility());
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new SpellFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
+                    selectionRange: SelectionRange.OwnCards
+        )));
+        AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }
 }

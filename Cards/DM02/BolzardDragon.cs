@@ -1,12 +1,24 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class BolzardDragon : Creature
 {
-    sealed class BolzardDragon : Creature
+    public BolzardDragon() : base("Bolzard Dragon", 6, 5000, Race.ArmoredDragon, Civilization.Fire)
     {
-        public BolzardDragon() : base("Bolzard Dragon", 6, 5000, Interfaces.Race.ArmoredDragon, Interfaces.Civilization.Fire)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseCardInYourOpponentsManaZoneAndPutItIntoHisGraveyardEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OpponentsCards
+        )));
     }
 }

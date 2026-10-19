@@ -2,6 +2,11 @@ using Interfaces;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Search your deck. For each of your opponent's shields your creatures broke
+/// this turn, you may take a creature from your deck, show it to your opponent,
+/// and put it into your hand. Then shuffle your deck.
+/// </summary>
 public sealed class BrutalChargeDelayedEffect : OneShotEffect
 {
     public BrutalChargeDelayedEffect()
@@ -26,10 +31,5 @@ public sealed class BrutalChargeDelayedEffect : OneShotEffect
     public override IOneShotEffect Copy()
     {
         return new BrutalChargeDelayedEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Search your deck. For each of your opponent's shields your creatures broke this turn, you may take a creature from your deck, show it to your opponent, and put it into your hand. Then shuffle your deck.";
     }
 }

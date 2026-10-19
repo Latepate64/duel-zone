@@ -1,10 +1,22 @@
-﻿namespace Cards.DM08
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM08;
+
+sealed class CorpseCharger : Charger
 {
-    sealed class CorpseCharger : Charger
+    public CorpseCharger() : base("Corpse Charger", 4, Civilization.Darkness)
     {
-        public CorpseCharger() : base("Corpse Charger", 4, Interfaces.Civilization.Darkness)
-        {
-            AddSpellAbilities(new OneShotEffects.ReturnCreatureFromYourGraveyardToYourHandEffect());
-        }
+        AddSpellAbilities(
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                source: ZoneType.Graveyard,
+                destination: ZoneType.Hand,
+                selectionRange: SelectionRange.OwnCards
+        ));
     }
 }

@@ -1,11 +1,23 @@
-﻿namespace Cards.DM03
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM03;
+
+sealed class ManaNexus : Spell
 {
-    sealed class ManaNexus : Spell
+    public ManaNexus() : base("Mana Nexus", 4, Civilization.Nature)
     {
-        public ManaNexus() : base("Mana Nexus", 4, Interfaces.Civilization.Nature)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.FromManaZoneToShieldsFaceDownEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new CardMovingChoiceEffect(
+                minimum: 1, 
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.ShieldZone,
+                selectionRange: SelectionRange.OwnCards
+            ));
     }
 }

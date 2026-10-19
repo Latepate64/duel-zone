@@ -1,12 +1,25 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class FortressShell : Creature
 {
-    sealed class FortressShell : Creature
+    public FortressShell() : base("Fortress Shell", 9, 5000, Race.ColonyBeetle,
+        Civilization.Nature)
     {
-        public FortressShell() : base("Fortress Shell", 9, 5000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ChooseUpToTwoCardsInYourOpponentsManaZoneAndPutThemIntoHisGraveyardEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 2,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OpponentsCards
+        )));
     }
 }

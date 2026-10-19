@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using ContinuousEffects.Unblockable;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 using OneShotEffects;
 
@@ -15,7 +15,13 @@ sealed class CruelNagaAvatarOfFate : VortexEvolutionCreature
     {
         AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
         AddAbilities(new DoubleBreakerAbility());
-        AddTriggeredAbility(new WhenThisCreatureLeavesBattleZoneAbility(
-            new DestroyAllCreaturesEffect(new CreatureFilter())));
+        AddTriggeredAbility(
+            new WhenThisCreatureLeavesBattleZoneAbility(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false)));
     }
 }

@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using ContinuousEffects;
+using Interfaces;
 using OneShotEffects;
 
 namespace Cards.DM02;
@@ -7,6 +8,8 @@ public sealed class DiamondCutter : Spell
 {
     public DiamondCutter() : base("Diamond Cutter", 5, Civilization.Light)
     {
-        AddSpellAbilities(new DiamondCutterOneShotEffect());
+        AddSpellAbilities(
+            new ContinuousEffectAddingEffect(
+                new DiamondCutterContinuousEffect()));
     }
 }

@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
@@ -11,8 +12,9 @@ sealed class PhantasmalHorrorGigazald : EvolutionCreature
         5000, Race.Chimera, Civilization.Darkness)
     {
         AddStaticAbilities(
-            new TapAbilityAddingEffect(
-                new OpponentRandomDiscardEffect(),
+            new EachOfYourCreaturesHasAbilityEffect(
+                new TapAbility(
+                    new OpponentRandomDiscardEffect()),
                 new CivilizationCreatureFilter(Civilization.Darkness)));
     }
 }

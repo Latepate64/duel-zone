@@ -1,12 +1,18 @@
-﻿using TriggeredAbilities;
+﻿using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces;
+using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class QuixoticHeroSwineSnout : Creature
 {
-    sealed class QuixoticHeroSwineSnout : Creature
+    public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, 1000,
+        Race.BeastFolk, Civilization.Nature)
     {
-        public QuixoticHeroSwineSnout() : base("Quixotic Hero Swine Snout", 2, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new OneShotEffects.ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect(3000)));
-        }
+        AddTriggeredAbility(
+            new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(
+                new OneShotEffects.AddCreatureAffectingNumberEffect(
+                    3000,
+                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
     }
 }

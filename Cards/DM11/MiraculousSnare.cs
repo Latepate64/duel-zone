@@ -10,8 +10,14 @@ public sealed class MiraculousSnare : Spell
         Civilization.Water)
     {
         AddSpellAbilities(
-            new ChooseAndShieldifyCreatureEffect(
-                new NonEvolutionCreatureFilter()
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new NonEvolutionCreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.ShieldZone,
+                selectionRange: SelectionRange.AllCards
             ));
     }
 }

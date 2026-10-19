@@ -1,19 +1,30 @@
-using ContinuousEffects.PowerModifying;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace TriggeredAbilities;
 
+/// <summary>
+/// Whenever one of your creatures is attacked, you may discard a card from your
+/// hand. If you do, that creature gets +x power until the end of the turn.
+/// </summary>
 public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 {
-    private ICreature _attackTarget;
+    private readonly ICreature? attackTarget;
+    private readonly int power;
+    private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
 
-    public BubbleScarabAbility()
+    public BubbleScarabAbility(
+        int power, IContinuousEffectWithCreaturesAndIntegerFactory factory)
     {
+        this.power = power;
+        this.factory = factory;
     }
 
     public BubbleScarabAbility(BubbleScarabAbility ability) : base(ability)
     {
-        _attackTarget = ability._attackTarget;
+        attackTarget = ability.attackTarget;
+        power = ability.power;
+        factory = ability.factory;
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -28,20 +39,22 @@ public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 
     public override void Resolve(IGame game)
     {
-        var card = Controller.ChooseCardOptionally(Controller.Hand.Cards, ToString());
+        var card = Controller.ChooseCardOptionally(
+            Controller.Hand.Cards, ToString());
         if (card != null)
         {
             Controller.Discard(this, game, card);
-            game.AddContinuousEffects(this, new CreatureGetsPowerUntilTheEndOfTheTurnEffect(_attackTarget, 3000));
+            if (attackTarget is not null)
+            {
+                game.AddContinuousEffects(
+                    this,
+                    factory.Create(power, attackTarget));
+            }
         }
     }
 
-    public override string ToString()
-    {
-        return "Whenever one of your creatures is attacked, you may discard a card from your hand. If you do, that creature gets +3000 power until the end of the turn.";
-    }
-
-    public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)
+    public override ITriggeredAbility Trigger(
+        Guid source, Guid owner, IGameEvent gameEvent)
     {
         throw new NotImplementedException();
     }

@@ -1,12 +1,16 @@
 ﻿using Abilities;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class SkyCrusherTheAgitator : Creature
 {
-    sealed class SkyCrusherTheAgitator : Creature
+    public SkyCrusherTheAgitator() : base("Sky Crusher, the Agitator", 7, 4000,
+        Race.Dragonoid, Civilization.Fire)
     {
-        public SkyCrusherTheAgitator() : base("Sky Crusher, the Agitator", 7, 4000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
-        {
-            AddAbilities(new TapAbility(new OneShotEffects.MutualSingleManaSacrificeEffect()));
-        }
+        AddAbilities(
+            new TapAbility(
+                new MutualManaSacrificeEffect(1)));
     }
 }

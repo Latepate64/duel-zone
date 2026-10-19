@@ -3,12 +3,8 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-/// <summary>
-/// This creature gets +x power for each of your other creatures in the battle
-/// zone.
-/// </summary>
-public sealed class ThisCreatureGetsPowerForEachOfYourOtherCreatures :
-    PowerModifyingMultiplierEffect
+public sealed class ThisCreatureGetsPowerForEachOfYourOtherCreatures
+    : PowerModifyingMultiplierEffect
 {
     private readonly ICardFilter filter;
 

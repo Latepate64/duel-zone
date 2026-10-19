@@ -1,12 +1,15 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class Cetibols : Creature
 {
-    sealed class Cetibols : Creature
+    public Cetibols() : base("Cetibols", 3, 2000, Race.SeaHacker, Civilization.Water)
     {
-        public Cetibols() : base("Cetibols", 3, 2000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(new OneShotEffects.YouMayDrawCardEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenThisCreatureIsDestroyedAbility(
+                new YouMayDrawCardsEffect(1)));
     }
 }

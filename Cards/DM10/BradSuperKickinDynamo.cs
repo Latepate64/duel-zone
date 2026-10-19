@@ -1,10 +1,23 @@
-﻿namespace Cards.DM10
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM10;
+
+sealed class BradSuperKickinDynamo : SilentSkillCreature
 {
-    sealed class BradSuperKickinDynamo : SilentSkillCreature
+    public BradSuperKickinDynamo() : base("Brad, Super Kickin' Dynamo", 3, 2000,
+        Race.Human, Civilization.Fire)
     {
-        public BradSuperKickinDynamo() : base("Brad, Super Kickin' Dynamo", 3, 2000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
-        {
-            AddSilentSkillAbility(new OneShotEffects.DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect());
-        }
+        AddSilentSkillAbility(
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new BlockerFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.OpponentsCards
+            ));
     }
 }

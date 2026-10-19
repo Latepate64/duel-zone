@@ -10,7 +10,14 @@ public sealed class ScarletSkyterror : Creature
     public ScarletSkyterror() : base("Scarlet Skyterror", 8, 3000,
         Race.ArmoredWyvern, Civilization.Fire)
     {
-        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-            new DestroyAllCreaturesEffect(new BlockerFilter())));
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    filter: new BlockerFilter(),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false
+        )));
     }
 }

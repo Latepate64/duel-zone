@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using CardFilters;
 using ContinuousEffects.CannotAttackPlayers;
 using Interfaces;
@@ -21,7 +21,7 @@ sealed class JilWarkaTimeGuardian : Creature
                     maximum: 2,
                     ownerChooses: true,
                     filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

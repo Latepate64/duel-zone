@@ -1,19 +1,27 @@
-using ContinuousEffects.AttacksIfAble;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace TriggeredAbilities;
 
+/// <summary>
+/// At the start of each of your opponent's turns, he chooses one of his
+/// creatures in the battle zone that can attack. That creature attacks that
+/// turn if able.
+/// </summary>
 public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
 {
-    private IPlayer _player;
+    private readonly IPlayer? player;
+    private readonly IContinuousEffectFactory factory;
 
-    public SpinalParasiteAbility()
+    public SpinalParasiteAbility(IContinuousEffectFactory factory)
     {
+        this.factory = factory;
     }
 
     public SpinalParasiteAbility(SpinalParasiteAbility ability) : base(ability)
     {
-        _player = ability._player;
+        factory = ability.factory;
+        player = ability.player;
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -30,14 +38,13 @@ public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
 
     public override void Resolve(IGame game)
     {
-        var creature = _player.ChooseCard(game.BattleZone.GetCreatures(_player.Id).Where(
-            x => game.CanAttackAtLeastSomething(x)), ToString()) as ICreature;
-        game.AddContinuousEffects(this, new SpinalParasiteContinuousEffect(creature));
-    }
-
-    public override string ToString()
-    {
-        return "At the start of each of your opponent's turns, he chooses one of his creatures in the battle zone that can attack. That creature attacks that turn if able.";
+        if (player == null) return;
+        var creatures = game.BattleZone.GetCreatures(player.Id).Where(
+        x => game.CanAttackAtLeastSomething(x));
+        var creature = (ICreature)player.ChooseCard(creatures, this.ToString());
+        game.AddContinuousEffects(
+            this,
+            factory.Create(creature));
     }
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)

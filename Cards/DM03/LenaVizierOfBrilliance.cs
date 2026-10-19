@@ -1,12 +1,25 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+sealed class LenaVizierOfBrilliance : Creature
 {
-    sealed class LenaVizierOfBrilliance : Creature
+    public LenaVizierOfBrilliance() : base("Lena, Vizier of Brilliance", 4,
+        2000, Race.Initiate, Civilization.Light)
     {
-        public LenaVizierOfBrilliance() : base("Lena, Vizier of Brilliance", 4, 2000, Interfaces.Race.Initiate, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.YouMayReturnSpellFromYourManaZoneToYourHandEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new SpellFilter(),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
+                    selectionRange: SelectionRange.OwnCards
+        )));
     }
 }

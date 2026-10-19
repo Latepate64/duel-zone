@@ -18,7 +18,6 @@ public abstract class Zone : IDisposable, IZone
     public ZoneType Type { get; }
 
     public IEnumerable<ICreature> Creatures => cards.OfType<ICreature>();
-    public IEnumerable<ISpell> Spells => cards.OfType<ISpell>();
 
     public int Size => cards.Count;
     public bool HasCards => Size != 0;
@@ -91,19 +90,9 @@ public abstract class Zone : IDisposable, IZone
             race => races.Contains(race)));
     }
 
-    public IEnumerable<ICard> GetCards(Civilization civilization)
-    {
-        return cards.Where(x => x.HasCivilization(civilization));
-    }
-
     public int GetCardCount(Civilization civilization)
     {
         return GetCards(civilization).Count();
-    }
-
-    public int GetCreatureCount(Civilization civilization)
-    {
-        return GetCreatures(civilization).Count();
     }
 
     public IEnumerable<ICreature> GetCreatures(Civilization civilization)
@@ -116,11 +105,6 @@ public abstract class Zone : IDisposable, IZone
         return Creatures.Where(x => x.Id != creature);
     }
 
-    public IEnumerable<ICreature> GetCreaturesWithMaxPower(int maxPower)
-    {
-        return Creatures.Where(x => x.Power <= maxPower);
-    }
-
     public bool Contains(ICard card)
     {
         return cards.Contains(card);
@@ -130,8 +114,6 @@ public abstract class Zone : IDisposable, IZone
     {
         randomizer.Shuffle(cards);
     }
-
-    public IEnumerable<ICreature> Dragons => Creatures.Where(x => x.IsDragon);
 
     public IEnumerable<ICard> CardsWithName(string name)
     {
@@ -154,4 +136,19 @@ public abstract class Zone : IDisposable, IZone
     }
 
     public abstract IZone Copy();
+
+    public IEnumerable<ICard> GetCards(ICardFilter filter)
+    {
+        return Cards.Where(filter.Match);
+    }
+
+    public int GetNumberOfCards(ICardFilter filter)
+    {
+        return GetCards(filter).Count();
+    }
+
+    IEnumerable<ICard> GetCards(Civilization civilization)
+    {
+        return cards.Where(x => x.HasCivilization(civilization));
+    }
 }

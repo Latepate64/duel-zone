@@ -23,7 +23,7 @@ public sealed class DedreenTheHiddenCorrupterAbility : WhenYouPutThisCreatureInt
 
     public override bool CheckInterveningIfClause(IGame game)
     {
-        return GetOpponent(game).ShieldZone.Size <= _shieldsMaximum;
+        return game.GetOpponent(Controller).ShieldZone.Size <= _shieldsMaximum;
     }
 
     public override string ToString()

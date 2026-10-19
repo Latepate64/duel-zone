@@ -1,5 +1,5 @@
-using ContinuousEffects;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
@@ -10,16 +10,20 @@ namespace OneShotEffects;
 public sealed class ChaosStrikeOneShotEffect : CreatureSelectionEffect
 {
     private readonly ICardFilter filter;
+    private readonly IContinuousEffectFactory factory;
 
-    public ChaosStrikeOneShotEffect(ICardFilter filter) : base(1, 1, true)
+    public ChaosStrikeOneShotEffect(
+        ICardFilter filter, IContinuousEffectFactory factory) : base(1, 1, true)
     {
         this.filter = filter;
+        this.factory = factory;
     }
 
     public ChaosStrikeOneShotEffect(
         ChaosStrikeOneShotEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
+        factory = effect.factory;
     }
 
     public override IOneShotEffect Copy()
@@ -30,11 +34,9 @@ public sealed class ChaosStrikeOneShotEffect : CreatureSelectionEffect
     protected override void Apply(
         IGame game, IAbility source, params ICreature[] cards)
     {
-        if (cards.Length == 1)
-        {
-            game.AddContinuousEffects(
-                Ability, new ChaosStrikeContinousEffect(cards[0].Id));
-        }
+        game.AddContinuousEffects(
+            Ability,
+            factory.Create(cards));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(

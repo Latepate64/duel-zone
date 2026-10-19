@@ -1,13 +1,16 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class MongrelMan : Creature
 {
-    sealed class MongrelMan : Creature
+    public MongrelMan() : base("Mongrel Man", 5, 2000, Race.Hedrian,
+        Civilization.Darkness)
     {
-        public MongrelMan() : base("Mongrel Man", 5, 2000, Interfaces.Race.Hedrian, Interfaces.Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WheneverAnotherCreatureIsDestroyedAbility(new YouMayDrawCardEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverAnotherCreatureIsDestroyedAbility(
+                new YouMayDrawCardsEffect(1)));
     }
 }

@@ -1,14 +1,25 @@
 ﻿using Abilities;
-using Abilities.Static;
+using StaticAbilities;
+using CardFilters;
+using ContinuousEffects.Unblockable;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM07
+namespace Cards.DM07;
+
+sealed class Biancus : Creature
 {
-    sealed class Biancus : Creature
+    public Biancus() : base("Biancus", 6, 3000, Race.SeaHacker,
+        Civilization.Water)
     {
-        public Biancus() : base("Biancus", 6, 3000, Interfaces.Race.SeaHacker, Interfaces.Civilization.Water)
-        {
-            AddAbilities(new BlockerAbility());
-            AddAbilities(new TapAbility(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect()));
-        }
+        AddAbilities(new BlockerAbility());
+        AddAbilities(
+            new TapAbility(
+                new YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    filter: new CreatureFilter(),
+                    factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+                )));
     }
 }

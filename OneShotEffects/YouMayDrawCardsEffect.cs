@@ -2,27 +2,40 @@
 
 namespace OneShotEffects;
 
-public abstract class YouMayDrawCardsEffect : OneShotEffect
+public sealed class YouMayDrawCardsEffect : OneShotEffect
 {
-    public int Maximum { get; }
+    private readonly int maximum;
 
-    protected YouMayDrawCardsEffect(int maximum) : base()
+    public YouMayDrawCardsEffect(int maximum) : base()
     {
-        Maximum = maximum;
+        this.maximum = maximum;
     }
 
-    protected YouMayDrawCardsEffect(YouMayDrawCardsEffect effect) : base(effect)
+    private YouMayDrawCardsEffect(YouMayDrawCardsEffect effect) : base(effect)
     {
-        Maximum = effect.Maximum;
+        maximum = effect.maximum;
     }
 
     public override void Apply(IGame game)
     {
-        Controller.DrawCardsOptionally(game, Ability, Maximum);
+        Controller.DrawCardsOptionally(game, Ability, maximum);
     }
 
-    public override string ToString()
+    public override IOneShotEffect Copy()
     {
-        return Maximum == 1 ? "You may draw a card." : $"You may draw up to {Maximum} cards.";
+        return new YouMayDrawCardsEffect(this);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not YouMayDrawCardsEffect effect) return false;
+        if (maximum != effect.maximum) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), maximum);
     }
 }

@@ -1,14 +1,27 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
+using CardFilters;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+sealed class ShockTrooperMykee : Creature
 {
-    sealed class ShockTrooperMykee : Creature
+    public ShockTrooperMykee() : base("Shock Trooper Mykee", 6, 1000,
+        Race.Human, Civilization.Fire)
     {
-        public ShockTrooperMykee() : base("Shock Trooper Mykee", 6, 1000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
-        {
-            AddAbilities(new SpeedAttackerAbility());
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayDestroyOneOfYourOpponentsCreaturesThatHasMaxPowerEffect(3000)));
-        }
+        AddAbilities(new SpeedAttackerAbility());
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new MaxPowerFilter(3000),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OpponentsCards
+                )));
     }
 }

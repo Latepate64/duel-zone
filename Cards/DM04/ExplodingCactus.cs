@@ -1,12 +1,16 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class ExplodingCactus : Creature
 {
-    sealed class ExplodingCactus : Creature
+    public ExplodingCactus() : base("Exploding Cactus", 3, 2000, Race.TreeFolk, Civilization.Nature)
     {
-        public ExplodingCactus() : base("Exploding Cactus", 3, 2000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new WhileYouControlCivilizationCreatureThisCreatureGetsPowerEffect(2000, Interfaces.Civilization.Light));
-        }
+        AddStaticAbilities(
+            new WhileYouControlAtLeastOneCreatureThisCreatureGetsPowerEffect(
+                2000,
+                new CivilizationCreatureFilter(Civilization.Light)));
     }
 }

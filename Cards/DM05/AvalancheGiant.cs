@@ -1,16 +1,20 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using ContinuousEffects.CannotAttackCreatures;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class AvalancheGiant : Creature
 {
-    sealed class AvalancheGiant : Creature
+    public AvalancheGiant() : base("Avalanche Giant", 6, 8000, Race.Giant,
+        Civilization.Nature)
     {
-        public AvalancheGiant() : base("Avalanche Giant", 6, 8000, Interfaces.Race.Giant, Interfaces.Civilization.Nature)
-        {
-            AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
-            AddTriggeredAbility(new WheneverThisCreatureBecomesBlockedAbility(new OneShotEffects.ThisCreatureBreaksOpponentsShieldEffect()));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect());
+        AddTriggeredAbility(
+            new WheneverThisCreatureBecomesBlockedAbility(
+                new ThisCreatureBreaksOpponentsShieldsEffect(1)));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

@@ -1,5 +1,5 @@
 using Interfaces;
-using ContinuousEffects;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
@@ -11,27 +11,31 @@ namespace OneShotEffects;
 public sealed class StormWranglerEffect : OneShotEffect
 {
     private readonly ICardFilter filter;
+    private readonly IContinuousEffectFactory factory;
 
-    public StormWranglerEffect(ICardFilter filter)
+    public StormWranglerEffect(
+        ICardFilter filter, IContinuousEffectFactory factory)
     {
         this.filter = filter;
+        this.factory = factory;
     }
 
     public StormWranglerEffect(StormWranglerEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
+        factory = effect.factory;
     }
 
     public override void Apply(IGame game)
     {
         var creatures = game.BattleZone.GetOpponentsChoosableCreatures(
             Applier, filter, game);
-        var creature = Controller.ChooseCardOptionally(
-            creatures, ToString()) as ICreature;
-        if (creature != null)
+        if (Controller.ChooseCardOptionally(
+            creatures, ToString()) is ICreature creature)
         {
             game.AddContinuousEffects(
-                Ability, new StormWranglerContinuousEffect(creature));
+                Ability,
+                factory.Create(creature));
         }
     }
 

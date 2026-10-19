@@ -1,5 +1,4 @@
-﻿using Abilities;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
@@ -23,7 +22,7 @@ public sealed class AtTheEndOfTurnAbility : TriggeredAbility
         //     && CheckInterveningIfClause(game);
     }
 
-    public override Ability Copy()
+    public override IAbility Copy()
     {
         return new AtTheEndOfTurnAbility(this);
     }

@@ -5,35 +5,41 @@ namespace OneShotEffects;
 /// <summary>
 /// Put the top x cards of your deck into your mana zone.
 /// </summary>
-public abstract class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
+public sealed class PutTopCardsOfDeckIntoManaZoneEffect : OneShotEffect
 {
-    public int Amount { get; }
+    private readonly int amount;
 
-    protected PutTopCardsOfDeckIntoManaZoneEffect(int amount) : base()
+    public PutTopCardsOfDeckIntoManaZoneEffect(int amount) : base()
     {
-        Amount = amount;
+        this.amount = amount;
     }
 
-    protected PutTopCardsOfDeckIntoManaZoneEffect(PutTopCardsOfDeckIntoManaZoneEffect effect)
+    private PutTopCardsOfDeckIntoManaZoneEffect(
+        PutTopCardsOfDeckIntoManaZoneEffect effect)
     {
-        Amount = effect.Amount;
+        amount = effect.amount;
     }
 
     public override void Apply(IGame game)
     {
-        Controller.PutFromTopOfDeckIntoManaZone(game, Amount, Ability);
+        Controller.PutFromTopOfDeckIntoManaZone(game, amount, Ability);
     }
 
     public override bool Equals(object? obj)
     {
         if (!base.Equals(obj)) return false;
         if (obj is not PutTopCardsOfDeckIntoManaZoneEffect effect) return false;
-        if (Amount != effect.Amount) return false;
+        if (amount != effect.amount) return false;
         return true;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(base.GetHashCode(), Amount);
+        return HashCode.Combine(base.GetHashCode(), amount);
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new PutTopCardsOfDeckIntoManaZoneEffect(this);
     }
 }

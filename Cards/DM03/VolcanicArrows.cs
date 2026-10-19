@@ -10,7 +10,23 @@ sealed class VolcanicArrows : Spell
     {
         AddShieldTrigger();
         AddSpellAbilities(
-            new ChooseAndDestroyCreaturesEffect(1, 1, new MaxPowerFilter(6000)),
-            new ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect());
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MaxPowerFilter(6000),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.AllCards
+            ),
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                source: ZoneType.ShieldZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.OwnCards
+        ));
     }
 }

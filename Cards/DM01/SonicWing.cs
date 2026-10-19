@@ -1,10 +1,20 @@
-﻿namespace Cards.DM01
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM01;
+
+sealed class SonicWing : Spell
 {
-    sealed class SonicWing : Spell
+    public SonicWing() : base("Sonic Wing", 3, Civilization.Light)
     {
-        public SonicWing() : base("Sonic Wing", 3, Interfaces.Civilization.Light)
-        {
-            AddSpellAbilities(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect());
-        }
+        AddSpellAbilities(
+            new YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+                minimum: 1,
+                maximum: 1,
+                filter: new CreatureFilter(),
+                factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+            ));
     }
 }

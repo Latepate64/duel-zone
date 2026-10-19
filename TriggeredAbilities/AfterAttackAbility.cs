@@ -1,13 +1,12 @@
-﻿using Abilities;
-using Interfaces;
+﻿using Interfaces;
 
 namespace TriggeredAbilities;
 
 public sealed class AfterAttackAbility : TriggeredAbility
 {
-    public Guid Attacker { get; }
+    public ICreature Attacker { get; }
 
-    public AfterAttackAbility(IOneShotEffect effect, Guid attacker) : base(effect)
+    public AfterAttackAbility(IOneShotEffect effect, ICreature attacker) : base(effect)
     {
         Attacker = attacker;
     }
@@ -23,13 +22,8 @@ public sealed class AfterAttackAbility : TriggeredAbility
         // return gameEvent is CreatureStoppedAttackingEvent e && e.AttackingCreature.Id == Attacker;
     }
 
-    public override Ability Copy()
+    public override IAbility Copy()
     {
         return new AfterAttackAbility(this);
-    }
-
-    public override string ToString()
-    {
-        return "After the attack";
     }
 }

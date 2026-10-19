@@ -18,7 +18,7 @@ sealed class GeoshineSpectralKnight : Creature
                     ownerChooses: true,
                     filter: new CivilizationCreatureFilter(
                         Civilization.Darkness, Civilization.Fire),
-                    selectionRange: SelectionRange.AllCreatures
+                    selectionRange: SelectionRange.AllCards
                 )));
     }
 }

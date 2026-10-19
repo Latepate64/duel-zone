@@ -1,10 +1,24 @@
-﻿namespace Cards.DM01
+﻿using StaticAbilities;
+using CardFilters;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM01;
+
+sealed class AuraBlast : Spell
 {
-    sealed class AuraBlast : Spell
+    public AuraBlast(
+        PowerAttackerAbilityFactory powerAttackerAbilityFactory,
+        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory effectFactory,
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+    ) : base("Aura Blast", 4, Civilization.Nature)
     {
-        public AuraBlast() : base("Aura Blast", 4, Interfaces.Civilization.Nature)
-        {
-            AddSpellAbilities(new OneShotEffects.AuraBlastEffect(2000));
-        }
+        AddSpellAbilities(
+            effectFactory.Create(
+                new CreatureFilter(),
+                continuousEffectFactory,
+                powerAttackerAbilityFactory.Create(2000)
+        ));
     }
 }

@@ -9,7 +9,9 @@ public sealed class HolyAwe : Spell
     public HolyAwe() : base("Holy Awe", 6, Civilization.Light)
     {
         AddShieldTrigger();
-        AddSpellAbilities(new TapOpponentsCreaturesEffect(
-            new CreatureFilter()));
+        AddSpellAbilities(
+            new TapAllCreaturesEffect(
+                new CreatureFilter(),
+                SelectionRange.OpponentsCards));
     }
 }

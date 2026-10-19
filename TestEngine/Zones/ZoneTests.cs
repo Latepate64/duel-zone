@@ -175,7 +175,7 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void GetCreaturesOfCivilizationCount()
+    public void GetCreaturesOfCivilization()
     {
         // Arrange
         var zone = new Hand();
@@ -185,10 +185,10 @@ public sealed class ZoneTests
         zone.Add(creature.Object);
 
         // Act
-        var count = zone.GetCreatureCount(It.IsAny<Civilization>());
+        var creatures = zone.GetCreatures(It.IsAny<Civilization>());
 
         // Assert
-        Assert.Equal(1, count);
+        Assert.Single(creatures);
     }
 
     [Fact]
@@ -202,23 +202,6 @@ public sealed class ZoneTests
 
         // Act
         var creatures = zone.GetOtherCreatures(Guid.NewGuid());
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
-    public void GetCreaturesWithMaxPower()
-    {
-        // Arrange
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.Setup(x => x.Power).Returns(2000);
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetCreaturesWithMaxPower(2000);
 
         // Assert
         Assert.Contains(creature.Object, creatures);
@@ -252,23 +235,6 @@ public sealed class ZoneTests
 
         // Assert
         random.Verify(x => x.Shuffle(zone.Cards.ToList()));
-    }
-
-    [Fact]
-    public void Dragons()
-    {
-        // Arrange
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.Setup(x => x.IsDragon).Returns(true);
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.Dragons;
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
     }
 
     [Fact]
@@ -306,23 +272,6 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void CardsWithManaCost()
-    {
-        // Arrange
-        var zone = new Hand();
-        var card = new Mock<ICard>();
-        card.Setup(x => x.ManaCost).Returns(1);
-        zone.Add(card.Object);
-
-        // Act
-        var cards = zone.CardsWithManaCost(1);
-
-        // Assert
-        Assert.Contains(card.Object, cards);
-        Assert.Single(cards);
-    }
-
-    [Fact]
     public void SetOwner()
     {
         // Arrange
@@ -338,19 +287,22 @@ public sealed class ZoneTests
         card.VerifySet(x => x.OwnerV2 = player);
     }
 
-    [Fact]
-    public void Spells()
+    [Theory]
+    [InlineData(false, 0)]
+    [InlineData(true, 1)]
+    public void GetCards(bool filterMatches, int expectedCount)
     {
         // Arrange
+        var card = Mock.Of<ICard>();
         var zone = new Hand();
-        var spell = Mock.Of<ISpell>();
-        zone.Add(spell);
+        zone.Add(card);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(card)).Returns(filterMatches);
 
         // Act
-        var spells = zone.Spells;
+        var actual = zone.GetNumberOfCards(filter.Object);
 
         // Assert
-        Assert.Contains(spell, spells);
-        Assert.Single(spells);
+        Assert.Equal(expectedCount, actual);
     }
 }

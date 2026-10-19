@@ -17,7 +17,7 @@ sealed class RomVizierOfTendrils : Creature
                     maximum: 1,
                     ownerChooses: true,
                     filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
     }
 }

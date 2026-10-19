@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using CardFilters;
 using Interfaces;
 using OneShotEffects;
@@ -8,10 +8,17 @@ namespace Cards.DM09;
 
 sealed class StallobTheLifequasher : Creature
 {
-    public StallobTheLifequasher() : base("Stallob, the Lifequasher", 8, 6000, Race.DemonCommand, Civilization.Darkness)
+    public StallobTheLifequasher() : base("Stallob, the Lifequasher", 8, 6000,
+        Race.DemonCommand, Civilization.Darkness)
     {
         AddAbilities(new DoubleBreakerAbility());
-        AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(
-            new DestroyAllCreaturesEffect(new CreatureFilter())));
+        AddTriggeredAbility(
+            new WhenThisCreatureIsDestroyedAbility(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false)));
     }
 }

@@ -1,6 +1,5 @@
-using TriggeredAbilities;
 using Interfaces;
-using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
@@ -11,30 +10,42 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class BattleshipMutantEffect : OneShotEffect
 {
-    private readonly int power;
     private readonly ICardFilter filter;
+    private readonly IDelayedTriggeredAbilityFactory delayedTriggerFactory;
+    private readonly ITriggeredAbilityFactory triggeredAbilityFactory;
+    private readonly IContinuousEffect continuousEffect;
 
-    public BattleshipMutantEffect(int power, ICardFilter filter)
+    public BattleshipMutantEffect(
+        IContinuousEffect continuousEffect,
+        ICardFilter filter,
+        IDelayedTriggeredAbilityFactory delayedTriggerFactory,
+        ITriggeredAbilityFactory triggeredAbilityFactory
+        )
     {
-        this.power = power;
+        this.continuousEffect = continuousEffect;
         this.filter = filter;
+        this.delayedTriggerFactory = delayedTriggerFactory;
+        this.triggeredAbilityFactory = triggeredAbilityFactory;
     }
 
     public BattleshipMutantEffect(BattleshipMutantEffect effect) : base(effect)
     {
+        continuousEffect = effect.continuousEffect.Copy();
         filter = effect.filter.Copy();
+        delayedTriggerFactory = effect.delayedTriggerFactory;
+        triggeredAbilityFactory = effect.triggeredAbilityFactory;
     }
 
     public override void Apply(IGame game)
     {
         game.AddContinuousEffects(
-            Ability, new BattleshipMutantContinuousEffect(power, filter));
+            Ability,
+            continuousEffect);
         game.AddDelayedTriggeredAbility(
-            new WheneverSomethingHappensThisTurnAbility(
-            new BattleshipMutantAbility(
-                game.BattleZone.GetCreaturesControlledByPlayer(
-                    Applier, filter)),
-            Ability));
+            delayedTriggerFactory.Create(
+                triggeredAbilityFactory.Create(
+                    game.BattleZone, Applier, filter),
+                Ability));
     }
 
     public override IOneShotEffect Copy()

@@ -12,6 +12,8 @@ public sealed class LarbaGeerTheImmaculate : EvolutionCreature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new TapOpponentsCreaturesEffect(new BlockerFilter())));
+                new TapAllCreaturesEffect(
+                    new BlockerFilter(),
+                    SelectionRange.OpponentsCards)));
     }
 }

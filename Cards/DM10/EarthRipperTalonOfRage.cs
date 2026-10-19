@@ -1,15 +1,24 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
+using CardFilters;
 
 namespace Cards.DM10;
 
 public sealed class EarthRipperTalonOfRage : EvolutionCreature
 {
-    public EarthRipperTalonOfRage() : base("Earth Ripper, Talon of Rage", 4, 6000, Race.BeastFolk, Civilization.Nature)
+    public EarthRipperTalonOfRage() : base("Earth Ripper, Talon of Rage", 4,
+        6000, Race.BeastFolk, Civilization.Nature)
     {
-        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new EarthRipperTalonOfRageEffect()));
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.Hand,
+                    filter: new TappedCardFilter(),
+                    selectionRange: SelectionRange.OwnCards
+                )));
         AddAbilities(new DoubleBreakerAbility());
     }
 }

@@ -1,4 +1,3 @@
-using Abilities.Static;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
@@ -6,22 +5,17 @@ namespace ContinuousEffects.AbilityAdding;
 
 public sealed class MegaDetonatorContinuousEffect : AddAbilitiesUntilEndOfTurnEffect
 {
-    public MegaDetonatorContinuousEffect(MegaDetonatorContinuousEffect effect) : base(effect)
+    internal MegaDetonatorContinuousEffect(IAbility ability, params ICard[] cards) : base(
+        ability, cards)
     {
     }
 
-    public MegaDetonatorContinuousEffect(params ICard[] cards) : base(
-        new DoubleBreakerAbility(), cards)
+    private MegaDetonatorContinuousEffect(MegaDetonatorContinuousEffect effect) : base(effect)
     {
     }
 
     public override IContinuousEffect Copy()
     {
         return new MegaDetonatorContinuousEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "This creature gets \"double breaker\" until the end of the turn.";
     }
 }

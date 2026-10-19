@@ -2,31 +2,39 @@
 
 namespace OneShotEffects;
 
-public abstract class ShieldRecoveryEffect : CardSelectionEffect<ICard>
+public sealed class ShieldRecoveryEffect : CardSelectionEffect<ICard>
 {
-    public bool CanUseShieldTrigger { get; }
+    private readonly bool canUseShieldTrigger;
 
-    protected ShieldRecoveryEffect(ShieldRecoveryEffect effect) : base(effect)
+    public ShieldRecoveryEffect(
+        int minimum,
+        int maximum,
+        bool controllerChooses,
+        bool canUseShieldTrigger) : base(
+            minimum, maximum, controllerChooses)
     {
+        this.canUseShieldTrigger = canUseShieldTrigger;
     }
 
-    protected ShieldRecoveryEffect(int minimum, int maximum, bool controllerChooses, bool canUseShieldTrigger) : base(
-        minimum, maximum, controllerChooses)
+    private ShieldRecoveryEffect(ShieldRecoveryEffect effect) : base(effect)
     {
-        CanUseShieldTrigger = canUseShieldTrigger;
+        canUseShieldTrigger = effect.canUseShieldTrigger;
     }
 
-    /// <summary>
-    /// Must choose one of own shields.
-    /// </summary>
-    /// <param name="canUseShieldTrigger"></param>
-    protected ShieldRecoveryEffect(bool canUseShieldTrigger, int amonunt) : this(
-        amonunt, amonunt, true, canUseShieldTrigger)
+    protected override void Apply(
+        IGame game, IAbility source, params ICard[] cards)
     {
+        game.PutFromShieldZoneToHand(cards, canUseShieldTrigger, Ability);
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
     {
-        game.PutFromShieldZoneToHand(cards, CanUseShieldTrigger, Ability);
+        return Controller.ShieldZone.Cards;
+    }
+
+    public override IOneShotEffect Copy()
+    {
+        return new ShieldRecoveryEffect(this);
     }
 }

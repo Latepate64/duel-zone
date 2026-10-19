@@ -1,13 +1,16 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class MistRiasSonicGuardian : Creature
 {
-    sealed class MistRiasSonicGuardian : Creature
+    public MistRiasSonicGuardian() : base("Mist Rias, Sonic Guardian", 5, 2000,
+        Race.Guardian, Civilization.Light)
     {
-        public MistRiasSonicGuardian() : base("Mist Rias, Sonic Guardian", 5, 2000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
-        {
-            AddTriggeredAbility(new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(new YouMayDrawCardEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(
+                new YouMayDrawCardsEffect(1)));
     }
 }

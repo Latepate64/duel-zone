@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class UliyaTheEntrancer : Creature
 {
-    sealed class UliyaTheEntrancer : Creature
+    public UliyaTheEntrancer() : base("Uliya, the Entrancer", 6, 5000,
+        Race.DarkLord, Civilization.Darkness)
     {
-        public UliyaTheEntrancer() : base("Uliya, the Entrancer", 6, 5000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new OneShotEffects.ShieldRecoveryCanUseShieldTriggerEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new ShieldRecoveryEffect(
+                    minimum: 1,
+                    maximum: 1, 
+                    controllerChooses: true, 
+                    canUseShieldTrigger: true)));
     }
 }

@@ -1,14 +1,24 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class Magmarex : Creature
 {
-    sealed class Magmarex : Creature
+    public Magmarex() : base("Magmarex", 5, 3000, Race.RockBeast,
+        Civilization.Fire)
     {
-        public Magmarex() : base("Magmarex", 5, 3000, Interfaces.Race.RockBeast, Interfaces.Civilization.Fire)
-        {
-            AddShieldTrigger();
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new DestroyAllCreaturesThatHaveExactPower(1000)));
-        }
+        AddShieldTrigger();
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    filter: new PowerFilter(1000),
+                    selectionRange: SelectionRange.AllCards,
+                    excludeSource: false
+                )));
     }
 }

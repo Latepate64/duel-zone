@@ -9,7 +9,9 @@ public sealed class ScreamingSunburst : Spell
     public ScreamingSunburst() : base("Screaming Sunburst", 3,
         Civilization.Light)
     {
-        AddSpellAbilities(new TapAllCreaturesEffect(
-            new NonCivilizationCreatureFilter(Civilization.Light)));
+        AddSpellAbilities(
+            new TapAllCreaturesEffect(
+                new NonCivilizationCreatureFilter(Civilization.Light),
+                SelectionRange.AllCards));
     }
 }

@@ -1,14 +1,21 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM08
+namespace Cards.DM08;
+
+sealed class NecrodragonGiland : Creature
 {
-    sealed class NecrodragonGiland : Creature
+    public NecrodragonGiland() : base("Necrodragon Giland", 4, 6000,
+        Race.ZombieDragon, Civilization.Darkness)
     {
-        public NecrodragonGiland() : base("Necrodragon Giland", 4, 6000, Interfaces.Race.ZombieDragon, Interfaces.Civilization.Darkness)
-        {
-            AddAbilities(new DoubleBreakerAbility());
-            AddTriggeredAbility(new WhenThisCreatureBattlesAbility(new OneShotEffects.DestroyAfterBattleEffect()));
-        }
+        AddAbilities(new DoubleBreakerAbility());
+        AddTriggeredAbility(
+            new WhenThisCreatureBattlesAbility(
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new DestroyThisCreatureEffect()
+                )));
     }
 }

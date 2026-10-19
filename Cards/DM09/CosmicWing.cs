@@ -1,10 +1,20 @@
-﻿namespace Cards.DM09
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM09;
+
+sealed class CosmicWing : Spell
 {
-    sealed class CosmicWing : Spell
+    public CosmicWing() : base("Cosmic Wing", 3, Civilization.Light)
     {
-        public CosmicWing() : base("Cosmic Wing", 3, Interfaces.Civilization.Light)
-        {
-            AddSpellAbilities(new OneShotEffects.ChooseOneOfYourCreaturesInTheBattleZoneItCannotBeBlockedThisTurnEffect());
-        }
+        AddSpellAbilities(
+            new YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+                minimum: 1,
+                maximum: 1,
+                filter: new CreatureFilter(),
+                factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+            ));
     }
 }

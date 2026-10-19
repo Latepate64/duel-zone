@@ -1,13 +1,23 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class TerrorPit : Spell
 {
-    sealed class TerrorPit : Spell
+    public TerrorPit() : base("Terror Pit", 6, Civilization.Darkness)
     {
-        public TerrorPit() : base("Terror Pit", 6, Interfaces.Civilization.Darkness)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new DestroyOneOfYourOpponentsCreaturesEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new CreatureFilter(),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.OpponentsCards
+            ));
     }
 }

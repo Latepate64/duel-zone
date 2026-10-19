@@ -3,25 +3,21 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.CanAttackUntappedCreatures;
 
-public class ThisCreatureCanAttackUntappedCreaturesEffect : ContinuousEffect, ICanAttackUntappedCreaturesEffect
+public class ThisCreatureCanAttackUntappedCreaturesEffect : ContinuousEffect,
+    ICanAttackUntappedCreaturesEffect
 {
-    public ThisCreatureCanAttackUntappedCreaturesEffect(ThisCreatureCanAttackUntappedCreaturesEffect effect) : base(
-        effect)
+    public ThisCreatureCanAttackUntappedCreaturesEffect() : base()
     {
     }
 
-    public ThisCreatureCanAttackUntappedCreaturesEffect() : base()
+    private ThisCreatureCanAttackUntappedCreaturesEffect(
+        ThisCreatureCanAttackUntappedCreaturesEffect effect) : base(effect)
     {
     }
 
     public override IContinuousEffect Copy()
     {
         return new ThisCreatureCanAttackUntappedCreaturesEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "This creature can attack untapped creatures.";
     }
 
     public bool CanAttackUntappedCreature(ICreature attacker, ICreature targetOfAttack, IGame game)

@@ -1,31 +1,39 @@
-using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
 public sealed class InvincibleUnityOneShotEffect : OneShotEffect
 {
-    public InvincibleUnityOneShotEffect()
+    private readonly IContinuousEffectWithAbilityFactory factory;
+    private readonly ICardFilter filter;
+    private readonly IAbility ability;
+
+    public InvincibleUnityOneShotEffect(
+        IContinuousEffectWithAbilityFactory factory, ICardFilter filter, IAbility ability)
     {
+        this.factory = factory;
+        this.filter = filter;
+        this.ability = ability;
     }
 
-    public InvincibleUnityOneShotEffect(InvincibleUnityOneShotEffect effect) : base(effect)
+    private InvincibleUnityOneShotEffect(InvincibleUnityOneShotEffect effect) : base(effect)
     {
+        factory = effect.factory;
+        filter = effect.filter.Copy();
+        ability = effect.ability.Copy();
     }
 
     public override void Apply(IGame game)
     {
-        game.AddContinuousEffects(Ability, new InvincibleUnityContinuousEffect(game.BattleZone.GetCreatures(
-            Ability.Controller.Id)));
+        var creatures = game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
+        game.AddContinuousEffects(
+            Ability,
+            factory.Create(ability, [.. creatures]));
     }
 
     public override IOneShotEffect Copy()
     {
         return new InvincibleUnityOneShotEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Each of your creatures in the battle zone gets +8000 power and \"triple breaker\" until the end of the turn.";
     }
 }

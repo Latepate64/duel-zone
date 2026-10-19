@@ -1,14 +1,27 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
+using CardFilters;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM02
+namespace Cards.DM02;
+
+sealed class GeneralDarkFiend : Creature
 {
-    sealed class GeneralDarkFiend : Creature
+    public GeneralDarkFiend() : base("General Dark Fiend", 5, 6000,
+        Race.DarkLord, Civilization.Darkness)
     {
-        public GeneralDarkFiend() : base("General Dark Fiend", 5, 6000, Interfaces.Race.DarkLord, Interfaces.Civilization.Darkness)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.ChooseOneOfYourShieldsAndPutItIntoYourGraveyardEffect()));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new AnyCardFilter(),
+                    source: ZoneType.ShieldZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OwnCards
+        )));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

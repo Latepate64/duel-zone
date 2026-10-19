@@ -1,13 +1,25 @@
 ﻿using OneShotEffects;
 using Abilities;
+using Interfaces;
+using CardFilters;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class RikabusScrewdriver : Creature
 {
-    sealed class RikabusScrewdriver : Creature
+    public RikabusScrewdriver() : base("Rikabu's Screwdriver", 2, 1000,
+        Race.Xenoparts, Civilization.Fire)
     {
-        public RikabusScrewdriver() : base("Rikabu's Screwdriver", 2, 1000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
-        {
-            AddAbilities(new TapAbility(new DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect()));
-        }
+        AddAbilities(
+            new TapAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 1,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new BlockerFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OpponentsCards
+                )));
     }
 }

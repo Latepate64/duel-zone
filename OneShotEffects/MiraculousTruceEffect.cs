@@ -1,31 +1,38 @@
-using ContinuousEffects.CannotAttackPlayers;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
+/// <summary>
+/// Choose a civilization. Until the start of your next turn, creatures of that
+/// civilization can't attack you even if your opponent puts them into the
+/// battle zone after you cast this spell.
+/// </summary>
 public sealed class MiraculousTruceEffect : OneShotEffect
 {
-    public MiraculousTruceEffect()
+    private readonly IContinuousEffectWithCivilizationFactory factory;
+
+    public MiraculousTruceEffect(
+        IContinuousEffectWithCivilizationFactory factory)
     {
+        this.factory = factory;
     }
 
-    public MiraculousTruceEffect(IOneShotEffect effect) : base(effect)
+    public MiraculousTruceEffect(MiraculousTruceEffect effect) : base(effect)
     {
+        factory = effect.factory;
     }
 
     public override void Apply(IGame game)
     {
         var civilization = Controller.ChooseCivilization(ToString());
-        game.AddContinuousEffects(Ability, new MiraculousTruceContinuousEffect(civilization, Controller));
+        game.AddContinuousEffects(
+            Ability,
+            factory.Create(civilization));
     }
 
     public override IOneShotEffect Copy()
     {
         return new MiraculousTruceEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Choose a civilization. Until the start of your next turn, creatures of that civilization can't attack you even if your opponent puts them into the battle zone after you cast this spell.";
     }
 }

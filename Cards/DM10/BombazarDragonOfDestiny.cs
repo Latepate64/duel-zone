@@ -1,16 +1,21 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
 
 namespace Cards.DM10;
 
 public sealed class BombazarDragonOfDestiny : Creature
 {
-    public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7, 6000,
-        [Race.ArmoredDragon, Race.EarthDragon], Civilization.Fire, Civilization.Nature)
+    public BombazarDragonOfDestiny() : base("Bombazar, Dragon of Destiny", 7,
+        6000, [Race.ArmoredDragon, Race.EarthDragon], Civilization.Fire,
+        Civilization.Nature)
     {
         AddAbilities(new SpeedAttackerAbility(), new DoubleBreakerAbility());
-        AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new BombazarDragonOfDestinyEffect()));
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new BombazarDragonOfDestinyEffect(
+                    new AtTheEndOfTheTurnDelayedTriggeredAbilityFactory()
+                )));
     }
 }

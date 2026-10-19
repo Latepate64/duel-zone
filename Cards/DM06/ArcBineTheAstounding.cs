@@ -1,4 +1,5 @@
-﻿using CardFilters;
+﻿using Abilities;
+using CardFilters;
 using ContinuousEffects.AbilityAdding;
 using Interfaces;
 using OneShotEffects;
@@ -11,14 +12,15 @@ sealed class ArcBineTheAstounding : EvolutionCreature
         Race.Guardian, Civilization.Light)
     {
         AddStaticAbilities(
-            new TapAbilityAddingEffect(
-                new TapChoiceEffect(
-                    minimum: 1,
-                    maximum: 1,
-                    ownerChooses: true,
-                    filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.OpponentsCreatures
-                ),
+            new EachOfYourCreaturesHasAbilityEffect(
+                new TapAbility(
+                    new TapChoiceEffect(
+                        minimum: 1,
+                        maximum: 1,
+                        ownerChooses: true,
+                        filter: new CreatureFilter(),
+                        selectionRange: SelectionRange.OpponentsCards
+                    )),
                 new CivilizationCreatureFilter(Civilization.Light)));
     }
 }

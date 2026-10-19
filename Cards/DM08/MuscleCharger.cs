@@ -1,10 +1,16 @@
-﻿namespace Cards.DM08
+﻿using ContinuousEffects.AbilityAddingPowerModifying;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM08;
+
+sealed class MuscleCharger : Charger
 {
-    sealed class MuscleCharger : Charger
+    public MuscleCharger() : base("Muscle Charger", 3, Civilization.Nature)
     {
-        public MuscleCharger() : base("Muscle Charger", 3, Interfaces.Civilization.Nature)
-        {
-            AddSpellAbilities(new OneShotEffects.EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(3000));
-        }
+        AddSpellAbilities(
+            new CreatureIntegerAffectingContinuousEffectAddingEffect(
+            3000,
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
     }
 }

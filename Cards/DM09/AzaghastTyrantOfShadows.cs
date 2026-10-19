@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 
 namespace Cards.DM09;
@@ -14,8 +14,14 @@ public sealed class AzaghastTyrantOfShadows : EvolutionCreature
         AddTriggeredAbility(
             new WheneverYouPutRaceCreatureIntoTheBattleZoneAbility(
                 Race.Ghost,
-                new ChooseAndDestroyOpponentsCreaturesEffect(
-                    0, 1, new UntappedCreatureFilter()
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new UntappedCreatureFilter(),
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

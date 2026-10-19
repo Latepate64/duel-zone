@@ -1,10 +1,20 @@
-﻿namespace Cards.DM10
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM10;
+
+sealed class MinelordSkyterror : SilentSkillCreature
 {
-    sealed class MinelordSkyterror : SilentSkillCreature
+    public MinelordSkyterror() : base("Minelord Skyterror", 4, 3000,
+        Race.ArmoredWyvern, Civilization.Fire)
     {
-        public MinelordSkyterror() : base("Minelord Skyterror", 4, 3000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
-        {
-            AddSilentSkillAbility(new OneShotEffects.DestroyMaxPowerAreaOfEffect(3000));
-        }
+        AddSilentSkillAbility(
+            new CardMovingAreaOfEffect(
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                filter: new MaxPowerFilter(3000),
+                selectionRange: SelectionRange.AllCards,
+                excludeSource: false));
     }
 }

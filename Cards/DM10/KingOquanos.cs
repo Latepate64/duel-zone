@@ -1,13 +1,19 @@
-﻿using ContinuousEffects.AbilityAdding;
+﻿using StaticAbilities;
+using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.PowerModifying;
+using Interfaces;
 
-namespace Cards.DM10
+namespace Cards.DM10;
+
+sealed class KingOquanos : Creature
 {
-    sealed class KingOquanos : Creature
+    public KingOquanos(
+        ThisCreatureHasAbilityWhilePowerAtLeastEffectFactory factory,
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
+    ) : base("King Oquanos", 8, 2000, Race.Leviathan, Civilization.Water)
     {
-        public KingOquanos() : base("King Oquanos", 8, 2000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
-        {
-            AddStaticAbilities(new GetsPowerForEachTappedCardInYourOpponentsManaZoneEffect(1000), new PoweredDoubleBreaker());
-        }
+        AddStaticAbilities(
+            new GetsPowerForEachTappedCardInYourOpponentsManaZoneEffect(1000),
+            factory.Create(6000, doubleBreakerAbilityFactory.Create()));
     }
 }

@@ -2,35 +2,15 @@
 
 namespace OneShotEffects;
 
-public sealed class DestroyThisCreatureEffect : DestroyAreaOfEffect
+public sealed class DestroyThisCreatureEffect : OneShotEffect
 {
-    public DestroyThisCreatureEffect() : base()
+    public override void Apply(IGame game)
     {
-    }
-
-    public DestroyThisCreatureEffect(DestroyAreaOfEffect effect) : base(effect)
-    {
+        throw new NotImplementedException();
     }
 
     public override IOneShotEffect Copy()
     {
-        return new DestroyThisCreatureEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return "Destroy this creature.";
-    }
-
-    protected override IEnumerable<ICard> GetAffectedCards(IGame game, IAbility source)
-    {
-        if (Ability.Source != null)
-        {
-            return [Ability.Source];
-        }
-        else
-        {
-            return [];
-        }
+        throw new NotImplementedException();
     }
 }

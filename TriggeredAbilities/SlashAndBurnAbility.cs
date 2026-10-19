@@ -24,7 +24,7 @@ public sealed class SlashAndBurnAbility : LinkedTriggeredAbility
 
     public override void Resolve(IGame game)
     {
-        var opponent = GetOpponent(game);
+        var opponent = game.GetOpponent(Controller);
         opponent.BurnOwnMana(game, this);
         var shield = opponent.ChooseCard(opponent.ShieldZone.Cards, ToString());
         game.Move(this, ZoneType.ShieldZone, ZoneType.Graveyard, shield);

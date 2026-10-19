@@ -25,14 +25,6 @@ public sealed class BattleZoneTests
     }
 
     [Fact]
-    public void GetChoosableCreaturesControlledByPlayer()
-    {
-        Assert.Throws<NotImplementedException>(
-            () => new BattleZone().GetChoosableCreaturesControlledByPlayer(
-                Mock.Of<IGame>(), Guid.NewGuid()));
-    }
-
-    [Fact]
     public void GetUntappedCreatures()
     {
         // Arrange
@@ -49,32 +41,6 @@ public sealed class BattleZoneTests
         // Assert
         Assert.Contains(creature.Object, creatures);
         Assert.Single(creatures);
-    }
-
-    [Theory]
-    [InlineData(0)]
-    [InlineData(1)]
-    public void GetNumberOfOtherCreaturesControllerByPlayer(int expected)
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var excluded = new Mock<ICreature>();
-        excluded.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(excluded.Object);
-        for (var i = 0; i < expected; ++i)
-        {
-            var otherCreature = new Mock<ICreature>();
-            otherCreature.SetupGet(x => x.OwnerV2).Returns(player);
-            zone.Add(otherCreature.Object);
-        }
-
-        // Act
-        var actual = zone.GetNumberOfOtherCreaturesControllerByPlayer(
-            excluded.Object);
-
-        // Assert
-        Assert.Equal(expected, actual);
     }
 
     [Theory]
@@ -203,18 +169,18 @@ public sealed class BattleZoneTests
     }
 
     [Theory]
-    [InlineData(false, false, SelectionRange.AllCreatures, 0)]
-    [InlineData(true, false, SelectionRange.AllCreatures, 1)]
-    [InlineData(false, true, SelectionRange.AllCreatures, 1)]
-    [InlineData(true, true, SelectionRange.AllCreatures, 2)]
-    [InlineData(false, false, SelectionRange.OpponentsCreatures, 0)]
-    [InlineData(true, false, SelectionRange.OpponentsCreatures, 0)]
-    [InlineData(false, true, SelectionRange.OpponentsCreatures, 1)]
-    [InlineData(true, true, SelectionRange.OpponentsCreatures, 1)]
-    [InlineData(false, false, SelectionRange.OwnCreatures, 0)]
-    [InlineData(true, false, SelectionRange.OwnCreatures, 1)]
-    [InlineData(false, true, SelectionRange.OwnCreatures, 0)]
-    [InlineData(true, true, SelectionRange.OwnCreatures, 1)]
+    [InlineData(false, false, SelectionRange.AllCards, 0)]
+    [InlineData(true, false, SelectionRange.AllCards, 1)]
+    [InlineData(false, true, SelectionRange.AllCards, 1)]
+    [InlineData(true, true, SelectionRange.AllCards, 2)]
+    [InlineData(false, false, SelectionRange.OpponentsCards, 0)]
+    [InlineData(true, false, SelectionRange.OpponentsCards, 0)]
+    [InlineData(false, true, SelectionRange.OpponentsCards, 1)]
+    [InlineData(true, true, SelectionRange.OpponentsCards, 1)]
+    [InlineData(false, false, SelectionRange.OwnCards, 0)]
+    [InlineData(true, false, SelectionRange.OwnCards, 1)]
+    [InlineData(false, true, SelectionRange.OwnCards, 0)]
+    [InlineData(true, true, SelectionRange.OwnCards, 1)]
     public void GetChoosableCreatures(
         bool filterMatchesOwnCreature,
         bool canBeChosen,
@@ -243,6 +209,42 @@ public sealed class BattleZoneTests
         // Act
         var creatures = zone.GetChoosableCreatures(
             player.Object, filter.Object, game.Object, selectionRange);
+
+        // Assert
+        Assert.Equal(expectedCount, creatures.Count());
+    }
+
+    [Theory]
+    [InlineData(false, SelectionRange.AllCards, 1)]
+    [InlineData(true, SelectionRange.AllCards, 2)]
+    [InlineData(false, SelectionRange.OpponentsCards, 1)]
+    [InlineData(true, SelectionRange.OpponentsCards, 1)]
+    [InlineData(false, SelectionRange.OwnCards, 0)]
+    [InlineData(true, SelectionRange.OwnCards, 1)]
+    public void GetCreaturesWithSelectionRange(
+        bool filterMatchesOwnCreature,
+        SelectionRange selectionRange,
+        int expectedCount)
+    {
+        // Arrange
+        var opponent = Mock.Of<IPlayerV2>();
+        var player = new Mock<IPlayerV2>();
+        player.SetupGet(x => x.Opponent).Returns(opponent);
+        var ownCreature = new Mock<ICreature>();
+        ownCreature.SetupGet(x => x.OwnerV2).Returns(player.Object);
+        var opponentsCreature = new Mock<ICreature>();
+        opponentsCreature.SetupGet(x => x.OwnerV2).Returns(opponent);
+        var zone = new BattleZone();
+        zone.Add(ownCreature.Object);
+        zone.Add(opponentsCreature.Object);
+        var filter = new Mock<ICardFilter>();
+        filter.Setup(x => x.Match(ownCreature.Object)).Returns(
+            filterMatchesOwnCreature);
+        filter.Setup(x => x.Match(opponentsCreature.Object)).Returns(true);
+
+        // Act
+        var creatures = zone.GetCreatures(
+            player.Object, filter.Object, selectionRange);
 
         // Assert
         Assert.Equal(expectedCount, creatures.Count());

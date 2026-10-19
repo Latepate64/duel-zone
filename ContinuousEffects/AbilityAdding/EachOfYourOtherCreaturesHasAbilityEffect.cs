@@ -3,20 +3,19 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-/// <summary>
-/// Each of your other creatures in the battle zone has ability.
-/// </summary>
 public sealed class EachOfYourOtherCreaturesHasAbilityEffect : ContinuousEffect,
     IAbilityAddingEffect
 {
     private readonly ICardFilter filter;
     private readonly IAbility ability;
+    private readonly ICondition? condition;
 
     public EachOfYourOtherCreaturesHasAbilityEffect(
-        ICardFilter filter, IAbility ability) : base()
+        ICardFilter filter, IAbility ability, ICondition? condition = null) : base()
     {
         this.filter = filter;
         this.ability = ability;
+        this.condition = condition;
     }
 
     public EachOfYourOtherCreaturesHasAbilityEffect(
@@ -24,15 +23,19 @@ public sealed class EachOfYourOtherCreaturesHasAbilityEffect : ContinuousEffect,
     {
         filter = effect.filter.Copy();
         ability = effect.ability.Copy();
+        condition = effect.condition?.Copy();
     }
 
     public void AddAbility(IGame game)
     {
-        var creatures = game.BattleZone.GetOtherCreaturesControlledByPlayer(
-            (ICreature)Source!, filter);
-        foreach (var creature in creatures)
+        var source = (ICreature)Source!;
+        if (condition == null || condition.IsMet(source))
         {
-            game.AddAbility(creature, ability);
+            var creatures = game.BattleZone.GetOtherCreaturesControlledByPlayer(source, filter);
+            foreach (var creature in creatures)
+            {
+                game.AddAbility(creature, ability);
+            }
         }
     }
 

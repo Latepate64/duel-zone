@@ -1,10 +1,16 @@
-﻿namespace Cards.DM08
+﻿using ContinuousEffects.Replacement;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM08;
+
+sealed class RootCharger : Charger
 {
-    sealed class RootCharger : Charger
+    public RootCharger() : base("Root Charger", 3, Civilization.Nature)
     {
-        public RootCharger() : base("Root Charger", 3, Interfaces.Civilization.Nature)
-        {
-            AddSpellAbilities(new OneShotEffects.WheneverAnyOfYourCreaturesWouldBeDestroyedThisTurnPutItIntoYourManaZoneInsteadEffect());
-        }
+        AddSpellAbilities(
+            new ContinuousEffectAddingEffect(
+                new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect()
+            ));
     }
 }

@@ -1,13 +1,16 @@
 ﻿using TriggeredAbilities;
 using OneShotEffects;
+using Interfaces;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class BronzeArmTribe : Creature
 {
-    sealed class BronzeArmTribe : Creature
+    public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, 1000, Race.BeastFolk,
+        Civilization.Nature)
     {
-        public BronzeArmTribe() : base("Bronze-Arm Tribe", 3, 1000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WhenYouPutThisCreatureIntoTheBattleZoneAbility(new PutTopCardOfDeckIntoManaZoneEffect()));
-        }
+        AddTriggeredAbility(
+            new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
+                new PutTopCardsOfDeckIntoManaZoneEffect(1)));
     }
 }

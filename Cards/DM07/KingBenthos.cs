@@ -1,6 +1,7 @@
 ﻿using Abilities;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
+using ContinuousEffects.AbilityAdding;
 using ContinuousEffects.Unblockable;
 using Interfaces;
 using OneShotEffects;
@@ -9,15 +10,23 @@ namespace Cards.DM07;
 
 public sealed class KingBenthos : Creature
 {
-    public KingBenthos() : base("King Benthos", 8, 6000, Race.Leviathan,
-        Civilization.Water)
+    public KingBenthos(
+        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        StaticAbilityFactory abilityFactory,
+        CivilizationCreatureFilterFactory creatureFilterFactory,
+        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        TapAbilityFactory tapAbilityFactory,
+        ThisCreatureCannotBeBlockedEffectFactory cannotBeBlockedEffectFactory,
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
+    ) : base("King Benthos", 8, 6000, Race.Leviathan, Civilization.Water)
     {
-        AddAbilities(new DoubleBreakerAbility());
+        AddAbilities(doubleBreakerAbilityFactory.Create());
         AddAbilities(
-            new TapAbility(
-                new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-                    new StaticAbility(new ThisCreatureCannotBeBlockedEffect()),
-                    new CivilizationCreatureFilter(Civilization.Water)
-                )));
+            tapAbilityFactory.Create(
+                oneShotEffectFactory.Create(
+                    creatureFilterFactory.Create(Civilization.Water),
+                    continuousEffectFactory,
+                    abilityFactory.Create(cannotBeBlockedEffectFactory.Create())
+        )));
     }
 }

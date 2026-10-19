@@ -1,12 +1,22 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class CloneFactory : Spell
 {
-    sealed class CloneFactory : Spell
+    public CloneFactory() : base("Clone Factory", 3, Civilization.Water)
     {
-        public CloneFactory() : base("Clone Factory", 3, Interfaces.Civilization.Water)
-        {
-            AddSpellAbilities(new ReturnUpToTwoCardsFromYourManaZoneToYourHandEffect());
-        }
+        AddSpellAbilities(
+            new CardMovingChoiceEffect(
+                minimum: 0,
+                maximum: 2,
+                controllerChooses: true,
+                filter: new AnyCardFilter(),
+                source: ZoneType.ManaZone,
+                destination: ZoneType.Hand,
+                selectionRange: SelectionRange.OwnCards
+        ));
     }
 }

@@ -1,11 +1,24 @@
-﻿namespace Cards.DM06
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+
+namespace Cards.DM06;
+
+sealed class PhantomDragonsFlame : Spell
 {
-    sealed class PhantomDragonsFlame : Spell
+    public PhantomDragonsFlame() : base("Phantom Dragon's Flame", 3,
+        Civilization.Fire)
     {
-        public PhantomDragonsFlame() : base("Phantom Dragon's Flame", 3, Interfaces.Civilization.Fire)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new OneShotEffects.DestroyOnefYourOpponentsCreaturesThatHasMaxPowerEffect(2000));
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new CardMovingChoiceEffect(
+                minimum: 1,
+                maximum: 1,
+                controllerChooses: true,
+                filter: new MaxPowerFilter(2000),
+                source: ZoneType.BattleZone,
+                destination: ZoneType.Graveyard,
+                selectionRange: SelectionRange.OpponentsCards
+            ));
     }
 }

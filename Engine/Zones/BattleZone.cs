@@ -27,31 +27,9 @@ public sealed class BattleZone : Zone, IBattleZone
         return new BattleZone(this);
     }
 
-    public IEnumerable<ICreature> GetChoosableCreaturesControlledByPlayer(
-        IGame game, Guid owner)
-    {
-        throw new NotImplementedException("TODO REMOVE!");
-    }
-
-    IEnumerable<ICreature> GetCreatures(IPlayerV2 player) 
-    {
-        return Creatures.Where(c => c.OwnerV2 == player);
-    }
-
     public IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player) 
     {
-        return GetCreatures(player).Where(x => !x.Tapped);
-    }
-
-    public int GetNumberOfOtherCreaturesControllerByPlayer(ICreature excluded)
-    {
-        return GetOtherCreaturesControlledByPlayer(excluded).Count();
-    }
-
-    public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
-        IPlayerV2 player)
-    {
-        return Creatures.Where(x => x.OwnerV2.Equals(player));
+        return GetCreaturesControlledByPlayer(player).Where(x => !x.Tapped);
     }
 
     public int GetNumberOfOtherCreaturesControllerByPlayer(
@@ -97,12 +75,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return GetOtherCreatures(excluded, filter).Count();
     }
 
-    IEnumerable<ICreature> GetOtherCreatures(
-        ICreature excluded, ICardFilter filter)
-    {
-        return GetCreatures(filter).Where(x => !x.Equals(excluded));
-    }
-
     public IEnumerable<ICreature> GetCreatures(ICardFilter filter)
     {
         return Creatures.Where(filter.Match);
@@ -134,11 +106,37 @@ public sealed class BattleZone : Zone, IBattleZone
     {
         return selectionRange switch
         {
-            SelectionRange.OpponentsCreatures => GetOpponentsChoosableCreatures(
+            SelectionRange.OpponentsCards => GetOpponentsChoosableCreatures(
                 player, filter, game),
-            SelectionRange.AllCreatures => GetChoosableCreatures(
+            SelectionRange.AllCards => GetChoosableCreatures(
                 player, filter, game),
-            SelectionRange.OwnCreatures => GetCreaturesControlledByPlayer(
+            SelectionRange.OwnCards => GetCreaturesControlledByPlayer(
+                player, filter),
+            _ => throw new InvalidEnumArgumentException()
+        };
+    }
+
+    private IEnumerable<ICreature> GetCreaturesControlledByPlayer(
+        IPlayerV2 player)
+    {
+        return Creatures.Where(x => x.OwnerV2.Equals(player));
+    }
+
+    private IEnumerable<ICreature> GetOtherCreatures(
+        ICreature excluded, ICardFilter filter)
+    {
+        return GetCreatures(filter).Where(x => !x.Equals(excluded));
+    }
+
+    public IEnumerable<ICreature> GetCreatures(
+        IPlayerV2 player, ICardFilter filter, SelectionRange selectionRange)
+    {
+        return selectionRange switch
+        {
+            SelectionRange.OpponentsCards => GetCreaturesControlledByPlayer(
+                player.Opponent, filter),
+            SelectionRange.AllCards => GetCreatures(filter),
+            SelectionRange.OwnCards => GetCreaturesControlledByPlayer(
                 player, filter),
             _ => throw new InvalidEnumArgumentException()
         };

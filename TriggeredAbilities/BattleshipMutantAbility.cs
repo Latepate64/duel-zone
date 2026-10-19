@@ -2,12 +2,15 @@ using Interfaces;
 
 namespace TriggeredAbilities;
 
+/// <summary>
+/// Whenever any of creatures battles, destroy it after the battle.
+/// </summary>
 public sealed class BattleshipMutantAbility : LinkedTriggeredAbility
 {
     private readonly IEnumerable<ICreature> _cards;
     private readonly ICreature _toDestroy;
 
-    public BattleshipMutantAbility(IEnumerable<ICreature> cards)
+    public BattleshipMutantAbility(IEnumerable<ICreature> cards) : base()
     {
         _cards = cards;
     }
@@ -28,6 +31,11 @@ public sealed class BattleshipMutantAbility : LinkedTriggeredAbility
         throw new NotImplementedException();
     }
 
+    public override bool CheckInterveningIfClause(IGame game)
+    {
+        throw new NotImplementedException();
+    }
+
     public override IAbility Copy()
     {
         return new BattleshipMutantAbility(this);
@@ -36,11 +44,6 @@ public sealed class BattleshipMutantAbility : LinkedTriggeredAbility
     public override void Resolve(IGame game)
     {
         game.Destroy(this, _toDestroy);
-    }
-
-    public override string ToString()
-    {
-        return $"Whenever any of {_cards} battles, destroy it after the battle.";
     }
 
     public override ITriggeredAbility Trigger(Guid source, Guid owner, IGameEvent gameEvent)

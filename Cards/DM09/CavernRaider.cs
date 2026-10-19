@@ -1,12 +1,20 @@
-﻿using TriggeredAbilities;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM09
+namespace Cards.DM09;
+
+sealed class CavernRaider : Creature
 {
-    sealed class CavernRaider : Creature
+    public CavernRaider() : base("Cavern Raider", 3, 2000, Race.BeastFolk,
+        Civilization.Nature)
     {
-        public CavernRaider() : base("Cavern Raider", 3, 2000, Interfaces.Race.BeastFolk, Interfaces.Civilization.Nature)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(new OneShotEffects.SearchCreatureEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureIsAttackingYourOpponentAndIsNotBlockedAbility(
+                new SearchEffect(
+                    reveal: true,
+                    filter: new CreatureFilter()
+        )));
     }
 }

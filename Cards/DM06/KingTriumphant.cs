@@ -1,14 +1,21 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
+using ContinuousEffects.AbilityAdding;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM06
+namespace Cards.DM06;
+
+sealed class KingTriumphant : Creature
 {
-    sealed class KingTriumphant : Creature
+    public KingTriumphant() : base("King Triumphant", 8, 7000, Race.Leviathan, Civilization.Water)
     {
-        public KingTriumphant() : base("King Triumphant", 8, 7000, Interfaces.Race.Leviathan, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new OpponentSummonOrCastAbility(new OneShotEffects.ThisCreatureGetsBlockerUntilTheEndOfTheTurnOneShotEffect()));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddTriggeredAbility(
+            new OpponentSummonOrCastAbility(
+                new ThisCreatureGetsAbilityEffect(
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new BlockerAbility()
+        )));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

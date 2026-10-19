@@ -1,12 +1,18 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 
 namespace Cards.DM01;
 
 public sealed class Tropico : Creature
 {
-    public Tropico() : base("Tropico", 5, 3000, Race.CyberLord, Civilization.Water)
+    public Tropico() : base("Tropico", 5, 3000, Race.CyberLord,
+        Civilization.Water)
     {
-        AddStaticAbilities(new TropicoEffect());
+        AddStaticAbilities(
+            new ThisCreatureCannotBeBlockedWhileYouControlOtherCreaturesEffect(
+                new CreatureFilter(),
+                minimum: 2
+            ));
     }
 }

@@ -1,12 +1,20 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using StaticAbilities;
+using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 
 namespace Cards.DM07;
 
 sealed class GazariasDragon : Creature
 {
-    public GazariasDragon() : base("Gazarias Dragon", 5, 4000, Race.ArmoredDragon, Civilization.Fire)
+    public GazariasDragon(
+        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
+    ) : base("Gazarias Dragon", 5, 4000, Race.ArmoredDragon, Civilization.Fire)
     {
-        AddStaticAbilities(new GazariasDragonEffect());
+        AddStaticAbilities(
+            new ThisCreatureGetsPowerAndAbilityEffect(
+                4000,
+                doubleBreakerAbilityFactory.Create(),
+                new ControllerHasNoShieldsCondition()
+        ));
     }
 }

@@ -1,4 +1,6 @@
-﻿using Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Interfaces;
 using Interfaces.Zones;
 
 namespace Engine.Zones;
@@ -18,5 +20,10 @@ public sealed class Graveyard : Zone, IGraveyard
     public override IZone Copy()
     {
         return new Graveyard(this);
+    }
+
+    public IEnumerable<ICard> GetOtherCards(ICard source, ICardFilter filter)
+    {
+        return GetCards(filter).Where(x => !x.Equals(source));
     }
 }

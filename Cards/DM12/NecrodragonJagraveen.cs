@@ -1,15 +1,22 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
+using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
-namespace Cards.DM12
+namespace Cards.DM12;
+
+sealed class NecrodragonJagraveen : Creature
 {
-    sealed class NecrodragonJagraveen : Creature
+    public NecrodragonJagraveen() : base("Necrodragon Jagraveen", 6, 6000,
+        Race.ZombieDragon, Civilization.Darkness)
     {
-        public NecrodragonJagraveen() : base("Necrodragon Jagraveen", 6, 6000, Interfaces.Race.ZombieDragon, Interfaces.Civilization.Darkness)
-        {
-            AddAbilities(new BlockerAbility());
-            AddTriggeredAbility(new WheneverThisCreatureBlocksAbility(new OneShotEffects.DestroyAfterBattleEffect()));
-            AddAbilities(new DoubleBreakerAbility());
-        }
+        AddAbilities(new BlockerAbility());
+        AddTriggeredAbility(
+            new WheneverThisCreatureBlocksAbility(
+                new AfterBattleEffect(
+                    new AfterBattleDelayedTriggeredAbilityFactory(),
+                    new DestroyThisCreatureEffect()
+        )));
+        AddAbilities(new DoubleBreakerAbility());
     }
 }

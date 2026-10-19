@@ -1,13 +1,18 @@
-﻿using OneShotEffects;
+﻿using CardFilters;
+using Interfaces;
+using OneShotEffects;
 
-namespace Cards.DM01
+namespace Cards.DM01;
+
+sealed class CrystalMemory : Spell
 {
-    sealed class CrystalMemory : Spell
+    public CrystalMemory() : base("Crystal Memory", 4, Civilization.Water)
     {
-        public CrystalMemory() : base("Crystal Memory", 4, Interfaces.Civilization.Water)
-        {
-            AddShieldTrigger();
-            AddSpellAbilities(new SearchCardNoRevealEffect());
-        }
+        AddShieldTrigger();
+        AddSpellAbilities(
+            new SearchEffect(
+                reveal: false,
+                filter: new AnyCardFilter()
+        ));
     }
 }

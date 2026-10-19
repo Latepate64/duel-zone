@@ -1,5 +1,7 @@
 ﻿using OneShotEffects;
 using Interfaces;
+using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM02;
 
@@ -7,7 +9,12 @@ public sealed class RumbleGate : Spell
 {
     public RumbleGate() : base("Rumble Gate", 4, Civilization.Fire)
     {
-        AddSpellAbilities(new EachOfYourCreaturesGetsPowerUntilTheEndOfTheTurnEffect(1000),
-            new RumbleGateOneShotEffect());
+        AddSpellAbilities(
+            new CreatureIntegerAffectingContinuousEffectAddingEffect(
+                1000,
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()),
+            new ContinuousEffectAddingEffect(
+                new RumbleGateContinuousEffect()
+            ));
     }
 }

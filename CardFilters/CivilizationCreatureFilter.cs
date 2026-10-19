@@ -6,7 +6,7 @@ public class CivilizationCreatureFilter : ICardFilter
 {
     private readonly Civilization[] civilizations;
 
-    public CivilizationCreatureFilter(CivilizationCreatureFilter filter)
+    private CivilizationCreatureFilter(CivilizationCreatureFilter filter)
     {
         civilizations = filter.civilizations;
     }

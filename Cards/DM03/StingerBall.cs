@@ -1,12 +1,16 @@
-﻿using TriggeredAbilities;
+﻿using Interfaces;
+using OneShotEffects;
+using TriggeredAbilities;
 
-namespace Cards.DM03
+namespace Cards.DM03;
+
+sealed class StingerBall : Creature
 {
-    sealed class StingerBall : Creature
+    public StingerBall() : base("Stinger Ball", 3, 1000, Race.CyberVirus,
+        Civilization.Water)
     {
-        public StingerBall() : base("Stinger Ball", 3, 1000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
-        {
-            AddTriggeredAbility(new WheneverThisCreatureAttacksAbility(new OneShotEffects.YouMayLookAtOneOfYourOpponentsShieldsEffect()));
-        }
+        AddTriggeredAbility(
+            new WheneverThisCreatureAttacksAbility(
+                new LookEffect(0, 1)));
     }
 }

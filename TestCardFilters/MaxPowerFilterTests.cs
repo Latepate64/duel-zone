@@ -20,7 +20,7 @@ public class MaxPowerFilterTests
     }
 
     [Fact]
-    public void DoesNotEqualFilterWithDifferentRaces()
+    public void DoesNotEqualFilterWithDifferentPowers()
     {
         // Arrange
         var first = new MaxPowerFilter(1000);

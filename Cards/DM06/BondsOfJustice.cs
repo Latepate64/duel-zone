@@ -9,6 +9,9 @@ public sealed class BondsOfJustice : Spell
     public BondsOfJustice() : base("Bonds of Justice", 4, Civilization.Light)
     {
         AddShieldTrigger();
-        AddSpellAbilities(new TapAllCreaturesEffect(new NonBlockerFilter()));
+        AddSpellAbilities(
+            new TapAllCreaturesEffect(
+                new NonBlockerFilter(),
+                SelectionRange.AllCards));
     }
 }

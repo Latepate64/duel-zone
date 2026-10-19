@@ -1,7 +1,7 @@
 ﻿using TriggeredAbilities;
 using Interfaces;
 using OneShotEffects;
-using Abilities.Static;
+using StaticAbilities;
 using CardFilters;
 
 namespace Cards.DM05;
@@ -13,9 +13,13 @@ public sealed class DeathCruzerTheAnnihilator : Creature
     {
         AddTriggeredAbility(
             new WhenYouPutThisCreatureIntoTheBattleZoneAbility(
-                new DestroyAllYourOtherCreaturesEffect(
-                    new CreatureFilter()
-                )));
+                new CardMovingAreaOfEffect(
+                    source: ZoneType.BattleZone,
+                    destination: ZoneType.Graveyard,
+                    filter: new CreatureFilter(),
+                    selectionRange: SelectionRange.OwnCards,
+                    excludeSource: true
+        )));
         AddAbilities(new TripleBreakerAbility());
     }
 }

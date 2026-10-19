@@ -2,7 +2,8 @@
 using OneShotEffects;
 using Interfaces;
 using ContinuousEffects.PowerModifying;
-using Abilities.Static;
+using StaticAbilities;
+using CardFilters;
 
 namespace Cards.DM05;
 
@@ -14,7 +15,16 @@ public sealed class ObsidianScarab : Creature
     {
         AddStaticAbilities(new PowerAttackerEffect(3000));
         AddAbilities(new DoubleBreakerAbility());
-        AddTriggeredAbility(new WhenThisCreatureIsDestroyedAbility(
-            new YouMayPutCardWithNameFromYourManaZoneIntoTheBattleZoneEffect(ObsidianScarabName)));
+        AddTriggeredAbility(
+            new WhenThisCreatureIsDestroyedAbility(
+                new CardMovingChoiceEffect(
+                    minimum: 0,
+                    maximum: 1,
+                    controllerChooses: true,
+                    filter: new NameFilter(ObsidianScarabName),
+                    source: ZoneType.ManaZone,
+                    destination: ZoneType.BattleZone,
+                    selectionRange: SelectionRange.OwnCards
+        )));
     }
 }

@@ -1,4 +1,4 @@
-﻿using Abilities.Static;
+﻿using StaticAbilities;
 using CardFilters;
 using Interfaces;
 using OneShotEffects;
@@ -18,7 +18,7 @@ sealed class CrazeValkyrieTheDrastic : EvolutionCreature
                     maximum: 2,
                     ownerChooses: true,
                     filter: new CreatureFilter(),
-                    selectionRange: SelectionRange.OpponentsCreatures
+                    selectionRange: SelectionRange.OpponentsCards
                 )));
         AddAbilities(new DoubleBreakerAbility());
     }

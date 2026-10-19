@@ -31,7 +31,7 @@ public sealed class GigavrandAbility : LinkedTriggeredAbility, IWatcher
     {
         if (ValidInterveningIfClause)
         {
-            var opponent = GetOpponent(game);
+            var opponent = game.GetOpponent(Controller);
             opponent.Discard(this, game, [.. opponent.Hand.Cards]);
         }
     }

@@ -2,17 +2,23 @@
 
 namespace OneShotEffects;
 
-public abstract class LookEffect : CardSelectionEffect<ICard>
+public sealed class LookEffect : CardSelectionEffect<ICard>
 {
-    protected LookEffect(LookEffect effect) : base(effect)
+    public LookEffect(int minimum, int maximum) : base(minimum, maximum, true)
     {
     }
 
-    protected LookEffect(int minimum, int maximum) : base(minimum, maximum, true)
+    private LookEffect(LookEffect effect) : base(effect)
     {
     }
 
-    protected override void Apply(IGame game, IAbility source, params ICard[] cards)
+    public override IOneShotEffect Copy()
+    {
+        return new LookEffect(this);
+    }
+
+    protected override void Apply(
+        IGame game, IAbility source, params ICard[] cards)
     {
         if (cards.Length != 0)
         {
@@ -20,5 +26,11 @@ public abstract class LookEffect : CardSelectionEffect<ICard>
             Controller.Look(revealer, game, cards);
             revealer.Unreveal(cards);
         }
+    }
+
+    protected override IEnumerable<ICard> GetSelectableCards(
+        IGame game, IAbility source)
+    {
+        return Applier.Opponent.ShieldZone.Cards;
     }
 }

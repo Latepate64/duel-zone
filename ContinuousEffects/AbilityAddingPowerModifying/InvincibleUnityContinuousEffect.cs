@@ -1,26 +1,36 @@
-using Abilities.Static;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect, IPowerModifyingEffect
+public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbilityAddingEffect,
+    IPowerModifyingEffect
 {
-    private readonly List<ICreature> _cards;
+    private readonly ICreature[] creatures;
+    private readonly int power;
+    private readonly IAbility ability;
 
-    public InvincibleUnityContinuousEffect(IEnumerable<ICreature> cards)
+    public InvincibleUnityContinuousEffect(
+        int power, IAbility ability, params ICreature[] creatures)
     {
-        _cards = [.. cards];
+        this.power = power;
+        this.ability = ability;
+        this.creatures = creatures;
     }
 
-    public InvincibleUnityContinuousEffect(InvincibleUnityContinuousEffect effect) : base(effect)
+    private InvincibleUnityContinuousEffect(InvincibleUnityContinuousEffect effect) : base(effect)
     {
-        _cards = effect._cards;
+        power = effect.power;
+        ability = effect.ability.Copy();
+        creatures = [.. effect.creatures.Select(x => x.Copy()).OfType<ICreature>()];
     }
 
     public void AddAbility(IGame game)
     {
-        _cards.ForEach(x => x.AddGrantedAbility(new TripleBreakerAbility()));
+        foreach (var creature in creatures)
+        {
+            creature.AddGrantedAbility(ability);
+        }
     }
 
     public override IContinuousEffect Copy()
@@ -30,11 +40,9 @@ public sealed class InvincibleUnityContinuousEffect : UntilEndOfTurnEffect, IAbi
 
     public void ModifyPower(IGame game)
     {
-        _cards.ForEach(x => x.IncreasePower(8000));
-    }
-
-    public override string ToString()
-    {
-        return $"{_cards} get +8000 power and \"triple breaker\" until the end of the turn.";
+        foreach (var creature in creatures)
+        {
+            creature.IncreasePower(power);
+        }
     }
 }

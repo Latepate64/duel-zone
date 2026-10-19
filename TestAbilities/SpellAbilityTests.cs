@@ -1,5 +1,4 @@
 using Abilities;
-using Abilities.Static;
 using Interfaces;
 using Interfaces.ContinuousEffects;
 using Moq;
@@ -109,28 +108,6 @@ public class SpellAbilityTests
             effect) { Source = source, Controller = Mock.Of<IPlayer>() };
         var second = new SpellAbility(
             effect) { Source = source, Controller = Mock.Of<IPlayer>() };
-
-        // Act
-        var actual = first.Equals(second);
-
-        // Assert
-        Assert.False(actual);
-    }
-
-    [Fact]
-    public void DoesNotEqualNonResolvableAbility()
-    {
-        // Arrange
-        var effect = Mock.Of<IOneShotEffect>();
-        var source = Mock.Of<ICard>();
-        var controller = Mock.Of<IPlayer>();
-        var first = new SpellAbility(
-            effect) { Source = source, Controller = controller };
-        var second = new StaticAbility(Mock.Of<IContinuousEffect>())
-        {
-            Source = source,
-            Controller = controller
-        };
 
         // Act
         var actual = first.Equals(second);

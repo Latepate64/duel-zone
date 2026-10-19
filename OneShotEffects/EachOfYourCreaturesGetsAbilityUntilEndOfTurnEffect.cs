@@ -1,49 +1,43 @@
-using ContinuousEffects.AbilityAdding;
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Each of your creatures gets ability until the end of the turn.
-/// </summary>
-public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect
-    : OneShotAreaOfEffect
+public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect : OneShotEffect
 {
-    private readonly IAbility ability;
+    private readonly IAbility[] abilities;
     private readonly ICardFilter filter;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory;
 
-    public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-        IAbility ability, ICardFilter filter) : base()
+    internal EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
+        ICardFilter filter,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
+        params IAbility[] abilities
+        ) : base()
     {
-        this.ability = ability;
+        this.abilities = abilities;
         this.filter = filter;
+        this.effectFactory = effectFactory;
     }
 
     public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
         EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect effect) : base(
             effect)
     {
-        ability = effect.ability.Copy();
-        filter = effect.filter.Copy();
+        abilities = effect.abilities;
+        filter = effect.filter;
+        effectFactory = effect.effectFactory;
     }
 
     public override void Apply(IGame game)
     {
-        game.AddContinuousEffects(
-            Ability,
-            new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffect(
-                ability,
-                [.. GetAffectedCards(game, Ability)]));
+        var creatures = game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
+        var effect = effectFactory.Create(abilities, [.. creatures]);
+        game.AddContinuousEffects(Ability, effect);
     }
 
     public override IOneShotEffect Copy()
     {
         return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(this);
-    }
-
-    protected override IEnumerable<ICard> GetAffectedCards(
-        IGame game, IAbility source)
-    {
-        return game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
     }
 }

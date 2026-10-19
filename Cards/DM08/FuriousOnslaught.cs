@@ -1,4 +1,6 @@
-﻿using CardFilters;
+﻿using StaticAbilities;
+using CardFilters;
+using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 using OneShotEffects;
 
@@ -6,9 +8,20 @@ namespace Cards.DM08;
 
 public sealed class FuriousOnslaught : Spell
 {
-    public FuriousOnslaught() : base("Furious Onslaught", 4, Civilization.Fire)
+    public FuriousOnslaught(
+        YourCreaturesHaveRaceGetPowerAndHaveAbilityEffectFactory effectFactory,
+        DoubleBreakerAbilityFactory abilityFactory,
+        RaceCreatureFilterFactory filterFactory
+        )
+    : base("Furious Onslaught", 4, Civilization.Fire)
     {
-        AddSpellAbilities(new FuriousOnslaughtOneShotEffect(
-            new RaceCreatureFilter(Race.Dragonoid)));
+        AddSpellAbilities(
+            new AddYourCreaturesHaveRaceGetPowerAndHaveAbilityEffect(
+                effectFactory,
+                filterFactory.Create(Race.Dragonoid),
+                Race.ArmoredDragon,
+                4000,
+                abilityFactory
+            ));
     }
 }
