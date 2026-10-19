@@ -11,7 +11,7 @@ public sealed class SwordOfMalevolentDeath : Spell
 {
     public SwordOfMalevolentDeath(
         EachOfYourCreaturesGetsAbilityEffectFactory factory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory
     ) : base("Sword of Malevolent Death", 4,
         Civilization.Darkness)
     {

@@ -11,7 +11,7 @@ sealed class AuraBlast : Spell
     public AuraBlast(
         PowerAttackerAbilityFactory powerAttackerAbilityFactory,
         EachOfYourCreaturesGetsAbilityEffectFactory effectFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory
     ) : base("Aura Blast", 4, Civilization.Nature)
     {
         AddSpellAbilities(

@@ -11,7 +11,7 @@ sealed class ThirstForTheHunt : Spell
     public ThirstForTheHunt(
         PowerAttackerAbilityFactory powerAttackerAbilityFactory,
         EachOfYourCreaturesGetsAbilityEffectFactory effectFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory) : base(
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory) : base(
         "Thirst for the Hunt", 1, Civilization.Nature)
     {
         AddSpellAbilities(

@@ -14,7 +14,7 @@ public sealed class ArmoredTransportGaliacruse : Creature
         EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory,
         TapAbilityFactory tapAbilityFactory,
         ThisCreatureCanAttackUntappedCreaturesEffectFactory untappedFactory
     ) : base("Armored Transport Galiacruse", 6, 5000, Race.Armorloid, Civilization.Fire)

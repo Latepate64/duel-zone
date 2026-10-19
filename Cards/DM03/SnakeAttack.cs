@@ -12,7 +12,7 @@ public sealed class SnakeAttack : Spell
         EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory)
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory)
         : base("Snake Attack", 4, Civilization.Darkness)
     {
         AddSpellAbilities(

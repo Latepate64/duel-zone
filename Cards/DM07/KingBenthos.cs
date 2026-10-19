@@ -14,7 +14,7 @@ public sealed class KingBenthos : Creature
         EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory,
         TapAbilityFactory tapAbilityFactory,
         ThisCreatureCannotBeBlockedEffectFactory cannotBeBlockedEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory

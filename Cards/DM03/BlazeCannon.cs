@@ -17,7 +17,7 @@ public sealed class BlazeCannon : Spell
         AddSpellAbilities(
             effectFactory.Create(
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory(),
+                new CreaturesGetAbilitiesEffectFactory(),
                 new UntilEndOfThisTurnDuration(),
                 new PowerAttackerAbility(4000),
                 new DoubleBreakerAbility()));

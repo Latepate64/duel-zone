@@ -12,7 +12,7 @@ public sealed class GankloakRogueCommando : SilentSkillCreature
         EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory
     ) : base("Gankloak, Rogue Commando", 3, 2000, Race.Human,
         Civilization.Fire)
     {
