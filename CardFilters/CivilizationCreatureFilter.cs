@@ -6,14 +6,19 @@ public class CivilizationCreatureFilter : ICardFilter
 {
     private readonly Civilization[] civilizations;
 
+    public CivilizationCreatureFilter(Civilization civilization)
+    {
+        civilizations = [civilization];
+    }
+
+    public CivilizationCreatureFilter(Civilization civilization1, Civilization civilization2)
+    {
+        civilizations = [civilization1, civilization2];
+    }
+
     private CivilizationCreatureFilter(CivilizationCreatureFilter filter)
     {
         civilizations = filter.civilizations;
-    }
-
-    public CivilizationCreatureFilter(params Civilization[] civilizations)
-    {
-        this.civilizations = civilizations;
     }
 
     public ICardFilter Copy()
