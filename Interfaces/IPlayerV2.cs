@@ -2,7 +2,7 @@ using Interfaces.Zones;
 
 namespace Interfaces;
 
-public interface IPlayerV2
+public interface IPlayerV2 : IAttackable
 {
     IDeck Deck { get; }
     IShieldZone ShieldZone { get; }
