@@ -15,7 +15,7 @@ public sealed class UnifiedResistance : Spell
         AddSpellAbilities(
             new YourChosenRaceCreaturesGetAbilityEffect(
                 new RaceCreatureFilterFactory(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                new CreaturesGetAbilityEffectFactory(),
                 new BlockerAbility(),
                 new UntilStartOfPlayersNextTurn()
             ));

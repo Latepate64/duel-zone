@@ -14,7 +14,7 @@ sealed class VenomCharger : Charger
             new OneOfYourCreaturesGetsAbilityEffect(
                 new SlayerAbility(),
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                new CreaturesGetAbilityEffectFactory(),
                 new UntilEndOfThisTurnDuration()
             ));
     }

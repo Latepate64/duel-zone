@@ -17,7 +17,7 @@ sealed class LegionnaireLizard : Creature
                 new OneOfYourCreaturesGetsAbilityEffect(
                     new SpeedAttackerAbility(),
                     new CreatureFilter(),
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new CreaturesGetAbilityEffectFactory(),
                     new UntilEndOfThisTurnDuration()
                 )));
     }

@@ -7,7 +7,7 @@ namespace Cards.DM04;
 
 public sealed class MegaDetonator : Spell
 {
-    public MegaDetonator(ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory factory) : base(
+    public MegaDetonator(CreaturesGetAbilityEffectFactory factory) : base(
         "Mega Detonator", 2, Civilization.Fire)
     {
         AddSpellAbilities(

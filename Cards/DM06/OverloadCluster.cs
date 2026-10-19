@@ -14,7 +14,7 @@ sealed class OverloadCluster : Creature
         AddTriggeredAbility(
             new OpponentSummonOrCastAbility(
                 new ThisCreatureGetsAbilityEffect(
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new CreaturesGetAbilityEffectFactory(),
                     new BlockerAbility(),
                     new UntilEndOfThisTurnDuration()
         )));
