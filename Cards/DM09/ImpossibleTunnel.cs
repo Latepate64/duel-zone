@@ -1,4 +1,5 @@
-﻿using ContinuousEffects;
+﻿using CardFilters;
+using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
 
@@ -9,9 +10,9 @@ public sealed class ImpossibleTunnel : Spell
     public ImpossibleTunnel() : base("Impossible Tunnel", 5, Civilization.Water)
     {
         AddSpellAbilities(
-            new RaceAffectingContinuousEffectAddingEffect(
-                new ImpossibleTunnelContinuousEffectFactory(),
-                new UntilEndOfThisTurnDuration()
-            ));
+            new AddContinuousEffectWithRaceAndFilterEffect(
+                new RaceCreaturesCannotBeBlockedEffectFactory(),
+                new UntilEndOfThisTurnDuration(),
+                new CreatureFilter()));
     }
 }

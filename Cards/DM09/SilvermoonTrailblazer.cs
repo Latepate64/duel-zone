@@ -1,4 +1,5 @@
 ﻿using Abilities;
+using CardFilters;
 using ContinuousEffects;
 using Interfaces;
 using OneShotEffects;
@@ -12,9 +13,10 @@ public sealed class SilvermoonTrailblazer : Creature
     {
         AddAbilities(
             new TapAbility(
-                new RaceAffectingContinuousEffectAddingEffect(
-                new SilvermoonTrailblazerContinuousEffectFactory(),
-                new UntilEndOfThisTurnDuration()
+                new AddContinuousEffectWithRaceAndFilterEffect(
+                    new RaceCreaturesCannotBeBlockedEffectFactory(),
+                    new UntilEndOfThisTurnDuration(),
+                    new MaxPowerFilter(3000)
             )));
     }
 }
