@@ -6,29 +6,28 @@ public abstract class DelayedTriggeredAbility : IDisposable, IDelayedTriggeredAb
 {
     internal ITriggeredAbility TriggeredAbility { get; private set; }
 
-    /// <summary>
-    /// 603.7b
-    /// A delayed triggered ability will trigger only once—
-    /// the next time its trigger event occurs—
-    /// unless it has a stated duration, such as “this turn.” 
-    /// </summary>
-    internal bool TriggersOnlyOnce { get; private set; }
+    public IDuration? Duration { get; }
 
-    protected DelayedTriggeredAbility() {}
+    protected DelayedTriggeredAbility()
+    {
+    }
 
-    protected DelayedTriggeredAbility(ITriggeredAbility triggeredAbility, ICard source, IPlayer owner,
-        bool triggersOnlyOnce)
+    protected DelayedTriggeredAbility(
+        ITriggeredAbility triggeredAbility,
+        ICard source,
+        IPlayer owner,
+        IDuration? duration)
     {
         TriggeredAbility = triggeredAbility;
         TriggeredAbility.Source = source;
         TriggeredAbility.Controller = owner;
-        TriggersOnlyOnce = triggersOnlyOnce;
+        Duration = duration;
     }
 
     protected DelayedTriggeredAbility(DelayedTriggeredAbility ability)
     {
         TriggeredAbility = ability.TriggeredAbility.Copy() as ITriggeredAbility;
-        TriggersOnlyOnce = ability.TriggersOnlyOnce;
+        Duration = ability.Duration?.Copy();
     }
 
     public void Dispose()

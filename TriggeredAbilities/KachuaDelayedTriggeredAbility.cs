@@ -9,7 +9,7 @@ public sealed class KachuaDelayedTriggeredAbility : DelayedTriggeredAbility
     }
 
     public KachuaDelayedTriggeredAbility(IAbility source, ICreature card, Guid turnId) : base(
-        new KachuaAbility(card, turnId), source.Source, source.Controller, true)
+        new KachuaAbility(card, turnId), source.Source, source.Controller, null)
     {
     }
 

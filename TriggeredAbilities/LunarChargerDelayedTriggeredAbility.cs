@@ -9,7 +9,7 @@ public sealed class LunarChargerDelayedTriggeredAbility : DelayedTriggeredAbilit
     }
 
     public LunarChargerDelayedTriggeredAbility(IAbility source, IEnumerable<ICreature> cards, Guid turnId) : base(
-        new LunarChargerAbility(cards, turnId), source.Source, source.Controller, true)
+        new LunarChargerAbility(cards, turnId), source.Source, source.Controller, null)
     {
     }
 

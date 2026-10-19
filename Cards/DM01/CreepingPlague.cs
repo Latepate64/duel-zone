@@ -17,7 +17,8 @@ public sealed class CreepingPlague : Spell
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
                     new SlayerAbility(),
                     new UntilEndOfThisTurnDuration()
-                )
+                ),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

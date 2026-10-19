@@ -13,7 +13,7 @@ public sealed class AfterAttackDelayedTriggeredAbility : DelayedTriggeredAbility
         IOneShotEffect effect,
         IAbility ability) : base(
             new AfterAttackAbility(
-                effect, (ICreature)ability.Source), ability.Source, ability.Controller, true)
+                effect, (ICreature)ability.Source), ability.Source, ability.Controller, null)
     {
     }
 

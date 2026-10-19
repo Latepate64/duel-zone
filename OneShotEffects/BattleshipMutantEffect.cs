@@ -49,7 +49,8 @@ public sealed class BattleshipMutantEffect : OneShotEffect
             delayedTriggerFactory.Create(
                 triggeredAbilityFactory.Create(
                     game.BattleZone, Applier, filter),
-                Ability));
+                Ability,
+                duration));
     }
 
     public override IOneShotEffect Copy()

@@ -10,7 +10,7 @@ public sealed class AtTheEndOfTheTurnDelayedTriggeredAbility
             new AtTheEndOfTurnAbility(turn, effect),
             ability.Source,
             ability.Controller,
-            true)
+            null)
     {
     }
 

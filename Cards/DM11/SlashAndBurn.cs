@@ -12,7 +12,8 @@ public sealed class SlashAndBurn : Spell
         AddSpellAbilities(
             new WheneverSomethingHappensThisTurnEffect(
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
-                new SlashAndBurnAbility()
+                new SlashAndBurnAbility(),
+                new UntilEndOfThisTurnDuration()
             )
         );
     }
