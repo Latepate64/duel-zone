@@ -13,7 +13,8 @@ public sealed class BaraidTheExplorer : SilentSkillCreature
         AddSilentSkillAbility(
             new ContinuousEffectAddingEffect(
                 new YourCreaturesCannotBeBlockedEffect(
-                    new CivilizationCreatureFilter(Civilization.Light)
+                    attackerFilter: new CivilizationCreatureFilter(Civilization.Light),
+                    blockerFilter: new CreatureFilter()
                 ),
                 new UntilEndOfThisTurnDuration()));
     }

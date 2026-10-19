@@ -13,8 +13,9 @@ public sealed class HydroozeTheMutantEmperor : EvolutionCreature
         AddStaticAbilities(
             new EachOfYourOtherRacesGetsPowerEffect(Race.CyberLord, Race.Hedrian),
             new YourCreaturesCannotBeBlockedEffect(
-                new RaceCreatureFilter(
+                attackerFilter: new RaceCreatureFilter(
                     Race.CyberLord,
-                    Race.Hedrian)));
+                    Race.Hedrian),
+                blockerFilter: new CreatureFilter()));
     }
 }

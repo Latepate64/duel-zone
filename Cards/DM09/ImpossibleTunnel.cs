@@ -1,5 +1,5 @@
 ﻿using CardFilters;
-using ContinuousEffects;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 using OneShotEffects;
 
@@ -7,12 +7,14 @@ namespace Cards.DM09;
 
 public sealed class ImpossibleTunnel : Spell
 {
-    public ImpossibleTunnel() : base("Impossible Tunnel", 5, Civilization.Water)
+    public ImpossibleTunnel(RaceCreatureFilterFactory raceCreatureFilterFactory) : base(
+        "Impossible Tunnel", 5, Civilization.Water)
     {
         AddSpellAbilities(
             new AddContinuousEffectWithRaceAndFilterEffect(
-                new RaceCreaturesCannotBeBlockedEffectFactory(),
+                new CreaturesCannotBeBlockedEffectFactory(),
                 new UntilEndOfThisTurnDuration(),
-                new CreatureFilter()));
+                new CreatureFilter(),
+                raceCreatureFilterFactory));
     }
 }

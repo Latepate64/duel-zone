@@ -11,7 +11,8 @@ public sealed class KingNautilus : Creature
     {
         AddStaticAbilities(
             new CreaturesCannotBeBlockedEffect(
-                new RaceCreatureFilter(Race.LiquidPeople)));
+                attackerFilter: new RaceCreatureFilter(Race.LiquidPeople),
+                blockerFilter: new CreatureFilter()));
         AddAbilities(new DoubleBreakerAbility());
     }
 }

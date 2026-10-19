@@ -5,18 +5,21 @@ namespace OneShotEffects;
 
 public sealed class AddContinuousEffectWithRaceAndFilterEffect : OneShotEffect
 {
-    private readonly IContinuousEffectWithRaceAndFilterFactory factory;
+    private readonly IContinuousEffectWithTwoFiltersFactory factory;
     private readonly IDuration duration;
     private readonly ICardFilter filter;
+    private readonly IRaceCreatureFilterFactory raceCreatureFilterFactory;
 
     public AddContinuousEffectWithRaceAndFilterEffect(
-        IContinuousEffectWithRaceAndFilterFactory factory,
+        IContinuousEffectWithTwoFiltersFactory factory,
         IDuration duration,
-        ICardFilter filter)
+        ICardFilter filter,
+        IRaceCreatureFilterFactory raceCreatureFilterFactory)
     {
         this.factory = factory;
         this.duration = duration;
         this.filter = filter;
+        this.raceCreatureFilterFactory = raceCreatureFilterFactory;
     }
 
     public AddContinuousEffectWithRaceAndFilterEffect(
@@ -24,16 +27,18 @@ public sealed class AddContinuousEffectWithRaceAndFilterEffect : OneShotEffect
     {
         factory = effect.factory;
         duration = effect.duration;
-        filter = effect.filter;
+        filter = effect.filter.Copy();
+        raceCreatureFilterFactory = effect.raceCreatureFilterFactory;
     }
 
     public override void Apply(IGame game)
     {
         var race = Controller.ChooseRace(ToString());
+        var raceFilter = raceCreatureFilterFactory.Create(race);
         game.AddContinuousEffects(
             Ability,
             duration,
-            factory.Create(race, filter));
+            factory.Create(raceFilter, filter));
     }
 
     public override IOneShotEffect Copy()

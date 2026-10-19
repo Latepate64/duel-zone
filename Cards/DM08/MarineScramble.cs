@@ -12,7 +12,8 @@ public sealed class MarineScramble : Spell
         AddSpellAbilities(
             new ContinuousEffectAddingEffect(
                 new YourCreaturesCannotBeBlockedEffect(
-                    new CreatureFilter()
+                    attackerFilter: new CreatureFilter(),
+                    blockerFilter: new CreatureFilter()
                 ),
                 new UntilEndOfThisTurnDuration()));
     }

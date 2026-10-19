@@ -10,8 +10,9 @@ public sealed class FluorogillManta : Creature
     {
         AddStaticAbilities(
             new YourCreaturesCannotBeBlockedEffect(
-                new CivilizationCreatureFilter(
+                attackerFilter: new CivilizationCreatureFilter(
                     Civilization.Light,
-                    Civilization.Darkness)));
+                    Civilization.Darkness),
+                blockerFilter: new CreatureFilter()));
     }
 }

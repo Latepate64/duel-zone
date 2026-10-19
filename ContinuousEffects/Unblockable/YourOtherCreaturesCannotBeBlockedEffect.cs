@@ -7,7 +7,7 @@ namespace ContinuousEffects.Unblockable;
 public sealed class YourOtherCreaturesCannotBeBlockedEffect : YourCreaturesCannotBeBlockedEffect
 {
     public YourOtherCreaturesCannotBeBlockedEffect(
-        ICardFilter attackerFilter) : base(attackerFilter)
+        ICardFilter attackerFilter, ICardFilter blockerFilter) : base(attackerFilter, blockerFilter)
     {
     }
 
@@ -27,4 +27,5 @@ public sealed class YourOtherCreaturesCannotBeBlockedEffect : YourCreaturesCanno
     public override IContinuousEffect Copy()
     {
         return new YourOtherCreaturesCannotBeBlockedEffect(this);
+    }
 }

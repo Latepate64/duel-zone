@@ -1,6 +1,6 @@
 namespace Interfaces.ContinuousEffects;
 
-public interface IContinuousEffectWithRaceAndFilterFactory
+public interface IContinuousEffectWithTwoFiltersFactory
 {
-    IContinuousEffect Create(Race race, ICardFilter filter);
+    IContinuousEffect Create(ICardFilter race, ICardFilter filter);
 }

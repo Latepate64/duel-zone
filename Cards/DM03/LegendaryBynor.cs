@@ -11,7 +11,8 @@ public sealed class LegendaryBynor : EvolutionCreature
     {
         AddStaticAbilities(
             new YourOtherCreaturesCannotBeBlockedEffect(
-                new CivilizationCreatureFilter(Civilization.Water)));
+                attackerFilter: new CivilizationCreatureFilter(Civilization.Water),
+                blockerFilter: new CreatureFilter()));
         AddAbilities(new DoubleBreakerAbility());
     }
 }

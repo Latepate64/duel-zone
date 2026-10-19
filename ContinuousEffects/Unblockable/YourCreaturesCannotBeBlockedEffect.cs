@@ -6,7 +6,8 @@ namespace ContinuousEffects.Unblockable;
 
 public class YourCreaturesCannotBeBlockedEffect : CreaturesCannotBeBlockedEffect
 {
-    public YourCreaturesCannotBeBlockedEffect(ICardFilter attackerFilter) : base(attackerFilter)
+    public YourCreaturesCannotBeBlockedEffect(
+        ICardFilter attackerFilter, ICardFilter blockerFilter) : base(attackerFilter, blockerFilter)
     {
     }
 
