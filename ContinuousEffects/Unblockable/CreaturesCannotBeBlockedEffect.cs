@@ -35,4 +35,18 @@ public class CreaturesCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffe
     {
         return new CreaturesCannotBeBlockedEffect(this);
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not CreaturesCannotBeBlockedEffect effect) return false;
+        if (!attackerFilter.Equals(effect.attackerFilter)) return false;
+        if (!blockerFilter.Equals(effect.blockerFilter)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), attackerFilter, blockerFilter);
+    }
 }

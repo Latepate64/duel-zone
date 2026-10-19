@@ -49,6 +49,7 @@ public abstract class ContinuousEffect : IContinuousEffect
 
     public override int GetHashCode()
     {
-        throw new NotImplementedException();
+        return HashCode.Combine(Timestamp, Ability, Applier);
+
     }
 }
