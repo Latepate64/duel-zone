@@ -11,9 +11,9 @@ public class CivilizationCardFilter : ICardFilter
         civilizations = filter.civilizations;
     }
 
-    public CivilizationCardFilter(params Civilization[] civilizations)
+    public CivilizationCardFilter(Civilization civilization)
     {
-        this.civilizations = civilizations;
+        civilizations = [civilization];
     }
 
     public ICardFilter Copy()
