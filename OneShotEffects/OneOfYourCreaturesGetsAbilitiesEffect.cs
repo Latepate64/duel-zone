@@ -3,30 +3,29 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public class OneOfYourCreaturesGetsAbilityEffect : CreatureSelectionEffect
+public class OneOfYourCreaturesGetsAbilitiesEffect : CreatureSelectionEffect
 {
-    private readonly IAbility ability;
+    private readonly IAbility[] abilities;
     private readonly ICardFilter filter;
     private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IDuration duration;
 
-    public OneOfYourCreaturesGetsAbilityEffect(
-        IAbility ability,
+    public OneOfYourCreaturesGetsAbilitiesEffect(
         ICardFilter filter,
         IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
-        IDuration duration) : base(1, 1, true)
+        IDuration duration,
+        params IAbility[] abilities) : base(1, 1, true)
     {
-        this.ability = ability;
+        this.abilities = abilities;
         this.filter = filter;
         this.factory = factory;
         this.duration = duration;
     }
 
-    public OneOfYourCreaturesGetsAbilityEffect(
-        OneOfYourCreaturesGetsAbilityEffect effect) : base(
-            effect)
+    public OneOfYourCreaturesGetsAbilitiesEffect(
+        OneOfYourCreaturesGetsAbilitiesEffect effect) : base(effect)
     {
-        ability = effect.ability.Copy();
+        abilities = [.. effect.abilities.Select(x => x.Copy())];
         filter = effect.filter.Copy();
         factory = effect.factory;
         duration = effect.duration.Copy();
@@ -38,7 +37,7 @@ public class OneOfYourCreaturesGetsAbilityEffect : CreatureSelectionEffect
         game.AddContinuousEffects(
             Ability,
             duration,
-            factory.Create([ability], creatures));
+            factory.Create(abilities, creatures));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(
@@ -49,6 +48,6 @@ public class OneOfYourCreaturesGetsAbilityEffect : CreatureSelectionEffect
 
     public override IOneShotEffect Copy()
     {
-        return new OneOfYourCreaturesGetsAbilityEffect(this);
+        return new OneOfYourCreaturesGetsAbilitiesEffect(this);
     }
 }

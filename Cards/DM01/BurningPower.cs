@@ -12,11 +12,11 @@ public sealed class BurningPower : Spell
         "Burning Power", 1, Civilization.Fire)
     {
         AddSpellAbilities(
-            new OneOfYourCreaturesGetsAbilityEffect(
-                powerAttackerAbilityFactory.Create(2000),
+            new OneOfYourCreaturesGetsAbilitiesEffect(
                 new CreatureFilter(),
                 new CreaturesGetAbilitiesEffectFactory(),
-                new UntilEndOfThisTurnDuration()
+                new UntilEndOfThisTurnDuration(),
+                powerAttackerAbilityFactory.Create(2000)
         ));
     }
 }

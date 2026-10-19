@@ -14,11 +14,11 @@ public sealed class MigasaAdeptOfChaos : Creature
     {
         AddAbilities(
             new TapAbility(
-                new OneOfYourCreaturesGetsAbilityEffect(
-                    new DoubleBreakerAbility(),
+                new OneOfYourCreaturesGetsAbilitiesEffect(
                     new CivilizationCreatureFilter(Civilization.Fire),
                     new CreaturesGetAbilitiesEffectFactory(),
-                    new UntilEndOfThisTurnDuration()
+                    new UntilEndOfThisTurnDuration(),
+                    new DoubleBreakerAbility()
                 )));
     }
 }
