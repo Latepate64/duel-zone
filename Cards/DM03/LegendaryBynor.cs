@@ -1,6 +1,7 @@
 ﻿using StaticAbilities;
 using ContinuousEffects.Unblockable;
 using Interfaces;
+using CardFilters;
 
 namespace Cards.DM03;
 
@@ -8,7 +9,9 @@ public sealed class LegendaryBynor : EvolutionCreature
 {
     public LegendaryBynor() : base("Legendary Bynor", 6, 8000, Race.Leviathan, Civilization.Water)
     {
-        AddStaticAbilities(new LegendaryBynorEffect());
+        AddStaticAbilities(
+            new YourOtherCreaturesCannotBeBlockedEffect(
+                new CivilizationCreatureFilter(Civilization.Water)));
         AddAbilities(new DoubleBreakerAbility());
     }
 }

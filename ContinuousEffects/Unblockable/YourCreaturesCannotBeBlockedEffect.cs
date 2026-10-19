@@ -4,26 +4,22 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Unblockable;
 
-public sealed class YourCreaturesCannotBeBlockedEffect : ContinuousEffect, IUnblockableEffect
+public class YourCreaturesCannotBeBlockedEffect : CreaturesCannotBeBlockedEffect
 {
-    private readonly ICardFilter attackerFilter;
-
-    public YourCreaturesCannotBeBlockedEffect(ICardFilter attackerFilter) : base()
+    public YourCreaturesCannotBeBlockedEffect(ICardFilter attackerFilter) : base(attackerFilter)
     {
-        this.attackerFilter = attackerFilter;
     }
 
-    private YourCreaturesCannotBeBlockedEffect(
+    protected YourCreaturesCannotBeBlockedEffect(
         YourCreaturesCannotBeBlockedEffect effect) : base(effect)
     {
-        attackerFilter = effect.attackerFilter.Copy();
     }
 
-    public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
+    public override bool CannotBeBlocked(ICreature attacker, ICreature blocker,
         IAttackable targetOfAttack, IBattleZone battleZone)
     {
+        if (!base.CannotBeBlocked(attacker, blocker, targetOfAttack, battleZone)) return false;
         if (!attacker.OwnerV2.Equals(Applier)) return false;
-        if (!attackerFilter.Match(attacker)) return false;
         return true;
     }
 
