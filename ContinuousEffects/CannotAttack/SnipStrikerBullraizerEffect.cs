@@ -11,7 +11,7 @@ public sealed class SnipStrikerBullraizerEffect : ContinuousEffect, ICannotAttac
 
     public bool CannotAttack(ICreature creature, IGame game)
     {
-        return IsSourceOfAbility(creature) && game.BattleZone.GetCreatureCount(GetOpponent(game).Id) >
+        return IsSourceOfAbility(creature) && game.BattleZone.GetCreatureCount(game.GetOpponent(Controller).Id) >
             game.BattleZone.GetCreatureCount(Ability.Controller.Id);
     }
 

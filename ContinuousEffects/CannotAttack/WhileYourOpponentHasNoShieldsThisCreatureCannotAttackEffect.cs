@@ -13,7 +13,7 @@ public sealed class WhileYourOpponentHasNoShieldsThisCreatureCannotAttackEffect 
 
     public bool CannotAttack(ICreature creature, IGame game)
     {
-        return IsSourceOfAbility(creature) && !GetOpponent(game).ShieldZone.HasCards;
+        return IsSourceOfAbility(creature) && !game.GetOpponent(Controller).ShieldZone.HasCards;
     }
 
     public override IContinuousEffect Copy()

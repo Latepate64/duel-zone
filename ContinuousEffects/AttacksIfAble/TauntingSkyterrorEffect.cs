@@ -15,7 +15,7 @@ public sealed class TauntingSkyterrorEffect : ContinuousEffect, IAttacksIfAbleEf
 
     public bool AttacksIfAble(ICreature creature, IGame game)
     {
-        return Source.Tapped && creature.Owner == GetOpponent(game);
+        return Source.Tapped && creature.Owner == game.GetOpponent(Controller);
     }
 
     public override IContinuousEffect Copy()

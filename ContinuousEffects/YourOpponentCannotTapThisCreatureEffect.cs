@@ -20,7 +20,7 @@ public sealed class YourOpponentCannotTapThisCreatureEffect : ContinuousEffect, 
 
     public bool PlayerCannotTapCreature(IPlayer player, ICreature creature, IGame game)
     {
-        return player == GetOpponent(game) && IsSourceOfAbility(creature);
+        return player == game.GetOpponent(Controller) && IsSourceOfAbility(creature);
     }
 
     public override string ToString()
