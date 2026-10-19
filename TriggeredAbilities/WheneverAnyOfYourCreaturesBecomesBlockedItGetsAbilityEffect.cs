@@ -3,9 +3,6 @@ using Interfaces.ContinuousEffects;
 
 namespace TriggeredAbilities;
 
-/// <summary>
-/// Whenever any of your creatures becomes blocked, it gets ability.
-/// </summary>
 public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
     : LinkedTriggeredAbility
 {

@@ -9,7 +9,7 @@ namespace Cards.DM11;
 public sealed class GankloakRogueCommando : SilentSkillCreature
 {
     public GankloakRogueCommando(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
         ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory

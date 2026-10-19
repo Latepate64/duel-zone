@@ -10,7 +10,7 @@ sealed class CosmicWing : Spell
     public CosmicWing() : base("Cosmic Wing", 3, Civilization.Light)
     {
         AddSpellAbilities(
-            new YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+            new YourChosenCreaturesCannotBeBlockedEffect(
                 minimum: 1,
                 maximum: 1,
                 filter: new CreatureFilter(),

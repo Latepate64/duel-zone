@@ -3,14 +3,14 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect : OneShotEffect
+public sealed class EachOfYourCreaturesGetsAbilityEffect : OneShotEffect
 {
     private readonly IAbility[] abilities;
     private readonly ICardFilter filter;
     private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory;
     private readonly IDuration duration;
 
-    internal EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
+    internal EachOfYourCreaturesGetsAbilityEffect(
         ICardFilter filter,
         IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
         IDuration duration,
@@ -23,8 +23,8 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect : OneShot
         this.duration = duration;
     }
 
-    public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect effect) : base(
+    public EachOfYourCreaturesGetsAbilityEffect(
+        EachOfYourCreaturesGetsAbilityEffect effect) : base(
             effect)
     {
         abilities = effect.abilities;
@@ -42,6 +42,6 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect : OneShot
 
     public override IOneShotEffect Copy()
     {
-        return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(this);
+        return new EachOfYourCreaturesGetsAbilityEffect(this);
     }
 }

@@ -14,7 +14,7 @@ sealed class LegionnaireLizard : Creature
     {
         AddAbilities(
             new TapAbility(
-                new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
+                new OneOfYourCreaturesGetsAbilityEffect(
                     new SpeedAttackerAbility(),
                     new CreatureFilter(),
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),

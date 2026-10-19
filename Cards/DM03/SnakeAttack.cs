@@ -9,7 +9,7 @@ namespace Cards.DM03;
 public sealed class SnakeAttack : Spell
 {
     public SnakeAttack(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CreatureFilterFactory creatureFilterFactory,
         ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory)

@@ -14,7 +14,7 @@ public sealed class MigasaAdeptOfChaos : Creature
     {
         AddAbilities(
             new TapAbility(
-                new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
+                new OneOfYourCreaturesGetsAbilityEffect(
                     new DoubleBreakerAbility(),
                     new CivilizationCreatureFilter(Civilization.Fire),
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),

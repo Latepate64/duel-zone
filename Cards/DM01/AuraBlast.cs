@@ -10,7 +10,7 @@ sealed class AuraBlast : Spell
 {
     public AuraBlast(
         PowerAttackerAbilityFactory powerAttackerAbilityFactory,
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory effectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory effectFactory,
         ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
     ) : base("Aura Blast", 4, Civilization.Nature)
     {

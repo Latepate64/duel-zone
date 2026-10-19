@@ -10,7 +10,7 @@ namespace Cards.DM04;
 public sealed class SwordOfMalevolentDeath : Spell
 {
     public SwordOfMalevolentDeath(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory factory,
+        EachOfYourCreaturesGetsAbilityEffectFactory factory,
         ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
     ) : base("Sword of Malevolent Death", 4,
         Civilization.Darkness)

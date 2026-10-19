@@ -3,13 +3,13 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public sealed class YourChosenCreaturesCannotBeBlockedThisTurnEffect : CreatureSelectionEffect
+public sealed class YourChosenCreaturesCannotBeBlockedEffect : CreatureSelectionEffect
 {
     private readonly ICardFilter filter;
     private readonly IContinuousEffectFactory factory;
     private readonly IDuration duration;
 
-    public YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+    public YourChosenCreaturesCannotBeBlockedEffect(
         int minimum,
         int maximum,
         ICardFilter filter,
@@ -21,8 +21,8 @@ public sealed class YourChosenCreaturesCannotBeBlockedThisTurnEffect : CreatureS
         this.duration = duration;
     }
 
-    public YourChosenCreaturesCannotBeBlockedThisTurnEffect(
-        YourChosenCreaturesCannotBeBlockedThisTurnEffect effect)
+    public YourChosenCreaturesCannotBeBlockedEffect(
+        YourChosenCreaturesCannotBeBlockedEffect effect)
         : base(effect)
     {
         filter = effect.filter.Copy();
@@ -30,9 +30,9 @@ public sealed class YourChosenCreaturesCannotBeBlockedThisTurnEffect : CreatureS
         duration = effect.duration.Copy();
     }
 
-    public override YourChosenCreaturesCannotBeBlockedThisTurnEffect Copy()
+    public override YourChosenCreaturesCannotBeBlockedEffect Copy()
     {
-        return new YourChosenCreaturesCannotBeBlockedThisTurnEffect(this);
+        return new YourChosenCreaturesCannotBeBlockedEffect(this);
     }
 
     protected override void Apply(

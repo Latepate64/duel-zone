@@ -11,7 +11,7 @@ namespace Cards.DM07;
 public sealed class ArmoredTransportGaliacruse : Creature
 {
     public ArmoredTransportGaliacruse(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
         ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,

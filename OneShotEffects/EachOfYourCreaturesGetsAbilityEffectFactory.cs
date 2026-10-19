@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory
+public class EachOfYourCreaturesGetsAbilityEffectFactory
 {
     public IOneShotEffect Create(
         ICardFilter filter,
@@ -11,7 +11,6 @@ public class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory
         IDuration duration,
         params IAbility[] abilities)
     {
-        return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-            filter, effectFactory, duration, abilities);
+        return new EachOfYourCreaturesGetsAbilityEffect(filter, effectFactory, duration, abilities);
     }
 }

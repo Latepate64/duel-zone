@@ -11,7 +11,7 @@ namespace Cards.DM07;
 public sealed class KingBenthos : Creature
 {
     public KingBenthos(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
         ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
