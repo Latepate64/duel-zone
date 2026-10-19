@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-public sealed class PetrovaBuffEffect : ContinuousEffect, IPowerModifyingEffect, IExpirable
+public sealed class PetrovaBuffEffect : ContinuousEffect, IPowerModifyingEffect
 {
     private readonly Race _race;
 
@@ -25,11 +25,6 @@ public sealed class PetrovaBuffEffect : ContinuousEffect, IPowerModifyingEffect,
     public void ModifyPower(IGame game)
     {
         game.BattleZone.GetCreatures(_race).ToList().ForEach(x => x.IncreasePower(4000));
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
     }
 
     public override string ToString()

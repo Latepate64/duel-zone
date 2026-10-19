@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.PowerModifying;
 
-public sealed class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : UntilEndOfTurnEffect, IPowerModifyingEffect
+public sealed class ThisCreatureGetsPowerUntilTheEndOfTheTurnEffect : ContinuousEffect, IPowerModifyingEffect
 {
     private readonly int _power;
     private readonly ICreature[] _cards;

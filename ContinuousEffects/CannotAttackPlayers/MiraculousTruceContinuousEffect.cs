@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.CannotAttackPlayers;
 
-public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect, IExpirable
+public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotAttackPlayersEffect
 {
     private readonly Civilization _civilization;
 
@@ -29,13 +29,6 @@ public sealed class MiraculousTruceContinuousEffect : ContinuousEffect, ICannotA
     public override IContinuousEffect Copy()
     {
         return new MiraculousTruceContinuousEffect(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
-        //     && phase.Turn.ActivePlayer == _player;
     }
 
     public override string ToString()

@@ -31,5 +31,4 @@ public interface IContinuousEffects
     int GetAmountOfShieldsCreatureBreaksAdditionally(ICreature attackingCreature);
     IEnumerable<IReplacementEffect> GetReplacementEffectsThatCanBeApplied(IGameEvent gameEvent);
     void Notify(IGameEvent gameEvent);
-    void RemoveExpired(IGameEvent gameEvent);
 }

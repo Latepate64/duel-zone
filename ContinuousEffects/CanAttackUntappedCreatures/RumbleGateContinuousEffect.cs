@@ -7,7 +7,7 @@ namespace ContinuousEffects.CanAttackUntappedCreatures;
 /// Each of your creatures in the battle zone that can attack creatures can
 /// attack untapped creatures this turn.
 /// </summary>
-public sealed class RumbleGateContinuousEffect : UntilEndOfTurnEffect,
+public sealed class RumbleGateContinuousEffect : ContinuousEffect,
     ICanAttackUntappedCreaturesEffect
 {
     public RumbleGateContinuousEffect() : base()

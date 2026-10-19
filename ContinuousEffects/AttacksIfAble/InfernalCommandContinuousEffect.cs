@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AttacksIfAble;
 
-public sealed class InfernalCommandContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+public sealed class InfernalCommandContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect
 {
     private readonly ICreature _creature;
 
@@ -25,13 +25,6 @@ public sealed class InfernalCommandContinuousEffect : ContinuousEffect, IAttacks
     public override IContinuousEffect Copy()
     {
         return new InfernalCommandContinuousEffect(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
-        //     && phase.Turn.ActivePlayer == Controller;
     }
 
     public override string ToString()

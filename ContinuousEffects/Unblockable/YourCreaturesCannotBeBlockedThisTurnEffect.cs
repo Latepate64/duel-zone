@@ -4,18 +4,15 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Unblockable;
 
-/// <summary>
-/// Your creatures in the battle zone can't be blocked this turn.
-/// </summary>
 public sealed class YourCreaturesCannotBeBlockedThisTurnEffect :
-    UntilEndOfTurnEffect, IUnblockableEffect
+    ContinuousEffect, IUnblockableEffect
 {
     public YourCreaturesCannotBeBlockedThisTurnEffect() : base()
     {
     }
 
     public YourCreaturesCannotBeBlockedThisTurnEffect(
-        UntilEndOfTurnEffect effect) : base(effect)
+        YourCreaturesCannotBeBlockedThisTurnEffect effect) : base(effect)
     {
     }
 

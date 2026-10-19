@@ -8,7 +8,7 @@ namespace ContinuousEffects.Unblockable;
 /// This creature can't be blocked this turn.
 /// </summary>
 public sealed class ChosenCreaturesCannotBeBlockedThisTurnEffect :
-    UntilEndOfTurnEffect, IUnblockableEffect
+    ContinuousEffect, IUnblockableEffect
 {
     private readonly ICard[] _cards;
 

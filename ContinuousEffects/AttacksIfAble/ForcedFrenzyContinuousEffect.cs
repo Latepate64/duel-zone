@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AttacksIfAble;
 
-public sealed class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+public sealed class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect
 {
     private readonly IPlayer _opponent;
 
@@ -25,13 +25,6 @@ public sealed class ForcedFrenzyContinuousEffect : ContinuousEffect, IAttacksIfA
     public override IContinuousEffect Copy()
     {
         return new ForcedFrenzyContinuousEffect(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.StartOfTurn
-        //     && phase.Turn.ActivePlayer == Controller;
     }
 
     public override string ToString()

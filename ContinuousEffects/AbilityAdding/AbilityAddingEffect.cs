@@ -7,14 +7,14 @@ public abstract class AbilityAddingEffect : ContinuousEffect, IAbilityAddingEffe
 {
     public List<IAbility> Abilities { get; }
 
-    protected AbilityAddingEffect(AbilityAddingEffect effect) : base(effect)
-    {
-        Abilities = [.. effect.Abilities.Select(x => x.Copy())];
-    }
-
     protected AbilityAddingEffect(params IAbility[] abilities) : base()
     {
         Abilities = [.. abilities];
+    }
+
+    protected AbilityAddingEffect(AbilityAddingEffect effect) : base(effect)
+    {
+        Abilities = [.. effect.Abilities.Select(x => x.Copy())];
     }
 
     public void AddAbility(IGame game)

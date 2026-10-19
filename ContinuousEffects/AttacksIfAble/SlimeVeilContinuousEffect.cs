@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AttacksIfAble;
 
-public sealed class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect, IExpirable
+public sealed class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect
 {
     private readonly IPlayer _player;
 
@@ -25,13 +25,6 @@ public sealed class SlimeVeilContinuousEffect : ContinuousEffect, IAttacksIfAble
     public override IContinuousEffect Copy()
     {
         return new SlimeVeilContinuousEffect(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn
-        //     && phase.Turn.ActivePlayer == _player;
     }
 
     public override string ToString()

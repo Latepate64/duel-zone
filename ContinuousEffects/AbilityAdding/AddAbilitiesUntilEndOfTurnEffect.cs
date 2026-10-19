@@ -2,18 +2,13 @@ using Interfaces;
 
 namespace ContinuousEffects.AbilityAdding;
 
-public abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IExpirable
+public abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect
 {
     private readonly ICard[] _cards;
 
     protected AddAbilitiesUntilEndOfTurnEffect(AddAbilitiesUntilEndOfTurnEffect effect) : base(effect)
     {
         _cards = effect._cards;
-    }
-
-    protected AddAbilitiesUntilEndOfTurnEffect(IAbility ability, params ICard[] cards) : base([ability])
-    {
-        _cards = cards;
     }
 
     protected AddAbilitiesUntilEndOfTurnEffect(IAbility[] abilities, params ICreature[] creatures) : base(abilities)
@@ -24,12 +19,6 @@ public abstract class AddAbilitiesUntilEndOfTurnEffect : AbilityAddingEffect, IE
     protected AddAbilitiesUntilEndOfTurnEffect(ICard card, params IAbility[] abilities) : base(abilities)
     {
         _cards = [card];
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 
     protected override IEnumerable<ICard> GetAffectedCards(IGame game)

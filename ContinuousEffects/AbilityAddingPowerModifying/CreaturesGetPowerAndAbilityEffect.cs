@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public sealed class CreaturesGetPowerAndAbilityEffect : UntilEndOfTurnEffect, IAbilityAddingEffect,
+public sealed class CreaturesGetPowerAndAbilityEffect : ContinuousEffect, IAbilityAddingEffect,
     IPowerModifyingEffect
 {
     private readonly ICreature[] creatures;

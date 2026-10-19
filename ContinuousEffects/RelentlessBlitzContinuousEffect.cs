@@ -8,7 +8,7 @@ namespace ContinuousEffects;
 /// This turn, each creature of that race can attack untapped creatures and
 /// can't be blocked while attacking a creature.
 /// </summary>
-public sealed class RelentlessBlitzContinuousEffect : UntilEndOfTurnEffect,
+public sealed class RelentlessBlitzContinuousEffect : ContinuousEffect,
     ICanAttackUntappedCreaturesEffect, IUnblockableEffect
 {
     private readonly Race _race;

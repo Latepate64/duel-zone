@@ -4,11 +4,8 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Unblockable;
 
-/// <summary>
-/// Your light creatures can't be blocked this turn.
-/// </summary>
 public sealed class YourLightCreaturesCannotBeBlockedThisTurnEffect :
-    UntilEndOfTurnEffect, IUnblockableEffect
+    ContinuousEffect, IUnblockableEffect
 {
     public YourLightCreaturesCannotBeBlockedThisTurnEffect() : base()
     {

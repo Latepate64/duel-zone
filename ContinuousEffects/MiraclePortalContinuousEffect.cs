@@ -8,7 +8,7 @@ namespace ContinuousEffects;
 /// This turn, it can't be blocked and you ignore any effects that would prevent
 /// that creature from attacking your opponent.
 /// </summary>
-public sealed class MiraclePortalContinuousEffect : UntilEndOfTurnEffect,
+public sealed class MiraclePortalContinuousEffect : ContinuousEffect,
     IUnblockableEffect, IIgnoreCannotAttackPlayersEffects
 {
     private readonly ICreature _creature;

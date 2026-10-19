@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AttacksIfAble;
 
-public sealed class SpinalParasiteContinuousEffect : UntilEndOfTurnEffect, IAttacksIfAbleEffect
+public sealed class SpinalParasiteContinuousEffect : ContinuousEffect, IAttacksIfAbleEffect
 {
     private readonly ICreature _creature;
 

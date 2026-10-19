@@ -7,7 +7,7 @@ namespace ContinuousEffects.Unblockable;
 /// <summary>
 /// Creatures of that race can't be blocked this turn.
 /// </summary>
-public sealed class ImpossibleTunnelContinuousEffect : UntilEndOfTurnEffect,
+public sealed class ImpossibleTunnelContinuousEffect : ContinuousEffect,
     IUnblockableEffect
 {
     private readonly Race _race;

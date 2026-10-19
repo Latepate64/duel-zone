@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.Replacement;
 
-public sealed class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect, IExpirable
+public sealed class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect
 {
     private readonly Race _race;
 
@@ -20,12 +20,6 @@ public sealed class HokiraContinuousEffect : WhenCreatureWouldBeDestroyedReturnI
     public override IContinuousEffect Copy()
     {
         return new HokiraContinuousEffect(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 
     public override string ToString()

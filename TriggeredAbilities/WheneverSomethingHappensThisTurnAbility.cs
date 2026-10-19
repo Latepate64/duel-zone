@@ -5,7 +5,7 @@ namespace TriggeredAbilities;
 /// <summary>
 /// Delayed triggered ability that reads "Whenever X happens, Y happens.".
 /// </summary>
-public sealed class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAbility, IExpirable
+public sealed class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAbility
 {
     public WheneverSomethingHappensThisTurnAbility(
         ITriggeredAbility triggeredAbility, IAbility source, IDuration? duration) : base(
@@ -21,11 +21,5 @@ public sealed class WheneverSomethingHappensThisTurnAbility : DelayedTriggeredAb
     public override DelayedTriggeredAbility Copy()
     {
         return new WheneverSomethingHappensThisTurnAbility(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 }

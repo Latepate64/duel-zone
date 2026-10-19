@@ -139,26 +139,6 @@ public sealed class ContinuousEffectsTests
     }
 
     [Fact]
-    public void RemoveExpired()
-    {
-        // Arrange
-        var gameEvent = Mock.Of<IGameEvent>();
-        var game = Mock.Of<IGame>();
-        var effect = new Mock<IContinuousEffect>();
-        var expirable = effect.As<IExpirable>();
-        expirable.Setup(x => x.ShouldExpire(gameEvent, game)).Returns(true);
-        var notExpirable = new Mock<IContinuousEffect>();
-        var effects = new ContinuousEffects(game);
-        effects.Add(
-            Mock.Of<IAbility>(),
-            effect.Object,
-            notExpirable.Object);
-
-        // Act + Assert
-        effects.RemoveExpired(gameEvent);
-    }
-
-    [Fact]
     public void WatchersAreNotified()
     {
         // Arrange

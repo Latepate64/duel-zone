@@ -9,7 +9,7 @@ namespace ContinuousEffects.Unblockable;
 /// less this turn.
 /// </summary>
 public sealed class SilvermoonTrailblazerContinuousEffect :
-    UntilEndOfTurnEffect, IUnblockableEffect
+    ContinuousEffect, IUnblockableEffect
 {
     private readonly Race _race;
 

@@ -8,7 +8,7 @@ namespace ContinuousEffects;
 /// This turn, that creature blocks this creature if able and this creature
 /// can't be blocked by other creatures.
 /// </summary>
-public sealed class StormWranglerContinuousEffect : UntilEndOfTurnEffect,
+public sealed class StormWranglerContinuousEffect : ContinuousEffect,
     IBlocksIfAbleEffect, IUnblockableEffect
 {
     private readonly ICreature _blocker;
