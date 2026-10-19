@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 using OneShotEffects;
 
@@ -6,12 +7,14 @@ namespace Cards.DM11;
 
 public sealed class BaraidTheExplorer : SilentSkillCreature
 {
-    public BaraidTheExplorer() : base("Baraid, the Explorer", 5, 5000,
-        Race.Gladiator, Civilization.Light)
+    public BaraidTheExplorer() : base("Baraid, the Explorer", 5, 5000, Race.Gladiator,
+        Civilization.Light)
     {
         AddSilentSkillAbility(
             new ContinuousEffectAddingEffect(
-                new YourLightCreaturesCannotBeBlockedThisTurnEffect(),
+                new YourCreaturesCannotBeBlockedEffect(
+                    new CivilizationCreatureFilter(Civilization.Light)
+                ),
                 new UntilEndOfThisTurnDuration()));
     }
 }
