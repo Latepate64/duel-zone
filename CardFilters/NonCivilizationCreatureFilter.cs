@@ -11,9 +11,9 @@ public class NonCivilizationCreatureFilter : ICardFilter
         civilizations = filter.civilizations;
     }
 
-    public NonCivilizationCreatureFilter(params Civilization[] civilizations)
+    public NonCivilizationCreatureFilter(Civilization civilization)
     {
-        this.civilizations = civilizations;
+        civilizations = [civilization];
     }
 
     public ICardFilter Copy()

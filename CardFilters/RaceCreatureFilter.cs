@@ -11,9 +11,14 @@ public class RaceCreatureFilter : ICardFilter
         races = filter.races;
     }
 
-    public RaceCreatureFilter(params Race[] races)
+    public RaceCreatureFilter(Race race)
     {
-        this.races = races;
+        races = [race];
+    }
+
+    public RaceCreatureFilter(Race race1, Race race2)
+    {
+        races = [race1, race2];
     }
 
     public virtual ICardFilter Copy()

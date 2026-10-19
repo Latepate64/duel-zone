@@ -10,7 +10,7 @@ public class RaceCreatureFilterTests
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var filter = new RaceCreatureFilter();
+        var filter = new RaceCreatureFilter(Race.AngelCommand);
 
         // Act
         var actual = filter.Equals(new object());
@@ -37,7 +37,7 @@ public class RaceCreatureFilterTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new RaceCreatureFilter();
+        var filter = new RaceCreatureFilter(Race.AngelCommand);
 
         // Act
         var copy = filter.Copy();

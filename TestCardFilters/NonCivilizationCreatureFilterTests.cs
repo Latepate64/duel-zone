@@ -10,7 +10,7 @@ public class NonCivilizationCreatureFilterTests
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var filter = new NonCivilizationCreatureFilter();
+        var filter = new NonCivilizationCreatureFilter(Civilization.Light);
 
         // Act
         var actual = filter.Equals(new object());
@@ -37,7 +37,7 @@ public class NonCivilizationCreatureFilterTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new NonCivilizationCreatureFilter();
+        var filter = new NonCivilizationCreatureFilter(Civilization.Light);
 
         // Act
         var copy = filter.Copy();
