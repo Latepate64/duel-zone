@@ -12,7 +12,7 @@ public sealed class KachuaKeeperOfTheIcegate : Creature
     public KachuaKeeperOfTheIcegate(
         TapAbilityFactory tapAbilityFactory,
         KachuaEffectFactory kachuaEffectFactory,
-        CreaturesGetAbilityEffectFactory thatCreatureHasAbilityEffectFactory,
+        CreaturesGetAbilitiesEffectFactory thatCreatureHasAbilityEffectFactory,
         KachuaDelayedTriggeredAbilityFactory kachuaDelayedTriggeredAbilityFactory,
         SpeedAttackerAbilityFactory speedAttackerAbilityFactory)
         : base("Kachua, Keeper of the Icegate", 7, 3000, Race.SnowFaerie, Civilization.Nature)

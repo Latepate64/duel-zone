@@ -14,7 +14,7 @@ public sealed class CreepingPlague : Spell
             new WheneverSomethingHappensThisTurnEffect(
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
                 new WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
-                    new CreaturesGetAbilityEffectFactory(),
+                    new CreaturesGetAbilitiesEffectFactory(),
                     new SlayerAbility(),
                     new UntilEndOfThisTurnDuration()
                 ),

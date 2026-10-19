@@ -15,7 +15,7 @@ public sealed class BurningPower : Spell
             new OneOfYourCreaturesGetsAbilityEffect(
                 powerAttackerAbilityFactory.Create(2000),
                 new CreatureFilter(),
-                new CreaturesGetAbilityEffectFactory(),
+                new CreaturesGetAbilitiesEffectFactory(),
                 new UntilEndOfThisTurnDuration()
         ));
     }

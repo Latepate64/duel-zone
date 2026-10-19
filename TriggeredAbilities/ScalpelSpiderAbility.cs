@@ -8,12 +8,12 @@ namespace TriggeredAbilities;
 public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
 {
     private readonly IAbility ability;
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IDuration duration;
 
     public ScalpelSpiderAbility(
         IAbility ability,
-        IAbilityAddingContinuousEffectFactory factory,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
         IDuration duration) : base()
     {
         this.ability = ability;
@@ -43,7 +43,7 @@ public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
         game.AddContinuousEffects(
             this,
             duration,
-            factory.Create(ability, (ICreature)Source));
+            factory.Create([ability], (ICreature)Source));
     }
 
     public override ITriggeredAbility Trigger(

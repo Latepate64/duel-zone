@@ -6,11 +6,11 @@ namespace OneShotEffects;
 public sealed class ThisCreatureGetsAbilityEffect : OneShotEffect
 {
     private readonly IAbility ability;
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IDuration duration;
 
     public ThisCreatureGetsAbilityEffect(
-        IAbilityAddingContinuousEffectFactory factory,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
         IAbility ability,
         IDuration duration) : base()
     {
@@ -37,6 +37,6 @@ public sealed class ThisCreatureGetsAbilityEffect : OneShotEffect
         game.AddContinuousEffects(
             Ability,
             duration,
-            factory.Create(ability, (ICreature)Source));
+            factory.Create([ability], (ICreature)Source));
     }
 }

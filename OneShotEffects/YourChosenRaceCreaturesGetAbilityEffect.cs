@@ -6,13 +6,13 @@ namespace OneShotEffects;
 public sealed class YourChosenRaceCreaturesGetAbilityEffect : OneShotEffect
 {
     private readonly IRaceCreatureFilterFactory raceFactory;
-    private readonly IAbilityAddingContinuousEffectFactory effectFactory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory;
     private readonly IAbility ability;
     private readonly IDuration duration;
 
     public YourChosenRaceCreaturesGetAbilityEffect(
         IRaceCreatureFilterFactory raceFactory,
-        IAbilityAddingContinuousEffectFactory effectFactory,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
         IAbility ability,
         IDuration duration)
     {
@@ -40,7 +40,7 @@ public sealed class YourChosenRaceCreaturesGetAbilityEffect : OneShotEffect
         game.AddContinuousEffects(
             Ability,
             duration,
-            effectFactory.Create(ability, [.. creatures]));
+            effectFactory.Create([ability], [.. creatures]));
     }
 
     public override IOneShotEffect Copy()

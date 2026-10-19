@@ -15,7 +15,7 @@ sealed class SupersonicJetPack : Spell
             new OneOfYourCreaturesGetsAbilityEffect(
                 new SpeedAttackerAbility(),
                 new CreatureFilter(),
-                new CreaturesGetAbilityEffectFactory(),
+                new CreaturesGetAbilitiesEffectFactory(),
                 new UntilEndOfThisTurnDuration()
             ));
     }

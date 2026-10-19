@@ -5,12 +5,12 @@ namespace OneShotEffects;
 
 public sealed class DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect : OneShotEffect
 {
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IAbility ability;
     private readonly IDuration duration;
 
     public DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect(
-        IAbilityAddingContinuousEffectFactory factory, IAbility ability, IDuration duration)
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory, IAbility ability, IDuration duration)
     {
         this.factory = factory;
         this.ability = ability;
@@ -33,7 +33,7 @@ public sealed class DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffe
         game.AddContinuousEffects(
             Ability,
             duration,
-            factory.Create(ability, [.. creatures]));
+            factory.Create([ability], [.. creatures]));
     }
 
     public override IOneShotEffect Copy()

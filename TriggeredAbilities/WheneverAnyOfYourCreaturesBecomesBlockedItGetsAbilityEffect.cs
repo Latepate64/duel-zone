@@ -7,12 +7,12 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
     : LinkedTriggeredAbility
 {
     private readonly ICreature? creature;
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IAbility ability;
     private readonly IDuration duration;
 
     public WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
-        IAbilityAddingContinuousEffectFactory factory,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
         IAbility ability,
         IDuration duration)
     {
@@ -51,7 +51,7 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
             game.AddContinuousEffects(
                 this,
                 duration,
-                factory.Create(ability, creature));
+                factory.Create([ability], creature));
         }
         
     }

@@ -7,13 +7,13 @@ public class OneOfYourCreaturesGetsAbilityEffect : CreatureSelectionEffect
 {
     private readonly IAbility ability;
     private readonly ICardFilter filter;
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IDuration duration;
 
     public OneOfYourCreaturesGetsAbilityEffect(
         IAbility ability,
         ICardFilter filter,
-        IAbilityAddingContinuousEffectFactory factory,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
         IDuration duration) : base(1, 1, true)
     {
         this.ability = ability;
@@ -38,7 +38,7 @@ public class OneOfYourCreaturesGetsAbilityEffect : CreatureSelectionEffect
         game.AddContinuousEffects(
             Ability,
             duration,
-            factory.Create(ability, creatures));
+            factory.Create([ability], creatures));
     }
 
     protected override IEnumerable<ICreature> GetSelectableCards(
