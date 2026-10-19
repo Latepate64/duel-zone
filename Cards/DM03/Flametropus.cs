@@ -21,7 +21,8 @@ public sealed class Flametropus : Creature
                     thisCreatureGetsTwoAbilitiesEffectFactory,
                     powerAttackerAbilityFactory,
                     doubleBreakerAbilityFactory,
-                    3000
+                    3000,
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

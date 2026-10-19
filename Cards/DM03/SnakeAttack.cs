@@ -19,6 +19,7 @@ public sealed class SnakeAttack : Spell
             oneShotEffectFactory.Create(
                 creatureFilterFactory.Create(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 doubleBreakerAbilityFactory.Create()
             ),
             new CardMovingChoiceEffect(

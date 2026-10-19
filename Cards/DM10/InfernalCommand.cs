@@ -12,7 +12,8 @@ public sealed class InfernalCommand : Spell
         AddShieldTrigger();
         AddSpellAbilities(
             new InfernalCommandEffect(
-                new InfernalCommandContinuousEffectFactory()
+                new InfernalCommandContinuousEffectFactory(),
+                new UntilStartOfPlayersNextTurn()
             ));
     }
 }

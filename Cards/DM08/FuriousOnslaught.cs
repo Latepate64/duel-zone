@@ -21,7 +21,8 @@ public sealed class FuriousOnslaught : Spell
                 filterFactory.Create(Race.Dragonoid),
                 Race.ArmoredDragon,
                 4000,
-                abilityFactory
+                abilityFactory,
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

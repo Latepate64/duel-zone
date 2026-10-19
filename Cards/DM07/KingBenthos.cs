@@ -26,6 +26,7 @@ public sealed class KingBenthos : Creature
                 oneShotEffectFactory.Create(
                     creatureFilterFactory.Create(Civilization.Water),
                     continuousEffectFactory,
+                    new UntilEndOfThisTurnDuration(),
                     abilityFactory.Create(cannotBeBlockedEffectFactory.Create())
         )));
     }

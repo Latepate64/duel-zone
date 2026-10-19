@@ -7,15 +7,18 @@ public sealed class YourChosenCreaturesCannotBeBlockedThisTurnEffect : CreatureS
 {
     private readonly ICardFilter filter;
     private readonly IContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
     public YourChosenCreaturesCannotBeBlockedThisTurnEffect(
         int minimum,
         int maximum,
         ICardFilter filter,
-        IContinuousEffectFactory factory) : base(minimum, maximum, true)
+        IContinuousEffectFactory factory,
+        IDuration duration) : base(minimum, maximum, true)
     {
         this.filter = filter;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public YourChosenCreaturesCannotBeBlockedThisTurnEffect(
@@ -24,6 +27,7 @@ public sealed class YourChosenCreaturesCannotBeBlockedThisTurnEffect : CreatureS
     {
         filter = effect.filter.Copy();
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override YourChosenCreaturesCannotBeBlockedThisTurnEffect Copy()
@@ -36,6 +40,7 @@ public sealed class YourChosenCreaturesCannotBeBlockedThisTurnEffect : CreatureS
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(creatures));
     }
 

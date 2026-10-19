@@ -3,24 +3,23 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// Choose a race. Each of your creatures in the battle zone of that race gets
-/// ability.
-/// </summary>
 public sealed class YourChosenRaceCreaturesGetAbilityEffect : OneShotEffect
 {
     private readonly IRaceCreatureFilterFactory raceFactory;
     private readonly IAbilityAddingContinuousEffectFactory effectFactory;
     private readonly IAbility ability;
+    private readonly IDuration duration;
 
     public YourChosenRaceCreaturesGetAbilityEffect(
         IRaceCreatureFilterFactory raceFactory,
         IAbilityAddingContinuousEffectFactory effectFactory,
-        IAbility ability)
+        IAbility ability,
+        IDuration duration)
     {
         this.raceFactory = raceFactory;
         this.effectFactory = effectFactory;
         this.ability = ability;
+        this.duration = duration;
     }
 
     public YourChosenRaceCreaturesGetAbilityEffect(
@@ -29,6 +28,7 @@ public sealed class YourChosenRaceCreaturesGetAbilityEffect : OneShotEffect
         raceFactory = effect.raceFactory;
         effectFactory = effect.effectFactory;
         ability = effect.ability.Copy();
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -39,6 +39,7 @@ public sealed class YourChosenRaceCreaturesGetAbilityEffect : OneShotEffect
             Applier, filter);
         game.AddContinuousEffects(
             Ability,
+            duration,
             effectFactory.Create(ability, [.. creatures]));
     }
 

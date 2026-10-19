@@ -18,6 +18,7 @@ sealed class AuraBlast : Spell
             effectFactory.Create(
                 new CreatureFilter(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 powerAttackerAbilityFactory.Create(2000)
         ));
     }

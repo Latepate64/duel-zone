@@ -8,9 +8,10 @@ public class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory
     public IOneShotEffect Create(
         ICardFilter filter,
         IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
+        IDuration duration,
         params IAbility[] abilities)
     {
         return new EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
-            filter, effectFactory, abilities);
+            filter, effectFactory, duration, abilities);
     }
 }

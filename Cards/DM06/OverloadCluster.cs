@@ -15,7 +15,8 @@ sealed class OverloadCluster : Creature
             new OpponentSummonOrCastAbility(
                 new ThisCreatureGetsAbilityEffect(
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                    new BlockerAbility()
+                    new BlockerAbility(),
+                    new UntilEndOfThisTurnDuration()
         )));
     }
 }

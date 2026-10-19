@@ -14,7 +14,8 @@ sealed class KingTriumphant : Creature
             new OpponentSummonOrCastAbility(
                 new ThisCreatureGetsAbilityEffect(
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                    new BlockerAbility()
+                    new BlockerAbility(),
+                    new UntilEndOfThisTurnDuration()
         )));
         AddAbilities(new DoubleBreakerAbility());
     }

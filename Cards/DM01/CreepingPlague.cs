@@ -15,7 +15,8 @@ public sealed class CreepingPlague : Spell
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
                 new WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                    new SlayerAbility()
+                    new SlayerAbility(),
+                    new UntilEndOfThisTurnDuration()
                 )
             ));
     }

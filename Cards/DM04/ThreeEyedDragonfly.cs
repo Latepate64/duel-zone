@@ -19,6 +19,7 @@ public sealed class ThreeEyedDragonfly : Creature
                     new ThisCreatureGetsPowerAndAbilityEffect(
                         2000,
                         new DoubleBreakerAbility()
-                    ))));
+                    ),
+                    new UntilEndOfThisTurnDuration())));
     }
 }

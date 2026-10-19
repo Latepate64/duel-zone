@@ -18,6 +18,7 @@ sealed class ThirstForTheHunt : Spell
             effectFactory.Create(
                 new CreatureFilter(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 powerAttackerAbilityFactory.Create(1000)
         ));
     }

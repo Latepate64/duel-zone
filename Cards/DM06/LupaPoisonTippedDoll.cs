@@ -17,7 +17,8 @@ sealed class LupaPoisonTippedDoll : Creature
                 new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                     new SlayerAbility(),
                     new CreatureFilter(),
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

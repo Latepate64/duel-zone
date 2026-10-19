@@ -12,13 +12,16 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
     private readonly ICreature? creature;
     private readonly IAbilityAddingContinuousEffectFactory factory;
     private readonly IAbility ability;
+    private readonly IDuration duration;
 
     public WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
         IAbilityAddingContinuousEffectFactory factory,
-        IAbility ability)
+        IAbility ability,
+        IDuration duration)
     {
         this.factory = factory;
         this.ability = ability;
+        this.duration = duration;
     }
 
     public WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
@@ -30,6 +33,7 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
             : null;
         factory = ability.factory;
         this.ability = ability.ability;
+        duration = ability.duration.Copy();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -49,6 +53,7 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
         {
             game.AddContinuousEffects(
                 this,
+                duration,
                 factory.Create(ability, creature));
         }
         

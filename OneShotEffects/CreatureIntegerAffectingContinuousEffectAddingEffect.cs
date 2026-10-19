@@ -7,13 +7,16 @@ public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect : OneSh
 {
     private readonly int number;
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
+    private readonly IDuration duration;
 
     public CreatureIntegerAffectingContinuousEffectAddingEffect(
         int number,
-        IContinuousEffectWithCreaturesAndIntegerFactory factory) : base()
+        IContinuousEffectWithCreaturesAndIntegerFactory factory,
+        IDuration duration) : base()
     {
         this.number = number;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public CreatureIntegerAffectingContinuousEffectAddingEffect(
@@ -22,6 +25,7 @@ public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect : OneSh
     {
         number = effect.number;
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -29,6 +33,7 @@ public sealed class CreatureIntegerAffectingContinuousEffectAddingEffect : OneSh
         var creatures = game.BattleZone.GetCreatures(Ability.Controller.Id);
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(number, [.. creatures]));
     }
 

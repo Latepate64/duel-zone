@@ -19,6 +19,7 @@ public sealed class SwordOfMalevolentDeath : Spell
             factory.Create(
                 new CreatureFilter(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 new StaticAbility(
                     new WhileAttackingThisCreatureGetPowerForEachCardInYourManaZoneEffect(
                         1000,

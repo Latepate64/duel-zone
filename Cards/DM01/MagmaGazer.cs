@@ -12,6 +12,7 @@ public sealed class MagmaGazer : Spell
         AddSpellAbilities(
             new CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
                 new ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration(),
                 new PowerAttackerAbility(4000),
                 new DoubleBreakerAbility()
             ));

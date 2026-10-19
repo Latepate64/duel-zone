@@ -8,15 +8,18 @@ public class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureS
     private readonly IAbility ability;
     private readonly ICardFilter filter;
     private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
     public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
         IAbility ability,
         ICardFilter filter,
-        IAbilityAddingContinuousEffectFactory factory) : base(1, 1, true)
+        IAbilityAddingContinuousEffectFactory factory,
+        IDuration duration) : base(1, 1, true)
     {
         this.ability = ability;
         this.filter = filter;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
@@ -26,6 +29,7 @@ public class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureS
         ability = effect.ability.Copy();
         filter = effect.filter.Copy();
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     protected override void Apply(
@@ -33,6 +37,7 @@ public class OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect : CreatureS
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(ability, creatures));
     }
 

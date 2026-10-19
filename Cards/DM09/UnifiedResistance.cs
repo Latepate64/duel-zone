@@ -16,7 +16,8 @@ public sealed class UnifiedResistance : Spell
             new YourChosenRaceCreaturesGetAbilityEffect(
                 new RaceCreatureFilterFactory(),
                 new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                new BlockerAbility()
+                new BlockerAbility(),
+                new UntilStartOfPlayersNextTurn()
             ));
     }
 }

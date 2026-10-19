@@ -14,7 +14,8 @@ namespace Cards.DM08
                 new WheneverPlayerCastsSpellAbility(
                     new AddCreatureAffectingNumberEffect(
                         3000,
-                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
+                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                        new UntilEndOfThisTurnDuration())));
         }
     }
 }

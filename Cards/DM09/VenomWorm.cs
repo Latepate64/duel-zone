@@ -17,7 +17,8 @@ public sealed class VenomWorm : Creature
                 new YourChosenRaceCreaturesGetAbilityEffect(
                     new RaceCreatureFilterFactory(),
                     new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                    new SlayerAbility()
+                    new SlayerAbility(),
+                    new UntilEndOfThisTurnDuration()
         )));
     }
 }

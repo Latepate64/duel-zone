@@ -8,8 +8,9 @@ public class KachuaEffectFactory
     public KachuaEffect Create(
         IAbilityAddingContinuousEffectFactory effectFactory,
         IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory,
-        IAbility ability)
+        IAbility ability,
+        IDuration duration)
     {
-        return new KachuaEffect(effectFactory, abilityFactory, ability);
+        return new KachuaEffect(effectFactory, abilityFactory, ability, duration);
     }
 }

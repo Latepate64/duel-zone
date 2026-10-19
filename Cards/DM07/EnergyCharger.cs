@@ -13,6 +13,7 @@ sealed class EnergyCharger : Charger
             new AddChosenCreatureAffectingNumberEffect(
                 2000,
                 new CreatureFilter(),
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

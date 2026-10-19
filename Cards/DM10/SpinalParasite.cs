@@ -11,7 +11,8 @@ public sealed class SpinalParasite : Creature
     {
         AddTriggeredAbility(
             new SpinalParasiteAbility(
-                new SpinalParasiteContinuousEffectFactory()
+                new SpinalParasiteContinuousEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

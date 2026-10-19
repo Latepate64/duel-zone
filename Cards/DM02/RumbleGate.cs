@@ -12,9 +12,11 @@ public sealed class RumbleGate : Spell
         AddSpellAbilities(
             new CreatureIntegerAffectingContinuousEffectAddingEffect(
                 1000,
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()),
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()),
             new ContinuousEffectAddingEffect(
-                new RumbleGateContinuousEffect()
+                new RumbleGateContinuousEffect(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

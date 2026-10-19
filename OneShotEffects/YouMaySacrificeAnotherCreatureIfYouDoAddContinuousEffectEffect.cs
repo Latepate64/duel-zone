@@ -7,13 +7,16 @@ public sealed class YouMaySacrificeAnotherCreatureIfYouDoAddContinuousEffectEffe
 {
     private readonly ICardFilter filter;
     private readonly IContinuousEffect continuousEffect;
+    private readonly IDuration duration;
 
     public YouMaySacrificeAnotherCreatureIfYouDoAddContinuousEffectEffect(
         ICardFilter filter,
-        IContinuousEffect continuousEffect)
+        IContinuousEffect continuousEffect,
+        IDuration duration)
     {
         this.filter = filter;
         this.continuousEffect = continuousEffect;
+        this.duration = duration;
     }
 
     public YouMaySacrificeAnotherCreatureIfYouDoAddContinuousEffectEffect(
@@ -21,6 +24,7 @@ public sealed class YouMaySacrificeAnotherCreatureIfYouDoAddContinuousEffectEffe
     {
         filter = effect.filter.Copy();
         continuousEffect = effect.continuousEffect;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -32,7 +36,7 @@ public sealed class YouMaySacrificeAnotherCreatureIfYouDoAddContinuousEffectEffe
         if (creature != null)
         {
             game.Destroy(Ability, source);
-            game.AddContinuousEffects(Ability, continuousEffect);
+            game.AddContinuousEffects(Ability, duration, continuousEffect);
         }
     }
 

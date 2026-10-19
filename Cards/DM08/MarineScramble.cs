@@ -10,6 +10,7 @@ public sealed class MarineScramble : Spell
     {
         AddSpellAbilities(
             new ContinuousEffectAddingEffect(
-                new YourCreaturesCannotBeBlockedThisTurnEffect()));
+                new YourCreaturesCannotBeBlockedThisTurnEffect(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

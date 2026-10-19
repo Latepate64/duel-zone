@@ -11,7 +11,8 @@ public sealed class ForcedFrenzy : Spell
         AddShieldTrigger();
         AddSpellAbilities(
             new ForcedFrenzyEffect(
-                new ForcedFrenzyContinuousEffectFactory()
+                new ForcedFrenzyContinuousEffectFactory(),
+                new UntilStartOfPlayersNextTurn()
             ));
     }
 }

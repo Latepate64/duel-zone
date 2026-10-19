@@ -19,12 +19,14 @@ public sealed class StormWranglerTheFurious : EvolutionCreature
                         new UntappedCreatureFilter(),
                         new BlockerFilter()
                     ),
-                    new StormWranglerContinuousEffectFactory()
+                    new StormWranglerContinuousEffectFactory(),
+                    new UntilEndOfThisTurnDuration()
                 )));
         AddTriggeredAbility(
             new WheneverThisCreatureBecomesBlockedAbility(
                 new AddCreatureAffectingNumberEffect(
                     3000,
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
+                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                    new UntilEndOfThisTurnDuration())));
     }
 }

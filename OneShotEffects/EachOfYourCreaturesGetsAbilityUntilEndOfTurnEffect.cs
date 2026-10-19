@@ -8,16 +8,19 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect : OneShot
     private readonly IAbility[] abilities;
     private readonly ICardFilter filter;
     private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory;
+    private readonly IDuration duration;
 
     internal EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
         ICardFilter filter,
         IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
+        IDuration duration,
         params IAbility[] abilities
         ) : base()
     {
         this.abilities = abilities;
         this.filter = filter;
         this.effectFactory = effectFactory;
+        this.duration = duration;
     }
 
     public EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect(
@@ -27,13 +30,14 @@ public sealed class EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffect : OneShot
         abilities = effect.abilities;
         filter = effect.filter;
         effectFactory = effect.effectFactory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
     {
         var creatures = game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
         var effect = effectFactory.Create(abilities, [.. creatures]);
-        game.AddContinuousEffects(Ability, effect);
+        game.AddContinuousEffects(Ability, duration, effect);
     }
 
     public override IOneShotEffect Copy()

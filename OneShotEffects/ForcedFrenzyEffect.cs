@@ -10,21 +10,25 @@ namespace OneShotEffects;
 public sealed class ForcedFrenzyEffect : OneShotEffect
 {
     private readonly IContinuousEffectWithGameFactory factory;
+    private readonly IDuration duration;
 
-    public ForcedFrenzyEffect(IContinuousEffectWithGameFactory factory)
+    public ForcedFrenzyEffect(IContinuousEffectWithGameFactory factory, IDuration duration)
     {
         this.factory = factory;
+        this.duration = duration;
     }
 
     public ForcedFrenzyEffect(ForcedFrenzyEffect effect) : base(effect)
     {
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(game, Controller));
     }
 

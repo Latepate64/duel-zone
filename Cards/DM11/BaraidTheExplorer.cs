@@ -11,6 +11,7 @@ public sealed class BaraidTheExplorer : SilentSkillCreature
     {
         AddSilentSkillAbility(
             new ContinuousEffectAddingEffect(
-                new YourLightCreaturesCannotBeBlockedThisTurnEffect()));
+                new YourLightCreaturesCannotBeBlockedThisTurnEffect(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

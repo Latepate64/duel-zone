@@ -18,7 +18,8 @@ public sealed class LavaWalkerExecuto : EvolutionCreature
                     new AddChosenCreatureAffectingNumberEffect(
                         3000,
                         new CivilizationCreatureFilter(Civilization.Fire),
-                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())),
+                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                        new UntilEndOfThisTurnDuration())),
                 new CivilizationCreatureFilter(Civilization.Fire)));
     }
 }

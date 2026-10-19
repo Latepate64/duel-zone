@@ -18,7 +18,8 @@ public sealed class FullDefensor : Spell
             new AddAbilityAddingEffect(
                 new ContinuousEffectWithAbilityFactory(),
                 filterFactory.Create(),
-                abilityFactory
+                abilityFactory,
+                new UntilStartOfPlayersNextTurn()
             ));
     }
 }

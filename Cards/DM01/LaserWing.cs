@@ -14,7 +14,8 @@ public sealed class LaserWing : Spell
                 minimum: 0,
                 maximum: 2,
                 filter: new CreatureFilter(),
-                factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+                factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

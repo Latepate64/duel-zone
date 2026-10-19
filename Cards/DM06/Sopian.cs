@@ -17,7 +17,8 @@ sealed class Sopian : Creature
                     minimum: 1,
                     maximum: 1,
                     filter: new CreatureFilter(),
-                    factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+                    factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory(),
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

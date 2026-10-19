@@ -11,6 +11,7 @@ sealed class MuscleCharger : Charger
         AddSpellAbilities(
             new CreatureIntegerAffectingContinuousEffectAddingEffect(
             3000,
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
+            new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+            new UntilEndOfThisTurnDuration()));
     }
 }

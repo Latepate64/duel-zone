@@ -10,15 +10,18 @@ namespace OneShotEffects;
 public sealed class InfernalCommandEffect : OneShotEffect
 {
     private readonly IContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
-    public InfernalCommandEffect(IContinuousEffectFactory factory)
+    public InfernalCommandEffect(IContinuousEffectFactory factory, IDuration duration)
     {
         this.factory = factory;
+        this.duration = duration;
     }
 
     public InfernalCommandEffect(InfernalCommandEffect effect) : base(effect)
     {
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -26,6 +29,7 @@ public sealed class InfernalCommandEffect : OneShotEffect
         var creature = Controller.ChooseOpponentsCreature(game, ToString());
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(creature));
     }
 

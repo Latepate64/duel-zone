@@ -13,6 +13,7 @@ sealed class ColossusBoost : Spell
             new AddChosenCreatureAffectingNumberEffect(
                 4000,
                 new CreatureFilter(),
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

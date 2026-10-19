@@ -22,7 +22,8 @@ public sealed class KachuaKeeperOfTheIcegate : Creature
                 kachuaEffectFactory.Create(
                     thatCreatureHasAbilityEffectFactory,
                     kachuaDelayedTriggeredAbilityFactory,
-                    speedAttackerAbilityFactory.Create()
+                    speedAttackerAbilityFactory.Create(),
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

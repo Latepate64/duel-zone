@@ -14,6 +14,7 @@ public sealed class QuillspikeRumbler : Creature
             new QuillspikeRumblerAbility(
                 new AddCreatureAffectingNumberEffect(
                     3000,
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
+                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                    new UntilEndOfThisTurnDuration())));
     }
 }

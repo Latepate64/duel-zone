@@ -10,7 +10,8 @@ public sealed class LaserWhip : Spell
     {
         AddSpellAbilities(
             new LaserWhipEffect(
-                new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+                new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

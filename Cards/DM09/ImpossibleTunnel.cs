@@ -10,7 +10,8 @@ public sealed class ImpossibleTunnel : Spell
     {
         AddSpellAbilities(
             new RaceAffectingContinuousEffectAddingEffect(
-                new ImpossibleTunnelContinuousEffectFactory()
+                new ImpossibleTunnelContinuousEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

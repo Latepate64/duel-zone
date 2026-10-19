@@ -3,27 +3,28 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// This creature gets ability until the end of the turn.
-/// </summary>
 public sealed class ThisCreatureGetsAbilityEffect : OneShotEffect
 {
     private readonly IAbility ability;
     private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
     public ThisCreatureGetsAbilityEffect(
         IAbilityAddingContinuousEffectFactory factory,
-        IAbility ability) : base()
+        IAbility ability,
+        IDuration duration) : base()
     {
         this.ability = ability;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public ThisCreatureGetsAbilityEffect(
         ThisCreatureGetsAbilityEffect effect) : base(effect)
     {
-        ability = effect.ability;
+        ability = effect.ability.Copy();
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -35,6 +36,7 @@ public sealed class ThisCreatureGetsAbilityEffect : OneShotEffect
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(ability, (ICreature)Source));
     }
 }

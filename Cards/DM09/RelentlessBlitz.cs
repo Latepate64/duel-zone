@@ -10,7 +10,8 @@ public sealed class RelentlessBlitz : Spell
     {
         AddSpellAbilities(
             new RaceAffectingContinuousEffectAddingEffect(
-                new RelentlessBlitzContinuousEffectFactory()
+                new RelentlessBlitzContinuousEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

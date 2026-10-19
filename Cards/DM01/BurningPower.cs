@@ -15,7 +15,8 @@ public sealed class BurningPower : Spell
             new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
                 powerAttackerAbilityFactory.Create(2000),
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()
         ));
     }
 }

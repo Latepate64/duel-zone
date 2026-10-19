@@ -10,7 +10,8 @@ public sealed class SlimeVeil : Spell
     {
         AddSpellAbilities(
             new ForcedFrenzyEffect(
-                new SlimeVeilContinuousEffectFactory()
+                new SlimeVeilContinuousEffectFactory(),
+                new DuringPlayersNextTurnDuration()
             ));
     }
 }

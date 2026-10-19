@@ -9,19 +9,23 @@ public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
 {
     private readonly IAbility ability;
     private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
     public ScalpelSpiderAbility(
         IAbility ability,
-        IAbilityAddingContinuousEffectFactory factory) : base()
+        IAbilityAddingContinuousEffectFactory factory,
+        IDuration duration) : base()
     {
         this.ability = ability;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public ScalpelSpiderAbility(ScalpelSpiderAbility ability) : base(ability)
     {
-        this.ability = ability.ability;
+        this.ability = ability.ability.Copy();
         factory = ability.factory;
+        duration = ability.duration.Copy();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -38,6 +42,7 @@ public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
     {
         game.AddContinuousEffects(
             this,
+            duration,
             factory.Create(ability, (ICreature)Source));
     }
 

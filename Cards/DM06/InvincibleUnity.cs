@@ -14,7 +14,8 @@ public sealed class InvincibleUnity : Spell
             new InvincibleUnityOneShotEffect(
                 new InvincibleUnityContinuousEffectFactory(),
                 new CreatureFilter(),
-                new TripleBreakerAbility()
+                new TripleBreakerAbility(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

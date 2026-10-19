@@ -20,6 +20,7 @@ public sealed class GankloakRogueCommando : SilentSkillCreature
             oneShotEffectFactory.Create(
                 creatureFilterFactory.Create(Civilization.Fire),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 doubleBreakerAbilityFactory.Create()
             )
         );

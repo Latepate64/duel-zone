@@ -24,6 +24,7 @@ public sealed class ArmoredTransportGaliacruse : Creature
                 oneShotEffectFactory.Create(
                     creatureFilterFactory.Create(Civilization.Fire),
                     continuousEffectFactory,
+                    new UntilEndOfThisTurnDuration(),
                     abilityFactory.Create(untappedFactory.Create())
                 )));
     }

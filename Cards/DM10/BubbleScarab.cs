@@ -12,6 +12,7 @@ public sealed class BubbleScarab : Creature
         AddTriggeredAbility(
             new BubbleScarabAbility(
                 3000,
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
+                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

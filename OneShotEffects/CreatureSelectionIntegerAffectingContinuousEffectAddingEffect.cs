@@ -8,14 +8,17 @@ public sealed class CreatureSelectionIntegerAffectingContinuousEffectAddingEffec
 {
     private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IAbility[] abilities;
+    private readonly IDuration duration;
 
     public CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
         IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
+        IDuration duration,
         params IAbility[] abilities)
         : base(1, 1, true)
     {
         this.factory = factory;
         this.abilities = abilities;
+        this.duration = duration;
     }
 
     public CreatureSelectionIntegerAffectingContinuousEffectAddingEffect(
@@ -24,6 +27,7 @@ public sealed class CreatureSelectionIntegerAffectingContinuousEffectAddingEffec
     {
         factory = effect.factory;
         abilities = [.. effect.abilities.Select(x => x.Copy())];
+        duration = effect.duration.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -35,6 +39,7 @@ public sealed class CreatureSelectionIntegerAffectingContinuousEffectAddingEffec
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(abilities, creatures));
     }
 

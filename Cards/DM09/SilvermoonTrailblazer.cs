@@ -13,7 +13,8 @@ public sealed class SilvermoonTrailblazer : Creature
         AddAbilities(
             new TapAbility(
                 new RaceAffectingContinuousEffectAddingEffect(
-                new SilvermoonTrailblazerContinuousEffectFactory()
+                new SilvermoonTrailblazerContinuousEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             )));
     }
 }

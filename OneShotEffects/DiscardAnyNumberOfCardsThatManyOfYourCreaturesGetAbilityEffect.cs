@@ -7,19 +7,22 @@ public sealed class DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffe
 {
     private readonly IAbilityAddingContinuousEffectFactory factory;
     private readonly IAbility ability;
+    private readonly IDuration duration;
 
     public DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect(
-        IAbilityAddingContinuousEffectFactory factory, IAbility ability)
+        IAbilityAddingContinuousEffectFactory factory, IAbility ability, IDuration duration)
     {
         this.factory = factory;
         this.ability = ability;
+        this.duration = duration;
     }
 
     private DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect(
         DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect effect) : base(effect)
     {
         factory = effect.factory;
-        ability = effect.ability;
+        ability = effect.ability.Copy();
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -29,6 +32,7 @@ public sealed class DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffe
             game, ToString(), amount);
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(ability, [.. creatures]));
     }
 

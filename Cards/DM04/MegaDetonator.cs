@@ -13,6 +13,7 @@ public sealed class MegaDetonator : Spell
         AddSpellAbilities(
             new DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect(
                 factory,
-                new DoubleBreakerAbility()));
+                new DoubleBreakerAbility(),
+                new UntilEndOfThisTurnDuration()));
     }
 }
