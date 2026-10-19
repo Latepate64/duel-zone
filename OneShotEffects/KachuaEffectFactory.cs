@@ -6,7 +6,7 @@ namespace OneShotEffects;
 public class KachuaEffectFactory
 {
     public KachuaEffect Create(
-        IContinuousEffectWithAbilityFactory effectFactory,
+        IAbilityAddingContinuousEffectFactory effectFactory,
         IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory,
         IAbility ability)
     {

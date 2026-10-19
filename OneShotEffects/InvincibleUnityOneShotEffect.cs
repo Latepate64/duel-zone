@@ -5,12 +5,12 @@ namespace OneShotEffects;
 
 public sealed class InvincibleUnityOneShotEffect : OneShotEffect
 {
-    private readonly IContinuousEffectWithAbilityFactory factory;
+    private readonly IAbilityAddingContinuousEffectFactory factory;
     private readonly ICardFilter filter;
     private readonly IAbility ability;
 
     public InvincibleUnityOneShotEffect(
-        IContinuousEffectWithAbilityFactory factory, ICardFilter filter, IAbility ability)
+        IAbilityAddingContinuousEffectFactory factory, ICardFilter filter, IAbility ability)
     {
         this.factory = factory;
         this.filter = filter;

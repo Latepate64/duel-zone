@@ -10,11 +10,11 @@ namespace OneShotEffects;
 /// </summary>
 public sealed class MegaDetonatorDiscardEffect : OneShotEffect
 {
-    private readonly IContinuousEffectWithAbilityFactory factory;
+    private readonly IAbilityAddingContinuousEffectFactory factory;
     private readonly IAbility ability;
 
     internal MegaDetonatorDiscardEffect(
-        IContinuousEffectWithAbilityFactory factory, IAbility ability)
+        IAbilityAddingContinuousEffectFactory factory, IAbility ability)
     {
         this.factory = factory;
         this.ability = ability;

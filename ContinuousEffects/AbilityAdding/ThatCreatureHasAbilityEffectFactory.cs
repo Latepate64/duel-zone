@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAdding;
 
-public class ThatCreatureHasAbilityEffectFactory : IContinuousEffectWithAbilityFactory
+public class ThatCreatureHasAbilityEffectFactory : IAbilityAddingContinuousEffectFactory
 {
     public IContinuousEffect Create(IAbility ability, params ICreature[] creatures)
     {

@@ -8,14 +8,14 @@ namespace Cards.DM04;
 public sealed class MegaDetonator : Spell
 {
     public MegaDetonator(
-        MegaDetonatorDiscardEffectFactory megaDetonatorDiscardEffectFactory,
-        MegaDetonatorContinuousEffectFactory megaDetonatorContinuousEffectFactory,
+        MegaDetonatorDiscardEffectFactory oneShotEffectFactory,
+        ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
     ) : base("Mega Detonator", 2, Civilization.Fire)
     {
         AddSpellAbilities(
-            megaDetonatorDiscardEffectFactory.Create(
-                megaDetonatorContinuousEffectFactory,
+            oneShotEffectFactory.Create(
+                continuousEffectFactory,
                 doubleBreakerAbilityFactory.Create()
             ));
     }

@@ -6,7 +6,7 @@ namespace OneShotEffects;
 public class MegaDetonatorDiscardEffectFactory
 {
     public MegaDetonatorDiscardEffect Create(
-        IContinuousEffectWithAbilityFactory factory, IAbility ability)
+        IAbilityAddingContinuousEffectFactory factory, IAbility ability)
     {
         return new MegaDetonatorDiscardEffect(factory, ability);
     }

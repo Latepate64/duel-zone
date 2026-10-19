@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AbilityAddingPowerModifying;
 
-public class InvincibleUnityContinuousEffectFactory : IContinuousEffectWithAbilityFactory
+public class InvincibleUnityContinuousEffectFactory : IAbilityAddingContinuousEffectFactory
 {
     public IContinuousEffect Create(IAbility ability, params ICreature[] creatures)
     {
