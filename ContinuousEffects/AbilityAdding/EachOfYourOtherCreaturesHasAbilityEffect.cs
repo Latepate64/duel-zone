@@ -34,7 +34,7 @@ public sealed class EachOfYourOtherCreaturesHasAbilityEffect : ContinuousEffect,
             var creatures = game.BattleZone.GetOtherCreaturesControlledByPlayer(source, filter);
             foreach (var creature in creatures)
             {
-                game.AddAbility(creature, ability);
+                creature.AddGrantedAbility(ability);
             }
         }
     }

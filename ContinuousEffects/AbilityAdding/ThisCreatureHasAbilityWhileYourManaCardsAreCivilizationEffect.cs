@@ -33,7 +33,7 @@ public sealed class ThisCreatureHasAbilityWhileYourManaCardsAreCivilizationEffec
     {
         if (Source!.OwnerV2.ManaZone.AreAllCivilizationCards(civilization))
         {
-            game.AddAbility(Source, ability);
+            Source.AddGrantedAbility(ability);
         }
     }
 }

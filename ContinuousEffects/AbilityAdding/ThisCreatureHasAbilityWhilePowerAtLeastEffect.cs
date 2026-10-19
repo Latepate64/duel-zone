@@ -27,7 +27,7 @@ public sealed class ThisCreatureHasAbilityWhilePowerAtLeastEffect : ContinuousEf
         var creature = (ICreature)Source!;
         if (creature.Power >= power)
         {
-            game.AddAbility(creature, ability);
+            creature.AddGrantedAbility(ability);
         }
     }
 

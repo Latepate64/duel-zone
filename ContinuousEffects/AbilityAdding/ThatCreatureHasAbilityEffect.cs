@@ -23,7 +23,7 @@ public sealed class ThatCreatureHasAbilityEffect : ContinuousEffect, IAbilityAdd
 
     public void AddAbility(IGame game)
     {
-        game.AddAbility(creature, ability);
+        creature.AddGrantedAbility(ability);
     }
 
     public override IContinuousEffect Copy()

@@ -24,7 +24,7 @@ public sealed class WhileYouHaveNoShieldsThisCreatureHasAbilityEffect : Continuo
     {
         if (!Controller.ShieldZone.HasCards)
         {
-            game.AddAbility(Source, abilityFactory.Create());
+            Source.AddGrantedAbility(abilityFactory.Create());
         }
     }
 

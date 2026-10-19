@@ -26,10 +26,7 @@ public sealed class EachCreatureHasAbilitiesEffect : ContinuousEffect, IAbilityA
     {
         foreach (var creature in game.BattleZone.GetCreatures(filter))
         {
-            foreach (var ability in abilities)
-            {
-                game.AddAbility(creature, ability);
-            }
+            creature.AddGrantedAbility(abilities);
         }
     }
 

@@ -10,8 +10,6 @@ public interface IGame
     IEnumerable<IPlayer> Players { get; }
     public IContinuousEffects ContinuousEffects { get; }
 
-    void AddAbility(ICard card, IAbility ability);
-
     void AddContinuousEffects(IAbility source, params IContinuousEffect[] continuousEffects);
     void AddDelayedTriggeredAbility(IDelayedTriggeredAbility ability);
     void Break(ICreature creature, int breakAmount);
