@@ -3,7 +3,8 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.CannotAttackPlayers;
 
-public sealed class ThisCreatureCannotAttackPlayersEffect : ContinuousEffect, ICannotAttackPlayersEffect
+public sealed class ThisCreatureCannotAttackPlayersEffect : ContinuousEffect,
+    ICannotAttackPlayersEffect
 {
     public ThisCreatureCannotAttackPlayersEffect() : base()
     {
@@ -17,10 +18,5 @@ public sealed class ThisCreatureCannotAttackPlayersEffect : ContinuousEffect, IC
     public override ContinuousEffect Copy()
     {
         return new ThisCreatureCannotAttackPlayersEffect();
-    }
-
-    public override string ToString()
-    {
-        return "This creature can't attack players.";
     }
 }
