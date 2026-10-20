@@ -1,4 +1,4 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using ContinuousEffects.PowerModifying;
 using Interfaces;
 using OneShotEffects;
 using TriggeredAbilities;
@@ -14,7 +14,7 @@ public sealed class QuillspikeRumbler : Creature
             new QuillspikeRumblerAbility(
                 new AddCreatureAffectingNumberEffect(
                     3000,
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                    new CreaturesGetPowerEffectFactory(),
                     new UntilEndOfThisTurnDuration())));
     }
 }

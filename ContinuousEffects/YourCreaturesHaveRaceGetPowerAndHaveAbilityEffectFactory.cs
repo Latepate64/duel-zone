@@ -1,7 +1,7 @@
 using Interfaces;
 using Interfaces.ContinuousEffects;
 
-namespace ContinuousEffects.AbilityAddingPowerModifying;
+namespace ContinuousEffects;
 
 public class YourCreaturesHaveRaceGetPowerAndHaveAbilityEffectFactory
     : IYourCreaturesHaveRaceGetPowerAndHaveAbilityEffectFactory

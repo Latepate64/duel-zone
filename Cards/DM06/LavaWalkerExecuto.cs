@@ -1,7 +1,7 @@
 ﻿using Abilities;
 using CardFilters;
 using ContinuousEffects.AbilityAdding;
-using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects.PowerModifying;
 using Interfaces;
 using OneShotEffects;
 
@@ -18,7 +18,7 @@ public sealed class LavaWalkerExecuto : EvolutionCreature
                     new AddChosenCreatureAffectingNumberEffect(
                         3000,
                         new CivilizationCreatureFilter(Civilization.Fire),
-                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                        new CreaturesGetPowerEffectFactory(),
                         new UntilEndOfThisTurnDuration())),
                 new CivilizationCreatureFilter(Civilization.Fire)));
     }

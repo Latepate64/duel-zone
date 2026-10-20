@@ -1,5 +1,5 @@
 ﻿using CardFilters;
-using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects.PowerModifying;
 using ContinuousEffects.CanAttackUntappedCreatures;
 using Interfaces;
 using OneShotEffects;
@@ -16,7 +16,7 @@ public sealed class SmashWarriorStagrandu : Creature
             new StagranduAbility(
                 new AddCreatureAffectingNumberEffect(
                     9000,
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                    new CreaturesGetPowerEffectFactory(),
                     new UntilEndOfThisTurnDuration())));
     }
 }

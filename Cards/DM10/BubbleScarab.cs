@@ -1,4 +1,4 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using ContinuousEffects.PowerModifying;
 using Interfaces;
 using TriggeredAbilities;
 
@@ -12,7 +12,7 @@ public sealed class BubbleScarab : Creature
         AddTriggeredAbility(
             new BubbleScarabAbility(
                 3000,
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
+                new CreaturesGetPowerEffectFactory(),
                 new UntilEndOfThisTurnDuration()));
     }
 }
