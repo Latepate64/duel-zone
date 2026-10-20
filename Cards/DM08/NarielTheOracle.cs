@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CannotAttack;
+﻿using CardFilters;
+using ContinuousEffects.CannotAttack;
 using Interfaces;
 
 namespace Cards.DM08;
@@ -7,6 +8,6 @@ public sealed class NarielTheOracle : Creature
 {
     public NarielTheOracle() : base("Nariel, the Oracle", 4, 1000, Race.LightBringer, Civilization.Light)
     {
-        AddStaticAbilities(new NarielTheOracleEffect());
+        AddStaticAbilities(new CreaturesCannotAttackEffect(new MinPowerFilter(3000)));
     }
 }
