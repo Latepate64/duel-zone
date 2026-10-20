@@ -1,5 +1,5 @@
 ﻿using CardFilters;
-using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects;
 using ContinuousEffects.Unblockable;
 using Interfaces;
 
@@ -10,7 +10,8 @@ sealed class PurplePiercer : Creature
     public PurplePiercer() : base("Purple Piercer", 3, 2000, Race.BrainJacker, Civilization.Darkness)
     {
         AddStaticAbilities(
-            new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Civilization.Light),
+            new ThisCreatureCannotBeAttackedEffect(
+                new CivilizationCreatureFilter(Civilization.Light)),
             new ThisCreatureCannotBeBlockedEffect(
                 new CivilizationCreatureFilter(Civilization.Light)));
     }

@@ -1,12 +1,17 @@
-﻿using ContinuousEffects.CannotBeAttacked;
+﻿using CardFilters;
+using ContinuousEffects;
+using Interfaces;
 
-namespace Cards.DM05
+namespace Cards.DM05;
+
+sealed class SteelTurretCluster : Creature
 {
-    sealed class SteelTurretCluster : Creature
+    public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Race.CyberCluster, Civilization.Water)
     {
-        public SteelTurretCluster() : base("Steel-Turret Cluster", 5, 3000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
-        {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Interfaces.Civilization.Fire, Interfaces.Civilization.Nature));
-        }
+        AddStaticAbilities(
+            new ThisCreatureCannotBeAttackedEffect(
+                new CivilizationCreatureFilter(
+                    Civilization.Fire,
+                    Civilization.Nature)));
     }
 }

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CannotBeAttacked;
+﻿using CardFilters;
+using ContinuousEffects;
 
 namespace Cards.DM07
 {
@@ -6,7 +7,7 @@ namespace Cards.DM07
     {
         public KoocPollon() : base("Kooc Pollon", 2, 1000, Interfaces.Race.FireBird, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect(new CreatureFilter()));
         }
     }
 }
