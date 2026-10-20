@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CostModifying;
+﻿using CardFilters;
+using ContinuousEffects.CostModifying;
 
 namespace Cards.DM02;
 
@@ -6,6 +7,10 @@ public sealed class EssenceElf : Creature
 {
     public EssenceElf() : base("Essence Elf", 2, 1000, Interfaces.Race.TreeFolk, Interfaces.Civilization.Nature)
     {
-        AddStaticAbilities(new EssenceElfEffect());
+        AddStaticAbilities(
+            new YourCardsCostLessEffect(
+                filter: new SpellFilter(),
+                reduction: 1,
+                minimumCost: 1));
     }
 }
