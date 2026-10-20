@@ -1,13 +1,18 @@
-﻿using ContinuousEffects;
+﻿using CardFilters;
+using ContinuousEffects;
 using Interfaces;
 
 namespace Cards.Promo;
 
 public sealed class QTronicOmnistrain : EvolutionCreature
 {
-    public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Race.Survivor, Civilization.Nature)
+    public QTronicOmnistrain() : base("Q-tronic Omnistrain", 6, 3000, Race.Survivor,
+        Civilization.Nature)
     {
         AddShieldTrigger();
-        AddStaticAbilities(new QTronicOmnistrainEffect());
+        AddStaticAbilities(
+            new EachOfYourCreaturesGetsRaceEffect(
+                Race.Survivor,
+                new CreatureFilter()));
     }
 }
