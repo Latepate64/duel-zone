@@ -15,8 +15,8 @@ public class CreaturesCannotBeBlockedEffectTests
         attackerFilter.Setup(x => x.Copy()).Returns(attackerFilter.Object);
         var blockerFilter = new Mock<ICardFilter>();
         blockerFilter.Setup(x => x.Copy()).Returns(blockerFilter.Object);
-        var effect = new CreaturesCannotBeBlockedEffect(
-            attackerFilter.Object, blockerFilter.Object);
+        var factory = new CreaturesCannotBeBlockedEffectFactory();
+        var effect = factory.Create(attackerFilter.Object, blockerFilter.Object);
 
         // Act
         var copy = effect.Copy();

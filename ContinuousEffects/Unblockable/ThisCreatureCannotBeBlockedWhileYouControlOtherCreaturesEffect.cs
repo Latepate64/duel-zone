@@ -4,10 +4,6 @@ using Interfaces.Zones;
 
 namespace ContinuousEffects.Unblockable;
 
-/// <summary>
-/// This creature can't be blocked while you have at least x other creatures in
-/// the battle zone.
-/// </summary>
 public sealed class ThisCreatureCannotBeBlockedWhileYouControlOtherCreaturesEffect
     : ContinuousEffect, IUnblockableEffect
 {

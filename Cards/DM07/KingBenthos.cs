@@ -16,7 +16,6 @@ public sealed class KingBenthos : Creature
         CivilizationCreatureFilterFactory creatureFilterFactory,
         CreaturesGetAbilitiesEffectFactory continuousEffectFactory,
         TapAbilityFactory tapAbilityFactory,
-        ThisCreatureCannotBeBlockedEffectFactory cannotBeBlockedEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
     ) : base("King Benthos", 8, 6000, Race.Leviathan, Civilization.Water)
     {
@@ -28,8 +27,7 @@ public sealed class KingBenthos : Creature
                     continuousEffectFactory,
                     new UntilEndOfThisTurnDuration(),
                     abilityFactory.Create(
-                        cannotBeBlockedEffectFactory.Create(
-                            new CreatureFilter()))
+                        new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()))
         )));
     }
 }
