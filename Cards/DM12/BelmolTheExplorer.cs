@@ -9,7 +9,7 @@ namespace Cards.DM12
         public BelmolTheExplorer() : base("Belmol, the Explorer", 2, 3500, Interfaces.Race.Gladiator, Interfaces.Civilization.Light)
         {
             AddAbilities(new BlockerAbility());
-            AddStaticAbilities(new ThisCreatureBlocksIfAble());
+            AddStaticAbilities(new ThisCreatureBlocksIfAbleEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }
