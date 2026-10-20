@@ -17,7 +17,7 @@ public sealed class PlayersCannotUseShieldTriggerAbilitiesOfCivilizationCardsEff
 
     public Civilization Civilization { get; }
 
-    public bool Applies(ICard card, IGame game)
+    public bool CannotUseShieldTrigger(ICard card, IGame game)
     {
         return card.HasCivilization(Civilization);
     }

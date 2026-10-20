@@ -10,6 +10,6 @@ sealed class CrypticTotem : Creature
         "Cryptic Totem", 6, 6000, Race.MysteryTotem, Civilization.Nature)
     {
         AddAbilities(new DoubleBreakerAbility());
-        AddStaticAbilities(new CrypticTotemEffect());
+        AddStaticAbilities(new YourOpponentCannotUseShieldTriggersWhileSourceIsTappedEffect());
     }
 }
