@@ -15,7 +15,7 @@ public sealed class RumbleGate : Spell
                 new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory(),
                 new UntilEndOfThisTurnDuration()),
             new ContinuousEffectAddingEffect(
-                new RumbleGateContinuousEffect(),
+                new YourCreaturesCanAttackUntappedCreaturesEffect(),
                 new UntilEndOfThisTurnDuration()
             ));
     }

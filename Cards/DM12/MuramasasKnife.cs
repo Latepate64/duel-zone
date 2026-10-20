@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CanAttackUntappedCreatures;
+﻿using CardFilters;
+using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM12
 {
@@ -6,7 +7,7 @@ namespace Cards.DM12
     {
         public MuramasasKnife() : base("Muramasa's Knife", 3, 2000, Interfaces.Race.Xenoparts, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()));
         }
     }
 }

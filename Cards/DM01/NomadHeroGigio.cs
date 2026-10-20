@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CanAttackUntappedCreatures;
+﻿using CardFilters;
+using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public NomadHeroGigio() : base("Nomad Hero Gigio", 5, 3000, Interfaces.Race.MachineEater, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()));
         }
     }
 }

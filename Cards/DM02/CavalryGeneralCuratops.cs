@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CanAttackUntappedCreatures;
+﻿using CardFilters;
+using ContinuousEffects.CanAttackUntappedCreatures;
 
 namespace Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.DM02
     {
         public CavalryGeneralCuratops() : base("Cavalry General Curatops", 3, 2000, Interfaces.Race.Dragonoid, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()));
         }
     }
 }

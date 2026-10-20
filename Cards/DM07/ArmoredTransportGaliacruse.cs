@@ -15,8 +15,7 @@ public sealed class ArmoredTransportGaliacruse : Creature
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
         CreaturesGetAbilitiesEffectFactory continuousEffectFactory,
-        TapAbilityFactory tapAbilityFactory,
-        ThisCreatureCanAttackUntappedCreaturesEffectFactory untappedFactory
+        TapAbilityFactory tapAbilityFactory
     ) : base("Armored Transport Galiacruse", 6, 5000, Race.Armorloid, Civilization.Fire)
     {
         AddAbilities(
@@ -25,7 +24,8 @@ public sealed class ArmoredTransportGaliacruse : Creature
                     creatureFilterFactory.Create(Civilization.Fire),
                     continuousEffectFactory,
                     new UntilEndOfThisTurnDuration(),
-                    abilityFactory.Create(untappedFactory.Create())
+                    abilityFactory.Create(
+                        new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()))
                 )));
     }
 }

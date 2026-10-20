@@ -16,7 +16,7 @@ sealed class GarkagoDragon : Creature
         new ThisCreatureGetsPowerForEachOfYourOtherCreatures(
             1000, new CivilizationCreatureFilter(Civilization.Fire)
         ));
-        AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+        AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()));
         
     }
 }

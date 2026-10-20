@@ -15,7 +15,6 @@ public interface IGame
     void AddDelayedTriggeredAbility(IDelayedTriggeredAbility ability);
     void Break(ICreature creature, int breakAmount);
 
-    bool CanAttackAtLeastOneCreature(ICreature creature);
     bool CanAttackAtLeastSomething(ICreature creature);
 
     bool CanAttackCreature(ICard attacker, ICard targetOfAttack);
