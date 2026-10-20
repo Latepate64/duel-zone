@@ -3,11 +3,11 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.CannotAttackPlayers;
 
-public class MiraculousTruceContinuousEffectFactory
+public class CivilizationCreaturesCannotAttackYouEffectFactory
     : IContinuousEffectWithCivilizationFactory
 {
     public IContinuousEffect Create(Civilization civilization)
     {
-        return new MiraculousTruceContinuousEffect(civilization);
+        return new CivilizationCreaturesCannotAttackYouEffect(civilization);
     }
 }
