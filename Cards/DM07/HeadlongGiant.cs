@@ -14,7 +14,7 @@ sealed class HeadlongGiant : Creature
         Civilization.Nature)
     {
         AddStaticAbilities(
-            new HeadlongGiantEffect(),
+            new ThisCreatureCannotAttackEffect(new ControllerHasNoHandCardsCondition()),
             new ThisCreatureCannotBeBlockedEffect(new MaxPowerFilter(4000)));
         AddTriggeredAbility(
             new WheneverThisCreatureAttacksAbility(

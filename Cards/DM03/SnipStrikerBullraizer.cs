@@ -1,12 +1,18 @@
-﻿using ContinuousEffects.CannotAttack;
+﻿using CardFilters;
+using ContinuousEffects.CannotAttack;
 using Interfaces;
+using Interfaces.Zones;
 
 namespace Cards.DM03;
 
 public sealed class SnipStrikerBullraizer : Creature
 {
-    public SnipStrikerBullraizer() : base("Snip Striker Bullraizer", 2, 3000, Race.Dragonoid, Civilization.Fire)
+    public SnipStrikerBullraizer(IBattleZone battleZone) : base("Snip Striker Bullraizer", 2, 3000, Race.Dragonoid, Civilization.Fire)
     {
-        AddStaticAbilities(new SnipStrikerBullraizerEffect());
+        AddStaticAbilities(
+            new ThisCreatureCannotAttackEffect(
+                new OpponentControlsMoreCreaturesThanControllerCondition(
+                    battleZone,
+                    new CreatureFilter())));
     }
 }
