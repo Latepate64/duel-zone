@@ -6,7 +6,7 @@ namespace Cards.DM01
     {
         public Draglide() : base("Draglide", 5, 5000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureAttacksEachTurnIfAbleEffect());
+            AddStaticAbilities(new ThisCreatureAttacksIfAbleEffect());
         }
     }
 }

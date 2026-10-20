@@ -7,7 +7,7 @@ namespace Cards.DM11
     {
         public HysteriaLizard() : base("Hysteria Lizard", 4, 3000, Interfaces.Race.MeltWarrior, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureAttacksEachTurnIfAbleEffect());
+            AddStaticAbilities(new ThisCreatureAttacksIfAbleEffect());
             AddStaticAbilities(new PowerAttackerEffect(3000));
         }
     }

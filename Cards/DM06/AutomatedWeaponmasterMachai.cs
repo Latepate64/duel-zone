@@ -6,7 +6,7 @@ namespace Cards.DM06
     {
         public AutomatedWeaponmasterMachai() : base("Automated Weaponmaster Machai", 4, 4000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureAttacksEachTurnIfAbleEffect());
+            AddStaticAbilities(new ThisCreatureAttacksIfAbleEffect());
         }
     }
 }

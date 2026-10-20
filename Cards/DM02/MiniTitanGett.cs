@@ -7,7 +7,7 @@ namespace Cards.DM02
     {
         public MiniTitanGett() : base("Mini Titan Gett", 2, 2000, Interfaces.Race.Human, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureAttacksEachTurnIfAbleEffect());
+            AddStaticAbilities(new ThisCreatureAttacksIfAbleEffect());
             AddStaticAbilities(new PowerAttackerEffect(1000));
         }
     }
