@@ -9,12 +9,12 @@ public sealed class ChosenCreaturesCannotBeBlockedEffect :
 {
     private readonly ICreature[] creatures;
 
-    public ChosenCreaturesCannotBeBlockedEffect(params ICreature[] creature) : base()
+    internal ChosenCreaturesCannotBeBlockedEffect(params ICreature[] creature) : base()
     {
         creatures = creature;
     }
 
-    public ChosenCreaturesCannotBeBlockedEffect(
+    private ChosenCreaturesCannotBeBlockedEffect(
         ChosenCreaturesCannotBeBlockedEffect effect) : base(effect)
     {
         creatures = [.. effect.creatures];
@@ -23,7 +23,7 @@ public sealed class ChosenCreaturesCannotBeBlockedEffect :
     public bool CannotBeBlocked(ICreature attacker, ICreature blocker,
         IAttackable targetOfAttack, IBattleZone battleZone)
     {
-        return creatures.Any(x => x.Id == attacker.Id);
+        return creatures.Any(x => x.Equals(attacker));
     }
 
     public override IContinuousEffect Copy()
