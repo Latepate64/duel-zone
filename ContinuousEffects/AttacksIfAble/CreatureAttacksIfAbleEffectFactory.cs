@@ -3,10 +3,10 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects.AttacksIfAble;
 
-public class SpinalParasiteContinuousEffectFactory : IContinuousEffectFactory
+public class CreatureAttacksIfAbleEffectFactory : IContinuousEffectFactory
 {
     public IContinuousEffect Create(params ICreature[] creatures)
     {
-        return new SpinalParasiteContinuousEffect(creatures.Single());
+        return new CreatureAttacksIfAbleEffect(creatures.Single());
     }
 }
