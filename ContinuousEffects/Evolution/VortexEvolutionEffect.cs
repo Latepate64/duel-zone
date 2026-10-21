@@ -29,48 +29,8 @@ public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
         // return validPairs.Any();
     }
 
-    private bool CanEvolveFrom(ICreature evolutionCreature, ICreature bait1, ICreature bait2)
-    {
-        if (IsSourceOfAbility(evolutionCreature))
-        {
-            if (bait1.HasRace(Race1))
-            {
-                return bait2.HasRace(Race2);
-            }
-            else if (bait1.HasRace(Race2))
-            {
-                return bait2.HasRace(Race1);
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public override IContinuousEffect Copy()
     {
         return new VortexEvolutionEffect(this);
-    }
-
-    public override string ToString()
-    {
-        return $"Vortex evolution — Put on one of your {Race1}s and one of your {Race2}s.";
-    }
-
-    public void Evolve(ICreature evolutionCreature, IGame game)
-    {
-        var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        IEnumerable<ICreature> baits;
-        do
-        {
-            baits = evolutionCreature.Owner.ChooseCreatures(creatures, 2, 2, "Choose creatures to evolve from.");
-        }
-        while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
-        throw new NotImplementedException();
     }
 }
