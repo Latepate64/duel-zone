@@ -38,4 +38,23 @@ public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
         }
         return false;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (!base.Equals(obj)) return false;
+        if (obj is not VortexEvolutionEffect effect) return false;
+        if (!filters.SequenceEqual(effect.filters)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        hash.Add(base.GetHashCode());
+        foreach (var filter in filters)
+        {
+            hash.Add(filter);
+        }
+        return hash.ToHashCode();
+    }
 }
