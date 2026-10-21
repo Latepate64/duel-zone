@@ -5,32 +5,37 @@ namespace ContinuousEffects.Evolution;
 
 public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
 {
-    public VortexEvolutionEffect(Race race1, Race race2)
+    private readonly ICardFilter[] filters;
+
+    public VortexEvolutionEffect(ICardFilter filter1, ICardFilter filter2)
     {
-        Race1 = race1;
-        Race2 = race2;
+        filters = [filter1, filter2];
     }
 
-    public VortexEvolutionEffect(VortexEvolutionEffect effect) : base(effect)
+    private VortexEvolutionEffect(VortexEvolutionEffect effect) : base(effect)
     {
-        Race1 = effect.Race1;
-        Race2 = effect.Race2;
-    }
-
-    public Race Race1 { get; }
-    public Race Race2 { get; }
-
-    public bool CanEvolve(IGame game, ICreature evolutionCreature)
-    {
-        throw new NotImplementedException();
-        // var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        // var combinations = new Combinations<ICreature>(baits, 2, GenerateOption.WithoutRepetition);
-        // var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
-        // return validPairs.Any();
+        filters = [.. effect.filters.Select(x => x.Copy())];
     }
 
     public override IContinuousEffect Copy()
     {
         return new VortexEvolutionEffect(this);
+    }
+
+    public bool CanEvolve(IGame game, ICreature evolutionCreature)
+    {
+        if (!IsSourceOfAbility(evolutionCreature)) return false;
+        var creaturesByFilters = filters.Select(
+            x => game.BattleZone.GetCreaturesControlledByPlayer(Applier, x));
+        for (var i = 0; i < creaturesByFilters.Count(); ++i)
+        {
+            var creatures1 = creaturesByFilters.ElementAt(i);
+            for (var j = i+1; j < creaturesByFilters.Count(); ++j)
+            {
+                var creatures2 = creaturesByFilters.ElementAt(j);
+                if (creatures1.Any(x => !creatures2.Contains(x))) return true;
+            }
+        }
+        return false;
     }
 }
