@@ -26,5 +26,23 @@
                 </spellAbility>
             </spellAbilities>
         </spell>
+        <creature>
+            <name>Aqua Hulcus</name>
+            <power>2000</power>
+            <triggeredAbilities>
+                <whenYouPutThisCreatureIntoTheBattleZoneAbility>
+                    <youMayDrawCardEffect />
+                </whenYouPutThisCreatureIntoTheBattleZoneAbility>
+            </triggeredAbilities>
+        </creature>
+        <creature>
+            <name>Rikabu's Screwdriver</name>
+            <power>1000</power>
+            <activatedAbilities>
+                <tapAbility>
+                    <destroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
+                </tapAbility>
+            </activatedAbilities>
+        </creature>
     </cards>
 </root>
