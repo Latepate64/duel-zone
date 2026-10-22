@@ -4,10 +4,10 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="cards">
-          <xs:complexType>  
+          <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-              <xs:element type="creature" name="creature"/>
-              <xs:element type="spell" name="spell"/>
+              <xs:element type="creature" name="creature" />
+              <xs:element type="spell" name="spell" />
             </xs:choice>
           </xs:complexType>
         </xs:element>
@@ -30,7 +30,46 @@
   </xs:complexType>
   <xs:complexType name="spell">
     <xs:complexContent>
-      <xs:extension base="card" />
+      <xs:extension base="card">
+        <xs:sequence>
+          <xs:element name="spellAbilities">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element type="spellAbility" name="spellAbility"></xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ability" abstract="true" />
+  <xs:complexType name="resolvableAbility" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="ability" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="spellAbility">
+    <xs:complexContent>
+      <xs:extension base="resolvableAbility">
+        <!-- <xs:sequence> -->
+          <xs:choice>
+              <xs:element type="destroyOneOfYourOpponentsCreaturesEffect" name="destroyOneOfYourOpponentsCreaturesEffect" />
+              <xs:element type="tapAllYourOpponentsCreaturesEffect" name="tapAllYourOpponentsCreaturesEffect" />
+            </xs:choice>
+        <!-- </xs:sequence> -->
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="oneShotEffect" abstract="true"/>
+  <xs:complexType name="destroyOneOfYourOpponentsCreaturesEffect">
+    <xs:complexContent>
+      <xs:extension base="oneShotEffect" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="tapAllYourOpponentsCreaturesEffect">
+    <xs:complexContent>
+      <xs:extension base="oneShotEffect" />
     </xs:complexContent>
   </xs:complexType>
 </xs:schema>

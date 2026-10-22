@@ -8,6 +8,11 @@
         </creature>
         <spell>
             <name>Holy Awe</name>
+            <spellAbilities>
+                <spellAbility>
+                    <tapAllYourOpponentsCreaturesEffect />
+                </spellAbility>
+            </spellAbilities>
         </spell>
         <creature>
             <name>Immortal Baron, Vorg</name>
@@ -15,6 +20,11 @@
         </creature>
         <spell>
             <name>Terror Pit</name>
+            <spellAbilities>
+                <spellAbility>
+                    <destroyOneOfYourOpponentsCreaturesEffect />
+                </spellAbility>
+            </spellAbilities>
         </spell>
     </cards>
 </root>

@@ -85,9 +85,111 @@ public abstract partial class card {
 }
 
 /// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(tapAllYourOpponentsCreaturesEffect))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(destroyOneOfYourOpponentsCreaturesEffect))]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public abstract partial class oneShotEffect {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class tapAllYourOpponentsCreaturesEffect : oneShotEffect {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class destroyOneOfYourOpponentsCreaturesEffect : oneShotEffect {
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(resolvableAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(spellAbility))]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public abstract partial class ability {
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(spellAbility))]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public abstract partial class resolvableAbility : ability {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class spellAbility : resolvableAbility {
+    
+    private oneShotEffect itemField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("destroyOneOfYourOpponentsCreaturesEffect", typeof(destroyOneOfYourOpponentsCreaturesEffect), Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlElementAttribute("tapAllYourOpponentsCreaturesEffect", typeof(tapAllYourOpponentsCreaturesEffect), Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public oneShotEffect Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+}
+
+/// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class spell : card {
+    
+    private spellSpellAbilities spellAbilitiesField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public spellSpellAbilities spellAbilities {
+        get {
+            return this.spellAbilitiesField;
+        }
+        set {
+            this.spellAbilitiesField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.7.3081.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class spellSpellAbilities {
+    
+    private spellAbility spellAbilityField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public spellAbility spellAbility {
+        get {
+            return this.spellAbilityField;
+        }
+        set {
+            this.spellAbilityField = value;
+        }
+    }
 }
