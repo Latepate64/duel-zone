@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
 using ContinuousEffects.CanAttackUntappedCreatures;
 using Interfaces;
 using OneShotEffects;
@@ -10,11 +11,12 @@ public sealed class SmashWarriorStagrandu : Creature
 {
     public SmashWarriorStagrandu() : base("Smash Warrior Stagrandu", 2, 1000, Race.Armorloid, Civilization.Fire)
     {
-        AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+        AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()));
         AddTriggeredAbility(
             new StagranduAbility(
                 new AddCreatureAffectingNumberEffect(
                     9000,
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
+                    new CreaturesGetPowerEffectFactory(),
+                    new UntilEndOfThisTurnDuration())));
     }
 }

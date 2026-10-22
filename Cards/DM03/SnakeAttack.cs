@@ -9,16 +9,17 @@ namespace Cards.DM03;
 public sealed class SnakeAttack : Spell
 {
     public SnakeAttack(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory)
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory)
         : base("Snake Attack", 4, Civilization.Darkness)
     {
         AddSpellAbilities(
             oneShotEffectFactory.Create(
                 creatureFilterFactory.Create(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 doubleBreakerAbilityFactory.Create()
             ),
             new CardMovingChoiceEffect(

@@ -1,5 +1,6 @@
-﻿using ContinuousEffects.CannotAttackPlayers;
-using ContinuousEffects.CannotBeAttacked;
+﻿using CardFilters;
+using ContinuousEffects.CannotAttackPlayers;
+using ContinuousEffects;
 using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM08
@@ -8,7 +9,7 @@ namespace Cards.DM08
     {
         public RocketdiveSkyterror() : base("Rocketdive Skyterror", 4, 5000, Interfaces.Race.ArmoredWyvern, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect(new CreatureFilter()));
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
             AddStaticAbilities(new PowerAttackerEffect(1000));
         }

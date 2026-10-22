@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CannotAttackCreatures;
+﻿using CardFilters;
+using ContinuousEffects;
 using ContinuousEffects.CannotAttackPlayers;
 using Interfaces;
 
@@ -8,7 +9,7 @@ public sealed class BazookaMutant : Creature
 {
     public BazookaMutant() : base("Bazooka Mutant", 4, 8000, Race.Hedrian, Civilization.Darkness)
     {
-        AddStaticAbilities(new BazookaMutantEffect());
+        AddStaticAbilities(new ThisCreatureCannotAttackCreaturesEffect(new NonBlockerFilter()));
         AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
     }
 }

@@ -14,7 +14,8 @@ public sealed class SpinningTotem : Creature
             new TapAbility(
                 new WheneverSomethingHappensThisTurnEffect(
                     new WheneverSomethingHappensThisTurnAbilityFactory(),
-                    new SpinningTotemTriggeredAbility()
+                    new SpinningTotemTriggeredAbility(),
+                    new UntilEndOfThisTurnDuration()
         )));
     }
 }

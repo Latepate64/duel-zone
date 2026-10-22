@@ -19,7 +19,8 @@ public sealed class GigiosHammer : Creature
                 new AddRaceAffectingAbilityAddingEffect(
                     continuousEffectFactory,
                     powerAttackerFactory,
-                    4000
+                    4000,
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

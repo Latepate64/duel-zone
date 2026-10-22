@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 using OneShotEffects;
 
@@ -10,6 +11,10 @@ public sealed class MarineScramble : Spell
     {
         AddSpellAbilities(
             new ContinuousEffectAddingEffect(
-                new YourCreaturesCannotBeBlockedThisTurnEffect()));
+                new YourCreaturesCannotBeBlockedEffect(
+                    attackerFilter: new CreatureFilter(),
+                    blockerFilter: new CreatureFilter()
+                ),
+                new UntilEndOfThisTurnDuration()));
     }
 }

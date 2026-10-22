@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM02
 {
@@ -6,7 +7,7 @@ namespace Cards.DM02
     {
         public EthelStarSeaElemental() : base("Ethel, Star Sea Elemental", 6, 5500, Interfaces.Race.AngelCommand, Interfaces.Civilization.Light)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         }
     }
 }

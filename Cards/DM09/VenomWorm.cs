@@ -16,8 +16,9 @@ public sealed class VenomWorm : Creature
             new TapAbility(
                 new YourChosenRaceCreaturesGetAbilityEffect(
                     new RaceCreatureFilterFactory(),
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                    new SlayerAbility()
+                    new CreaturesGetAbilitiesEffectFactory(),
+                    new SlayerAbility(),
+                    new UntilEndOfThisTurnDuration()
         )));
     }
 }

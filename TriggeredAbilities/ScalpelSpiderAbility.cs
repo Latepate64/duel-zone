@@ -1,4 +1,5 @@
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace TriggeredAbilities;
 
@@ -7,20 +8,24 @@ namespace TriggeredAbilities;
 public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
 {
     private readonly IAbility ability;
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
+    private readonly IDuration duration;
 
     public ScalpelSpiderAbility(
         IAbility ability,
-        IAbilityAddingContinuousEffectFactory factory) : base()
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
+        IDuration duration) : base()
     {
         this.ability = ability;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public ScalpelSpiderAbility(ScalpelSpiderAbility ability) : base(ability)
     {
-        this.ability = ability.ability;
+        this.ability = ability.ability.Copy();
         factory = ability.factory;
+        duration = ability.duration.Copy();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -37,7 +42,8 @@ public sealed class ScalpelSpiderAbility : LinkedTriggeredAbility
     {
         game.AddContinuousEffects(
             this,
-            factory.Create(ability, (ICreature)Source));
+            duration,
+            factory.Create([ability], (ICreature)Source));
     }
 
     public override ITriggeredAbility Trigger(

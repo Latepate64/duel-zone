@@ -24,7 +24,7 @@ public sealed class BodaciousGiantEffect : ContinuousEffect, IAttacksIfAbleEffec
 
     private bool Applies(IGame game, ICreature attacker)
     {
-        var opponent = GetOpponent(game);
+        var opponent = game.GetOpponent(Controller);
         throw new System.NotImplementedException();
         // return Source.Tapped && game.CurrentTurn.ActivePlayer == opponent && !_hasBeenAttacked && attacker.Owner == opponent;
     }

@@ -14,8 +14,9 @@ sealed class AquaRider : Creature
         AddTriggeredAbility(
             new OpponentSummonOrCastAbility(
                 new ThisCreatureGetsAbilityEffect(
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory(),
-                    new BlockerAbility()
+                    new CreaturesGetAbilitiesEffectFactory(),
+                    new BlockerAbility(),
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

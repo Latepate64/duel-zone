@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Evolution;
+﻿using CardFilters;
+using ContinuousEffects.Evolution;
 using Interfaces;
 
 namespace Cards;
@@ -9,13 +10,13 @@ public class EvolutionCreature : Creature
         name, manaCost, power, race, civilization)
     {
         Supertypes.Add(Supertype.Evolution);
-        AddStaticAbilities(new RaceEvolutionEffect(race));
+        AddStaticAbilities(new EvolutionEffect(new RaceCreatureFilter(race)));
     }
 
     public EvolutionCreature(string name, int manaCost, int power, Race race1, Race race2, Civilization civilization1,
         Civilization civilization2) : base(name, manaCost, power, [race1, race2], civilization1, civilization2)
     {
         Supertypes.Add(Supertype.Evolution);
-        AddStaticAbilities(new RaceEvolutionEffect(race1, race2));
+        AddStaticAbilities(new EvolutionEffect(new RaceCreatureFilter(race1, race2)));
     }
 }

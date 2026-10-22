@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CostModifying;
+﻿using CardFilters;
+using ContinuousEffects.CostModifying;
 using Interfaces;
 
 namespace Cards.DM04;
@@ -7,6 +8,9 @@ public sealed class MissileBoy : Creature
 {
     public MissileBoy() : base("Missile Boy", 3, 1000, Race.Human, Civilization.Fire)
     {
-        AddStaticAbilities(new EachCivilizationCardCostsMoreEffect(1, Civilization.Light));
+        AddStaticAbilities(
+            new CardsCostMoreEffect(
+                new CivilizationCardFilter(Civilization.Light),
+                1));
     }
 }

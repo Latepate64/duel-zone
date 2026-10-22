@@ -12,10 +12,11 @@ sealed class SupersonicJetPack : Spell
         Civilization.Fire)
     {
         AddSpellAbilities(
-            new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
-                new SpeedAttackerAbility(),
+            new OneOfYourCreaturesGetsAbilitiesEffect(
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                new CreaturesGetAbilitiesEffectFactory(),
+                new UntilEndOfThisTurnDuration(),
+                new SpeedAttackerAbility()
             ));
     }
 }

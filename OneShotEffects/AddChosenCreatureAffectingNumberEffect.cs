@@ -3,26 +3,23 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-/// <summary>
-/// One of your creatures in the battle zone gets +x power until the end of the
-/// turn.
-/// </summary>
-public sealed class AddChosenCreatureAffectingNumberEffect
-    : CreatureSelectionEffect
+public sealed class AddChosenCreatureAffectingNumberEffect : CreatureSelectionEffect
 {
     private readonly ICardFilter filter;
     public int Power { get; }
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
+    private readonly IDuration duration;
 
     public AddChosenCreatureAffectingNumberEffect(
         int power,
         ICardFilter filter,
-        IContinuousEffectWithCreaturesAndIntegerFactory factory) : base(
-            1, 1, true)
+        IContinuousEffectWithCreaturesAndIntegerFactory factory,
+        IDuration duration) : base(1, 1, true)
     {
         Power = power;
         this.filter = filter;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public AddChosenCreatureAffectingNumberEffect(
@@ -32,6 +29,7 @@ public sealed class AddChosenCreatureAffectingNumberEffect
         Power = effect.Power;
         filter = effect.filter.Copy();
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -44,6 +42,7 @@ public sealed class AddChosenCreatureAffectingNumberEffect
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(Power, cards));
     }
 

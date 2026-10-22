@@ -37,16 +37,14 @@ public class ThisCreatureHasEitherAbilityWhilePowerAtLeastEitherEffectTests
         var higherAbility = Mock.Of<IAbility>();
         var effect = CreateEffect(6000, lowerAbility, 15000, higherAbility);
         effect.Ability = CreateAbilityWithSource(source).Object;
-        var game = new Mock<IGame>();
+        var game = Mock.Of<IGame>();
 
         // Act
-        effect.AddAbility(game.Object);
+        effect.AddAbility(game);
 
         // Assert
-        game.Verify(x => x.AddAbility(
-            source.Object, lowerAbility), Times.Never);
-        game.Verify(x => x.AddAbility(
-            source.Object, higherAbility), Times.Never);
+        source.Verify(x => x.AddGrantedAbility(lowerAbility), Times.Never);
+        source.Verify(x => x.AddGrantedAbility(higherAbility), Times.Never);
     }
 
     [Fact]
@@ -58,16 +56,14 @@ public class ThisCreatureHasEitherAbilityWhilePowerAtLeastEitherEffectTests
         var higherAbility = Mock.Of<IAbility>();
         var effect = CreateEffect(6000, lowerAbility, 15000, higherAbility);
         effect.Ability = CreateAbilityWithSource(source).Object;
-        var game = new Mock<IGame>();
+        var game = Mock.Of<IGame>();
 
         // Act
-        effect.AddAbility(game.Object);
+        effect.AddAbility(game);
 
         // Assert
-        game.Verify(x => x.AddAbility(
-            source.Object, lowerAbility), Times.Once);
-        game.Verify(x => x.AddAbility(
-            source.Object, higherAbility), Times.Never);
+        source.Verify(x => x.AddGrantedAbility(lowerAbility), Times.Once);
+        source.Verify(x => x.AddGrantedAbility(higherAbility), Times.Never);
     }
 
     [Fact]
@@ -79,16 +75,14 @@ public class ThisCreatureHasEitherAbilityWhilePowerAtLeastEitherEffectTests
         var higherAbility = Mock.Of<IAbility>();
         var effect = CreateEffect(6000, lowerAbility, 15000, higherAbility);
         effect.Ability = CreateAbilityWithSource(source).Object;
-        var game = new Mock<IGame>();
+        var game = Mock.Of<IGame>();
 
         // Act
-        effect.AddAbility(game.Object);
+        effect.AddAbility(game);
 
         // Assert
-        game.Verify(x => x.AddAbility(
-            source.Object, lowerAbility), Times.Never);
-        game.Verify(x => x.AddAbility(
-            source.Object, higherAbility), Times.Once);
+        source.Verify(x => x.AddGrantedAbility(lowerAbility), Times.Never);
+        source.Verify(x => x.AddGrantedAbility(higherAbility), Times.Once);
     }
 
     static Mock<ICreature> CreateCreature(int power)

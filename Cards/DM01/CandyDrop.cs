@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public CandyDrop() : base("Candy Drop", 3, 1000, Interfaces.Race.CyberVirus, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         }
     }
 }

@@ -5,19 +5,21 @@ namespace TriggeredAbilities;
 
 /// <summary>
 /// Whenever one of your creatures is attacked, you may discard a card from your
-/// hand. If you do, that creature gets +x power until the end of the turn.
+/// hand. If you do, that creature gets +x power.
 /// </summary>
 public sealed class BubbleScarabAbility : LinkedTriggeredAbility
 {
     private readonly ICreature? attackTarget;
     private readonly int power;
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
+    private readonly IDuration duration;
 
     public BubbleScarabAbility(
-        int power, IContinuousEffectWithCreaturesAndIntegerFactory factory)
+        int power, IContinuousEffectWithCreaturesAndIntegerFactory factory, IDuration duration)
     {
         this.power = power;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public BubbleScarabAbility(BubbleScarabAbility ability) : base(ability)
@@ -25,6 +27,7 @@ public sealed class BubbleScarabAbility : LinkedTriggeredAbility
         attackTarget = ability.attackTarget;
         power = ability.power;
         factory = ability.factory;
+        duration = ability.duration.Copy();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -48,6 +51,7 @@ public sealed class BubbleScarabAbility : LinkedTriggeredAbility
             {
                 game.AddContinuousEffects(
                     this,
+                    duration,
                     factory.Create(power, attackTarget));
             }
         }

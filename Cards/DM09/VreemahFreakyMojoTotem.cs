@@ -19,7 +19,8 @@ public sealed class VreemahFreakyMojoTotem : Creature
                         new RaceCreatureFilter(Race.BeastFolk),
                         2000,
                         new DoubleBreakerAbility()
-                    )
+                    ),
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

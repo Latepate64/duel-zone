@@ -11,7 +11,8 @@ public sealed class ChaosStrike : Spell
     {
         AddSpellAbilities(new ChaosStrikeOneShotEffect(
             new UntappedCreatureFilter(),
-            new ChaosStrikeContinuousEffectFactory()
+            new ChaosStrikeContinuousEffectFactory(),
+            new UntilEndOfThisTurnDuration()
         ));
     }
 }

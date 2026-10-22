@@ -90,15 +90,6 @@ public sealed class ContinuousEffects : IContinuousEffects
         // that information as an event.
     }
 
-    public void RemoveExpired(IGameEvent gameEvent)
-    {
-        foreach (var remove in _continuousEffects.Where(x => x is IExpirable d
-            && d.ShouldExpire(gameEvent, Game)).ToArray())
-        {
-            _continuousEffects.Remove(remove);
-        }
-    }
-
     public void Notify(IGameEvent gameEvent)
     {
         _continuousEffects.OfType<IWatcher>().ToList().ForEach(x => x.Watch(

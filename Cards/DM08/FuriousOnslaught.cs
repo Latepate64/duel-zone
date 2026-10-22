@@ -1,8 +1,8 @@
 ﻿using StaticAbilities;
 using CardFilters;
-using ContinuousEffects.AbilityAddingPowerModifying;
 using Interfaces;
 using OneShotEffects;
+using ContinuousEffects;
 
 namespace Cards.DM08;
 
@@ -21,7 +21,8 @@ public sealed class FuriousOnslaught : Spell
                 filterFactory.Create(Race.Dragonoid),
                 Race.ArmoredDragon,
                 4000,
-                abilityFactory
+                abilityFactory,
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

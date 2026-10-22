@@ -1,7 +1,7 @@
 ﻿namespace Interfaces.ContinuousEffects
 {
-    public interface ICannotUseShieldTriggerEffect : IContinuousEffect //TODO: Apply in engine
+    public interface ICannotUseShieldTriggerEffect : IContinuousEffect
     {
-        bool Applies(ICard shield, IGame game);
+        bool CannotUseShieldTrigger(ICard shield, IGame game);
     }
 }

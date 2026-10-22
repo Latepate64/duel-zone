@@ -1,23 +1,24 @@
 using Interfaces;
+using Interfaces.ContinuousEffects;
 
 namespace TriggeredAbilities;
 
-/// <summary>
-/// Whenever any of your creatures becomes blocked, it gets ability.
-/// </summary>
 public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
     : LinkedTriggeredAbility
 {
     private readonly ICreature? creature;
-    private readonly IAbilityAddingContinuousEffectFactory factory;
+    private readonly IContinuousEffectWithAbilitiesAndCreaturesFactory factory;
     private readonly IAbility ability;
+    private readonly IDuration duration;
 
     public WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
-        IAbilityAddingContinuousEffectFactory factory,
-        IAbility ability)
+        IContinuousEffectWithAbilitiesAndCreaturesFactory factory,
+        IAbility ability,
+        IDuration duration)
     {
         this.factory = factory;
         this.ability = ability;
+        this.duration = duration;
     }
 
     public WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect(
@@ -29,6 +30,7 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
             : null;
         factory = ability.factory;
         this.ability = ability.ability;
+        duration = ability.duration.Copy();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -48,7 +50,8 @@ public sealed class WheneverAnyOfYourCreaturesBecomesBlockedItGetsAbilityEffect
         {
             game.AddContinuousEffects(
                 this,
-                factory.Create(ability, creature));
+                duration,
+                factory.Create([ability], creature));
         }
         
     }

@@ -10,7 +10,7 @@ public class CivilizationCardFilterTests
     public void DoesNotEqualObjectOfAnotherType()
     {
         // Arrange
-        var filter = new CivilizationCardFilter();
+        var filter = new CivilizationCardFilter(Civilization.Light);
 
         // Act
         var actual = filter.Equals(new object());
@@ -37,7 +37,7 @@ public class CivilizationCardFilterTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new CivilizationCardFilter();
+        var filter = new CivilizationCardFilter(Civilization.Light);
 
         // Act
         var copy = filter.Copy();

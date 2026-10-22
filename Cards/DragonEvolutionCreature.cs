@@ -1,3 +1,4 @@
+using CardFilters;
 using ContinuousEffects.Evolution;
 using Interfaces;
 
@@ -8,6 +9,6 @@ public class DragonEvolutionCreature : Creature
     public DragonEvolutionCreature(string name, int manaCost, int power, Race race, params Civilization[] civilizations) : base(name, manaCost, power, race, civilizations)
     {
         Supertypes.Add(Supertype.Evolution);
-        AddStaticAbilities(new DragonEvolutionEffect());
+        AddStaticAbilities(new EvolutionEffect(new DragonFilter()));
     }
 }

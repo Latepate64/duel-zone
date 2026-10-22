@@ -9,7 +9,7 @@ public sealed class AfterBattleDelayedTriggeredAbility : DelayedTriggeredAbility
     }
 
     public AfterBattleDelayedTriggeredAbility(IOneShotEffect effect, IAbility ability) : base(
-        new AfterBattleAbility(effect), ability.Source, ability.Controller, true)
+        new AfterBattleAbility(effect), ability.Source, ability.Controller, null)
     {
     }
 

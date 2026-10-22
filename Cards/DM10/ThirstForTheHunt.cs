@@ -10,14 +10,15 @@ sealed class ThirstForTheHunt : Spell
 {
     public ThirstForTheHunt(
         PowerAttackerAbilityFactory powerAttackerAbilityFactory,
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory effectFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory) : base(
+        EachOfYourCreaturesGetsAbilityEffectFactory effectFactory,
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory) : base(
         "Thirst for the Hunt", 1, Civilization.Nature)
     {
         AddSpellAbilities(
             effectFactory.Create(
                 new CreatureFilter(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 powerAttackerAbilityFactory.Create(1000)
         ));
     }

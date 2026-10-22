@@ -9,7 +9,7 @@ namespace Cards.DM10
         public PierrPsychoDoll() : base("Pierr, Psycho Doll", 2, 1000, Interfaces.Race.DeathPuppet, Interfaces.Civilization.Darkness)
         {
             AddAbilities(new BlockerAbility());
-            AddStaticAbilities(new ThisCreatureBlocksIfAble());
+            AddStaticAbilities(new ThisCreatureBlocksIfAbleEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
             AddAbilities(new SlayerAbility());
         }

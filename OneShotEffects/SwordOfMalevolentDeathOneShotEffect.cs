@@ -14,17 +14,20 @@ public sealed class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
     private readonly int power;
     private readonly ICardFilter manaFilter;
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
+    private readonly IDuration duration;
 
     public SwordOfMalevolentDeathOneShotEffect(
         ICardFilter creatureFilter,
         int power,
         ICardFilter manaFilter,
-        IContinuousEffectWithCreaturesAndIntegerFactory factory)
+        IContinuousEffectWithCreaturesAndIntegerFactory factory,
+        IDuration duration)
     {
         this.creatureFilter = creatureFilter;
         this.power = power;
         this.manaFilter = manaFilter;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public SwordOfMalevolentDeathOneShotEffect(
@@ -34,6 +37,7 @@ public sealed class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
         power = effect.power;
         manaFilter = effect.manaFilter.Copy();
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -43,6 +47,7 @@ public sealed class SwordOfMalevolentDeathOneShotEffect : OneShotEffect
         var multiplier = Applier.ManaZone.GetNumberOfCards(manaFilter);
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(multiplier * power, [.. creatures]));
     }
 

@@ -6,13 +6,16 @@ public sealed class WheneverSomethingHappensThisTurnEffect : OneShotEffect
 {
     private readonly IDelayedTriggeredAbilityFactory delayedTriggeredAbilityFactory;
     private readonly ITriggeredAbility triggeredAbility;
+    private readonly IDuration? duration;
 
     public WheneverSomethingHappensThisTurnEffect(
         IDelayedTriggeredAbilityFactory delayedTriggeredAbilityFactory,
-        ITriggeredAbility triggeredAbility)
+        ITriggeredAbility triggeredAbility,
+        IDuration? duration)
     {
         this.delayedTriggeredAbilityFactory = delayedTriggeredAbilityFactory;
         this.triggeredAbility = triggeredAbility;
+        this.duration = duration;
     }
 
     private WheneverSomethingHappensThisTurnEffect(
@@ -20,6 +23,7 @@ public sealed class WheneverSomethingHappensThisTurnEffect : OneShotEffect
     {
         delayedTriggeredAbilityFactory = effect.delayedTriggeredAbilityFactory;
         triggeredAbility = (ITriggeredAbility)effect.triggeredAbility.Copy();
+        duration = effect.duration?.Copy();
     }
 
     public override void Apply(IGame game)
@@ -27,7 +31,8 @@ public sealed class WheneverSomethingHappensThisTurnEffect : OneShotEffect
         game.AddDelayedTriggeredAbility(
             delayedTriggeredAbilityFactory.Create(
                 triggeredAbility,
-                Ability));
+                Ability,
+                duration));
     }
 
     public override IOneShotEffect Copy()

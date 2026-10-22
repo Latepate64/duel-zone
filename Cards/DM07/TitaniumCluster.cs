@@ -1,6 +1,7 @@
 ﻿using StaticAbilities;
 using ContinuousEffects.CannotAttack;
-using ContinuousEffects.CannotBeAttacked;
+using ContinuousEffects;
+using CardFilters;
 
 namespace Cards.DM07
 {
@@ -9,7 +10,7 @@ namespace Cards.DM07
         public TitaniumCluster() : base("Titanium Cluster", 4, 4000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
             AddAbilities(new BlockerAbility());
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeAttackedEffect(new CreatureFilter()));
             AddStaticAbilities(new ThisCreatureCannotAttackEffect());
         }
     }

@@ -12,18 +12,21 @@ public sealed class StormWranglerEffect : OneShotEffect
 {
     private readonly ICardFilter filter;
     private readonly IContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
     public StormWranglerEffect(
-        ICardFilter filter, IContinuousEffectFactory factory)
+        ICardFilter filter, IContinuousEffectFactory factory, IDuration duration)
     {
         this.filter = filter;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public StormWranglerEffect(StormWranglerEffect effect) : base(effect)
     {
         filter = effect.filter.Copy();
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -35,6 +38,7 @@ public sealed class StormWranglerEffect : OneShotEffect
         {
             game.AddContinuousEffects(
                 Ability,
+                duration,
                 factory.Create(creature));
         }
     }

@@ -13,7 +13,8 @@ public sealed class Hokira : Creature
         AddAbilities(
             new TapAbility(
                 new RaceAffectingContinuousEffectAddingEffect(
-                    new HokiraContinuousEffectFactory()
+                    new HokiraContinuousEffectFactory(),
+                    new UntilEndOfThisTurnDuration()
                 )));
     }
 }

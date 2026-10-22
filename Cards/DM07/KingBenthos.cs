@@ -11,12 +11,11 @@ namespace Cards.DM07;
 public sealed class KingBenthos : Creature
 {
     public KingBenthos(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         StaticAbilityFactory abilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory,
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory,
         TapAbilityFactory tapAbilityFactory,
-        ThisCreatureCannotBeBlockedEffectFactory cannotBeBlockedEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
     ) : base("King Benthos", 8, 6000, Race.Leviathan, Civilization.Water)
     {
@@ -26,7 +25,9 @@ public sealed class KingBenthos : Creature
                 oneShotEffectFactory.Create(
                     creatureFilterFactory.Create(Civilization.Water),
                     continuousEffectFactory,
-                    abilityFactory.Create(cannotBeBlockedEffectFactory.Create())
+                    new UntilEndOfThisTurnDuration(),
+                    abilityFactory.Create(
+                        new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()))
         )));
     }
 }

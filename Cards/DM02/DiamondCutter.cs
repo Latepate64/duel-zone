@@ -10,6 +10,7 @@ public sealed class DiamondCutter : Spell
     {
         AddSpellAbilities(
             new ContinuousEffectAddingEffect(
-                new DiamondCutterContinuousEffect()));
+                new DiamondCutterContinuousEffect(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

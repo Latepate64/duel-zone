@@ -4,7 +4,7 @@ namespace CardFilters;
 
 public class DragonFilter : ICardFilter
 {
-    internal DragonFilter()
+    public DragonFilter()
     {
     }
 

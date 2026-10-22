@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 
 namespace Cards.DM10;
@@ -7,6 +8,11 @@ public sealed class FluorogillManta : Creature
 {
     public FluorogillManta() : base("Fluorogill Manta", 6, 1000, Race.GelFish, Civilization.Water)
     {
-        AddStaticAbilities(new FluorogillMantaEffect());
+        AddStaticAbilities(
+            new YourCreaturesCannotBeBlockedEffect(
+                attackerFilter: new CivilizationCreatureFilter(
+                    Civilization.Light,
+                    Civilization.Darkness),
+                blockerFilter: new CreatureFilter()));
     }
 }

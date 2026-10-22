@@ -9,7 +9,7 @@ namespace Cards.DM10
         public MessaBahnaExpanseGuardian() : base("Messa Bahna, Expanse Guardian", 3, 5000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
         {
             AddAbilities(new BlockerAbility());
-            AddStaticAbilities(new ThisCreatureBlocksIfAble());
+            AddStaticAbilities(new ThisCreatureBlocksIfAbleEffect());
             AddStaticAbilities(new ThisCreatureCannotAttackPlayersEffect());
         }
     }

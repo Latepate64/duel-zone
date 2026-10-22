@@ -42,14 +42,12 @@ public class ThisCreatureHasAbilityWhileYourManaCardsAreCivilizationEffectTests
         {
             Ability = sourceAbility.Object
         };
-        var game = new Mock<IGame>();
+        var game = Mock.Of<IGame>();
 
         // Act
-        effect.AddAbility(game.Object);
+        effect.AddAbility(game);
 
         // Assert
-        game.Verify(
-            x => x.AddAbility(source.Object, abilityToAdd),
-            expected ? Times.Once : Times.Never);
+        source.Verify(x => x.AddGrantedAbility(abilityToAdd), expected ? Times.Once : Times.Never);
     }
 }

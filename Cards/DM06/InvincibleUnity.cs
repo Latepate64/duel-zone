@@ -11,10 +11,12 @@ public sealed class InvincibleUnity : Spell
     public InvincibleUnity() : base("Invincible Unity", 13, Civilization.Nature)
     {
         AddSpellAbilities(
-            new InvincibleUnityOneShotEffect(
-                new InvincibleUnityContinuousEffectFactory(),
+            new AddContinuousEffectWithAbilityIntegerAndCreaturesEffect(
+                new CreaturesGetPowerAndAbilityEffectFactory(),
                 new CreatureFilter(),
-                new TripleBreakerAbility()
+                8000,
+                new TripleBreakerAbility(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

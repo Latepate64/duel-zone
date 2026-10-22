@@ -7,7 +7,7 @@ namespace ContinuousEffects;
 /// This turn, ignore any effects that would prevent your creatures from
 /// attacking your opponent.
 /// </summary>
-public sealed class DiamondCutterContinuousEffect : UntilEndOfTurnEffect,
+public sealed class DiamondCutterContinuousEffect : ContinuousEffect,
     IIgnoreCannotAttackPlayersEffects
 {
     public DiamondCutterContinuousEffect() : base()

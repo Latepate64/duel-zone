@@ -13,7 +13,8 @@ sealed class ScalpelSpider : Creature
         AddTriggeredAbility(
             new ScalpelSpiderAbility(
                 new SlayerAbility(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                new CreaturesGetAbilitiesEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

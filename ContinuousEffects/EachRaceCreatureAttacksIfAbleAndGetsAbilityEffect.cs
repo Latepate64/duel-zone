@@ -3,7 +3,7 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class EachRaceCreatureAttacksIfAbleAndGetsAbilityEffect : UntilEndOfTurnEffect,
+public sealed class EachRaceCreatureAttacksIfAbleAndGetsAbilityEffect : ContinuousEffect,
     IAttacksIfAbleEffect, IAbilityAddingEffect
 {
     private readonly Race race;

@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.PowerModifying;
+﻿using CardFilters;
+using ContinuousEffects.PowerModifying;
 using ContinuousEffects.Unblockable;
 using Interfaces;
 
@@ -11,6 +12,10 @@ public sealed class HydroozeTheMutantEmperor : EvolutionCreature
     {
         AddStaticAbilities(
             new EachOfYourOtherRacesGetsPowerEffect(Race.CyberLord, Race.Hedrian),
-            new HydroozeTheMutantEmperorUnblockableEffect());
+            new YourCreaturesCannotBeBlockedEffect(
+                attackerFilter: new RaceCreatureFilter(
+                    Race.CyberLord,
+                    Race.Hedrian),
+                blockerFilter: new CreatureFilter()));
     }
 }

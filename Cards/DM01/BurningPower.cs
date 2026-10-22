@@ -8,14 +8,17 @@ namespace Cards.DM01;
 
 public sealed class BurningPower : Spell
 {
-    public BurningPower(PowerAttackerAbilityFactory powerAttackerAbilityFactory) : base(
+    public BurningPower(
+        PowerAttackerAbilityFactory powerAttackerAbilityFactory,
+        CreaturesGetAbilitiesEffectFactory creaturesGetAbilitiesEffectFactory) : base(
         "Burning Power", 1, Civilization.Fire)
     {
         AddSpellAbilities(
-            new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
-                powerAttackerAbilityFactory.Create(2000),
+            new OneOfYourCreaturesGetsAbilitiesEffect(
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                creaturesGetAbilitiesEffectFactory,
+                new UntilEndOfThisTurnDuration(),
+                powerAttackerAbilityFactory.Create(2000)
         ));
     }
 }

@@ -7,7 +7,7 @@ namespace ContinuousEffects;
 /// Your opponent's creatures can attack this creature as though this creature
 /// was tapped.
 /// </summary>
-public sealed class ChaosStrikeContinuousEffect : UntilEndOfTurnEffect,
+public sealed class ChaosStrikeContinuousEffect : ContinuousEffect,
     ICanBeAttackedAsThoughTappedEffect
 {
     private readonly ICreature targetOfAttack;

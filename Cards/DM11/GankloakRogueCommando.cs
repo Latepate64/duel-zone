@@ -9,10 +9,10 @@ namespace Cards.DM11;
 public sealed class GankloakRogueCommando : SilentSkillCreature
 {
     public GankloakRogueCommando(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory oneShotEffectFactory,
+        EachOfYourCreaturesGetsAbilityEffectFactory oneShotEffectFactory,
         DoubleBreakerAbilityFactory doubleBreakerAbilityFactory,
         CivilizationCreatureFilterFactory creatureFilterFactory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory
     ) : base("Gankloak, Rogue Commando", 3, 2000, Race.Human,
         Civilization.Fire)
     {
@@ -20,6 +20,7 @@ public sealed class GankloakRogueCommando : SilentSkillCreature
             oneShotEffectFactory.Create(
                 creatureFilterFactory.Create(Civilization.Fire),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 doubleBreakerAbilityFactory.Create()
             )
         );

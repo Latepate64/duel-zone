@@ -1,5 +1,6 @@
 ﻿using Abilities;
-using ContinuousEffects;
+using CardFilters;
+using ContinuousEffects.Unblockable;
 using Interfaces;
 using OneShotEffects;
 
@@ -7,13 +8,17 @@ namespace Cards.DM09;
 
 public sealed class SilvermoonTrailblazer : Creature
 {
-    public SilvermoonTrailblazer() : base("Silvermoon Trailblazer", 4, 3000,
+    public SilvermoonTrailblazer(RaceCreatureFilterFactory raceCreatureFilterFactory) : base(
+        "Silvermoon Trailblazer", 4, 3000,
         Race.BeastFolk, Civilization.Nature)
     {
         AddAbilities(
             new TapAbility(
-                new RaceAffectingContinuousEffectAddingEffect(
-                new SilvermoonTrailblazerContinuousEffectFactory()
+                new AddContinuousEffectWithRaceAndFilterEffect(
+                    new CreaturesCannotBeBlockedEffectFactory(),
+                    new UntilEndOfThisTurnDuration(),
+                    new MaxPowerFilter(3000),
+                    raceCreatureFilterFactory
             )));
     }
 }

@@ -33,11 +33,6 @@ public abstract class ContinuousEffect : IContinuousEffect
         return card == Source;
     }
 
-    protected IPlayer GetOpponent(IGame game)
-    {
-        return game.GetOpponent(Controller);
-    }
-
     public override bool Equals(object? obj)
     {
         if (obj is not ContinuousEffect effect) return false;
@@ -49,6 +44,7 @@ public abstract class ContinuousEffect : IContinuousEffect
 
     public override int GetHashCode()
     {
-        throw new NotImplementedException();
+        return HashCode.Combine(Timestamp, Ability, Applier);
+
     }
 }

@@ -1,13 +1,18 @@
-﻿using ContinuousEffects.CannotBeAttacked;
+﻿using CardFilters;
+using ContinuousEffects;
 using ContinuousEffects.Unblockable;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class GulanRiasSpeedGuardian : Creature
 {
-    sealed class GulanRiasSpeedGuardian : Creature
+    public GulanRiasSpeedGuardian() : base("Gulan Rias, Speed Guardian", 3, 2000, Race.Guardian, Civilization.Light)
     {
-        public GulanRiasSpeedGuardian() : base("Gulan Rias, Speed Guardian", 3, 2000, Interfaces.Race.Guardian, Interfaces.Civilization.Light)
-        {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Interfaces.Civilization.Darkness), new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Interfaces.Civilization.Darkness));
-        }
+        AddStaticAbilities(
+            new ThisCreatureCannotBeAttackedEffect(
+                new CivilizationCreatureFilter(Civilization.Darkness)),
+            new ThisCreatureCannotBeBlockedEffect(
+                new CivilizationCreatureFilter(Civilization.Darkness)));
     }
 }

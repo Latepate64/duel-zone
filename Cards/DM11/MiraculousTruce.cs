@@ -12,7 +12,8 @@ public sealed class MiraculousTruce : Spell
         AddShieldTrigger();
         AddSpellAbilities(
             new MiraculousTruceEffect(
-                new MiraculousTruceContinuousEffectFactory()
+                new CivilizationCreaturesCannotAttackYouEffectFactory(),
+                new UntilStartOfPlayersNextTurn()
             ));
     }
 }

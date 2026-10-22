@@ -1,5 +1,5 @@
 ﻿using CardFilters;
-using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects.PowerModifying;
 using Interfaces;
 using OneShotEffects;
 
@@ -13,6 +13,7 @@ sealed class EnergyCharger : Charger
             new AddChosenCreatureAffectingNumberEffect(
                 2000,
                 new CreatureFilter(),
-                new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory()));
+                new CreaturesGetPowerEffectFactory(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

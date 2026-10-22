@@ -11,10 +11,11 @@ sealed class VenomCharger : Charger
     public VenomCharger() : base("Venom Charger", 3, Civilization.Darkness)
     {
         AddSpellAbilities(
-            new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
-                new SlayerAbility(),
+            new OneOfYourCreaturesGetsAbilitiesEffect(
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                new CreaturesGetAbilitiesEffectFactory(),
+                new UntilEndOfThisTurnDuration(),
+                new SlayerAbility()
             ));
     }
 }

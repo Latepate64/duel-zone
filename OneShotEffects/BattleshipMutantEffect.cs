@@ -14,18 +14,20 @@ public sealed class BattleshipMutantEffect : OneShotEffect
     private readonly IDelayedTriggeredAbilityFactory delayedTriggerFactory;
     private readonly ITriggeredAbilityFactory triggeredAbilityFactory;
     private readonly IContinuousEffect continuousEffect;
+    private readonly IDuration duration;
 
     public BattleshipMutantEffect(
         IContinuousEffect continuousEffect,
         ICardFilter filter,
         IDelayedTriggeredAbilityFactory delayedTriggerFactory,
-        ITriggeredAbilityFactory triggeredAbilityFactory
-        )
+        ITriggeredAbilityFactory triggeredAbilityFactory,
+        IDuration duration)
     {
         this.continuousEffect = continuousEffect;
         this.filter = filter;
         this.delayedTriggerFactory = delayedTriggerFactory;
         this.triggeredAbilityFactory = triggeredAbilityFactory;
+        this.duration = duration;
     }
 
     public BattleshipMutantEffect(BattleshipMutantEffect effect) : base(effect)
@@ -34,18 +36,21 @@ public sealed class BattleshipMutantEffect : OneShotEffect
         filter = effect.filter.Copy();
         delayedTriggerFactory = effect.delayedTriggerFactory;
         triggeredAbilityFactory = effect.triggeredAbilityFactory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             continuousEffect);
         game.AddDelayedTriggeredAbility(
             delayedTriggerFactory.Create(
                 triggeredAbilityFactory.Create(
                     game.BattleZone, Applier, filter),
-                Ability));
+                Ability,
+                duration));
     }
 
     public override IOneShotEffect Copy()

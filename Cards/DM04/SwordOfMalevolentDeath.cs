@@ -10,8 +10,8 @@ namespace Cards.DM04;
 public sealed class SwordOfMalevolentDeath : Spell
 {
     public SwordOfMalevolentDeath(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory factory,
-        ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory continuousEffectFactory
+        EachOfYourCreaturesGetsAbilityEffectFactory factory,
+        CreaturesGetAbilitiesEffectFactory continuousEffectFactory
     ) : base("Sword of Malevolent Death", 4,
         Civilization.Darkness)
     {
@@ -19,6 +19,7 @@ public sealed class SwordOfMalevolentDeath : Spell
             factory.Create(
                 new CreatureFilter(),
                 continuousEffectFactory,
+                new UntilEndOfThisTurnDuration(),
                 new StaticAbility(
                     new WhileAttackingThisCreatureGetPowerForEachCardInYourManaZoneEffect(
                         1000,

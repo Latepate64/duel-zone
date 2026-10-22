@@ -6,10 +6,11 @@ namespace OneShotEffects;
 public class KachuaEffectFactory
 {
     public KachuaEffect Create(
-        IContinuousEffectWithAbilityFactory effectFactory,
+        IContinuousEffectWithAbilitiesAndCreaturesFactory effectFactory,
         IDelayedTriggeredAbilityWithTurnAndCreaturesFactory abilityFactory,
-        IAbility ability)
+        IAbility ability,
+        IDuration duration)
     {
-        return new KachuaEffect(effectFactory, abilityFactory, ability);
+        return new KachuaEffect(effectFactory, abilityFactory, ability, duration);
     }
 }

@@ -27,7 +27,6 @@ public interface IPlayer
     IEnumerable<ICreature> ChooseControlledCreatures(IGame game, string description, int amount);
     IEnumerable<ICreature> ChooseControlledCreaturesOptionally(int max, IGame game, string description);
     ICreature ChooseCreatureInBattleZoneOptionally(IGame game, string description);
-    IEnumerable<ICreature> ChooseCreatures(IEnumerable<ICreature> creatures, int v1, int v2, string v3);
     int ChooseNumber(string description, int min, int? max);
     ICreature ChooseOpponentsCreature(IGame game, string description);
     ICreature ChooseOpponentsNonEvolutionCreature(IGame game, string description);

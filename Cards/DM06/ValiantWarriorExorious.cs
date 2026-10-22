@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.CanAttackUntappedCreatures;
+﻿using CardFilters;
+using ContinuousEffects.CanAttackUntappedCreatures;
 using ContinuousEffects.PowerModifying;
 
 namespace Cards.DM06
@@ -7,7 +8,7 @@ namespace Cards.DM06
     {
         public ValiantWarriorExorious() : base("Valiant Warrior Exorious", 6, 4000, Interfaces.Race.Armorloid, Interfaces.Civilization.Fire)
         {
-            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect());
+            AddStaticAbilities(new ThisCreatureCanAttackUntappedCreaturesEffect(new CreatureFilter()));
             AddStaticAbilities(new PowerAttackerEffect(3000));
         }
     }

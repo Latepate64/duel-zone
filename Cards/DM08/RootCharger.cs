@@ -10,7 +10,8 @@ sealed class RootCharger : Charger
     {
         AddSpellAbilities(
             new ContinuousEffectAddingEffect(
-                new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect()
+                new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

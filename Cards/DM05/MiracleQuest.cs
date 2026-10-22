@@ -12,7 +12,8 @@ public sealed class MiracleQuest : Spell
             new WheneverSomethingHappensThisTurnEffect(
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
                 new WheneverAnyOfYourCreaturesFinishesAttackingAbility(
-                    new MiracleQuestDrawEffect())
+                    new MiracleQuestDrawEffect()),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

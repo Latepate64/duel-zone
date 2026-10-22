@@ -4,7 +4,7 @@ using Interfaces.ContinuousEffects;
 namespace ContinuousEffects.Replacement;
 
 public sealed class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect :
-    DestructionReplacementEffect, IExpirable
+    DestructionReplacementEffect
 {
 
     public WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect() : base()
@@ -24,12 +24,6 @@ public sealed class WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZ
     public override IContinuousEffect Copy()
     {
         return new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(this);
-    }
-
-    public bool ShouldExpire(IGameEvent gameEvent, IGame game)
-    {
-        throw new NotImplementedException();
-        // return gameEvent is PhaseBegunEvent phase && phase.Phase.Type == PhaseOrStep.EndOfTurn;
     }
 
     public override string ToString()

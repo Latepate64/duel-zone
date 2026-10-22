@@ -10,14 +10,15 @@ namespace Cards.DM03;
 public sealed class BlazeCannon : Spell
 {
     public BlazeCannon(
-        EachOfYourCreaturesGetsAbilityUntilEndOfTurnEffectFactory effectFactory
+        EachOfYourCreaturesGetsAbilityEffectFactory effectFactory
     ) : base("Blaze Cannon", 7, Civilization.Fire)
     {
         AddStaticAbilities(new BlazeCannonRestrictionEffect());
         AddSpellAbilities(
             effectFactory.Create(
                 new CreatureFilter(),
-                new ThisCreatureGetsAbilitiesUntilTheEndOfTheTurnEffectFactory(),
+                new CreaturesGetAbilitiesEffectFactory(),
+                new UntilEndOfThisTurnDuration(),
                 new PowerAttackerAbility(4000),
                 new DoubleBreakerAbility()));
     }

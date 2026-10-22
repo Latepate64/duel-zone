@@ -11,16 +11,20 @@ namespace OneShotEffects;
 public sealed class MiraculousTruceEffect : OneShotEffect
 {
     private readonly IContinuousEffectWithCivilizationFactory factory;
+    private readonly IDuration duration;
 
     public MiraculousTruceEffect(
-        IContinuousEffectWithCivilizationFactory factory)
+        IContinuousEffectWithCivilizationFactory factory,
+        IDuration duration)
     {
         this.factory = factory;
+        this.duration = duration;
     }
 
     public MiraculousTruceEffect(MiraculousTruceEffect effect) : base(effect)
     {
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -28,6 +32,7 @@ public sealed class MiraculousTruceEffect : OneShotEffect
         var civilization = Controller.ChooseCivilization(ToString());
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(civilization));
     }
 

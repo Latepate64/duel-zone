@@ -5,22 +5,42 @@ namespace ContinuousEffects.CannotAttack;
 
 public sealed class ThisCreatureCannotAttackEffect : ContinuousEffect, ICannotAttackEffect
 {
-    public ThisCreatureCannotAttackEffect() : base()
+    private readonly ICondition? condition;
+
+    public ThisCreatureCannotAttackEffect(ICondition? condition = null) : base()
     {
+        this.condition = condition;
+    }
+
+    private ThisCreatureCannotAttackEffect(ThisCreatureCannotAttackEffect effect) : base(effect)
+    {
+        condition = effect.condition;
     }
 
     public bool CannotAttack(ICreature creature, IGame game)
     {
-        return IsSourceOfAbility(creature);
+        if (!IsSourceOfAbility(creature)) return false;
+        if (condition == null) return true;
+        if (!condition.IsMet(creature)) return false;
+        return true;
     }
 
     public override IContinuousEffect Copy()
     {
-        return new ThisCreatureCannotAttackEffect();
+        return new ThisCreatureCannotAttackEffect(this);
     }
 
-    public override string ToString()
+    public override bool Equals(object? obj)
     {
-        return "This creature can't attack.";
+        if (!base.Equals(obj)) return false;
+        if (obj is not ThisCreatureCannotAttackEffect effect) return false;
+        if (condition == null && effect.condition != null) return false;
+        if (condition != null && !condition.Equals(effect.condition)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(base.GetHashCode(), condition);
     }
 }

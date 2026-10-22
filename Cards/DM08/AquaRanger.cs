@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Replacement;
+﻿using CardFilters;
+using ContinuousEffects.Replacement;
 using ContinuousEffects.Unblockable;
 
 namespace Cards.DM08
@@ -7,7 +8,7 @@ namespace Cards.DM08
     {
         public AquaRanger() : base("Aqua Ranger", 6, 3000, Interfaces.Race.LiquidPeople, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
             AddStaticAbilities(new WhenThisCreatureWouldBeDestroyedReturnItToYourHandInsteadEffect());
         }
     }

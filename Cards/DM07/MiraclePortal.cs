@@ -10,7 +10,8 @@ public sealed class MiraclePortal : Spell
     {
         AddSpellAbilities(
             new MiraclePortalOneShotEffect(
-                new MiraclePortalContinuousEffectFactory()
+                new MiraclePortalContinuousEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

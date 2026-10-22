@@ -9,7 +9,7 @@ public sealed class TottoPipicchi : Creature
 {
     public TottoPipicchi(
         DragonFilter dragonFilter,
-        EachCreatureHasAbilityEffectFactory factory,
+        EachCreatureHasAbilitiesEffectFactory factory,
         SpeedAttackerAbilityFactory speedAttackerAbilityFactory)
         : base("Totto Pipicchi", 3, 1000, Race.FireBird, Civilization.Fire)
     {

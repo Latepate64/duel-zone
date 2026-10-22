@@ -10,11 +10,12 @@ public sealed class LaserWing : Spell
     public LaserWing() : base("Laser Wing", 5, Civilization.Light)
     {
         AddSpellAbilities(
-            new YourChosenCreaturesCannotBeBlockedThisTurnEffect(
+            new YourChosenCreaturesCannotBeBlockedEffect(
                 minimum: 0,
                 maximum: 2,
                 filter: new CreatureFilter(),
-                factory: new ChosenCreaturesCannotBeBlockedThisTurnEffectFactory()
+                factory: new ChosenCreaturesCannotBeBlockedEffectFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

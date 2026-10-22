@@ -11,7 +11,8 @@ sealed class FruitOfEternity : Spell
         AddShieldTrigger();
         AddSpellAbilities(
             new ContinuousEffectAddingEffect(
-                new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect()
+                new WheneverAnyOfYourCreaturesWouldBeDestroyedPutItIntoYourManaZoneInsteadEffect(),
+                new UntilEndOfThisTurnDuration()
             )
         );
     }

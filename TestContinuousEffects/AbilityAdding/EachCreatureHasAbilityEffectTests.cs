@@ -7,9 +7,9 @@ namespace TestContinuousEffects.AbilityAdding;
 
 public class EachCreatureHasAbilityEffectTests
 {
-    private static EachCreatureHasAbilityEffect CreateEffect(ICardFilter filter, IAbility ability)
+    private static EachCreatureHasAbilitiesEffect CreateEffect(ICardFilter filter, IAbility ability)
     {
-        return new EachCreatureHasAbilityEffectFactory().Create(filter, ability);
+        return new EachCreatureHasAbilitiesEffectFactory().Create(filter, ability);
     }
 
     [Fact]
@@ -37,14 +37,14 @@ public class EachCreatureHasAbilityEffectTests
         var filter = Mock.Of<ICardFilter>();
         var ability = Mock.Of<IAbility>();
         var effect = CreateEffect(filter, ability);
-        var creature = Mock.Of<ICreature>();
+        var creature = new Mock<ICreature>();
         var game = new Mock<IGame>();
-        game.Setup(x => x.BattleZone.GetCreatures(filter)).Returns([creature]);
+        game.Setup(x => x.BattleZone.GetCreatures(filter)).Returns([creature.Object]);
 
         // Act
         effect.AddAbility(game.Object);
 
         // Assert
-        game.Verify(x => x.AddAbility(creature, ability));
+        creature.Verify(x => x.AddGrantedAbility(ability));
     }
 }

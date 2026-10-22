@@ -34,11 +34,11 @@ public sealed class ThisCreatureHasEitherAbilityWhilePowerAtLeastEitherEffect : 
         var creature = (ICreature)Source!;
         if (creature.Power >= higherGap)
         {
-            game.AddAbility(creature, higherAbility);
+            creature.AddGrantedAbility(higherAbility);
         }
         else if (creature.Power >= lowerGap)
         {
-            game.AddAbility(creature, lowerAbility);
+            creature.AddGrantedAbility(lowerAbility);
         }
     }
 

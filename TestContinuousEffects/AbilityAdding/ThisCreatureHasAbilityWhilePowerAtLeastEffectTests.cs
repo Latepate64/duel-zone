@@ -34,13 +34,13 @@ public class ThisCreatureHasAbilityWhilePowerAtLeastEffectTests
         var ability = Mock.Of<IAbility>();
         var effect = CreateEffect(ability, 6000);
         effect.Ability = CreateAbilityWithSource(source).Object;
-        var game = new Mock<IGame>();
+        var game = Mock.Of<IGame>();
 
         // Act
-        effect.AddAbility(game.Object);
+        effect.AddAbility(game);
 
         // Assert
-        game.Verify(x => x.AddAbility(source.Object, ability), Times.Never);
+        source.Verify(x => x.AddGrantedAbility(ability), Times.Never);
     }
 
     [Fact]
@@ -51,13 +51,13 @@ public class ThisCreatureHasAbilityWhilePowerAtLeastEffectTests
         var ability = Mock.Of<IAbility>();
         var effect = CreateEffect(ability, 6000);
         effect.Ability = CreateAbilityWithSource(source).Object;
-        var game = new Mock<IGame>();
+        var game = Mock.Of<IGame>();
 
         // Act
-        effect.AddAbility(game.Object);
+        effect.AddAbility(game);
 
         // Assert
-        game.Verify(x => x.AddAbility(source.Object, ability), Times.Once);
+        source.Verify(x => x.AddGrantedAbility(ability), Times.Once);
     }
 
     static Mock<ICreature> CreateCreature(int power)

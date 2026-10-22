@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM08
 {
@@ -6,7 +7,7 @@ namespace Cards.DM08
     {
         public CandyCluster() : base("Candy Cluster", 3, 1000, Interfaces.Race.CyberCluster, Interfaces.Civilization.Water)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect());
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         }
     }
 }

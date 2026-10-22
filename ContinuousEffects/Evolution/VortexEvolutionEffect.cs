@@ -5,51 +5,16 @@ namespace ContinuousEffects.Evolution;
 
 public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
 {
-    public VortexEvolutionEffect(Race race1, Race race2)
+    private readonly ICardFilter[] filters;
+
+    public VortexEvolutionEffect(ICardFilter filter1, ICardFilter filter2)
     {
-        Race1 = race1;
-        Race2 = race2;
+        filters = [filter1, filter2];
     }
 
-    public VortexEvolutionEffect(VortexEvolutionEffect effect) : base(effect)
+    private VortexEvolutionEffect(VortexEvolutionEffect effect) : base(effect)
     {
-        Race1 = effect.Race1;
-        Race2 = effect.Race2;
-    }
-
-    public Race Race1 { get; }
-    public Race Race2 { get; }
-
-    public bool CanEvolve(IGame game, ICreature evolutionCreature)
-    {
-        throw new NotImplementedException();
-        // var baits = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        // var combinations = new Combinations<ICreature>(baits, 2, GenerateOption.WithoutRepetition);
-        // var validPairs = combinations.Where(x => CanEvolveFrom(evolutionCreature, x[0], x[x.Count - 1]));
-        // return validPairs.Any();
-    }
-
-    private bool CanEvolveFrom(ICreature evolutionCreature, ICreature bait1, ICreature bait2)
-    {
-        if (IsSourceOfAbility(evolutionCreature))
-        {
-            if (bait1.HasRace(Race1))
-            {
-                return bait2.HasRace(Race2);
-            }
-            else if (bait1.HasRace(Race2))
-            {
-                return bait2.HasRace(Race1);
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        filters = [.. effect.filters.Select(x => x.Copy())];
     }
 
     public override IContinuousEffect Copy()
@@ -57,20 +22,39 @@ public sealed class VortexEvolutionEffect : ContinuousEffect, IEvolutionEffect
         return new VortexEvolutionEffect(this);
     }
 
-    public override string ToString()
+    public bool CanEvolve(IGame game, ICreature evolutionCreature)
     {
-        return $"Vortex evolution — Put on one of your {Race1}s and one of your {Race2}s.";
+        if (!IsSourceOfAbility(evolutionCreature)) return false;
+        var creaturesByFilters = filters.Select(
+            x => game.BattleZone.GetCreaturesControlledByPlayer(Applier, x));
+        for (var i = 0; i < creaturesByFilters.Count(); ++i)
+        {
+            var creatures1 = creaturesByFilters.ElementAt(i);
+            for (var j = i+1; j < creaturesByFilters.Count(); ++j)
+            {
+                var creatures2 = creaturesByFilters.ElementAt(j);
+                if (creatures1.Any(x => !creatures2.Contains(x))) return true;
+            }
+        }
+        return false;
     }
 
-    public void Evolve(ICreature evolutionCreature, IGame game)
+    public override bool Equals(object? obj)
     {
-        var creatures = game.BattleZone.GetCreatures(evolutionCreature.Owner.Id);
-        IEnumerable<ICreature> baits;
-        do
+        if (!base.Equals(obj)) return false;
+        if (obj is not VortexEvolutionEffect effect) return false;
+        if (!filters.SequenceEqual(effect.filters)) return false;
+        return true;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = new HashCode();
+        hash.Add(base.GetHashCode());
+        foreach (var filter in filters)
         {
-            baits = evolutionCreature.Owner.ChooseCreatures(creatures, 2, 2, "Choose creatures to evolve from.");
+            hash.Add(filter);
         }
-        while (CanEvolveFrom(evolutionCreature, baits.First(), baits.Last()));
-        throw new NotImplementedException();
+        return hash.ToHashCode();
     }
 }

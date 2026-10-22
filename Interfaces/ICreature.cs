@@ -2,7 +2,7 @@ using Interfaces.ContinuousEffects;
 
 namespace Interfaces;
 
-public interface ICreature : ICard
+public interface ICreature : ICard, IAttackable
 {
     int Power { get; }
     int PrintedPower { get; }

@@ -1,5 +1,5 @@
 ﻿using StaticAbilities;
-using ContinuousEffects.AbilityAddingPowerModifying;
+using ContinuousEffects.PowerModifying;
 using OneShotEffects;
 using TriggeredAbilities;
 
@@ -14,7 +14,8 @@ namespace Cards.DM08
                 new WheneverPlayerCastsSpellAbility(
                     new AddCreatureAffectingNumberEffect(
                         3000,
-                        new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
+                        new CreaturesGetPowerEffectFactory(),
+                        new UntilEndOfThisTurnDuration())));
         }
     }
 }

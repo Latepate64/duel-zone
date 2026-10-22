@@ -8,4 +8,9 @@ public class CivilizationCreatureFilterFactory
     {
         return new CivilizationCreatureFilter(civilization);
     }
+
+    public ICardFilter Create(Civilization civilization1, Civilization civilization2)
+    {
+        return new CivilizationCreatureFilter(civilization1, civilization2);
+    }
 }

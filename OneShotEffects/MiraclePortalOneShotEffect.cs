@@ -11,16 +11,19 @@ namespace OneShotEffects;
 public sealed class MiraclePortalOneShotEffect : OneShotEffect
 {
     private readonly IContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
-    public MiraclePortalOneShotEffect(IContinuousEffectFactory factory)
+    public MiraclePortalOneShotEffect(IContinuousEffectFactory factory, IDuration duration)
     {
         this.factory = factory;
+        this.duration = duration;
     }
 
     public MiraclePortalOneShotEffect(
         MiraclePortalOneShotEffect effect) : base(effect)
     {
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -30,6 +33,7 @@ public sealed class MiraclePortalOneShotEffect : OneShotEffect
         {
             game.AddContinuousEffects(
                 Ability,
+                duration,
                 factory.Create(creature));
         }
     }

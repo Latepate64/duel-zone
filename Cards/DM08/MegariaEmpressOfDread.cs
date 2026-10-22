@@ -8,7 +8,7 @@ namespace Cards.DM08;
 sealed class MegariaEmpressOfDread : Creature
 {
     public MegariaEmpressOfDread(
-        EachCreatureHasAbilityEffectFactory eachCreatureHasAbilityEffectFactory,
+        EachCreatureHasAbilitiesEffectFactory eachCreatureHasAbilityEffectFactory,
         CreatureFilter creatureFilter,
         SlayerAbilityFactory slayerAbilityFactory
     ) : base("Megaria, Empress of Dread", 5, 5000, Race.DarkLord,

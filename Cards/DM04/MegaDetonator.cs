@@ -7,16 +7,13 @@ namespace Cards.DM04;
 
 public sealed class MegaDetonator : Spell
 {
-    public MegaDetonator(
-        MegaDetonatorDiscardEffectFactory megaDetonatorDiscardEffectFactory,
-        MegaDetonatorContinuousEffectFactory megaDetonatorContinuousEffectFactory,
-        DoubleBreakerAbilityFactory doubleBreakerAbilityFactory
-    ) : base("Mega Detonator", 2, Civilization.Fire)
+    public MegaDetonator(CreaturesGetAbilitiesEffectFactory factory) : base(
+        "Mega Detonator", 2, Civilization.Fire)
     {
         AddSpellAbilities(
-            megaDetonatorDiscardEffectFactory.Create(
-                megaDetonatorContinuousEffectFactory,
-                doubleBreakerAbilityFactory.Create()
-            ));
+            new DiscardAnyNumberOfCardsThatManyOfYourCreaturesGetAbilityEffect(
+                factory,
+                new DoubleBreakerAbility(),
+                new UntilEndOfThisTurnDuration()));
     }
 }

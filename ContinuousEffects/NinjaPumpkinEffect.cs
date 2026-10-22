@@ -4,10 +4,12 @@ using Interfaces.ContinuousEffects;
 
 namespace ContinuousEffects;
 
-public sealed class NinjaPumpkinEffect : ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect,
-    IPowerModifyingEffect
+/// <summary>
+/// This creature gets +x power and can't be blocked.
+/// </summary>
+public sealed class NinjaPumpkinEffect : ThisCreatureCannotBeBlockedEffect, IPowerModifyingEffect
 {
-    public NinjaPumpkinEffect(int blockerMaxPower = 5000) : base(blockerMaxPower)
+    public NinjaPumpkinEffect(ICardFilter blockerFilter) : base(blockerFilter)
     {
     }
 
@@ -23,10 +25,5 @@ public sealed class NinjaPumpkinEffect : ThisCreatureCannotBeBlockedByAnyCreatur
     public void ModifyPower(IGame game)
     {
         (Source as ICreature).IncreasePower(4000);
-    }
-
-    public override string ToString()
-    {
-        return $"This creature gets +4000 power and can't be blocked by any creature that has power {Power} or less.";
     }
 }

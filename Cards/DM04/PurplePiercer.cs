@@ -1,13 +1,18 @@
-﻿using ContinuousEffects.CannotBeAttacked;
+﻿using CardFilters;
+using ContinuousEffects;
 using ContinuousEffects.Unblockable;
+using Interfaces;
 
-namespace Cards.DM04
+namespace Cards.DM04;
+
+sealed class PurplePiercer : Creature
 {
-    sealed class PurplePiercer : Creature
+    public PurplePiercer() : base("Purple Piercer", 3, 2000, Race.BrainJacker, Civilization.Darkness)
     {
-        public PurplePiercer() : base("Purple Piercer", 3, 2000, Interfaces.Race.BrainJacker, Interfaces.Civilization.Darkness)
-        {
-            AddStaticAbilities(new ThisCreatureCannotBeAttackedByCivilizationCreaturesEffect(Interfaces.Civilization.Light), new ThisCreatureCannotBeBlockedByCivilizationCreaturesEffect(Interfaces.Civilization.Light));
-        }
+        AddStaticAbilities(
+            new ThisCreatureCannotBeAttackedEffect(
+                new CivilizationCreatureFilter(Civilization.Light)),
+            new ThisCreatureCannotBeBlockedEffect(
+                new CivilizationCreatureFilter(Civilization.Light)));
     }
 }

@@ -1,5 +1,6 @@
-﻿using ContinuousEffects.AbilityAddingPowerModifying;
+﻿using ContinuousEffects.PowerModifying;
 using Interfaces;
+using OneShotEffects;
 using TriggeredAbilities;
 
 namespace Cards.DM08;
@@ -11,8 +12,9 @@ sealed class QuixoticHeroSwineSnout : Creature
     {
         AddTriggeredAbility(
             new WheneverAnotherCreatureIsPutIntoTheBattleZoneAbility(
-                new OneShotEffects.AddCreatureAffectingNumberEffect(
+                new AddCreatureAffectingNumberEffect(
                     3000,
-                    new ThisCreatureGetsPowerUntilTheEndOfTheTurnEffectFactory())));
+                    new CreaturesGetPowerEffectFactory(),
+                    new UntilEndOfThisTurnDuration())));
     }
 }

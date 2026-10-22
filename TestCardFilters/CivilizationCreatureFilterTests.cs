@@ -11,6 +11,11 @@ public class CivilizationCreatureFilterTests
         return new CivilizationCreatureFilterFactory().Create(civilization);
     }
 
+    private static ICardFilter CreateFilter(Civilization civilization1, Civilization civilization2)
+    {
+        return new CivilizationCreatureFilterFactory().Create(civilization1, civilization2);
+    }
+
     [Fact]
     public void DoesNotEqualObjectOfAnotherType()
     {
@@ -55,7 +60,7 @@ public class CivilizationCreatureFilterTests
     public void HashCodesAreEqualForEqualFilters()
     {
         // Arrange
-        var first = CreateFilter(Civilization.Light);
+        var first = CreateFilter(Civilization.Light, Civilization.Water);
         var second = first.Copy();
         var expected = second.GetHashCode();
 

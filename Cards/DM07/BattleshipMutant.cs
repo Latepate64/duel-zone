@@ -24,7 +24,8 @@ public sealed class BattleshipMutant : Creature
                     ),
                     filter,
                     new WheneverSomethingHappensThisTurnAbilityFactory(),
-                    new BattleshipMutantAbilityFactory())
+                    new BattleshipMutantAbilityFactory(),
+                    new UntilEndOfThisTurnDuration())
         ));
     }
 }

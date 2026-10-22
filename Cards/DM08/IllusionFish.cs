@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM08
 {
@@ -6,7 +7,7 @@ namespace Cards.DM08
     {
         public IllusionFish() : base("Illusion Fish", 4, 3000, Interfaces.Race.GelFish, Interfaces.Civilization.Water)
         {
-            AddTurboRushAbility(new ThisCreatureCannotBeBlockedEffect());
+            AddTurboRushAbility(new ThisCreatureCannotBeBlockedEffect(new CreatureFilter()));
         }
     }
 }

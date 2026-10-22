@@ -11,7 +11,8 @@ public sealed class FistsOfForever : Spell
         AddSpellAbilities(
             new FistsOfForeverEffect(
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
-                new FistsOfForeverAbilityFactory()
+                new FistsOfForeverAbilityFactory(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

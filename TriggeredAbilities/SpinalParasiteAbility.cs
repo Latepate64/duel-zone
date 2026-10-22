@@ -12,16 +12,19 @@ public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
 {
     private readonly IPlayer? player;
     private readonly IContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
-    public SpinalParasiteAbility(IContinuousEffectFactory factory)
+    public SpinalParasiteAbility(IContinuousEffectFactory factory, IDuration duration)
     {
         this.factory = factory;
+        this.duration = duration;
     }
 
     public SpinalParasiteAbility(SpinalParasiteAbility ability) : base(ability)
     {
         factory = ability.factory;
         player = ability.player;
+        duration = ability.duration.Copy();
     }
 
     public override bool CanTrigger(IGameEvent gameEvent, IGame game)
@@ -44,6 +47,7 @@ public sealed class SpinalParasiteAbility : LinkedTriggeredAbility
         var creature = (ICreature)player.ChooseCard(creatures, this.ToString());
         game.AddContinuousEffects(
             this,
+            duration,
             factory.Create(creature));
     }
 

@@ -14,10 +14,11 @@ sealed class LupaPoisonTippedDoll : Creature
     {
         AddAbilities(
             new TapAbility(
-                new OneOfYourCreaturesGetsAbilityUntilTheEndOfTheTurnEffect(
-                    new SlayerAbility(),
+                new OneOfYourCreaturesGetsAbilitiesEffect(
                     new CreatureFilter(),
-                    new ThisCreatureGetsAbilityUntilTheEndOfTheTurnEffectFactory()
+                    new CreaturesGetAbilitiesEffectFactory(),
+                    new UntilEndOfThisTurnDuration(),
+                    new SlayerAbility()
                 )));
     }
 }

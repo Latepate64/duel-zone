@@ -9,8 +9,9 @@ public sealed class SlimeVeil : Spell
     public SlimeVeil() : base("Slime Veil", 1, Civilization.Darkness)
     {
         AddSpellAbilities(
-            new ForcedFrenzyEffect(
-                new SlimeVeilContinuousEffectFactory()
+            new ContinuousEffectAddingEffect(
+                new EachOfYourOpponentsCreaturesAttacksIfAbleEffect(),
+                new DuringPlayersNextTurnDuration()
             ));
     }
 }

@@ -6,22 +6,26 @@ namespace OneShotEffects;
 public sealed class ContinuousEffectAddingEffect : OneShotEffect
 {
     private readonly IContinuousEffect continuousEffect;
+    private readonly IDuration duration;
 
     public ContinuousEffectAddingEffect(
-        IContinuousEffect continuousEffect) : base()
+        IContinuousEffect continuousEffect,
+        IDuration duration) : base()
     {
         this.continuousEffect = continuousEffect;
+        this.duration = duration;
     }
 
     public ContinuousEffectAddingEffect(
         ContinuousEffectAddingEffect effect) : base(effect)
     {
         continuousEffect = effect.continuousEffect.Copy();
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
     {
-        game.AddContinuousEffects(Ability, continuousEffect);
+        game.AddContinuousEffects(Ability, duration, continuousEffect);
     }
 
     public override IOneShotEffect Copy()

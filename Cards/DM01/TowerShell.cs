@@ -1,4 +1,5 @@
-﻿using ContinuousEffects.Unblockable;
+﻿using CardFilters;
+using ContinuousEffects.Unblockable;
 
 namespace Cards.DM01
 {
@@ -6,7 +7,7 @@ namespace Cards.DM01
     {
         public TowerShell() : base("Tower Shell", 6, 5000, Interfaces.Race.ColonyBeetle, Interfaces.Civilization.Nature)
         {
-            AddStaticAbilities(new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(4000));
+            AddStaticAbilities(new ThisCreatureCannotBeBlockedEffect(new MaxPowerFilter(4000)));
         }
     }
 }

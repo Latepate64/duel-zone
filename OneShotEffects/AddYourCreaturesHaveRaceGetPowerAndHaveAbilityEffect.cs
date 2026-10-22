@@ -10,19 +10,22 @@ public sealed class AddYourCreaturesHaveRaceGetPowerAndHaveAbilityEffect : OneSh
     private readonly Race race;
     private readonly int power;
     private readonly IStaticAbilityFactory abilityFactory;
+    private readonly IDuration duration;
 
     public AddYourCreaturesHaveRaceGetPowerAndHaveAbilityEffect(
         IYourCreaturesHaveRaceGetPowerAndHaveAbilityEffectFactory effectFactory,
         ICardFilter filter,
         Race race,
         int power,
-        IStaticAbilityFactory abilityFactory)
+        IStaticAbilityFactory abilityFactory,
+        IDuration duration)
     {
         this.effectFactory = effectFactory;
         this.filter = filter;
         this.race = race;
         this.power = power;
         this.abilityFactory = abilityFactory;
+        this.duration = duration;
     }
 
     public AddYourCreaturesHaveRaceGetPowerAndHaveAbilityEffect(
@@ -33,13 +36,14 @@ public sealed class AddYourCreaturesHaveRaceGetPowerAndHaveAbilityEffect : OneSh
         race = effect.race;
         power = effect.power;
         abilityFactory = effect.abilityFactory;
+        duration = effect.duration;
     }
 
     public override void Apply(IGame game)
     {
         var creatures = game.BattleZone.GetCreaturesControlledByPlayer(Applier, filter);
         var effect = effectFactory.Create(race, power, abilityFactory, [.. creatures]);
-        game.AddContinuousEffects(Ability, effect);
+        game.AddContinuousEffects(Ability, duration, effect);
     }
 
     public override IOneShotEffect Copy()

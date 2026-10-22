@@ -12,7 +12,8 @@ public sealed class LiveAndBreathe : Spell
         AddSpellAbilities(
             new WheneverSomethingHappensThisTurnEffect(
                 new WheneverSomethingHappensThisTurnAbilityFactory(),
-                new LiveAndBreatheAbility()
+                new LiveAndBreatheAbility(),
+                new UntilEndOfThisTurnDuration()
             ));
     }
 }

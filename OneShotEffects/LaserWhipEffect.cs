@@ -11,15 +11,18 @@ namespace OneShotEffects;
 public sealed class LaserWhipEffect : OneShotEffect
 {
     private readonly IContinuousEffectFactory factory;
+    private readonly IDuration duration;
 
-    public LaserWhipEffect(IContinuousEffectFactory factory)
+    public LaserWhipEffect(IContinuousEffectFactory factory, IDuration duration)
     {
         this.factory = factory;
+        this.duration = duration;
     }
 
     public LaserWhipEffect(LaserWhipEffect effect) : base(effect)
     {
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override void Apply(IGame game)
@@ -32,6 +35,7 @@ public sealed class LaserWhipEffect : OneShotEffect
         {
             game.AddContinuousEffects(
                 Ability,
+                duration,
                 factory.Create(creature));
         }
     }

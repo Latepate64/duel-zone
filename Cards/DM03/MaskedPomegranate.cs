@@ -13,7 +13,6 @@ sealed class MaskedPomegranate : Creature
         AddStaticAbilities(
             new ThisCreatureGetsPowerForEachOfYourOtherCreatures(
                 1000, new CivilizationCreatureFilter(Civilization.Nature)),
-            new ThisCreatureCannotBeBlockedByAnyCreatureThatHasMaxPowerEffect(
-                4000));
+            new ThisCreatureCannotBeBlockedEffect(new MaxPowerFilter(4000)));
     }
 }

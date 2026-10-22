@@ -17,4 +17,17 @@ public class RaceCreatureFilterFactoryTests
         // Assert
         Assert.IsType<ICardFilter>(actual, exactMatch: false);
     }
+
+    [Fact]
+    public void CreatesRaceCreatureFilterWithTwoRaces()
+    {
+        // Arrange
+        var factory = new RaceCreatureFilterFactory();
+
+        // Act
+        var actual = factory.Create(Race.AngelCommand, Race.DemonCommand);
+
+        // Assert
+        Assert.IsType<ICardFilter>(actual, exactMatch: false);
+    }
 }

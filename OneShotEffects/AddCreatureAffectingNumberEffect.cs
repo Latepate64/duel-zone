@@ -3,17 +3,18 @@ using Interfaces.ContinuousEffects;
 
 namespace OneShotEffects;
 
-public sealed class AddCreatureAffectingNumberEffect :
-    OneShotEffect
+public sealed class AddCreatureAffectingNumberEffect : OneShotEffect
 {
     public int Power { get; }
     private readonly IContinuousEffectWithCreaturesAndIntegerFactory factory;
+    private readonly IDuration duration;
 
     public AddCreatureAffectingNumberEffect(
-        int power, IContinuousEffectWithCreaturesAndIntegerFactory factory)
+        int power, IContinuousEffectWithCreaturesAndIntegerFactory factory, IDuration duration)
     {
         Power = power;
         this.factory = factory;
+        this.duration = duration;
     }
 
     public AddCreatureAffectingNumberEffect(
@@ -22,6 +23,7 @@ public sealed class AddCreatureAffectingNumberEffect :
     {
         Power = effect.Power;
         factory = effect.factory;
+        duration = effect.duration.Copy();
     }
 
     public override IOneShotEffect Copy()
@@ -33,6 +35,7 @@ public sealed class AddCreatureAffectingNumberEffect :
     {
         game.AddContinuousEffects(
             Ability,
+            duration,
             factory.Create(Power, (ICreature)Ability.Source));
     }
 }

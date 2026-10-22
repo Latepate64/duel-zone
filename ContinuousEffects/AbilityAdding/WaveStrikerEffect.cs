@@ -21,7 +21,7 @@ public sealed class WaveStrikerEffect : ContinuousEffect, IAbilityAddingEffect
     {
         if (game.BattleZone.Creatures.Count(x => x.HasWaveStriker) >= 3)
         {
-            _abilities.ToList().ForEach(x => game.AddAbility(Source, x.Copy()));
+            Source.AddGrantedAbility(_abilities);
         }
     }
 
