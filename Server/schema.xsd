@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cards">
+          <xs:complexType>  
+            <xs:choice maxOccurs="unbounded">
+              <xs:element type="creature" name="creature"/>
+              <xs:element type="spell" name="spell"/>
+            </xs:choice>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="card" abstract="true">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="creature">
+    <xs:complexContent>
+      <xs:extension base="card">
+        <xs:sequence>
+          <xs:element name="power" type="xs:integer" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="spell">
+    <xs:complexContent>
+      <xs:extension base="card" />
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

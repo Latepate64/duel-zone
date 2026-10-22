@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="./schema.xsd">
+    <cards>
+        <creature>
+            <name>Burning Mane</name>
+            <power>2000</power>
+        </creature>
+        <spell>
+            <name>Holy Awe</name>
+        </spell>
+        <creature>
+            <name>Immortal Baron, Vorg</name>
+            <power>2000</power>
+        </creature>
+        <spell>
+            <name>Terror Pit</name>
+        </spell>
+    </cards>
+</root>
