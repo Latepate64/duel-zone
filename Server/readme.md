@@ -1,0 +1,2 @@
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools\xsd" schema.xsd oneShotEffect.xsd /classes
+https://stackoverflow.com/questions/36700999/how-to-reference-element-in-other-xsds-namespace

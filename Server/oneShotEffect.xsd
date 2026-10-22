@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ose="urn:OneShotEffects"
+    targetNamespace="urn:OneShotEffects"
+    elementFormDefault="qualified"
+    >
+    <xs:complexType name="OneShotEffect" abstract="true" />
+    <xs:complexType name="DestroyOneOfYourOpponentsCreaturesEffect">
+        <xs:complexContent>
+            <xs:extension base="ose:OneShotEffect" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TapAllYourOpponentsCreaturesEffect">
+        <xs:complexContent>
+            <xs:extension base="ose:OneShotEffect" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="YouMayDrawCardEffect">
+        <xs:complexContent>
+            <xs:extension base="ose:OneShotEffect" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect">
+        <xs:complexContent>
+            <xs:extension base="ose:OneShotEffect" />
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

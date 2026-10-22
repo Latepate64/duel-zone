@@ -1,41 +1,51 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="root">
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="urn:Cards"
+  xmlns:ose="urn:OneShotEffects"
+  targetNamespace="urn:Cards"
+  elementFormDefault="qualified"
+  >
+  <xs:import
+    namespace="urn:OneShotEffects"
+    schemaLocation="oneShotEffect.xsd"
+    />
+  <xs:element name="Root">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="cards">
+        <xs:element name="Cards">
           <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-              <xs:element type="creature" name="creature" />
-              <xs:element type="spell" name="spell" />
+              <xs:element type="Creature" name="Creature" />
+              <xs:element type="Spell" name="Spell" />
             </xs:choice>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:complexType name="card" abstract="true">
+  <xs:complexType name="Card" abstract="true">
     <xs:sequence>
-      <xs:element name="name" type="xs:string" />
+      <xs:element name="Name" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="creature">
+  <xs:complexType name="Creature">
     <xs:complexContent>
-      <xs:extension base="card">
+      <xs:extension base="Card">
         <xs:sequence>
-          <xs:element name="power" type="xs:integer" />
-          <xs:element name="triggeredAbilities" minOccurs="0">
+          <xs:element name="Power" type="xs:integer" />
+          <xs:element name="TriggeredAbilities" minOccurs="0">
             <xs:complexType>
               <xs:choice maxOccurs="unbounded">
-                <xs:element type="whenYouPutThisCreatureIntoTheBattleZoneAbility"
-                  name="whenYouPutThisCreatureIntoTheBattleZoneAbility" />
+                <xs:element type="WhenYouPutThisCreatureIntoTheBattleZoneAbility"
+                  name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" />
               </xs:choice>
             </xs:complexType>
           </xs:element>
-          <xs:element name="activatedAbilities" minOccurs="0">
+          <xs:element name="ActivatedAbilities" minOccurs="0">
             <xs:complexType>
               <xs:choice maxOccurs="unbounded">
-                <xs:element type="tapAbility" name="tapAbility" />
+                <xs:element type="TapAbility" name="TapAbility" />
               </xs:choice>
             </xs:complexType>
           </xs:element>
@@ -43,14 +53,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="spell">
+  <xs:complexType name="Spell">
     <xs:complexContent>
-      <xs:extension base="card">
+      <xs:extension base="Card">
         <xs:sequence>
-          <xs:element name="spellAbilities">
+          <xs:element name="SpellAbilities">
             <xs:complexType>
               <xs:sequence>
-                <xs:element type="spellAbility" name="spellAbility"></xs:element>
+                <xs:element type="SpellAbility" name="SpellAbility"></xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -58,67 +68,46 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ability" abstract="true" />
-  <xs:complexType name="resolvableAbility" abstract="true">
+  <xs:complexType name="Ability" abstract="true" />
+  <xs:complexType name="ResolvableAbility" abstract="true">
     <xs:complexContent>
-      <xs:extension base="ability">
+      <xs:extension base="Ability">
         <xs:choice>
-          <xs:element type="destroyOneOfYourOpponentsCreaturesEffect"
-            name="destroyOneOfYourOpponentsCreaturesEffect" />
-          <xs:element type="tapAllYourOpponentsCreaturesEffect"
-            name="tapAllYourOpponentsCreaturesEffect" />
-          <xs:element type="youMayDrawCardEffect"
-            name="youMayDrawCardEffect" />
-            <xs:element type="destroyOneOfYourOpponentsCreaturesThatHasBlockerEffect"
-            name="destroyOneOfYourOpponentsCreaturesThatHasBlockerEffect" />
+          <xs:element type="ose:DestroyOneOfYourOpponentsCreaturesEffect"
+            name="DestroyOneOfYourOpponentsCreaturesEffect" />
+          <xs:element type="ose:TapAllYourOpponentsCreaturesEffect"
+            name="TapAllYourOpponentsCreaturesEffect" />
+          <xs:element type="ose:YouMayDrawCardEffect"
+            name="YouMayDrawCardEffect" />
+          <xs:element type="ose:DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect"
+            name="DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect" />
         </xs:choice>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="spellAbility">
+  <xs:complexType name="SpellAbility">
     <xs:complexContent>
-      <xs:extension base="resolvableAbility" />
+      <xs:extension base="ResolvableAbility" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="triggeredAbility" abstract="true">
+  <xs:complexType name="TriggeredAbility" abstract="true">
     <xs:complexContent>
-      <xs:extension base="resolvableAbility" />
+      <xs:extension base="ResolvableAbility" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="whenYouPutThisCreatureIntoTheBattleZoneAbility">
+  <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
     <xs:complexContent>
-      <xs:extension base="triggeredAbility" />
+      <xs:extension base="TriggeredAbility" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="activatedAbility" abstract="true">
+  <xs:complexType name="ActivatedAbility" abstract="true">
     <xs:complexContent>
-      <xs:extension base="resolvableAbility" />
+      <xs:extension base="ResolvableAbility" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="tapAbility">
+  <xs:complexType name="TapAbility">
     <xs:complexContent>
-      <xs:extension base="activatedAbility" />
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="oneShotEffect" abstract="true" />
-  <xs:complexType name="destroyOneOfYourOpponentsCreaturesEffect">
-    <xs:complexContent>
-      <xs:extension base="oneShotEffect" />
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="tapAllYourOpponentsCreaturesEffect">
-    <xs:complexContent>
-      <xs:extension base="oneShotEffect" />
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="youMayDrawCardEffect">
-    <xs:complexContent>
-      <xs:extension base="oneShotEffect" />
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="destroyOneOfYourOpponentsCreaturesThatHasBlockerEffect">
-    <xs:complexContent>
-      <xs:extension base="oneShotEffect" />
+      <xs:extension base="ActivatedAbility" />
     </xs:complexContent>
   </xs:complexType>
 </xs:schema>

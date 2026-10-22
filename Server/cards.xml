@@ -1,48 +1,51 @@
 <?xml version="1.0"?>
-<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="./schema.xsd">
-    <cards>
-        <creature>
-            <name>Burning Mane</name>
-            <power>2000</power>
-        </creature>
-        <spell>
-            <name>Holy Awe</name>
-            <spellAbilities>
-                <spellAbility>
-                    <tapAllYourOpponentsCreaturesEffect />
-                </spellAbility>
-            </spellAbilities>
-        </spell>
-        <creature>
-            <name>Immortal Baron, Vorg</name>
-            <power>2000</power>
-        </creature>
-        <spell>
-            <name>Terror Pit</name>
-            <spellAbilities>
-                <spellAbility>
-                    <destroyOneOfYourOpponentsCreaturesEffect />
-                </spellAbility>
-            </spellAbilities>
-        </spell>
-        <creature>
-            <name>Aqua Hulcus</name>
-            <power>2000</power>
-            <triggeredAbilities>
-                <whenYouPutThisCreatureIntoTheBattleZoneAbility>
-                    <youMayDrawCardEffect />
-                </whenYouPutThisCreatureIntoTheBattleZoneAbility>
-            </triggeredAbilities>
-        </creature>
-        <creature>
-            <name>Rikabu's Screwdriver</name>
-            <power>1000</power>
-            <activatedAbilities>
-                <tapAbility>
-                    <destroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
-                </tapAbility>
-            </activatedAbilities>
-        </creature>
-    </cards>
-</root>
+<Root
+    xmlns="Cards"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="Cards ./schema.xsd">
+    <!-- xsi:noNamespaceSchemaLocation="./schema.xsd" -->
+    <Cards>
+        <Creature>
+            <Name>Burning Mane</Name>
+            <Power>2000</Power>
+        </Creature>
+        <Spell>
+            <Name>Holy Awe</Name>
+            <SpellAbilities>
+                <SpellAbility>
+                    <TapAllYourOpponentsCreaturesEffect />
+                </SpellAbility>
+            </SpellAbilities>
+        </Spell>
+        <Creature>
+            <Name>Immortal Baron, Vorg</Name>
+            <Power>2000</Power>
+        </Creature>
+        <Spell>
+            <Name>Terror Pit</Name>
+            <SpellAbilities>
+                <SpellAbility>
+                    <DestroyOneOfYourOpponentsCreaturesEffect />
+                </SpellAbility>
+            </SpellAbilities>
+        </Spell>
+        <Creature>
+            <Name>Aqua Hulcus</Name>
+            <Power>2000</Power>
+            <TriggeredAbilities>
+                <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+                    <YouMayDrawCardEffect />
+                </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+            </TriggeredAbilities>
+        </Creature>
+        <Creature>
+            <Name>Rikabu's Screwdriver</Name>
+            <Power>1000</Power>
+            <ActivatedAbilities>
+                <TapAbility>
+                    <DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
+                </TapAbility>
+            </ActivatedAbilities>
+        </Creature>
+    </Cards>
+</Root>
