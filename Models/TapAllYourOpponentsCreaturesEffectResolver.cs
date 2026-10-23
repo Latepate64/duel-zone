@@ -9,6 +9,6 @@ public class TapAllYourOpponentsCreaturesEffectResolver
         IGameState state, IPlayerV2 applier, TapAllYourOpponentsCreaturesEffect effect)
     {
         return state.BattleZone.GetCreaturesControlledByPlayer(
-            applier, effect.Item).Where(x => !x.Tapped).Select(x => new TapCardEvent(x));
+            applier, effect.CardFilter).Where(x => !x.Tapped).Select(x => new TapCardEvent(x));
     }
 }

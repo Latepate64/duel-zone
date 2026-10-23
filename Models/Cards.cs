@@ -154,33 +154,43 @@ namespace Models {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CreatureFilter))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerFilter))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
     public partial class CardFilter {
+        
+        private CardFilterType typeField;
+        
+        /// <remarks/>
+        public CardFilterType Type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerFilter))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
-    public partial class CreatureFilter : CardFilter {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
-    public partial class BlockerFilter : CreatureFilter {
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="CardFilters")]
+    public enum CardFilterType {
+        
+        /// <remarks/>
+        Card,
+        
+        /// <remarks/>
+        Creature,
+        
+        /// <remarks/>
+        Blocker,
+        
+        /// <remarks/>
+        Spell,
     }
     
     /// <remarks/>
@@ -222,17 +232,15 @@ namespace Models {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
     public partial class TapAllYourOpponentsCreaturesEffect : OneShotEffect {
         
-        private CreatureFilter itemField;
+        private CardFilter cardFilterField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("BlockerFilter", typeof(BlockerFilter))]
-        [System.Xml.Serialization.XmlElementAttribute("CreatureFilter", typeof(CreatureFilter))]
-        public CreatureFilter Item {
+        public CardFilter CardFilter {
             get {
-                return this.itemField;
+                return this.cardFilterField;
             }
             set {
-                this.itemField = value;
+                this.cardFilterField = value;
             }
         }
     }

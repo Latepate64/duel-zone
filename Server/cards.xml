@@ -28,7 +28,9 @@
             <Abilities>
                 <SpellAbility>
                     <abi:TapAllYourOpponentsCreaturesEffect>
-                        <ose:CreatureFilter />
+                        <ose:CardFilter>
+                            <cf:Type>Creature</cf:Type>
+                        </ose:CardFilter>
                     </abi:TapAllYourOpponentsCreaturesEffect>
                 </SpellAbility>
             </Abilities>
@@ -110,7 +112,9 @@
             <Abilities>
                 <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
                     <abi:TapAllYourOpponentsCreaturesEffect>
-                        <ose:BlockerFilter />
+                        <ose:CardFilter>
+                            <cf:Type>Blocker</cf:Type>
+                        </ose:CardFilter>
                     </abi:TapAllYourOpponentsCreaturesEffect>
                 </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
             </Abilities>

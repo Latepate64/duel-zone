@@ -17,7 +17,7 @@ public class TapAllYourOpponentsCreaturesEffectResolverTests
         var effect = new TapAllYourOpponentsCreaturesEffect();
         var state = new Mock<IGameState>();
         state.Setup(x => x.BattleZone.GetCreaturesControlledByPlayer(
-            applier, effect.Item)).Returns([creature.Object]);
+            applier, effect.CardFilter)).Returns([creature.Object]);
 
         // Act
         var effects = resolver.Resolve(state.Object, applier, effect);
