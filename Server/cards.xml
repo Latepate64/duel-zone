@@ -4,10 +4,10 @@
     xmlns:abi="Abilities"
     xmlns:ose="OneShotEffects"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="Cards ./Cards.xsd
-                        Abilities ./Abilities.xsd
-                        OneShotEffects ./OneShotEffects.xsd
-                        Races ./Races.xsd"
+    xsi:schemaLocation="Cards ../Models/Cards.xsd
+                        Abilities ../Models/Abilities.xsd
+                        OneShotEffects ../Models/OneShotEffects.xsd
+                        Races ../Models/Races.xsd"
 >
     <Cards>
         <Creature Name="Burning Mane" Cost="2" Power="2000">

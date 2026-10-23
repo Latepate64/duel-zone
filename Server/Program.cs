@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using Models;
 
 const string path = @"..\..\..\cards.xml";
 var serializer = new XmlSerializer(typeof(Root));
