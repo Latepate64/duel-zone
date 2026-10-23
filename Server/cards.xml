@@ -51,5 +51,12 @@
                 </TapAbility>
             </ActivatedAbilities>
         </Creature>
+        <Creature>
+            <Name>King Coral</Name>
+            <Power>1000</Power>
+            <StaticAbilities>
+                <BlockerAbility />
+            </StaticAbilities>
+        </Creature>
     </Cards>
 </Root>

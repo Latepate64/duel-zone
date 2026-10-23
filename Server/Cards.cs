@@ -53,6 +53,8 @@ public partial class Creature : Card {
     
     private TapAbility[] activatedAbilitiesField;
     
+    private BlockerAbility[] staticAbilitiesField;
+    
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
     public string Power {
@@ -85,6 +87,17 @@ public partial class Creature : Card {
             this.activatedAbilitiesField = value;
         }
     }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
+    public BlockerAbility[] StaticAbilities {
+        get {
+            return this.staticAbilitiesField;
+        }
+        set {
+            this.staticAbilitiesField = value;
+        }
+    }
 }
 
 /// <remarks/>
@@ -92,7 +105,7 @@ public partial class Creature : Card {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
 public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredAbility {
 }
 
@@ -102,7 +115,7 @@ public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredA
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
 public abstract partial class TriggeredAbility : ResolvableAbility {
 }
 
@@ -159,6 +172,8 @@ public abstract partial class OneShotEffect {
 }
 
 /// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(StaticAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerAbility))]
 [System.Xml.Serialization.XmlIncludeAttribute(typeof(ResolvableAbility))]
 [System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivatedAbility))]
 [System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAbility))]
@@ -171,6 +186,25 @@ public abstract partial class OneShotEffect {
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public abstract partial class Ability {
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerAbility))]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
+public abstract partial class StaticAbility : Ability {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
+public partial class BlockerAbility : StaticAbility {
 }
 
 /// <remarks/>
@@ -252,7 +286,7 @@ public partial class SpellAbility : ResolvableAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="ActivatedAbilities")]
 public partial class TapAbility : ActivatedAbility {
 }
 
@@ -262,7 +296,7 @@ public partial class TapAbility : ActivatedAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="ActivatedAbilities")]
 public abstract partial class ActivatedAbility : ResolvableAbility {
 }
 

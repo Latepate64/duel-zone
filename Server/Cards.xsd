@@ -3,12 +3,27 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="Cards"
   xmlns:abi="Abilities"
+  xmlns:ta="TriggeredAbilities"
+  xmlns:aa="ActivatedAbilities"
+  xmlns:sa="StaticAbilities"
   targetNamespace="Cards"
   elementFormDefault="qualified"
 >
   <xs:import
     namespace="Abilities"
     schemaLocation="Abilities.xsd"
+  />
+  <xs:import
+    namespace="TriggeredAbilities"
+    schemaLocation="TriggeredAbilities.xsd"
+  />
+  <xs:import
+    namespace="ActivatedAbilities"
+    schemaLocation="ActivatedAbilities.xsd"
+  />
+  <xs:import
+    namespace="StaticAbilities"
+    schemaLocation="StaticAbilities.xsd"
   />
   <xs:element name="Root">
     <xs:complexType>
@@ -37,7 +52,7 @@
           <xs:element name="TriggeredAbilities" minOccurs="0">
             <xs:complexType>
               <xs:choice maxOccurs="unbounded">
-                <xs:element type="abi:WhenYouPutThisCreatureIntoTheBattleZoneAbility"
+                <xs:element type="ta:WhenYouPutThisCreatureIntoTheBattleZoneAbility"
                   name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" />
               </xs:choice>
             </xs:complexType>
@@ -45,7 +60,14 @@
           <xs:element name="ActivatedAbilities" minOccurs="0">
             <xs:complexType>
               <xs:choice maxOccurs="unbounded">
-                <xs:element type="abi:TapAbility" name="TapAbility" />
+                <xs:element type="aa:TapAbility" name="TapAbility" />
+              </xs:choice>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="StaticAbilities" minOccurs="0">
+            <xs:complexType>
+              <xs:choice maxOccurs="unbounded">
+                <xs:element type="sa:BlockerAbility" name="BlockerAbility" />
               </xs:choice>
             </xs:complexType>
           </xs:element>

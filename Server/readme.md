@@ -1,2 +1,2 @@
-"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools\xsd" /c Cards.xsd OneShotEffects.xsd Abilities.xsd
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools\xsd" /c OneShotEffects.xsd Abilities.xsd TriggeredAbilities.xsd ActivatedAbilities.xsd StaticAbilities.xsd .\Cards.xsd
 https://stackoverflow.com/questions/36700999/how-to-reference-element-in-other-xsds-namespace

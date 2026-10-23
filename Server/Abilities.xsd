@@ -32,24 +32,4 @@
             <xs:extension base="abi:ResolvableAbility" />
         </xs:complexContent>
     </xs:complexType>
-    <xs:complexType name="TriggeredAbility" abstract="true">
-        <xs:complexContent>
-            <xs:extension base="abi:ResolvableAbility" />
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
-        <xs:complexContent>
-            <xs:extension base="abi:TriggeredAbility" />
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="ActivatedAbility" abstract="true">
-        <xs:complexContent>
-            <xs:extension base="abi:ResolvableAbility" />
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="TapAbility">
-        <xs:complexContent>
-            <xs:extension base="abi:ActivatedAbility" />
-        </xs:complexContent>
-    </xs:complexType>
 </xs:schema>
