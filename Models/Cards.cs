@@ -149,6 +149,25 @@ namespace Models {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(CreatureFilter))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
+    public abstract partial class CardFilter {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
+    public partial class CreatureFilter : CardFilter {
+    }
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(YouMayDrawCardEffect))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAllYourOpponentsCreaturesEffect))]
@@ -186,6 +205,19 @@ namespace Models {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
     public partial class TapAllYourOpponentsCreaturesEffect : OneShotEffect {
+        
+        private CreatureFilter itemField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("CreatureFilter")]
+        public CreatureFilter Item {
+            get {
+                return this.itemField;
+            }
+            set {
+                this.itemField = value;
+            }
+        }
     }
     
     /// <remarks/>

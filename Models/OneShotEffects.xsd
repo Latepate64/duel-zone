@@ -2,9 +2,13 @@
 <xs:schema
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:ose="OneShotEffects"
+    xmlns:f="CardFilters"
     targetNamespace="OneShotEffects"
-    elementFormDefault="qualified"
->
+    elementFormDefault="qualified">
+    <xs:import
+        namespace="CardFilters"
+        schemaLocation="CardFilters.xsd"
+    />
     <xs:complexType name="OneShotEffect" abstract="true" />
     <xs:complexType name="DestroyOneOfYourOpponentsCreaturesEffect">
         <xs:complexContent>
@@ -13,7 +17,11 @@
     </xs:complexType>
     <xs:complexType name="TapAllYourOpponentsCreaturesEffect">
         <xs:complexContent>
-            <xs:extension base="ose:OneShotEffect" />
+            <xs:extension base="ose:OneShotEffect">
+                <xs:choice>
+                    <xs:element name="CreatureFilter" type="f:CreatureFilter" />
+                </xs:choice>
+            </xs:extension>
         </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="YouMayDrawCardEffect">

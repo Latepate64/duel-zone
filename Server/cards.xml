@@ -3,11 +3,13 @@
     xmlns="Cards"
     xmlns:abi="Abilities"
     xmlns:ose="OneShotEffects"
+    xmlns:cf="CardFilters"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="Cards ../Models/Cards.xsd
                         Abilities ../Models/Abilities.xsd
                         OneShotEffects ../Models/OneShotEffects.xsd
-                        Races ../Models/Races.xsd"
+                        Races ../Models/Races.xsd
+                        CardFilters ../Models/CardFilters.xsd"
 >
     <Cards>
         <Creature Name="Burning Mane" Cost="2" Power="2000">
@@ -25,7 +27,9 @@
             </Civilizations>
             <Abilities>
                 <SpellAbility>
-                    <abi:TapAllYourOpponentsCreaturesEffect />
+                    <abi:TapAllYourOpponentsCreaturesEffect>
+                        <ose:CreatureFilter />
+                    </abi:TapAllYourOpponentsCreaturesEffect>
                 </SpellAbility>
             </Abilities>
         </Spell>
