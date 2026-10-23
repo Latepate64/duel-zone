@@ -47,15 +47,14 @@ public partial class Root {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public partial class Creature : Card {
     
-    private CreatureRace[] racesField;
+    private Race[] racesField;
     
     private Ability[] abilitiesField;
     
     private string powerField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Race", IsNullable=false)]
-    public CreatureRace[] Races {
+    public Race[] Races {
         get {
             return this.racesField;
         }
@@ -92,8 +91,8 @@ public partial class Creature : Card {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
-public enum CreatureRace {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Races")]
+public enum Race {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("Beast Folk")]
@@ -208,15 +207,14 @@ public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public abstract partial class Card {
     
-    private CardCivilization[] civilizationsField;
+    private Civilization[] civilizationsField;
     
     private string nameField;
     
     private string costField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Civilization", IsNullable=false)]
-    public CardCivilization[] Civilizations {
+    public Civilization[] Civilizations {
         get {
             return this.civilizationsField;
         }
@@ -251,8 +249,8 @@ public abstract partial class Card {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
 [System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
-public enum CardCivilization {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
+public enum Civilization {
     
     /// <remarks/>
     Light,

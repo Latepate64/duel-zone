@@ -6,6 +6,7 @@
   xmlns:ta="TriggeredAbilities"
   xmlns:aa="ActivatedAbilities"
   xmlns:sa="StaticAbilities"
+  xmlns:ra="Races"
   targetNamespace="Cards"
   elementFormDefault="qualified"
 >
@@ -24,6 +25,10 @@
   <xs:import
     namespace="StaticAbilities"
     schemaLocation="StaticAbilities.xsd"
+  />
+  <xs:import
+    namespace="Races"
+    schemaLocation="Races.xsd"
   />
   <xs:element name="Root">
     <xs:complexType>
@@ -44,17 +49,7 @@
       <xs:element name="Civilizations">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="Civilization" minOccurs="1" maxOccurs="5">
-              <xs:simpleType>
-                <xs:restriction base="xs:string">
-                  <xs:enumeration value="Light" />
-                  <xs:enumeration value="Water" />
-                  <xs:enumeration value="Darkness" />
-                  <xs:enumeration value="Fire" />
-                  <xs:enumeration value="Nature" />
-                </xs:restriction>
-              </xs:simpleType>
-            </xs:element>
+            <xs:element name="Civilization" type="Civilization" minOccurs="1" maxOccurs="5" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -69,17 +64,7 @@
           <xs:element name="Races">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="Race" minOccurs="1" maxOccurs="2">
-                  <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                      <xs:enumeration value="Beast Folk" />
-                      <xs:enumeration value="Human" />
-                      <xs:enumeration value="Leviathan" />
-                      <xs:enumeration value="Liquid People" />
-                      <xs:enumeration value="Xenoparts" />
-                    </xs:restriction>
-                  </xs:simpleType>
-                </xs:element>
+                <xs:element name="Race" type="ra:Race" minOccurs="1" maxOccurs="2" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -113,4 +98,13 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:simpleType name="Civilization">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Light" />
+      <xs:enumeration value="Water" />
+      <xs:enumeration value="Darkness" />
+      <xs:enumeration value="Fire" />
+      <xs:enumeration value="Nature" />
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>
