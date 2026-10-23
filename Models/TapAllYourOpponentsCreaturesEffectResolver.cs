@@ -3,19 +3,12 @@ using Interfaces;
 namespace Models;
 
 public class TapAllYourOpponentsCreaturesEffectResolver
-    : OneShotEffectResolver<TapAllYourOpponentsCreaturesEffect>
+    : EventResolver<TapAllYourOpponentsCreaturesEffect>
 {
-    private readonly ICardFilter cardFilter;
-
-    public TapAllYourOpponentsCreaturesEffectResolver(ICardFilter cardFilter)
-    {
-        this.cardFilter = cardFilter;
-    }
-
-    public override IEnumerable<OneShotEffect> Resolve(
+    public override IEnumerable<IGameEventV3> Resolve(
         IGameState state, IPlayerV2 applier, TapAllYourOpponentsCreaturesEffect effect)
     {
-        return state.BattleZone.GetCreaturesControlledByPlayer(applier, cardFilter).Where(
-            x => !x.Tapped).Select(x => new TapCardEffect(x));
+        return state.BattleZone.GetCreaturesControlledByPlayer(
+            applier, effect.Item).Where(x => !x.Tapped).Select(x => new TapCardEvent(x));
     }
 }

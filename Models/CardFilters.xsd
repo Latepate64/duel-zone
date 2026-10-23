@@ -4,10 +4,15 @@
     xmlns:cf="CardFilters"
     targetNamespace="CardFilters"
     elementFormDefault="qualified">
-    <xs:complexType name="CardFilter" abstract="true" />
+    <xs:complexType name="CardFilter"/>
     <xs:complexType name="CreatureFilter">
         <xs:complexContent>
             <xs:extension base="cf:CardFilter" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="BlockerFilter">
+        <xs:complexContent>
+            <xs:extension base="cf:CreatureFilter" />
         </xs:complexContent>
     </xs:complexType>
 </xs:schema>

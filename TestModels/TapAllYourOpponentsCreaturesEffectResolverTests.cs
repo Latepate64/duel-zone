@@ -7,25 +7,24 @@ namespace TestModels;
 public class TapAllYourOpponentsCreaturesEffectResolverTests
 {
     [Fact]
-    public void OpponentsCreatureGetsTapped()
+    public void TapCardEffectIsCreated()
     {
         // Arrange
-        var filter = Mock.Of<ICardFilter>();
-        var resolver = new TapAllYourOpponentsCreaturesEffectResolver(filter);
-        var state = new Mock<IGameState>();
+        var resolver = new TapAllYourOpponentsCreaturesEffectResolver();
         var applier = Mock.Of<IPlayerV2>();
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.Tapped).Returns(false);
-        state.Setup(x => x.BattleZone.GetCreaturesControlledByPlayer(applier, filter)).Returns(
-            [creature.Object]);
         var effect = new TapAllYourOpponentsCreaturesEffect();
+        var state = new Mock<IGameState>();
+        state.Setup(x => x.BattleZone.GetCreaturesControlledByPlayer(
+            applier, effect.Item)).Returns([creature.Object]);
 
         // Act
         var effects = resolver.Resolve(state.Object, applier, effect);
 
         // Assert
         var actual = Assert.Single(effects);
-        var tapCardEffect = Assert.IsType<TapCardEffect>(actual);
+        var tapCardEffect = Assert.IsType<TapCardEvent>(actual);
         Assert.Equal(creature.Object, tapCardEffect.Card);
     }
 }

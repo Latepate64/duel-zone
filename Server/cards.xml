@@ -100,5 +100,20 @@
             </Races>
             <Abilities />
         </Creature>
+        <EvolutionCreature Power="5000" Name="Larba Geer, the Immaculate" Cost="3">
+            <Civilizations>
+                <Civilization>Light</Civilization>
+            </Civilizations>
+            <Races>
+                <Race>Guardian</Race>
+            </Races>
+            <Abilities>
+                <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+                    <abi:TapAllYourOpponentsCreaturesEffect>
+                        <ose:BlockerFilter />
+                    </abi:TapAllYourOpponentsCreaturesEffect>
+                </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+            </Abilities>
+        </EvolutionCreature>
     </Cards>
 </Root>

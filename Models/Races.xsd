@@ -6,6 +6,7 @@
     <xs:simpleType name="Race">
         <xs:restriction base="xs:string">
             <xs:enumeration value="Beast Folk" />
+            <xs:enumeration value="Guardian"/>
             <xs:enumeration value="Human" />
             <xs:enumeration value="Leviathan" />
             <xs:enumeration value="Liquid People" />

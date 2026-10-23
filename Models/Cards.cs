@@ -28,6 +28,7 @@ namespace Models {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Creature), IsNullable=false)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(EvolutionCreature), IsNullable=false)]
         [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Spell), IsNullable=false)]
         public Card[] Cards {
             get {
@@ -40,6 +41,7 @@ namespace Models {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(EvolutionCreature))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -99,6 +101,9 @@ namespace Models {
         BeastFolk,
         
         /// <remarks/>
+        Guardian,
+        
+        /// <remarks/>
         Human,
         
         /// <remarks/>
@@ -150,12 +155,23 @@ namespace Models {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CreatureFilter))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerFilter))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
-    public abstract partial class CardFilter {
+    public partial class CardFilter {
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerFilter))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
+    public partial class CreatureFilter : CardFilter {
     }
     
     /// <remarks/>
@@ -164,7 +180,7 @@ namespace Models {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="CardFilters")]
-    public partial class CreatureFilter : CardFilter {
+    public partial class BlockerFilter : CreatureFilter {
     }
     
     /// <remarks/>
@@ -209,7 +225,8 @@ namespace Models {
         private CreatureFilter itemField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CreatureFilter")]
+        [System.Xml.Serialization.XmlElementAttribute("BlockerFilter", typeof(BlockerFilter))]
+        [System.Xml.Serialization.XmlElementAttribute("CreatureFilter", typeof(CreatureFilter))]
         public CreatureFilter Item {
             get {
                 return this.itemField;
@@ -232,6 +249,7 @@ namespace Models {
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Spell))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Creature))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(EvolutionCreature))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -417,5 +435,14 @@ namespace Models {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
     public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredAbility {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
+    public partial class EvolutionCreature : Creature {
     }
 }

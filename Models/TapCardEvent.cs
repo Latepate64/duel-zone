@@ -2,11 +2,11 @@ using Interfaces;
 
 namespace Models;
 
-public class TapCardEffect : OneShotEffect
+public class TapCardEvent : IGameEventV3
 {
     public ICard Card { get; set; }
 
-    public TapCardEffect(ICard card)
+    public TapCardEvent(ICard card)
     {
         Card = card;
     }

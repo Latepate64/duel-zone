@@ -20,6 +20,7 @@
             <xs:extension base="ose:OneShotEffect">
                 <xs:choice>
                     <xs:element name="CreatureFilter" type="f:CreatureFilter" />
+                    <xs:element name="BlockerFilter" type="f:BlockerFilter" />
                 </xs:choice>
             </xs:extension>
         </xs:complexContent>

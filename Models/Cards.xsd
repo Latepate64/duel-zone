@@ -37,6 +37,7 @@
           <xs:complexType>
             <xs:choice maxOccurs="unbounded">
               <xs:element type="Creature" name="Creature" />
+              <xs:element type="EvolutionCreature" name="EvolutionCreature" />
               <xs:element type="Spell" name="Spell" />
             </xs:choice>
           </xs:complexType>
@@ -81,6 +82,11 @@
         </xs:sequence>
         <xs:attribute name="Power" type="xs:integer" use="required" />
       </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EvolutionCreature">
+    <xs:complexContent>
+      <xs:extension base="Creature"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="Spell">
