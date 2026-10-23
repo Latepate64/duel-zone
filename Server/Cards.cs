@@ -47,18 +47,20 @@ public partial class Root {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public partial class Creature : Card {
     
-    private string powerField;
+    private CreatureRace[] racesField;
     
     private Ability[] abilitiesField;
     
+    private string powerField;
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
-    public string Power {
+    [System.Xml.Serialization.XmlArrayItemAttribute("Race", IsNullable=false)]
+    public CreatureRace[] Races {
         get {
-            return this.powerField;
+            return this.racesField;
         }
         set {
-            this.powerField = value;
+            this.racesField = value;
         }
     }
     
@@ -74,6 +76,41 @@ public partial class Creature : Card {
             this.abilitiesField = value;
         }
     }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string Power {
+        get {
+            return this.powerField;
+        }
+        set {
+            this.powerField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
+public enum CreatureRace {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Beast Folk")]
+    BeastFolk,
+    
+    /// <remarks/>
+    Human,
+    
+    /// <remarks/>
+    Leviathan,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("Liquid People")]
+    LiquidPeople,
+    
+    /// <remarks/>
+    Xenoparts,
 }
 
 /// <remarks/>
@@ -171,9 +208,25 @@ public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public abstract partial class Card {
     
+    private CardCivilization[] civilizationsField;
+    
     private string nameField;
     
+    private string costField;
+    
     /// <remarks/>
+    [System.Xml.Serialization.XmlArrayItemAttribute("Civilization", IsNullable=false)]
+    public CardCivilization[] Civilizations {
+        get {
+            return this.civilizationsField;
+        }
+        set {
+            this.civilizationsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
     public string Name {
         get {
             return this.nameField;
@@ -182,6 +235,39 @@ public abstract partial class Card {
             this.nameField = value;
         }
     }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string Cost {
+        get {
+            return this.costField;
+        }
+        set {
+            this.costField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
+public enum CardCivilization {
+    
+    /// <remarks/>
+    Light,
+    
+    /// <remarks/>
+    Water,
+    
+    /// <remarks/>
+    Darkness,
+    
+    /// <remarks/>
+    Fire,
+    
+    /// <remarks/>
+    Nature,
 }
 
 /// <remarks/>

@@ -41,14 +41,48 @@
   </xs:element>
   <xs:complexType name="Card" abstract="true">
     <xs:sequence>
-      <xs:element name="Name" type="xs:string" />
+      <xs:element name="Civilizations">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Civilization" minOccurs="1" maxOccurs="5">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="Light" />
+                  <xs:enumeration value="Water" />
+                  <xs:enumeration value="Darkness" />
+                  <xs:enumeration value="Fire" />
+                  <xs:enumeration value="Nature" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Cost" type="xs:integer" use="required" />
   </xs:complexType>
   <xs:complexType name="Creature">
     <xs:complexContent>
       <xs:extension base="Card">
         <xs:sequence>
-          <xs:element name="Power" type="xs:integer" />
+          <xs:element name="Races">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Race" minOccurs="1" maxOccurs="2">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="Beast Folk" />
+                      <xs:enumeration value="Human" />
+                      <xs:enumeration value="Leviathan" />
+                      <xs:enumeration value="Liquid People" />
+                      <xs:enumeration value="Xenoparts" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
           <xs:element name="Abilities">
             <xs:complexType>
               <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -60,6 +94,7 @@
             </xs:complexType>
           </xs:element>
         </xs:sequence>
+        <xs:attribute name="Power" type="xs:integer" use="required" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
