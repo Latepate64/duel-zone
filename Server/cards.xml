@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <Root
     xmlns="Cards"
+    xmlns:abi="Abilities"
+    xmlns:ose="OneShotEffects"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="Cards ./schema.xsd">
-    <!-- xsi:noNamespaceSchemaLocation="./schema.xsd" -->
+    xsi:schemaLocation="Cards ./Cards.xsd
+                        Abilities ./Abilities.xsd
+                        OneShotEffects ./OneShotEffects.xsd"
+>
     <Cards>
         <Creature>
             <Name>Burning Mane</Name>
@@ -13,7 +17,7 @@
             <Name>Holy Awe</Name>
             <SpellAbilities>
                 <SpellAbility>
-                    <TapAllYourOpponentsCreaturesEffect />
+                    <abi:TapAllYourOpponentsCreaturesEffect />
                 </SpellAbility>
             </SpellAbilities>
         </Spell>
@@ -25,7 +29,7 @@
             <Name>Terror Pit</Name>
             <SpellAbilities>
                 <SpellAbility>
-                    <DestroyOneOfYourOpponentsCreaturesEffect />
+                    <abi:DestroyOneOfYourOpponentsCreaturesEffect />
                 </SpellAbility>
             </SpellAbilities>
         </Spell>
@@ -34,7 +38,7 @@
             <Power>2000</Power>
             <TriggeredAbilities>
                 <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
-                    <YouMayDrawCardEffect />
+                    <abi:YouMayDrawCardEffect />
                 </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
             </TriggeredAbilities>
         </Creature>
@@ -43,7 +47,7 @@
             <Power>1000</Power>
             <ActivatedAbilities>
                 <TapAbility>
-                    <DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
+                    <abi:DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
                 </TapAbility>
             </ActivatedAbilities>
         </Creature>

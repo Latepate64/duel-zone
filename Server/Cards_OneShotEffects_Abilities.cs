@@ -20,16 +20,15 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="Cards", IsNullable=false)]
 public partial class Root {
     
     private Card[] cardsField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Creature), Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Spell), Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Creature), IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Spell), IsNullable=false)]
     public Card[] Cards {
         get {
             return this.cardsField;
@@ -45,6 +44,7 @@ public partial class Root {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public partial class Creature : Card {
     
     private string powerField;
@@ -54,7 +54,7 @@ public partial class Creature : Card {
     private TapAbility[] activatedAbilitiesField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="integer")]
+    [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
     public string Power {
         get {
             return this.powerField;
@@ -65,8 +65,7 @@ public partial class Creature : Card {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
     public WhenYouPutThisCreatureIntoTheBattleZoneAbility[] TriggeredAbilities {
         get {
             return this.triggeredAbilitiesField;
@@ -77,8 +76,7 @@ public partial class Creature : Card {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
     public TapAbility[] ActivatedAbilities {
         get {
             return this.activatedAbilitiesField;
@@ -94,6 +92,7 @@ public partial class Creature : Card {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredAbility {
 }
 
@@ -103,6 +102,7 @@ public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredA
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public abstract partial class TriggeredAbility : ResolvableAbility {
 }
 
@@ -116,15 +116,16 @@ public abstract partial class TriggeredAbility : ResolvableAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public abstract partial class ResolvableAbility : Ability {
     
     private OneShotEffect itemField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesEffect", typeof(DestroyOneOfYourOpponentsCreaturesEffect), Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect", typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect), Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlElementAttribute("TapAllYourOpponentsCreaturesEffect", typeof(TapAllYourOpponentsCreaturesEffect), Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlElementAttribute("YouMayDrawCardEffect", typeof(YouMayDrawCardEffect), Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesEffect", typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
+    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect", typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
+    [System.Xml.Serialization.XmlElementAttribute("TapAllYourOpponentsCreaturesEffect", typeof(TapAllYourOpponentsCreaturesEffect))]
+    [System.Xml.Serialization.XmlElementAttribute("YouMayDrawCardEffect", typeof(YouMayDrawCardEffect))]
     public OneShotEffect Item {
         get {
             return this.itemField;
@@ -140,6 +141,7 @@ public abstract partial class ResolvableAbility : Ability {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
 public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
 }
 
@@ -152,6 +154,7 @@ public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
 public abstract partial class OneShotEffect {
 }
 
@@ -166,6 +169,7 @@ public abstract partial class OneShotEffect {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public abstract partial class Ability {
 }
 
@@ -176,12 +180,12 @@ public abstract partial class Ability {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public abstract partial class Card {
     
     private string nameField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public string Name {
         get {
             return this.nameField;
@@ -197,12 +201,12 @@ public abstract partial class Card {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public partial class Spell : Card {
     
     private SpellSpellAbilities spellAbilitiesField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public SpellSpellAbilities SpellAbilities {
         get {
             return this.spellAbilitiesField;
@@ -218,13 +222,12 @@ public partial class Spell : Card {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
 public partial class SpellSpellAbilities {
     
     private SpellAbility spellAbilityField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public SpellAbility SpellAbility {
         get {
             return this.spellAbilityField;
@@ -240,6 +243,7 @@ public partial class SpellSpellAbilities {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public partial class SpellAbility : ResolvableAbility {
 }
 
@@ -248,6 +252,7 @@ public partial class SpellAbility : ResolvableAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public partial class TapAbility : ActivatedAbility {
 }
 
@@ -257,6 +262,7 @@ public partial class TapAbility : ActivatedAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
 public abstract partial class ActivatedAbility : ResolvableAbility {
 }
 
@@ -265,6 +271,7 @@ public abstract partial class ActivatedAbility : ResolvableAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
 public partial class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : OneShotEffect {
 }
 
@@ -273,6 +280,7 @@ public partial class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : On
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
 public partial class YouMayDrawCardEffect : OneShotEffect {
 }
 
@@ -281,5 +289,6 @@ public partial class YouMayDrawCardEffect : OneShotEffect {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
 public partial class TapAllYourOpponentsCreaturesEffect : OneShotEffect {
 }

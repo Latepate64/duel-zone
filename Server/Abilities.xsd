@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:abi="Abilities"
+    xmlns:ose="OneShotEffects"
+    targetNamespace="Abilities"
+    elementFormDefault="qualified"
+>
+    <xs:import
+        namespace="OneShotEffects"
+        schemaLocation="OneShotEffects.xsd"
+    />
+    <xs:complexType name="Ability" abstract="true" />
+    <xs:complexType name="ResolvableAbility" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="abi:Ability">
+                <xs:choice>
+                    <xs:element type="ose:DestroyOneOfYourOpponentsCreaturesEffect"
+                        name="DestroyOneOfYourOpponentsCreaturesEffect" />
+                    <xs:element type="ose:TapAllYourOpponentsCreaturesEffect"
+                        name="TapAllYourOpponentsCreaturesEffect" />
+                    <xs:element type="ose:YouMayDrawCardEffect"
+                        name="YouMayDrawCardEffect" />
+                    <xs:element type="ose:DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect"
+                        name="DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect" />
+                </xs:choice>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SpellAbility">
+        <xs:complexContent>
+            <xs:extension base="abi:ResolvableAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TriggeredAbility" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="abi:ResolvableAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
+        <xs:complexContent>
+            <xs:extension base="abi:TriggeredAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ActivatedAbility" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="abi:ResolvableAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TapAbility">
+        <xs:complexContent>
+            <xs:extension base="abi:ActivatedAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
