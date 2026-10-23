@@ -49,24 +49,12 @@
       <xs:extension base="Card">
         <xs:sequence>
           <xs:element name="Power" type="xs:integer" />
-          <xs:element name="TriggeredAbilities" minOccurs="0">
+          <xs:element name="Abilities">
             <xs:complexType>
-              <xs:choice maxOccurs="unbounded">
+              <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element type="ta:WhenYouPutThisCreatureIntoTheBattleZoneAbility"
                   name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" />
-              </xs:choice>
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="ActivatedAbilities" minOccurs="0">
-            <xs:complexType>
-              <xs:choice maxOccurs="unbounded">
                 <xs:element type="aa:TapAbility" name="TapAbility" />
-              </xs:choice>
-            </xs:complexType>
-          </xs:element>
-          <xs:element name="StaticAbilities" minOccurs="0">
-            <xs:complexType>
-              <xs:choice maxOccurs="unbounded">
                 <xs:element type="sa:BlockerAbility" name="BlockerAbility" />
               </xs:choice>
             </xs:complexType>
@@ -79,7 +67,7 @@
     <xs:complexContent>
       <xs:extension base="Card">
         <xs:sequence>
-          <xs:element name="SpellAbilities">
+          <xs:element name="Abilities">
             <xs:complexType>
               <xs:sequence>
                 <xs:element type="abi:SpellAbility" name="SpellAbility"></xs:element>

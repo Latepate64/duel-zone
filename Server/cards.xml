@@ -12,51 +12,53 @@
         <Creature>
             <Name>Burning Mane</Name>
             <Power>2000</Power>
+            <Abilities/>
         </Creature>
         <Spell>
             <Name>Holy Awe</Name>
-            <SpellAbilities>
+            <Abilities>
                 <SpellAbility>
                     <abi:TapAllYourOpponentsCreaturesEffect />
                 </SpellAbility>
-            </SpellAbilities>
+            </Abilities>
         </Spell>
         <Creature>
             <Name>Immortal Baron, Vorg</Name>
             <Power>2000</Power>
+            <Abilities/>
         </Creature>
         <Spell>
             <Name>Terror Pit</Name>
-            <SpellAbilities>
+            <Abilities>
                 <SpellAbility>
                     <abi:DestroyOneOfYourOpponentsCreaturesEffect />
                 </SpellAbility>
-            </SpellAbilities>
+            </Abilities>
         </Spell>
         <Creature>
             <Name>Aqua Hulcus</Name>
             <Power>2000</Power>
-            <TriggeredAbilities>
+            <Abilities>
                 <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
                     <abi:YouMayDrawCardEffect />
                 </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
-            </TriggeredAbilities>
+            </Abilities>
         </Creature>
         <Creature>
             <Name>Rikabu's Screwdriver</Name>
             <Power>1000</Power>
-            <ActivatedAbilities>
+            <Abilities>
                 <TapAbility>
                     <abi:DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
                 </TapAbility>
-            </ActivatedAbilities>
+            </Abilities>
         </Creature>
         <Creature>
             <Name>King Coral</Name>
             <Power>1000</Power>
-            <StaticAbilities>
+            <Abilities>
                 <BlockerAbility />
-            </StaticAbilities>
+            </Abilities>
         </Creature>
     </Cards>
 </Root>

@@ -49,11 +49,7 @@ public partial class Creature : Card {
     
     private string powerField;
     
-    private WhenYouPutThisCreatureIntoTheBattleZoneAbility[] triggeredAbilitiesField;
-    
-    private TapAbility[] activatedAbilitiesField;
-    
-    private BlockerAbility[] staticAbilitiesField;
+    private Ability[] abilitiesField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(DataType="integer")]
@@ -67,35 +63,15 @@ public partial class Creature : Card {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
-    public WhenYouPutThisCreatureIntoTheBattleZoneAbility[] TriggeredAbilities {
+    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(BlockerAbility), IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(TapAbility), IsNullable=false)]
+    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(WhenYouPutThisCreatureIntoTheBattleZoneAbility), IsNullable=false)]
+    public Ability[] Abilities {
         get {
-            return this.triggeredAbilitiesField;
+            return this.abilitiesField;
         }
         set {
-            this.triggeredAbilitiesField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
-    public TapAbility[] ActivatedAbilities {
-        get {
-            return this.activatedAbilitiesField;
-        }
-        set {
-            this.activatedAbilitiesField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute(IsNullable=false)]
-    public BlockerAbility[] StaticAbilities {
-        get {
-            return this.staticAbilitiesField;
-        }
-        set {
-            this.staticAbilitiesField = value;
+            this.abilitiesField = value;
         }
     }
 }
@@ -105,70 +81,18 @@ public partial class Creature : Card {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
-public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredAbility {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
+public partial class BlockerAbility : StaticAbility {
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(WhenYouPutThisCreatureIntoTheBattleZoneAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerAbility))]
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
-public abstract partial class TriggeredAbility : ResolvableAbility {
-}
-
-/// <remarks/>
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivatedAbility))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAbility))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(TriggeredAbility))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(WhenYouPutThisCreatureIntoTheBattleZoneAbility))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(SpellAbility))]
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
-public abstract partial class ResolvableAbility : Ability {
-    
-    private OneShotEffect itemField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesEffect", typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
-    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect", typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
-    [System.Xml.Serialization.XmlElementAttribute("TapAllYourOpponentsCreaturesEffect", typeof(TapAllYourOpponentsCreaturesEffect))]
-    [System.Xml.Serialization.XmlElementAttribute("YouMayDrawCardEffect", typeof(YouMayDrawCardEffect))]
-    public OneShotEffect Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
-}
-
-/// <remarks/>
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(YouMayDrawCardEffect))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAllYourOpponentsCreaturesEffect))]
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-public abstract partial class OneShotEffect {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
+public abstract partial class StaticAbility : Ability {
 }
 
 /// <remarks/>
@@ -189,13 +113,16 @@ public abstract partial class Ability {
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(YouMayDrawCardEffect))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAllYourOpponentsCreaturesEffect))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
-public abstract partial class StaticAbility : Ability {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+public abstract partial class OneShotEffect {
 }
 
 /// <remarks/>
@@ -203,8 +130,35 @@ public abstract partial class StaticAbility : Ability {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
-public partial class BlockerAbility : StaticAbility {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+public partial class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : OneShotEffect {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+public partial class YouMayDrawCardEffect : OneShotEffect {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+public partial class TapAllYourOpponentsCreaturesEffect : OneShotEffect {
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
 }
 
 /// <remarks/>
@@ -238,15 +192,15 @@ public abstract partial class Card {
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
 public partial class Spell : Card {
     
-    private SpellSpellAbilities spellAbilitiesField;
+    private SpellAbilities abilitiesField;
     
     /// <remarks/>
-    public SpellSpellAbilities SpellAbilities {
+    public SpellAbilities Abilities {
         get {
-            return this.spellAbilitiesField;
+            return this.abilitiesField;
         }
         set {
-            this.spellAbilitiesField = value;
+            this.abilitiesField = value;
         }
     }
 }
@@ -257,7 +211,7 @@ public partial class Spell : Card {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
-public partial class SpellSpellAbilities {
+public partial class SpellAbilities {
     
     private SpellAbility spellAbilityField;
     
@@ -282,12 +236,33 @@ public partial class SpellAbility : ResolvableAbility {
 }
 
 /// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivatedAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(TriggeredAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(WhenYouPutThisCreatureIntoTheBattleZoneAbility))]
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(SpellAbility))]
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="ActivatedAbilities")]
-public partial class TapAbility : ActivatedAbility {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="Abilities")]
+public abstract partial class ResolvableAbility : Ability {
+    
+    private OneShotEffect itemField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesEffect", typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
+    [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect", typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
+    [System.Xml.Serialization.XmlElementAttribute("TapAllYourOpponentsCreaturesEffect", typeof(TapAllYourOpponentsCreaturesEffect))]
+    [System.Xml.Serialization.XmlElementAttribute("YouMayDrawCardEffect", typeof(YouMayDrawCardEffect))]
+    public OneShotEffect Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
 }
 
 /// <remarks/>
@@ -305,8 +280,18 @@ public abstract partial class ActivatedAbility : ResolvableAbility {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-public partial class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : OneShotEffect {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="ActivatedAbilities")]
+public partial class TapAbility : ActivatedAbility {
+}
+
+/// <remarks/>
+[System.Xml.Serialization.XmlIncludeAttribute(typeof(WhenYouPutThisCreatureIntoTheBattleZoneAbility))]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
+public abstract partial class TriggeredAbility : ResolvableAbility {
 }
 
 /// <remarks/>
@@ -314,15 +299,6 @@ public partial class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : On
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-public partial class YouMayDrawCardEffect : OneShotEffect {
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-public partial class TapAllYourOpponentsCreaturesEffect : OneShotEffect {
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="TriggeredAbilities")]
+public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredAbility {
 }
