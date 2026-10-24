@@ -53,7 +53,7 @@ namespace Models {
         
         private Ability[] abilitiesField;
         
-        private string powerField;
+        private int powerField;
         
         /// <remarks/>
         public Race[] Races {
@@ -79,8 +79,8 @@ namespace Models {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Power {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int Power {
             get {
                 return this.powerField;
             }
@@ -269,7 +269,7 @@ namespace Models {
         
         private string nameField;
         
-        private string costField;
+        private int costField;
         
         /// <remarks/>
         public Civilization[] Civilizations {
@@ -293,8 +293,8 @@ namespace Models {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
-        public string Cost {
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int Cost {
             get {
                 return this.costField;
             }

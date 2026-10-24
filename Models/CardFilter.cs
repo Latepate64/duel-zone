@@ -6,7 +6,10 @@ public partial class CardFilter : ICardFilter
 {
     public ICardFilter Copy()
     {
-        return new CardFilter();
+        return new CardFilter
+        {
+            Type = Type
+        };
     }
 
     public bool Match(ICard card)
@@ -19,5 +22,12 @@ public partial class CardFilter : ICardFilter
             CardFilterType.Blocker => card is ICreature creature && creature.HasBlocker,
             _ => throw new NotImplementedException()
         };
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not CardFilter filter) return false;
+        if (Type != filter.Type) return false;
+        return true;
     }
 }

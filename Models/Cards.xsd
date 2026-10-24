@@ -56,7 +56,7 @@
       </xs:element>
     </xs:sequence>
     <xs:attribute name="Name" type="xs:string" use="required" />
-    <xs:attribute name="Cost" type="xs:integer" use="required" />
+    <xs:attribute name="Cost" type="xs:int" use="required" />
   </xs:complexType>
   <xs:complexType name="Creature">
     <xs:complexContent>
@@ -80,7 +80,7 @@
             </xs:complexType>
           </xs:element>
         </xs:sequence>
-        <xs:attribute name="Power" type="xs:integer" use="required" />
+        <xs:attribute name="Power" type="xs:int" use="required" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
