@@ -20,4 +20,9 @@
             <xs:extension base="sa:StaticAbility" />
         </xs:complexContent>
     </xs:complexType>
+    <xs:complexType name="ShieldTriggerAbility">
+        <xs:complexContent>
+            <xs:extension base="sa:StaticAbility" />
+        </xs:complexContent>
+    </xs:complexType>
 </xs:schema>

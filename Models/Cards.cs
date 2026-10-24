@@ -67,6 +67,7 @@ namespace Models {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(typeof(BlockerAbility), IsNullable=false)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(ShieldTriggerAbility), IsNullable=false)]
         [System.Xml.Serialization.XmlArrayItemAttribute(typeof(TapAbility), IsNullable=false)]
         [System.Xml.Serialization.XmlArrayItemAttribute(typeof(WhenYouPutThisCreatureIntoTheBattleZoneAbility), IsNullable=false)]
         public Ability[] Abilities {
@@ -127,6 +128,7 @@ namespace Models {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ShieldTriggerAbility))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerAbility))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
@@ -138,6 +140,7 @@ namespace Models {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(StaticAbility))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ShieldTriggerAbility))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(BlockerAbility))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ResolvableAbility))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ActivatedAbility))]
@@ -334,10 +337,12 @@ namespace Models {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="Cards")]
     public partial class Spell : Card {
         
-        private SpellAbilities abilitiesField;
+        private Ability[] abilitiesField;
         
         /// <remarks/>
-        public SpellAbilities Abilities {
+        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(ShieldTriggerAbility), IsNullable=false)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(SpellAbility), IsNullable=false)]
+        public Ability[] Abilities {
             get {
                 return this.abilitiesField;
             }
@@ -352,20 +357,8 @@ namespace Models {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
-    public partial class SpellAbilities {
-        
-        private SpellAbility spellAbilityField;
-        
-        /// <remarks/>
-        public SpellAbility SpellAbility {
-            get {
-                return this.spellAbilityField;
-            }
-            set {
-                this.spellAbilityField = value;
-            }
-        }
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="StaticAbilities")]
+    public partial class ShieldTriggerAbility : StaticAbility {
     }
     
     /// <remarks/>

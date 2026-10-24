@@ -26,6 +26,7 @@
                 <Civilization>Light</Civilization>
             </Civilizations>
             <Abilities>
+                <ShieldTriggerAbility />
                 <SpellAbility>
                     <abi:TapAllYourOpponentsCreaturesEffect>
                         <ose:CardFilter>
@@ -49,6 +50,7 @@
                 <Civilization>Darkness</Civilization>
             </Civilizations>
             <Abilities>
+                <ShieldTriggerAbility />
                 <SpellAbility>
                     <abi:DestroyOneOfYourOpponentsCreaturesEffect />
                 </SpellAbility>
@@ -119,5 +121,12 @@
                 </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
             </Abilities>
         </EvolutionCreature>
+        <Creature Power="1000" Name="Torcon" Cost="2">
+            <Civilizations><Civilization>Nature</Civilization></Civilizations>
+            <Races><Race>Beast Folk</Race></Races>
+            <Abilities>
+                <ShieldTriggerAbility />
+            </Abilities>
+        </Creature>
     </Cards>
 </Root>

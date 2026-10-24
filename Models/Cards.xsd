@@ -76,6 +76,7 @@
                   name="WhenYouPutThisCreatureIntoTheBattleZoneAbility" />
                 <xs:element type="aa:TapAbility" name="TapAbility" />
                 <xs:element type="sa:BlockerAbility" name="BlockerAbility" />
+                <xs:element type="sa:ShieldTriggerAbility" name="ShieldTriggerAbility" />
               </xs:choice>
             </xs:complexType>
           </xs:element>
@@ -95,9 +96,10 @@
         <xs:sequence>
           <xs:element name="Abilities">
             <xs:complexType>
-              <xs:sequence>
+              <xs:choice minOccurs="1" maxOccurs="unbounded">
                 <xs:element type="abi:SpellAbility" name="SpellAbility"></xs:element>
-              </xs:sequence>
+                <xs:element type="sa:ShieldTriggerAbility" name="ShieldTriggerAbility" />
+              </xs:choice>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
