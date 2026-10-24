@@ -6,7 +6,7 @@ public partial class SpellAbility
     {
         return new SpellAbility
         {
-            Item = Item.Copy()
+            Item = Item.Copy() as OneShotEffect
         };
     }
 }

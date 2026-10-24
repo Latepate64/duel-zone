@@ -1,6 +1,7 @@
 using System;
 using Engine;
 using Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
@@ -117,7 +118,11 @@ public sealed class GameTests
     {
         // Arrange
         var randomizer = Mock.Of<IRandomizer>();
-        var game = new Game();
+        var resolver = Mock.Of<IEventResolver<IStartGameEvent, IGameEvent>>();
+        var provider = new Mock<IServiceProvider>();
+        provider.Setup(x => x.GetService(typeof(IEventResolver<IStartGameEvent, IGameEvent>))).Returns(
+            resolver);
+        var game = new Game(provider.Object);
         var startingPlayer = new Mock<IPlayer>();
         startingPlayer.Setup(x => x.Deck.Shuffle(randomizer));
         var otherPlayer = new Mock<IPlayer>();
@@ -146,7 +151,7 @@ public sealed class GameTests
         
         // Act
         var ex = Assert.Throws<InvalidOperationException>(
-            () => game.Play(Mock.Of<IGameEventV2>()));
+            () => game.Play(Mock.Of<IGameEvent>()));
 
         // Assert
         Assert.Equal(state.Object, game.State);
@@ -163,12 +168,8 @@ public sealed class GameTests
         var game = CreateGame(state.Object);
         var concede = new Mock<IConcedeEvent>();
         
-        // Act
-        game.Play(concede.Object);
-
-        // Assert
-        Assert.Equal(state.Object, game.State);
-        concede.Verify(x => x.Happen(state.Object));
+        // Act + Assert
+        Assert.Throws<NotImplementedException>(() => game.Play(concede.Object));
     }
 
     [Theory]
@@ -183,7 +184,7 @@ public sealed class GameTests
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         var game = CreateGame(state.Object);
         Action func = value
-            ? () => game.Play(Mock.Of<IGameEventV2>())
+            ? () => game.Play(Mock.Of<IGameEvent>())
             : () => game.Play(Mock.Of<IPassableGameEvent>());
         
         // Act
@@ -219,7 +220,7 @@ public sealed class GameTests
         passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         state.Setup(x => x.EventsHappening.Push());
-        var wouldHappen = Mock.Of<IGameEventV2>();
+        var wouldHappen = Mock.Of<IGameEvent>();
         state.Setup(x => x.EventsThatWouldHappen.Get()).Returns([wouldHappen]);
         state.SetupSequence(x => x.GameOver)
                 .Returns(false).Returns(false).Returns(true);
@@ -232,7 +233,7 @@ public sealed class GameTests
                 passable
             ]);
         }
-        var notPassable = Mock.Of<IGameEventV2>();
+        var notPassable = Mock.Of<IGameEvent>();
         if (testMode == TestMode.NotPassable)
         {
             state.Setup(x => x.EventsHappening.Happen(state.Object)).Returns([
@@ -301,12 +302,12 @@ public sealed class GameTests
 
         // Act
         var ex = Assert.Throws<InvalidOperationException>(
-            () => game.Play(Mock.Of<IGameEventV2>()));
+            () => game.Play(Mock.Of<IGameEvent>()));
 
         // Assert
         Assert.Equal("Game has not yet started", ex.Message);
     }
 
     static Game CreateGame(IGameState state, int maxloopCount = 99) => new(
-        state, maxloopCount);
+        Mock.Of<IServiceProvider>(), state, maxloopCount);
 }

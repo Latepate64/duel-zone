@@ -3,8 +3,8 @@ namespace Interfaces;
 
 public interface IEventsThatWouldHappen
 {
-    void Add(params IGameEventV2[] events);
+    void Add(params IGameEvent[] events);
     void Clear();
     IEventsThatWouldHappen Copy();
-    IEnumerable<IGameEventV2> Get();
+    IEnumerable<IGameEvent> Get();
 }

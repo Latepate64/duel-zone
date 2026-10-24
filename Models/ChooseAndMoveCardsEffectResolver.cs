@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Models;
 
-public class ChooseAndMoveCardsEffectResolver(IGame game) : EventResolver<ChooseAndMoveCardsEffect>
+public class ChooseAndMoveCardsEffectResolver(IGame game) : EventResolver<ChooseAndMoveCardsEffect, IGameEvent>
 {
     private readonly IGame game = game;
 

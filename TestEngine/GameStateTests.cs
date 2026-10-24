@@ -1,3 +1,4 @@
+using System;
 using Engine;
 using Interfaces;
 using Interfaces.ContinuousEffects;
@@ -30,7 +31,7 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer);
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
         if (testMode == Different.Winner)
         {
             state.Winner = activePlayer;
@@ -43,8 +44,8 @@ public sealed class GameStateTests
             ? new object()
             : new GameState(
                 testMode == Different.ActivePlayer ? null : activePlayer,
-                testMode == Different.NonActivePlayer
-                    ? null : nonActivePlayer)
+                testMode == Different.NonActivePlayer ? null : nonActivePlayer,
+                Mock.Of<IServiceProvider>())
             {
                 Winner = testMode == Different.OtherWinner
                     ? nonActivePlayer : null
@@ -63,9 +64,9 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer);
-        state.EventsHappening.Push(Mock.Of<IGameEventV2>());
-        var other = new GameState(activePlayer, nonActivePlayer);
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
+        state.EventsHappening.Push(Mock.Of<IGameEvent>());
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
 
         // Act
         var actual = state.Equals(other);
@@ -83,11 +84,11 @@ public sealed class GameStateTests
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
         var passableAction = Mock.Of<IPassableGameEvent>();
-        var state = new GameState(activePlayer, nonActivePlayer)
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>())
         {
             PassableAction = first ? passableAction : null
         };
-        var other = new GameState(activePlayer, nonActivePlayer)
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>())
         {
             PassableAction = first ? null : passableAction
         };
@@ -105,9 +106,9 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer);
-        state.EventsThatWouldHappen.Add(Mock.Of<IGameEventV2>());
-        var other = new GameState(activePlayer, nonActivePlayer);
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
+        state.EventsThatWouldHappen.Add(Mock.Of<IGameEvent>());
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
 
         // Act
         var actual = state.Equals(other);
@@ -122,10 +123,10 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer) {
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>()) {
             TurnNumber = 1
         };
-        var other = new GameState(activePlayer, nonActivePlayer);
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
 
         // Act
         var actual = state.Equals(other);
@@ -140,9 +141,9 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer);
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
         state.BattleZone.Add(Mock.Of<ICreature>());
-        var other = new GameState(activePlayer, nonActivePlayer);
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
 
         // Act
         var actual = state.Equals(other);
@@ -157,7 +158,7 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer);
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
         var effect = new Mock<IContinuousEffect>();
         effect.Setup(x => x.Copy()).Returns(effect.Object);
         var staticAbility = new Mock<IStaticAbility>();
@@ -165,7 +166,7 @@ public sealed class GameStateTests
         staticAbility.SetupGet(x => x.ContinuousEffects).Returns(
             [effect.Object]);
         state.ContinuousEffects.Add(Mock.Of<ICard>(), staticAbility.Object);
-        var other = new GameState(activePlayer, nonActivePlayer);
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
 
         // Act
         var actual = state.Equals(other);
@@ -180,8 +181,8 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = Mock.Of<IPlayer>();
         var nonActivePlayer = Mock.Of<IPlayer>();
-        var state = new GameState(activePlayer, nonActivePlayer);
-        var other = new GameState(activePlayer, nonActivePlayer);
+        var state = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
+        var other = new GameState(activePlayer, nonActivePlayer, Mock.Of<IServiceProvider>());
 
         // Act
         var actual = state.Equals(other);
@@ -203,7 +204,7 @@ public sealed class GameStateTests
         var passableGameEvent = new Mock<IPassableGameEvent>();
         passableGameEvent.Setup(x => x.Copy()).Returns(
             passableGameEvent.Object);
-        var first = new GameState(activePlayer.Object, nonActivePlayer.Object)
+        var first = new GameState(activePlayer.Object, nonActivePlayer.Object, Mock.Of<IServiceProvider>())
         {
             Winner = nulls ? null : activePlayer.Object,
             Losers = [nonActivePlayer.Object],
@@ -229,7 +230,7 @@ public sealed class GameStateTests
         // Arrange
         var activePlayer = new Mock<IPlayer>();
         var nonActivePlayer = new Mock<IPlayer>();
-        var state = new GameState(activePlayer.Object, nonActivePlayer.Object)
+        var state = new GameState(activePlayer.Object, nonActivePlayer.Object, Mock.Of<IServiceProvider>())
         {
             ActivePlayer = null,
             NonActivePlayer = null

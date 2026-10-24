@@ -1,6 +1,6 @@
 namespace Interfaces;
 
-public interface IPassableGameEvent : IGameEventV2
+public interface IPassableGameEvent : IGameEvent
 {
     IPlayer Player { get; }
     void Validate(IPassableGameEvent gameEvent);

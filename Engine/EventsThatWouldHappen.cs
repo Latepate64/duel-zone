@@ -7,7 +7,7 @@ namespace Engine;
 
 public sealed class EventsThatWouldHappen : IEventsThatWouldHappen
 {
-    readonly List<IGameEventV2> _eventsThatWouldHappen = [];
+    readonly List<IGameEvent> _eventsThatWouldHappen = [];
 
     public EventsThatWouldHappen()
     {
@@ -18,12 +18,12 @@ public sealed class EventsThatWouldHappen : IEventsThatWouldHappen
         _eventsThatWouldHappen = [.. events._eventsThatWouldHappen];
     }
 
-    public void Add(params IGameEventV2[] events)
+    public void Add(params IGameEvent[] events)
     {
         _eventsThatWouldHappen.AddRange(events);
     }
 
-    public IEnumerable<IGameEventV2> Get()
+    public IEnumerable<IGameEvent> Get()
     {
         return [.. _eventsThatWouldHappen];
     }

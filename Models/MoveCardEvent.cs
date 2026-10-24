@@ -8,7 +8,7 @@ public class MoveCardEvent(ICard card, ZoneType source, ZoneType destination) : 
     public ZoneType Source { get; } = source;
     public ZoneType Destination { get; } = destination;
 
-    public MoveCardEvent Copy()
+    public IGameEvent Copy()
     {
         return new MoveCardEvent(Card.Copy(), Source, Destination);
     }

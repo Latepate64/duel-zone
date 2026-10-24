@@ -3,7 +3,7 @@ using Interfaces;
 namespace Models;
 
 public class TapAllYourOpponentsCreaturesEffectResolver
-    : EventResolver<TapAllYourOpponentsCreaturesEffect>
+    : EventResolver<TapAllYourOpponentsCreaturesEffect, IGameEvent>
 {
     public override IEnumerable<IGameEvent> Resolve(
         IGameState state, IPlayer applier, TapAllYourOpponentsCreaturesEffect effect)

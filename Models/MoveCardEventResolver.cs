@@ -3,7 +3,7 @@ using Interfaces.Zones;
 
 namespace Models;
 
-public class MoveCardEventResolver : EventResolver<MoveCardEvent>
+public class MoveCardEventResolver : EventResolver<MoveCardEvent, IGameEvent>
 {
     public override IEnumerable<OneShotEffect> Resolve(
         IGameState state, IPlayer applier, MoveCardEvent gameEvent)

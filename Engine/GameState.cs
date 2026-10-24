@@ -14,7 +14,7 @@ public sealed class GameState : IGameState
     public IPlayer NonActivePlayer { get; set; }
     public IPlayer Winner { get; set; }
     public IList<IPlayer> Losers { get; set; } = [];
-    public IEventStack EventsHappening { get; } = new EventStack();
+    public IEventStack<IGameEvent, IGameEvent> EventsHappening { get; }
 
     /// <summary>
     /// An action that a player either takes or passes
@@ -38,10 +38,11 @@ public sealed class GameState : IGameState
         }
     }
 
-    public GameState(IPlayer activePlayer, IPlayer nonActivePlayer)
+    public GameState(IPlayer activePlayer, IPlayer nonActivePlayer, IServiceProvider provider)
     {
         ActivePlayer = activePlayer;
         NonActivePlayer = nonActivePlayer;
+        EventsHappening = new EventStack<IGameEvent, IGameEvent>(provider);
     }
 
     GameState(GameState state)

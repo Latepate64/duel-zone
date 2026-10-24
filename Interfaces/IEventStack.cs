@@ -1,10 +1,10 @@
 namespace Interfaces;
 
-public interface IEventStack
+public interface IEventStack<T, U> where T : IGameEvent where U : IGameEvent
 {
     bool IsEmpty { get; }
-    void Push(params IGameEventV2[] gameEvents);
-    public IGameEventV2[] Pop();
-    IEnumerable<IGameEventV2> Happen(IGameState state);
-    IEventStack Copy();
+    void Push(params T[] gameEvents);
+    public T[] Pop();
+    IEnumerable<U> Happen(IGameState state);
+    IEventStack<T, U> Copy();
 }

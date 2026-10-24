@@ -4,7 +4,7 @@ namespace Models;
 
 public partial class OneShotEffect : IGameEvent
 {
-    public abstract OneShotEffect Copy();
+    public abstract IGameEvent Copy();
 
     public override bool Equals(object? obj)
     {

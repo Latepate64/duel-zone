@@ -2,33 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Engine;
 
-public sealed class EventStack : IEventStack
+public sealed class EventStack<T, U> : IEventStack<T, U> where T : IGameEvent where U : IGameEvent
 {
-    readonly Stack<IGameEventV2[]> events = new();
+    readonly Stack<T[]> events = new();
+    private readonly IServiceProvider provider;
 
-    public EventStack()
+    public EventStack(IServiceProvider provider)
     {
+        this.provider = provider;
     }
 
-    EventStack(EventStack eventStack)
+    private EventStack(EventStack<T, U> eventStack)
     {
-        events = new Stack<IGameEventV2[]>(eventStack.events);
+        events = new Stack<T[]>(eventStack.events);
+        provider = eventStack.provider;
     }
 
-    public IEventStack Copy()
+    public IEventStack<T, U> Copy()
     {
-        return new EventStack(this);
+        return new EventStack<T, U>(this);
     }
 
-    public void Push(params IGameEventV2[] gameEvents)
+    public void Push(params T[] gameEvents)
     {
         events.Push(gameEvents);
     }
 
-    public IGameEventV2[] Pop()
+    public T[] Pop()
     {
         return events.Pop();
     }
@@ -37,14 +41,22 @@ public sealed class EventStack : IEventStack
 
     public override bool Equals(object obj)
     {
-        if (obj is not EventStack stack) return false;
+        if (obj is not EventStack<T, U> stack) return false;
         if (!events.SequenceEqual(stack.events)) return false;
         return true;
     }
 
-    public IEnumerable<IGameEventV2> Happen(IGameState state)
+    public IEnumerable<U> Happen(IGameState state)
     {
-        return [.. events.Peek().SelectMany(x => x.Happen(state))];
+        var output = new List<U>();
+        var eventsToHappen = events.Peek();
+        foreach (var eventToHappen in eventsToHappen)
+        {
+            var resolver = provider.GetRequiredService<IEventResolver<T, U>>();
+            var player = state.ActivePlayer; //TODO IS NOT ALWAYS ACTIVE PLAYER!
+            output.AddRange(resolver.Resolve(state, player, eventToHappen));
+        }
+        return output;
     }
 
     public override int GetHashCode()

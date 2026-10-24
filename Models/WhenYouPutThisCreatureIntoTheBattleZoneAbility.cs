@@ -6,7 +6,7 @@ public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility
     {
         var copy = new WhenYouPutThisCreatureIntoTheBattleZoneAbility
         {
-            Item = Item.Copy()
+            Item = Item.Copy() as OneShotEffect
         };
         return copy;
     }

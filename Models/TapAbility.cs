@@ -6,7 +6,7 @@ public partial class TapAbility
     {
         return new TapAbility
         {
-            Item = Item.Copy()
+            Item = Item.Copy() as OneShotEffect
         };
     }
 }

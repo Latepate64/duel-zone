@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Engine;
 
-public sealed class Game(int maxLoopCount = 5)
+public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
 {
+    private readonly IServiceProvider provider = provider;
     readonly int maxLoopCount = maxLoopCount;
 
     public IGameState State { get; private set; }
 
     IGameState _originalState;
 
-    public Game(IGameState state, int maxLoopCount = 5)
-        : this(maxLoopCount)
+    public Game(IServiceProvider provider, IGameState state, int maxLoopCount = 5) : this(
+        provider, maxLoopCount)
     {
         State = state;
         _originalState = state;
     }
 
-    public void Play(IGameEventV2 action)
+    public void Play(IGameEvent action)
     {
         ArgumentNullException.ThrowIfNull(action);
         if (action is IStartGameEvent start)
@@ -29,8 +31,9 @@ public sealed class Game(int maxLoopCount = 5)
             {
                 throw new InvalidOperationException("Game has started already");
             }
-            State = new GameState(start.StartingPlayer, start.OtherPlayer);
-            start.Happen(State);
+            State = new GameState(start.StartingPlayer, start.OtherPlayer, provider);
+            var resolver = provider.GetRequiredService<IEventResolver<IStartGameEvent, IGameEvent>>();
+            _ = resolver.Resolve(State, start.StartingPlayer, start);
             Continue();
             return;
         }
@@ -54,12 +57,15 @@ public sealed class Game(int maxLoopCount = 5)
         _originalState = State;
     }
 
-    void Continue(IGameEventV2 gameEvent)
+    void Continue(IGameEvent gameEvent)
     {
         if (gameEvent is IConcedeEvent concede)
         {
-            concede.Happen(State);
-            return;
+            throw new NotImplementedException("figure out player");
+            // var resolver = provider.GetRequiredService<IEventResolver<IConcedeEvent>>();
+            // IPlayer player = null;
+            // resolver.Resolve(State, player, concede);
+            // return;
         }
         if (State.PassableAction == null)
         {
