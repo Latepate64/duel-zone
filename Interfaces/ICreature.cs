@@ -1,27 +1,8 @@
-using Interfaces.ContinuousEffects;
-
 namespace Interfaces;
 
 public interface ICreature : ICard, IAttackable
 {
-    int Power { get; }
-    int PrintedPower { get; }
     IList<Race> Races { get; }
-    bool SummoningSickness { get; }
-    IList<Supertype> Supertypes { get; }
     bool IsNonEvolutionCreature { get; }
-    bool IsEvolutionCreature { get; }
-    bool IsDragon { get; }
     bool HasBlocker { get; }
-    bool HasSilentSkill { get; }
-    bool HasWaveStriker { get; }
-
-    void AddGrantedRace(Race race);
-    bool HasRace(params Race[] races);
-    void IncreasePower(int power);
-    void RemoveSummoningSickness();
-    IEnumerable<IEvolutionEffect> GetEvolutionEffects();
-    IEnumerable<ISilentSkillAbility> GetSilentSkillAbilities();
-    IEnumerable<ITapAbility> GetTapAbilities();
-    bool HasAbility<T>() where T : IAbility;
 }
