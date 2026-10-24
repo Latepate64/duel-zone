@@ -12,7 +12,11 @@
     <xs:complexType name="OneShotEffect" abstract="true" />
     <xs:complexType name="DestroyOneOfYourOpponentsCreaturesEffect">
         <xs:complexContent>
-            <xs:extension base="ose:OneShotEffect" />
+            <xs:extension base="ose:OneShotEffect">
+                <xs:sequence>
+                    <xs:element name="CardFilter" type="f:CardFilter" />
+                </xs:sequence>
+            </xs:extension>
         </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="TapAllYourOpponentsCreaturesEffect">
@@ -25,11 +29,6 @@
         </xs:complexContent>
     </xs:complexType>
     <xs:complexType name="YouMayDrawCardEffect">
-        <xs:complexContent>
-            <xs:extension base="ose:OneShotEffect" />
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect">
         <xs:complexContent>
             <xs:extension base="ose:OneShotEffect" />
         </xs:complexContent>

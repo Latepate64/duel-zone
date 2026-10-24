@@ -20,11 +20,11 @@ public class TapAllYourOpponentsCreaturesEffectResolverTests
             applier, effect.CardFilter)).Returns([creature.Object]);
 
         // Act
-        var effects = resolver.Resolve(state.Object, applier, effect);
+        var events = resolver.Resolve(state.Object, applier, effect);
 
         // Assert
-        var actual = Assert.Single(effects);
-        var tapCardEffect = Assert.IsType<TapCardEvent>(actual);
-        Assert.Equal(creature.Object, tapCardEffect.Card);
+        var gameEvent = Assert.Single(events);
+        var tapCardEvent = Assert.IsType<TapCardEvent>(gameEvent);
+        Assert.Equal(creature.Object, tapCardEvent.Card);
     }
 }

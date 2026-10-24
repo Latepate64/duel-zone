@@ -2,12 +2,7 @@ using Interfaces;
 
 namespace Models;
 
-public class TapCardEvent : IGameEventV3
+public class TapCardEvent(ICard card) : IGameEventV3
 {
-    public ICard Card { get; set; }
-
-    public TapCardEvent(ICard card)
-    {
-        Card = card;
-    }
+    public ICard Card { get; set; } = card;
 }

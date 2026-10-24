@@ -8,10 +8,9 @@ public class TapAllYourOpponentsCreaturesEffectTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var filter = new CardFilter();
         var expected = new TapAllYourOpponentsCreaturesEffect
         {
-            CardFilter = filter
+            CardFilter = new CardFilter()
         };
 
         // Act

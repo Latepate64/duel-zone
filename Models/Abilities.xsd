@@ -21,8 +21,6 @@
                         name="TapAllYourOpponentsCreaturesEffect" />
                     <xs:element type="ose:YouMayDrawCardEffect"
                         name="YouMayDrawCardEffect" />
-                    <xs:element type="ose:DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect"
-                        name="DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect" />
                 </xs:choice>
             </xs:extension>
         </xs:complexContent>

@@ -49,7 +49,11 @@
         <Abilities>
             <ShieldTriggerAbility />
             <SpellAbility>
-                <abi:DestroyOneOfYourOpponentsCreaturesEffect />
+                <abi:DestroyOneOfYourOpponentsCreaturesEffect>
+                    <ose:CardFilter>
+                        <cf:Type>Creature</cf:Type>
+                    </ose:CardFilter>
+                </abi:DestroyOneOfYourOpponentsCreaturesEffect>
             </SpellAbility>
         </Abilities>
     </Spell>
@@ -75,7 +79,11 @@
         </Races>
         <Abilities>
             <TapAbility>
-                <abi:DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect />
+                <abi:DestroyOneOfYourOpponentsCreaturesEffect>
+                    <ose:CardFilter>
+                        <cf:Type>Blocker</cf:Type>
+                    </ose:CardFilter>
+                </abi:DestroyOneOfYourOpponentsCreaturesEffect>
             </TapAbility>
         </Abilities>
     </Creature>

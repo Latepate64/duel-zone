@@ -5,9 +5,9 @@ namespace Models;
 public class TapCardEventResolver : EventResolver<TapCardEvent>
 {
     public override IEnumerable<OneShotEffect> Resolve(
-        IGameState state, IPlayerV2 applier, TapCardEvent effect)
+        IGameState state, IPlayerV2 applier, TapCardEvent gameEvent)
     {
-        effect.Card.Tapped = true;
+        gameEvent.Card.Tapped = true;
         return [];
     }
 }

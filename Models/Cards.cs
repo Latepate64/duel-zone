@@ -197,7 +197,6 @@ namespace Models {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(YouMayDrawCardEffect))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAllYourOpponentsCreaturesEffect))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
@@ -207,15 +206,6 @@ namespace Models {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
     public abstract partial class OneShotEffect {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-    public partial class DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect : OneShotEffect {
     }
     
     /// <remarks/>
@@ -255,6 +245,18 @@ namespace Models {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
     public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
+        
+        private CardFilter cardFilterField;
+        
+        /// <remarks/>
+        public CardFilter CardFilter {
+            get {
+                return this.cardFilterField;
+            }
+            set {
+                this.cardFilterField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -387,7 +389,6 @@ namespace Models {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesEffect", typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
-        [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect", typeof(DestroyOneOfYourOpponentsCreaturesThatHasBlockerEffect))]
         [System.Xml.Serialization.XmlElementAttribute("TapAllYourOpponentsCreaturesEffect", typeof(TapAllYourOpponentsCreaturesEffect))]
         [System.Xml.Serialization.XmlElementAttribute("YouMayDrawCardEffect", typeof(YouMayDrawCardEffect))]
         public OneShotEffect Item {

@@ -8,7 +8,10 @@ public class DestroyOneOfYourOpponentsCreaturesEffectTests
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var expected = new DestroyOneOfYourOpponentsCreaturesEffect();
+        var expected = new DestroyOneOfYourOpponentsCreaturesEffect
+        {
+            CardFilter = new CardFilter()
+        };
 
         // Act
         var actual = expected.Copy();
