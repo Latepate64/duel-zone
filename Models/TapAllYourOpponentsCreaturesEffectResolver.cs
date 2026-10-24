@@ -5,7 +5,7 @@ namespace Models;
 public class TapAllYourOpponentsCreaturesEffectResolver
     : EventResolver<TapAllYourOpponentsCreaturesEffect>
 {
-    public override IEnumerable<IGameEventV3> Resolve(
+    public override IEnumerable<IGameEvent> Resolve(
         IGameState state, IPlayerV2 applier, TapAllYourOpponentsCreaturesEffect effect)
     {
         return state.BattleZone.GetCreaturesControlledByPlayer(

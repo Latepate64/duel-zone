@@ -6,7 +6,7 @@ public class ChooseAndMoveCardsEffectResolver(IGame game) : EventResolver<Choose
 {
     private readonly IGame game = game;
 
-    public override IEnumerable<IGameEventV3> Resolve(
+    public override IEnumerable<IGameEvent> Resolve(
         IGameState state, IPlayerV2 applier, ChooseAndMoveCardsEffect effect)
     {
         var cards = new List<ICard>();

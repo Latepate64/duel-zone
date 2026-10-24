@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Models;
 
-public class MoveCardEvent(ICard card, ZoneType source, ZoneType destination) : IGameEventV3
+public class MoveCardEvent(ICard card, ZoneType source, ZoneType destination) : IGameEvent
 {
     public ICard Card { get; } = card;
     public ZoneType Source { get; } = source;

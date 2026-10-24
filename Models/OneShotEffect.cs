@@ -2,7 +2,7 @@ using Interfaces;
 
 namespace Models;
 
-public partial class OneShotEffect : IGameEventV3
+public partial class OneShotEffect : IGameEvent
 {
     public abstract OneShotEffect Copy();
 
