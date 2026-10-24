@@ -15,7 +15,7 @@ public class TapCardEffectResolverTests
         var gameEvent = new TapCardEvent(card.Object);
 
         // Act
-        resolver.Resolve(Mock.Of<IGameState>(), Mock.Of<IPlayerV2>(), gameEvent);
+        resolver.Resolve(Mock.Of<IGameState>(), Mock.Of<IPlayer>(), gameEvent);
 
         // Assert
         card.VerifySet(x => x.Tapped = true);

@@ -12,7 +12,7 @@ public class MoveCardEventResolverTests
     {
         // Arrange
         var resolver = new MoveCardEventResolver();
-        var player = new Mock<IPlayerV2>();
+        var player = new Mock<IPlayer>();
         player.SetupGet(x => x.Graveyard).Returns(Mock.Of<IGraveyard>());
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.OwnerV2).Returns(player.Object);

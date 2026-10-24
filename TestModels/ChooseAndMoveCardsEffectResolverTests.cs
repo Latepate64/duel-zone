@@ -12,7 +12,7 @@ public class ChooseAndMoveCardsEffectResolverTests
         // Arrange
         var game = Mock.Of<IGame>();
         var resolver = new ChooseAndMoveCardsEffectResolver(game);
-        var applier = Mock.Of<IPlayerV2>();
+        var applier = Mock.Of<IPlayer>();
         var effect = new ChooseAndMoveCardsEffect();
         var state = new Mock<IGameState>();
         state.Setup(x => x.BattleZone.GetOpponentsChoosableCreatures(
@@ -31,7 +31,7 @@ public class ChooseAndMoveCardsEffectResolverTests
         // Arrange
         var game = Mock.Of<IGame>();
         var resolver = new ChooseAndMoveCardsEffectResolver(game);
-        var applier = Mock.Of<IPlayerV2>();
+        var applier = Mock.Of<IPlayer>();
         var effect = new ChooseAndMoveCardsEffect
         {
             Minimum = 1,
@@ -58,7 +58,7 @@ public class ChooseAndMoveCardsEffectResolverTests
         // Arrange
         var game = Mock.Of<IGame>();
         var resolver = new ChooseAndMoveCardsEffectResolver(game);
-        var applier = Mock.Of<IPlayerV2>();
+        var applier = Mock.Of<IPlayer>();
         var effect = new ChooseAndMoveCardsEffect
         {
             Minimum = 0,

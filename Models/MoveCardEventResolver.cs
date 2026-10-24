@@ -6,7 +6,7 @@ namespace Models;
 public class MoveCardEventResolver : EventResolver<MoveCardEvent>
 {
     public override IEnumerable<OneShotEffect> Resolve(
-        IGameState state, IPlayerV2 applier, MoveCardEvent gameEvent)
+        IGameState state, IPlayer applier, MoveCardEvent gameEvent)
     {
         var cards = new List<ICard>();
         if (gameEvent.Source == ZoneType.Battlezone)
@@ -20,7 +20,7 @@ public class MoveCardEventResolver : EventResolver<MoveCardEvent>
         return [];
     }
 
-    private static IZone GetZone(ZoneType zoneType, IPlayerV2 player)
+    private static IZone GetZone(ZoneType zoneType, IPlayer player)
     {
         return zoneType switch
         {

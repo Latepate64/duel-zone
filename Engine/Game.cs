@@ -135,7 +135,7 @@ public sealed class Game(int maxLoopCount = 5)
 
     void CheckEmptyDecks()
     {
-        var players = new List<IPlayerV2> { State.ActivePlayer };
+        var players = new List<IPlayer> { State.ActivePlayer };
         players.AddRange(State.NonActivePlayer);
         var losers = players.Where(x => !x.Deck.HasCards);
         if (losers.Any())

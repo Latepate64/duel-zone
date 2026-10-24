@@ -5,7 +5,7 @@ using Interfaces.Zones;
 
 namespace Engine;
 
-public sealed class PlayerV2 : IPlayerV2
+public sealed class PlayerV2 : IPlayer
 {
     public PlayerV2()
     {
@@ -26,9 +26,9 @@ public sealed class PlayerV2 : IPlayerV2
     public IHand Hand { get; } = new Hand();
     public IManaZone ManaZone { get; } = new ManaZone();
     public IGraveyard Graveyard { get; } = new Graveyard();
-    public IPlayerV2 Opponent { get; set; }
+    public IPlayer Opponent { get; set; }
 
-    public IPlayerV2 Copy()
+    public IPlayer Copy()
     {
         return new PlayerV2(this);
     }

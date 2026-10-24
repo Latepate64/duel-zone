@@ -261,7 +261,7 @@ public sealed class ZoneTests
         var zone = new Hand();
         var card = new Mock<ICard>();
         zone.Add(card.Object);
-        var player = Mock.Of<IPlayerV2>();
+        var player = Mock.Of<IPlayer>();
 
         // Act
         zone.SetOwner(player);

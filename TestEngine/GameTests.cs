@@ -14,9 +14,9 @@ public sealed class GameTests
     public void EventsHappening(bool eventsHappeningIsEmpty)
     {
         // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
+        var activePlayer = new Mock<IPlayer>();
         activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var nonActivePlayer = new Mock<IPlayerV2>();
+        var nonActivePlayer = new Mock<IPlayer>();
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
@@ -56,9 +56,9 @@ public sealed class GameTests
     public void GameEnds(bool loop)
     {
         // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
+        var activePlayer = new Mock<IPlayer>();
         activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var nonActivePlayer = new Mock<IPlayerV2>();
+        var nonActivePlayer = new Mock<IPlayer>();
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
@@ -118,9 +118,9 @@ public sealed class GameTests
         // Arrange
         var randomizer = Mock.Of<IRandomizer>();
         var game = new Game();
-        var startingPlayer = new Mock<IPlayerV2>();
+        var startingPlayer = new Mock<IPlayer>();
         startingPlayer.Setup(x => x.Deck.Shuffle(randomizer));
-        var otherPlayer = new Mock<IPlayerV2>();
+        var otherPlayer = new Mock<IPlayer>();
         otherPlayer.Setup(x => x.Deck.Shuffle(randomizer));
         var startGame = new Mock<IStartGameEvent>();
         startGame.SetupGet(x => x.StartingPlayer).Returns(
@@ -179,7 +179,7 @@ public sealed class GameTests
         // Arrange
         var state = new Mock<IGameState>();
         var passableAction = new Mock<IPassableGameEvent>();
-        passableAction.SetupGet(x => x.Player).Returns(Mock.Of<IPlayerV2>());
+        passableAction.SetupGet(x => x.Player).Returns(Mock.Of<IPlayer>());
         state.SetupGet(x => x.PassableAction).Returns(passableAction.Object);
         var game = CreateGame(state.Object);
         Action func = value
@@ -208,9 +208,9 @@ public sealed class GameTests
     public void GameEndsSuccessfully(TestMode testMode)
     {
         // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
+        var activePlayer = new Mock<IPlayer>();
         activePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
-        var nonActivePlayer = new Mock<IPlayerV2>();
+        var nonActivePlayer = new Mock<IPlayer>();
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(true);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.ActivePlayer).Returns(activePlayer.Object);
@@ -267,9 +267,9 @@ public sealed class GameTests
     public void PlayersHaveEmptyDecks()
     {
         // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
+        var activePlayer = new Mock<IPlayer>();
         activePlayer.SetupGet(x => x.Deck.HasCards).Returns(false);
-        var nonActivePlayer = new Mock<IPlayerV2>();
+        var nonActivePlayer = new Mock<IPlayer>();
         nonActivePlayer.SetupGet(x => x.Deck.HasCards).Returns(false);
         var passableAction = new Mock<IPassableGameEvent>();
         passableAction.SetupGet(x => x.Player).Returns(activePlayer.Object);

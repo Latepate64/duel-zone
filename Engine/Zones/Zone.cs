@@ -120,7 +120,7 @@ public abstract class Zone : IDisposable, IZone
         return cards.Where(x => x.ManaCost == manaCost);
     }
 
-    public void SetOwner(IPlayerV2 owner)
+    public void SetOwner(IPlayer owner)
     {
         cards.ForEach(c => c.OwnerV2 = owner);
     }

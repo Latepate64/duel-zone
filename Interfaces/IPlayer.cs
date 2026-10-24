@@ -2,15 +2,15 @@ using Interfaces.Zones;
 
 namespace Interfaces;
 
-public interface IPlayerV2 : IAttackable
+public interface IPlayer : IAttackable
 {
     IDeck Deck { get; }
     IShieldZone ShieldZone { get; }
     IHand Hand { get; }
     IManaZone ManaZone { get; }
     IGraveyard Graveyard { get; }
-    IPlayerV2 Opponent { get; }
+    IPlayer Opponent { get; }
 
-    IPlayerV2 Copy();
+    IPlayer Copy();
     void SetOwnerForCards();
 }

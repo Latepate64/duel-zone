@@ -16,10 +16,10 @@ public interface IContinuousEffects
     bool CanCreatureBeAttackedAsThoughItWereTapped(ICreature c);
     bool CanCreatureBeBlocked(ICreature attackingCreature, ICreature blocker, IAttackable attackTarget, IBattleZone battleZone);
     bool CanCreatureEvolve(ICreature card);
-    bool CanPlayerChooseCreature(IPlayerV2 player, ICreature card);
+    bool CanPlayerChooseCreature(IPlayer player, ICreature card);
     bool CanPlayersUseTapAbilities();
-    bool CanPlayerTapCreature(IPlayerV2 player, ICreature card);
-    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayerV2 player);
+    bool CanPlayerTapCreature(IPlayer player, ICreature card);
+    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
     bool CanPlayerUseCard(ICard card);
     IContinuousEffects Copy();
     bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();

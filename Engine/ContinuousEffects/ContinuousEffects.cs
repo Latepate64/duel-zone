@@ -97,7 +97,7 @@ public sealed class ContinuousEffects : IContinuousEffects
     }
 
     public bool
-        CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayerV2 player)
+        CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player)
     {
         return !GetContinuousEffects<
             IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>().Any(
@@ -116,13 +116,13 @@ public sealed class ContinuousEffects : IContinuousEffects
             effect => effect.AttacksIfAble(creature, Game));
     }
 
-    public bool CanPlayerTapCreature(IPlayerV2 player, ICreature card)
+    public bool CanPlayerTapCreature(IPlayer player, ICreature card)
     {
         return !GetContinuousEffects<IPlayerCannotTapCreatureEffect>().Any(
             e => e.PlayerCannotTapCreature(player, card, Game));
     }
 
-    public bool CanPlayerChooseCreature(IPlayerV2 player, ICreature card)
+    public bool CanPlayerChooseCreature(IPlayer player, ICreature card)
     {
         return !GetContinuousEffects<IPlayerCannotChooseCreatureEffect>().Any(
             x => x.PlayerCannotChooseCreature(card, player, Game));

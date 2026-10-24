@@ -28,8 +28,8 @@ public sealed class GameStateTests
     public void DoesNotEqual(Different testMode)
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer);
         if (testMode == Different.Winner)
         {
@@ -61,8 +61,8 @@ public sealed class GameStateTests
     public void DoesNotEqualWithDifferentEventsHappening()
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer);
         state.EventsHappening.Push(Mock.Of<IGameEventV2>());
         var other = new GameState(activePlayer, nonActivePlayer);
@@ -80,8 +80,8 @@ public sealed class GameStateTests
     public void DoesNotEqualWithDifferentPassableAction(bool first)
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var passableAction = Mock.Of<IPassableGameEvent>();
         var state = new GameState(activePlayer, nonActivePlayer)
         {
@@ -103,8 +103,8 @@ public sealed class GameStateTests
     public void DoesNotEqualWithDifferentEventsThatWouldHappen()
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer);
         state.EventsThatWouldHappen.Add(Mock.Of<IGameEventV2>());
         var other = new GameState(activePlayer, nonActivePlayer);
@@ -120,8 +120,8 @@ public sealed class GameStateTests
     public void DoesNotEqualWithDifferentTurnNumber()
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer) {
             TurnNumber = 1
         };
@@ -138,8 +138,8 @@ public sealed class GameStateTests
     public void DoesNotEqualWithDifferentBattleZone()
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer);
         state.BattleZone.Add(Mock.Of<ICreature>());
         var other = new GameState(activePlayer, nonActivePlayer);
@@ -155,8 +155,8 @@ public sealed class GameStateTests
     public void DoesNotEqualWithDifferentContinuousEffects()
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer);
         var effect = new Mock<IContinuousEffect>();
         effect.Setup(x => x.Copy()).Returns(effect.Object);
@@ -178,8 +178,8 @@ public sealed class GameStateTests
     public void EqualsAnother()
     {
         // Arrange
-        var activePlayer = Mock.Of<IPlayerV2>();
-        var nonActivePlayer = Mock.Of<IPlayerV2>();
+        var activePlayer = Mock.Of<IPlayer>();
+        var nonActivePlayer = Mock.Of<IPlayer>();
         var state = new GameState(activePlayer, nonActivePlayer);
         var other = new GameState(activePlayer, nonActivePlayer);
 
@@ -196,9 +196,9 @@ public sealed class GameStateTests
     public void HashCodesAreEqualForEqualObjects(bool nulls)
     {
         // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
+        var activePlayer = new Mock<IPlayer>();
         activePlayer.Setup(x => x.Copy()).Returns(activePlayer.Object);
-        var nonActivePlayer = new Mock<IPlayerV2>();
+        var nonActivePlayer = new Mock<IPlayer>();
         nonActivePlayer.Setup(x => x.Copy()).Returns(nonActivePlayer.Object);
         var passableGameEvent = new Mock<IPassableGameEvent>();
         passableGameEvent.Setup(x => x.Copy()).Returns(
@@ -227,8 +227,8 @@ public sealed class GameStateTests
     public void GameOverWhenActivePlayerAndNonActivePlayerDoNotExist()
     {
         // Arrange
-        var activePlayer = new Mock<IPlayerV2>();
-        var nonActivePlayer = new Mock<IPlayerV2>();
+        var activePlayer = new Mock<IPlayer>();
+        var nonActivePlayer = new Mock<IPlayer>();
         var state = new GameState(activePlayer.Object, nonActivePlayer.Object)
         {
             ActivePlayer = null,

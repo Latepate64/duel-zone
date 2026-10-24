@@ -5,16 +5,16 @@ namespace Interfaces;
 
 public interface IGameState
 {
-    IPlayerV2 Winner { get; set; }
-    IList<IPlayerV2> Losers { get; set; }
+    IPlayer Winner { get; set; }
+    IList<IPlayer> Losers { get; set; }
     IEventStack EventsHappening { get; }
     IPassableGameEvent PassableAction { get; set; }
     IEventsThatWouldHappen EventsThatWouldHappen { get; }
     int TurnNumber { get; set; }
     IBattleZone BattleZone { get; init; }
     IContinuousEffects ContinuousEffects { get; }
-    IPlayerV2 ActivePlayer { get; set; }
-    IPlayerV2 NonActivePlayer { get; set; }
+    IPlayer ActivePlayer { get; set; }
+    IPlayer NonActivePlayer { get; set; }
     bool GameOver { get; }
     IGameState Copy();
 }

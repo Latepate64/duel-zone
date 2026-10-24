@@ -11,7 +11,7 @@ public class TapAllYourOpponentsCreaturesEffectResolverTests
     {
         // Arrange
         var resolver = new TapAllYourOpponentsCreaturesEffectResolver();
-        var applier = Mock.Of<IPlayerV2>();
+        var applier = Mock.Of<IPlayer>();
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.Tapped).Returns(false);
         var effect = new TapAllYourOpponentsCreaturesEffect();
