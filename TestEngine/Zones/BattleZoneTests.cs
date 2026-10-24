@@ -24,25 +24,6 @@ public sealed class BattleZoneTests
         Assert.Equal(first, second);
     }
 
-    [Fact]
-    public void GetUntappedCreatures()
-    {
-        // Arrange
-        var player = Mock.Of<IPlayer>();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Tapped).Returns(false);
-        creature.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetUntappedCreatures(player);
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
     [Theory]
     [InlineData(false, 0)]
     [InlineData(true, 1)]

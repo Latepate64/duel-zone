@@ -27,11 +27,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return new BattleZone(this);
     }
 
-    public IEnumerable<ICreature> GetUntappedCreatures(IPlayer player) 
-    {
-        return GetCreaturesControlledByPlayer(player).Where(x => !x.Tapped);
-    }
-
     public int GetNumberOfOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter)
     {
