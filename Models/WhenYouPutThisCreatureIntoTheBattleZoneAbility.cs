@@ -1,6 +1,6 @@
 namespace Models;
 
-public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility : TriggeredAbility
+public partial class WhenYouPutThisCreatureIntoTheBattleZoneAbility
 {
     public override WhenYouPutThisCreatureIntoTheBattleZoneAbility Copy()
     {
