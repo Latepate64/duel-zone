@@ -166,7 +166,7 @@ public sealed class ContinuousEffectsTests
         )
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var effect = new Mock<IPlayerCannotUntapCardsInManaZoneAtStartOfTurn>();
         effect.Setup(
             x => x.PlayerCannotUntapCardsInManaZoneAtStartOfTurn(
@@ -209,7 +209,7 @@ public sealed class ContinuousEffectsTests
     public void DoesCreatureAttackIfAble(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IAttacksIfAbleEffect>();
@@ -230,7 +230,7 @@ public sealed class ContinuousEffectsTests
     public void PlayerCannotTapCreature(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IPlayerCannotTapCreatureEffect>();
@@ -390,7 +390,7 @@ public sealed class ContinuousEffectsTests
         bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IIgnoreCannotAttackPlayersEffects>();
@@ -413,7 +413,7 @@ public sealed class ContinuousEffectsTests
     public void CanCreatureAttack(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<ICannotAttackEffect>();
@@ -466,7 +466,7 @@ public sealed class ContinuousEffectsTests
     public void CanCreatureAttackPlayers(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<ICannotAttackPlayersEffect>();
@@ -488,7 +488,7 @@ public sealed class ContinuousEffectsTests
     public void CanPlayerUseCard(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var card = Mock.Of<ICard>();
         var effect = new Mock<ICannotUseCardEffect>();
         effect.Setup(x => x.Applies(card)).Returns(!expected);
@@ -508,7 +508,7 @@ public sealed class ContinuousEffectsTests
     public void CanCreatureEvolve(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<IEvolutionEffect>();
@@ -549,7 +549,7 @@ public sealed class ContinuousEffectsTests
     public void CanCreatureBeAttackedAsThoughItWereTapped(bool expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayer>();
+        var player = Mock.Of<IPlayerV2>();
         var creature = Mock.Of<ICreature>();
         var game = Mock.Of<IGame>();
         var effect = new Mock<ICanBeAttackedAsThoughTappedEffect>();

@@ -124,23 +124,6 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void GetCreatureCount()
-    {
-        // Arrange
-        var owner = new Guid();
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(owner);
-        zone.Add(creature.Object);
-
-        // Act
-        var count = zone.GetCreatureCount(owner);
-
-        // Assert
-        Assert.Equal(1, count);
-    }
-
-    [Fact]
     public void GetCreaturesOfRace()
     {
         // Arrange

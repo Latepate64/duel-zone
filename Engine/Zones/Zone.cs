@@ -74,16 +74,6 @@ public abstract class Zone : IDisposable, IZone
         GC.SuppressFinalize(this);
     }
 
-    public IEnumerable<ICreature> GetCreatures(Guid owner)
-    {
-        return Creatures.Where(x => x.Owner.Id == owner);
-    }
-
-    public int GetCreatureCount(Guid owner)
-    {
-        return GetCreatures(owner).Count();
-    }
-
     public IEnumerable<ICreature> GetCreatures(params Race[] races)
     {
         return Creatures.Where(creature => creature.Races.Any(

@@ -12,8 +12,6 @@ public interface IZone
     IEnumerable<ICard> CardsWithName(string name);
     void Dispose();
     int GetCardCount(Civilization civilization);
-    int GetCreatureCount(Guid owner);
-    IEnumerable<ICreature> GetCreatures(Guid owner);
     IEnumerable<ICreature> GetCreatures(params Race[] races);
     IEnumerable<ICreature> GetCreatures(Civilization civilization);
     IEnumerable<ICreature> GetOtherCreatures(Guid creature);

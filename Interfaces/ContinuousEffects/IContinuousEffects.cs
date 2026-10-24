@@ -18,8 +18,8 @@ public interface IContinuousEffects
     bool CanCreatureEvolve(ICreature card);
     bool CanPlayerChooseCreature(IPlayerV2 player, ICreature card);
     bool CanPlayersUseTapAbilities();
-    bool CanPlayerTapCreature(IPlayer player, ICreature card);
-    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayer player);
+    bool CanPlayerTapCreature(IPlayerV2 player, ICreature card);
+    bool CanPlayerUntapTheCardsInTheirManaZoneAtTheStartOfEachOfTheirTurns(IPlayerV2 player);
     bool CanPlayerUseCard(ICard card);
     IContinuousEffects Copy();
     bool DoCreaturesInTheBattleZoneUntapAtTheStartOfEachPlayersTurn();
