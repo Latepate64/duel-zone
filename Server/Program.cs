@@ -2,7 +2,7 @@
 using Models;
 
 const string path = @"..\..\..\cards.xml";
-var serializer = new XmlSerializer(typeof(Root));
+var serializer = new XmlSerializer(typeof(Cards));
 using Stream reader = new FileStream(path, FileMode.Open);
 var cards = serializer.Deserialize(reader);
 Console.WriteLine("Hello world!");

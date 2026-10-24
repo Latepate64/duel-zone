@@ -22,20 +22,20 @@ namespace Models {
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="Cards")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="Cards", IsNullable=false)]
-    public partial class Root {
+    public partial class Cards {
         
-        private Card[] cardsField;
+        private Card[] itemsField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Creature), IsNullable=false)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(EvolutionCreature), IsNullable=false)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(typeof(Spell), IsNullable=false)]
-        public Card[] Cards {
+        [System.Xml.Serialization.XmlElementAttribute("Creature", typeof(Creature))]
+        [System.Xml.Serialization.XmlElementAttribute("EvolutionCreature", typeof(EvolutionCreature))]
+        [System.Xml.Serialization.XmlElementAttribute("Spell", typeof(Spell))]
+        public Card[] Items {
             get {
-                return this.cardsField;
+                return this.itemsField;
             }
             set {
-                this.cardsField = value;
+                this.itemsField = value;
             }
         }
     }

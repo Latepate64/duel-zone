@@ -30,19 +30,13 @@
     namespace="Races"
     schemaLocation="Races.xsd"
   />
-  <xs:element name="Root">
+  <xs:element name="Cards">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Cards">
-          <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-              <xs:element type="Creature" name="Creature" />
-              <xs:element type="EvolutionCreature" name="EvolutionCreature" />
-              <xs:element type="Spell" name="Spell" />
-            </xs:choice>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element type="Creature" name="Creature" />
+        <xs:element type="EvolutionCreature" name="EvolutionCreature" />
+        <xs:element type="Spell" name="Spell" />
+      </xs:choice>
     </xs:complexType>
   </xs:element>
   <xs:complexType name="Card" abstract="true">
@@ -87,7 +81,7 @@
   </xs:complexType>
   <xs:complexType name="EvolutionCreature">
     <xs:complexContent>
-      <xs:extension base="Creature"/>
+      <xs:extension base="Creature" />
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="Spell">
