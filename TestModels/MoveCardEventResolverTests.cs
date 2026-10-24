@@ -5,18 +5,19 @@ using Moq;
 
 namespace TestModels;
 
-public class DestroyEventResolverTests
+public class MoveCardEventResolverTests
 {
     [Fact]
     public void CreatureIsDestroyed()
     {
         // Arrange
-        var resolver = new DestroyEventResolver();
+        var resolver = new MoveCardEventResolver();
         var player = new Mock<IPlayerV2>();
         player.SetupGet(x => x.Graveyard).Returns(Mock.Of<IGraveyard>());
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.OwnerV2).Returns(player.Object);
-        var gameEvent = new DestroyEvent(creature.Object);
+        var gameEvent = new MoveCardEvent(
+            creature.Object, Models.ZoneType.Battlezone, Models.ZoneType.Graveyard);
         var state = new Mock<IGameState>();
         state.SetupGet(x => x.BattleZone).Returns(Mock.Of<IBattleZone>());
         state.Setup(x => x.BattleZone.Remove(creature.Object)).Returns([creature.Object]);

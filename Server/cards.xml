@@ -49,11 +49,12 @@
         <Abilities>
             <ShieldTriggerAbility />
             <SpellAbility>
-                <abi:DestroyOneOfYourOpponentsCreaturesEffect>
+                <abi:ChooseAndMoveCardsEffect Minimum="1" Maximum="1" SelectionRange="Opponent"
+                    Source="Battle zone" Destination="Graveyard">
                     <ose:CardFilter>
                         <cf:Type>Creature</cf:Type>
                     </ose:CardFilter>
-                </abi:DestroyOneOfYourOpponentsCreaturesEffect>
+                </abi:ChooseAndMoveCardsEffect>
             </SpellAbility>
         </Abilities>
     </Spell>
@@ -79,11 +80,12 @@
         </Races>
         <Abilities>
             <TapAbility>
-                <abi:DestroyOneOfYourOpponentsCreaturesEffect>
+                <abi:ChooseAndMoveCardsEffect Minimum="1" Maximum="1" SelectionRange="Opponent"
+                    Source="Battle zone" Destination="Graveyard">
                     <ose:CardFilter>
                         <cf:Type>Blocker</cf:Type>
                     </ose:CardFilter>
-                </abi:DestroyOneOfYourOpponentsCreaturesEffect>
+                </abi:ChooseAndMoveCardsEffect>
             </TapAbility>
         </Abilities>
     </Creature>

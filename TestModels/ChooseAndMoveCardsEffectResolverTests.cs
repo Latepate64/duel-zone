@@ -4,16 +4,16 @@ using Moq;
 
 namespace TestModels;
 
-public class DestroyOneOfYourOpponentsCreaturesEffectResolverTests
+public class ChooseAndMoveCardsEffectResolverTests
 {
     [Fact]
     public void ReturnsNoEventsWhenOpponentHasNoChoosableCreatures()
     {
         // Arrange
         var game = Mock.Of<IGame>();
-        var resolver = new DestroyOneOfYourOpponentsCreaturesEffectResolver(game);
+        var resolver = new ChooseAndMoveCardsEffectResolver(game);
         var applier = Mock.Of<IPlayerV2>();
-        var effect = new DestroyOneOfYourOpponentsCreaturesEffect();
+        var effect = new ChooseAndMoveCardsEffect();
         var state = new Mock<IGameState>();
         state.Setup(x => x.BattleZone.GetOpponentsChoosableCreatures(
             applier, effect.CardFilter, game)).Returns([]);
@@ -26,13 +26,18 @@ public class DestroyOneOfYourOpponentsCreaturesEffectResolverTests
     }
 
     [Fact]
-    public void ReturnsDestroyEventWhenOpponentHasOneChoosableCreature()
+    public void ReturnsMoveCardEventWhenOpponentHasOneChoosableCreature()
     {
         // Arrange
         var game = Mock.Of<IGame>();
-        var resolver = new DestroyOneOfYourOpponentsCreaturesEffectResolver(game);
+        var resolver = new ChooseAndMoveCardsEffectResolver(game);
         var applier = Mock.Of<IPlayerV2>();
-        var effect = new DestroyOneOfYourOpponentsCreaturesEffect();
+        var effect = new ChooseAndMoveCardsEffect
+        {
+            Minimum = 1,
+            Maximum = 1,
+            SelectionRange = Models.SelectionRange.Opponent
+        };
         var creature = Mock.Of<ICreature>();
         var state = new Mock<IGameState>();
         state.Setup(x => x.BattleZone.GetOpponentsChoosableCreatures(
@@ -43,22 +48,26 @@ public class DestroyOneOfYourOpponentsCreaturesEffectResolverTests
 
         // Assert
         var gameEvent = Assert.Single(events);
-        var destroyEvent = Assert.IsType<DestroyEvent>(gameEvent);
-        Assert.Equal(creature, destroyEvent.Creature);
+        var moveCardEvent = Assert.IsType<MoveCardEvent>(gameEvent);
+        Assert.Equal(creature, moveCardEvent.Card);
     }
 
     [Fact]
-    public void ThrowsNotImplementedExceptionWhenOpponentHasMultipleChoosableCreatures()
+    public void ThrowsNotImplementedExceptionWhenOpponentHasMoreCardsThanIsRequiredToChoose()
     {
         // Arrange
         var game = Mock.Of<IGame>();
-        var resolver = new DestroyOneOfYourOpponentsCreaturesEffectResolver(game);
+        var resolver = new ChooseAndMoveCardsEffectResolver(game);
         var applier = Mock.Of<IPlayerV2>();
-        var effect = new DestroyOneOfYourOpponentsCreaturesEffect();
+        var effect = new ChooseAndMoveCardsEffect
+        {
+            Minimum = 0,
+            Maximum = 1,
+            SelectionRange = Models.SelectionRange.Opponent
+        };
         var state = new Mock<IGameState>();
         state.Setup(x => x.BattleZone.GetOpponentsChoosableCreatures(
-            applier, effect.CardFilter, game)).Returns(
-                [Mock.Of<ICreature>(), Mock.Of<ICreature>()]);
+            applier, effect.CardFilter, game)).Returns([Mock.Of<ICreature>()]);
 
         // Act + Assert
         Assert.Throws<NotImplementedException>(

@@ -2,13 +2,13 @@ using Models;
 
 namespace TestModels;
 
-public class DestroyOneOfYourOpponentsCreaturesEffectTests
+public class ChooseAndMoveCardsEffectTests
 {
     [Fact]
     public void CopyEqualsOriginal()
     {
         // Arrange
-        var expected = new DestroyOneOfYourOpponentsCreaturesEffect
+        var expected = new ChooseAndMoveCardsEffect
         {
             CardFilter = new CardFilter()
         };

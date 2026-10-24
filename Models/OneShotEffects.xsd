@@ -10,15 +10,37 @@
         schemaLocation="CardFilters.xsd"
     />
     <xs:complexType name="OneShotEffect" abstract="true" />
-    <xs:complexType name="DestroyOneOfYourOpponentsCreaturesEffect">
+    <xs:complexType name="ChooseAndMoveCardsEffect">
         <xs:complexContent>
             <xs:extension base="ose:OneShotEffect">
                 <xs:sequence>
                     <xs:element name="CardFilter" type="f:CardFilter" />
                 </xs:sequence>
+                <xs:attribute name="Minimum" type="xs:int" use="required" />
+                <xs:attribute name="Maximum" type="xs:int" use="required" />
+                <xs:attribute name="SelectionRange" type="ose:SelectionRange" use="required" />
+                <xs:attribute name="Source" type="ose:ZoneType" use="required" />
+                <xs:attribute name="Destination" type="ose:ZoneType" use="required" />
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
+    <xs:simpleType name="SelectionRange">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Own" />
+            <xs:enumeration value="Opponent" />
+            <xs:enumeration value="All" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ZoneType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Battle zone" />
+            <xs:enumeration value="Graveyard" />
+            <xs:enumeration value="Hand" />
+            <xs:enumeration value="Mana zone" />
+            <xs:enumeration value="Shield zone" />
+            <xs:enumeration value="Deck" />
+        </xs:restriction>
+    </xs:simpleType>
     <xs:complexType name="TapAllYourOpponentsCreaturesEffect">
         <xs:complexContent>
             <xs:extension base="ose:OneShotEffect">

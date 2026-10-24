@@ -15,8 +15,8 @@
         <xs:complexContent>
             <xs:extension base="abi:Ability">
                 <xs:choice>
-                    <xs:element type="ose:DestroyOneOfYourOpponentsCreaturesEffect"
-                        name="DestroyOneOfYourOpponentsCreaturesEffect" />
+                    <xs:element type="ose:ChooseAndMoveCardsEffect"
+                        name="ChooseAndMoveCardsEffect" />
                     <xs:element type="ose:TapAllYourOpponentsCreaturesEffect"
                         name="TapAllYourOpponentsCreaturesEffect" />
                     <xs:element type="ose:YouMayDrawCardEffect"

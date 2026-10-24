@@ -199,7 +199,7 @@ namespace Models {
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(YouMayDrawCardEffect))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TapAllYourOpponentsCreaturesEffect))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(ChooseAndMoveCardsEffect))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -244,9 +244,19 @@ namespace Models {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
-    public partial class DestroyOneOfYourOpponentsCreaturesEffect : OneShotEffect {
+    public partial class ChooseAndMoveCardsEffect : OneShotEffect {
         
         private CardFilter cardFilterField;
+        
+        private int minimumField;
+        
+        private int maximumField;
+        
+        private SelectionRange selectionRangeField;
+        
+        private ZoneType sourceField;
+        
+        private ZoneType destinationField;
         
         /// <remarks/>
         public CardFilter CardFilter {
@@ -257,6 +267,105 @@ namespace Models {
                 this.cardFilterField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int Minimum {
+            get {
+                return this.minimumField;
+            }
+            set {
+                this.minimumField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public int Maximum {
+            get {
+                return this.maximumField;
+            }
+            set {
+                this.maximumField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public SelectionRange SelectionRange {
+            get {
+                return this.selectionRangeField;
+            }
+            set {
+                this.selectionRangeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ZoneType Source {
+            get {
+                return this.sourceField;
+            }
+            set {
+                this.sourceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ZoneType Destination {
+            get {
+                return this.destinationField;
+            }
+            set {
+                this.destinationField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+    public enum SelectionRange {
+        
+        /// <remarks/>
+        Own,
+        
+        /// <remarks/>
+        Opponent,
+        
+        /// <remarks/>
+        All,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.9032.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="OneShotEffects")]
+    public enum ZoneType {
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("Battle zone")]
+        Battlezone,
+        
+        /// <remarks/>
+        Graveyard,
+        
+        /// <remarks/>
+        Hand,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("Mana zone")]
+        Manazone,
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlEnumAttribute("Shield zone")]
+        Shieldzone,
+        
+        /// <remarks/>
+        Deck,
     }
     
     /// <remarks/>
@@ -388,7 +497,7 @@ namespace Models {
         private OneShotEffect itemField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("DestroyOneOfYourOpponentsCreaturesEffect", typeof(DestroyOneOfYourOpponentsCreaturesEffect))]
+        [System.Xml.Serialization.XmlElementAttribute("ChooseAndMoveCardsEffect", typeof(ChooseAndMoveCardsEffect))]
         [System.Xml.Serialization.XmlElementAttribute("TapAllYourOpponentsCreaturesEffect", typeof(TapAllYourOpponentsCreaturesEffect))]
         [System.Xml.Serialization.XmlElementAttribute("YouMayDrawCardEffect", typeof(YouMayDrawCardEffect))]
         public OneShotEffect Item {
