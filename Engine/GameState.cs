@@ -10,11 +10,11 @@ namespace Engine;
 
 public sealed class GameState : IGameState
 {
-    public IPlayerV2 ActivePlayer { get; set; }
-    public IPlayerV2 NonActivePlayer { get; set; }
-    public IPlayerV2 Winner { get; set; }
-    public IList<IPlayerV2> Losers { get; set; } = [];
-    public IEventStack EventsHappening { get; } = new EventStack();
+    public IPlayer ActivePlayer { get; set; }
+    public IPlayer NonActivePlayer { get; set; }
+    public IPlayer Winner { get; set; }
+    public IList<IPlayer> Losers { get; set; } = [];
+    public IEventStack<IGameEvent, IGameEvent> EventsHappening { get; }
 
     /// <summary>
     /// An action that a player either takes or passes
@@ -38,10 +38,11 @@ public sealed class GameState : IGameState
         }
     }
 
-    public GameState(IPlayerV2 activePlayer, IPlayerV2 nonActivePlayer)
+    public GameState(IPlayer activePlayer, IPlayer nonActivePlayer, IServiceProvider provider)
     {
         ActivePlayer = activePlayer;
         NonActivePlayer = nonActivePlayer;
+        EventsHappening = new EventStack<IGameEvent, IGameEvent>(provider);
     }
 
     GameState(GameState state)

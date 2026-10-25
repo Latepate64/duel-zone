@@ -24,25 +24,6 @@ public sealed class BattleZoneTests
         Assert.Equal(first, second);
     }
 
-    [Fact]
-    public void GetUntappedCreatures()
-    {
-        // Arrange
-        var player = Mock.Of<IPlayerV2>();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Tapped).Returns(false);
-        creature.SetupGet(x => x.OwnerV2).Returns(player);
-        var zone = new BattleZone();
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetUntappedCreatures(player);
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
     [Theory]
     [InlineData(false, 0)]
     [InlineData(true, 1)]
@@ -50,7 +31,7 @@ public sealed class BattleZoneTests
         bool filterMatches, int expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayerV2>();
+        var player = Mock.Of<IPlayer>();
         var excluded = new Mock<ICreature>();
         excluded.SetupGet(x => x.OwnerV2).Returns(player);
         var otherCreature = new Mock<ICreature>();
@@ -79,7 +60,7 @@ public sealed class BattleZoneTests
         bool filterMatches, int expected)
     {
         // Arrange
-        var player = Mock.Of<IPlayerV2>();
+        var player = Mock.Of<IPlayer>();
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.OwnerV2).Returns(player);
         var zone = new BattleZone();
@@ -107,8 +88,8 @@ public sealed class BattleZoneTests
         bool filterMatches, bool canBeChosen, int expectedCount)
     {
         // Arrange
-        var opponent = Mock.Of<IPlayerV2>();
-        var player = new Mock<IPlayerV2>();
+        var opponent = Mock.Of<IPlayer>();
+        var player = new Mock<IPlayer>();
         player.SetupGet(x => x.Opponent).Returns(opponent);
         var creature = new Mock<ICreature>();
         creature.SetupGet(x => x.OwnerV2).Returns(opponent);
@@ -188,8 +169,8 @@ public sealed class BattleZoneTests
         int expectedCount)
     {
         // Arrange
-        var opponent = Mock.Of<IPlayerV2>();
-        var player = new Mock<IPlayerV2>();
+        var opponent = Mock.Of<IPlayer>();
+        var player = new Mock<IPlayer>();
         player.SetupGet(x => x.Opponent).Returns(opponent);
         var ownCreature = new Mock<ICreature>();
         ownCreature.SetupGet(x => x.OwnerV2).Returns(player.Object);
@@ -227,8 +208,8 @@ public sealed class BattleZoneTests
         int expectedCount)
     {
         // Arrange
-        var opponent = Mock.Of<IPlayerV2>();
-        var player = new Mock<IPlayerV2>();
+        var opponent = Mock.Of<IPlayer>();
+        var player = new Mock<IPlayer>();
         player.SetupGet(x => x.Opponent).Returns(opponent);
         var ownCreature = new Mock<ICreature>();
         ownCreature.SetupGet(x => x.OwnerV2).Returns(player.Object);

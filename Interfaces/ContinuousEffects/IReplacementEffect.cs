@@ -8,8 +8,5 @@
 /// </summary>
 public interface IReplacementEffect : IContinuousEffect
 {
-    Guid Id { get; }
-
     bool CanBeApplied(IGameEvent gameEvent, IGame game);
-    IGameEvent Apply(IGameEvent gameEvent, IGame game);
 }

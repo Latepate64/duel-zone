@@ -2,26 +2,20 @@ namespace Interfaces.Zones;
 
 public interface IBattleZone : IZone
 {
-    IEnumerable<ICreature> GetChoosableCreatures(
-        IPlayerV2 player, ICardFilter filter, IGame game);
+    IEnumerable<ICreature> GetChoosableCreatures(IPlayer player, ICardFilter filter, IGame game);
     IEnumerable<ICreature> GetOpponentsChoosableCreatures(
-        IPlayerV2 player, ICardFilter filter, IGame game);
-    IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player);
+        IPlayer player, ICardFilter filter, IGame game);
     IEnumerable<ICreature> GetOtherCreaturesControlledByPlayer(
         ICreature creature, ICardFilter filter);
-    IEnumerable<ICreature> GetCreaturesControlledByPlayer(
-        IPlayerV2 player, ICardFilter filter);
+    IEnumerable<ICreature> GetCreaturesControlledByPlayer(IPlayer player, ICardFilter filter);
     IEnumerable<ICreature> GetCreatures(ICardFilter filter);
-    IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 applier,
-        ICardFilter filter, IGame game, SelectionRange selectionRange);
-    IEnumerable<ICreature> GetCreatures(IPlayerV2 applier, ICardFilter filter,
-        SelectionRange selectionRange);
-    int GetNumberOfCreaturesControllerByPlayer(
-        IPlayerV2 player, ICardFilter filter);
+    IEnumerable<ICreature> GetChoosableCreatures(
+        IPlayer applier, ICardFilter filter, IGame game, SelectionRange selectionRange);
+    IEnumerable<ICreature> GetCreatures(
+        IPlayer applier, ICardFilter filter, SelectionRange selectionRange);
+    int GetNumberOfCreaturesControllerByPlayer(IPlayer player, ICardFilter filter);
     int GetNumberOfOtherCreatures(ICreature creature, ICardFilter filter);
-    int GetNumberOfOtherCreaturesControllerByPlayer(
-        ICreature creature, ICardFilter filter);
-    bool HasCreaturesControllerByPlayer(IPlayerV2 applier, ICardFilter filter);
-    bool HasOtherCreaturesControllerByPlayer(
-        ICreature creature, ICardFilter filter);
+    int GetNumberOfOtherCreaturesControllerByPlayer(ICreature creature, ICardFilter filter);
+    bool HasCreaturesControllerByPlayer(IPlayer applier, ICardFilter filter);
+    bool HasOtherCreaturesControllerByPlayer(ICreature creature, ICardFilter filter);
 }

@@ -2,7 +2,6 @@
 
 public enum ZoneType
 {
-    Anywhere,
     BattleZone,
     Deck,
     Graveyard,

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="Races"
+    elementFormDefault="qualified">
+    <xs:simpleType name="Race">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Beast Folk" />
+            <xs:enumeration value="Guardian"/>
+            <xs:enumeration value="Human" />
+            <xs:enumeration value="Leviathan" />
+            <xs:enumeration value="Liquid People" />
+            <xs:enumeration value="Xenoparts" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

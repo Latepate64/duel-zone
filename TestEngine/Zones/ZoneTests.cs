@@ -124,23 +124,6 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void GetCreatureCount()
-    {
-        // Arrange
-        var owner = new Guid();
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.SetupGet(x => x.Owner.Id).Returns(owner);
-        zone.Add(creature.Object);
-
-        // Act
-        var count = zone.GetCreatureCount(owner);
-
-        // Assert
-        Assert.Equal(1, count);
-    }
-
-    [Fact]
     public void GetCreaturesOfRace()
     {
         // Arrange
@@ -278,7 +261,7 @@ public sealed class ZoneTests
         var zone = new Hand();
         var card = new Mock<ICard>();
         zone.Add(card.Object);
-        var player = Mock.Of<IPlayerV2>();
+        var player = Mock.Of<IPlayer>();
 
         // Act
         zone.SetOwner(player);

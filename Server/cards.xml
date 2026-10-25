@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<Cards xmlns="Cards"
+    xmlns:abi="Abilities"
+    xmlns:ose="OneShotEffects"
+    xmlns:cf="CardFilters"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="Cards ../Models/Cards.xsd
+                        Abilities ../Models/Abilities.xsd
+                        OneShotEffects ../Models/OneShotEffects.xsd
+                        Races ../Models/Races.xsd
+                        CardFilters ../Models/CardFilters.xsd">
+    <Creature Name="Burning Mane" Cost="2" Power="2000">
+        <Civilizations>
+            <Civilization>Nature</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Beast Folk</Race>
+        </Races>
+        <Abilities />
+    </Creature>
+    <Spell Name="Holy Awe" Cost="6">
+        <Civilizations>
+            <Civilization>Light</Civilization>
+        </Civilizations>
+        <Abilities>
+            <ShieldTriggerAbility />
+            <SpellAbility>
+                <abi:TapAllYourOpponentsCreaturesEffect>
+                    <ose:CardFilter>
+                        <cf:Type>Creature</cf:Type>
+                    </ose:CardFilter>
+                </abi:TapAllYourOpponentsCreaturesEffect>
+            </SpellAbility>
+        </Abilities>
+    </Spell>
+    <Creature Name="Immortal Baron, Vorg" Cost="2" Power="2000">
+        <Civilizations>
+            <Civilization>Fire</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Human</Race>
+        </Races>
+        <Abilities />
+    </Creature>
+    <Spell Name="Terror Pit" Cost="6">
+        <Civilizations>
+            <Civilization>Darkness</Civilization>
+        </Civilizations>
+        <Abilities>
+            <ShieldTriggerAbility />
+            <SpellAbility>
+                <abi:ChooseAndMoveCardsEffect Minimum="1" Maximum="1" SelectionRange="Opponent"
+                    Source="Battle zone" Destination="Graveyard">
+                    <ose:CardFilter>
+                        <cf:Type>Creature</cf:Type>
+                    </ose:CardFilter>
+                </abi:ChooseAndMoveCardsEffect>
+            </SpellAbility>
+        </Abilities>
+    </Spell>
+    <Creature Name="Aqua Hulcus" Cost="3" Power="2000">
+        <Civilizations>
+            <Civilization>Water</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Liquid People</Race>
+        </Races>
+        <Abilities>
+            <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+                <abi:YouMayDrawCardEffect />
+            </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+        </Abilities>
+    </Creature>
+    <Creature Name="Rikabu's Screwdriver" Cost="2" Power="1000">
+        <Civilizations>
+            <Civilization>Fire</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Xenoparts</Race>
+        </Races>
+        <Abilities>
+            <TapAbility>
+                <abi:ChooseAndMoveCardsEffect Minimum="1" Maximum="1" SelectionRange="Opponent"
+                    Source="Battle zone" Destination="Graveyard">
+                    <ose:CardFilter>
+                        <cf:Type>Blocker</cf:Type>
+                    </ose:CardFilter>
+                </abi:ChooseAndMoveCardsEffect>
+            </TapAbility>
+        </Abilities>
+    </Creature>
+    <Creature Name="King Coral" Cost="3" Power="1000">
+        <Civilizations>
+            <Civilization>Water</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Leviathan</Race>
+        </Races>
+        <Abilities>
+            <BlockerAbility />
+        </Abilities>
+    </Creature>
+    <Creature Name="Gonta, the Warrior Savage" Cost="2" Power="4000">
+        <Civilizations>
+            <Civilization>Fire</Civilization>
+            <Civilization>Nature</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Human</Race>
+            <Race>Beast Folk</Race>
+        </Races>
+        <Abilities />
+    </Creature>
+    <EvolutionCreature Power="5000" Name="Larba Geer, the Immaculate" Cost="3">
+        <Civilizations>
+            <Civilization>Light</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Guardian</Race>
+        </Races>
+        <Abilities>
+            <WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+                <abi:TapAllYourOpponentsCreaturesEffect>
+                    <ose:CardFilter>
+                        <cf:Type>Blocker</cf:Type>
+                    </ose:CardFilter>
+                </abi:TapAllYourOpponentsCreaturesEffect>
+            </WhenYouPutThisCreatureIntoTheBattleZoneAbility>
+        </Abilities>
+    </EvolutionCreature>
+    <Creature Power="1000" Name="Torcon" Cost="2">
+        <Civilizations>
+            <Civilization>Nature</Civilization>
+        </Civilizations>
+        <Races>
+            <Race>Beast Folk</Race>
+        </Races>
+        <Abilities>
+            <ShieldTriggerAbility />
+        </Abilities>
+    </Creature>
+</Cards>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:cf="CardFilters"
+    targetNamespace="CardFilters"
+    elementFormDefault="qualified">
+    <xs:complexType name="CardFilter">
+        <xs:sequence>
+            <xs:element name="Type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Card" />
+                        <xs:enumeration value="Creature" />
+                        <xs:enumeration value="Blocker" />
+                        <xs:enumeration value="Spell" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

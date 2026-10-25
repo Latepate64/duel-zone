@@ -18,28 +18,8 @@ public sealed class ManaZone : Zone, IManaZone
     {
     }
 
-    public IEnumerable<ICard> TappedCards => Cards.Where(card => card.Tapped);
-    public IEnumerable<ICard> UntappedCards => Cards.Where(
-        card => !card.Tapped);
-
-    public bool AreAllCivilizationCards(Civilization civ) {
-        return Cards.All(x => x.HasCivilization(civ));
-    }
-
     public override IZone Copy()
     {
         return new ManaZone(this);
-    }
-
-    public IEnumerable<ICard> GetNonEvolutionCreaturesThatCostSameOrLessThan(
-        int maximum)
-    {
-        return Creatures.Where(
-            c => c.IsNonEvolutionCreature && c.ManaCost <= maximum);
-    }
-
-    public bool HasAnyCivilizationCard(Civilization civilization)
-    {
-        return Cards.Any(x => x.HasCivilization(civilization));
     }
 }

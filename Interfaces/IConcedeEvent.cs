@@ -1,3 +1,3 @@
 namespace Interfaces;
 
-public interface IConcedeEvent : IGameEventV2 {}
+public interface IConcedeEvent : IGameEvent {}

@@ -12,14 +12,12 @@ public interface IZone
     IEnumerable<ICard> CardsWithName(string name);
     void Dispose();
     int GetCardCount(Civilization civilization);
-    int GetCreatureCount(Guid owner);
-    IEnumerable<ICreature> GetCreatures(Guid owner);
     IEnumerable<ICreature> GetCreatures(params Race[] races);
     IEnumerable<ICreature> GetCreatures(Civilization civilization);
     IEnumerable<ICreature> GetOtherCreatures(Guid creature);
     IEnumerable<ICard> NonCivilizationCards(Civilization civ);
     IEnumerable<ICard> Remove(ICard card);
-    void SetOwner(IPlayerV2 owner);
+    void SetOwner(IPlayer owner);
     IZone Copy();
     bool Contains(ICard card);
     void Shuffle(IRandomizer randomizer);

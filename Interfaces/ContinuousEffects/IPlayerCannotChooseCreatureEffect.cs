@@ -3,5 +3,5 @@
 public interface IPlayerCannotChooseCreatureEffect : IContinuousEffect
 {
     bool PlayerCannotChooseCreature(
-        ICreature creature, IPlayerV2 player, IGame game);
+        ICreature creature, IPlayer player, IGame game);
 }

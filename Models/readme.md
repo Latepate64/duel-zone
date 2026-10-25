@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools\xsd" /c OneShotEffects.xsd Abilities.xsd TriggeredAbilities.xsd ActivatedAbilities.xsd StaticAbilities.xsd Races.xsd CardFilters.xsd .\Cards.xsd /n:Models

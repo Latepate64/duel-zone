@@ -1,7 +1,7 @@
 namespace Interfaces;
 
-public interface IStartGameEvent : IGameEventV2
+public interface IStartGameEvent : IGameEvent
 {
-    IPlayerV2 StartingPlayer { get; }
-    IPlayerV2 OtherPlayer { get; }
+    IPlayer StartingPlayer { get; }
+    IPlayer OtherPlayer { get; }
 }

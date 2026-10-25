@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:abi="Abilities"
+    xmlns:ta="TriggeredAbilities"
+    targetNamespace="TriggeredAbilities"
+    elementFormDefault="qualified"
+>
+    <xs:import
+        namespace="Abilities"
+        schemaLocation="Abilities.xsd"
+    />
+    <xs:complexType name="TriggeredAbility" abstract="true">
+        <xs:complexContent>
+            <xs:extension base="abi:ResolvableAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="WhenYouPutThisCreatureIntoTheBattleZoneAbility">
+        <xs:complexContent>
+            <xs:extension base="ta:TriggeredAbility" />
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>

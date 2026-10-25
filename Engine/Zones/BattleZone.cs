@@ -27,11 +27,6 @@ public sealed class BattleZone : Zone, IBattleZone
         return new BattleZone(this);
     }
 
-    public IEnumerable<ICreature> GetUntappedCreatures(IPlayerV2 player) 
-    {
-        return GetCreaturesControlledByPlayer(player).Where(x => !x.Tapped);
-    }
-
     public int GetNumberOfOtherCreaturesControllerByPlayer(
         ICreature creature, ICardFilter filter)
     {
@@ -53,13 +48,13 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     public IEnumerable<ICreature> GetCreaturesControlledByPlayer(
-        IPlayerV2 player, ICardFilter filter)
+        IPlayer player, ICardFilter filter)
     {
         return GetCreaturesControlledByPlayer(player).Where(filter.Match);
     }
 
     public int GetNumberOfCreaturesControllerByPlayer(
-        IPlayerV2 player, ICardFilter filter)
+        IPlayer player, ICardFilter filter)
     {
         return GetCreaturesControlledByPlayer(player, filter).Count();
     }
@@ -81,13 +76,13 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     public bool HasCreaturesControllerByPlayer(
-        IPlayerV2 applier, ICardFilter filter)
+        IPlayer applier, ICardFilter filter)
     {
         return GetCreaturesControlledByPlayer(applier, filter).Any();
     }
 
     public IEnumerable<ICreature> GetOpponentsChoosableCreatures(
-        IPlayerV2 player, ICardFilter filter, IGame game)
+        IPlayer player, ICardFilter filter, IGame game)
     {
         return GetCreaturesControlledByPlayer(player.Opponent, filter).Where(
             creature => game.ContinuousEffects.CanPlayerChooseCreature(
@@ -95,13 +90,13 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     public IEnumerable<ICreature> GetChoosableCreatures(
-        IPlayerV2 player, ICardFilter filter, IGame game)
+        IPlayer player, ICardFilter filter, IGame game)
     {
         return GetOpponentsChoosableCreatures(player, filter, game).Union(
             GetCreaturesControlledByPlayer(player, filter));
     }
 
-    public IEnumerable<ICreature> GetChoosableCreatures(IPlayerV2 player,
+    public IEnumerable<ICreature> GetChoosableCreatures(IPlayer player,
         ICardFilter filter, IGame game, SelectionRange selectionRange)
     {
         return selectionRange switch
@@ -117,7 +112,7 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     private IEnumerable<ICreature> GetCreaturesControlledByPlayer(
-        IPlayerV2 player)
+        IPlayer player)
     {
         return Creatures.Where(x => x.OwnerV2.Equals(player));
     }
@@ -129,7 +124,7 @@ public sealed class BattleZone : Zone, IBattleZone
     }
 
     public IEnumerable<ICreature> GetCreatures(
-        IPlayerV2 player, ICardFilter filter, SelectionRange selectionRange)
+        IPlayer player, ICardFilter filter, SelectionRange selectionRange)
     {
         return selectionRange switch
         {
