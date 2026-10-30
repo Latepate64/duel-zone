@@ -14,7 +14,6 @@ public interface IZone
     int GetCardCount(Civilization civilization);
     IEnumerable<ICreature> GetCreatures(params Race[] races);
     IEnumerable<ICreature> GetCreatures(Civilization civilization);
-    IEnumerable<ICreature> GetOtherCreatures(Guid creature);
     IEnumerable<ICard> NonCivilizationCards(Civilization civ);
     IEnumerable<ICard> Remove(ICard card);
     void SetOwner(IPlayer owner);

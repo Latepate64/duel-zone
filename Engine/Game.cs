@@ -22,7 +22,7 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
         _originalState = state;
     }
 
-    public void Play(IGameEvent action)
+    public IEnumerable<IChoiceEvent<ICard>> Play(IGameEvent action)
     {
         ArgumentNullException.ThrowIfNull(action);
         if (action is IStartGameEvent start)
@@ -34,8 +34,7 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
             State = new GameState(start.StartingPlayer, start.OtherPlayer, provider);
             var resolver = provider.GetRequiredService<IEventResolver<IStartGameEvent, IGameEvent>>();
             _ = resolver.Resolve(State, start.StartingPlayer, start);
-            Continue();
-            return;
+            return Continue();
         }
         if (State == null)
         {
@@ -45,9 +44,10 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
         {
             throw new InvalidOperationException("Game has ended already");
         }
+        IEnumerable<IChoiceEvent<ICard>> choice;
         try
         {
-            Continue(action);
+            choice = Continue(action);
         }
         catch
         {
@@ -55,9 +55,10 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
             throw;
         }
         _originalState = State;
+        return choice;
     }
 
-    void Continue(IGameEvent gameEvent)
+    IEnumerable<IChoiceEvent<ICard>> Continue(IGameEvent gameEvent)
     {
         if (gameEvent is IConcedeEvent concede)
         {
@@ -84,17 +85,19 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
         {
             // TODO: Throw if there was no action to be passed
             State.PassableAction = null;
-            Continue();
-            return;
+            return Continue();
+        }
+        if (gameEvent is IChoiceEvent<ICard> choice)
+        {
+            State.EventsHappening.SetChoice(choice);
         }
         State.PassableAction.Validate(passable);
         State.PassableAction = null;
         State.EventsThatWouldHappen.Add(gameEvent);
-        Continue();
-        return;
+        return Continue();
     }
 
-    void Continue(int loopCounter = 0)
+    IEnumerable<IChoiceEvent<ICard>> Continue(int loopCounter = 0) 
     {
         if (loopCounter++ > maxLoopCount)
         {
@@ -105,17 +108,21 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
         {
             // TODO: Check if any event could be replaced
             State.EventsThatWouldHappen.Clear();
+            if (eventsThatWouldHappen.All(x => x is IChoiceEvent<ICard>))
+            {
+                return eventsThatWouldHappen.OfType<IChoiceEvent<ICard>>();
+            }
             State.EventsHappening.Push([.. eventsThatWouldHappen]);
         }
         if (State.EventsHappening.IsEmpty)
         {
-            return;
+            return null;
         }
         var events = State.EventsHappening.Happen(State);
         CheckEmptyDecks();
         if (State.GameOver)
         {
-            return;
+            return null;
         }
         if (!events.Any())
         {
@@ -123,20 +130,20 @@ public sealed class Game(IServiceProvider provider, int maxLoopCount = 5)
             // TODO: Broadcast events that happened to
             // clients, triggers and watchers
             Continue(loopCounter);
-            return;
+            return null;
         }
         var passables = events.OfType<IPassableGameEvent>();
         if (passables.Count() == 1)
         {
             State.PassableAction = passables.Single();
-            return;
+            return null;
         }
         if (passables.Count() > 1)
         {
             throw new NotImplementedException();
         }
         State.EventsThatWouldHappen.Add([.. events]);
-        Continue(loopCounter);
+        return Continue(loopCounter);
     }
 
     void CheckEmptyDecks()

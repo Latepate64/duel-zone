@@ -175,23 +175,6 @@ public sealed class ZoneTests
     }
 
     [Fact]
-    public void GetOtherCreatures()
-    {
-        // Arrange
-        var zone = new Hand();
-        var creature = new Mock<ICreature>();
-        creature.Setup(x => x.Id).Returns(Guid.NewGuid());
-        zone.Add(creature.Object);
-
-        // Act
-        var creatures = zone.GetOtherCreatures(Guid.NewGuid());
-
-        // Assert
-        Assert.Contains(creature.Object, creatures);
-        Assert.Single(creatures);
-    }
-
-    [Fact]
     public void Contains()
     {
         // Arrange

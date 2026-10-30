@@ -2,7 +2,6 @@ namespace Interfaces;
 
 public interface ICard
 {
-    Guid Id { get; }
     int ManaCost { get; }
     string Name { get; }
     IPlayer OwnerV2 { get; set; }
@@ -11,4 +10,5 @@ public interface ICard
     ICard Copy();
     bool HasCivilization(params Civilization[] civilizations);
     void ResetToPrintedValues();
+    int PhysicalId { get; }
 }

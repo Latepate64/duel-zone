@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Engine;
 
-public sealed class EventStack<T, U> : IEventStack<T, U> where T : IGameEvent where U : IGameEvent
+public sealed class EventStack<TInputEvent, TOutputEvent> : IEventStack<TInputEvent, TOutputEvent> where TInputEvent : IGameEvent where TOutputEvent : IGameEvent
 {
-    readonly Stack<T[]> events = new();
+    readonly Stack<TInputEvent[]> events = new();
     private readonly IServiceProvider provider;
 
     public EventStack(IServiceProvider provider)
@@ -16,23 +16,23 @@ public sealed class EventStack<T, U> : IEventStack<T, U> where T : IGameEvent wh
         this.provider = provider;
     }
 
-    private EventStack(EventStack<T, U> eventStack)
+    private EventStack(EventStack<TInputEvent, TOutputEvent> eventStack)
     {
-        events = new Stack<T[]>(eventStack.events);
+        events = new Stack<TInputEvent[]>(eventStack.events);
         provider = eventStack.provider;
     }
 
-    public IEventStack<T, U> Copy()
+    public IEventStack<TInputEvent, TOutputEvent> Copy()
     {
-        return new EventStack<T, U>(this);
+        return new EventStack<TInputEvent, TOutputEvent>(this);
     }
 
-    public void Push(params T[] gameEvents)
+    public void Push(params TInputEvent[] gameEvents)
     {
         events.Push(gameEvents);
     }
 
-    public T[] Pop()
+    public TInputEvent[] Pop()
     {
         return events.Pop();
     }
@@ -41,18 +41,18 @@ public sealed class EventStack<T, U> : IEventStack<T, U> where T : IGameEvent wh
 
     public override bool Equals(object obj)
     {
-        if (obj is not EventStack<T, U> stack) return false;
+        if (obj is not EventStack<TInputEvent, TOutputEvent> stack) return false;
         if (!events.SequenceEqual(stack.events)) return false;
         return true;
     }
 
-    public IEnumerable<U> Happen(IGameState state)
+    public IEnumerable<TOutputEvent> Happen(IGameState state)
     {
-        var output = new List<U>();
+        var output = new List<TOutputEvent>();
         var eventsToHappen = events.Peek();
         foreach (var eventToHappen in eventsToHappen)
         {
-            var resolver = provider.GetRequiredService<IEventResolver<T, U>>();
+            var resolver = provider.GetRequiredService<IEventResolver<TInputEvent, TOutputEvent>>();
             var player = state.ActivePlayer; //TODO IS NOT ALWAYS ACTIVE PLAYER!
             output.AddRange(resolver.Resolve(state, player, eventToHappen));
         }
@@ -67,5 +67,20 @@ public sealed class EventStack<T, U> : IEventStack<T, U> where T : IGameEvent wh
             hash.Add(e);
         }
         return hash.ToHashCode();
+    }
+
+    public void SetChoice(IChoiceEvent<ICard> choice)
+    {
+        var resolver = provider.GetRequiredService<IEventResolver<TInputEvent, TOutputEvent>>();
+
+        // var resolver = provider.GetRequiredService<IChoiceResolver<IChoiceEvent<ICard>, IGameEvent>>();
+        // var eventsToHappen = events.Peek();
+        // var original = eventsToHappen.OfType<IChoiceEvent<ICard>>().First(); // TODO Get the right one
+        // resolver.Validate(original, choice);
+        // var foo = events.ElementAt(1);
+        // var moveEvent = foo.First();
+        // var resolver2 = provider.GetRequiredService<IEventResolver<TInputEvent, TOutputEvent>>();
+
+        // throw new NotImplementedException("remove original from stack?");
     }
 }

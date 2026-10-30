@@ -90,11 +90,6 @@ public abstract class Zone : IDisposable, IZone
         return Creatures.Where(x => x.HasCivilization(civilization));
     }
 
-    public IEnumerable<ICreature> GetOtherCreatures(Guid creature)
-    {
-        return Creatures.Where(x => x.Id != creature);
-    }
-
     public bool Contains(ICard card)
     {
         return cards.Contains(card);
